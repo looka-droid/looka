@@ -2477,6 +2477,400 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
   .tb-chips button{font-size:9px;padding:6px 9px;letter-spacing:1px}
   .tb-left .btn{width:100%;text-align:center}
 }
+
+/* ================= ДОКУМЕНТЫ ================= */
+.docs-wrap{display:grid;grid-template-columns:250px 1fr;gap:22px;align-items:start;margin-top:24px}
+.docs-nav{position:sticky;top:80px;display:flex;flex-direction:column;gap:6px}
+.docs-nav button{text-align:left;padding:12px 14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Golos Text';font-weight:600;font-size:13.5px;cursor:pointer;transition:all .2s;border-left:3px solid transparent}
+.docs-nav button:hover{border-color:rgba(25,198,247,.4);color:#fff}
+.docs-nav button.on{border-left-color:#19C6F7;background:rgba(25,198,247,.1);color:#fff;box-shadow:0 0 20px rgba(25,198,247,.15)}
+.docs-body{border:1px solid transparent;padding:30px 32px;min-height:400px;
+  background:linear-gradient(rgba(14,16,26,.94),rgba(14,16,26,.94)) padding-box,linear-gradient(135deg,rgba(25,198,247,.5),rgba(255,255,255,.06) 50%,rgba(91,108,255,.45)) border-box}
+.doc{display:none}
+.doc.on{display:block;animation:riseIn .35s ease}
+.doc-head{margin-bottom:18px;padding-bottom:14px;border-bottom:1px dashed rgba(255,255,255,.14)}
+.doc-head h3{font-family:'Golos Text';font-weight:800;font-size:24px;margin:0 0 6px}
+.doc-head span{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1px;color:#8B92AA}
+.doc-tl{margin:0 0 22px;padding:16px 18px;border:1px solid rgba(55,224,138,.4);background:rgba(55,224,138,.06)}
+.doc-tl b{display:block;font-family:'JetBrains Mono';font-size:10px;letter-spacing:2.5px;color:#37E08A;margin-bottom:10px;text-transform:uppercase}
+.doc-tl ul{margin:0;padding:0;list-style:none}
+.doc-tl li{position:relative;padding:5px 0 5px 20px;font-size:14px;line-height:1.55;color:#E6E8F0}
+.doc-tl li::before{content:'✓';position:absolute;left:0;color:#37E08A;font-weight:700}
+.doc-tl li b{display:inline;font-family:'Golos Text';font-size:inherit;letter-spacing:0;text-transform:none;color:#fff;margin:0}
+.doc h4{font-family:'JetBrains Mono';font-size:11px;letter-spacing:2px;color:#19C6F7;margin:22px 0 8px;text-transform:uppercase}
+.doc p{font-size:14px;line-height:1.7;color:#C8CDDC;margin:0 0 10px}
+.doc p b{color:#F4F5FA}
+.doc-ph{font-style:normal;font-family:'JetBrains Mono';font-size:12.5px;color:#FFC46B;background:rgba(255,196,107,.12);border:1px dashed rgba(255,196,107,.6);padding:1px 8px;border-radius:3px}
+.req-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.req{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);padding:12px 14px}
+.req span{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:2px;color:#8B92AA;margin-bottom:6px;text-transform:uppercase}
+.req b{font-size:14px;line-height:1.45;color:#F4F5FA}
+.doc-note{font-family:'JetBrains Mono';font-size:11px;color:#8B92AA;line-height:1.6}
+.docs-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:26px;padding-top:16px;border-top:1px dashed rgba(255,255,255,.14);font-family:'JetBrains Mono';font-size:10.5px;color:#8B92AA;line-height:1.6}
+@media(max-width:900px){
+  .docs-wrap{grid-template-columns:1fr}
+  .docs-nav{position:static;flex-direction:row;flex-wrap:wrap;gap:6px}
+  .docs-nav button{border-left:1px solid rgba(255,255,255,.12);border-radius:99px;padding:8px 13px;font-size:12px}
+  .docs-nav button.on{border-color:#19C6F7}
+  .docs-body{padding:20px 16px}
+  .req-grid{grid-template-columns:1fr}
+}
+
+
+/* ================= СТИЛЬ-ПАСПОРТ ================= */
+.ps-actions{margin:18px 0 16px}
+.ps{border:1px solid transparent;padding:26px 28px;background:linear-gradient(rgba(12,16,26,.96),rgba(12,16,26,.96)) padding-box,linear-gradient(120deg,#19C6F7,#5B6CFF 50%,#FF6FBF) border-box;box-shadow:0 0 60px rgba(25,198,247,.14);position:relative;overflow:hidden}
+.ps::before{content:'';position:absolute;inset:-1px;padding:2px;pointer-events:none;background:conic-gradient(from var(--ang), transparent 0 30%, #fff 47% 53%, transparent 70% 100%);-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.4;animation:ringRun 7s linear infinite}
+.ps-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px dashed rgba(255,255,255,.14)}
+.ps-head h3{font-family:'Golos Text';font-weight:800;font-size:24px;margin:6px 0 4px}
+.ps-k{font-family:'JetBrains Mono';font-size:10px;letter-spacing:2.5px;color:#19C6F7}
+.ps-k2{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:2px;color:#8B92AA;margin:12px 0 6px}
+.ps-date{font-family:'JetBrains Mono';font-size:10.5px;color:#8B92AA}
+.ps-qr{width:110px;height:110px;border:1px solid rgba(25,198,247,.4);flex:none;background:#0d0f1a}
+.ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ps-card{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.035);padding:18px}
+.ps-card .tp-list li{font-size:13.5px}
+.ps-prof{font-family:'Golos Text';font-weight:700;font-size:15px;margin:8px 0 4px;color:#F4F5FA}
+.ps-note{font-size:12.5px;color:#A8AEC2;line-height:1.55;margin:4px 0 0}
+.ps-sws{display:flex;flex-wrap:wrap;gap:8px}
+.ps-sw{display:flex;align-items:center;gap:7px;font-size:12.5px;color:#E6E8F0;border:1px solid rgba(255,255,255,.12);padding:5px 10px 5px 5px;border-radius:99px;background:rgba(255,255,255,.03)}
+.ps-sw i{width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.35);box-shadow:0 0 10px rgba(0,0,0,.4)}
+.ps-metal{display:inline-block;font-family:'Golos Text';font-weight:700;font-size:14px;padding:6px 14px;border-radius:99px}
+.ps-metal.silver{background:linear-gradient(135deg,#e8eaf0,#9aa0ad);color:#111}
+.ps-metal.gold{background:linear-gradient(135deg,#f3d27a,#b8862b);color:#111}
+.ps-sizes{display:flex;gap:8px;flex-wrap:wrap}
+.ps-sizes div{flex:1;min-width:58px;text-align:center;border:1px solid rgba(25,198,247,.35);background:rgba(25,198,247,.07);padding:8px 6px}
+.ps-sizes span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:2px;color:#8B92AA;margin-bottom:3px}
+.ps-sizes b{font-family:'Golos Text';font-weight:800;font-size:18px;color:#19C6F7}
+.ps-ol{margin:8px 0 0;padding:0 0 0 20px;columns:2;column-gap:20px;font-size:13.5px;line-height:1.7;color:#E6E8F0}
+.ps-no{border-color:rgba(255,92,138,.4)}
+.ps-no .ps-k{color:#FF5C8A}
+.ps-no .tp-list li::before{content:'✕';color:#FF5C8A}
+.ps-foot{margin-top:16px;padding-top:12px;border-top:1px dashed rgba(255,255,255,.14);font-family:'JetBrains Mono';font-size:10px;color:#8B92AA;line-height:1.6}
+@media(max-width:760px){.ps{padding:18px 14px}.ps-grid{grid-template-columns:1fr}.ps-head{flex-direction:column}.ps-qr{width:90px;height:90px}.ps-ol{columns:1}.ps-actions .btn{width:100%}}
+
+/* верхнее меню — в одну строку */
+@media(min-width:1101px){
+  header{align-items:center;gap:18px}
+  .logo{flex:none}
+  .topnav{flex:1;justify-content:flex-end;flex-wrap:nowrap;gap:0}
+  .topnav a,.topnav .nav-dd > a{font-size:10.5px;letter-spacing:1.4px;padding:8px 9px;white-space:nowrap}
+  .nav-new span{font-size:7.5px;padding:2px 5px;margin-left:4px}
+  .dd-arr{margin-left:4px}
+}
+@media(min-width:1101px) and (max-width:1300px){
+  .topnav a,.topnav .nav-dd > a{font-size:10px;letter-spacing:1px;padding:8px 7px}
+}
+
+.next-row{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px;padding:12px 14px;border:1px dashed rgba(255,255,255,.14);background:rgba(255,255,255,.02)}
+.next-row span{font-family:'JetBrains Mono';font-size:10px;letter-spacing:2px;color:#8B92AA;margin-right:4px}
+.next-row button{font-family:'Golos Text';font-weight:600;font-size:12.5px;color:#DDE0EB;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:7px 13px;cursor:pointer;transition:all .2s}
+.next-row button:hover{background:#19C6F7;border-color:#19C6F7;color:#0A0B10}
+
+/* ================= СТИЛЬ-ПАСПОРТ v2 ================= */
+.ps{padding:30px 32px}
+.ps-head{margin-bottom:24px;padding-bottom:20px}
+.ps-grid{gap:18px}
+.ps-card{padding:22px 22px 20px;position:relative;overflow:hidden;transition:transform .3s, box-shadow .3s, border-color .3s;opacity:0;animation:riseIn .55s cubic-bezier(.2,.8,.2,1) forwards}
+.ps-card:nth-child(2){animation-delay:.1s}.ps-card:nth-child(3){animation-delay:.2s}.ps-card:nth-child(4){animation-delay:.3s}.ps-card:nth-child(5){animation-delay:.4s}.ps-card:nth-child(6){animation-delay:.5s}
+.ps-card:hover,.ps-card.hsim{transform:translateY(-3px);border-color:rgba(25,198,247,.4);box-shadow:0 14px 40px rgba(0,0,0,.45), 0 0 30px rgba(25,198,247,.14)}
+.ps-card::after{content:'';position:absolute;left:0;top:0;height:2px;width:36px;background:#19C6F7;box-shadow:0 0 10px #19C6F7;transition:width .4s}
+.ps-card:hover::after,.ps-card.hsim::after{width:100%}
+.ps-no::after{background:#FF5C8A;box-shadow:0 0 10px #FF5C8A}
+.ps-k{margin-bottom:12px;display:block;line-height:1.5}
+.ps-k2{margin:16px 0 8px}
+.ps-sizes{gap:10px;margin-bottom:4px}
+.ps-sizes div{padding:10px 6px;background:linear-gradient(180deg,rgba(25,198,247,.12),rgba(25,198,247,.04));border-radius:2px;transition:transform .25s}
+.ps-sizes div:hover{transform:translateY(-2px)}
+.ps-sizes b{font-size:20px}
+.ps-note{margin-top:12px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.1)}
+.ps-ol{margin:4px 0 0;padding:0;list-style:none;columns:2;column-gap:16px}
+.ps-ol li{break-inside:avoid;display:flex;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.08);font-size:13.5px;line-height:1.45;counter-increment:psn}
+.ps-ol li::before{content:counter(psn,decimal-leading-zero);font-family:'JetBrains Mono';font-size:10px;color:#19C6F7;flex:none;min-width:20px}
+.ps-ol{counter-reset:psn}
+.ps-card .tp-list li{padding:8px 0 8px 22px;line-height:1.5}
+.ps-sws{gap:8px;margin-bottom:2px}
+.ps-sw{padding:5px 11px 5px 5px;transition:transform .2s, border-color .2s}
+.ps-sw:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.35)}
+.ps-metal{margin-top:2px}
+.ps-foot{margin-top:22px;padding-top:16px}
+@media(max-width:760px){.ps{padding:18px 14px}.ps-card{padding:16px 14px}.ps-ol{columns:1}}
+
+/* ================= РЕВИЗИЯ · КАЛЕНДАРЬ · НЕ ПЕРЕПЛАТИ ================= */
+.rv-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:0 0 12px}
+.rv-stats div{text-align:center;border:1px solid rgba(143,227,82,.35);background:rgba(143,227,82,.06);padding:12px 8px}
+.rv-stats b{display:block;font-family:'Golos Text';font-weight:800;font-size:22px;color:#8FE352;text-shadow:0 0 12px rgba(143,227,82,.4)}
+.rv-stats span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1px;color:#A8AEC2}
+.rv-cat{margin-bottom:10px}
+.rv-item{display:inline-flex;align-items:center;gap:8px;margin:0 6px 8px 0;padding:8px 12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.03);color:#DDE0EB;font-family:'Golos Text';font-size:13px;cursor:pointer;transition:all .2s;border-radius:99px}
+.rv-item i{width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;flex:none;transition:all .2s}
+.rv-item.on{border-color:#8FE352;background:rgba(143,227,82,.12);color:#fff}
+.rv-item.on i{background:#8FE352;border-color:#8FE352;color:#0A0B10;box-shadow:0 0 10px rgba(143,227,82,.6)}
+.rv-pri{font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;color:#8FE352;border:1px solid rgba(143,227,82,.5);padding:2px 6px;margin-right:8px;vertical-align:2px}
+.cal-daily .cal-rt{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cal-rt div{border:1px solid rgba(180,76,255,.35);background:rgba(180,76,255,.06);padding:12px;font-size:13px;line-height:1.5;color:#DDE0EB}
+.cal-rt b{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:2px;color:#B44CFF;margin-bottom:6px;text-transform:uppercase}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:12px 0}
+.cal-d{min-height:78px;padding:8px 6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);font-size:11px}
+.cal-d.wk{background:rgba(255,255,255,.01)}
+.cal-d.today{border-color:#B44CFF;box-shadow:0 0 16px rgba(180,76,255,.3)}
+.cal-d b{display:inline-block;font-family:'Golos Text';font-size:14px;color:#F4F5FA;margin-right:4px}
+.cal-d small{font-family:'JetBrains Mono';font-size:9px;color:#8B92AA}
+.cal-d span{display:block;margin-top:4px;padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono';font-size:8.5px;line-height:1.35;color:var(--c);border:1px solid color-mix(in srgb, var(--c) 55%, transparent);background:color-mix(in srgb, var(--c) 12%, transparent)}
+.cal-ev{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08);font-size:13.5px}
+.cal-ev span{font-family:'JetBrains Mono';font-size:11px;color:#B44CFF}
+.cal-ev b{flex:1;color:#F4F5FA}
+.cal-ev button{background:none;border:1px solid rgba(255,255,255,.2);color:#8B92AA;cursor:pointer;padding:3px 8px}
+.sm-need{border-color:rgba(55,224,138,.4)}.sm-need .k{color:#37E08A}
+.sm-can{border-color:rgba(255,196,107,.4)}.sm-can .k{color:#FFC46B}
+.sm-no{border-color:rgba(255,92,138,.4)}.sm-no .k{color:#FF5C8A}
+.sm-no .tp-list li::before{content:'✕';color:#FF5C8A}
+.sm-table{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.sm-table div{border:1px solid rgba(25,198,247,.3);background:rgba(25,198,247,.06);padding:10px;text-align:center}
+.sm-table span{display:block;font-family:'JetBrains Mono';font-size:9.5px;color:#8B92AA;margin-bottom:4px}
+.sm-table b{display:block;font-family:'Golos Text';font-weight:800;font-size:18px;color:#19C6F7}
+.sm-table small{font-family:'JetBrains Mono';font-size:9.5px;color:#A8AEC2}
+@media(max-width:760px){.cal-grid{grid-template-columns:repeat(4,1fr)}.cal-daily .cal-rt{grid-template-columns:1fr}.cal-d{min-height:64px}}
+
+/* ================= ПАСПОРТ v3: анимации и новые карточки ================= */
+.ps-grid{perspective:1400px}
+.ps-card{animation:psFlip .7s cubic-bezier(.2,.8,.2,1) forwards;transform-origin:50% 0;transform:rotateX(-18deg) translateY(24px)}
+@keyframes psFlip{0%{opacity:0;transform:rotateX(-18deg) translateY(24px)}60%{opacity:1}100%{opacity:1;transform:none}}
+.ps-card:nth-child(7){animation-delay:.6s}.ps-card:nth-child(8){animation-delay:.68s}.ps-card:nth-child(9){animation-delay:.76s}.ps-card:nth-child(10){animation-delay:.84s}.ps-card:nth-child(11){animation-delay:.92s}.ps-card:nth-child(12){animation-delay:1s}.ps-card:nth-child(13){animation-delay:1.08s}.ps-card:nth-child(14){animation-delay:1.16s}.ps-card:nth-child(15){animation-delay:1.24s}.ps-card:nth-child(16){animation-delay:1.32s}
+.ps-card::before{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;pointer-events:none;background:linear-gradient(105deg,transparent,rgba(255,255,255,.12),transparent);animation:psSheen 1.2s ease .5s 1}
+@keyframes psSheen{to{left:140%}}
+.ps-card:hover,.ps-card.hsim{transform:translateY(-4px) rotateX(2deg);border-color:rgba(25,198,247,.5);box-shadow:0 18px 50px rgba(0,0,0,.5), 0 0 40px rgba(25,198,247,.2)}
+.ps-sw{opacity:0;animation:swPop .45s cubic-bezier(.2,.9,.3,1.4) forwards}
+.ps-sw:nth-child(1){animation-delay:.9s}.ps-sw:nth-child(2){animation-delay:1s}.ps-sw:nth-child(3){animation-delay:1.1s}.ps-sw:nth-child(4){animation-delay:1.2s}
+@keyframes swPop{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:scale(1)}}
+.ps-sw.off i{position:relative}
+.ps-sw.off i::after{content:'';position:absolute;left:2px;right:2px;top:50%;height:2px;background:#FF5C8A;transform:rotate(-40deg);box-shadow:0 0 6px #FF5C8A}
+.ps-dna{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.ps-dna div{text-align:center;border:1px solid rgba(25,198,247,.35);background:linear-gradient(180deg,rgba(25,198,247,.12),rgba(25,198,247,.04));padding:10px 6px}
+.ps-dna span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:2px;color:#8B92AA;margin-bottom:4px}
+.ps-dna b{font-family:'Golos Text';font-weight:800;font-size:16px;color:#19C6F7;text-transform:capitalize}
+.ps-card .tp-list li b{color:#fff}
+.ps-sizes b{animation:hnGlow 3s ease-in-out infinite}
+@media(max-width:760px){.ps-dna{grid-template-columns:1fr 1fr 1fr;gap:6px}.ps-dna b{font-size:14px}}
+@media(hover:none){.ps-card{transform:none;animation-name:riseIn}}
+
+/* ================= ПАСПОРТ v4: тематические блоки ================= */
+.ps-sec{display:flex;align-items:center;gap:12px;margin:26px 0 12px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:3.5px;color:var(--pc)}
+.ps-sec:first-of-type{margin-top:6px}
+.ps-sec i{font-style:normal;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;border:1px solid color-mix(in srgb, var(--pc) 60%, transparent);background:color-mix(in srgb, var(--pc) 12%, transparent);filter:drop-shadow(0 0 10px color-mix(in srgb, var(--pc) 60%, transparent))}
+.ps-sec::after{content:'';flex:1;height:1px;background:linear-gradient(90deg, color-mix(in srgb, var(--pc) 60%, transparent), transparent)}
+.ps-grid{margin-bottom:4px}
+.ps-grid .ps-card{background:linear-gradient(rgba(14,16,26,.95),rgba(14,16,26,.95)) padding-box,linear-gradient(160deg, color-mix(in srgb, var(--pc) 55%, transparent), rgba(255,255,255,.06) 55%, color-mix(in srgb, var(--pc) 30%, transparent)) border-box;border:1px solid transparent}
+.ps-grid .ps-card::after{background:var(--pc);box-shadow:0 0 10px var(--pc)}
+.ps-grid .ps-card .ps-k{color:var(--pc)}
+.ps-grid .ps-card:hover,.ps-grid .ps-card.hsim{border-color:transparent;box-shadow:0 18px 50px rgba(0,0,0,.5), 0 0 40px color-mix(in srgb, var(--pc) 30%, transparent)}
+.ps-grid .ps-card .tp-list li::before{color:var(--pc)}
+.ps-grid .ps-card .ps-ol li::before{color:var(--pc)}
+.ps-grid .ps-sizes div{border-color:color-mix(in srgb, var(--pc) 45%, transparent);background:linear-gradient(180deg, color-mix(in srgb, var(--pc) 14%, transparent), color-mix(in srgb, var(--pc) 4%, transparent))}
+.ps-grid .ps-sizes b{color:var(--pc);text-shadow:0 0 14px color-mix(in srgb, var(--pc) 55%, transparent)}
+.ps-grid .ps-dna div{border-color:color-mix(in srgb, var(--pc) 45%, transparent);background:linear-gradient(180deg, color-mix(in srgb, var(--pc) 14%, transparent), color-mix(in srgb, var(--pc) 4%, transparent))}
+.ps-grid .ps-dna b{color:var(--pc)}
+.ps-pf{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.ps-pf span{font-family:'Golos Text';font-weight:700;font-size:13px;color:#0A0B10;background:#FFC46B;padding:6px 12px;border-radius:99px;box-shadow:0 0 14px rgba(255,196,107,.4)}
+.ps-pfq .b-links{margin-top:6px}
+.ps-grid .ps-card:nth-child(n){animation-delay:.1s}.ps-grid .ps-card:nth-child(2){animation-delay:.25s}.ps-grid .ps-card:nth-child(3){animation-delay:.4s}.ps-grid .ps-card:nth-child(4){animation-delay:.55s}
+
+/* печать паспорта — печать на экране */
+.ps-seal{flex:none;text-align:right}
+.ps-seal b{display:block;font-family:'Golos Text';font-weight:800;font-size:26px;letter-spacing:-1px;color:#F4F5FA}
+.ps-seal b em{font-style:normal;color:#19C6F7}
+.ps-seal span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:2.5px;color:#8B92AA}
+/* ================= PDF-ВЕРСИЯ ПАСПОРТА ================= */
+@page{size:A4;margin:14mm 12mm}
+@media print{
+  body[data-print=pass]{background:#fff!important}
+  body[data-print=pass] #passPage{position:static;padding:0;margin:0}
+  body[data-print=pass] #passPage .eyebrow,body[data-print=pass] #passPage > h2,body[data-print=pass] #passPage > .lead{display:none!important}
+  body[data-print=pass] .ps{border:none;box-shadow:none;padding:0;background:#fff!important;color:#111;overflow:visible}
+  body[data-print=pass] .ps::before{display:none}
+  body[data-print=pass] .ps-head{border-bottom:2px solid #111;padding-bottom:10px;margin-bottom:14px;align-items:flex-end}
+  body[data-print=pass] .ps-head h3{color:#111;font-size:22px;margin:4px 0 2px}
+  body[data-print=pass] .ps-k{color:#0a7fa3;letter-spacing:2px}
+  body[data-print=pass] .ps-date{color:#666}
+  body[data-print=pass] .ps-seal b{color:#111}
+  body[data-print=pass] .ps-seal b em{color:#0a7fa3}
+  body[data-print=pass] .ps-seal span{color:#666}
+  body[data-print=pass] .ps-sec{margin:12px 0 8px;font-size:10px;letter-spacing:3px;page-break-after:avoid}
+  body[data-print=pass] .ps-sec i{border:1.5px solid var(--pc);background:#fff;filter:none;color:var(--pc);width:24px;height:24px;font-size:12px}
+  body[data-print=pass] .ps-sec::after{background:var(--pc);opacity:.5}
+  body[data-print=pass] .ps-grid{gap:8px;perspective:none;page-break-inside:auto}
+  body[data-print=pass] .ps-card{opacity:1!important;animation:none!important;transform:none!important;background:#fff!important;border:1px solid #d9dde6!important;border-left:4px solid var(--pc)!important;box-shadow:none!important;padding:10px 12px 10px;page-break-inside:avoid;break-inside:avoid;overflow:visible}
+  body[data-print=pass] .ps-card::before,body[data-print=pass] .ps-card::after{display:none}
+  body[data-print=pass] .ps-card .ps-k{color:var(--pc);font-size:9.5px;margin-bottom:6px}
+  body[data-print=pass] .ps-k2{color:#555;font-size:8.5px;margin:8px 0 4px}
+  body[data-print=pass] .ps-prof,body[data-print=pass] .tp-list li,body[data-print=pass] .ps-ol li,body[data-print=pass] .ps-note,body[data-print=pass] .ps-dna b,body[data-print=pass] .ps-sw span{color:#111!important}
+  body[data-print=pass] .tp-list li{font-size:11px;padding:3px 0 3px 16px;border-bottom:1px dotted #ccd}
+  body[data-print=pass] .tp-list li::before{color:var(--pc)}
+  body[data-print=pass] .ps-no .tp-list li::before{color:#c0264f}
+  body[data-print=pass] .ps-note{color:#555!important;font-size:10px;border-top:1px dotted #ccd}
+  body[data-print=pass] .ps-sw{border:1px solid #d9dde6;background:#fff;opacity:1!important;animation:none!important;padding:3px 8px 3px 3px;font-size:10.5px}
+  body[data-print=pass] .ps-sw i{width:16px;height:16px;border:1px solid #999;box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body[data-print=pass] .ps-sw.off i::after{background:#c0264f}
+  body[data-print=pass] .ps-metal{color:#111;background:#eee;border:1px solid #ccc;font-size:11px;padding:3px 10px}
+  body[data-print=pass] .ps-sizes div,body[data-print=pass] .ps-dna div{background:#fff!important;border:1px solid var(--pc)!important;padding:5px 4px}
+  body[data-print=pass] .ps-sizes span,body[data-print=pass] .ps-dna span{color:#666}
+  body[data-print=pass] .ps-sizes b{color:var(--pc)!important;text-shadow:none!important;animation:none!important;font-size:15px}
+  body[data-print=pass] .ps-ol{columns:2}
+  body[data-print=pass] .ps-ol li{font-size:11px;padding:3px 0;border-bottom:1px dotted #ccd}
+  body[data-print=pass] .ps-ol li::before{color:var(--pc)}
+  body[data-print=pass] .ps-pf span{background:#fff;color:#111;border:1px solid #b8862b;box-shadow:none;font-size:10.5px;padding:3px 9px}
+  body[data-print=pass] .ps-pfq,body[data-print=pass] .b-links,body[data-print=pass] .mp{display:none!important}
+  body[data-print=pass] .ps-foot{color:#666;border-top:1px solid #111;font-size:9px;margin-top:12px}
+  body[data-print=pass] .ps-card .tp-list li b{color:#111}
+  body[data-print=pass] *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* паспорт: подбор ароматов — с воздухом */
+.ps-pfq{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.ps-pfrow{padding:12px 14px;border:1px solid rgba(255,196,107,.25);background:rgba(255,196,107,.04);border-radius:2px}
+.ps-pfl{font-family:'Golos Text';font-weight:700;font-size:13.5px;color:#FFC46B;margin-bottom:10px;text-transform:capitalize}
+.ps-pfrow .mp{gap:8px;row-gap:8px}
+.ps-pfrow .mp.social{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.1)}
+.ps-pfrow .mp.social span{width:100%;margin-bottom:4px}
+
+@media print{
+  body[data-print=pass] .wrap,body[data-print=pass] .sec,body[data-print=pass] #passPage{margin:0!important;padding:0!important}
+  body[data-print=pass] .ps-actions,body[data-print=pass] .pg-back,body[data-print=pass] header,body[data-print=pass] .sysbar,body[data-print=pass] #topbar{display:none!important}
+  body[data-print=pass] .ps-head{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:16px;margin:0 0 12px;padding:0 0 10px}
+  body[data-print=pass] .ps-head > div:first-child{flex:1}
+  body[data-print=pass] .ps-seal{flex:none;text-align:right;display:block}
+  body[data-print=pass] .ps-seal b{font-size:22px;line-height:1}
+  body[data-print=pass] .ps-seal span{display:block;margin-top:2px}
+  body[data-print=pass] .ps-head h3{font-size:20px}
+  body[data-print=pass] .ps-head .ps-k{font-size:9px}
+}
+
+/* ================= PDF-ВЕРСИЯ ДОКУМЕНТОВ ================= */
+@media print{
+  body[data-print=docs]{background:#fff!important}
+  body[data-print=docs] body > *,body[data-print=docs] header,body[data-print=docs] .sysbar,body[data-print=docs] #topbar,body[data-print=docs] .ticker,body[data-print=docs] .hero,body[data-print=docs] .stage,body[data-print=docs] #results,body[data-print=docs] .sec:not(#docsPage),body[data-print=docs] footer,body[data-print=docs] .pay-ov,body[data-print=docs] .day-fab,body[data-print=docs] .aurora,body[data-print=docs] #particles{display:none!important}
+  body[data-print=docs] #docsPage{display:block!important;margin:0!important;padding:0!important}
+  body[data-print=docs] .wrap{margin:0;padding:0}
+  body[data-print=docs] #docsPage .pg-back,body[data-print=docs] #docsPage .eyebrow,body[data-print=docs] #docsPage > h2,body[data-print=docs] #docsPage > .lead,body[data-print=docs] .docs-nav,body[data-print=docs] .docs-foot{display:none!important}
+  body[data-print=docs] .docs-wrap{display:block;margin:0}
+  body[data-print=docs] .docs-body{border:none;background:#fff!important;padding:0;min-height:0}
+  body[data-print=docs] .doc{display:block!important;animation:none!important;page-break-after:always;break-after:page;color:#111}
+  body[data-print=docs] .doc:last-of-type{page-break-after:auto;break-after:auto}
+  body[data-print=docs] .doc-head{border-bottom:2px solid #111;margin-bottom:14px;padding-bottom:8px}
+  body[data-print=docs] .doc-head h3{color:#111;font-size:22px;margin:0 0 4px}
+  body[data-print=docs] .doc-head span{color:#555;font-size:9.5px}
+  body[data-print=docs] .doc-tl{border:1.5px solid #1a9a5c;background:#f3fbf6;padding:10px 12px;margin:0 0 14px;page-break-inside:avoid}
+  body[data-print=docs] .doc-tl b{color:#1a9a5c;font-size:9px}
+  body[data-print=docs] .doc-tl li{color:#111;font-size:11.5px;padding:3px 0 3px 16px}
+  body[data-print=docs] .doc-tl li::before{color:#1a9a5c}
+  body[data-print=docs] .doc-tl li b{color:#111}
+  body[data-print=docs] .doc h4{color:#0a7fa3;font-size:10px;margin:12px 0 4px;page-break-after:avoid}
+  body[data-print=docs] .doc p{color:#222;font-size:11.5px;line-height:1.55;margin:0 0 6px;orphans:3;widows:3}
+  body[data-print=docs] .doc p b{color:#111}
+  body[data-print=docs] .doc-ph{color:#8a5a00;background:#fff4dc;border:1px dashed #c9971e;font-size:10.5px}
+  body[data-print=docs] .req-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  body[data-print=docs] .req{border:1px solid #d9dde6;background:#fff;padding:8px 10px;page-break-inside:avoid}
+  body[data-print=docs] .req span{color:#666;font-size:8.5px}
+  body[data-print=docs] .req b{color:#111;font-size:11.5px}
+  body[data-print=docs] .doc-note{color:#555;font-size:10px}
+  body[data-print=docs] *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+@media print{
+  body[data-print=docs] .doc{padding-top:6mm}
+  body[data-print=docs] .doc-head{border-bottom:1.5px solid #0a7fa3;margin:0 0 16px;padding:0 0 12px;position:relative}
+  body[data-print=docs] .doc-head::before{content:"LOOKA · ДОКУМЕНТЫ СЕРВИСА";display:block;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:3px;color:#0a7fa3;margin-bottom:8px}
+  body[data-print=docs] .doc-head h3{font-family:'Golos Text';font-weight:800;font-size:26px;line-height:1.15;margin:0 0 6px;color:#111;letter-spacing:-.3px}
+  body[data-print=docs] .doc-head span{display:block;font-size:9.5px;letter-spacing:1px;color:#555;margin-top:2px}
+  body[data-print=docs] .doc-head::after{content:'';position:absolute;left:0;bottom:-1.5px;width:60px;height:1.5px;background:#111}
+}
+
+/* ================= МОЙ LOOKA ================= */
+.rx{display:flex;gap:6px;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.08)}
+.rx button{width:36px;height:32px;border-radius:99px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.03);color:#C2C7D6;cursor:pointer;font-size:14px;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.rx button:hover{border-color:rgba(255,255,255,.4);color:#fff}
+.rx .rx-fav.on{background:#FFC46B;border-color:#FFC46B;color:#0A0B10;box-shadow:0 0 14px rgba(255,196,107,.6)}
+.rx .rx-like.on{background:rgba(55,224,138,.2);border-color:#37E08A}
+.rx .rx-dis.on{background:rgba(255,92,138,.2);border-color:#FF5C8A}
+.rx button.pop{animation:rxPop .4s cubic-bezier(.2,.9,.3,1.5)}
+@keyframes rxPop{0%{transform:scale(.8)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+#myToast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);z-index:1200;background:#0d0f1a;border:1px solid rgba(25,198,247,.5);color:#F4F5FA;font-family:'Golos Text';font-size:13.5px;padding:12px 18px;box-shadow:0 20px 50px rgba(0,0,0,.6), 0 0 30px rgba(25,198,247,.25);opacity:0;pointer-events:none;transition:all .3s;max-width:90vw}
+#myToast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.my-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:22px}
+.my-prof{--brand:#19C6F7}.my-link{border-color:rgba(91,108,255,.4)}.my-link .k{color:#5B6CFF}.my-taste{border-color:rgba(255,196,107,.4)}.my-taste .k{color:#FFC46B}
+.my-stat{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:6px}
+.my-stat div{text-align:center;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);padding:8px 4px}
+.my-stat b{display:block;font-family:'Golos Text';font-weight:800;font-size:20px;color:#FFC46B}
+.my-stat span{font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1px;color:#8B92AA}
+.my-tags{display:flex;flex-wrap:wrap;gap:6px}
+.my-tags span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#FF9BB8;border:1px solid rgba(255,92,138,.4);background:rgba(255,92,138,.08);padding:4px 8px 4px 10px;border-radius:99px}
+.my-tags.like span{color:#8FE352;border-color:rgba(55,224,138,.4);background:rgba(55,224,138,.08);padding-right:10px}
+.my-tags span button{background:none;border:none;color:inherit;cursor:pointer;font-size:11px;opacity:.7;padding:0 2px}
+.my-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.my-acts{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.08)}
+.my-acts .btn{padding:9px 14px;font-size:10.5px}
+.my-x{background:none;border:none;color:#6c7186;font-family:'JetBrains Mono';font-size:10px;cursor:pointer;text-decoration:underline dotted}
+.my-done{font-family:'JetBrains Mono';font-size:10.5px;color:#37E08A}
+
+/* ================= МАКИЯЖ-ГИД ================= */
+.mk-hero{padding:8px 0 18px}
+.mk-form{margin-top:6px}
+.mk-form .chip .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:-1px;border:1px solid rgba(255,255,255,.25)}
+.mk-hint{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.5px;color:#8B92AA;margin:6px 0 12px;line-height:1.6;min-height:18px}
+.mk-hint:empty{display:none}
+#mkGo{width:100%;text-align:center}
+#mkOut{margin-top:22px}
+.mk-wide{grid-column:1/-1}
+.mk-eye,.mk-face{width:100%;height:auto;display:block;margin:10px 0 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
+.mk-face{max-width:300px;margin-left:auto;margin-right:auto}
+.mk-sws{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:14px}
+.mk-sw{display:flex;flex-direction:column;gap:4px;font-size:12.5px;line-height:1.35}
+.mk-sw i{display:block;height:34px;border:1px solid rgba(255,255,255,.18)}
+.mk-sw b{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.5px;color:#8B92AA;text-transform:uppercase}
+.mk-legend{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.mk-legend>div{display:grid;grid-template-columns:14px 1fr;gap:4px 10px;font-size:13px;line-height:1.45}
+.mk-legend i{width:14px;height:14px;border:1px solid rgba(255,255,255,.2);margin-top:3px;grid-row:span 2}
+.mk-legend b{font-weight:600}
+.mk-legend span{color:#B7BCCC;font-size:12.5px}
+.mk-steps{list-style:none;counter-reset:mk;display:grid;gap:12px;margin-top:8px}
+.mk-steps li{counter-increment:mk;position:relative;padding:12px 14px 12px 48px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+.mk-steps li::before{content:counter(mk);position:absolute;left:12px;top:12px;width:26px;height:26px;display:grid;place-items:center;font-family:'JetBrains Mono';font-size:11px;color:#0A0B10;background:var(--acc,#5B6CFF);color:#fff}
+.mk-steps b{font-weight:700;font-size:14.5px}
+.mk-tool{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1px;color:#8B92AA;margin-left:10px;text-transform:uppercase}
+.mk-steps p{margin-top:5px;font-size:13.5px;line-height:1.55;color:#D2D6E4}
+.mk-mist{padding-left:18px;display:grid;gap:8px;font-size:13.5px;line-height:1.5;color:#D2D6E4}
+.mk-mist li::marker{color:#FF6B8A}
+@media print{ .mk-eye,.mk-face{background:#fff} body.subpage #makeupPage{display:block} header,.sysbar,.pg-back,.next-row,#mkForm,.mk-hero .btn{display:none!important} }
+
+/* ================= ПРИМЕРКА ================= */
+.look-in .to-btn{margin-top:12px;width:100%;text-align:center}
+.to-ov{position:fixed;inset:0;z-index:900;background:rgba(6,7,12,.82);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:30px 14px}
+.to-ov.open{display:flex}
+.to-box{position:relative;width:min(880px,100%);padding:26px 26px 20px;border:1px solid rgba(255,255,255,.12);background:#0E101A;animation:riseIn .35s ease}
+.to-box h3{font-size:22px;margin:6px 0 6px}
+.to-lead{color:#B7BCCC;font-size:13.5px;line-height:1.55;margin-bottom:16px}
+.to-x{position:absolute;top:12px;right:12px;width:34px;height:34px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;cursor:pointer}
+.to-grid{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:20px}
+@media (max-width:640px){.to-grid{grid-template-columns:1fr}}
+.to-k{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.5px;color:#8B92AA;text-transform:uppercase;margin-bottom:8px}
+.to-k .ok{color:#7CF0B2;margin-left:6px}
+.to-opt{text-transform:none;letter-spacing:0;color:#6B7290}
+.to-ph{width:100%;max-height:320px;object-fit:cover;border:1px solid rgba(255,255,255,.12);margin-bottom:8px}
+.to-drop{display:grid;place-items:center;text-align:center;height:220px;border:1px dashed rgba(255,255,255,.22);color:#D2D6E4;font-size:13.5px;cursor:pointer;margin-bottom:8px;line-height:1.5}
+.to-drop span{font-size:11.5px;color:#8B92AA}
+.to-desc{display:flex;flex-wrap:wrap;gap:6px}
+.to-desc span{font-size:12.5px;padding:5px 9px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03)}
+.to-refs{display:flex;flex-wrap:wrap;gap:8px}
+.to-ref{position:relative;width:74px;height:94px}
+.to-ref img{width:100%;height:100%;object-fit:cover;border:1px solid rgba(255,255,255,.14)}
+.to-ref button{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border:none;background:#FF6B8A;color:#fff;font-size:10px;cursor:pointer}
+.to-add{display:grid;place-items:center;width:74px;height:94px;border:1px dashed rgba(255,255,255,.22);font-size:11px;text-align:center;color:#8B92AA;cursor:pointer;line-height:1.4;padding:4px}
+.to-add input{display:none}
+.to-res{margin-top:20px;text-align:center}
+.to-res img{max-width:100%;max-height:70vh;border:1px solid rgba(255,255,255,.14)}
+.to-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:16px}
+.to-q{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1px;color:#8B92AA}
+
 </style>
 </head>
 <body>
@@ -2491,7 +2885,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 <header>
   <div class="logo" onclick="goHome()" role="button" title="На главную">LOO<em>KA</em></div>
   <nav class="topnav">
-    <a href="#how" onclick="openPage('howPage');return false">Как работает</a><a href="#pricing" onclick="openPage('termsPage');return false">Условия</a><a href="#ask" class="nav-new" onclick="openPage('askPage');return false">Консилиум<span>NEW</span></a><a href="#beauty" class="nav-new" onclick="openBeauty();return false">Бьюти-скан<span>NEW</span></a><span class="nav-dd"><a href="#tools" onclick="return navDD(this)">Помощники<i class="dd-arr">▾</i></a><div class="dd" id="navDD"></div></span><a href="#payment">Оплата</a><a href="#reviews">Отзывы</a><a href="#roadmap" onclick="openPage('devPage');return false">Развитие</a><a href="#docs">Документы</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a>
+    <a href="#how" onclick="openPage('howPage');return false">Как работает</a><a href="#pricing" onclick="openPage('termsPage');return false">Условия</a><a href="#ask" class="nav-new" onclick="openPage('askPage');return false">Консилиум<span>NEW</span></a><a href="#beauty" class="nav-new" onclick="openBeauty();return false">Бьюти-скан<span>NEW</span></a><a href="#makeup" class="nav-new" onclick="openMakeup();return false">Макияж<span>NEW</span></a><span class="nav-dd"><a href="#tools" onclick="return navDD(this)">Помощники<i class="dd-arr">▾</i></a><div class="dd" id="navDD"></div></span><a href="#roadmap" onclick="openPage('devPage');return false">Развитие</a><a href="#my" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="nav-new" onclick="openPage('passPage');return false">Паспорт<span>NEW</span></a><a href="#docs" onclick="openPage('docsPage');return false">Документы</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a>
   </nav>
 </header>
 <div class="sysbar sb2">
@@ -2529,7 +2923,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
   <p class="lead">LOOKA не советует «модное всем». Сервис работает с вашими данными: тип фигуры определяет фасоны, цвет волос и глаз — палитру, повод и бюджет — состав образа. Результат выглядит так, будто его собирал стилист, который вас давно знает.</p>
   <p class="lead">Каждая вещь в образе — реальная позиция маркетплейса: нажмите кнопку площадки и проверьте цену, размер и отзывы перед покупкой. Не подошло — пересоберите образы одним нажатием.</p>
   <div class="featstrip">
-    <span>✦ подбор по типу фигуры</span><span>✦ цветотип по фото</span><span>✦ WB · OZON · LAMODA</span><span>✦ бюджет под контролем</span><span>✦ пересборка в один клик</span>
+    <span>✦ подбор по типу фигуры</span><span>✦ цветотип по фото</span><span class="reg-shops">✦ WB · OZON · LAMODA</span><span>✦ бюджет под контролем</span><span>✦ пересборка в один клик</span>
   </div>
 </section>
 
@@ -2590,7 +2984,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
       <button class="btn ghost" id="editBtn">✎ Изменить анкету</button>
       <button class="btn primary" id="againBtn">↻ Пересобрать образы</button>
     </div>
-    <div class="free-cnt" id="freeCnt"></div>
+    <div class="tp-row" style="margin:6px 0 10px"><button class="btn ghost" onclick="openPage('passPage')">✦ Мой стиль-паспорт</button><button class="btn ghost" onclick="openPage('myPage')">★ Мой LOOKA</button></div><div class="free-cnt" id="freeCnt"></div>
   </div>
   <div class="looks" id="looks"></div>
 </section>
@@ -2638,6 +3032,16 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
   </div>
 
   <div class="looks" id="bres" style="margin-top:22px"></div>
+</section>
+
+<section class="sec reveal" id="makeup">
+  <div class="beauty-banner" onclick="openMakeup()" role="button" tabindex="0">
+    <div class="bb-badge">NEW ✦ МАКИЯЖ-ГИД</div>
+    <h2 class="big">Схема макияжа <span class="holo">под вашу форму глаз</span></h2>
+    <p class="lead">Выбираете, какой макияж и какие тени хотите — получаете схему именно под вашу форму глаз, посадку, форму лица и цвет радужки: где положить каждый оттенок, какой кистью, что испортит результат в вашем случае, и косметичку под бюджет.</p>
+    <div class="bb-feats"><span>✦ схема глаза</span><span>✦ схема лица</span><span>✦ 14 шагов</span><span>✦ ваш цвет теней</span><span>✦ типичные ошибки</span><span>✦ косметичка</span></div>
+    <button class="btn primary bb-cta" onclick="openMakeup();event.stopPropagation()">Построить схему →</button>
+  </div>
 </section>
 
 
@@ -2732,19 +3136,21 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
     <div class="vs-card vs-left">
       <div class="vs-name">Офлайн-стилист</div>
       <div class="vs-row"><span class="x">✕</span>от 10 000 ₽ за одну встречу</div>
-      <div class="vs-row"><span class="x">✕</span>запись — за неделю</div>
+      <div class="vs-row"><span class="x">✕</span>запись — за неделю, в рабочее время</div>
       <div class="vs-row"><span class="x">✕</span>совет закончился вместе со встречей</div>
       <div class="vs-row"><span class="x">✕</span>магазины одного города</div>
-      <div class="vs-row"><span class="x">✕</span>визажист — отдельно и за отдельные деньги</div>
+      <div class="vs-row"><span class="x">✕</span>визажист, парфюмер, списки покупок — отдельно и за отдельные деньги</div>
+      <div class="vs-row"><span class="x">✕</span>ничего на руках: ни паспорта стиля, ни размеров в сетках мира</div>
     </div>
     <div class="vs-mid">VS</div>
     <div class="vs-card vs-right">
       <div class="vs-name">LOOKA</div>
-      <div class="vs-row"><span class="v">✓</span>5 000 ₽ — разово и навсегда</div>
-      <div class="vs-row"><span class="v">✓</span>образы через 2 минуты</div>
-      <div class="vs-row"><span class="v">✓</span>безлимит + все обновления</div>
-      <div class="vs-row"><span class="v">✓</span>WB · Ozon · Lamoda — весь выбор страны</div>
-      <div class="vs-row"><span class="v">✓</span>Бьюти-скан уже включён</div>
+      <div class="vs-row"><span class="v">✓</span>5 000 ₽ — разово и навсегда, 5 подборов бесплатно</div>
+      <div class="vs-row"><span class="v">✓</span>образы через 2 минуты, в любое время</div>
+      <div class="vs-row"><span class="v">✓</span>Бьюти-скан, Консилиум и Стиль-паспорт в PDF — включены</div>
+      <div class="vs-row"><span class="v">✓</span><span class="reg-shops-vs">WB · Ozon · Lamoda — весь выбор страны</span> + свадебные салоны и Telegram-магазины</div>
+      <div class="vs-row"><span class="v">✓</span>15 помощников: образ дня по погоде, чемодан, размеры в любой стране, SOS, ревизия гардероба, календарь красоты, «Не переплати»</div>
+      <div class="vs-row"><span class="v">✓</span>безлимит, все обновления и возврат 14 дней</div>
     </div>
   </div>
   <p class="hp-line">Мы не против живых стилистов — мы против того, что стиль стал роскошью. LOOKA переводит услугу «для избранных» в инструмент «для каждой»: те же профессиональные правила, тот же результат — за две минуты и без переплат.</p>
@@ -2777,12 +3183,13 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
     <div class="p-price">5 000 ₽</div>
     <div class="p-once">разовый платёж · навсегда · без подписок и автосписаний</div>
     <ul class="p-list">
-      <li>Безлимитные подборы образов и пересборки</li>
-      <li>Семь сценариев — от свидания до переговоров</li>
-      <li>Бьюти-скан: причёска, макияж, косметичка</li>
-      <li>Подбор с учётом вашего фото</li>
-      <li>Пять маркетплейсов: WB, Ozon, Lamoda, Лэтуаль, Золотое Яблоко</li>
-      <li>Все будущие обновления — без доплат</li>
+      <li>Безлимитные подборы образов и пересборки — 8 поводов, включая свадьбу</li>
+      <li>Бьюти-скан: причёска, стрелки, помада, уход по типу кожи — с косметичкой</li>
+      <li>Консилиум: ответы на вопросы о коже, волосах и макияже по правилам профессионалов</li>
+      <li>Стиль-паспорт: палитра, размеры во всех сетках мира, формула макияжа — в PDF</li>
+      <li>8 помощников: образ дня по погоде, чемодан, размеры, дресс-код, SOS, этапы жизни, возврат, парные образы</li>
+      <li>15 регионов мира с местными маркетплейсами, свадебные салоны, Telegram-магазины</li>
+      <li>Подбор с учётом вашего фото · все будущие обновления — без доплат</li>
     </ul>
     <a class="btn primary" href="#" onclick="openPay();return false;">Оформить доступ</a>
     <div class="p-sub">5 подборов — бесплатно, решение о покупке — после</div>
@@ -2938,7 +3345,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 <section class="sec reveal" id="tools">
   <div class="tools-banner">
     <div class="tb-left">
-      <div class="tb-badge"><i></i>ПОМОЩНИКИ · 8 РАБОТАЮТ ПРЯМО СЕЙЧАС</div>
+      <div class="tb-badge"><i></i>ПОМОЩНИКИ · 12 РАБОТАЮТ ПРЯМО СЕЙЧАС</div>
       <h2 class="big">Маленькие решения, <span class="holo">которые делают день легче</span></h2>
       <p class="lead">Что надеть сегодня по погоде за окном. Чемодан под климат поездки. Ваш размер в любом магазине мира. Дресс-код без паники. SOS за 10 минут до выхода. Всё считается от ваших данных, а не «для всех».</p>
       <div class="tb-chips" id="tbChips"></div>
@@ -2972,6 +3379,10 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
     <button class="tool" data-t="life"><i>❋</i><b>Стиль на этапах жизни</b><span>беременность · 40+ · тело меняется</span></button>
     <button class="tool" data-t="return"><i>↺</i><b>Возврат без нервов</b><span>сроки, шаги, готовые фразы</span></button>
     <button class="tool" data-t="pair"><i>❤</i><b>Парные образы</b><span>с партнёром, подругами, детьми</span></button>
+    <button class="tool" data-t="revision"><i>✓</i><b>Ревизия гардероба</b><span>что есть → чего не хватает → список покупок</span></button>
+    <button class="tool" data-t="calendar"><i>◫</i><b>Календарь красоты</b><span>уход, брови, стрижка, события — по расписанию</span></button>
+    <button class="tool" data-t="smart"><i>₽</i><b>Не переплати</b><span>беременность, роддом, малыш, свадьба — от профи</span></button>
+    <button class="tool" data-t="passport"><i>✦</i><b>Стиль-паспорт</b><span>палитра, размеры, макияж — на одной странице</span></button>
     <button class="tool soon" data-t="check"><i>✓</i><b>Проверь перед покупкой</b><span>СКОРО · вердикт по ссылке на вещь</span></button>
     <button class="tool soon" data-t="gift"><i>🎁</i><b>Подарок по данным</b><span>СКОРО · ссылка на ваш профиль для дарителей</span></button>
     <button class="tool soon" data-t="budget"><i>₽</i><b>Бюджет красоты</b><span>СКОРО · план трат на месяц</span></button>
@@ -3015,6 +3426,169 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
   </div>
 </section>
 
+
+
+<section class="sec pageview" id="makeupPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero">
+    <div class="eyebrow">макияж-гид · схемы под вашу форму глаз и лица</div>
+    <h2 class="big">Макияж, который <span class="holo">делают именно на вас</span></h2>
+    <p class="lead">Не «урок макияжа вообще», а схема под вашу форму глаз, посадку, форму лица, цвет радужки и кожи — и под тот цвет теней, который вы хотите носить. Где положить каждый оттенок, какой кистью, в каком порядке, что испортит результат именно в вашем случае. Плюс косметичка под бюджет.</p>
+  </div>
+  <div class="bt-form look mk-form"><div id="mkForm"></div></div>
+  <div class="looks" id="mkOut"></div>
+  <div class="hp-sub">ПОЧЕМУ СХЕМА, А НЕ ВИДЕО</div>
+  <div class="moat-grid">
+    <div class="moat-item"><b>Форма важнее тренда</b><p>Один и тот же смоки на нависшем веке и на миндалевидном глазу делается в разных местах. Видео-урок с чужого лица этого не учитывает.</p></div>
+    <div class="moat-item"><b>Ваш цвет — ваши правила</b><p>Розовые тени на зелёных глазах и на голубых — два разных приёма. Мы говорим, как носить выбранный вами цвет, а не отговариваем.</p></div>
+    <div class="moat-item"><b>Ошибки — заранее</b><p>Для каждой формы есть три вещи, которые гарантированно портят макияж. Вы их узнаете до того, как испортите.</p></div>
+  </div>
+</section>
+
+<section class="sec pageview" id="docsPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="eyebrow">документы</div>
+  <h2 class="big">Всё по-честному — <span class="holo">и всё написано</span></h2>
+  <p class="lead">Шесть документов, которые описывают наши отношения: что вы покупаете, что мы гарантируем, что делаем с вашими данными и как вернуть деньги. Перед каждым — короткое резюме простым языком, чтобы не читать юридический текст целиком.</p>
+  <div class="docs-wrap">
+    <nav class="docs-nav" id="docsNav">
+      <button class="on" onclick="showDoc('offer',this)">Публичная оферта</button>
+      <button onclick="showDoc('terms',this)">Пользовательское соглашение</button>
+      <button onclick="showDoc('privacy',this)">Политика конфиденциальности</button>
+      <button onclick="showDoc('refund',this)">Условия возврата</button>
+      <button onclick="showDoc('consent',this)">Согласие на обработку данных</button>
+      <button onclick="showDoc('req',this)">Реквизиты</button>
+    </nav>
+    <div class="docs-body" id="docsBody">
+      <article class="doc on" id="doc-offer">
+        <div class="doc-head"><h3>Публичная оферта</h3><span>редакция от 31 августа 2026 · вступает в силу с момента публикации</span></div>
+        <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>Вы платите 5 000 ₽ один раз — и получаете полный доступ к LOOKA без подписок и автосписаний.</li><li>Оплата = согласие с этими условиями (это и называется акцепт оферты).</li><li>Вернуть деньги можно в течение 14 дней без объяснения причин.</li><li>LOOKA даёт рекомендации; покупаете вещи вы сами у маркетплейсов — с ними у вас отдельные отношения.</li></ul></div>
+        <h4>1. Термины</h4>
+        <p><b>Исполнитель</b> — Бредихина Анна Викторовна, плательщик налога на профессиональный доход (самозанятый), ИНН 773178276864. <b>Сервис</b> — сайт LOOKA и его функции: подбор образов, Бьюти-скан, Помощники, Консилиум. <b>Пользователь</b> — дееспособное физическое лицо, принявшее условия оферты. <b>Доступ</b> — право использовать все функции Сервиса без ограничения количества подборов.</p>
+        <h4>2. Предмет</h4>
+        <p>2.1. Исполнитель предоставляет Пользователю Доступ к Сервису, а Пользователь оплачивает его в порядке, установленном настоящей офертой (ст. 437 ГК РФ).</p>
+        <p>2.2. Сервис оказывает информационно-консультационные услуги: формирует рекомендации по одежде, уходу и внешнему виду на основе данных, введённых Пользователем. Рекомендации носят рекомендательный характер и не являются медицинскими услугами.</p>
+        <h4>3. Акцепт и заключение договора</h4>
+        <p>3.1. Договор считается заключённым с момента оплаты Доступа (п. 3 ст. 438 ГК РФ). Оплачивая, Пользователь подтверждает, что ознакомлен с офертой, Политикой конфиденциальности и Условиями возврата и принимает их полностью.</p>
+        <p>3.2. До оплаты Пользователю доступны 5 (пять) бесплатных подборов — для оценки Сервиса.</p>
+        <h4>4. Стоимость и оплата</h4>
+        <p>4.1. Стоимость Доступа — 5 000 (пять тысяч) рублей, единовременно. НДС не облагается (Исполнитель применяет специальный налоговый режим «Налог на профессиональный доход»).</p>
+        <p>4.2. Оплата производится по ссылке, направленной Исполнителем по заявке Пользователя, через платёжный сервис. Исполнитель не получает данных банковской карты Пользователя.</p>
+        <p>4.3. После оплаты Пользователь получает чек в электронном виде и код активации Доступа. Доступ действует бессрочно.</p>
+        <h4>5. Права и обязанности</h4>
+        <p>5.1. Исполнитель обязуется: предоставить Доступ в течение одного рабочего дня после оплаты; поддерживать работоспособность Сервиса; отвечать на обращения Пользователя в течение одного рабочего дня; не передавать данные Пользователя третьим лицам, кроме случаев, предусмотренных законом.</p>
+        <p>5.2. Пользователь обязуется: указывать достоверные данные; не передавать код Доступа третьим лицам; не использовать Сервис для нарушения прав других лиц.</p>
+        <h4>6. Возврат</h4>
+        <p>6.1. Пользователь вправе отказаться от Доступа и потребовать возврата уплаченной суммы в течение 14 (четырнадцати) календарных дней с момента оплаты без объяснения причин. Возврат производится в полном объёме тем же способом, которым была произведена оплата, в течение 10 дней с момента получения требования (ст. 22 Закона РФ «О защите прав потребителей»). Подробно — в Условиях возврата.</p>
+        <h4>7. Ответственность</h4>
+        <p>7.1. Рекомендации Сервиса основаны на данных, введённых Пользователем, и правилах стилистики; Исполнитель не гарантирует, что конкретная вещь подойдёт Пользователю, будет в наличии или соответствовать описанию продавца.</p>
+        <p>7.2. Покупка товаров осуществляется Пользователем самостоятельно на сторонних площадках (маркетплейсах, в магазинах). Исполнитель не является стороной этих сделок и не несёт ответственности за качество, доставку и возврат товаров — эти вопросы регулируются условиями площадок и законодательством о защите прав потребителей.</p>
+        <p>7.3. Разделы «Бьюти-скан» и «Консилиум» предоставляют общую информацию об уходе и внешнем виде и не заменяют консультацию врача. При заболеваниях кожи, волос и иных состояниях Пользователю следует обратиться к специалисту.</p>
+        <p>7.4. Ответственность Исполнителя ограничена суммой, уплаченной Пользователем за Доступ.</p>
+        <h4>8. Интеллектуальная собственность</h4>
+        <p>8.1. Сервис, его дизайн, тексты, алгоритмы и база рекомендаций принадлежат Исполнителю. Пользователь получает право личного некоммерческого использования Сервиса.</p>
+        <h4>9. Персональные данные</h4>
+        <p>9.1. Обработка персональных данных осуществляется в соответствии с Федеральным законом № 152-ФЗ и Политикой конфиденциальности Сервиса.</p>
+        <h4>10. Изменение условий и разрешение споров</h4>
+        <p>10.1. Исполнитель вправе изменять оферту; изменения не распространяются на уже оплаченный Доступ в части ухудшения условий. 10.2. Споры разрешаются путём переговоров; при недостижении согласия — в суде по месту жительства Пользователя (ст. 17 Закона РФ «О защите прав потребителей»). Досудебная претензия направляется на адрес электронной почты Исполнителя и рассматривается в течение 10 дней.</p>
+      </article>
+
+      <article class="doc" id="doc-terms">
+        <div class="doc-head"><h3>Пользовательское соглашение</h3><span>редакция от 31 августа 2026</span></div>
+        <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>LOOKA — помощник, а не врач и не магазин: советует, а решаете вы.</li><li>Сервис для лиц 18+; пользуйтесь им честно и для себя.</li><li>Мы не продаём места в подборках — ни один бренд не может заплатить за попадание в ваш образ.</li></ul></div>
+        <h4>1. Что такое Сервис</h4>
+        <p>LOOKA — сервис персонального подбора одежды и рекомендаций по внешнему виду. Он формирует рекомендации по правилам профессиональной стилистики на основе данных, которые Пользователь вводит сам: фигура, цветотип, размеры, повод, бюджет, тип кожи.</p>
+        <h4>2. Что Сервис не делает</h4>
+        <p>2.1. Не продаёт товары и не участвует в сделках с продавцами. Ссылки на маркетплейсы и магазины — навигация, а не оферта продавца. 2.2. Не оказывает медицинских услуг и не ставит диагнозов: информация разделов «Бьюти-скан» и «Консилиум» носит общий характер и не заменяет консультацию врача. 2.3. Не получает вознаграждения от брендов за включение вещей в подборки.</p>
+        <h4>3. Правила использования</h4>
+        <p>3.1. Сервисом могут пользоваться лица, достигшие 18 лет. 3.2. Запрещается: копировать и распространять содержимое Сервиса в коммерческих целях; передавать код Доступа третьим лицам; вмешиваться в работу Сервиса. 3.3. Пользователь самостоятельно принимает решения о покупках и уходе за собой на основании рекомендаций.</p>
+        <h4>4. Точность рекомендаций</h4>
+        <p>Рекомендации зависят от точности введённых данных. Исполнитель не несёт ответственности за результат, если данные указаны неверно. Ссылки на товары ведут на поисковые страницы площадок; наличие, цена и характеристики товаров определяются площадкой.</p>
+        <h4>5. Обновления</h4>
+        <p>Исполнитель развивает Сервис и добавляет функции. Все обновления доступны Пользователям с оплаченным Доступом без доплат.</p>
+      </article>
+
+      <article class="doc" id="doc-privacy">
+        <div class="doc-head"><h3>Политика конфиденциальности</h3><span>редакция от 31 августа 2026 · в соответствии с 152-ФЗ</span></div>
+        <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>Данные анкеты и город хранятся <b>на вашем устройстве</b>, а не у нас — вы можете стереть их одним нажатием.</li><li>Фото используется только в момент разбора и не сохраняется. Для ИИ-функций (подбор по фото, бьюти-скан, примерка) изображение передаётся провайдерам нейросетевых моделей (Anthropic, Google) исключительно для обработки запроса и не используется ими для хранения или обучения в рамках API-условий.</li><li>Имя и контакт, оставленные в заявке, нужны только чтобы связаться с вами по этой заявке — никаких рассылок.</li><li>Мы не продаём и не передаём данные третьим лицам.</li></ul></div>
+        <h4>1. Оператор</h4>
+        <p>Оператор персональных данных — Бредихина Анна Викторовна, ИНН 773178276864, электронная почта <em class="doc-ph">hello@looka.ru</em>.</p>
+        <h4>2. Какие данные и зачем</h4>
+        <p>2.1. <b>Данные анкеты</b> (пол, параметры, размеры, цвет волос, глаз, тон кожи, особенности фигуры, повод, бюджет) и <b>город</b> — для формирования рекомендаций. Хранятся локально в браузере Пользователя (localStorage) и не передаются Оператору. 2.2. <b>Фотография</b> — по желанию Пользователя, для уточнения рекомендаций. Обрабатывается в момент разбора и не сохраняется. 2.3. <b>Имя и контакт</b> (телефон или мессенджер) — для связи по заявке на оплату и активации Доступа. 2.4. <b>Данные оплаты</b> обрабатываются платёжным сервисом; Оператор не получает реквизитов карты.</p>
+        <h4>3. Правовые основания</h4>
+        <p>Обработка осуществляется на основании согласия Пользователя (ст. 6 152-ФЗ) и для исполнения договора, стороной которого является Пользователь.</p>
+        <h4>4. Сроки и хранение</h4>
+        <p>Контактные данные заявки хранятся до исполнения заявки и в течение 3 лет для учёта расчётов; по требованию Пользователя удаляются раньше. Данные на устройстве Пользователя удаляются им самостоятельно («забыть мои данные») или при очистке браузера.</p>
+        <h4>5. Передача третьим лицам</h4>
+        <p>Оператор не передаёт персональные данные третьим лицам, за исключением платёжного сервиса (для проведения оплаты) и случаев, прямо предусмотренных законом. Сторонние сервисы, используемые Сервисом (карты, погода), получают только запрос без персональных данных Пользователя.</p>
+        <h4>6. Права Пользователя</h4>
+        <p>Пользователь вправе: получить сведения об обработке своих данных; требовать их уточнения, блокирования или уничтожения; отозвать согласие. Обращения принимаются на электронную почту Оператора и рассматриваются в течение 10 дней.</p>
+        <h4>7. Cookies и технические данные</h4>
+        <p>Сервис не использует рекламные трекеры. Технические данные браузера используются только для корректного отображения Сервиса.</p>
+        <h4>8. Безопасность</h4>
+        <p>Сервис работает по защищённому протоколу HTTPS. Данные заявок хранятся в защищённых сервисах с ограниченным доступом.</p>
+      </article>
+
+      <article class="doc" id="doc-refund">
+        <div class="doc-head"><h3>Условия возврата</h3><span>редакция от 31 августа 2026</span></div>
+        <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>14 дней с момента оплаты — вернём полностью, без объяснения причин.</li><li>Написали «возврат» на почту или в Telegram — этого достаточно.</li><li>Деньги приходят тем же способом, которым платили; мы отправляем за 1–2 дня, банк зачисляет обычно за 3–10 дней.</li></ul></div>
+        <h4>1. Срок и основания</h4>
+        <p>1.1. Пользователь вправе отказаться от Доступа в течение 14 (четырнадцати) календарных дней с момента оплаты без объяснения причин и получить полный возврат. 1.2. По истечении 14 дней возврат возможен при неоказании услуги по вине Исполнителя (Доступ не предоставлен) — в полном объёме, в любой срок.</p>
+        <h4>2. Как оформить</h4>
+        <p>2.1. Направьте сообщение со словом «возврат» на электронную почту или в Telegram Исполнителя (раздел «Контакты»), указав имя из заявки и примерное время оплаты. 2.2. Заявление в свободной форме принимается с любого адреса, с которого удобно. Заполнять формы не требуется.</p>
+        <h4>3. Сроки и способ</h4>
+        <p>3.1. Исполнитель направляет возврат в течение 1–2 рабочих дней с момента получения требования, но не позднее 10 дней (ст. 22 Закона РФ «О защите прав потребителей»). 3.2. Возврат производится тем же способом, которым была произведена оплата. Срок зачисления средств банком — обычно 3–10 банковских дней и не зависит от Исполнителя. 3.3. После возврата Доступ прекращается.</p>
+        <h4>4. Что не является основанием для отказа</h4>
+        <p>Исполнитель не отказывает в возврате в связи с тем, что Пользователь воспользовался Сервисом в течение 14 дней. Единственное условие — срок.</p>
+      </article>
+
+      <article class="doc" id="doc-consent">
+        <div class="doc-head"><h3>Согласие на обработку персональных данных</h3><span>предоставляется при отправке заявки и оплате</span></div>
+        <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>Отправляя заявку, вы разрешаете использовать имя и контакт только для связи по этой заявке и активации доступа.</li><li>Согласие можно отозвать одним письмом.</li></ul></div>
+        <p>Я, действуя свободно, своей волей и в своём интересе, даю согласие Бредихина Анна Викторовна (ИНН 773178276864) на обработку моих персональных данных — имени и контактных данных (номера телефона или идентификатора мессенджера), — с целью связи по моей заявке на предоставление доступа к сервису LOOKA, направления ссылки на оплату, чека и кода активации, а также для учёта расчётов.</p>
+        <p>Согласие распространяется на следующие действия: сбор, запись, систематизацию, хранение, уточнение, использование, удаление. Обработка осуществляется без передачи третьим лицам, за исключением платёжного сервиса для проведения оплаты.</p>
+        <p>Согласие действует до достижения целей обработки либо до его отзыва. Я вправе отозвать согласие, направив сообщение на электронную почту оператора; в этом случае данные уничтожаются в течение 10 дней, за исключением данных, хранение которых обязательно по закону о бухгалтерском и налоговом учёте.</p>
+        <p>С Политикой конфиденциальности ознакомлен(а).</p>
+      </article>
+
+      <article class="doc" id="doc-req">
+        <div class="doc-head"><h3>Реквизиты и статус</h3><span>публикуются до начала продаж</span></div>
+        <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>Исполнитель — самозанятый: официальный статус, электронные чеки через приложение «Мой налог» на каждую оплату.</li><li>Все реквизиты открыты, никаких «оплатите на карту знакомого».</li></ul></div>
+        <div class="req-grid">
+          <div class="req"><span>Исполнитель</span><b>Бредихина Анна Викторовна</b></div>
+          <div class="req"><span>Статус</span><b>Плательщик налога на профессиональный доход (самозанятый)</b></div>
+          <div class="req"><span>ИНН</span><b>773178276864</b></div>
+          <div class="req"><span>Электронная почта</span><b><em class="doc-ph">hello@looka.ru</em></b></div>
+          <div class="req"><span>Telegram</span><b><em class="doc-ph">@looka_support</em></b></div>
+          <div class="req"><span>Приём оплаты</span><b>Через сертифицированный платёжный сервис для самозанятых; чек формируется в «Мой налог» и направляется на почту</b></div>
+          <div class="req"><span>Сайт</span><b>looka-droid.github.io/looka</b></div>
+        </div>
+        <p class="doc-note">Проверить статус самозанятого можно на сайте ФНС по ИНН — сервис «Проверка статуса налогоплательщика НПД». Мы приветствуем такую проверку.</p>
+      </article>
+      <div class="docs-foot"><button class="btn ghost" onclick="printDocs()">Распечатать / сохранить в PDF</button><span>Документы обновляются; дата редакции указана в заголовке каждого. Существенные изменения не ухудшают условия для уже оплативших.</span></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="sec pageview" id="passPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="eyebrow">стиль-паспорт</div>
+  <h2 class="big">Ваш стиль — <span class="holo">на одной странице</span></h2>
+  <p class="lead">Документ, который вы получаете по своим данным: палитра, фигура, размеры во всех сетках мира, формула макияжа, капсульная база и список «чего не покупать». Сохраните в PDF, покажите консультанту в магазине, поделитесь с подругой.</p>
+  <div class="tp-row ps-actions"><button class="btn primary" onclick="printPassport()">Сохранить в PDF</button><button class="btn ghost" onclick="sharePassport()">Поделиться</button><button class="btn ghost" onclick="openProfile('passRefresh2')">Изменить данные</button><button id="passRefresh2" style="display:none" onclick="renderPassport()"></button></div>
+  <div id="passBox"></div>
+</section>
+
+
+<section class="sec pageview" id="myPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="eyebrow">мой looka</div>
+  <h2 class="big">Ваш LOOKA — <span class="holo">учится и помнит</span></h2>
+  <p class="lead">Профиль, вкус, избранное и покупки — в одном месте. Всё хранится на вашем устройстве; перенести на другой — одной ссылкой.</p>
+  <div id="myBox"></div>
+</section>
+
 <section class="sec reveal" id="pricing">
   <div class="eyebrow">доступ и оплата</div>
   <h2 class="big">Прозрачные условия — <span class="holo">один платёж</span></h2>
@@ -3024,11 +3598,13 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
     <div class="p-price">5 000 ₽</div>
     <div class="p-once">разовый платёж · без подписок</div>
     <ul class="p-list">
-      <li>Безлимитные подборы и пересборки</li>
-      <li>Семь сценариев — от свидания до переговоров</li>
-      <li>Подбор с учётом вашего фото</li>
-      <li>Wildberries, Ozon и Lamoda в один клик</li>
-      <li>Возврат средств в течение 14 дней</li>
+      <li>Безлимитные подборы образов и пересборки — 8 поводов, включая свадьбу</li>
+      <li>Бьюти-скан: причёска, стрелки, помада, уход по типу кожи — с косметичкой</li>
+      <li>Консилиум: ответы на вопросы о коже, волосах и макияже по правилам профессионалов</li>
+      <li>Стиль-паспорт: палитра, размеры во всех сетках мира, формула макияжа — в PDF</li>
+      <li>8 помощников: образ дня по погоде, чемодан, размеры, дресс-код, SOS, этапы жизни, возврат, парные образы</li>
+      <li>15 регионов мира с местными маркетплейсами, свадебные салоны, Telegram-магазины</li>
+      <li>Подбор с учётом вашего фото · все будущие обновления — без доплат</li>
     </ul>
     <a class="btn primary" href="#" onclick="openPay();return false;">Оформить доступ</a>
     <div class="p-sub">5 подборов — бесплатно · оплата через защищённый платёжный сервис</div>
@@ -3064,7 +3640,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
   <h2 class="big">Куда растёт <span class="holo">LOOKA</span></h2>
   <p class="lead">Мы строим не «сайт с подборками», а персонального стилиста для каждого человека — независимо от бюджета, размера и города. План развития открытый, доступ покупается один раз: все обновления — без доплат.</p>
   <div class="road">
-    <div class="road-item now"><span>СЕЙЧАС</span><b>Версия 1.0</b><p>Анкета, подбор по фигуре и цветотипу, учёт фото, три маркетплейса, безлимитные пересборки.</p></div>
+    <div class="road-item now"><span>СЕЙЧАС</span><b>Версия 1.0</b><p>Анкета, подбор по фигуре и цветотипу, учёт фото, три маркетплейса, безлимитные пересборки, бьюти-скан, макияж-гид со схемами, примерка образа на своём фото.</p></div>
     <div class="road-item"><span>ЭТАП 2</span><b>Точная посадка</b><p>Подбор с учётом реальных замеров тела. Цель — образы, которые садятся с первого заказа: меньше возвратов, меньше разочарований, больше доверия к онлайн-покупкам.</p></div>
     <div class="road-item"><span>ЭТАП 3</span><b>Цифровой гардероб</b><p>Сервис учитывает, что уже висит в вашем шкафу, и докупает только недостающее. Капсула, где всё сочетается со всем, — меньше лишних трат и вещей «в один выход».</p></div>
     <div class="road-item"><span>ЭТАП 4</span><b>LOOKA для всего мира</b><p>Новые языки, зарубежные площадки, подбор под любой бюджет и любую фигуру. Личный стилист перестаёт быть роскошью и становится нормой — как навигатор в телефоне.</p></div>
@@ -3093,6 +3669,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
     <p>Вопросы, возврат, ранний доступ за отзыв — напишите, отвечаем в течение дня.</p>
     <div class="contact-row"><span class="c-chip">✉ hello@looka.ru</span><span class="c-chip">Telegram: @looka_support</span></div>
   </div>
+  <div class="pg-cta"><button class="btn primary" onclick="openPage('docsPage')">✦ Открыть все документы</button></div>
 </section>
 
 <section class="sec reveal">
@@ -3127,7 +3704,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
       <a href="#how" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'});return false">Как это работает</a>
       <a href="#payment" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'});return false">Оплата</a>
       <a href="#reviews" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'});return false">Отзывы</a>
-      <a href="#docs" onclick="document.getElementById('docs').scrollIntoView({behavior:'smooth'});return false">Документы</a></div>
+      <a href="#docs" onclick="openPage('docsPage');return false">Документы</a></div>
     <div><b>Площадки</b>
       <a href="https://www.wildberries.ru" target="_blank" rel="noopener">Wildberries ↗</a>
       <a href="https://www.ozon.ru" target="_blank" rel="noopener">Ozon ↗</a>
@@ -3206,6 +3783,53 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 </div>
 
 <script>
+/* =====================================================================
+   ИИ БЕЗ СЕРВЕРА. Один ключ Google AI Studio — и на GitHub Pages работают
+   ИИ-подбор, бьюти-скан, консилиум и примерка образа на своём фото.
+   Как получить (5 минут, с телефона): aistudio.google.com → Get API key →
+   Create API key → скопировать. Затем ОБЯЗАТЕЛЬНО ограничить ключ сайтом:
+   console.cloud.google.com/apis/credentials → ключ → Application restrictions:
+   Websites → добавить  looka-droid.github.io/*  (и свой домен, когда будет)
+   → API restrictions: Generative Language API → Save. После этого ключ
+   работает только со страниц вашего сайта. Вставить сюда между кавычками:
+   ===================================================================== */
+const GEMINI_KEY = '';
+const GEMINI_TEXT = ['gemini-3.7-flash','gemini-2.5-flash'];          /* текст: первый доступный */
+const GEMINI_IMAGE = ['gemini-3.1-flash-image','gemini-2.5-flash-image']; /* примерка */
+/* ДЛЯ КЛИЕНТОК ИЗ РОССИИ: Google не принимает запросы с российских IP, поэтому сайт ходит к нему
+   через мост — Cloudflare Worker (файл looka-worker.js, ставится из браузера за 10 минут).
+   Сюда — адрес моста вида https://looka-api.ИМЯ.workers.dev . Если он задан, GEMINI_KEY выше не нужен. */
+const LOOKA_API = 'https://looka-api.annabredihina25.workers.dev';
+
+/* единая точка вызова ИИ: сервер → Gemini напрямую → Anthropic (только внутри Claude) */
+async function geminiCall(models, parts, gen){
+  let last = null;
+  for(const m of models){
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
+      method:'POST', headers:{'Content-Type':'application/json','x-goog-api-key':GEMINI_KEY},
+      body: JSON.stringify({contents:[{role:'user',parts}], generationConfig:gen||{}})
+    });
+    if(r.status===404){ last = r; continue; }
+    if(r.ok && models[0]!==m){ models.splice(models.indexOf(m),1); models.unshift(m); } /* запоминаем рабочую модель */
+    return r;
+  }
+  return last;
+}
+async function aiFetch(opts){
+  const body = JSON.parse(opts.body);
+  if(LOOKA_API) return fetch(LOOKA_API.replace(/\/$/,'')+'/ai', opts);
+  if(GEMINI_KEY){
+    const parts = []; const c = body.messages[0].content;
+    if(typeof c==='string') parts.push({text:c});
+    else c.forEach(p=>{ if(p.type==='image') parts.push({inline_data:{mime_type:p.source.media_type,data:p.source.data}}); else if(p.type==='text') parts.push({text:p.text}); });
+    const r = await geminiCall(GEMINI_TEXT, parts, {maxOutputTokens: Math.max(body.max_tokens||1000, 2000), responseMimeType:'application/json'});
+    if(!r.ok) return new Response(JSON.stringify({error:{status:r.status}}), {status:r.status, headers:{'Content-Type':'application/json'}});
+    const j = await r.json();
+    const text = (j.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('');
+    return new Response(JSON.stringify({content:[{type:'text',text}]}), {status:200, headers:{'Content-Type':'application/json'}});
+  }
+  return fetch('https://api.anthropic.com/v1/messages', opts);
+}
 /* ================= ДАННЫЕ АНКЕТЫ ================= */
 const S = {
   gender:null, age:null, height:167, weight:60,
@@ -3509,6 +4133,8 @@ function localGen(){
     if(safe.length) pool = safe;
     if(!pool.length) return null;
     if(styleRe){ const fav = pool.filter(it=>styleRe.test(it[0]+' '+it[1])); if(fav.length && Math.random()<.7) pool = fav; }
+    if(typeof MY!=='undefined'){ const noDis = pool.filter(it=>!MY.dislike.includes(baseName(it[0]))); if(noDis.length) pool = noDis;
+      const liked = pool.filter(it=>MY.like.includes(baseName(it[0]))); if(liked.length && Math.random()<.65) pool = liked; }
     return rand(pool);
   };
   const addQ = cat=>{ const parts = []; rules.forEach(r=>{ if(r.add && r.add[cat] && !parts.includes(r.add[cat])) parts.push(r.add[cat]); }); return parts.length? ' '+parts.join(' ') : ''; };
@@ -3571,7 +4197,7 @@ ${regen && lastTitles.length ? 'Пользователю НЕ понравили
     let data = null, lastErr = null;
     for(let att = 0; att < 2; att++){
     try{
-    const r = await fetch("https://api.anthropic.com/v1/messages",{
+    const r = await aiFetch({
       method:"POST", headers:{"Content-Type":"application/json"},
       body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,
         messages:[{role:"user",content: S.photo ? [{type:"image",source:{type:"base64",media_type:"image/jpeg",data:S.photo}},{type:"text",text:prompt+"\nНа фото — клиент(ка). Определи по фото цветотип, оттенок кожи, волос и пропорции фигуры и учти это при подборе вещей и цветов. Само фото не описывай, внешность не комментируй — просто подбери то, что человеку с такой внешностью идёт."}] : prompt}]})
@@ -3752,6 +4378,26 @@ const REG_COUNTRIES = {
 };
 const ALL_COUNTRIES = new Set([].concat(...Object.values(REG_COUNTRIES)));
 const cityInRegion = (key, c)=>{ const isRU = !ALL_COUNTRIES.has(c[1]); if(key==='cis') return isRU || REG_COUNTRIES.cis.includes(c[1]); return (REG_COUNTRIES[key]||[]).includes(c[1]); };
+
+/* поправки на бренды — по региону (по опыту покупательниц; сетку бренда всегда сверяйте) */
+const BRAND_NOTES = {
+  cis:['Lime, Zarina, Sela — близко к честным','Love Republic, Befree — часто маломерят: смотрите на +1','Gloria Jeans, O\'stin — большемерят: можно −1','12 Storeez — свободный крой, берите свой размер','Maag / Ecru (бывшие Zara и Massimo Dutti) — сетка Zara: +1','Спортивные бренды — по стельке в см, а не по цифре'],
+  kz:['Zara, Bershka — маломерят: +1','Lime, Zarina — честно','LC Waikiki — большемерит','Спортивные бренды — по стельке в см'],
+  eu:['Zara, Bershka, Stradivarius — маломерят: +1','H&M, Mango — близко к честным','COS, Arket — свободный крой: свой размер или −1','Massimo Dutti, & Other Stories — честно','Обувь: итальянские бренды маломерят на полразмера'],
+  uk:['Next, ASOS — честно','M&S — большемерит: можно −1','Primark, Zara — маломерят: +1','River Island — честно, обувь узкая'],
+  na:['Gap, Old Navy, American Eagle — большемерят (vanity sizing): −1','J.Crew, Madewell — честно','Levi\'s — по талии и длине в дюймах, не по цифре','Lululemon — честно; Nike — обувь на полразмера меньше'],
+  la:['Shein — сильно маломерит: +1 или +2','Zara — маломерит: +1','Renner, C&A — честно','Mercado Libre — только по замерам продавца'],
+  me:['Бренды на Namshi / Ounass — европейские сетки: как в паспорте','Shein — маломерит: +1','Local abaya brands — по росту, не по размеру'],
+  tr:['LC Waikiki, DeFacto — большемерят: −1','Koton, Mavi — честно','Trendyol-бренды — часто маломерят: +1'],
+  cn:['Taobao, Tmall — азиатские сетки: +1 или +2 от европейского','Shein — маломерит: +1','Uniqlo — +1','Смотрите на замеры в см в карточке, не на букву'],
+  jp:['Uniqlo, GU — азиатская сетка: +1','Muji — честно, свободный крой','Обувь — по см, японские бренды узкие'],
+  kr:['Musinsa — корейские размеры и Free size: +1','Обувь — в мм по стельке','Оверсайз-бренды — свой размер'],
+  in:['Myntra, Ajio — бренды по UK-сетке, как в паспорте','Zara — маломерит: +1','Индийские этнические бренды — по замерам груди/бёдер'],
+  sea:['Zalora — азиатские бренды: +1','Uniqlo — +1','H&M — честно','Обувь — по см'],
+  au:['Cotton On — большемерит: −1','Country Road, Witchery — честно','ASOS — честно','Обувь — AU-сетка = UK'],
+  af:['Zando, Superbalist — европейские сетки','Shein — маломерит: +1','Обувь — по см']
+};
+const brandNotes = ()=> BRAND_NOTES[REGION] || BRAND_NOTES.eu;
 let REGION = 'cis';
 try{ const r = localStorage.getItem('looka_region'); if(r && REGIONS[r]) REGION = r; }catch(e){}
 window.setRegion = key=>{
@@ -3892,7 +4538,7 @@ function todayLookHTML(band, wet, ev){
   if(wet) look.v += '; осадки — обувь без замши, верх с водоотталкиванием';
   const items = look.items.map(it=>{
     return `<div class="item"><div class="nm">${it.n}</div><div class="pr">${it.p||''}</div>
-      ${shopButtons(it)}</div>`;
+      ${shopButtons(it)}${reactRow(it)}</div>`;
   }).join('');
   const tips = stylistTips(look);
   const prof = [S.figure, S.hair.toLowerCase()+' · '+S.eyes.toLowerCase()+' · '+S.skin.toLowerCase(), 'одежда '+S.clothSize+' · обувь '+S.shoeSize].concat((S.focus||[]).map(f=>'учесть: '+f.toLowerCase()));
@@ -3951,21 +4597,23 @@ function tripCapsuleHTML(band, wet, fmt, days, budget){
 function renderLooks(looks){
   window._lastLooks = looks;
   const wrap = document.getElementById('looks');
-  wrap.innerHTML = looks.map(l=>{
+  wrap.innerHTML = looks.map((l,li)=>{
     const items = l.items.map(it=>{
       return `<div class="item">
         <div class="nm">${it.n}</div>
         <div class="pr">${it.p||''}</div>
-        ${shopButtons(it)}${salons(it)}</div>`;
+        ${shopButtons(it)}${salons(it)}${reactRow(it)}</div>`;
     }).join('');
     const tips = (l.tips && l.tips.length ? l.tips : stylistTips(l));
     return `<div class="look"><div class="look-in">
       <h3>${l.t}</h3><div class="vibe">${l.v}</div>${items}
       <div class="tips"><div class="tips-h">✦ СОВЕТЫ СТИЛИСТА</div><ul>${tips.map(x=>'<li>'+x+'</li>').join('')}</ul></div>
       <div class="total">✦ бюджет: ${S.budget} · ${S.event.toLowerCase()}</div>
+      <button class="btn ghost to-btn" onclick="openTryOn(${li})">✦ Примерить на себе</button>
     </div></div>`;
   }).join('');
   wrap.insertAdjacentHTML('beforeend', regionNote());
+  wrap.insertAdjacentHTML('beforeend', '<div class="next-row"><span>дальше →</span><button onclick="openBeauty()">✦ Бьюти-скан</button><button onclick="openMakeup()">✦ Схема макияжа</button><button onclick="openPage(\'passPage\')">✦ Стиль-паспорт</button><button onclick="openTool(\'today\')">☀ Образ дня по погоде</button><button onclick="openPage(\'askPage\')">✦ Консилиум</button></div>');
   if(S.event==='Свадьба' || S.event==='Торжество') wrap.insertAdjacentHTML('afterbegin', '<div class="look wed-note"><div class="look-in"><h3>Свадебные и вечерние платья — не с маркетплейсов</h3><div class="vibe">Платья и смокинги такого уровня редко бывают на массовых площадках. Поэтому у главных вещей — ссылки на специализированные салоны с онлайн-каталогами и примеркой. Обувь и аксессуары можно брать и на площадках.</div></div></div>');
   stopLoader();
   freeLeft--; updFree();
@@ -4221,6 +4869,7 @@ function renderBeauty(r, mode){
   wrap.innerHTML = cards.map(c=>`<div class="look badv"><div class="look-in"><h3>${c[0]}</h3><div class="tip">${c[1]}</div>${linkRow(c[2])}</div></div>`).join('')
     + `<div class="look badv"><div class="look-in"><h3>Косметичка под разбор</h3>${prodHtml}<div class="total">✦ бюджет: ${B.budget} · цены ориентировочные</div></div></div>`
     + (careHtml ? `<div class="look badv"><div class="look-in"><h3>Уход: рутина под ваш тип кожи</h3>${careHtml}<div class="total">✦ ${B.skin||'универсально'} · утро и вечер</div></div></div>` : '');
+  wrap.insertAdjacentHTML('beforeend', '<div class="next-row"><span>дальше →</span><button onclick="openMakeup()">✦ Схема макияжа под мои глаза</button><button onclick="openPage(\'passPage\')">✦ Стиль-паспорт с формулой макияжа</button><button onclick="openPage(\'askPage\')">✦ Спросить Консилиум</button><button onclick="closeBeauty();setTimeout(()=>document.querySelector(\'.stage\').scrollIntoView({behavior:\'smooth\'}),100)">✦ Собрать образы</button></div>');
   if(window.fxTilt) fxTilt(wrap);
   if(window.fxGlow) fxGlow(wrap);
   if(window.fxZone) fxZone(wrap);
@@ -4235,7 +4884,7 @@ async function genBeauty(){
     const prompt = `Ты — топовый визажист и стилист по волосам. По селфи и данным (стиль: ${B.style}, волосы: ${S.hair||'-'}, глаза: ${S.eyes||'-'}, кожа: ${S.skin||'-'}) дай персональный разбор. Ответь ТОЛЬКО JSON:
 {"cut":"стрижка/укладка под форму лица, 1-2 фразы","brows":"брови","eyes":"палитра теней","liner":"какие стрелки","lips":"цвет помады","care":"уход по типу кожи ${B.skin||'не указан'} в 2 фразах","style":"формула стиля одной фразой","prods":[{"n":"продукт с оттенком","q":"поисковый запрос","p":"~900 ₽"}]}
 6-7 prods под бюджет ${B.budget}. Коротко, без текста вне JSON. Внешность не оценивай, только рекомендации.`;
-    const r = await fetch("https://api.anthropic.com/v1/messages",{
+    const r = await aiFetch({
       method:"POST", headers:{"Content-Type":"application/json"},
       body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,
         messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:B.selfie}},{type:"text",text:prompt}]}]})
@@ -4271,6 +4920,9 @@ window.openPage = (id, anchor)=>{
   el.classList.add('active-page','in');
   el.querySelectorAll('.reveal').forEach(r=>r.classList.add('in'));
   if(id==='devPage' && window.initWorldMap) initWorldMap();
+  if(id==='passPage' && window.renderPassport) renderPassport();
+  if(id==='myPage' && window.renderMy) renderMy();
+  if(id==='makeupPage' && window.renderMakeupForm) renderMakeupForm();
   if(anchor){
     setTimeout(()=>{
       const a = document.getElementById(anchor);
@@ -4823,7 +5475,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
             h += `<div class="tp-card"><span class="k">ОБУВЬ · RU ${s}</span><div class="tp-grid"><div class="tp-cell"><span>EU</span><b>${eu}</b></div><div class="tp-cell"><span>US</span><b>${us}</b></div><div class="tp-cell"><span>UK</span><b>${uk}</b></div><div class="tp-cell"><span>СТЕЛЬКА</span><b>${cm||'—'}<small style="font-size:11px"> см</small></b></div></div></div>`;
           }
           if(!h) h = '<div class="tp-note">Введите хотя бы один размер</div>';
-          h += `<div class="tp-card"><span class="k">ПОПРАВКИ НА БРЕНД (по опыту покупательниц)</span><ul class="tp-list"><li>Zara, Bershka, Stradivarius — часто маломерят: смотрите на +1</li><li>Uniqlo — азиатская сетка: смело +1</li><li>H&amp;M, Mango — близко к честным</li><li>Спортивные бренды — по стельке в см, а не по цифре</li></ul></div><div class="tp-note">таблицы ориентировочные — у конкретного бренда всегда проверяйте его размерную сетку и замеры</div>`;
+          h += `<div class="tp-card"><span class="k">ПОПРАВКИ НА БРЕНД · ${REGIONS[REGION].n.toUpperCase()} (по опыту покупательниц)</span><ul class="tp-list">${brandNotes().map(x=>'<li>'+x+'</li>').join('')}</ul></div><div class="tp-note">таблицы ориентировочные — у конкретного бренда всегда проверяйте его размерную сетку и замеры; регион можно сменить кнопкой в статус-баре</div>`;
           out.innerHTML = h;
         };
       }},
@@ -4943,7 +5595,109 @@ window.cityAC = (inp, sug, onPick, filter)=>{
           out.innerHTML = `<div class="tp-card"><span class="k">ФОРМУЛА: ${who.toUpperCase()} · ${ev.toUpperCase()}</span><ul class="tp-list"><li>Общая база: <b>${base}</b> — низ, верхняя одежда или обувь у всех</li><li>${whoT}</li><li>Одна температура цветов: все тёплые или все холодные</li><li>${evT}</li><li>Никаких одинаковых вещей — согласованность, а не униформа</li></ul></div><div class="tp-note">палитра считается от вашей анкеты: заполните её — и цвета станут точнее</div>`;
         };
       }},
-    check:{cases:['Дорогая покупка — не хочется ошибиться','Вещь с распродажи: честная цена или нет','Незнакомый бренд','Дополнить гардероб, а не задвоить'], check:['Появится вместе с серверной частью'], c:'#FFC46B', n:'09', tag:'Ссылка или фото вещи — и вердикт: подходит ли, сочетается ли, честная ли цена.', why:['Экономит деньги на каждой покупке — за это платят охотнее всего','Проверка по фигуре, цветотипу и вашему гардеробу','Требует сервера — первый в очереди после запуска'], h:'Проверь перед покупкой', d:'Вставляете ссылку или фото вещи — получаете вердикт: подходит ли к фигуре и цветотипу, сочетается ли с гардеробом, честная ли цена.', ui:`<div class="tp-card"><span class="k">СКОРО</span>Помощник требует серверной части (анализ карточек товаров). Он первый в очереди после запуска — это тот инструмент, который экономит деньги на каждой покупке.</div>`, init(){}},
+    revision:{cases:['«Нечего надеть» при полном шкафу','Перед сезонной закупкой — что реально нужно','Переезд или ревизия раз в полгода','Ограниченный бюджет: покупать только недостающее'], check:['Профиль заполнен — база считается под ваш цветотип','Отмечайте честно: «есть» = носите, а не «лежит»','Список покупок — по приоритету, сверху самое нужное','Отметки сохраняются на устройстве'], c:'#8FE352', n:'12', tag:'Отметьте, что у вас уже есть, — и увидите, чего не хватает до готовых образов. Покупать только недостающее — самый дешёвый гардероб.', why:['База считается под ваш цветотип и фигуру, а не «универсальный список из интернета»','Приоритет: сначала вещи, которые открывают больше всего сочетаний','Ссылки на покупку — только для того, чего нет; лишнего не предложим'], h:'Ревизия гардероба', d:'Отметьте вещи, которые у вас есть. Внизу — чего не хватает, сколько образов уже можно собрать и список покупок по приоритету.', ui:`<div class="rv-wrap" id="rvWrap"></div>`, init(){
+        const wrap = document.getElementById('rvWrap');
+        const ok = S.gender && S.figure && S.hair && S.eyes && S.skin && S.clothSize;
+        if(!ok){ wrap.innerHTML = '<div class="td-cta2"><div class="td-cta2-ic">✓</div><div class="td-cta2-body"><div class="td-cta2-k">РЕВИЗИЯ · ПО ВАШЕМУ ПРОФИЛЮ</div><h3>Сначала — профиль, потом ревизия.</h3><p>База гардероба считается под ваш цветотип, фигуру и размеры — иначе это просто список из интернета.</p><button class="btn primary" onclick="openProfile(\'rvGo\')">Быстрый профиль →</button><button id="rvGo" style="display:none" onclick="openTool(\'revision\')"></button></div></div>'; return; }
+        const male = S.gender==='Мужчина', p = PAL(), F = (col,it)=>formOf(col, genderOf(it))+' '+it;
+        const BASE = male ? [
+          ['top','белая рубашка','рубашка белая мужская',2500,3],['top',F(p.accents[0],'трикотаж'),'джемпер тонкий мужской',3000,3],['top',F(p.neutrals[0],'джемпер'),'джемпер мужской',3500,2],['top','футболки базовые ×3','футболка базовая мужская',900,3],
+          ['bottom',F(p.neutrals[0],'прямые брюки'),'брюки прямые мужские',4000,3],['bottom','тёмные джинсы','джинсы тёмные мужские',4500,3],['bottom',F(p.neutrals[1],'чиносы'),'чиносы мужские',3500,2],
+          ['outer',F(p.neutrals[0],'жакет'),'пиджак мужской',9000,3],['outer','пальто или тренч','пальто мужское',12000,2],['outer','куртка на межсезонье','куртка мужская демисезонная',7000,2],
+          ['shoes',F(p.shoes[0],'лоферы'),'лоферы мужские',7000,3],['shoes','белые кеды','кеды белые мужские',5000,3],['shoes','ботинки','ботинки мужские кожаные',9000,2],
+          ['acc','ремень в тон обуви','ремень кожаный мужской',2500,2],['acc','часы','часы мужские',6000,1],['acc','шарф','шарф мужской',2000,1]
+        ] : [
+          ['top','белая рубашка','рубашка белая женская',2500,3],['top',F(p.accents[0],'блуза'),'блуза женская',2800,3],['top',F(p.accents[1]||p.accents[0],'тонкий трикотаж'),'джемпер тонкий женский',3000,2],['top','футболки базовые ×3','футболка базовая женская',900,3],['top','водолазка','водолазка женская',1800,2],
+          ['bottom',F(p.neutrals[0],'прямые брюки'),'брюки прямые женские',4000,3],['bottom','тёмные джинсы','джинсы прямые женские',4000,3],['bottom',F(p.neutrals[1],'юбка-миди'),'юбка миди женская',3000,2],
+          ['dress',F(p.neutrals[0],'платье-футляр'),'платье футляр женское',5000,3],['dress',F(p.accents[0],'платье'),'платье миди женское',4500,2],
+          ['outer',F(p.neutrals[0],'жакет'),'жакет женский',7000,3],['outer','тренч или пальто','тренч женский',9000,2],['outer','кардиган','кардиган женский',3500,2],
+          ['shoes',F(p.shoes[0],'лоферы'),'лоферы женские',6000,3],['shoes','белые кеды','кеды белые женские',4500,3],['shoes',F(p.shoes[0],'лодочки'),'лодочки женские',5500,2],['shoes','ботильоны','ботильоны женские',7000,2],
+          ['acc',F(p.shoes[0],'сумка'),'сумка женская',5000,3],['acc',p.metal.replace('ый','ые')+' серьги','серьги '+p.metal.replace('ый','ые'),1500,2],['acc','ремень в тон обуви','ремень женский',1800,1],['acc','платок','платок шёлковый',1200,1]
+        ];
+        let have = new Set(); try{ have = new Set(JSON.parse(localStorage.getItem('looka_rev_'+(male?'m':'f'))||'[]')); }catch(e){}
+        const CAT = {top:'ВЕРХ',bottom:'НИЗ',dress:'ПЛАТЬЯ',outer:'ВЕРХНЯЯ ОДЕЖДА',shoes:'ОБУВЬ',acc:'АКСЕССУАРЫ'};
+        const render = ()=>{
+          const cats = ['top','bottom','dress','outer','shoes','acc'].filter(c=>BASE.some(b=>b[0]===c));
+          const list = cats.map(c=>'<div class="rv-cat"><div class="cap-k">'+CAT[c]+'</div>'+BASE.filter(b=>b[0]===c).map((b,i)=>{ const id = b[1]; const on = have.has(id); return '<button class="rv-item'+(on?' on':'')+'" data-id="'+id.replace(/"/g,'')+'"><i>'+(on?'✓':'')+'</i><span>'+b[1]+'</span></button>'; }).join('')+'</div>').join('');
+          const miss = BASE.filter(b=>!have.has(b[1])).sort((a,b)=>b[4]-a[4]);
+          const h = c=>BASE.filter(b=>b[0]===c && have.has(b[1])).length;
+          const looks = Math.max(0, (h('top')*h('bottom') + h('dress')) * Math.max(1,h('shoes')));
+          const total = miss.reduce((a,b)=>a+b[3],0);
+          const shop = miss.slice(0,8).map(b=>'<div class="item"><div class="nm">'+(b[4]===3?'<em class="rv-pri">база</em>':'')+b[1]+'</div><div class="pr">~'+b[3].toLocaleString('ru-RU')+' ₽</div>'+shopButtons({n:b[1], q:b[2]})+'</div>').join('');
+          wrap.innerHTML = '<div class="rv-stats"><div><b>'+have.size+'/'+BASE.length+'</b><span>вещей базы есть</span></div><div><b>'+looks+'</b><span>образов уже можно собрать</span></div><div><b>'+miss.length+'</b><span>не хватает</span></div><div><b>~'+total.toLocaleString('ru-RU')+' ₽</b><span>докупить всё</span></div></div>'
+            + '<div class="tp-card"><span class="k">ОТМЕТЬТЕ, ЧТО ЕСТЬ · ПОД ВАШ ЦВЕТОТИП И ФИГУРУ</span>'+list+'</div>'
+            + (miss.length ? '<div class="tp-card"><span class="k">СПИСОК ПОКУПОК ПО ПРИОРИТЕТУ · СНАЧАЛА БАЗА</span>'+shop+(miss.length>8?'<div class="tp-note">показаны 8 самых важных из '+miss.length+'</div>':'')+'</div>' : '<div class="tp-card"><span class="k">ВСЁ ЕСТЬ</span>База собрана полностью — покупайте только по любви, а не по необходимости.</div>')
+            + '<div class="tp-note">правило: каждая новая вещь должна сочетаться минимум с тремя, которые уже есть</div>';
+          wrap.querySelectorAll('.rv-item').forEach(b=>b.onclick = ()=>{ const id = b.dataset.id; have.has(id)?have.delete(id):have.add(id); try{ localStorage.setItem('looka_rev_'+(male?'m':'f'), JSON.stringify([...have])); }catch(e){} render(); });
+          if(window.fxZone) fxZone(wrap);
+        };
+        render();
+      }},
+    calendar:{cases:['Начало месяца — расписать уход и визиты','Событие через 3 недели — успеть подготовиться','Смена сезона — когда менять гардероб','Хочется системы вместо хаоса'], check:['Тип кожи в Бьюти-скане — рутина считается точнее','Добавьте свои события — календарь подскажет, за сколько дней готовиться','Отметки сохраняются на устройстве','Пилинг и маска не в один день'], c:'#B44CFF', n:'13', tag:'Месяц красоты по расписанию: уход утром и вечером, пилинги, маски, брови, маникюр, стрижка, смена сезона и ваши события — всё в одной сетке.', why:['Интервалы взяты у профессионалов: брови — 3 недели, стрижка — 6–8, пилинг — раз в неделю','События превращаются в план: за неделю — маска, за 3 дня — маникюр, накануне — примерка','Сезонная смена гардероба привязана к дате, а не к «как-нибудь»'], h:'Календарь красоты', d:'Ваш месяц: что делать сегодня, что на неделе, к чему готовиться. Добавьте события — календарь расставит подготовку.', ui:`
+      <div class="tp-row"><input id="calEvName" placeholder="Событие: например, свадьба подруги"><input id="calEvDate" type="date" style="min-width:160px"><button class="btn primary" id="calAdd">Добавить</button></div>
+      <div id="calBox"></div>`, init(){
+        let evs = []; try{ evs = JSON.parse(localStorage.getItem('looka_cal')||'[]'); }catch(e){}
+        const box = document.getElementById('calBox');
+        const day = 864e5, today = new Date(); today.setHours(0,0,0,0);
+        const care = B.skin ? {'Жирная':'гель → ниацинамид → крем-гель → SPF','Сухая':'бальзам → гиалуроновая → керамиды → SPF','Комбинированная':'гель → тоник → ниацинамид на Т-зону → крем-гель → SPF','Чувствительная':'очищение без пены → центелла → керамиды → минеральный SPF'}[B.skin] : 'мягкое очищение → увлажнение → SPF';
+        const render = ()=>{
+          const days = []; for(let i=0;i<28;i++){ const d = new Date(today.getTime()+i*day); const dow = d.getDay(), n = d.getDate(), m = d.getMonth();
+            const tags = [];
+            if(dow===0) tags.push(['маска','#B44CFF']); if(dow===3) tags.push(['пилинг','#19C6F7']); if(i%21===7) tags.push(['брови','#FFC46B']); if(i%14===3) tags.push(['маникюр','#FF6FBF']); if(i===20) tags.push(['стрижка·6–8 нед','#8FE352']);
+            if((m===2||m===8) && n===1) tags.push(['смена сезона гардероба','#37E08A']); if((m===4||m===10) && n===1) tags.push(['ревизия гардероба','#37E08A']);
+            evs.forEach(e=>{ const ed = new Date(e.d); ed.setHours(0,0,0,0); const diff = Math.round((ed-d)/day);
+              if(diff===0) tags.push(['✦ '+e.n,'#FF5C8A']); else if(diff===1) tags.push(['примерка: '+e.n,'#FF5C8A']); else if(diff===3) tags.push(['маникюр к '+e.n,'#FF6FBF']); else if(diff===7) tags.push(['маска и брови к '+e.n,'#B44CFF']); else if(diff===14) tags.push(['образ к '+e.n+' — собрать','#19C6F7']); });
+            days.push('<div class="cal-d'+(i===0?' today':'')+(dow===0||dow===6?' wk':'')+'"><b>'+n+'</b><small>'+['вс','пн','вт','ср','чт','пт','сб'][dow]+'</small>'+tags.map(t=>'<span style="--c:'+t[1]+'">'+t[0]+'</span>').join('')+'</div>'); }
+          box.innerHTML = '<div class="tp-card cal-daily"><span class="k">КАЖДЫЙ ДЕНЬ · ПОД ВАШ ТИП КОЖИ'+(B.skin?' · '+B.skin.toUpperCase():'')+'</span><div class="cal-rt"><div><b>утро</b>'+care+'</div><div><b>вечер</b>'+care.replace(' → SPF','').replace(' → минеральный SPF','')+' · 2 раза в неделю актив (кислота или ретинол)</div></div></div>'
+            + '<div class="cal-grid">'+days.join('')+'</div>'
+            + (evs.length ? '<div class="tp-card"><span class="k">ВАШИ СОБЫТИЯ</span>'+evs.map((e,i)=>'<div class="cal-ev"><span>'+new Date(e.d).toLocaleDateString('ru-RU')+'</span><b>'+e.n+'</b><button onclick="calDel('+i+')">✕</button></div>').join('')+'</div>' : '<div class="tp-note">добавьте событие — календарь расставит подготовку: за 14 дней собрать образ, за 7 — маска и брови, за 3 — маникюр, накануне — примерка</div>');
+          if(window.fxZone) fxZone(box);
+        };
+        window.calDel = i=>{ evs.splice(i,1); try{ localStorage.setItem('looka_cal', JSON.stringify(evs)); }catch(e){} render(); };
+        document.getElementById('calAdd').onclick = ()=>{ const n = document.getElementById('calEvName').value.trim(), d = document.getElementById('calEvDate').value; if(!n||!d) return; evs.push({n,d}); try{ localStorage.setItem('looka_cal', JSON.stringify(evs)); }catch(e){} document.getElementById('calEvName').value=''; render(); };
+        render();
+      }},
+    smart:{cases:['Беременность: что купить, а что — маркетинг','Сумка в роддом по списку акушерок','Первый год малыша без переплат','Восстановление после родов'], check:['Списки составлены по рекомендациям акушерок, неонатологов и стилистов','Три колонки: нужно / можно / не покупайте','Цены ориентировочные, ссылки — поиск по площадкам вашего региона','Это не медицинские рекомендации: вопросы здоровья — к врачу'], c:'#FFC46B', n:'14', tag:'Списки покупок от профессионалов для главных периодов жизни: что действительно нужно, что можно, а что — маркетинг. Чтобы деньги уходили на нужное и не было жалко.', why:['Каждый список — консенсус профессионалов: акушерки, неонатологи, стилисты, а не советы с форумов','Колонка «не покупайте» экономит больше, чем скидки','Детские размеры считаются по росту — так, как маркируют производители'], h:'Не переплати', d:'Выберите ситуацию — получите три списка: нужно, можно, не покупайте. С ценами и ссылками на покупку.', ui:`<div class="tp-tabs" id="smTabs"></div><div id="smOut"></div>`, init(){
+        const L = {
+          'Беременность':{i:'По рекомендациям акушерок и стилистов. Главная ошибка — покупать «для беременных» всё подряд: половина обычной одежды свободного кроя работает лучше и останется после.',
+            need:[['Бюстгальтер без косточек, 2 шт','бюстгальтер для беременных без косточек',1500],['Джинсы или брюки с эластичной вставкой','джинсы для беременных',3500],['Трикотажное платье с эластаном','платье для беременных трикотажное',2800],['Обувь на устойчивой подошве','кроссовки женские устойчивая подошва',4500],['Крем для тела с маслами — от сухости, ежедневно','крем для тела увлажняющий',900],['SPF 50 — пигментация при беременности возвращается годами','spf 50 для лица',1100]],
+            can:[['Бандаж — по назначению врача, обычно с 20–24 недель','бандаж дородовой',1800],['Подушка для беременных — если тяжело спать','подушка для беременных',2500],['Кардиган оверсайз — закрывает весь срок','кардиган оверсайз женский',3000]],
+            no:['«Крем от растяжек» с обещаниями — растяжки зависят от генетики и набора веса, крем даёт только увлажнение (его даёт любой крем)','Целая «капсула для беременных» — 4 вещи + обычная свободная одежда закрывают всё','Дорогие витамины по рекламе — только то, что назначил врач','Специальная косметика «для беременных» — обычный уход без ретинола и высоких кислот, остальное то же']},
+          'Сумка в роддом':{i:'Список по рекомендациям акушерок. Правило: три пакета — на роды, после родов, на выписку. Уточните у своего роддома — у каждого свой перечень, но база одинаковая.',
+            need:[['Документы: паспорт, полис, СНИЛС, обменная карта, договор — в файле','файл для документов',100],['Халат и ночная сорочка на пуговицах спереди — для кормления','сорочка для кормления',1500],['Моющиеся тапочки','тапочки резиновые',600],['Послеродовые прокладки и одноразовые трусы, 2–3 упаковки','прокладки послеродовые',500],['Бюстгальтер для кормления, 2 шт','бюстгальтер для кормления',1200],['Вода без газа, батончики — роды длинные','вода без газа 0.5',60],['Для малыша: подгузники NB, влажные салфетки, 2 комплекта одежды по погоде, шапочка, пелёнки','подгузники для новорожденных',900],['Крем под подгузник и зарядка для телефона','крем под подгузник',400]],
+            can:[['Молокоотсос — обычно не нужен в первые дни, но некоторым помогает','молокоотсос ручной',2500],['Бальзам для губ и резинка для волос','бальзам для губ',300]],
+            no:['Огромная аптечка — в роддоме есть всё, что назначат','Красивое бельё и косметика на выписку сверх минимума — вы захотите спать, а не фотосессию','Дорогой конверт на выписку «на один раз» — одеяло-плед послужит потом','Много одежды малышу одного размера — вырастет за две недели']},
+          'Малыш 0–1':{i:'По рекомендациям неонатологов и педиатров о вещах (не о лечении). Главное правило: покупать по 3–5 штук одного размера и переходить на следующий, а не запасаться.',
+            need:[['Боди с кнопками спереди, 5 шт на размер — не через голову','боди детские с кнопками',400],['Слипы/комбинезоны для сна, 3–4 шт','слип детский хлопок',600],['Носочки и шапочка тонкая','носки для новорожденных',200],['Пелёнки хлопок и муслин, по 5 шт','пелёнки муслиновые',350],['Подгузники — начать с маленькой пачки, подобрать марку','подгузники размер 1',900],['Кроватка или приставная люлька + жёсткий матрас','матрас в кроватку жёсткий',2500],['Коляска-люлька или трансформер — по вашему дому и лифту','коляска люлька',15000],['Автокресло группы 0+ — обязательно с первой поездки','автокресло 0+',8000],['Слинг или эргорюкзак с 0 — руки свободны','слинг шарф',2500]],
+            can:[['Радионяня — если квартира большая','радионяня',3000],['Шезлонг — на 3–4 месяца','шезлонг детский',3500],['Ночник с тёплым светом','ночник детский',800]],
+            no:['Гора одежды «на вырост» — половина не будет надета','Ходунки — педиатры не рекомендуют','Дорогие «развивающие» игрушки до 6 месяцев — интересны только чёрно-белый контраст и лицо мамы','Стерилизатор и подогреватель — кастрюля и тёплая вода делают то же','Балдахин на кроватку — пыль и ничего больше']},
+          'После родов':{i:'Стилисты и специалисты по восстановлению сходятся: первые месяцы — комфорт и доступ для кормления, а не «вернуть форму». Тело меняется ещё год; покупать по замерам, не по старому размеру.',
+            need:[['Одежда с доступом для кормления: рубашки на пуговицах, топы с запахом','топ для кормления',1500],['Высокая посадка на мягкой резинке: брюки, джинсы','джинсы высокая посадка резинка',3500],['Красивые кроссовки — норма, а не капитуляция','кроссовки женские',5000],['Уход: SPF и увлажнение — гормональная пигментация уходит месяцами','spf 50 для лица',1100],['Одна вещь «для себя»: серьги, платок — возвращает ощущение себя','серьги женские',1500]],
+            can:[['Послеродовой бандаж — по совету врача, не «утяжка»','бандаж послеродовой',1500],['Витамины для волос — только после анализов на ферритин','ферритин анализ',0]],
+            no:['Утягивающее бельё «чтобы всё вернулось» — не возвращает, только давит','Одежда старого размера «на мотивацию» — мотивирует только на слёзы','Дорогие «курсы восстановления» без осмотра врача — сначала гинеколог и, при необходимости, физиотерапевт','Шампуни «от выпадения» — послеродовое выпадение проходит само за 6–9 месяцев']},
+          'Детские размеры':{i:'Детская одежда маркируется по росту в сантиметрах — так во всём мире. Возраст на бирке — ориентир, рост — закон. Измеряйте ребёнка раз в месяц до года.',
+            table:[['0–1 мес','50–56','до 4 кг'],['1–3 мес','56–62','4–6 кг'],['3–6 мес','62–68','6–8 кг'],['6–9 мес','68–74','8–9 кг'],['9–12 мес','74–80','9–11 кг'],['1–1,5 года','80–86','11–12 кг'],['1,5–2','86–92','12–14 кг'],['2–3','92–98','14–15 кг'],['3–4','98–104','15–18 кг'],['4–5','104–110','18–20 кг'],['5–6','110–116','20–22 кг']],
+            need:[],can:[],no:['Покупать «на вырост» больше одного размера — плохо сидит и раздражает кожу','Обувь на вырост — стопа должна иметь 0,5–1 см запаса, не больше','Синтетика на первый слой — только хлопок']},
+          'Свадьба невесты':{i:'По опыту свадебных стилистов. Платье — не главное вложение: 60% впечатления делают посадка, обувь, в которой можно танцевать, и макияж, который держится 12 часов.',
+            need:[['Платье — примерка за 2–3 недели с подгонкой','свадебное платье',30000],['Обувь: разносить дома 2 недели, каблук устойчивый','туфли свадебные удобные',7000],['Вторая пара на танцы: балетки или кеды в тон','балетки белые',3000],['Бельё бесшовное телесное, бюстгальтер под вырез','бюстгальтер бесшовный',2500],['Макияж и причёска: пробный за 2 недели','фиксирующий спрей для макияжа',900],['Аварийный набор: пластыри, нитки, лак, бальзам, зубная нить','пластырь от натирания',300]],
+            can:[['Второе платье на вечер — если банкет длинный','платье вечернее белое',12000],['Накидка или болеро — по погоде','болеро свадебное',5000]],
+            no:['Обувь «на один раз» без разноски — к середине дня вы босиком','Новые процедуры лицу за неделю до даты — только проверенное','Платье «на похудею» — шьют и подгоняют под сегодня','Дорогие аксессуары, которых не видно на фото — серьги важнее браслета']}
+        };
+        const tabs = document.getElementById('smTabs'), out = document.getElementById('smOut');
+        tabs.innerHTML = Object.keys(L).map(k=>'<button>'+k+'</button>').join('');
+        const item = x=>'<div class="item"><div class="nm">'+x[0]+'</div>'+(x[2]?'<div class="pr">~'+x[2].toLocaleString('ru-RU')+' ₽</div>':'')+(x[1]?shopButtons({n:x[0], q:x[1]}):'')+'</div>';
+        const show = k=>{ const d = L[k]; tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.textContent===k));
+          out.innerHTML = '<div class="tp-card"><span class="k">'+k.toUpperCase()+' · ОТ ПРОФЕССИОНАЛОВ</span><div class="tp-d" style="margin:0">'+d.i+'</div></div>'
+            + (d.table ? '<div class="tp-card"><span class="k">РОСТ → РАЗМЕР</span><div class="sm-table">'+d.table.map(r=>'<div><span>'+r[0]+'</span><b>'+r[1]+'</b><small>'+r[2]+'</small></div>').join('')+'</div></div>' : '')
+            + (d.need.length ? '<div class="tp-card sm-need"><span class="k">✓ НУЖНО</span>'+d.need.map(item).join('')+'</div>' : '')
+            + (d.can.length ? '<div class="tp-card sm-can"><span class="k">○ МОЖНО, ЕСЛИ ХОЧЕТСЯ</span>'+d.can.map(item).join('')+'</div>' : '')
+            + '<div class="tp-card sm-no"><span class="k">✕ НЕ ПОКУПАЙТЕ — ЭТО МАРКЕТИНГ</span><ul class="tp-list">'+d.no.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'
+            + '<div class="tp-note">списки не являются медицинскими рекомендациями; цены ориентировочные, ссылки ведут на поиск по площадкам вашего региона</div>';
+          if(window.fxZone) fxZone(out); };
+        tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>show(b.textContent)); show('Беременность');
+      }},
+    check:
+{cases:['Дорогая покупка — не хочется ошибиться','Вещь с распродажи: честная цена или нет','Незнакомый бренд','Дополнить гардероб, а не задвоить'], check:['Появится вместе с серверной частью'], c:'#FFC46B', n:'09', tag:'Ссылка или фото вещи — и вердикт: подходит ли, сочетается ли, честная ли цена.', why:['Экономит деньги на каждой покупке — за это платят охотнее всего','Проверка по фигуре, цветотипу и вашему гардеробу','Требует сервера — первый в очереди после запуска'], h:'Проверь перед покупкой', d:'Вставляете ссылку или фото вещи — получаете вердикт: подходит ли к фигуре и цветотипу, сочетается ли с гардеробом, честная ли цена.', ui:`<div class="tp-card"><span class="k">СКОРО</span>Помощник требует серверной части (анализ карточек товаров). Он первый в очереди после запуска — это тот инструмент, который экономит деньги на каждой покупке.</div>`, init(){}},
     gift:{cases:['День рождения — близкие спрашивают «что подарить»','Праздники — партнёр боится не угадать','Подарок себе по своему же профилю'], check:['Появится вместе с личным кабинетом'], c:'#FFC46B', n:'10', tag:'Ссылка на ваш профиль для тех, кто дарит: размеры, цветотип, стиль — попадание без «не тот размер».', why:['Дарители покупают точно то, что подойдёт','Каждая клиентка приводит близких — рост без рекламы','Нужно хранение профиля — появится с личным кабинетом'], h:'Подарок по данным', d:'Вы делитесь ссылкой на свой профиль — размеры, цветотип, стиль — и близкие покупают то, что точно подойдёт.', ui:`<div class="tp-card"><span class="k">СКОРО</span>Нужно хранение профиля на сервере. Зато потом: никаких «не тот размер» и «не мой цвет» на праздники.</div>`, init(){}},
     budget:{cases:['Начало месяца — планировать траты','Сезон меняется — что обновить','Большое событие впереди — копить осознанно'], check:['Появится вместе с личным кабинетом'], c:'#FFC46B', n:'11', tag:'Сколько на одежду, уход и салон в этом месяце — единый план вместо хаоса трат.', why:['Вершина дерева экосистемы — «Один план красоты»','Что купить сейчас, что подождёт, что закрывает больше образов','Появится вместе с личным кабинетом'], h:'Бюджет красоты на месяц', d:'Сколько на одежду, уход и салон, что купить сейчас, что подождёт — единый план вместо хаоса трат.', ui:`<div class="tp-card"><span class="k">СКОРО</span>Это вершина нашего дерева экосистемы — «Один план красоты». Появится вместе с личным кабинетом.</div>`, init(){}}
   };
@@ -4953,7 +5707,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
     const SOON = ['check','gift','budget'];
     const card = k=>{ const t = TOOLS[k]; const ic = (document.querySelector('#toolGrid .tool[data-t="'+k+'"] i')||{}).textContent||'✦'; const d = (document.querySelector('#toolGrid .tool[data-t="'+k+'"] > span:not(.num):not(.go)')||{}).textContent||'';
       return '<button class="dd-card'+(SOON.includes(k)?' soon':'')+'" style="--tc:'+t.c+'" onclick="openTool(\''+k+'\')"><span class="dd-ic">'+ic+'</span><span class="dd-tx"><b>'+t.h+'</b><small>'+d+'</small></span><em>'+(SOON.includes(k)?'скоро':t.n)+'</em></button>'; };
-    dd.innerHTML = '<div class="dd-head"><span>ПОМОЩНИКИ</span><span class="dd-live"><i></i>8 работают сейчас</span></div><div class="dd-grid">'+ORDER.filter(k=>!SOON.includes(k)).map(card).join('')+'</div><div class="dd-soon-k">В РАЗРАБОТКЕ</div><div class="dd-grid dd-soon">'+SOON.map(card).join('')+'</div><button class="dd-all" onclick="openPage(\'toolsPage\')">Все помощники — на одной странице →</button>';
+    dd.innerHTML = '<div class="dd-head"><span>ПОМОЩНИКИ</span><span class="dd-live"><i></i>12 работают сейчас</span></div><div class="dd-grid">'+ORDER.filter(k=>!SOON.includes(k)).map(card).join('')+'</div><div class="dd-soon-k">В РАЗРАБОТКЕ</div><div class="dd-grid dd-soon">'+SOON.map(card).join('')+'</div><button class="dd-all" onclick="openPage(\'toolsPage\')">Все помощники — на одной странице →</button>';
   }
   window.renderTool = key=>{
     const t = TOOLS[key]; if(!t) return;
@@ -4974,6 +5728,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
     }).join('');
   };
   document.querySelectorAll('#toolGrid .tool').forEach(btn=>{
+    if(btn.dataset.t==='passport'){ btn.style.setProperty('--tc','#19C6F7'); btn.insertAdjacentHTML('afterbegin','<span class="num">15</span>'); btn.insertAdjacentHTML('beforeend','<span class="go">ОТКРЫТЬ →</span>'); btn.addEventListener('click', ()=>openPage('passPage')); return; }
     const t = TOOLS[btn.dataset.t]; if(t){ btn.style.setProperty('--tc', t.c); btn.insertAdjacentHTML('afterbegin','<span class="num">'+t.n+'</span>'); btn.insertAdjacentHTML('beforeend','<span class="go">ОТКРЫТЬ →</span>'); }
     btn.addEventListener('click', ()=>openTool(btn.dataset.t));
   });
@@ -4982,6 +5737,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
 /* ---- баннер помощников: карусель ---- */
 window.openTool = key=>{
   document.querySelectorAll('.dd.open').forEach(x=>x.classList.remove('open'));
+  if(key==='passport'){ openPage('passPage'); return; }
   openPage('toolPage');
   if(window.renderTool) renderTool(key);
 };
@@ -5107,7 +5863,7 @@ window.saveProfile = ()=>{
   try{ const sc = JSON.parse(localStorage.getItem('looka_city')||'null'); if(sc && sc.tz) setTimeout(()=>setClock(sc.tz, sc.n, 0, sc.temp), 0); }catch(e){}
   tick(); setInterval(tick, 1000);
   const F = [
-    'ПОМОЩНИКОВ РАБОТАЕТ: 8 · ЕЩЁ 3 В ПУТИ',
+    'ПОМОЩНИКОВ РАБОТАЕТ: 12 · ЕЩЁ 3 В ПУТИ',
     'ГОРОДОВ В БАЗЕ: 1 340 · ПОГОДА В РЕАЛЬНОМ ВРЕМЕНИ',
     'ПРАВИЛА СТИЛИСТА: 9 ФИГУР · 6 ТОНОВ КОЖИ · 8 ПОВОДОВ',
     'БЕСПЛАТНО: 5 ПОДБОРОВ · ВОЗВРАТ 14 ДНЕЙ БЕЗ ВОПРОСОВ',
@@ -5175,7 +5931,12 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDayLook(); }
   const g = document.getElementById('regGrid'); if(!g) return;
   g.innerHTML = Object.keys(REGIONS).map(k=>{ const R = REGIONS[k], F = REG_FLAG[k]||{f:'#333',c:['#19C6F7','#5B6CFF']};
     return '<button class="reg-card'+(k===REGION?' on':'')+'" data-r="'+k+'" style="--c1:'+F.c[0]+';--c2:'+F.c[1]+'" onclick="setRegion(\''+k+'\')"><div class="reg-flag" style="background:'+F.f+'"></div><div class="reg-body"><b>'+R.n+'</b><span>'+R.shops.map(s=>s[0]).join(' · ')+'</span><span class="reg-b">бьюти: '+R.beauty.map(s=>s[0]).join(' · ')+'</span></div></button>'; }).join('');
-  window.regBtnDraw = ()=>{ const R = REGIONS[REGION], F = REG_FLAG[REGION]; document.querySelectorAll('.reg-btn').forEach(b=>b.innerHTML = '<i class="reg-mini" style="background:'+(F?F.f:'#333')+'"></i>'+R.n+' <i>▾</i>'); };
+  window.regBtnDraw = ()=>{ const R = REGIONS[REGION], F = REG_FLAG[REGION];
+    document.querySelectorAll('.reg-btn').forEach(b=>b.innerHTML = '<i class="reg-mini" style="background:'+(F?F.f:'#333')+'"></i>'+R.n+' <i>▾</i>');
+    const names = R.shops.slice(0,3).map(s=>s[0]);
+    document.querySelectorAll('.reg-shops').forEach(el=>el.textContent = '✦ '+names.join(' · '));
+    document.querySelectorAll('.reg-shops-vs').forEach(el=>el.textContent = names.join(' · ')+(REGION==='cis'?' — весь выбор страны':' — площадки вашего региона'));
+  };
   regBtnDraw();
 })();
 
@@ -5277,7 +6038,7 @@ async function askGo(text){
   try{
     const prof = [S.gender, S.figure, S.hair&&('волосы '+S.hair), S.eyes&&('глаза '+S.eyes), S.skin&&('кожа '+S.skin), B.skin&&('тип кожи '+B.skin)].filter(Boolean).join(', ') || 'не указан';
     const prompt = 'Ты — консилиум экспертов: дерматолог-косметолог, трихолог, визажист и стилист. Отвечай по актуальным профессиональным правилам, честно, без маркетинга, по-русски, на «вы». Профиль: '+prof+'. Вопрос: «'+q+'». Ответь ТОЛЬКО JSON: {"t":"заголовок темы","a":"суть ответа 2-4 предложения","s":["шаг 1","шаг 2","шаг 3"],"pro":"одно правило профессионалов","p":[{"n":"продукт или вещь","q":"поисковый запрос"}],"med":"когда нужно к врачу, или пустая строка","shop":false}. shop=true если речь об одежде. Без текста вне JSON.';
-    const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
+    const r = await aiFetch({method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
     const data = await r.json(); if(data.error) throw new Error('api');
     let txt = (data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').replace(/```json|```/g,'').trim();
     const j = JSON.parse(txt.slice(txt.indexOf('{'), txt.lastIndexOf('}')+1));
@@ -5317,6 +6078,628 @@ window.navDD = a=>{
   return false;
 };
 document.addEventListener('click', e=>{ if(!e.target.closest('.nav-dd') && !e.target.closest('.dd-mobile')) document.querySelectorAll('.dd.open').forEach(x=>x.classList.remove('open')); });
+
+/* документы: переключение */
+window.showDoc = (id, btn)=>{
+  document.querySelectorAll('#docsBody .doc').forEach(d=>d.classList.toggle('on', d.id==='doc-'+id));
+  document.querySelectorAll('#docsNav button').forEach(b=>b.classList.toggle('on', b===btn));
+  const body = document.getElementById('docsBody'); if(body && window.innerWidth<=900) body.scrollIntoView({behavior:'smooth', block:'start'});
+};
+
+/* ================= СТИЛЬ-ПАСПОРТ ================= */
+const COLOR_HEX = {'лавандовый':'#B9A7E8','серо-голубой':'#9FB3C8','пудровый':'#E8C9C0','дымчато-розовый':'#C9A9A6','изумрудный':'#1E8F63','горчичный':'#D4A017','терракотовый':'#C1553B','кремовый':'#F1E3C8','алый':'#E0342C','кобальтовый':'#2245B5','белоснежный':'#FFFFFF','чёрный':'#141414','белый':'#FAFAFA','графитовый':'#3A3D46','серебристый':'#C0C4CC','фисташковый':'#A6C48A','оливковый':'#6B7A3A','небесно-голубой':'#8CC4F0','денимовый':'#3F5E8C','молочный':'#F5F0E6','карамельный':'#C58B4B','бежевый':'#D9C6A5','коричневый':'#6B4A2F','шоколадный':'#4A2C1A','серый':'#8A8F9A','бордовый':'#6E1A2B','пыльно-розовый':'#C9A0A0','тёплый белый':'#F7F2E8'};
+const swatch = c=>'<div class="ps-sw"><i style="background:'+(COLOR_HEX[c]||'#777')+'"></i><span>'+c+'</span></div>';
+function passportHTML(){
+  const male = S.gender==='Мужчина', p = PAL();
+  const INT = male? {44:'XS',46:'S',48:'M',50:'L',52:'XL',54:'XXL',56:'3XL',58:'4XL',60:'5XL'} : {40:'XS',42:'S',44:'M',46:'L',48:'XL',50:'XXL',52:'3XL',54:'4XL',56:'5XL',58:'6XL'};
+  const c = +S.clothSize, s = +S.shoeSize;
+  const eu = male? c : c-6, us = male? c-10 : c-36, uk = male? c-10 : c-32;
+  const seu = s+1, sus = male? s-32 : s-30, suk = male? s-33 : s-32;
+  const cm = male? {39:25,40:25.5,41:26,42:27,43:27.5,44:28,45:29,46:29.5,47:30,48:31}[s] : {35:22.5,36:23,37:23.5,38:24.5,39:25,40:25.5,41:26,42:26.5}[s];
+  const fig = FIG_TIPS[S.figure]||[]; const focus = (S.focus||[]).map(f=>FOCUS_RULES[f]).filter(Boolean);
+  const bl = (()=>{ const ps=B.style; if(!B.style) B.style='Естественный'; let r=null; try{ r=beautyLocal(); }catch(e){} B.style=ps; return r; })();
+  const F = (col, item)=>formOf(col, genderOf(item))+' '+item;
+  const base = male ? ['белая рубашка', F(p.accents[0],'тонкий трикотаж'), F(p.neutrals[0],'джемпер'), F(p.neutrals[0],'прямые брюки'), 'тёмные джинсы', F(p.neutrals[1],'чиносы'), F(p.neutrals[0],'жакет'), 'пальто или тренч', F(p.shoes[0],'лоферы'), 'белые кеды', 'ремень в тон обуви', 'часы с '+p.metal.replace('ый','ым')+' корпусом']
+                     : ['белая рубашка', F(p.accents[0],'блуза'), F(p.accents[1]||p.accents[0],'тонкий трикотаж'), F(p.neutrals[0],'платье-футляр'), F(p.neutrals[0],'прямые брюки'), F(p.neutrals[1],'юбка-миди'), 'тёмные джинсы', F(p.neutrals[0],'жакет'), 'тренч или пальто', F(p.shoes[0],'лоферы')+' и '+F(p.shoes[0],'лодочки'), 'белые кеды', F(p.shoes[0],'сумка')+' и '+p.metal.replace('ый','ые')+' серьги'];
+  const avoid = focus.map(f=>f.tip).concat([male?'Оверсайз без формы — теряется силуэт':'Три акцента одновременно — образ спорит сам с собой','Цвета вне вашей температуры у лица — тускнеет кожа','Вещи «на потом» и «когда похудею» — деньги в шкаф']);
+  const date = new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
+  const url = location.href.split('#')[0];
+  return `<div class="ps">
+    <div class="ps-head"><div><div class="ps-k">LOOKA · СТИЛЬ-ПАСПОРТ</div><h3>${S.gender==='Мужчина'?'Мой стиль':'Мой стиль'} — по данным, а не по вкусу</h3><div class="ps-date">выдан ${date} · обновляется вместе с анкетой</div></div><div class="ps-seal"><b>LOO<em>KA</em></div><span>персональный подбор</span></div></div>
+    ${(()=>{ const X = passportExtra(p, male);
+      const G = (name, ic, col, cards)=>'<div class="ps-sec" style="--pc:'+col+'"><i>'+ic+'</i>'+name+'</div><div class="ps-grid" style="--pc:'+col+'">'+cards.join('')+'</div>';
+      const C = {
+        color: `<div class="ps-card"><div class="ps-k">ЦВЕТОТИП</div><div class="ps-prof">${S.hair} · ${S.eyes.toLowerCase()} глаза · ${S.skin.toLowerCase()} тон</div><p class="ps-note">${p.note}</p><div class="ps-k2">Акценты — у лица</div><div class="ps-sws">${p.accents.slice(0,4).map(swatch).join('')}</div><div class="ps-k2">База — низ и верхняя одежда</div><div class="ps-sws">${p.neutrals.map(swatch).join('')}</div><div class="ps-k2">Обувь и сумка — одна гамма</div><div class="ps-sws">${p.shoes.map(swatch).join('')}</div><div class="ps-k2">Металл украшений</div><div class="ps-metal ${p.metal==='серебристый'?'silver':'gold'}">${p.metal}</div></div>`,
+        figure: `<div class="ps-card"><div class="ps-k">ФИГУРА · ${S.figure.toUpperCase()}</div><ul class="tp-list">${fig.map(x=>'<li>'+x+'</li>').join('')}${focus.map(f=>'<li>'+f.tip+'</li>').join('')}<li>${FIGN[S.figure]||'силуэт по фигуре'}</li></ul></div>`,
+        sizes: `<div class="ps-card"><div class="ps-k">РАЗМЕРЫ — В ЛЮБОМ МАГАЗИНЕ МИРА</div><div class="ps-sizes"><div><span>RU</span><b>${c}</b></div><div><span>INT</span><b>${INT[c]||'—'}</b></div><div><span>EU</span><b>${eu}</b></div><div><span>US</span><b>${us}</b></div><div><span>UK</span><b>${uk}</b></div></div><div class="ps-k2">Обувь</div><div class="ps-sizes"><div><span>RU</span><b>${s}</b></div><div><span>EU</span><b>${seu}</b></div><div><span>US</span><b>${sus}</b></div><div><span>UK</span><b>${suk}</b></div><div><span>СМ</span><b>${cm||'—'}</b></div></div><p class="ps-note">${REGIONS[REGION].n}: ${brandNotes().slice(0,3).join('; ')}. Обувь — по стельке в см.</p></div>`,
+        makeup: bl ? `<div class="ps-card"><div class="ps-k">ФОРМУЛА МАКИЯЖА</div><ul class="tp-list"><li><b>Губы:</b> ${bl.lips}</li><li><b>Глаза:</b> ${bl.eyes}</li><li><b>Стрелки:</b> ${bl.liner}</li><li><b>Брови:</b> ${bl.brows}</li>${B.skin?'<li><b>Кожа ('+B.skin.toLowerCase()+'):</b> '+bl.care.split(' Порядок')[0]+'</li>':''}</ul></div>` : '',
+        base: `<div class="ps-card"><div class="ps-k">КАПСУЛЬНАЯ БАЗА — 12 ВЕЩЕЙ, КОТОРЫЕ СОЧЕТАЮТСЯ ВСЕ СО ВСЕМИ</div><ol class="ps-ol">${base.map(x=>'<li>'+x+'</li>').join('')}</ol></div>`,
+        nobuy: `<div class="ps-card ps-no"><div class="ps-k">ЧЕГО НЕ ПОКУПАТЬ</div><ul class="tp-list">${avoid.map(x=>'<li>'+x+'</li>').join('')}</ul></div>`
+      };
+      return G('ЦВЕТ','◐','#19C6F7',[C.color, X.temp, X.avoid])
+        + G('ФИГУРА И ФОРМЫ','◈','#FF6FBF',[C.figure, X.fab, X.prints, X.lengths])
+        + G('РАЗМЕРЫ','⌀','#5B6CFF',[C.sizes])
+        + G('ЛИЦО И ВОЛОСЫ','✦','#B44CFF',[C.makeup, X.hair].filter(Boolean))
+        + G('АРОМАТ','❋','#FFC46B',[X.perfume])
+        + G('ГАРДЕРОБ','▣','#8FE352',[C.base, X.acc, X.events])
+        + G('ПРАВИЛА','✕','#FF5C8A',[X.rules, C.nobuy]); })()}
+    <div class="ps-foot">✦ LOOKA — персональный подбор по данным, а не по вкусу · покажите этот паспорт консультанту в магазине: цвета, размеры и фасоны уже здесь</div>
+  </div>`;
+}
+/* ===== стиль-паспорт: расширенные карточки ===== */
+function passportExtra(p, male){
+  const cold = p.metal==='серебристый';
+  const hairDark = ['Чёрный','Каштановый'].includes(S.hair), hairLight = ['Блонд','Пепельный'].includes(S.hair), skinLight = ['Фарфоровый','Светлый'].includes(S.skin), skinDark = ['Смуглый','Тёмный'].includes(S.skin);
+  const contrast = (hairDark && skinLight) || (hairLight && skinDark) || S.eyes==='Чёрные' && skinLight ? 'высокий' : (hairLight && skinLight) || (hairDark && skinDark) ? 'низкий' : 'средний';
+  const avoid = cold ? ['оранжевый','тёплый жёлтый','терракотовый','хаки'] : ['фуксия','ледяной голубой','белоснежный','холодный лиловый'];
+  const avoidFix = cold ? 'вместо белоснежного — тоже подходит, ваша температура холодная' : 'вместо белоснежного — молочный или кремовый';
+  const F = S.figure;
+  const fab = male ? ['плотный хлопок и костюмная шерсть — держат линию','тонкий мериносовый трикотаж — вместо оверсайз-худи','кожа и замша — только один элемент в образе']
+    : {'Песочные часы':['трикотаж и креп — обрисовывают талию без утяжки','плотный атлас и шёлк — работают на изгибы','жёсткие плотные ткани без эластана — прячут главное'],
+       'Груша':['низ — плотные ткани: костюмная, деним, плотный креп','верх — лёгкие и фактурные: шёлк, вискоза, кружево','избегайте блестящих и светлых плотных тканей на бёдрах'],
+       'Яблоко':['струящиеся ткани, которые не задерживаются на талии','структурная ткань жакета — держит вертикаль','не облегающий тонкий трикотаж на середине'],
+       'Прямоугольник':['фактуры: твид, вязка, плиссе — создают объём и изгибы','драпирующиеся ткани на талии и бёдрах','плоские гладкие ткани по всему телу — теряется форма'],
+       'Перевёрнутый треугольник':['мягкие матовые ткани на верх','плотные, объёмные, светлые — вниз','жёсткие плечи и блеск на верхе — не ваше']}[F] || ['ткани по сезону','фактура — один акцент','посадка важнее состава'];
+  const prints = contrast==='высокий' ? ['крупные графичные принты, чёткие контрасты','полоска широкая, горох крупный','акварельные размытые принты гасят вашу яркость'] : contrast==='низкий' ? ['мелкие, мягкие, размытые принты — цветочные, акварель','тонкая полоска, мелкий горох','крупная графика перекрикивает лицо'] : ['средний размер принта, умеренный контраст','геометрия и цветочные — оба ваши','избегайте очень мелкого — сливается'];
+  const printWhere = {'Груша':'принт — наверх, низ однотонный','Яблоко':'вертикальные принты и полоски, без горизонтали на талии','Перевёрнутый треугольник':'принт — вниз, верх однотонный','Песочные часы':'принт можно везде, кроме крупного на талии','Прямоугольник':'горизонтальные принты на бёдрах и груди — создают изгибы'}[F] || 'принт — там, куда хотите привлечь взгляд';
+  const h = S.height||168;
+  const lengths = male ? ['брюки: край над каблуком на 1–2 см, без «гармошки»','жакет: закрывает пояс брюк на 2–3 см','рукав: до косточки запястья, рубашка выглядывает на 1 см']
+    : h < 163 ? ['юбка и платье: чуть выше или по колено — миди ниже икры укорачивает','брюки: в пол с каблуком или по щиколотку, высокая посадка','жакет: до бедра, не ниже; макси-объёмы — только с каблуком']
+    : h < 172 ? ['миди по самой узкой части икры — ваша идеальная длина','брюки: в пол или 7/8 — оба работают','жакет: до середины бедра']
+    : ['макси, кюлоты, широкие брюки — всё ваше','миди по икре и ниже колена — без ограничений','удлинённые жакеты и пальто в пол — рост это позволяет'];
+  if((S.focus||[]).includes('Полные руки')) lengths.push('рукав ¾ или свободный длинный — ваша длина рукава');
+  const acc = [contrast==='высокий' ? 'серьги крупные, графичные, контрастные металлу' : contrast==='низкий' ? 'серьги тонкие, изящные, мягких форм' : 'серьги среднего размера, чистых форм',
+    {'Груша':'сумка на уровне талии и выше — не на бёдрах','Яблоко':'сумка на бедре, удлинённый ремешок','Перевёрнутый треугольник':'объёмная сумка внизу балансирует плечи','Песочные часы':'сумка структурная, среднего размера','Прямоугольник':'сумка с объёмом — на бедре или талии'}[F] || 'сумка структурная, среднего размера',
+    'металл — '+p.metal+': часы, ремень, фурнитура в одной температуре', 'ремень — в тон обуви, и образ собран'];
+  const hair = [ (cold ? 'оттенки волос: холодные — пепельный, платиновый, холодный шоколад; без рыжины' : 'оттенки волос: тёплые — золотистый, медовый, карамель, тёплый каштан; без пепла'),
+    contrast==='высокий' ? 'контраст высокий: чёткие формы стрижек, графичные линии, каре и боб' : 'мягкие слоистые стрижки, живая текстура', 'тонирование на полтона глубже родного цвета — лицо становится ярче', 'блеск волос = ухоженность: масло на концы после каждого мытья'];
+  const PF = cold ? {fam:['шипровые','зелёные','цветочно-водные'], notes:['бергамот','зелёный чай','ирис','фиалка','мускус','дубовый мох'], day:'днём — цитрус и зелень, вечером — ирис и мускус', no:'тяжёлая ваниль и амбра «спорят» с холодным цветотипом', q:['парфюм шипровый женский','парфюм цитрусовый свежий','парфюм ирис мускус']}
+                  : {fam:['восточные','древесные','гурманские'], notes:['ваниль','амбра','сандал','кардамон','тонка','кедр'], day:'днём — древесные с цитрусом, вечером — амбра и ваниль', no:'холодная акватика на вас «пропадает» за час', q:['парфюм восточный женский','парфюм древесный сандал','парфюм ваниль амбра']};
+  if(male) PF.q = PF.q.map(q=>q.replace('женский','мужской'));
+  const perfume = ['ваши семейства: '+PF.fam.join(', '), 'ноты, которые «ваши»: '+PF.notes.join(', '), PF.day, contrast==='высокий' ? 'насыщенность высокая — шлейфовые ароматы, парфюмерная вода' : 'лёгкие концентрации: туалетная вода, прозрачные ноты', PF.no];
+  const perfumeTest = ['тестировать только на коже, не на блоттере, и ждать 30–40 минут','не больше трёх ароматов за раз — нос устаёт','покупать полный флакон только после дня носки пробника'];
+  const evs = ['Свидание','Офис / работа','Вечеринка'].map(e=>{ const t = EV_TIPS[e]; return '<b>'+e+'</b> — '+(t?t[0]:''); });
+  const rules = ['покупать у лица только цвета из палитры — низ может быть любым', 'размер по плечам и бёдрам, талию и длину ушьют', (S.focus||[]).length ? 'проверять: '+S.focus.map(f=>f.toLowerCase()).join(', ')+' — по правилам паспорта' : 'перед покупкой: сесть, наклониться, пройтись', 'одна новая вещь должна сочетаться минимум с тремя старыми', 'сомневаетесь — не берёте: сомнение и есть ответ'];
+  const card = (k, body, cls)=>'<div class="ps-card'+(cls?' '+cls:'')+'"><div class="ps-k">'+k+'</div>'+body+'</div>';
+  const ul = a=>'<ul class="tp-list">'+a.map(x=>'<li>'+x+'</li>').join('')+'</ul>';
+  return {
+    temp: card('ТЕМПЕРАТУРА И КОНТРАСТ', '<div class="ps-dna"><div><span>температура</span><b>'+(cold?'холодная':'тёплая')+'</b></div><div><span>контраст</span><b>'+contrast+'</b></div><div><span>металл</span><b>'+p.metal+'</b></div></div><p class="ps-note">'+(contrast==='высокий'?'Вы выдерживаете чистые насыщенные цвета и резкие сочетания — мягкие пастели вас «стирают».':contrast==='низкий'?'Ваша сила — мягкость: приглушённые оттенки и плавные переходы; резкий контраст спорит с лицом.':'Вам подходит золотая середина: умеренная насыщенность и один чистый акцент.')+'</p>'),
+    avoid: card('ИЗБЕГАТЬ У ЛИЦА', '<div class="ps-sws">'+avoid.map(c=>'<div class="ps-sw off"><i style="background:'+({'оранжевый':'#F0741E','тёплый жёлтый':'#F2C94C','терракотовый':'#C1553B','хаки':'#6B7A3A','фуксия':'#E0218A','ледяной голубой':'#BFE6F5','белоснежный':'#FFFFFF','холодный лиловый':'#9C7BD1'})[c]+'"></i><span>'+c+'</span></div>').join('')+'</div><p class="ps-note">Эти цвета можно носить — но на низе, не у лица. '+avoidFix+'.</p>'),
+    fab: card('ТКАНИ И ФАКТУРЫ · '+(male?'':F.toUpperCase()), ul(fab)),
+    prints: card('ПРИНТЫ', ul(prints.concat([printWhere]))),
+    lengths: card('ДЛИНЫ · РОСТ '+h+' СМ', ul(lengths)),
+    acc: card('АКСЕССУАРЫ', ul(acc)),
+    hair: card('ПРИЧЁСКА И ЦВЕТ ВОЛОС', ul(hair)),
+    perfume: card('АРОМАТ ПО ЦВЕТОТИПУ', '<div class="ps-pf">'+PF.fam.map(f=>'<span>'+f+'</span>').join('')+'</div>'+ul(perfume)+'<div class="ps-k2">Как выбирать</div>'+ul(perfumeTest)+'<div class="ps-k2">Подобрать по семействам</div><div class="ps-pfq">'+PF.q.map((q,i)=>'<div class="ps-pfrow"><div class="ps-pfl">'+PF.fam[i]+'</div>'+beautyButtons(q).replace('class="mp"','class="mp b-links"')+'</div>').join('')+'</div>'),
+    events: card('ФОРМУЛЫ ПОД СОБЫТИЯ', ul(evs)),
+    rules: card('ВАШИ ПРАВИЛА ШОПИНГА', ul(rules))
+  };
+}
+
+window.renderPassport = ()=>{
+  const box = document.getElementById('passBox'); if(!box) return;
+  const ok = S.gender && S.figure && S.hair && S.eyes && S.skin && S.clothSize && S.shoeSize;
+  if(!ok){
+    const missing = [['gender','пол'],['figure','фигура'],['hair','цвет волос'],['eyes','цвет глаз'],['skin','тон кожи'],['clothSize','размер одежды'],['shoeSize','размер обуви']].filter(f=>!S[f[0]]).map(f=>f[1]);
+    box.innerHTML = `<div class="td-cta2"><div class="td-cta2-ic">✦</div><div class="td-cta2-body"><div class="td-cta2-k">СТИЛЬ-ПАСПОРТ · 1 МИНУТА ДО ВЫДАЧИ</div><h3>Паспорт выдаётся по данным.</h3><p>Заполните быстрый профиль — и здесь появится ваш стиль-паспорт: палитра, фигура, размеры во всех сетках мира, формула макияжа, капсульная база и список «чего не покупать».</p>${missing.length?'<div class="td-cta2-miss">не хватает: '+missing.join(' · ')+'</div>':''}<button class="btn primary" onclick="openProfile('passRefresh')">Заполнить быстрый профиль →</button><button class="btn ghost" id="passRefresh" style="display:none" onclick="renderPassport()">обновить</button></div></div>`;
+    return;
+  }
+  box.innerHTML = passportHTML();
+  if(window.fxZone) fxZone(box); if(window.fxGlow) fxGlow(box);
+};
+window.printDocs = ()=>{ document.body.dataset.print = 'docs'; window.print(); setTimeout(()=>{ delete document.body.dataset.print; }, 500); };
+window.printPassport = ()=>{ document.body.dataset.print = 'pass'; window.print(); setTimeout(()=>{ delete document.body.dataset.print; }, 500); };
+window.sharePassport = async ()=>{
+  const p = PAL(); const txt = 'Мой стиль-паспорт LOOKA: цветотип '+S.hair+' · '+S.eyes+' · '+S.skin+'; акценты — '+p.accents.slice(0,3).join(', ')+'; база — '+p.neutrals.slice(0,2).join(', ')+'; размер '+S.clothSize+' · обувь '+S.shoeSize+'. '+location.href.split('#')[0];
+  try{ if(navigator.share){ await navigator.share({title:'Мой стиль-паспорт LOOKA', text:txt}); return; } }catch(e){}
+  try{ await navigator.clipboard.writeText(txt); alert('Текст паспорта скопирован — вставьте в сообщение или сторис'); }catch(e){ alert(txt); }
+};
+
+/* ================= МОЙ LOOKA: лайки, избранное, куплено, профиль по ссылке ================= */
+const MY = { fav:[], like:[], dislike:[], bought:[] };
+try{ const o = JSON.parse(localStorage.getItem('looka_my')||'null'); if(o) Object.assign(MY, o); }catch(e){}
+const mySave = ()=>{ try{ localStorage.setItem('looka_my', JSON.stringify(MY)); }catch(e){} };
+const baseName = n=>(n||'').replace(/^[а-яё-]+(ый|ая|ое|ые|ий|яя|ее|ие|ой)\s+/i,'').toLowerCase();
+window.myReact = (kind, n, q, p, cat, btn)=>{
+  const b = baseName(n);
+  if(kind==='like'){ MY.dislike = MY.dislike.filter(x=>x!==b); if(!MY.like.includes(b)) MY.like.push(b); }
+  if(kind==='dislike'){ MY.like = MY.like.filter(x=>x!==b); if(!MY.dislike.includes(b)) MY.dislike.push(b); }
+  if(kind==='fav'){ if(!MY.fav.some(x=>x.n===n)) MY.fav.push({n,q,p,cat,t:Date.now()}); }
+  mySave();
+  if(btn){ const row = btn.closest('.rx'); row.querySelectorAll('button').forEach(x=>x.classList.remove('on')); btn.classList.add('on'); btn.classList.add('pop'); setTimeout(()=>btn.classList.remove('pop'),400); }
+  myToast(kind==='like'?'Запомнила: такое предлагать чаще':kind==='dislike'?'Поняла: больше не предложу «'+b+'»':'В избранном');
+};
+window.myToast = t=>{ let el = document.getElementById('myToast'); if(!el){ el = document.createElement('div'); el.id='myToast'; document.body.appendChild(el); } el.textContent = t; el.classList.remove('on'); void el.offsetWidth; el.classList.add('on'); clearTimeout(el._t); el._t = setTimeout(()=>el.classList.remove('on'), 1800); };
+window.reactRow = it=>'<div class="rx"><button class="rx-fav'+(MY.fav.some(x=>x.n===it.n)?' on':'')+'" title="В избранное" onclick="myReact(\'fav\',\''+it.n.replace(/'/g,'')+'\',\''+(it.q||'').replace(/'/g,'')+'\',\''+(it.p||'')+'\',\''+(it.cat||'')+'\',this)">★</button><button class="rx-like'+(MY.like.includes(baseName(it.n))?' on':'')+'" title="Нравится — предлагать чаще" onclick="myReact(\'like\',\''+it.n.replace(/'/g,'')+'\',\'\',\'\',\'\',this)">👍</button><button class="rx-dis'+(MY.dislike.includes(baseName(it.n))?' on':'')+'" title="Не моё — больше не предлагать" onclick="myReact(\'dislike\',\''+it.n.replace(/'/g,'')+'\',\'\',\'\',\'\',this)">👎</button></div>';
+window.profileLink = ()=>{
+  const o = Object.assign({}, S); delete o.photo;
+  let city = null; try{ city = JSON.parse(localStorage.getItem('looka_city')||'null'); }catch(e){}
+  const pack = {s:o, b:{style:B.style, budget:B.budget, skin:B.skin}, r:REGION, c:city, v:1};
+  const enc = btoa(unescape(encodeURIComponent(JSON.stringify(pack))));
+  return location.href.split('#')[0] + '#p=' + enc;
+};
+window.shareProfile = async ()=>{
+  const url = profileLink();
+  try{ if(navigator.share){ await navigator.share({title:'Мой профиль LOOKA', text:'Мой стиль-профиль LOOKA — открой, и всё подставится', url}); return; } }catch(e){}
+  try{ await navigator.clipboard.writeText(url); myToast('Ссылка на профиль скопирована'); }catch(e){ prompt('Скопируйте ссылку:', url); }
+};
+(function(){
+  const m = location.hash.match(/^#p=(.+)$/); if(!m) return;
+  try{
+    const pack = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+    if(pack && pack.s){ Object.keys(pack.s).forEach(k=>{ if(k in S && k!=='photo') S[k]=pack.s[k]; }); saveLS();
+      if(pack.b){ if(pack.b.style) B.style = pack.b.style; if(pack.b.budget) B.budget = pack.b.budget; if(pack.b.skin) B.skin = pack.b.skin; }
+      if(pack.r && REGIONS[pack.r]){ REGION = pack.r; try{ localStorage.setItem('looka_region', pack.r); }catch(e){} if(window.regBtnDraw) regBtnDraw(); }
+      if(pack.c){ try{ localStorage.setItem('looka_city', JSON.stringify(pack.c)); }catch(e){} }
+      history.replaceState(null,'',location.pathname+location.search);
+      setTimeout(()=>{ try{ renderStep(); drawAvatar(); if(window.updateModelPhoto) updateModelPhoto(); }catch(e){} myToast('Профиль перенесён — всё на месте'); }, 300);
+    }
+  }catch(e){}
+})();
+window.renderMy = ()=>{
+  const box = document.getElementById('myBox'); if(!box) return;
+  const ok = S.gender && S.figure && S.hair && S.eyes && S.skin && S.clothSize && S.shoeSize;
+  const prof = ok ? [S.gender, S.figure, S.hair+' · '+S.eyes.toLowerCase()+' · '+S.skin.toLowerCase(), 'одежда '+S.clothSize+' · обувь '+S.shoeSize, S.budget||'', S.style||''].filter(Boolean) : [];
+  let city = null; try{ city = JSON.parse(localStorage.getItem('looka_city')||'null'); }catch(e){}
+  const favSum = MY.fav.reduce((a,i)=>a+(+(i.p||'').replace(/[^0-9]/g,'')||0),0);
+  const itemHtml = (i, idx, bought)=>'<div class="item my-item"><div class="nm">'+i.n+'</div>'+(i.p?'<div class="pr">'+i.p+'</div>':'')+(bought?'':shopButtons({n:i.n,q:i.q||i.n}))+'<div class="my-acts">'+(bought?'<span class="my-done">✓ куплено '+new Date(i.t).toLocaleDateString('ru-RU')+'</span>':'<button class="btn ghost" onclick="myBuy('+idx+')">✓ Купила</button>')+'<button class="my-x" onclick="myDel(\''+(bought?'bought':'fav')+'\','+idx+')">удалить</button></div></div>';
+  box.innerHTML = '<div class="my-grid">'
+    + '<div class="tp-card my-prof"><span class="k">ВАШ ПРОФИЛЬ</span>'+(ok?'<div class="td-prof">'+prof.map(x=>'<span>'+x+'</span>').join('')+(city?'<span>📍 '+city.n+'</span>':'')+'<span>'+REGIONS[REGION].n+'</span></div>':'<p class="tp-d">Профиль не заполнен — заполните за минуту, и всё персональное заработает.</p>')
+      + '<div class="tp-row" style="margin-top:12px">'+(ok?'<button class="btn primary" onclick="openPage(\'passPage\')">✦ Стиль-паспорт</button><button class="btn ghost" onclick="openProfile(\'myRefresh\')">Изменить</button>':'<button class="btn primary" onclick="openProfile(\'myRefresh\')">Заполнить профиль</button>')+'<button id="myRefresh" style="display:none" onclick="renderMy()"></button></div></div>'
+    + '<div class="tp-card my-link"><span class="k">ПРОФИЛЬ ПО ССЫЛКЕ</span><p class="tp-d">Перенесите профиль на другой телефон или покажите подруге: одна ссылка — и всё подставится: анкета, паспорт, регион, город.</p><div class="tp-row"><button class="btn primary" onclick="shareProfile()">Поделиться / перенести</button><button class="btn ghost" onclick="navigator.clipboard&&navigator.clipboard.writeText(profileLink()).then(()=>myToast(\'Ссылка скопирована\'))">Копировать ссылку</button></div><div class="tp-note">данные внутри ссылки — только ваш профиль, без контактов и фото</div></div>'
+    + '<div class="tp-card my-taste"><span class="k">ВКУС · ЧЕМУ НАУЧИЛСЯ LOOKA</span><div class="my-stat"><div><b>'+MY.like.length+'</b><span>нравится</span></div><div><b>'+MY.dislike.length+'</b><span>не моё</span></div><div><b>'+MY.fav.length+'</b><span>в избранном</span></div><div><b>'+MY.bought.length+'</b><span>куплено</span></div></div>'
+      + (MY.dislike.length?'<div class="ps-k2">Больше не предлагаю</div><div class="my-tags">'+MY.dislike.map((d,i)=>'<span>'+d+'<button onclick="myRestore('+i+')" title="вернуть">✕</button></span>').join('')+'</div>':'')
+      + (MY.like.length?'<div class="ps-k2">Предлагаю чаще</div><div class="my-tags like">'+MY.like.map(d=>'<span>'+d+'</span>').join('')+'</div>':'')
+      + (!MY.like.length&&!MY.dislike.length?'<p class="tp-note">ставьте 👍 и 👎 вещам в образах — движок запомнит ваш вкус и перестанет предлагать не ваше</p>':'')+'</div>'
+    + '</div>'
+    + '<div class="hp-sub">ИЗБРАННОЕ · '+(MY.fav.length?MY.fav.length+' ВЕЩЕЙ · ~'+favSum.toLocaleString('ru-RU')+' ₽':'ПУСТО')+'</div>'
+    + (MY.fav.length ? '<div class="my-list">'+MY.fav.map((i,idx)=>itemHtml(i,idx,false)).join('')+'</div>' : '<div class="tp-card"><p class="tp-d" style="margin:0">Нажимайте ★ у вещей в образах — они соберутся здесь списком «хочу» с суммой и ссылками.</p></div>')
+    + (MY.bought.length ? '<div class="hp-sub">КУПЛЕНО · '+MY.bought.length+'</div><div class="my-list">'+MY.bought.map((i,idx)=>itemHtml(i,idx,true)).join('')+'</div>' : '');
+  if(window.fxZone) fxZone(box);
+};
+window.myBuy = i=>{ const it = MY.fav.splice(i,1)[0]; if(!it) return; it.t = Date.now(); MY.bought.push(it); mySave(); renderMy(); myToast('Поздравляю с покупкой ✓'); };
+window.myDel = (list,i)=>{ MY[list].splice(i,1); mySave(); renderMy(); };
+window.myRestore = i=>{ MY.dislike.splice(i,1); mySave(); renderMy(); };
+
+/* ================= МАКИЯЖ-ГИД: схемы, шаги, палитра под лицо ================= */
+(function(){
+const M = { goal:null, eye:null, sp:'Нормальная', face:null, eyes:null, skin:null, hair:null, shade:null, budget:null };
+try{ const o = JSON.parse(localStorage.getItem('looka_makeup')||'{}'); Object.assign(M,o); }catch(e){}
+
+const GOALS = ['Дневной','Офис','Свидание','Вечерний','Смоки','Нюд','Свадьба','Съёмка'];
+const EYE_SHAPES = ['Миндалевидные','Нависшее веко','Монолид','Опущенные уголки','Круглые','Глубоко посаженные'];
+const SPACING = ['Нормальная','Близко посаженные','Широко посаженные'];
+const FACES = ['Овал','Круг','Квадрат','Сердце','Ромб','Вытянутое'];
+const SHADES = ['Нюд / беж','Коричневый','Розовый','Слива / фиолет','Зелёный','Синий / голубой','Серый / графит','Золото / бронза','Медь / терракота','Бордо / вино'];
+const MBUDGETS = ['до 1 500 ₽','1 500–4 000 ₽','4 000–10 000 ₽','10 000 ₽ +'];
+const DEPTH = {'Фарфоровый':0,'Светлый':0,'Средний':1,'Оливковый':1,'Смуглый':2,'Тёмный':2};
+
+/* палитра: [светлый, средний, глубокий] по глубине кожи → [база, переход, акцент, свет] */
+const PAL = {
+ 'Нюд / беж':{ p:[
+   [['#F1DFC9','ванильный сатин'],['#D9B896','тауп-беж'],['#9E7B5C','мягкий мокко'],['#FBF1E4','шампань']],
+   [['#E8CBA6','персиковый беж'],['#C39A73','карамель'],['#7F5A3E','какао'],['#F7E4C8','золотистый крем']],
+   [['#D6A87A','тёплый песок'],['#A97650','корица'],['#5B3C2B','эспрессо'],['#F0C89A','бронзовый свет']]],
+   liner:['#4A3327','коричневый'], lips:'нюд в тон губ на полтона темнее, сатин', v:'база любой ситуации — глаз «отдохнувший», при этом оформленный' },
+ 'Коричневый':{ p:[
+   [['#E7C9A8','светлый тауп'],['#B98866','ореховый'],['#6E4A34','шоколад'],['#FAEFDE','кремовый']],
+   [['#DDB58F','карамельный беж'],['#A8734F','пекан'],['#5A3A2A','тёмный шоколад'],['#F4DDBB','шампань']],
+   [['#C99A6E','золотой песок'],['#8F5B3C','терракотовый шоколад'],['#3E2419','горький шоколад'],['#EFC08F','бронза-свет']]],
+   liner:['#2E1B12','тёмно-коричневый'], lips:'тёплый нюд, тауп или помада-«ягода» для вечера', v:'самый универсальный цвет: рисует объём, а не «краску» на веке' },
+ 'Розовый':{ p:[
+   [['#F5D9DC','пудровый'],['#D9A3AC','пыльная роза'],['#8C4B5C','малиновый тауп'],['#FDF1EC','жемчуг']],
+   [['#EFC4C6','розовый беж'],['#C88A93','сухая роза'],['#7B3D4F','бордо-роза'],['#F8E2D2','персиковый жемчуг']],
+   [['#E3A9A5','коралловая роза'],['#B56E76','пыльная слива'],['#5E2C3B','вино'],['#F3C9B0','золотисто-розовый']]],
+   liner:['#3B2632','холодный коричневый'], lips:'нюдово-розовый в тон, для вечера — холодный красный', v:'свежесть и «немного влюблена» — но только с переходным оттенком, иначе глаз выглядит заплаканным' },
+ 'Слива / фиолет':{ p:[
+   [['#E8D6E4','лиловая дымка'],['#B48BAE','лаванда-тауп'],['#5E3A63','слива'],['#F6EAF3','перламутр']],
+   [['#D8BDD3','пыльная сирень'],['#9E6E99','фиолетовый тауп'],['#4A2C50','тёмная слива'],['#F0DCD0','шампань']],
+   [['#C8A0C4','аметист'],['#82537F','баклажан'],['#33193A','чёрная слива'],['#EDC7A8','бронзовый перламутр']]],
+   liner:['#2C1A33','сливовый'], lips:'нюд с розовым подтоном; вечер — ягодная', v:'цвет, который делает любые глаза ярче — особенно зелёные и карие' },
+ 'Зелёный':{ p:[
+   [['#E3E5D2','фисташковый крем'],['#9EA57A','оливковый хаки'],['#4C5A3C','мох'],['#F7F3E6','ванильный']],
+   [['#D6D6B6','светлый хаки'],['#8A9166','олива'],['#3B4A2F','бутылочный'],['#F1E2C4','золотой крем']],
+   [['#C2C89A','шалфей'],['#6F7A49','тёмная олива'],['#27331F','лесной'],['#E9C79C','золото']]],
+   liner:['#22301C','тёмно-зелёный'], lips:'тёплый нюд или терракота; никаких ярких розовых', v:'носится как «новый коричневый»: спокойно днём, глубоко вечером' },
+ 'Синий / голубой':{ p:[
+   [['#DCE4F0','ледяной'],['#8FA7C9','пыльно-голубой'],['#2F4670','индиго'],['#F2F4F9','серебристый']],
+   [['#CBD5E8','голубой сатин'],['#7488B3','деним'],['#243A66','ночной синий'],['#EEE7DC','кремовый']],
+   [['#B4C2E0','стальной'],['#5E6EA6','кобальт'],['#182A55','чернильный'],['#E7CDA8','золотой']]],
+   liner:['#14213F','тёмно-синий'], lips:'нейтральный нюд или прозрачный блеск — акцент один', v:'смелый цвет; чтобы не было «90-х», синий живёт только в акценте и подводке, база — нейтральная' },
+ 'Серый / графит':{ p:[
+   [['#E6E4E8','дымчатый жемчуг'],['#A9A6AE','серый тауп'],['#4E4B55','графит'],['#F5F3F6','белый перламутр']],
+   [['#D9D6DC','светло-серый'],['#8F8A94','мокрый асфальт'],['#3B3840','антрацит'],['#EFE4D6','шампань']],
+   [['#C4BFC8','серебро'],['#736D79','тёмный тауп'],['#26232B','уголь'],['#E8C9A4','золотистый']]],
+   liner:['#111116','чёрный'], lips:'холодный нюд днём, классический красный вечером', v:'классика смоки и «дорогого» офиса; на светлой коже — только с тёплым светлым оттенком, иначе усталость' },
+ 'Золото / бронза':{ p:[
+   [['#F4E3BF','светлое золото'],['#D2A96C','бронза'],['#8B5B32','медная бронза'],['#FDF5E0','золотая пыль']],
+   [['#EAD0A0','шампань'],['#C3924F','старое золото'],['#734A2B','тёмная бронза'],['#FBEACB','золотой сатин']],
+   [['#DEB877','золото'],['#A87538','медное золото'],['#4F3120','шоколад-бронза'],['#F3D5A2','яркое золото']]],
+   liner:['#3B2617','бронзовый коричневый'], lips:'персиковый или нюдовый блеск', v:'мгновенно «дорого» на фото: металлик на центре века ловит свет' },
+ 'Медь / терракота':{ p:[
+   [['#F3D5BF','персиковый'],['#D99871','абрикос'],['#9B4F33','терракота'],['#FBEEDF','кремовый шиммер']],
+   [['#E9BFA0','карамельный персик'],['#C97B55','медь'],['#7E3B26','кирпич'],['#F6DDB8','золото']],
+   [['#DDA27C','тёплый абрикос'],['#B0613E','ржавая медь'],['#5C2B1A','тёмная терракота'],['#F0C48F','бронзовый шиммер']]],
+   liner:['#3A2015','тёмно-коричневый'], lips:'терракотовый нюд в тон — монохром сейчас главный приём', v:'тёплый цвет, который делает голубые и серые глаза ярче на контрасте' },
+ 'Бордо / вино':{ p:[
+   [['#EBD3CF','розовый пепел'],['#B87878','пыльный бордо'],['#6B2B35','вино'],['#F8ECE3','перламутр']],
+   [['#E2BDB6','сухая роза'],['#A45E63','марсала'],['#57222D','тёмное вино'],['#F3DCC4','шампань']],
+   [['#D19F97','розовое дерево'],['#8E4A4F','гранат'],['#3F1620','чёрная вишня'],['#EDC4A0','золото']]],
+   liner:['#2A1218','винный'], lips:'нюд — губы не спорят с глазами; или тот же винный, если это вечер', v:'глубокий цвет, который выглядит дороже чёрного смоки' }
+};
+
+/* сочетание тени × цвет глаз: 2 — усиливает, 1 — нейтрально, 0 — гасит */
+const MATCH = {
+ 'Карие':{'Нюд / беж':1,'Коричневый':2,'Розовый':1,'Слива / фиолет':2,'Зелёный':2,'Синий / голубой':2,'Серый / графит':1,'Золото / бронза':2,'Медь / терракота':1,'Бордо / вино':2},
+ 'Зелёные':{'Нюд / беж':1,'Коричневый':2,'Розовый':2,'Слива / фиолет':2,'Зелёный':0,'Синий / голубой':1,'Серый / графит':1,'Золото / бронза':2,'Медь / терракота':2,'Бордо / вино':2},
+ 'Голубые':{'Нюд / беж':1,'Коричневый':2,'Розовый':1,'Слива / фиолет':1,'Зелёный':1,'Синий / голубой':0,'Серый / графит':1,'Золото / бронза':2,'Медь / терракота':2,'Бордо / вино':1},
+ 'Серые':{'Нюд / беж':1,'Коричневый':1,'Розовый':1,'Слива / фиолет':2,'Зелёный':1,'Синий / голубой':2,'Серый / графит':1,'Золото / бронза':2,'Медь / терракота':2,'Бордо / вино':1},
+ 'Чёрные':{'Нюд / беж':1,'Коричневый':2,'Розовый':1,'Слива / фиолет':2,'Зелёный':1,'Синий / голубой':1,'Серый / графит':2,'Золото / бронза':2,'Медь / терракота':1,'Бордо / вино':2}
+};
+const MATCH_TXT = {
+ 2:'усиливает цвет радужки — это ваше сочетание, работайте им смело',
+ 1:'нейтрально: глаза не ярче и не тусклее — ставьте акцент подводкой и ресницами',
+ 0:'цвет в цвет с радужкой гасит глаза. Не запрещено, но делайте так: тень — на два тона темнее радужки, а в складку добавьте контраст (тёплый коричневый или бронзу)'
+};
+
+/* геометрия глаза по форме */
+const EYE_GEO = {
+ 'Миндалевидные':{ outY:0, upH:48, loH:26, crease:26, fold:false, wing:14, note:'Ваша форма — эталон, на ней работает любая схема. Задача макияжа — не исправлять, а подчёркивать: акцент на внешней трети и чистая складка.' },
+ 'Нависшее веко':{ outY:2, upH:44, loH:24, crease:18, fold:true, wing:10, note:'Подвижное веко скрыто под складкой, поэтому вся «работа» переносится выше: переходный оттенок кладём над естественной складкой, глядя в зеркало прямо, с открытым глазом. Тёмное на подвижном веке — нет: оно исчезает.' },
+ 'Монолид':{ outY:-2, upH:40, loH:22, crease:0, fold:false, wing:16, note:'Складки нет — значит, схема «складка/веко» не работает. Работает вертикальный градиент: самый тёмный у ресниц, светлее к брови. Ширина каждой полосы — видна при открытом глазе.' },
+ 'Опущенные уголки':{ outY:14, upH:46, loH:26, crease:26, fold:false, wing:20, note:'Внешний уголок ниже внутреннего. Всё тёмное и все стрелки идут вверх и наружу, будто продолжают линию нижнего века. Нижнее веко на внешней трети не затемняем — это тянет глаз вниз.' },
+ 'Круглые':{ outY:0, upH:60, loH:38, crease:30, fold:false, wing:24, note:'Высокий глаз нужно вытянуть по горизонтали: акцент и подводка выходят за внешний уголок, нижнее веко прорабатываем только на внешней половине. Светлый оттенок в центре века — не шире зрачка.' },
+ 'Глубоко посаженные':{ outY:0, upH:46, loH:24, crease:36, fold:false, wing:12, note:'Веко «в тени» под надбровной дугой. Задача — вытянуть его к свету: сатин или шиммер на всё подвижное веко, а тёмное только выше складки и во внешнем уголке. Матовый тёмный на веке утопит глаз.' }
+};
+const SP_NOTE = {
+ 'Нормальная':'', 
+ 'Близко посаженные':'Глаза ближе ширины одного глаза: внутреннюю треть оставляем самой светлой (шиммер во внутренний уголок обязателен), а тёмное начинается только от середины века и уходит наружу.',
+ 'Широко посаженные':'Расстояние больше ширины глаза: переходный оттенок заводим ближе к переносице, внутренний уголок не высветляем, стрелка без длинного хвостика.'
+};
+
+/* контуринг и румяна по форме лица */
+const FACE_TXT = {
+ 'Овал':{ c:'Минимум: лёгкая тень под скулой от уха к середине щеки и по линии роста волос у висков. Больше — уже «маска».', b:'На яблочки щёк, растушёвка к вискам.', h:'Спинка носа, верх скулы, «лук Купидона».', brow:'Мягкая арка, естественная ширина.' },
+ 'Круг':{ c:'Затемняем боковые поверхности: виски → под скулой → по бокам челюсти одной диагональю. Центр лица не трогаем.', b:'Выше яблочек, диагональю к вискам — вытягивает лицо.', h:'Узкая вертикаль: центр лба, спинка носа, подбородок.', brow:'С выраженным изломом и подъёмом — даёт лицу углы.' },
+ 'Квадрат':{ c:'Смягчаем углы: тень на углы челюсти и на верхние углы лба у линии роста волос, растушёвка круговыми движениями.', b:'На яблочки, круглыми движениями, чуть к вискам.', h:'Центр лба, подбородок (не углы), под бровью.', brow:'Мягкая, округлая арка без резкого излома.' },
+ 'Сердце':{ c:'Сужаем лоб: тень на виски и верхние боковые части лба; чуть — на кончик подбородка.', b:'Горизонтально по скулам, не поднимаясь к вискам, — уравновешивает широкий верх.', h:'Подбородок (добавляет объём), под бровью, центр лба — совсем немного.', brow:'Средней плотности, мягкий угол — не дублировать «острый» лоб.' },
+ 'Ромб':{ c:'Смягчаем ширину скул: тень на самые выступающие точки скул и на боковые части лба.', b:'На яблочки чуть ниже скулы — добавляет мягкости.', h:'Центр лба и подбородок — расширяем узкие зоны.', brow:'Прямая или с очень мягкой аркой, чуть длиннее обычного.' },
+ 'Вытянутое':{ c:'Укорачиваем: тень по линии роста волос сверху и под подбородком. Скулы — совсем немного, горизонтально.', b:'Горизонтально по яблочкам, ни в коем случае не диагонально к вискам.', h:'Только скулы и центр щёк; спинку носа и центр лба — нет, они удлиняют.', brow:'Прямая, горизонтальная — «ставит» лицо шире.' }
+};
+const BROW_BY_HAIR = {'Блонд':'на 1–2 тона темнее волос, холодный тауп','Русый':'в тон волос или на тон темнее','Каштановый':'в тон, без рыжины','Чёрный':'на тон светлее волос, тёмно-коричневый, не чёрный','Рыжий':'тёплый тауп с рыжиной, не коричневый','Пепельный':'холодный серо-коричневый','Цветной':'нейтральный тауп под натуральный цвет корней'};
+
+const GOAL_CFG = {
+ 'Дневной':   { intensity:1, shimmer:'мягкий сатин', liner:'тонкая межресничная', lash:'1 слой туши, разделить', skinF:'лёгкое покрытие, точечно консилер', lipF:'сатин или бальзам', tip:'Правило дня: один акцент. Если глаза оформлены — губы нюд.' },
+ 'Офис':      { intensity:1, shimmer:'матово, сатин только на центре века', liner:'тонкая межресничная + короткий хвостик', lash:'1–2 слоя, без комков', skinF:'среднее покрытие, матовая Т-зона', lipF:'сатин, «мои губы, но лучше»', tip:'Офисный макияж читается на расстоянии переговорного стола: контраст умеренный, брови чёткие.' },
+ 'Свидание':  { intensity:2, shimmer:'сатин + шиммер на центр века', liner:'мягкая растушёванная стрелка карандашом', lash:'2 слоя, внешний уголок гуще', skinF:'сияющее покрытие, хайлайтер на скулах', lipF:'блеск или сатин, ничего стойко-матового', tip:'Вечернее освещение съедает 30 % интенсивности — делайте чуть ярче, чем кажется правильным при дневном свете.' },
+ 'Вечерний':  { intensity:3, shimmer:'шиммер или металлик на центре века', liner:'графичная стрелка лайнером', lash:'3 слоя или накладные пучки во внешний уголок', skinF:'плотное покрытие, скульптор и хайлайтер обязательны', lipF:'сатин или матовый, стойкий', tip:'Ищем «дорого», а не «много»: чем темнее тени, тем чище должны быть кожа и брови.' },
+ 'Смоки':     { intensity:3, shimmer:'матово; металлик — только в центре, если хочется', liner:'кайал по слизистой верхнего и нижнего века', lash:'3 слоя, тушь и снизу', skinF:'ровный матовый тон, консилер под глазами толще обычного', lipF:'нюд, обязательно карандаш в тон губ', tip:'Смоки — это растушёвка, а не чёрный цвет. Граница «где кончились тени» видна быть не должна.' },
+ 'Нюд':       { intensity:1, shimmer:'сатин', liner:'только межресничная, прокрасить корни ресниц', lash:'1 слой, коричневая тушь днём', skinF:'тинт или лёгкий тон, кремовые текстуры', lipF:'бальзам с оттенком', tip:'Нюд — самый сложный макияж: неровности ничем не спрятать, поэтому 70 % времени уходит на кожу и брови.' },
+ 'Свадьба':   { intensity:2, shimmer:'сатин, никаких крупных блёсток — на фото они «зернят»', liner:'мягкая стрелка коричневым, чёрный — если глаза тёмные', lash:'2 слоя водостойкой + пучки при желании', skinF:'стойкое покрытие без SPF (SPF даёт белый блик на вспышке), пудра тонко', lipF:'стойкий сатин, карандаш по всему контуру', tip:'Проверьте макияж на фото со вспышкой заранее: всё, что блестит, на вспышке блестит вдвое.' },
+ 'Съёмка':    { intensity:3, shimmer:'сатин на веке, металлик в центре', liner:'графичная стрелка, чуть длиннее обычного', lash:'накладные ленты или пучки — камера «съедает» ресницы', skinF:'плотный матовый тон, всё скульптурируем на тон интенсивнее', lipF:'матовый или сатин, контур карандашом', tip:'Камера уменьшает контраст: брови, ресницы и скулы делайте на 30 % ярче, чем для жизни.' }
+};
+
+/* ---------- SVG: глаз ---------- */
+function eyeSVG(shape, sp, pal, cfg){
+  const g = EYE_GEO[shape];
+  const [base, trans, acc, light] = pal.p;
+  const liner = pal.liner[0];
+  const ix=70, iy=125, ox=300, oy=125+g.outY, cx=(ix+ox)/2, topY=iy-g.upH, botY=iy+g.loH;
+  const bz=(t,p0,p1,p2,p3)=>{const u=1-t;return u*u*u*p0+3*u*u*t*p1+3*u*t*t*p2+t*t*t*p3;};
+  // точка верхнего века, поднятая на d (сильнее в центре, слабее в уголках)
+  const U=(d,t)=>{const k=0.25+0.75*Math.sin(Math.PI*t);return [bz(t,ix,ix+40,ox-70,ox), bz(t,iy,topY,topY,oy)-d*k];};
+  const Lw=(d,t)=>{const k=0.25+0.75*Math.sin(Math.PI*t);return [bz(t,ix,ix+50,ox-60,ox), bz(t,iy,botY,botY,oy)+d*k];};
+  const seg=(f,d,t0,t1,n=14)=>{const a=[];for(let i=0;i<=n;i++){a.push(f(d,t0+(t1-t0)*i/n));}return a;};
+  const poly=(pts,fill,op)=>`<path d="M${pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join('L')}Z" fill="${fill}" opacity="${op}"/>`;
+  const line=(pts,st,w,extra='')=>`<path d="M${pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join('L')}" fill="none" stroke="${st}" stroke-width="${w}" stroke-linecap="round" ${extra}/>`;
+  const L1 = g.crease || 16;                       // высота складки / первой полосы
+  const tS = sp==='Близко посаженные'?0.5 : sp==='Широко посаженные'?0.22 : 0.38;
+  const wx = ox+g.wing, wy = oy-g.wing*0.9;
+  const browD = L1+34;
+  const z6 = poly([...seg(U,L1+14,0,1),...seg(U,L1+32,1,0)], light[0], .55);
+  const z1 = poly([...seg(U,0,0,1),...seg(U,L1,1,0)], base[0], .95);
+  const z2 = poly([U(L1+2,tS),...seg(U,L1-7,tS+0.08,1),[ox+8,oy-L1*0.4],...seg(U,L1+12,1,tS+0.08)], trans[0], .9);
+  const z3 = poly([...seg(U,0,0.62,1),[wx,wy],...seg(U,L1+4,1,0.6)], acc[0], .92);
+  const lowT = shape==='Опущенные уголки' ? [0.05,0.55] : shape==='Круглые' ? [0.5,1] : [0.35,1];
+  const z5 = poly([Lw(4,lowT[0]),...seg(Lw,0,lowT[0]+0.06,lowT[1]),...seg(Lw,10,lowT[1],lowT[0]+0.06)], trans[0], .75);
+  const upper = line(seg(U,0,0,1,24),'#111',3), lower = line(seg(Lw,0,0,1,24),'#111',1.5,'opacity=".6"');
+  const eyeShape = `M${seg(U,0,0,1,24).map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join('L')}L${seg(Lw,0,1,0,24).map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join('L')}Z`;
+  const crease = g.crease ? line(seg(U,L1,0.05,1,20),'#fff',1.5,'stroke-opacity=".3" stroke-dasharray="4 4"') : '';
+  const fold = g.fold ? line(seg(U,L1-4,0.02,1.02,20),'#8B92AA',3,'opacity=".8"') : '';
+  const brow = line(seg(U,browD,-0.05,1.1,20),'#8B92AA',9,'opacity=".5"');
+  const linerP = cfg.intensity>1 ? line([...seg(U,-1,0.02,1,20),[wx,wy+2]],liner,cfg.intensity>2?4:2.5) : line(seg(U,-1,0.05,1,20),liner,2,'opacity=".85"');
+  const inner = sp==='Широко посаженные' ? '' : `<circle cx="${U(3,0.06)[0]}" cy="${U(3,0.06)[1]-2}" r="9" fill="${light[0]}" opacity=".95"/>`;
+  const num=(x,y,n)=>`<g><circle cx="${x}" cy="${y}" r="11" fill="#0E101A" stroke="#fff" stroke-opacity=".7"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="11" font-family="JetBrains Mono, monospace" fill="#fff">${n}</text></g>`;
+  const r = Math.min(g.upH,g.loH)+6;
+  const p1=U(L1/2,0.45), p2=U(L1+3,0.8), p6=U(L1+23,0.5), p5=Lw(6,0.75);
+  return `<svg viewBox="0 0 400 230" xmlns="http://www.w3.org/2000/svg" class="mk-eye">
+    <defs><clipPath id="mkClip"><path d="${eyeShape}"/></clipPath></defs>
+    ${brow}${z6}${z1}${z2}${z3}${z5}${crease}${fold}
+    <path d="${eyeShape}" fill="#fff" opacity=".97"/>
+    <g clip-path="url(#mkClip)"><circle cx="${cx}" cy="${iy+2}" r="${r}" fill="#3B4A6B"/><circle cx="${cx}" cy="${iy+2}" r="${r-12}" fill="#1B2438"/><circle cx="${cx-8}" cy="${iy-8}" r="5" fill="#fff" opacity=".9"/></g>
+    ${upper}${lower}${linerP}${inner}
+    ${num(p1[0],p1[1],1)} ${num(p2[0],p2[1]-6,2)} ${num(wx+6,wy-14,3)} ${sp==='Широко посаженные'?'':num(ix-14,iy+22,4)} ${num(p5[0],p5[1]+14,5)} ${num(p6[0],p6[1],6)}
+  </svg>`;
+}
+
+/* ---------- SVG: лицо ---------- */
+function faceSVG(shape){
+  const outlines = {
+    'Овал':'M150,30 C215,30 250,95 250,180 C250,270 205,335 150,335 C95,335 50,270 50,180 C50,95 85,30 150,30Z',
+    'Круг':'M150,35 C225,35 265,110 265,185 C265,265 220,335 150,335 C80,335 35,265 35,185 C35,110 75,35 150,35Z',
+    'Квадрат':'M150,35 C210,35 245,60 250,120 L252,270 C252,310 210,335 150,335 C90,335 48,310 48,270 L50,120 C55,60 90,35 150,35Z',
+    'Сердце':'M150,40 C215,40 255,70 255,130 C255,210 200,300 150,335 C100,300 45,210 45,130 C45,70 85,40 150,40Z',
+    'Ромб':'M150,30 C190,60 255,140 255,185 C255,235 195,310 150,335 C105,310 45,235 45,185 C45,140 110,60 150,30Z',
+    'Вытянутое':'M150,20 C205,20 235,90 235,185 C235,285 200,345 150,345 C100,345 65,285 65,185 C65,90 95,20 150,20Z'
+  };
+  const dark='#6B4A3A', pink='#E58A96', lite='#FBE7C8';
+  const Z = {
+    'Овал':[['e',dark,70,205,34,12,-25],['e',dark,230,205,34,12,25],['e',dark,75,70,18,26,0],['e',dark,225,70,18,26,0],['e',pink,95,215,24,14,-20],['e',pink,205,215,24,14,20],['e',lite,150,170,8,40,0],['e',lite,100,190,20,7,-15],['e',lite,200,190,20,7,15]],
+    'Круг':[['p',dark,'M55,120 C40,190 45,250 80,300 C70,250 65,190 75,130Z'],['p',dark,'M245,120 C260,190 255,250 220,300 C230,250 235,190 225,130Z'],['e',dark,80,205,36,12,-28],['e',dark,220,205,36,12,28],['e',pink,105,200,26,14,-30],['e',pink,195,200,26,14,30],['e',lite,150,100,12,40,0],['e',lite,150,190,8,36,0],['e',lite,150,300,18,12,0]],
+    'Квадрат':[['e',dark,70,290,26,26,0],['e',dark,230,290,26,26,0],['e',dark,75,60,24,20,0],['e',dark,225,60,24,20,0],['e',pink,100,210,28,20,0],['e',pink,200,210,28,20,0],['e',lite,150,90,26,14,0],['e',lite,150,300,18,12,0],['e',lite,150,180,7,34,0]],
+    'Сердце':[['e',dark,70,90,20,34,15],['e',dark,230,90,20,34,-15],['e',dark,150,318,26,12,0],['e',pink,95,205,30,13,0],['e',pink,205,205,30,13,0],['e',lite,150,285,16,12,0],['e',lite,100,190,20,7,0],['e',lite,200,190,20,7,0]],
+    'Ромб':[['e',dark,62,185,14,34,0],['e',dark,238,185,14,34,0],['e',dark,105,55,22,14,20],['e',dark,195,55,22,14,-20],['e',pink,100,225,26,14,-10],['e',pink,200,225,26,14,10],['e',lite,150,85,28,16,0],['e',lite,150,300,20,14,0]],
+    'Вытянутое':[['e',dark,150,40,55,14,0],['e',dark,150,330,40,12,0],['e',dark,85,215,26,10,0],['e',dark,215,215,26,10,0],['e',pink,100,210,30,12,0],['e',pink,200,210,30,12,0],['e',lite,105,195,22,7,0],['e',lite,195,195,22,7,0]]
+  };
+  const zs = Z[shape].map(z=> z[0]==='p' ? `<path d="${z[2]}" fill="${z[1]}" opacity=".7"/>` :
+    `<ellipse cx="${z[2]}" cy="${z[3]}" rx="${z[4]}" ry="${z[5]}" transform="rotate(${z[6]} ${z[2]} ${z[3]})" fill="${z[1]}" opacity="${z[1]===lite?.9:.72}"/>`).join('');
+  const feats = `<path d="M108,140 C120,130 140,130 150,138" fill="none" stroke="#8B92AA" stroke-width="5" stroke-linecap="round" opacity=".5"/><path d="M150,138 C160,130 180,130 192,140" fill="none" stroke="#8B92AA" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+    <ellipse cx="110" cy="165" rx="18" ry="8" fill="#fff" opacity=".8"/><ellipse cx="190" cy="165" rx="18" ry="8" fill="#fff" opacity=".8"/><circle cx="110" cy="165" r="6" fill="#2A3350"/><circle cx="190" cy="165" r="6" fill="#2A3350"/>
+    <path d="M150,175 L150,225 M142,232 C146,238 154,238 158,232" fill="none" stroke="#8B92AA" stroke-width="1.5" opacity=".5"/><path d="M130,278 C142,270 158,270 170,278 C158,290 142,290 130,278Z" fill="#C97A85" opacity=".7"/>`;
+  return `<svg viewBox="0 0 300 370" xmlns="http://www.w3.org/2000/svg" class="mk-face">
+    <path d="${outlines[shape]}" fill="rgba(255,255,255,.06)" stroke="#8B92AA" stroke-width="2"/>${zs}${feats}
+    <g font-family="JetBrains Mono, monospace" font-size="10" fill="#8B92AA"><rect x="10" y="345" width="12" height="12" fill="${dark}"/><text x="26" y="355">скульптор</text><rect x="110" y="345" width="12" height="12" fill="${pink}"/><text x="126" y="355">румяна</text><rect x="200" y="345" width="12" height="12" fill="${lite}"/><text x="216" y="355">хайлайтер</text></g>
+  </svg>`;
+}
+
+/* ---------- сборка результата ---------- */
+function buildMakeup(){
+  const cfg = GOAL_CFG[M.goal], geo = EYE_GEO[M.eye], depth = DEPTH[M.skin]??1;
+  const pal = { p: PAL[M.shade].p[depth], liner: PAL[M.shade].liner, lips: PAL[M.shade].lips, v: PAL[M.shade].v };
+  const [base, trans, acc, light] = pal.p;
+  const score = MATCH[M.eyes] ? MATCH[M.eyes][M.shade] : 1;
+  const face = FACE_TXT[M.face];
+  const dark = cfg.intensity>=3;
+  const hooded = M.eye==='Нависшее веко', mono = M.eye==='Монолид', deep = M.eye==='Глубоко посаженные', round = M.eye==='Круглые', down = M.eye==='Опущенные уголки';
+
+  const legend = [
+    [base, '1 · База — всё подвижное веко', deep ? 'сатиновая текстура, чтобы веко «вышло» на свет' : (dark ? 'ровным плотным слоем плоской кистью' : 'тонко, плоской кистью, как грунт')],
+    [trans, '2 · Переход — ' + (hooded ? 'НАД складкой, с открытым глазом' : mono ? 'полоса выше линии ресниц на ширину пальца' : 'по складке'), 'пушистой кистью движениями «дворники», ' + (hooded?'смотрите прямо в зеркало, не закрывая глаз':'от внешнего края к центру')],
+    [acc, '3 · Акцент — внешний уголок' + (round?' и за его пределы':'') + (down?', строго вверх':''), (dark?'плотно, карандашной кистью, затем растушевать границу':'мягко, маленькой кистью, только внешняя треть')],
+    [light, '4 · Свет — внутренний уголок', M.sp==='Широко посаженные' ? 'в вашем случае пропускаем' : 'капля шиммера пальцем или кистью-карандашом'],
+    [trans, '5 · Нижнее веко', down ? 'только под внутренней половиной, внешний край чистый' : round ? 'внешняя половина, чуть шире к уголку' : 'внешние две трети, тонко'],
+    [light, '6 · Под бровью', 'матовый светлый — днём, сатин — вечером; открывает веко']
+  ];
+
+  const steps = [];
+  steps.push(['Кожа', cfg.skinF + '. Праймер на веки обязателен' + (hooded?' — на нависшем веке тени без него уезжают за 2 часа':'') + '. Консилер на веко — как база, чтобы цвет ' + M.shade.toLowerCase() + ' лёг чисто.', 'спонж / кисть для тона']);
+  steps.push(['Брови', face.brow + ' Оттенок: ' + (BROW_BY_HAIR[M.hair]||'нейтральный тауп') + '. Волоски вверх, штрихи только там, где пробелы; фиксируем гелем.', 'карандаш + щёточка']);
+  steps.push(['Веко: база (зона 1)', `${base[1]} — ${legend[0][2]}. ${deep?'Никакого матового тёмного на подвижном веке: оно утопит глаз ещё глубже.':'Это фон, на нём не должно быть пятен.'}`, 'плоская кисть']);
+  steps.push(['Переход (зона 2)', `${trans[1]}. ${hooded?'Смотрите в зеркало прямо, глаз открыт: тень должна быть видна над складкой при открытом глазе — иначе вы красите то, чего не видно. ':mono?'Кладите полосой на ширину пальца выше ресниц и растягивайте вверх; граница вверху — тающая. ':'Кладите в складку, начиная с внешней трети, набирая тени понемногу. '}${SP_NOTE[M.sp]?SP_NOTE[M.sp]+' ':''}Растушёвка вверх и наружу — 80 % результата здесь.`, 'пушистая кисть (blending)']);
+  steps.push(['Акцент (зона 3)', `${acc[1]} — ${legend[2][2]}. ${down?'Вектор акцента — продолжение нижнего века вверх: вы «поднимаете» уголок. ':''}${round?'Выводите за уголок на 4–6 мм по горизонтали — это вытягивает глаз. ':''}${dark?'Затем чистой кистью размойте верхнюю границу, чтобы не было «синяка». ':'Днём достаточно намёка на глубину.'}`, 'карандашная кисть']);
+  steps.push(['Свет (зоны 4, 6)', `${light[1]}: ${M.sp==='Широко посаженные'?'под бровь тонко, внутренний уголок оставляем чистым, чтобы не разводить глаза ещё шире.':'внутренний уголок и под бровь. '+(M.sp==='Близко посаженные'?'Для вас это ключевая зона — светлая внутренняя треть «раздвигает» глаза.':'Не переусердствуйте под бровью: полоска, а не блок.')}`, 'мизинец или маленькая кисть']);
+  steps.push(['Стрелка и слизистая', `${cfg.liner}. Цвет: ${pal.liner[1]}${M.eyes==='Голубые'||M.eyes==='Серые'?' (чёрный на светлых глазах жёстче, коричневый мягче — оба варианта рабочие)':''}. ${hooded?'Хвостик — только по прямой продолжению нижнего века, коротко: длинная стрелка сломается о складку. ':''}${round?'Хвостик длиннее обычного, горизонтально. ':''}${down?'Хвостик поднимаем на 30–45° выше линии нижнего века. ':''}${mono?'Линия у ресниц толще к внешнему краю, чтобы была видна при открытом глазе. ':''}${cfg.intensity>=2?'Межресничное пространство прокрасить кайалом — ресницы станут гуще визуально.':''}`, 'лайнер / карандаш']);
+  steps.push(['Нижнее веко (зона 5)', `${legend[4][2]}, оттенком ${trans[1].toLowerCase()}. ${dark?'Для смоки: кайал по нижней слизистой, затем те же тени поверх — граница исчезает.':'Днём достаточно мягкой тени по ресницам, без подводки внутри.'}`, 'маленькая пушистая кисть']);
+  steps.push(['Ресницы', cfg.lash + '. Первый слой — от корней зигзагом, второй — только кончики. ' + (down?'Акцент туши на внешней трети — вверх. ':'') + (round?'Акцент — на внешние уголки, центр без объёма. ':''), 'тушь' + (cfg.intensity>=3?' + пучки':'')]);
+  steps.push(['Скульптор', face.c, 'скошенная кисть']);
+  steps.push(['Румяна', face.b + (dark?' Оттенок сдержанный, макияж глаз уже сильный.':' ' + (M.shade==='Розовый'||M.shade==='Бордо / вино'?'Румяна в семье тона теней — монохром выглядит дорого.':'Персиковые или нейтрально-розовые под ваш тон.')), 'кисть для румян']);
+  steps.push(['Хайлайтер', face.h + (M.goal==='Свадьба'||M.goal==='Съёмка'?' Тонкодисперсный, без блёсток — вспышка увеличивает любой блеск.':''), 'веерная кисть / пальцы']);
+  steps.push(['Губы', cfg.lipF + '. ' + pal.lips + '. Карандаш по контуру — и стойкость, и чистая форма.', 'карандаш + помада']);
+  steps.push(['Фиксация', (M.goal==='Свадьба'||M.goal==='Съёмка'||M.goal==='Вечерний')?'Фиксирующий спрей с расстояния 25 см, дать высохнуть, не трогать лицо. Пудра — только Т-зона.':'Лёгкий фиксирующий спрей; матирующие салфетки с собой вместо пудры.', 'спрей']);
+
+  const mistakes = [];
+  if(hooded) mistakes.push('Тёмное только на подвижном веке → при открытом глазе исчезает, а глаз выглядит «маленьким». Переход — выше складки.', 'Кремовые/шиммерные тени без базы → отпечаток на верхнем веке через час.', 'Длинный хвостик стрелки → ломается о складку.');
+  if(mono) mistakes.push('Попытка «нарисовать складку» тёмной линией → выглядит грязно. Только градиент.', 'Тонкая стрелка → не видна при открытом глазе. Линия толще к внешнему краю.', 'Шиммер по всему веку → веко визуально «пухнет». Шиммер — центр и внутренний уголок.');
+  if(down) mistakes.push('Затемнённый внешний уголок нижнего века → тянет глаз вниз ещё сильнее.', 'Стрелка, повторяющая линию века, → усиливает «грустный» вектор. Только вверх.', 'Тушь на нижних ресницах во внешнем углу → тот же эффект вниз.');
+  if(round) mistakes.push('Светлый шиммер на всё веко → глаз становится ещё круглее и «удивлённее».', 'Стрелка с толстым коротким хвостиком → делает глаз ещё выше. Хвостик тонкий и длинный.', 'Тёмная подводка по всей нижней слизистой → уменьшает глаз в кружок.');
+  if(deep) mistakes.push('Матовый тёмный на веке → глаз «проваливается». Тёмное — выше складки.', 'Толстая чёрная стрелка → съедает всё видимое веко. Тонкая или коричневая.', 'Слишком светлый хайлайтер под бровью → надбровная дуга выступает ещё сильнее.');
+  if(M.eye==='Миндалевидные') mistakes.push('Переусердствовать с коррекцией: миндалевидные не нужно «поднимать» — грубая стрелка вверх смотрится агрессивно.', 'Оставить чёткие границы теней — форма позволяет всё, кроме грязи.', 'Игнорировать нижнее веко — на миндалевидных оно закрывает композицию.');
+  if(score===0) mistakes.push(`${M.shade} в цвет радужки (${M.eyes.toLowerCase()} глаза) без контраста → глаза тускнеют. Возьмите оттенок на 2 тона темнее и добавьте тёплую бронзу в переход.`);
+  if(M.shade==='Розовый') mistakes.push('Розовый без коричневого/сливового перехода → эффект заплаканных глаз.');
+  if(M.shade==='Синий / голубой') mistakes.push('Синий по всему веку матово → «90-е». Синий только в зонах 3 и 5 + подводка, база нейтральная.');
+  if(M.shade==='Серый / графит' && depth===0) mistakes.push('Холодный серый на фарфоровой коже без тёплого света (шампань, зона 6) → уставший вид.');
+  if(M.shade==='Золото / бронза' && cfg.intensity===1) mistakes.push('Крупный металлик днём под дневным светом «зернит» — берите сатиновое золото, а не глиттер.');
+
+  const mult = {'до 1 500 ₽':.6,'1 500–4 000 ₽':1,'4 000–10 000 ₽':1.9,'10 000 ₽ +':3.4}[M.budget]||1;
+  const P = n=>'~'+Math.round(n*mult/10)*10+' ₽';
+  const kit = [
+    ['Праймер для век', 'праймер для век', 500],
+    ['Палетка теней: ' + M.shade.toLowerCase() + ' гамма', 'палетка теней ' + ({'Нюд / беж':'нюд','Коричневый':'коричневые','Розовый':'розовые','Слива / фиолет':'сливовые','Зелёный':'зелёные хаки','Синий / голубой':'синие','Серый / графит':'серые смоки','Золото / бронза':'бронзовые','Медь / терракота':'терракотовые','Бордо / вино':'бордовые'}[M.shade]), 1200],
+    ['Подводка ' + pal.liner[1], (cfg.intensity>=2?'подводка лайнер ':'карандаш кайал ') + pal.liner[1], 500],
+    ['Тушь ' + (cfg.intensity>=3?'объём':'разделяющая') + (M.goal==='Свадьба'?', водостойкая':''), 'тушь для ресниц ' + (cfg.intensity>=3?'объём':'удлинение'), 700],
+    ['Карандаш для бровей: ' + (BROW_BY_HAIR[M.hair]||'тауп'), 'карандаш для бровей ' + (M.hair==='Блонд'||M.hair==='Пепельный'?'тауп':'коричневый'), 450],
+    ['Скульптор (холодный, без шиммера)', 'скульптор для лица', 700],
+    ['Румяна ' + (M.shade==='Розовый'||M.shade==='Бордо / вино'?'розово-ягодные':'персиковые'), 'румяна ' + (M.shade==='Розовый'||M.shade==='Бордо / вино'?'розовые':'персиковые'), 600],
+    ['Хайлайтер тонкодисперсный', 'хайлайтер шампань', 700],
+    ['Набор кистей: плоская, пушистая, карандашная, скошенная', 'набор кистей для макияжа', 900],
+    ['Губы: карандаш + ' + cfg.lipF.split(',')[0], 'карандаш для губ нюд', 400]
+  ];
+
+  return { cfg, geo, pal, score, face, legend, steps, mistakes, kit, P };
+}
+
+function renderMakeup(){
+  const R = buildMakeup();
+  const out = document.getElementById('mkOut');
+  const pal = R.pal;
+  const sw = pal.p.map((c,i)=>`<div class="mk-sw"><i style="background:${c[0]}"></i><b>${['база','переход','акцент','свет'][i]}</b><span>${c[1]}</span></div>`).join('') + `<div class="mk-sw"><i style="background:${pal.liner[0]}"></i><b>подводка</b><span>${pal.liner[1]}</span></div>`;
+  out.innerHTML =
+   `<div class="look badv mk-wide"><div class="look-in">
+      <h3>${M.goal} · ${M.shade} · ${M.eye.toLowerCase()}</h3>
+      <div class="tip">${pal.v}. ${MATCH_TXT[R.score].charAt(0).toUpperCase()+MATCH_TXT[R.score].slice(1)}.</div>
+      <div class="tip" style="margin-top:8px">${R.cfg.tip}</div>
+      <div class="mk-sws">${sw}</div>
+    </div></div>
+    <div class="look badv"><div class="look-in">
+      <h3>Схема глаза — ${M.eye.toLowerCase()}${M.sp!=='Нормальная'?', '+M.sp.toLowerCase():''}</h3>
+      ${eyeSVG(M.eye, M.sp, pal, R.cfg)}
+      <div class="tip">${R.geo.note}${SP_NOTE[M.sp]?' '+SP_NOTE[M.sp]:''}</div>
+      <div class="mk-legend">${R.legend.map(l=>`<div><i style="background:${l[0][0]}"></i><b>${l[1]}</b><span>${l[0][1]} — ${l[2]}</span></div>`).join('')}</div>
+    </div></div>
+    <div class="look badv"><div class="look-in">
+      <h3>Схема лица — ${M.face.toLowerCase()}</h3>
+      ${faceSVG(M.face)}
+      <div class="mk-legend"><div><i style="background:#6B4A3A"></i><b>Скульптор</b><span>${R.face.c}</span></div><div><i style="background:#E58A96"></i><b>Румяна</b><span>${R.face.b}</span></div><div><i style="background:#FBE7C8"></i><b>Хайлайтер</b><span>${R.face.h}</span></div><div><i style="background:#8B92AA"></i><b>Брови</b><span>${R.face.brow}</span></div></div>
+    </div></div>
+    <div class="look badv mk-wide"><div class="look-in">
+      <h3>Пошагово — ${R.steps.length} шагов, ~${R.cfg.intensity===1?15:R.cfg.intensity===2?25:40} минут</h3>
+      <ol class="mk-steps">${R.steps.map(s=>`<li><b>${s[0]}</b><span class="mk-tool">${s[2]}</span><p>${s[1]}</p></li>`).join('')}</ol>
+    </div></div>
+    <div class="look badv"><div class="look-in">
+      <h3>Что испортит именно ваш макияж</h3>
+      <ul class="mk-mist">${R.mistakes.map(m=>'<li>'+m+'</li>').join('')}</ul>
+    </div></div>
+    <div class="look badv"><div class="look-in">
+      <h3>Косметичка под схему</h3>
+      ${R.kit.map(k=>`<div class="item"><div class="nm">${k[0]}</div><div class="pr">${R.P(k[2])}</div>${beautyButtons(k[1])}</div>`).join('')}
+      <div class="total">✦ бюджет: ${M.budget} · цены ориентировочные</div>
+    </div></div>`;
+  out.insertAdjacentHTML('beforeend', '<div class="next-row"><span>дальше →</span><button onclick="openBeauty()">✦ Бьюти-скан по селфи</button><button onclick="openPage(\'askPage\')">✦ Спросить визажиста в Консилиуме</button><button onclick="window.print()">⎙ Распечатать схему</button></div>');
+  if(window.fxTilt) fxTilt(out); if(window.fxGlow) fxGlow(out); if(window.fxZone) fxZone(out);
+  out.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function mkChips(key, arr, colored){
+  return '<div class="chips">' + arr.map(v=>{
+    const col = colored ? (colored.find(c=>c[0]===v)||[])[1] : null;
+    return `<button class="chip ${M[key]===v?'on':''}" onclick="mkPick('${key}','${v.replace(/'/g,"\\'")}')">${col?`<i class="sw" style="background:${col}"></i>`:''}${v}</button>`;
+  }).join('') + '</div>';
+}
+window.mkPick = (k,v)=>{ M[k]=v; try{ localStorage.setItem('looka_makeup', JSON.stringify(M)); }catch(e){} renderMakeupForm(); };
+window.renderMakeupForm = ()=>{
+  const f = document.getElementById('mkForm'); if(!f) return;
+  // подтягиваем из анкеты, если ещё не выбрано
+  if(!M.eyes && typeof S!=='undefined' && S.eyes) M.eyes = S.eyes;
+  if(!M.skin && typeof S!=='undefined' && S.skin) M.skin = S.skin;
+  if(!M.hair && typeof S!=='undefined' && S.hair) M.hair = S.hair;
+  if(!M.budget && typeof B!=='undefined' && B.budget) M.budget = B.budget;
+  const g = (t,inner)=>`<div class="grp"><label class="t">${t}</label>${inner}</div>`;
+  f.innerHTML =
+    g('Какой макияж', mkChips('goal', GOALS)) +
+    g('Форма глаз', mkChips('eye', EYE_SHAPES)) +
+    g('Посадка глаз', mkChips('sp', SPACING)) +
+    g('Форма лица', mkChips('face', FACES)) +
+    g('Цвет глаз', mkChips('eyes', EYES.map(e=>e[0]), EYES)) +
+    g('Тон кожи', mkChips('skin', SKIN.map(s=>s[0]), SKIN)) +
+    g('Цвет волос — для бровей', mkChips('hair', HAIR.map(h=>h[0]), HAIR)) +
+    g('Какие тени хочется', mkChips('shade', SHADES, SHADES.map(s=>[s, PAL[s].p[1][2][0]]))) +
+    g('Бюджет на косметичку', mkChips('budget', MBUDGETS)) +
+    `<div class="mk-hint" id="mkHint"></div><button class="btn primary" id="mkGo" ${['goal','eye','face','eyes','skin','hair','shade','budget'].every(k=>M[k])?'':'disabled'} onclick="renderMakeup()">✦ Построить мою схему макияжа</button>`;
+  const hint = document.getElementById('mkHint');
+  if(M.eyes && M.shade){ const s = MATCH[M.eyes][M.shade]; hint.innerHTML = (s===2?'✦ ':s===1?'◦ ':'△ ') + M.shade + ' и ' + M.eyes.toLowerCase() + ' глаза: ' + MATCH_TXT[s]; }
+  const chosen = ['goal','eye','face','eyes','skin','hair','shade','budget'].filter(k=>!M[k]);
+  if(chosen.length && !hint.innerHTML) hint.textContent = 'Осталось выбрать: ' + chosen.length;
+};
+window.openMakeup = ()=>{ openPage('makeupPage'); renderMakeupForm(); };
+window.renderMakeup = renderMakeup;
+})();
+
+/* ================= ПРИМЕРКА: фото клиента + образ → фотореалистичное изображение ================= */
+(function(){
+const LIMIT_MONTH = 20;
+const T = { look:null, refs:[], busy:false };
+function quotaLeft(){
+  const m = new Date().toISOString().slice(0,7);
+  let q = {m, n:0}; try{ q = JSON.parse(localStorage.getItem('looka_tryon')||'null') || q; }catch(e){}
+  if(q.m!==m) q = {m, n:0};
+  return { left: Math.max(0, LIMIT_MONTH - q.n), q };
+}
+function quotaUse(){ const {q} = quotaLeft(); q.n++; localStorage.setItem('looka_tryon', JSON.stringify(q)); }
+async function fileToB64(f, max){
+  return new Promise(res=>{
+    const img = new Image();
+    img.onload = ()=>{ const c=document.createElement('canvas'); const k=Math.min(1, max/Math.max(img.width,img.height));
+      c.width=img.width*k; c.height=img.height*k; c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      res(c.toDataURL('image/jpeg',.88)); };
+    img.src = URL.createObjectURL(f);
+  });
+}
+function lookDesc(l){
+  return l.t + ': ' + l.items.map(i=>i.n).join(', ');
+}
+window.openTryOn = idx=>{
+  const looks = window._lastLooks||[]; T.look = looks[idx]; if(!T.look) return;
+  T.refs = [];
+  let ov = document.getElementById('toOv');
+  if(!ov){ ov = document.createElement('div'); ov.id='toOv'; ov.className='to-ov'; ov.onclick = e=>{ if(e.target===ov) closeTryOn(); }; document.body.appendChild(ov); }
+  renderTryOn();
+  ov.classList.add('open'); document.body.style.overflow='hidden';
+};
+window.closeTryOn = ()=>{ const ov=document.getElementById('toOv'); if(ov) ov.classList.remove('open'); document.body.style.overflow=''; };
+function renderTryOn(result){
+  const ov = document.getElementById('toOv'); const {left} = quotaLeft();
+  const hasPhoto = !!S.photo;
+  const api = LOOKA_API || GEMINI_KEY;
+  ov.innerHTML = `<div class="to-box">
+    <button class="to-x" onclick="closeTryOn()">✕</button>
+    <div class="eyebrow">примерка · ${T.look.t}</div>
+    <h3>Как этот образ сядет именно на вас</h3>
+    <p class="to-lead">Нейросеть переносит весь комплект на ваше фото: лицо, причёска и фигура сохраняются, одежда — из образа. Фон студийный.</p>
+    <div class="to-grid">
+      <div class="to-col">
+        <div class="to-k">1 · Ваше фото ${hasPhoto?'<b class="ok">✓ из анкеты</b>':''}</div>
+        ${hasPhoto?`<img class="to-ph" src="data:image/jpeg;base64,${S.photo}" alt="">`:`<div class="to-drop" onclick="toPickPhoto()">Загрузите фото в полный рост<br><span>ровный свет, без фильтров, одежда по фигуре</span></div>`}
+        <button class="chip" onclick="toPickPhoto()">${hasPhoto?'заменить фото':'выбрать файл'}</button>
+      </div>
+      <div class="to-col">
+        <div class="to-k">2 · Одежда</div>
+        <div class="to-desc">${T.look.items.map(i=>'<span>'+i.n+'</span>').join('')}</div>
+        <div class="to-k" style="margin-top:12px">Точнее — с фото вещей <span class="to-opt">по желанию, до 4</span></div>
+        <div class="to-refs" id="toRefs">${T.refs.map((r,i)=>`<div class="to-ref"><img src="${r}"><button onclick="toDelRef(${i})">✕</button></div>`).join('')}
+          ${T.refs.length<4?'<label class="to-add">+ фото с WB / Ozon<input type="file" accept="image/*" multiple onchange="toAddRefs(this.files)"></label>':''}</div>
+        <div class="b-priv">Откройте вещь на маркетплейсе, сохраните её фото и добавьте сюда — нейросеть перенесёт именно её, а не «похожую».</div>
+      </div>
+    </div>
+    ${result?`<div class="to-res"><img src="${result}" alt="примерка"><div class="to-row"><a class="btn primary" download="looka-tryon.png" href="${result}">Сохранить</a><button class="btn ghost" onclick="runTryOn()">Ещё вариант</button></div></div>`:''}
+    <div class="to-row">
+      <button class="btn primary" id="toGo" ${(!hasPhoto||T.busy)?'disabled':''} onclick="runTryOn()">${T.busy?'Генерируем… 20–40 секунд':'✦ Примерить'}</button>
+      <span class="to-q">${api?`осталось примерок в этом месяце: ${left}`:'примерка включится после подключения ИИ-ключа'}</span>
+    </div>
+    <div class="b-priv">Фото отправляется в генеративную модель только на время обработки и не сохраняется ни у нас, ни у провайдера. Результат — ориентир по посадке и сочетанию, не точная копия товара.</div>
+  </div>`;
+}
+window.toPickPhoto = ()=>{ const i=document.getElementById('upInp'); const h=()=>{ i.removeEventListener('change',h); setTimeout(()=>renderTryOn(),600); }; i.addEventListener('change',h); i.click(); };
+window.toAddRefs = async files=>{ for(const f of Array.from(files).slice(0, 4-T.refs.length)) T.refs.push(await fileToB64(f, 900)); renderTryOn(); };
+window.toDelRef = i=>{ T.refs.splice(i,1); renderTryOn(); };
+window.runTryOn = async ()=>{
+  const api = LOOKA_API, key = GEMINI_KEY;
+  if(!api && !key){ if(window.myToast) myToast('Примерка включится после подключения ИИ-ключа'); return; }
+  if(!S.photo) return;
+  if(quotaLeft().left<=0){ if(window.myToast) myToast('Лимит примерок на этот месяц исчерпан'); return; }
+  T.busy = true; renderTryOn();
+  try{
+    const refs = T.refs.map(d=>d.split(',')[1]);
+    let img = null, mime = 'image/png';
+    if(api){
+      const r = await fetch(api.replace(/\/$/,'')+'/tryon', { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ face: S.photo, refs, desc: lookDesc(T.look) }) });
+      const j = await r.json();
+      if(!r.ok || !j.image) throw new Error(j.error||'ошибка генерации');
+      img = j.image; mime = j.mime||mime;
+    } else {
+      const parts = [{inline_data:{mime_type:'image/jpeg',data:S.photo}}];
+      refs.forEach(d=>parts.push({inline_data:{mime_type:'image/jpeg',data:d}}));
+      parts.push({text:
+        `Image 1 is the person (face, hair and body reference). ` +
+        (refs.length ? `Images 2-${refs.length+1} are the exact clothing items to put on this person. ` : '') +
+        `Generate a photorealistic full-body image of THIS person wearing this complete outfit: ${lookDesc(T.look)}. ` +
+        `Transfer the whole outfit exactly; do not invent, add or change clothing items. Colours, textures and proportions of the clothes must match the reference. ` +
+        `Preserve the person's face, skin tone, body shape and hairstyle as realistically as possible. Neutral studio background, soft light, high detail, photorealism, no text or watermarks.`});
+      const r = await geminiCall(GEMINI_IMAGE, parts, {responseModalities:['IMAGE','TEXT']});
+      if(!r.ok) throw new Error(r.status===403?'ключ не принят — проверьте ограничение по сайту':r.status===429?'лимит ключа на сегодня':'генератор недоступен ('+r.status+')');
+      const j = await r.json();
+      const out = (j.candidates?.[0]?.content?.parts||[]).find(p=>p.inlineData||p.inline_data);
+      if(!out) throw new Error('модель не вернула изображение — попробуйте другое фото');
+      const d = out.inlineData||out.inline_data; img = d.data; mime = d.mimeType||d.mime_type||mime;
+    }
+    quotaUse(); T.busy = false;
+    renderTryOn(`data:${mime};base64,${img}`);
+  }catch(e){
+    T.busy = false; renderTryOn();
+    if(window.myToast) myToast('Не получилось: ' + e.message);
+  }
+};
+})();
 
 fxGlow(document);
 fxTilt(document);
