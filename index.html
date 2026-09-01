@@ -6622,7 +6622,7 @@ window.fitCat = n=>{ n=(n||'').toLowerCase(); return /туфл|ботин|кед
 window.fitAdd = (brand, cat, size, fit, src)=>{
   brand = (brand||'').trim(); if(!brand) return false;
   FIT.list.push({ brand, cat, size:size||S.clothSize||'', fit:+fit, figure:S.figure||'', ts:Date.now(), src:src||'' }); fitSave();
-  if(LOOKA_API){ fetch(LOOKA_API.replace(/\/$/,'')+'/fit', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({brand, cat, size:size||S.clothSize||'', fit:+fit, figure:S.figure||'', region:REGION})}).catch(()=>{}); }
+  if(LOOKA_API){ fetch(LOOKA_API.replace(/\/$/,'')+'/fit?region='+REGION, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({brand, cat, size:size||S.clothSize||'', fit:+fit, figure:S.figure||'', region:REGION})}).then(r=>r.json()).then(j=>{ if(j&&j.ok) myToast('✓ Записано и отправлено в общую таблицу'); else myToast('Записано у вас; общая таблица: '+(j&&j.error||j&&j.note||'нет ответа')); }).catch(()=>myToast('Записано у вас; общая таблица недоступна — мост не отвечает')); }
   return true;
 };
 window.fitAgg = ()=>{
