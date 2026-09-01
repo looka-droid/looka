@@ -3154,6 +3154,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .fit-t td{padding:8px;border-bottom:1px solid rgba(255,255,255,.06)}
 .fit-t td.vs{color:#FF9DB0}.fit-t td.vl{color:#9DC8FF}.fit-t td.vt{color:#7CF0B2}
 .fit-quick{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+.fit-sync{margin-top:8px;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1px;min-height:14px}
 </style>
 </head>
 <body>
@@ -6622,7 +6623,9 @@ window.fitCat = n=>{ n=(n||'').toLowerCase(); return /туфл|ботин|кед
 window.fitAdd = (brand, cat, size, fit, src)=>{
   brand = (brand||'').trim(); if(!brand) return false;
   FIT.list.push({ brand, cat, size:size||S.clothSize||'', fit:+fit, figure:S.figure||'', ts:Date.now(), src:src||'' }); fitSave();
-  if(LOOKA_API){ fetch(LOOKA_API.replace(/\/$/,'')+'/fit?region='+REGION, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({brand, cat, size:size||S.clothSize||'', fit:+fit, figure:S.figure||'', region:REGION})}).then(r=>r.json()).then(j=>{ if(j&&j.ok) myToast('✓ Записано и отправлено в общую таблицу'); else myToast('Записано у вас; общая таблица: '+(j&&j.error||j&&j.note||'нет ответа')); }).catch(()=>myToast('Записано у вас; общая таблица недоступна — мост не отвечает')); }
+  const st = document.getElementById('fitSync'); const say = (t, ok)=>{ if(st){ st.textContent = t; st.style.color = ok?'#7CF0B2':'#FF9DB0'; } else myToast(t); };
+  if(LOOKA_API){ say('отправляю в общую таблицу…', true); fetch(LOOKA_API.replace(/\/$/,'')+'/fit?region='+REGION, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({brand, cat, size:size||S.clothSize||'', fit:+fit, figure:S.figure||'', region:REGION})}).then(r=>r.json().then(j=>({j, s:r.status}))).then(({j,s})=>{ if(j&&j.ok) say('✓ '+brand+' — в общей таблице (регион '+REGION+')', true); else say('✗ мост ответил '+s+': '+(j&&(j.error||j.note)||'без текста'), false); }).catch(e=>say('✗ мост не отвечает: '+e.message, false)); }
+  else say('общая таблица выключена: LOOKA_API пуст', false);
   return true;
 };
 window.fitAgg = ()=>{
@@ -6644,7 +6647,7 @@ window.fitSubmit = (idx, v)=>{
 window.fitQuickAdd = ()=>{
   const b = document.getElementById('fqB').value, c = document.getElementById('fqC').value, s = document.getElementById('fqS').value, v = document.querySelector('#fqF .on');
   if(!b.trim() || !v){ myToast('Нужны бренд и результат'); return; }
-  fitAdd(b, c, s, v.dataset.v, 'manual'); myToast('Записала: '+b.trim()+' '+FIT_LBL[v.dataset.v]); if(window.renderTool) renderTool('size'); setTimeout(()=>document.getElementById('szGo')&&document.getElementById('szGo').click(), 50);
+  fitAdd(b, c, s, v.dataset.v, 'manual'); myToast('Записала: '+b.trim()+' '+FIT_LBL[v.dataset.v]); setTimeout(()=>{ if(window.renderTool) renderTool('size'); setTimeout(()=>document.getElementById('szGo')&&document.getElementById('szGo').click(), 50); }, 3500);
 };
 window.fitTable = async ()=>{
   const own = fitAgg();
@@ -6654,7 +6657,7 @@ window.fitTable = async ()=>{
   return '<div class="tp-card fit-card"><span class="k">ПОСАДКА БРЕНДОВ · ОПЫТ РЕАЛЬНЫХ ПОКУПАТЕЛЬНИЦ</span>'
     + (shared ? '<div class="tp-d">Собрано клиентками LOOKA'+(S.figure?' — для всех фигур; ваш тип: '+S.figure.toLowerCase():'')+'.</div><table class="fit-t"><thead><tr><th>бренд</th><th>отзывов</th><th>посадка</th><th>совет</th></tr></thead><tbody>'+rows(shared)+'</tbody></table>' : '')
     + (own.length ? '<div class="tp-d" style="margin-top:'+(shared?'12px':'0')+'">Ваш опыт'+(shared?' (уже учтён в общей таблице)':'')+':</div><table class="fit-t"><thead><tr><th>бренд</th><th>покупок</th><th>посадка</th><th>совет</th></tr></thead><tbody>'+rows(own)+'</tbody></table>' : '<div class="tp-d">Пока пусто. Каждая ваша покупка с ответом «село?» в «Мой LOOKA» попадает сюда — и через месяц у вас будет своя таблица «где брать на размер больше».</div>')
-    + '<div class="fit-quick"><span class="k">ДОБАВИТЬ ОПЫТ</span><div class="fit-row"><input list="fitBrands" id="fqB" placeholder="бренд"><select id="fqC"><option>верх</option><option>брюки</option><option>юбки</option><option>платья</option><option>жакеты</option><option>верхняя одежда</option><option>обувь</option></select><input type="number" id="fqS" placeholder="размер" value="'+(S.clothSize||'')+'"></div><div class="fit-btns" id="fqF">'+[-1,0,1].map(v=>'<button data-v="'+v+'" onclick="this.parentNode.querySelectorAll(\'button\').forEach(b=>b.classList.remove(\'on\'));this.classList.add(\'on\')">'+FIT_LBL[v]+'</button>').join('')+'</div><button class="btn primary" style="margin-top:8px" onclick="fitQuickAdd()">Записать</button></div>'
+    + '<div class="fit-quick"><span class="k">ДОБАВИТЬ ОПЫТ</span><div class="fit-row"><input list="fitBrands" id="fqB" placeholder="бренд"><select id="fqC"><option>верх</option><option>брюки</option><option>юбки</option><option>платья</option><option>жакеты</option><option>верхняя одежда</option><option>обувь</option></select><input type="number" id="fqS" placeholder="размер" value="'+(S.clothSize||'')+'"></div><div class="fit-btns" id="fqF">'+[-1,0,1].map(v=>'<button data-v="'+v+'" onclick="this.parentNode.querySelectorAll(\'button\').forEach(b=>b.classList.remove(\'on\'));this.classList.add(\'on\')">'+FIT_LBL[v]+'</button>').join('')+'</div><button class="btn primary" style="margin-top:8px" onclick="fitQuickAdd()">Записать</button><div id="fitSync" class="fit-sync"></div></div>'
     + '<datalist id="fitBrands">'+FIT_BRANDS.map(b=>'<option value="'+b+'">').join('')+'</datalist></div>';
 };
 window.renderMy = ()=>{
