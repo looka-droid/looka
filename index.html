@@ -6674,7 +6674,7 @@ window.runTryOn = async ()=>{
       const r = await fetch(api.replace(/\/$/,'')+'/tryon', { method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({ face: S.photo, refs, desc: lookDesc(T.look) }) });
       const j = await r.json();
-      if(!r.ok || !j.image) throw new Error(j.error||'ошибка генерации');
+      if(!r.ok || !j.image) throw new Error((j.error||'ошибка генерации') + (j.detail ? ' · ' + j.detail : ''));
       img = j.image; mime = j.mime||mime;
     } else {
       const parts = [{inline_data:{mime_type:'image/jpeg',data:S.photo}}];
