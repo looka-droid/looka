@@ -3405,6 +3405,31 @@ body::before{background:
 .lav-svg{height:340px;max-width:100%;filter:drop-shadow(0 14px 24px rgba(0,0,0,.35));animation:lavSway 6s ease-in-out infinite;transform-origin:50% 90%}
 #avatar .lav-img{width:auto;height:360px;max-width:100%;object-fit:contain;border-radius:14px;filter:drop-shadow(0 14px 26px rgba(0,0,0,.4));animation:lavSway 6.5s ease-in-out infinite,popIn .5s both;transform-origin:50% 92%}
 @keyframes lavSway{0%,100%{transform:rotateY(-9deg)}50%{transform:rotateY(9deg)}}
+
+/* ================= СПОКОЙНЫЕ ФОРМЫ · ЖИВЫЕ РЕЗУЛЬТАТЫ ================= */
+.look.calm, .bt-form, .mk-form, .st-panel, .hs-panel, .look:has(.chips), .look:has(textarea), .look:has(input[type=number]){transform:none!important}
+.looks .look.calm:hover, .looks .look:has(.chips):hover, .looks .look:has(textarea):hover{transform:none;box-shadow:none;border-color:rgba(255,255,255,.12)}
+.bt-form:hover{transform:none}
+/* результатные карточки — мягкое дыхание рамки */
+.looks .look.badv:not(.calm){position:relative}
+.looks .look.badv:not(.calm)::before{content:'';position:absolute;inset:0;border-radius:14px;padding:1px;pointer-events:none;
+  background:linear-gradient(130deg,rgba(25,198,247,.5),rgba(199,157,240,.15) 40%,transparent 60%,rgba(242,166,198,.4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:.5;transition:opacity .4s}
+.looks .look.badv:not(.calm):hover::before{opacity:1}
+/* заголовки разделов: живой градиент и линия */
+.mk-hero .big .holo{background-size:200% 100%;animation:holoShift 7s ease-in-out infinite}
+@keyframes holoShift{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+.mk-hero .eyebrow{position:relative;display:inline-flex;align-items:center;gap:10px}
+.mk-hero .eyebrow::before{content:'';width:26px;height:1px;background:linear-gradient(90deg,#C7A6F0,transparent);animation:eyeLine 2.6s ease-in-out infinite}
+@keyframes eyeLine{0%,100%{width:26px;opacity:1}50%{width:40px;opacity:.6}}
+/* пиктограммы результатов чуть оживают при наведении карточки */
+.looks .look:not(.calm):hover .hi, .looks .look:not(.calm):hover .chip-ic{color:#C79DF2}
+/* карточки результата всплывают каскадом */
+.looks .look.badv{animation:riseIn .6s both}
+.looks .look.badv:nth-child(2){animation-delay:.07s}
+.looks .look.badv:nth-child(3){animation-delay:.14s}
+.looks .look.badv:nth-child(4){animation-delay:.21s}
 </style>
 </head>
 <body>
@@ -5556,8 +5581,11 @@ window.fxTilt = (root)=>{
   if(!matchMedia('(pointer:fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   root.querySelectorAll('.look,.how-card,.mp-card,.price-card').forEach(c=>{
     if(c.dataset.fx) return; c.dataset.fx = 1;
+    // формы с выбором ответов не шатаем — там это мешает целиться
+    if(c.querySelector('.chips,.chip,input,textarea,select,.st-mode')) { c.classList.add('calm'); return; }
     c.classList.add('tilt');
     c.addEventListener('mousemove', e=>{
+      if(c.classList.contains('calm') || c.querySelector('.chips')) { c.style.transform=''; return; }
       const r = c.getBoundingClientRect();
       const rx = ((e.clientY-r.top)/r.height-.5)*-5, ry = ((e.clientX-r.left)/r.width-.5)*5;
       c.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-3px)`;
