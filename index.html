@@ -3263,7 +3263,9 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .hc-dots{display:inline-flex;gap:3px}
 .hc-dots i{width:9px;height:9px;border-radius:50%;animation:popIn .5s both}
 .hc-dots i:nth-child(1){background:#E8734A}.hc-dots i:nth-child(2){background:#DAA520;animation-delay:.07s}.hc-dots i:nth-child(3){background:#7CB342;animation-delay:.14s}.hc-dots i:nth-child(4){background:#19C6F7;animation-delay:.21s}.hc-dots i:nth-child(5){background:#9370DB;animation-delay:.28s}
-.hero-hook{margin-top:14px;font-size:13.5px;color:#A8AEC2;max-width:560px;line-height:1.55}
+.hero-hook{margin-top:16px;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#8B92AA}
+.hero-hook i{font-style:normal;color:#C7A6F0;opacity:.8}
+.hero-hook span{white-space:nowrap}
 .cs-cta{margin-top:18px;padding:16px;border:1px solid rgba(25,198,247,.4);background:linear-gradient(135deg,rgba(25,198,247,.1),rgba(91,108,255,.06));display:flex;flex-direction:column;gap:8px}
 .cs-cta b{font-size:15px}
 .cs-cta span{font-size:13px;color:#B7BCCC;line-height:1.5}
@@ -3465,7 +3467,7 @@ body::before{background:
     <button class="btn primary hero-ct" onclick="openColor()"><span class="hc-dots"><i></i><i></i><i></i><i></i><i></i></span>Мои цвета — бесплатно · 60 секунд</button>
     <button class="btn ghost" onclick="document.querySelector('.stage').scrollIntoView({behavior:'smooth'})">Начать подбор образов</button>
   </div>
-  <div class="hero-hook">Начните с цветотипа: 7 ответов — и ваша палитра из 24 цветов с карточкой для сторис. Дальше LOOKA соберёт образы уже в ваших цветах.</div>
+  <div class="hero-hook"><span>7 ответов</span><i>→</i><span>палитра из 24 цветов</span><i>→</i><span>карточка в сторис</span></div>
   <div class="stats-band sb3">
     <div class="sb"><b>15</b><span>регионов мира<br>и их маркетплейсы</span></div>
     <div class="sb"><b>2<em class="u">мин</em></b><span>от анкеты<br>до готовых образов</span></div>
