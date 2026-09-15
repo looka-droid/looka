@@ -3363,7 +3363,9 @@ body::before{background:
 .looks .look:hover{transform:translateY(-3px);box-shadow:0 20px 46px rgba(0,0,0,.38);border-color:rgba(199,157,240,.35)}
 /* спокойный выбор: никаких перескоков, только наведение */
 .chip{transition:background .18s,border-color .18s,color .18s,transform .18s,box-shadow .18s}
-.chip:hover{transform:translateY(-1.5px);border-color:rgba(199,157,240,.65);box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.chip:hover{transform:translateY(-1.5px);border-color:transparent;color:#fff;
+  background:linear-gradient(rgba(16,18,28,.72),rgba(16,18,28,.72)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;
+  box-shadow:0 6px 18px rgba(120,100,200,.28)}
 .chip:active{transform:translateY(0)}
 .chip.on{transform:none}
 /* пиктограммы в вариантах */
@@ -3432,6 +3434,50 @@ body::before{background:
 .looks .look.badv:nth-child(2){animation-delay:.07s}
 .looks .look.badv:nth-child(3){animation-delay:.14s}
 .looks .look.badv:nth-child(4){animation-delay:.21s}
+
+/* мягкая полоса результатов, формы — без полосы */
+.look::before{background:linear-gradient(90deg,rgba(25,198,247,.7),rgba(199,157,240,.55) 55%,rgba(242,166,198,.5));animation:none}
+.bt-form::before,.mk-form::before,.look:has(.chips)::before,.look:has(textarea)::before,.st-panel::before,.hs-panel::before{display:none}
+.q-hint{margin-top:8px;font-size:12px;line-height:1.55;color:#98A0B6;border-left:2px solid rgba(199,157,240,.45);padding-left:10px;max-width:640px}
+
+/* ================= ПОЛЯ И ВАРИАНТЫ v2: стекло, глубина, градиентный выбор ================= */
+.chips{gap:10px}
+.chip{padding:11px 18px;font-size:13.5px;font-weight:500;color:#D6DAE6;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.018));
+  border:1.5px solid rgba(255,255,255,.13);
+  box-shadow:0 2px 10px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.06)}
+.chip .sw{width:12px;height:12px;margin-right:8px;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+.chip.on{border:1.5px solid transparent;color:#0B0C12;font-weight:700;
+  background:linear-gradient(180deg,#FFFFFF,#EEF0F7) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;
+  box-shadow:0 8px 22px rgba(140,120,220,.32), 0 2px 6px rgba(0,0,0,.3)}
+.chip.on:hover{transform:none;box-shadow:0 8px 22px rgba(140,120,220,.32)}
+.chips.pict .chip{padding:13px 15px 11px;border-radius:16px!important}
+.chips.pict .chip.on .chip-ic{color:#3A2F55}
+/* поля ввода */
+.ev-date,.st-ta,#ctMsg,.fit-row input,.fit-row select,#cityInp,#brU,#brB{
+  background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.28);padding:12px 14px;font-size:14px;color:#ECEDF2;transition:border-color .2s, box-shadow .2s, background .2s}
+.ev-date:focus,.st-ta:focus,#ctMsg:focus,.fit-row input:focus,.fit-row select:focus,#cityInp:focus,#brU:focus,#brB:focus{
+  outline:none;border-color:transparent;
+  background:linear-gradient(rgba(18,20,32,.92),rgba(18,20,32,.92)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;
+  box-shadow:0 0 0 4px rgba(150,130,230,.14), inset 0 2px 8px rgba(0,0,0,.28)}
+/* дыхание анкеты: вопрос — воздух — ответы — воздух — подсказка */
+.grp{margin-bottom:34px}
+.grp:last-of-type{margin-bottom:20px}
+.grp .t, label.t{display:block;font-size:13.5px;letter-spacing:.3px;margin-bottom:14px;line-height:1.5}
+.bt-form{padding:30px 26px}
+@media(max-width:640px){.bt-form{padding:24px 16px}}
+.chips{gap:11px 10px;margin-top:0}
+.q-hint{margin-top:14px;padding:10px 14px;border-left:none;border-radius:10px;
+  background:linear-gradient(135deg,rgba(199,157,240,.08),rgba(25,198,247,.05));
+  border:1px solid rgba(199,157,240,.22);color:#A9AFC4;font-size:12.5px;line-height:1.6;max-width:640px;
+  display:flex;gap:9px;align-items:flex-start}
+.q-hint::before{content:'✦';flex:0 0 auto;color:#C7A6F0;font-size:11px;margin-top:1px}
+.mk-how{margin-top:14px;border-radius:12px}
+.mk-howb{vertical-align:2px}
+.mk-hint{margin-top:6px}
+/* заголовок формы не липнет к первому вопросу */
+.bt-form h3{margin-bottom:22px}
 </style>
 </head>
 <body>
@@ -7927,13 +7973,13 @@ window.renderColorForm = ()=>{
   const f = document.getElementById('ctForm'); if(!f) return;
   ['hair','eyes','skin'].forEach(k=>{ if(!C[k] && S[k]) C[k]=S[k]; });
   f.innerHTML =
-    HUB.grp('Цвет волос — натуральный', HUB.chips(C,'hair',HAIR.map(h=>h[0]),{colored:HAIR,pick:'ctPick'})) +
+    HUB.grp('Ваш природный цвет волос — тот, что у корней, без окрашивания', HUB.chips(C,'hair',HAIR.map(h=>h[0]),{colored:HAIR,pick:'ctPick'})) +
     HUB.grp('Цвет глаз', HUB.chips(C,'eyes',EYES.map(e=>e[0]),{colored:EYES,pick:'ctPick'})) +
-    HUB.grp('Тон кожи', HUB.chips(C,'skin',SKIN.map(s=>s[0]),{colored:SKIN,pick:'ctPick'})) +
-    HUB.grp('Вены на запястье при дневном свете', HUB.chips(C,'veins',VEINS,{pick:'ctPick'})) +
-    HUB.grp('Какой металл к лицу — приложите серьги', HUB.chips(C,'metal',METAL,{pick:'ctPick'})) +
-    HUB.grp('Как кожа реагирует на солнце', HUB.chips(C,'sun',SUN,{pick:'ctPick'})) +
-    HUB.grp('Контраст между волосами, кожей и глазами', HUB.chips(C,'contrast',CONTR,{pick:'ctPick'})) +
+    HUB.grp('Тон кожи — смотрите на внутреннюю сторону предплечья, там нет загара', HUB.chips(C,'skin',SKIN.map(s=>s[0]),{colored:SKIN,pick:'ctPick'})) +
+    HUB.grp('Поверните запястье к свету: какого цвета вены?', HUB.chips(C,'veins',VEINS,{pick:'ctPick'}) + '<div class="q-hint">Зеленоватые вены — тёплый подтон кожи, синие и фиолетовые — холодный. Это главный вопрос теста.</div>') +
+    HUB.grp('Приложите к лицу золотое и серебряное: с каким кожа свежее?', HUB.chips(C,'metal',METAL,{pick:'ctPick'}) + '<div class="q-hint">Подойдут любые украшения, даже фольга и ложка. «Не тот» металл делает лицо сероватым или желтит.</div>') +
+    HUB.grp('Что происходит с кожей на солнце — вспомните отпуск', HUB.chips(C,'sun',SUN,{pick:'ctPick'})) +
+    HUB.grp('Насколько ваша внешность контрастная?', HUB.chips(C,'contrast',CONTR,{pick:'ctPick'}) + '<div class="q-hint">Контраст — разница между волосами, кожей и глазами без макияжа: тёмные волосы + светлая кожа = высокий, русые + светлая = низкий, между — средний.</div>') +
     `<button class="btn primary" id="ctGo" ${['hair','eyes','skin','veins','metal','sun','contrast'].every(k=>C[k])?'':'disabled'} onclick="renderColor()">✦ Определить мой цветотип</button>`;
 };
 window.renderColor = renderColor;
