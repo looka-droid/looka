@@ -3478,6 +3478,8 @@ body::before{background:
 .mk-hint{margin-top:6px}
 /* заголовок формы не липнет к первому вопросу */
 .bt-form h3{margin-bottom:22px}
+
+#ctOut,#mkOut,#hrOut,#brOut,#lrOut,#mrOut,#frBox,.looks{scroll-margin-top:110px}
 </style>
 </head>
 <body>
@@ -7770,7 +7772,7 @@ HUB.chips = (st, key, arr, opt={})=>{
 };
 HUB.pop = (html, i)=>`<div class="pop" style="animation-delay:${(i*0.06).toFixed(2)}s">${html}</div>`;
 HUB.pick = (st, key, v, multi)=>{ if(multi){ const a = st[key]||[]; const i = a.indexOf(v); i<0 ? a.push(v) : a.splice(i,1); st[key]=a; } else st[key]=v; };
-HUB.done = (out)=>{ if(window.fxTilt) fxTilt(out); if(window.fxGlow) fxGlow(out); if(window.fxZone) fxZone(out); out.scrollIntoView({behavior:'smooth', block:'start'}); };
+HUB.done = (out)=>{ if(window.fxTilt) fxTilt(out); if(window.fxGlow) fxGlow(out); if(window.fxZone) fxZone(out); const y = out.getBoundingClientRect().top + window.scrollY - 110; window.scrollTo({top:y, behavior:'smooth'}); };
 HUB.prof = ()=>({ hair:S.hair, eyes:S.eyes, skin:S.skin, figure:S.figure, budget:S.budget });
 
 /* ================= ЦВЕТОТИП ПО 12 СЕЗОНАМ ================= */
