@@ -3241,6 +3241,42 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .st-gal img{width:100%;display:block}
 .st-gal figcaption{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1px;color:#8B92AA;text-transform:uppercase}
 .st-gal a{color:#19C6F7;text-decoration:none;border-bottom:1px dotted rgba(25,198,247,.5)}
+
+/* бельё */
+.br-in{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.br-in{grid-template-columns:1fr}}
+.br-size{display:flex;align-items:baseline;gap:14px;margin:8px 0 14px;flex-wrap:wrap}
+.br-size b{font-size:56px;font-weight:800;line-height:1;background:linear-gradient(90deg,#19C6F7,#5B6CFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.br-size span{font-family:'JetBrains Mono';font-size:11px;letter-spacing:2px;color:#8B92AA;text-transform:uppercase}
+.br-size em{font-style:normal;font-family:'JetBrains Mono';font-size:15px;color:#ECEDF2;border:1px solid rgba(255,255,255,.16);padding:6px 10px}
+/* уход за вещами */
+.care-syms{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.care-sym{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);color:#C2C7D6;cursor:pointer;transition:all .2s}
+.care-sym svg{width:34px;height:34px}
+.care-sym span{font-size:10px;line-height:1.25;text-align:center;color:#8B92AA}
+.care-sym:hover{border-color:rgba(25,198,247,.5);color:#fff;transform:translateY(-2px)}
+.care-sos{margin-top:12px}
+#careAI{margin-top:10px}
+
+/* хук цветотипа + about + блогеры */
+.hero-ct{display:inline-flex;align-items:center;gap:10px}
+.hc-dots{display:inline-flex;gap:3px}
+.hc-dots i{width:9px;height:9px;border-radius:50%;animation:popIn .5s both}
+.hc-dots i:nth-child(1){background:#E8734A}.hc-dots i:nth-child(2){background:#DAA520;animation-delay:.07s}.hc-dots i:nth-child(3){background:#7CB342;animation-delay:.14s}.hc-dots i:nth-child(4){background:#19C6F7;animation-delay:.21s}.hc-dots i:nth-child(5){background:#9370DB;animation-delay:.28s}
+.hero-hook{margin-top:14px;font-size:13.5px;color:#A8AEC2;max-width:560px;line-height:1.55}
+.cs-cta{margin-top:18px;padding:16px;border:1px solid rgba(25,198,247,.4);background:linear-gradient(135deg,rgba(25,198,247,.1),rgba(91,108,255,.06));display:flex;flex-direction:column;gap:8px}
+.cs-cta b{font-size:15px}
+.cs-cta span{font-size:13px;color:#B7BCCC;line-height:1.5}
+.cs-cta .btn{align-self:flex-start;margin-top:4px}
+.about-wrap{max-width:820px}
+.about-card .lead{margin-top:14px}
+.about-vals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:22px}
+.about-vals>div{border:1px solid rgba(255,255,255,.1);padding:14px;background:rgba(255,255,255,.02)}
+.about-vals b{display:block;font-size:14px;margin-bottom:4px}
+.about-vals span{font-size:12.5px;color:#B7BCCC;line-height:1.5}
+.p-refund{margin-top:10px;font-size:13px;color:#7CF0B2}
+.p-ref{margin-top:8px;font-size:13.5px;color:#ECEDF2}
+.p-ref b{color:#19C6F7}
 </style>
 </head>
 <body>
@@ -3255,13 +3291,13 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 <header>
   <div class="logo" onclick="goHome()" role="button" title="На главную">LOO<em>KA</em></div>
   <nav class="topnav">
-    <a href="#how" onclick="openPage('howPage');return false">Как работает</a><span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#pass" onclick="openPage('passPage');return false">Паспорт</a><a href="#my" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pricing" onclick="openPage('termsPage');return false">Условия</a><a href="#roadmap" onclick="openPage('devPage');return false">Развитие</a><a href="#docs" onclick="openPage('docsPage');return false">Документы</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a>
+    <a href="#how" onclick="openPage('howPage');return false">Как работает</a><span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#pass" onclick="openPage('passPage');return false">Паспорт</a><a href="#my" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#about" onclick="openPage('aboutPage');return false">Кто мы</a><a href="#pricing" onclick="openPage('termsPage');return false">Условия</a><a href="#roadmap" onclick="openPage('devPage');return false">Развитие</a><a href="#docs" onclick="openPage('docsPage');return false">Документы</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a>
   </nav>
 </header>
 <div class="sysbar sb2">
   <span class="sb-on"><i></i>SYSTEM ONLINE</span>
   <span class="sb-clock" id="sbClock">МСК --:--:--</span>
-  <span class="sb-rot"><b id="sbRot">РАЗДЕЛОВ: 13 · ПОМОЩНИКОВ: 8 · ВСЁ НА ВАШИХ ДАННЫХ</b></span>
+  <span class="sb-rot"><b id="sbRot">РАЗДЕЛОВ: 15 · ПОМОЩНИКОВ: 8 · ВСЁ НА ВАШИХ ДАННЫХ</b></span>
   <button class="reg-btn" onclick="openRegion()">🇷🇺 Россия и СНГ <i>▾</i></button>
   <span class="sb-scan"></span>
 </div>
@@ -3273,9 +3309,10 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
   <h1>Одежда, подобранная<br><span class="holo">под ваши параметры</span></h1>
   <p>Четыре шага анкеты — три готовых образа под вашу фигуру, цветотип, повод и бюджет. Каждая вещь — реальная позиция на Wildberries, Ozon или Lamoda, открывается в один клик.</p>
   <div class="hero-cta">
-    <button class="btn primary" onclick="document.querySelector('.stage').scrollIntoView({behavior:'smooth'})">Начать подбор</button>
-    <button class="btn ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">Как работает сервис</button>
+    <button class="btn primary hero-ct" onclick="openColor()"><span class="hc-dots"><i></i><i></i><i></i><i></i><i></i></span>Мои цвета — бесплатно · 60 секунд</button>
+    <button class="btn ghost" onclick="document.querySelector('.stage').scrollIntoView({behavior:'smooth'})">Начать подбор образов</button>
   </div>
+  <div class="hero-hook">Начните с цветотипа: 7 ответов — и ваша палитра из 24 цветов с карточкой для сторис. Дальше LOOKA соберёт образы уже в ваших цветах.</div>
   <div class="stats-band sb3">
     <div class="sb"><b>15</b><span>регионов мира<br>и их маркетплейсы</span></div>
     <div class="sb"><b>2<em class="u">мин</em></b><span>от анкеты<br>до готовых образов</span></div>
@@ -3415,7 +3452,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 </section>
 
 <section class="sec reveal hub-home" id="hub">
-  <div class="eyebrow">всё для вас · 13 разделов на ваших данных</div>
+  <div class="eyebrow">всё для вас · 15 разделов на ваших данных</div>
   <h2 class="big">Не советы — <span class="holo">система, которая вас помнит</span></h2>
   <p class="lead">Цветотип, кожа, волосы, макияж, гардероб, капсула, событие — каждый раздел строится на вашей анкете, показывает результат картинкой и ведёт до покупки в вашей стране. Чат этого не сделает: у него нет вашей палитры и вашего шкафа.</p>
   <div class="hub-grid" data-hub></div>
@@ -3559,6 +3596,8 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
     <div class="p-name">LOOKA · ПОЛНЫЙ ДОСТУП</div>
     <div class="p-price">5 000 ₽</div>
     <div class="p-once">разовый платёж · навсегда · без подписок и автосписаний</div>
+    <div class="p-refund">✓ 14 дней на возврат: передумали — вернём деньги одним письмом, без выяснения причин</div>
+    <div class="p-ref" id="pRef"></div>
     <ul class="p-list">
       <li>Безлимитные подборы образов и пересборки — 8 поводов, включая свадьбу</li>
       <li>Бьюти-скан: причёска, стрелки, помада, уход по типу кожи — с косметичкой</li>
@@ -3896,6 +3935,64 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
   <div id="stBox"></div>
 </section>
 
+<section class="sec pageview" id="braPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero">
+    <div class="eyebrow">бельё · фундамент любого образа</div>
+    <h2 class="big">8 из 10 носят <span class="holo">не свой размер</span></h2>
+    <p class="lead">Две мерки сантиметром — и точный размер бра в RU/EU/US с «сестринскими» вариантами, проверка посадки по четырём признакам и какой бра под какой верх: от белой футболки до открытой спины. Ни один образ не сядет идеально на неправильном белье.</p>
+  </div>
+  <div class="bt-form look mk-form"><div id="brForm"></div></div>
+  <div class="looks" id="brOut"></div>
+</section>
+
+<section class="sec pageview" id="carePage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero">
+    <div class="eyebrow">уход за вещами · чтобы покупки жили годами</div>
+    <h2 class="big">Вещь убивает <span class="holo">первая неправильная стирка</span></h2>
+    <p class="lead">Шпаргалка по значкам на ярлыке, правила для кашемира, шёлка, кожи и пуховика — и SOS по пятнам: что сделать в первые десять минут с вином, тональником или жиром, пока пятно ещё выводится.</p>
+  </div>
+  <div class="looks" id="careBox"></div>
+</section>
+
+<section class="sec pageview" id="aboutPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="about-wrap">
+    <div class="about-card">
+      <div class="ct-av" style="width:72px;height:72px"><span style="font-size:28px">А</span><i></i></div>
+      <div class="eyebrow" style="margin-top:16px">кто делает LOOKA</div>
+      <h2 class="big">Меня зовут Анна.<br><span class="holo">LOOKA — мой проект, не корпорация</span></h2>
+      <p class="lead">Я устала от «стильных подборок», которые подходят всем — то есть никому. От шкафа, полного вещей, к которому нечего надеть. От покупок «под настроение», которые ни с чем не сочетаются. И собрала сервис, который начинает не с трендов, а с вас: фигура, цвета внешности, размер, бюджет — и только потом одежда.</p>
+      <p class="lead">Здесь нет колл-центра и «вашего звонка, очень важного для нас». На письма отвечаю я, лично, обычно в течение пары часов. Если что-то не работает — я это чиню. Если сервис вам не подошёл — возвращаю деньги, без выяснения причин.</p>
+      <div class="about-vals">
+        <div class="pop"><b>Без подписок</b><span>один платёж — навсегда, автосписаний нет в принципе</span></div>
+        <div class="pop" style="animation-delay:.08s"><b>Возврат 14 дней</b><span>передумали — вернём, вопрос закрыт одним письмом</span></div>
+        <div class="pop" style="animation-delay:.16s"><b>Данные — в вашем телефоне</b><span>анкета и гардероб хранятся у вас, а не на моих серверах</span></div>
+        <div class="pop" style="animation-delay:.24s"><b>Официально</b><span>работаю как самозанятая, реквизиты и оферта — в «Документах»</span></div>
+      </div>
+      <div class="to-row" style="margin-top:20px"><button class="btn primary" onclick="openPage('contactsPage')">Написать мне</button><button class="btn ghost" onclick="openPage('devPage')">Куда растёт LOOKA →</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec pageview" id="bloggersPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="eyebrow">для блогеров и стилистов</div>
+  <h2 class="big">Рассказывайте о LOOKA — <span class="holo">зарабатывайте с каждой продажи</span></h2>
+  <p class="lead">Простые условия без договоров на 40 страниц: ваш личный код даёт подписчицам скидку, а вам — процент с каждой оплаты по нему.</p>
+  <div class="moat-grid">
+    <div class="moat-item"><b>−10 % вашим подписчицам</b><p>Личный промокод от вашего имени: «по коду LIZA — скидка». Девушки любят покупать «по коду от своей».</p></div>
+    <div class="moat-item"><b>20 % с каждой продажи</b><p>1 000 ₽ с каждого доступа, купленного по вашему коду. Выплата раз в месяц на карту или самозанятость — как удобно.</p></div>
+    <div class="moat-item"><b>Готовый контент</b><p>Карточка цветотипа для сторис, «мой гардероб: 14 вещей → 30 образов», примерка — сервис сам генерирует то, что интересно снимать.</p></div>
+    <div class="moat-item"><b>Ранний доступ</b><p>Полный доступ бесплатно — пользуйтесь всем и показывайте честно, включая то, что не понравилось.</p></div>
+  </div>
+  <div class="look badv" style="margin-top:22px"><div class="look-in"><h3>Как начать</h3>
+    <div class="tip">Напишите «хочу код» в Telegram <b>@looka_support</b> или на <b>hello@looka.ru</b> — укажите ник и площадку. Согласуем код (обычно это ваш ник) — и ссылка вида <span style="font-family:'JetBrains Mono';color:#19C6F7">looka-droid.github.io/looka/?ref=ваш_ник</span> начинает работать сразу: сайт запомнит вашу гостью и покажет ей скидку, даже если она купит через неделю.</div>
+    <a class="btn primary" style="margin-top:12px" href="https://t.me/looka_support" target="_blank" rel="noopener">✈ Написать и получить код</a>
+  </div></div>
+</section>
+
 <section class="sec pageview" id="docsPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
   <div class="eyebrow">документы</div>
@@ -4158,7 +4255,9 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
       <a href="#how" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'});return false">Как это работает</a>
       <a href="#payment" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'});return false">Оплата</a>
       <a href="#reviews" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'});return false">Отзывы</a>
-      <a href="#docs" onclick="openPage('docsPage');return false">Документы</a></div>
+      <a href="#docs" onclick="openPage('docsPage');return false">Документы</a>
+      <a href="#about" onclick="openPage('aboutPage');return false">Кто делает LOOKA</a>
+      <a href="#blog" onclick="openPage('bloggersPage');return false">Для блогеров</a></div>
     <div><b>Площадки</b>
       <a href="https://www.wildberries.ru" target="_blank" rel="noopener">Wildberries ↗</a>
       <a href="https://www.ozon.ru" target="_blank" rel="noopener">Ozon ↗</a>
@@ -5428,6 +5527,8 @@ window.openPage = (id, anchor)=>{
   if(id==='capsulePage' && window.renderCapsuleForm) renderCapsuleForm();
   if(id==='wardrobePage' && window.renderWardrobe){ renderWardrobe(); }
   if(id==='studioPage' && window.renderStudio) renderStudio();
+  if(id==='braPage' && window.renderBra) renderBra();
+  if(id==='carePage' && window.renderCare) renderCare();
   if(anchor){
     setTimeout(()=>{
       const a = document.getElementById(anchor);
@@ -7422,6 +7523,7 @@ function renderColor(){
       <div class="cs-three"><div><b>Температура</b><span>${Z.t}</span></div><div><b>Глубина</b><span>${Z.d}</span></div><div><b>Чистота</b><span>${Z.c}</span></div></div>
       <div class="tip" style="margin-top:10px">Соседние типы, если что-то из палитры «почти, но не совсем»: ${rel.join(' · ')}. Это нормально — границы между сезонами мягкие.</div>
       <div class="cs-share"><button class="btn primary" onclick="ctShare()">✦ Карточка палитры — сохранить / поделиться</button><button class="btn ghost" onclick="window.print()">⎙ Распечатать</button></div>
+      <div class="cs-cta"><b>Палитра — это 5 % того, что LOOKA соберёт о вас.</b><span>Анкета за 2 минуты — и три готовых образа в этих цветах, под вашу фигуру и бюджет, со ссылками на покупку.</span><button class="btn primary" onclick="closePage();setTimeout(()=>document.querySelector('.stage').scrollIntoView({behavior:'smooth'}),150)">✦ Три образа в моих цветах →</button></div>
     </div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Ваши 24 цвета</h3><div class="tip">Любой из них у лица делает кожу ровнее, а глаза — ярче. Проверка дома: приложите вещь к лицу при дневном свете — «ваш» цвет убирает тени под глазами, «не ваш» — подчёркивает.</div><div class="cs-grid">${sw(Z.pal)}</div></div></div>
     <div class="look badv"><div class="look-in"><h3>Табу у лица</h3><div class="tip">Не «никогда» — а не рядом с лицом. Внизу образа, в сумке или обуви они безопасны.</div><div class="cs-grid cs-no">${sw(Z.no,'no')}</div></div></div>
@@ -7486,7 +7588,7 @@ window.SEASONS = SEASONS; window.currentSeason = ()=>{ try{ return ['hair','eyes
 
 /* ================= УХОД ЗА КОЖЕЙ: рутина под тип, задачи и бюджет ================= */
 (function(){
-const K = HUB.ls('looka_skin', { type:null, goals:[], age:null, climate:null, budget:null });
+const K = HUB.ls('looka_skin', { type:null, goals:[], age:null, climate:null, budget:null, phil:'Минимализм · Европа' });
 const TYPES = ['Жирная','Сухая','Комбинированная','Нормальная','Чувствительная'];
 const GOALS = ['Высыпания','Постакне / пигментация','Сухость и шелушение','Морщины и тонус','Покраснения / реактивность','Поры и блеск','Тусклость','Тёмные круги'];
 const AGES = ['до 25','25–35','35–45','45+'];
@@ -7497,16 +7599,19 @@ const MULT = {'до 2 000 ₽':.55,'2 000–5 000 ₽':1,'5 000–12 000 ₽':2.
 function build(){
   const t = K.type, g = K.goals, oily = t==='Жирная'||t==='Комбинированная', dry = t==='Сухая', sens = t==='Чувствительная'||g.includes('Покраснения / реактивность');
   const has = x=>g.includes(x);
+  const kb = K.phil==='K-beauty · Корея';
   const am = [], pm = [], week = [], no = [], doc = [];
   // утро
   am.push(['Очищение', dry||sens ? 'Мягкий гель или молочко без сульфатов; утром можно просто водой — кожа за ночь не пачкается.' : 'Гель с мягкими ПАВ; пенка «до скрипа» разрушает барьер и усиливает жирность.', 'очищение']);
   if(has('Тусклость')||has('Постакне / пигментация')) am.push(['Антиоксидант', sens ? 'Ниацинамид 5 % или азелаиновая кислота 10 % — осветляют, не раздражая.' : 'Витамин C (аскорбиновая 10–15 % или производные), 3–5 капель на сухую кожу; в сочетании с SPF даёт лучшую защиту от пигментации.', 'сыворотка']);
   else if(oily) am.push(['Ниацинамид', 'Сыворотка с ниацинамидом 5–10 %: регулирует себум, стягивает поры, выравнивает тон. Один из немногих активов, совместимых со всем.', 'сыворотка']);
   else am.push(['Гидратация', 'Сыворотка с гиалуроновой кислотой или полиглутаминовой — на влажную кожу, иначе она тянет влагу из дермы.', 'сыворотка']);
-  am.push(['Крем', dry ? 'Плотный с керамидами, сквалланом, пантенолом — барьер прежде всего.' : oily ? 'Лёгкий флюид или гель-крем без масел; «матирующий» — часто просто спирт, смотрите состав.' : 'Средней плотности с керамидами; в холод — плотнее, в жару — легче.', 'крем']);
+  if(kb) am.splice(1, 0, ['Тонер', 'Увлажняющий тонер без спирта, нанести ладонями в 2–3 слоя (лёгкое «7 скинов») — база корейского ухода: кожа напитывается до сывороток.', 'тонер']);
+  am.push(['Крем', kb ? (oily?'Лёгкая эмульсия вместо крема — финиш «стеклянной кожи» без плёнки.':'Эмульсия, затем при сухости — крем: слои тонкие, каждый впитывается.') : dry ? 'Плотный с керамидами, сквалланом, пантенолом — барьер прежде всего.' : oily ? 'Лёгкий флюид или гель-крем без масел; «матирующий» — часто просто спирт, смотрите состав.' : 'Средней плотности с керамидами; в холод — плотнее, в жару — легче.', 'крем']);
   am.push(['SPF 50', 'Каждый день, включая облачный и офис у окна. 2 пальца на лицо, обновлять каждые 2–3 часа на улице. ' + (has('Постакне / пигментация') ? 'Без SPF любая работа с пигментацией бессмысленна — это главный пункт вашей рутины.' : 'Это единственный анти-эйдж с доказанным эффектом.'), 'солнцезащита']);
   // вечер
-  pm.push(['Двойное очищение', 'Сначала гидрофильное масло или бальзам (снимает SPF и макияж), затем ваш обычный гель. Без этого активы ложатся на слой крема.', 'очищение']);
+  pm.push(['Двойное очищение', (kb?'Основа K-beauty: ':'')+'сначала гидрофильное масло или бальзам (снимает SPF и макияж), затем '+(kb?'мягкая пенка':'ваш обычный гель')+'. Без этого активы ложатся на слой крема.', 'очищение']);
+  if(kb) pm.push(['Тонер + эссенция', 'Тонер ладонями, затем эссенция (ферментированная или с муцином/центеллой) — увлажнение до активов усиливает их и снижает раздражение.', 'эссенция']);
   if(has('Высыпания')) pm.push(['Кислота / азелаин', sens ? 'Азелаиновая кислота 10–15 %: против воспалений и постакне, не сушит. Начать с 3 раз в неделю.' : 'Салициловая кислота 2 % (BHA) — растворяет сальные пробки. 3 раза в неделю, не в один вечер с ретинолом. Точечно на воспаления — бензоилпероксид 2,5 %.', 'актив']);
   if(has('Морщины и тонус')||K.age==='35–45'||K.age==='45+') pm.push(['Ретиноид', sens ? 'Ретиналь 0,05 % или бакучиол — мягкие формы. 2 раза в неделю, «сэндвич»: крем → ретиноид → крем.' : 'Ретинол 0,3 % → через 2 месяца 0,5–1 %. Начинать 2 раза в неделю, вечером, на сухую кожу, горошина на всё лицо. Первые 3 недели — возможно шелушение, это нормально. Не в один вечер с кислотами.', 'актив']);
   if(has('Постакне / пигментация') && !has('Высыпания')) pm.push(['Осветление', 'Чередовать: вечера с AHA (гликолевая 5–8 % или миндальная) и вечера с ретиноидом. Транексамовая кислота 2–5 % — мягкий, но рабочий актив для пятен.', 'актив']);
@@ -7514,7 +7619,7 @@ function build(){
   pm.push(['Крем / восстановление', dry ? 'Плотный крем с керамидами; 1–2 раза в неделю — слой сквалана или масла поверх («слаггинг»).' : has('Покраснения / реактивность') ? 'Крем с центеллой, пантенолом, мадекассосидом. Никаких активов в вечера с раздражением.' : 'Восстанавливающий крем с керамидами и пептидами — активы работают только на целом барьере.', 'крем']);
   // неделя
   week.push(['Отшелушивание', oily ? '1–2 раза в неделю BHA или энзимная пудра. Скрабы с абразивом — нет: микротравмы и больше жирности.' : sens ? 'Не чаще 1 раза в 10 дней, только PHA (глюконолактон) — самая мягкая кислота.' : '1 раз в неделю AHA-тоник или пилинг-пэды.']);
-  week.push(['Маска', oily ? 'Глиняная на Т-зону 10 минут (не до высыхания в корку).' : 'Тканевая или кремовая увлажняющая, 15 минут, остатки вбить, не смывать.']);
+  week.push(['Маска', kb ? 'Тканевые маски 2–3 раза в неделю по 15 минут — дёшево и это половина корейского «сияния». Остатки эссенции вбить в кожу и шею.' : oily ? 'Глиняная на Т-зону 10 минут (не до высыхания в корку).' : 'Тканевая или кремовая увлажняющая, 15 минут, остатки вбить, не смывать.']);
   if(K.climate==='Холодно и сухо (отопление)') week.push(['Зима', 'Увлажнитель воздуха в спальне делает для кожи больше, чем любая сыворотка. Кремы плотнее, кислоты реже.']);
   if(K.climate==='Влажно и жарко') week.push(['Жара', 'Лёгкие текстуры, SPF-флюид, ниацинамид. Плотные кремы с маслами провоцируют закрытые комедоны.']);
   // не покупать
@@ -7538,7 +7643,7 @@ function build(){
   ];
   const P = n=>'~'+Math.round(n*(MULT[K.budget]||1)/10)*10+' ₽';
   const kit = [
-    ['Очищающий гель без сульфатов', 'гель для умывания без сульфатов', 600],
+    [kb?'Пенка для умывания мягкая':'Очищающий гель без сульфатов', kb?'пенка для умывания корейская':'гель для умывания без сульфатов', 600],
     ['Гидрофильное масло', 'гидрофильное масло', 700],
     [am[1][0]+': '+am[1][1].split(' ').slice(0,4).join(' ').replace(/[,;:.]$/,''), am[1][2]==='сыворотка' ? (has('Тусклость')||has('Постакне / пигментация') ? (sens?'сыворотка азелаиновая кислота':'сыворотка витамин C') : oily ? 'сыворотка ниацинамид' : 'сыворотка гиалуроновая кислота') : 'сыворотка', 1200],
     ['Крем ' + (dry?'с керамидами':oily?'гель-крем':'восстанавливающий'), 'крем для лица ' + (dry?'керамиды':oily?'гель крем':'керамиды пептиды'), 1000],
@@ -7547,7 +7652,8 @@ function build(){
   if(has('Высыпания')) kit.push([sens?'Азелаиновая кислота 10 %':'BHA 2 % (салициловая)', sens?'азелаиновая кислота крем':'салициловая кислота сыворотка bha', 900]);
   if(has('Морщины и тонус')||K.age==='35–45'||K.age==='45+') kit.push([sens?'Ретиналь / бакучиол':'Ретинол 0,3 %', sens?'бакучиол сыворотка':'ретинол сыворотка 0.3', 1500]);
   if(has('Тёмные круги')) kit.push(['Крем для глаз с кофеином', 'крем для век кофеин', 800]);
-  if(oily) kit.push(['Глиняная маска', 'глиняная маска для лица', 500]); else kit.push(['Увлажняющая маска', 'увлажняющая маска для лица', 500]);
+  if(kb){ kit.splice(2, 0, ['Тонер увлажняющий', 'тонер корейский увлажняющий', 900], ['Эссенция', 'эссенция корейская для лица', 1100]); kit.push(['Тканевые маски, набор', 'тканевые маски корейские набор', 700]); }
+  else if(oily) kit.push(['Глиняная маска', 'глиняная маска для лица', 500]); else kit.push(['Увлажняющая маска', 'увлажняющая маска для лица', 500]);
   return { am, pm, week, no, doc, rules, kit, P };
 }
 
@@ -7579,6 +7685,7 @@ window.renderSkinForm = ()=>{
     HUB.grp('Что беспокоит — можно несколько', HUB.chips(K,'goals',GOALS,{pick:'skPick',multi:true})) +
     HUB.grp('Возраст', HUB.chips(K,'age',AGES,{pick:'skPick'})) +
     HUB.grp('Климат, в котором живёте', HUB.chips(K,'climate',CLIM,{pick:'skPick'})) +
+    HUB.grp('Философия ухода', HUB.chips(K,'phil',['Минимализм · Европа','K-beauty · Корея'],{pick:'skPick'})) +
     HUB.grp('Бюджет на уход', HUB.chips(K,'budget',BUD,{pick:'skPick'})) +
     `<button class="btn primary" ${K.type&&K.age&&K.climate&&K.budget?'':'disabled'} onclick="renderSkin()">✦ Собрать мою рутину</button>`;
 };
@@ -7934,7 +8041,7 @@ function gaps(){
 
 function itemCard(it, small){
   const ph = it.photo ? `<img src="${it.photo}" alt="">` : `<i style="background:${hex(it.color)}"></i>`;
-  return `<div class="wd-it ${small?'sm':''}" data-id="${it.id}">${ph}<div class="wd-b"><b>${it.name||it.cat}</b><span>${it.cat} · ${it.color} · ${it.warm}${it.worn?' · надета '+it.worn+' раз':''}</span>${small?'':`<div class="wd-act"><button onclick="wdWear(${it.id})" title="надела сегодня">✓ надела</button><button onclick="wdDel(${it.id})" title="удалить">✕</button></div>`}</div></div>`;
+  return `<div class="wd-it ${small?'sm':''}" data-id="${it.id}">${ph}<div class="wd-b"><b>${it.name||it.cat}</b><span>${it.cat} · ${it.color} · ${it.warm}${it.worn?' · надета '+it.worn+' раз':''}</span>${small?'':`<div class="wd-act"><button onclick="wdWear(${it.id})" title="надела сегодня">✓ надела</button><button onclick="wdSell(${it.id})" title="продать">₽</button><button onclick="wdDel(${it.id})" title="удалить">✕</button></div>`}</div></div>`;
 }
 
 async function renderWardrobe(){
@@ -7961,7 +8068,7 @@ async function renderWardrobe(){
     </div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Дыры в гардеробе</h3>
       ${G.g.length? G.g.map((x,i)=>HUB.pop(`<div class="wd-gap"><p>${x.why}</p>${x.n?`<div class="item"><div class="nm">${x.n}</div>${x.gain?`<div class="pr">+${x.gain} образов</div>`:''}${shopButtons({n:x.n,q:x.q})}</div>`:''}</div>`,i)).join('') : '<div class="tip">Дыр не видно: база полная, цвета в палитре. Дальше — только по желанию.</div>'}
-      ${G.dead.length?`<div class="hp-sub" style="margin-top:14px">НЕ НОСИЛИ 90+ ДНЕЙ</div><div class="tip">${G.dead.slice(0,8).map(i=>i.name||i.cat).join(', ')}${G.dead.length>8?' и ещё '+(G.dead.length-8):''} — если вещь пережила сезон без выхода, её пора продать или отдать. Деньги, которые лежат в шкафу.</div>`:''}
+      ${G.dead.length?`<div class="hp-sub" style="margin-top:14px">НЕ НОСИЛИ 90+ ДНЕЙ</div><div class="tip">${G.dead.slice(0,8).map(i=>i.name||i.cat).join(', ')}${G.dead.length>8?' и ещё '+(G.dead.length-8):''} — если вещь пережила сезон без выхода, её пора продать или отдать. Деньги, которые лежат в шкафу — у каждой вещи есть кнопка «₽»: объявление для Авито соберётся само, с честной ценой по носке.</div>`:''}
     </div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Вещи${cats.length?' · '+cats.map(c=>c[0]+' '+c[1]).join(' · '):''}</h3>
       <div class="wd-grid">${I.slice().reverse().map(itemCard).join('')}</div>
@@ -7986,6 +8093,24 @@ window.wdWeek = async ()=>{
 window.wdWear = id=>{ const it = W.items.find(i=>i.id===id); if(!it) return; it.worn=(it.worn||0)+1; it.last=Date.now(); save(); renderWardrobe(); myToast('Записала: '+(it.name||it.cat)); };
 window.wdWearAll = ids=>{ ids.split(',').forEach(id=>{ const it = W.items.find(i=>i.id===+id); if(it){ it.worn=(it.worn||0)+1; it.last=Date.now(); } }); save(); renderWardrobe(); myToast('Образ записан — хорошего дня'); };
 window.wdDel = id=>{ W.items = W.items.filter(i=>i.id!==id); save(); renderWardrobe(); };
+window.wdSell = id=>{
+  const it = W.items.find(i=>i.id===id); if(!it) return;
+  const worn = it.worn||0, price = +it.price||0;
+  const ask = price ? Math.max(200, Math.round(price*(worn<3?0.6:worn<15?0.45:0.3)/50)*50) : null;
+  const cond = worn===0?'новое, ни разу не надевалось':worn<3?'отличное — надевалось '+worn+' раз':worn<15?'хорошее, без дефектов':'нормальное, следы носки';
+  const text = `${it.name||it.cat}${S.clothSize?', размер RU '+S.clothSize:''}\n\nСостояние: ${cond}. Цвет: ${it.color}. ${price?'Покупалось за '+price.toLocaleString('ru-RU')+' ₽. ':''}Причина продажи — не подошло к гардеробу.\nОтправлю Авито-доставкой в день оплаты.` + (ask?`\n\nЦена: ${ask.toLocaleString('ru-RU')} ₽`:'');
+  let ov = document.getElementById('sellOv');
+  if(!ov){ ov = document.createElement('div'); ov.id='sellOv'; ov.className='to-ov'; ov.onclick=e=>{ if(e.target===ov){ ov.classList.remove('open'); document.body.style.overflow=''; } }; document.body.appendChild(ov); }
+  ov.innerHTML = `<div class="to-box" style="width:min(560px,100%)"><button class="to-x" onclick="this.closest('.to-ov').classList.remove('open');document.body.style.overflow=''">✕</button>
+    <div class="eyebrow">продать · ${it.name||it.cat}</div>
+    <h3>Объявление готово</h3>
+    <p class="to-lead">${ask?'Честная цена с учётом носки: <b>'+ask.toLocaleString('ru-RU')+' ₽</b> — за столько реально купят за неделю, а не будут смотреть месяц.':'Цены покупки нет в гардеробе — поставьте ~40–50 % от магазинной.'}</p>
+    <textarea class="st-ta" id="sellTxt" rows="8">${text}</textarea>
+    <div class="to-row"><button class="btn primary" onclick="cpy(document.getElementById('sellTxt').value, this)">⧉ Копировать объявление</button><a class="btn ghost" target="_blank" rel="noopener" href="https://www.avito.ru/additem">Открыть Авито →</a></div>
+    <div class="b-priv">Фото для объявления: дневной свет, вещь на плечиках на нейтральном фоне + ярлык с составом крупно. Деньги от продажи — бюджет на «дыры» из вашего гардероба.</div>
+  </div>`;
+  ov.classList.add('open'); document.body.style.overflow='hidden';
+};
 window.wdAddMany = arr=>{ let n=0; arr.forEach(a=>{ if(W.items.some(i=>i.name===a.name)) return; W.items.push({id:W.seq++, cat:a.cat, name:a.name, color:a.color||'бежевый', warm:a.warm||'любой', form:a.form||'кэжуал', price:a.price||'', worn:0, last:null, photo:null}); n++; }); save(); return n; };
 window.wdPick = (k,v)=>{ N[k]=v; renderAdd(); };
 window.wdField = (k,v)=>{ N[k]=v; };
@@ -8027,6 +8152,8 @@ const HUBS = [
   ['▦','Капсула сезона','14 вещей → 30 образов, докупить только недостающее', 'openCapsule()', 'доступ'],
   ['◈','Событие под ключ','свадьба, собеседование, свидание — план по дням', 'openEvent()', 'доступ'],
   ['▧','Студия','манекен с вашими пропорциями, ракурсы, раскладка, обложка', 'openStudio()', 'доступ'],
+  ['◠','Бельё','размер бра по двум меркам, какой бра под какой верх', 'openBra()', 'бесплатно'],
+  ['❊','Уход за вещами','значки ярлыка, ткани, SOS-пятно за 10 минут', 'openCare()', 'бесплатно'],
   ['✆','Консилиум','дерматолог · визажист · стилист · трихолог отвечают', "openPage('askPage')", 'доступ'],
   ['⚙','Помощники','погода, чемодан, размеры, дресс-код, SOS и ещё', "openPage('toolsPage')", 'бесплатно'],
   ['▤','Стиль-паспорт','всё о вас на одной странице, PDF', "openPage('passPage')", 'доступ']
@@ -8219,6 +8346,164 @@ window.renderStudio = ()=>{
 window.openStudio = ()=>{ openPage('studioPage'); renderStudio(); };
 })();
 
+/* ================= БЕЛЬЁ: размер бра по двум меркам, чашка, тип под верх ================= */
+(function(){
+const B2 = HUB.ls('looka_bra', { under:'', bust:'' });
+function calc(u, b){
+  u = +u; b = +b; if(!u || !b || b<=u || u<55 || u>135 || b-u>32) return null;
+  const band = Math.round(u/5)*5;
+  const d = b - u; // чашка считается от реального подгрудного, не от округлённого пояса
+  const cups = [['AA',10],['A',12],['B',14],['C',16],['D',18],['E (DD)',20],['F',22],['G',24]];
+  let cup = 'AA', ci = 0;
+  cups.forEach((c,i)=>{ if(d >= c[1]) { cup = c[0]; ci = i; } });
+  const usBand = {60:'28',65:'30',70:'32',75:'34',80:'36',85:'38',90:'40',95:'42',100:'44',105:'46'}[band] || '?';
+  const cupL = cup.split(' ')[0];
+  const sis = [];
+  if(band>60 && ci<cups.length-1) sis.push((band-5)+cups[ci+1][0].split(' ')[0]);
+  if(band<105 && ci>0) sis.push((band+5)+cups[ci-1][0].split(' ')[0]);
+  return { band, cup:cupL, d, us: usBand+cupL, sis };
+}
+window.braCalc = ()=>{
+  B2.under = document.getElementById('brU').value; B2.bust = document.getElementById('brB').value;
+  HUB.save('looka_bra', B2);
+  const out = document.getElementById('brOut');
+  const r = calc(B2.under, B2.bust);
+  if(!r){ out.innerHTML = '<div class="tip">Проверьте мерки: обхват под грудью 55–135 см, обхват груди больше подгрудного не более чем на 32 см. Мерить без объёмного бра, лента горизонтально, на выдохе.</div>'; return; }
+  const types = [
+    ['Белая футболка / тонкий трикотаж','бесшовный бра телесного цвета — не белого: белый просвечивает, телесный исчезает','бюстгальтер бесшовный телесный '+r.band+r.cup],
+    ['Глубокий вырез','пландж (глубокая V-чашка) или балконет','бюстгальтер пландж '+r.band+r.cup],
+    ['Майка-борцовка / широкие проймы','бралетт или спортивный с перекрещенной спинкой','бралетт кружевной '+r.band+r.cup],
+    ['Шёлк, атлас, облегающее','гладкая формованная чашка без кружева и швов','бюстгальтер гладкая чашка '+r.band+r.cup],
+    ['Открытая спина / тонкие бретели','бра с низкой спинкой или силиконовые наклейки','бюстгальтер низкая спинка'],
+    ['Спорт','поддержка по нагрузке: бег — высокая, йога — средняя','спортивный топ высокая поддержка '+(r.d>=18?'большая грудь':'')]
+  ];
+  out.innerHTML = `
+    <div class="look badv mk-wide"><div class="look-in">
+      <div class="cs-k">ВАШ РАЗМЕР</div>
+      <div class="br-size"><b class="pop">${r.band}${r.cup}</b><span class="pop" style="animation-delay:.1s">RU / EU</span><em class="pop" style="animation-delay:.15s">US ${r.us}</em></div>
+      <div class="cs-row"><b>Соседние</b><span>${r.sis.length?r.sis.join(' и ')+' — «сестринские» размеры: та же чашка по объёму при другой посадке пояса. Если основной не сел — мерьте их, а не «на глаз».':'—'}</span></div>
+      <div class="cs-row"><b>Проверка</b><span>Пояс держит 80 % веса груди — он горизонтален и не съезжает вверх на спине; косточки лежат на рёбрах, не на груди; чашка без морщин и без «перелива»; бретели не врезаются. Два признака мимо — размер не ваш, как бы ни было написано на ярлыке.</span></div>
+      <div class="tip" style="margin-top:10px">Около 8 из 10 женщин носят не свой размер — чаще всего пояс велик, а чашка мала. Если вы годами носите ${r.band+5}${r.cup==='AA'?'AA':String.fromCharCode(r.cup.charCodeAt(0)-1)} — вы в большинстве.</div>
+    </div></div>
+    <div class="look badv mk-wide"><div class="look-in"><h3>Какой бра под какой верх</h3>
+      ${types.map((t,i)=>HUB.pop(`<div class="item"><div class="nm">${t[0]}</div><div class="tip" style="margin:4px 0 8px">${t[1]}</div>${shopButtons({n:t[1],q:t[2]})}</div>`,i)).join('')}
+      <div class="total">✦ размер в запросах уже ваш: ${r.band}${r.cup}</div>
+    </div></div>`;
+  HUB.done(out);
+};
+window.renderBra = ()=>{
+  const f = document.getElementById('brForm'); if(!f) return;
+  f.innerHTML = `<div class="br-in">
+    <div class="grp"><label class="t">Обхват под грудью, см</label><input type="number" id="brU" class="ev-date" placeholder="например 78" value="${B2.under}"></div>
+    <div class="grp"><label class="t">Обхват груди по выступающим точкам, см</label><input type="number" id="brB" class="ev-date" placeholder="например 94" value="${B2.bust}"></div>
+  </div>
+  <div class="tip">Мерить утром, без пуш-апа, лента параллельно полу: под грудью — плотно на выдохе, по груди — свободно, не сдавливая.</div>
+  <button class="btn primary" style="margin-top:12px" onclick="braCalc()">✦ Мой размер</button>`;
+  if(B2.under && B2.bust) braCalc();
+};
+window.openBra = ()=>{ openPage('braPage'); renderBra(); };
+})();
+
+/* ================= УХОД ЗА ВЕЩАМИ: ярлык, ткани, SOS-пятно ================= */
+(function(){
+const sym = (svg)=>`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${svg}</svg>`;
+const TAZ = 'M8 16 H40 L36 36 Q35 40 30 40 H18 Q13 40 12 36 Z M8 16 Q10 12 14 14 M40 16 Q38 12 34 14';
+const SYMS = [
+ ['Стирка 30°', sym(TAZ+'<text x="24" y="33" text-anchor="middle" font-size="12" fill="currentColor" stroke="none">30</text>'), 'Машинка, вода не выше 30°. Одна чёрточка под тазом — деликатный режим, две — особо деликатный.'],
+ ['Стирка 40°', sym(TAZ+'<text x="24" y="33" text-anchor="middle" font-size="12" fill="currentColor" stroke="none">40</text>'), 'Обычная стирка до 40°. Для повседневного хлопка и синтетики.'],
+ ['Только рука', sym(TAZ+'<path d="M24 10 Q28 14 26 20" stroke-width="2"/>'), 'Ручная стирка до 30°, не тереть и не выкручивать. Шёлк, кружево, шерсть.'],
+ ['Не стирать', sym(TAZ+'<path d="M6 8 L42 42"/>'), 'Только химчистка. Вода убьёт вещь — форму, клеевые слои или цвет.'],
+ ['Не отбеливать', sym('<path d="M24 8 L40 38 H8 Z"/><path d="M6 6 L42 42"/>'), 'Никаких средств с хлором и «отбеливателей», даже для белого.'],
+ ['Утюг · 1 точка', sym('<path d="M10 34 H40 Q40 22 28 22 H18 Q14 22 12 28 Z"/><circle cx="25" cy="29" r="1.5" fill="currentColor"/>'), 'До 110° без пара: синтетика, ацетат. Через ткань.'],
+ ['Утюг · 2 точки', sym('<path d="M10 34 H40 Q40 22 28 22 H18 Q14 22 12 28 Z"/><circle cx="22" cy="29" r="1.5" fill="currentColor"/><circle cx="28" cy="29" r="1.5" fill="currentColor"/>'), 'До 150°: шерсть, шёлк, вискоза. С изнанки.'],
+ ['Не гладить', sym('<path d="M10 34 H40 Q40 22 28 22 H18 Q14 22 12 28 Z"/><path d="M6 8 L42 44"/>'), 'Утюг запрещён. Мятость — отпаривателем на расстоянии или паром в ванной.'],
+ ['Химчистка P', sym('<circle cx="24" cy="24" r="16"/><text x="24" y="29" text-anchor="middle" font-size="14" fill="currentColor" stroke="none">P</text>'), 'Сухая чистка обычными растворителями — можно в любую химчистку.'],
+ ['Не сушить в машине', sym('<rect x="8" y="8" width="32" height="32" rx="3"/><circle cx="24" cy="24" r="10"/><path d="M6 6 L42 42"/>'), 'Барабанная сушка запрещена — сядет или деформируется. Сушить на воздухе.'],
+ ['Сушка на плоскости', sym('<rect x="8" y="8" width="32" height="32" rx="3"/><path d="M14 24 H34"/>'), 'Сушить горизонтально в расправленном виде. Всё вязаное — только так, на плечиках вытянется.'],
+ ['Отжим запрещён', sym('<path d="M12 12 Q24 6 36 12 Q30 24 36 36 Q24 42 12 36 Q18 24 12 12 Z"/><path d="M6 6 L42 42"/>'), 'Не выкручивать. Промокнуть полотенцем и сушить в расправленном виде.']
+];
+const FAB = {
+ 'Кашемир и шерсть':'Стирать руками или в машине на «шерсти» до 30° со средством для шерсти (обычный порошок с энзимами разъедает волокно). Не выкручивать: промокнуть полотенцем, сушить на плоскости. Хранить сложенным, не на плечиках. Катышки снимать машинкой, не бритвой. Раз в сезон — проветрить, от моли — лаванда или кедр.',
+ 'Шёлк':'Ручная стирка до 30° с шампунем или средством для шёлка, не тереть. Не сушить на солнце и батарее — желтеет. Гладить с изнанки чуть влажным на «1 точке». Пот и парфюм оставляют пятна — надевать шёлк после того, как парфюм высох.',
+ 'Кожа и экокожа':'Не стирать никогда. Протирать влажной тканью, раз в 2–3 месяца — кондиционер для кожи. Промокла — сушить при комнатной температуре, набив бумагой; батарея задубит. Экокожа: беречь от спирта (санитайзер на руках — главный убийца), трещины не восстанавливаются.',
+ 'Замша':'Только сухая чистка: щётка для замши по ворсу, ластик для затёртостей. Водоотталкивающий спрей — сразу после покупки и после каждой чистки. Промокла — сушить при комнатной, потом поднять ворс щёткой.',
+ 'Пуховик':'Стирать в машине до 30° жидким средством (порошок склеивает пух) + 3 теннисных мяча в барабан. Сушить в машине на низкой температуре с теми же мячами или долго на воздухе, каждые пару часов взбивая — иначе пух сваляется комками. Хранить летом не в вакуумном пакете.',
+ 'Лён':'Стирает легко до 40°, но сильно мнётся — доставать сразу и вешать. Гладить сильно влажным на «3 точках». Усадка после первой стирки до 5 % — учитывать при покупке.',
+ 'Вискоза':'Капризнее, чем кажется: до 30° на деликатном, в мешке, без отжима сильнее 600 — мокрая вискоза непрочная и вытягивается. Сушить на плоскости или на плечиках без прищепок.',
+ 'Деним':'Стирать вывернутым, до 30°, максимум раз в 4–5 носок — джинсы от стирок «стареют». Между стирками — проветривать. Не сушить в машине: усадка и потеря формы.'
+};
+const STAINS = {
+ 'Красное вино':{ now:'Промокнуть (не тереть!) салфеткой, засыпать солью или залить минералкой с газом — пузырьки выталкивают пигмент. Белое вино тоже нейтрализует красное.', no:'Не тереть, не лить горячую воду — заварит пигмент.', later:'Кислородный пятновыводитель на 30 минут, стирка по ярлыку. Со старым пятном: глицерин + желток на час.' },
+ 'Кофе и чай':{ now:'Промокнуть, промыть холодной водой с изнанки, капля средства для посуды на пятно.', no:'Не мыло с щёлочью на шёлке и шерсти.', later:'Кислородный отбеливатель для белого; для цветного — уксус 1:2 с водой на 15 минут.' },
+ 'Жир и масло':{ now:'Засыпать тальком, крахмалом или детской присыпкой на 15 минут — впитает. Стряхнуть, капнуть средство для посуды.', no:'Не мочить водой сразу — вода закрепляет жир.', later:'Средство для посуды на 30 минут, стирка максимально тёплой водой, допустимой по ярлыку. Работает даже со старыми пятнами.' },
+ 'Тональный крем':{ now:'Пена для бритья (классическая белая) на пятно на 10 минут — работает лучше всего. Или мицеллярная вода на ватный диск, промакивать от краёв к центру.', no:'Не тереть сухой салфеткой — вотрёте глубже.', later:'Средство для посуды или пятновыводитель, стирка. С воротника рубашек — регулярно мицелляркой.' },
+ 'Помада':{ now:'Мицеллярная вода или спирт на диск, промакивать от краёв к центру. Жирная основа + пигмент — нужен растворитель, не вода.', no:'Не застирывать водой с мылом сразу — расплывётся.', later:'Средство для посуды на 20 минут → стирка. На шёлке — только химчистка.' },
+ 'Кровь':{ now:'Только ХОЛОДНАЯ вода, сразу, с изнанки. Перекись водорода на светлом.', no:'Никакой тёплой и горячей воды — белок сварится и останется навсегда.', later:'Замочить в холодной воде с солью на пару часов, хозяйственное мыло, стирка.' },
+ 'Трава':{ now:'Спирт или водка на ватный диск, затем промыть.', no:'Не просто мыло — хлорофилл им не берётся.', later:'Кислородный пятновыводитель, на белом хлопке — лимонный сок на солнце.' },
+ 'Дезодорант':{ now:'Свежие белые следы — снять капроновым носком или губкой для замши, сухими.', no:'Не мочить белые следы — размажутся.', later:'Жёлтые застарелые на белом: сода + перекись 1:2 на час. Профилактика: дать дезодоранту высохнуть 2 минуты до одевания.' },
+ 'Жвачка':{ now:'Пакет со льдом на 15 минут или вещь в морозилку — замёрзшая крошится и снимается тупым ножом.', no:'Не тянуть тёплую — растянется нитями вглубь.', later:'Остатки — ватным диском со спиртом.' },
+ 'Чернила':{ now:'Спирт или санитайзер на диск, под пятно — салфетку, промакивать.', no:'Не воду — разгонит чернила кругами.', later:'Молоко на 30 минут (старый способ, работает), затем стирка. Гелевые чернила почти не выводятся — быстрее к химчистке.' }
+};
+let fab = 'Кашемир и шерсть', stn = 'Красное вино';
+window.careFab = f=>{ fab = f; renderCare(); };
+window.careStn = s=>{ stn = s; renderCare(); document.getElementById('careStBox').scrollIntoView({behavior:'smooth',block:'nearest'}); };
+window.careLabelAI = ()=>{
+  const i = document.createElement('input'); i.type='file'; i.accept='image/*';
+  i.onchange = async ()=>{
+    const f = i.files[0]; if(!f) return;
+    const img = new Image(); img.onload = async ()=>{
+      const c = document.createElement('canvas'); const k = Math.min(1, 1000/Math.max(img.width,img.height)); c.width=img.width*k; c.height=img.height*k; c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      const b64 = c.toDataURL('image/jpeg',.85).split(',')[1];
+      const box = document.getElementById('careAI'); box.innerHTML = '<div class="tip">Читаю ярлык…</div>';
+      try{
+        const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:800, messages:[{role:'user', content:[{type:'image', source:{type:'base64', media_type:'image/jpeg', data:b64}}, {type:'text', text:'На фото — ярлык одежды со значками по уходу. Ответь ТОЛЬКО валидным JSON без markdown: {"rules":["правило 1","правило 2",...],"warn":"главное предупреждение одной фразой"} — расшифруй каждый значок по-русски коротко и практично. Если ярлык не читается, {"rules":[],"warn":"не разглядела значки — сфотографируйте ближе при дневном свете"}.'}]}] }) });
+        const j = await r.json(); const t = (j.content&&j.content[0]&&j.content[0].text||'').replace(/```json|```/g,'');
+        const d = JSON.parse(t);
+        box.innerHTML = d.rules.length ? '<div class="tp-card"><span class="k">ВАШ ЯРЛЫК ГОВОРИТ</span><ul class="tp-list">'+d.rules.map(x=>'<li>'+x+'</li>').join('')+'</ul>'+(d.warn?'<div class="tip" style="margin-top:8px">⚠ '+d.warn+'</div>':'')+'</div>' : '<div class="tip">'+(d.warn||'Не разглядела — попробуйте ближе и при свете.')+'</div>';
+      }catch(e){ box.innerHTML = '<div class="tip">Не получилось прочитать: '+e.message+'. Сверьте значки со шпаргалкой выше.</div>'; }
+    }; img.src = URL.createObjectURL(f);
+  };
+  i.click();
+};
+window.renderCare = ()=>{
+  const box = document.getElementById('careBox'); if(!box) return;
+  box.innerHTML = `
+    <div class="look badv mk-wide"><div class="look-in"><h3>Шпаргалка по значкам — нажмите на значок</h3>
+      <div class="care-syms">${SYMS.map((s,i)=>HUB.pop(`<button class="care-sym" onclick="myToast('${s[0]}: ${s[2].replace(/'/g,'’')}')" title="${s[0]}">${s[1]}<span>${s[0]}</span></button>`,i)).join('')}</div>
+      ${(LOOKA_API||GEMINI_KEY)?'<button class="btn ghost" style="margin-top:14px" onclick="careLabelAI()">✦ Сфотографировать свой ярлык — расшифрую</button><div id="careAI"></div>':''}
+    </div></div>
+    <div class="look badv"><div class="look-in"><h3>Как ухаживать за…</h3>
+      <div class="chips">${Object.keys(FAB).map(f=>`<button class="chip ${fab===f?'on':''}" onclick="careFab('${f}')">${f}</button>`).join('')}</div>
+      <div class="tip" style="margin-top:12px">${FAB[fab]}</div>
+    </div></div>
+    <div class="look badv" id="careStBox"><div class="look-in"><h3>SOS-пятно — первые 10 минут решают</h3>
+      <div class="chips">${Object.keys(STAINS).map(s=>`<button class="chip ${stn===s?'on':''}" onclick="careStn('${s}')">${s}</button>`).join('')}</div>
+      <div class="care-sos">
+        <div class="cs-row"><b>Сейчас</b><span>${STAINS[stn].now}</span></div>
+        <div class="cs-row" style="color:#FF9DB0"><b>Нельзя</b><span>${STAINS[stn].no}</span></div>
+        <div class="cs-row"><b>Дома</b><span>${STAINS[stn].later}</span></div>
+      </div>
+      <div class="b-priv">Дорогая вещь или деликатная ткань — после первой помощи всё равно в химчистку, и скажите им, чем вы уже обработали пятно.</div>
+    </div></div>`;
+  if(window.fxZone) fxZone(box);
+};
+window.openCare = ()=>{ openPage('carePage'); renderCare(); };
+})();
+
+
+/* ================= РЕФЕРАЛЬНЫЕ КОДЫ БЛОГЕРОВ ================= */
+(function(){
+  try{
+    const m = location.search.match(/[?&]ref=([\w.\-]{2,32})/i) || location.hash.match(/ref=([\w.\-]{2,32})/i);
+    if(m){ localStorage.setItem('looka_ref', JSON.stringify({code:m[1], ts:Date.now()})); history.replaceState(null,'',location.pathname); }
+  }catch(e){}
+  let ref = null; try{ ref = JSON.parse(localStorage.getItem('looka_ref')||'null'); }catch(e){}
+  if(!ref) return;
+  const days = (Date.now()-ref.ts)/864e5; if(days>60){ localStorage.removeItem('looka_ref'); return; }
+  setTimeout(()=>myToast('Вы по приглашению @'+ref.code+' — вам скидка 10 % на полный доступ'), 1800);
+  const upd = ()=>{ const el = document.getElementById('pRef'); if(el) el.innerHTML = 'Ваш код от <b>@'+ref.code+'</b>: <b>4 500 ₽ вместо 5 000 ₽</b> — назовите код '+ref.code.toUpperCase()+' при оплате'; };
+  upd(); const orig = window.openPage; window.openPage = function(){ orig.apply(null, arguments); setTimeout(upd, 50); };
+})();
 fxGlow(document);
 fxTilt(document);
 </script>
