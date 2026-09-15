@@ -3480,6 +3480,25 @@ body::before{background:
 .bt-form h3{margin-bottom:22px}
 
 #ctOut,#mkOut,#hrOut,#brOut,#lrOut,#mrOut,#frBox,.looks{scroll-margin-top:110px}
+
+/* ================= ЦВЕТОТИП: витрина результата ================= */
+.cs-hero .look-in{padding-top:26px}
+.cs-k{color:#C7A6F0;display:inline-flex;align-items:center;gap:9px}
+.cs-k::before{content:'';width:22px;height:1px;background:linear-gradient(90deg,#C7A6F0,transparent)}
+.cs-name{font-size:34px}
+.cs-name em{border:1px solid rgba(25,198,247,.35);border-radius:99px;padding:5px 12px;background:rgba(25,198,247,.07);font-size:11px}
+.cs-drapes{margin:6px auto 2px;display:block;max-width:560px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.35))}
+.cs-three{gap:12px;margin-top:16px}
+.cs-three div{position:relative;padding:14px 16px 13px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.cs-three div::before{content:'';position:absolute;left:16px;right:16px;top:0;height:2px;border-radius:2px;background:linear-gradient(90deg,#19C6F7,transparent)}
+.cs-three div:nth-child(2)::before{background:linear-gradient(90deg,#C79DF2,transparent)}
+.cs-three div:nth-child(3)::before{background:linear-gradient(90deg,#F2A6C6,transparent)}
+.cs-three b{margin-bottom:5px;color:#98A0B6}
+.cs-three span{font-size:16px}
+@media(max-width:620px){.cs-three{grid-template-columns:1fr}}
+.cs-rel{margin-top:16px;padding:13px 16px;border-radius:12px;border:1px solid rgba(199,157,240,.22);background:linear-gradient(135deg,rgba(199,157,240,.07),rgba(25,198,247,.04));display:flex;flex-wrap:wrap;align-items:center;gap:9px;font-size:12.5px;color:#A9AFC4;line-height:1.5}
+.cs-rel em{font-style:normal;font-size:12.5px;color:#ECEDF2;border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:5px 12px;background:rgba(255,255,255,.05);white-space:nowrap}
+.cs-share{margin-top:18px}
 </style>
 </head>
 <body>
@@ -7905,9 +7924,19 @@ function drapeSVG(pal, no){
     return `<path class="drape" style="animation-delay:${(i*0.05).toFixed(2)}s" d="M${x0.toFixed(1)},${y0.toFixed(1)} A${r1},${r1} 0 0 1 ${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)} A${r0},${r0} 0 0 0 ${x3.toFixed(1)},${y3.toFixed(1)}Z" fill="${col}" fill-opacity="${op}"><title>${''}</title></path>`;
   };
   return `<svg viewBox="0 0 400 200" class="cs-drapes" xmlns="http://www.w3.org/2000/svg">
-    ${no.map((c,i)=>arc(i, no.length, c[0], R+12, R+40, .18)).join('')}
-    ${pal.map((c,i)=>arc(i, n, c[0], 60, R, .95)).join('')}
-    <circle cx="${cx}" cy="${cy}" r="52" fill="#0E101A"/><text x="${cx}" y="${cy-8}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8B92AA" letter-spacing="2">МОИ ЦВЕТА</text>
+    <defs>
+      <radialGradient id="csGlow" cx="50%" cy="95%" r="75%">
+        <stop offset="0%" stop-color="rgba(199,157,240,.28)"/><stop offset="55%" stop-color="rgba(25,198,247,.10)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="${cx}" cy="${cy}" rx="196" ry="186" fill="url(#csGlow)"/>
+    ${no.map((c,i)=>arc(i, no.length, c[0], R+14, R+30, .1)).join('')}
+    ${pal.map((c,i)=>arc(i, n, c[0], 60, R, .96)).join('')}
+    ${pal.map((c,i)=>arc(i, n, '#0E101A', 59, 61, .9)).join('')}
+    <circle cx="${cx}" cy="${cy}" r="53" fill="#0E101A" stroke="rgba(199,157,240,.35)" stroke-width="1.5"/>
+    <circle cx="${cx}" cy="${cy}" r="47" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+    <text x="${cx}" y="${cy-22}" text-anchor="middle" font-size="15" fill="#C7A6F0">✦</text>
+    <text x="${cx}" y="${cy-6}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#B7BCCC" letter-spacing="2.5">МОИ ЦВЕТА</text>
   </svg>`;
 }
 
@@ -7924,7 +7953,7 @@ function renderColor(){
       <div class="tip">${Z.who.charAt(0).toUpperCase()+Z.who.slice(1)}.</div>
       ${drapeSVG(Z.pal, Z.no)}
       <div class="cs-three"><div><b>Температура</b><span>${Z.t}</span></div><div><b>Глубина</b><span>${Z.d}</span></div><div><b>Чистота</b><span>${Z.c}</span></div></div>
-      <div class="tip" style="margin-top:10px">Соседние типы, если что-то из палитры «почти, но не совсем»: ${rel.join(' · ')}. Это нормально — границы между сезонами мягкие.</div>
+      <div class="cs-rel"><span>Если что-то «почти, но не совсем» — загляните к соседям, границы сезонов мягкие:</span>${rel.map(r=>`<em>${r}</em>`).join('')}</div>
       <div class="cs-share"><button class="btn primary" onclick="ctShare()">✦ Карточка палитры — сохранить / поделиться</button><button class="btn ghost" onclick="window.print()">⎙ Распечатать</button></div>
       <div class="cs-cta"><b>Палитра — это 5 % того, что LOOKA соберёт о вас.</b><span>Анкета за 2 минуты — и три готовых образа в этих цветах, под вашу фигуру и бюджет, со ссылками на покупку.</span><button class="btn primary" onclick="closePage();setTimeout(()=>document.querySelector('.stage').scrollIntoView({behavior:'smooth'}),150)">✦ Три образа в моих цветах →</button></div>
     </div></div>
