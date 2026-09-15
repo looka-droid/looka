@@ -3277,6 +3277,35 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .p-refund{margin-top:10px;font-size:13px;color:#7CF0B2}
 .p-ref{margin-top:8px;font-size:13.5px;color:#ECEDF2}
 .p-ref b{color:#19C6F7}
+
+/* ================= ЦВЕТ РАЗДЕЛОВ + «КАК ОПРЕДЕЛИТЬ» + КИСТИ ================= */
+.hub-card{--hc:#19C6F7}
+.hub-grid .hub-card:nth-child(6n+2){--hc:#B44CFF}
+.hub-grid .hub-card:nth-child(6n+3){--hc:#FF6B8A}
+.hub-grid .hub-card:nth-child(6n+4){--hc:#FFB84C}
+.hub-grid .hub-card:nth-child(6n+5){--hc:#37E08A}
+.hub-grid .hub-card:nth-child(6n){--hc:#5B6CFF}
+.hub-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--hc),transparent 70%);opacity:.85}
+.hub-card i{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;background:color-mix(in srgb,var(--hc) 16%,transparent);color:var(--hc);font-size:19px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--hc) 35%,transparent)}
+.hub-card:hover{border-color:color-mix(in srgb,var(--hc) 55%,transparent)}
+.hub-card::after{background:radial-gradient(400px 120px at var(--mx,50%) 0%,color-mix(in srgb,var(--hc) 18%,transparent),transparent 60%)}
+.mk-hero{position:relative}
+.mk-hero::before{content:'';position:absolute;inset:-30px -40px;background:radial-gradient(600px 220px at 20% 0%,rgba(180,76,255,.09),transparent 65%),radial-gradient(500px 200px at 85% 30%,rgba(25,198,247,.07),transparent 60%);pointer-events:none}
+.mk-howb{margin-left:10px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1px;text-transform:uppercase;padding:4px 9px;border:1px dashed rgba(25,198,247,.5);background:rgba(25,198,247,.06);color:#19C6F7;cursor:pointer;border-radius:99px;transition:all .2s}
+.mk-howb:hover{background:rgba(25,198,247,.15);color:#fff}
+.mk-how{display:none;margin-top:10px;padding:14px;border:1px solid rgba(25,198,247,.3);background:linear-gradient(135deg,rgba(25,198,247,.06),rgba(91,108,255,.04))}
+.mk-how.open{display:block;animation:popIn .35s both}
+.how-t{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.8px;color:#19C6F7;text-transform:uppercase;margin-bottom:10px}
+.how-row{display:grid;grid-template-columns:120px 1fr;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;line-height:1.55}
+.how-row:last-child{border-bottom:none}
+.how-row b{font-size:12px;color:#ECEDF2;padding-top:1px}
+.how-row em{font-style:normal;color:#19C6F7}
+.how-svg{width:100%;max-width:380px;display:block;margin-bottom:8px}
+@media(max-width:560px){.how-row{grid-template-columns:1fr}}
+.mk-brush{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.mk-br{border:1px solid rgba(255,255,255,.1);padding:12px;background:rgba(255,255,255,.02);display:flex;flex-direction:column;gap:5px}
+.mk-br b{font-size:13.5px}
+.mk-br span{font-size:12px;color:#B7BCCC;line-height:1.45;flex:1}
 </style>
 </head>
 <body>
@@ -6920,6 +6949,30 @@ const M = { goal:null, eye:null, sp:'Нормальная', face:null, eyes:null
 try{ const o = JSON.parse(localStorage.getItem('looka_makeup')||'{}'); Object.assign(M,o); }catch(e){}
 
 const GOALS = ['Дневной','Офис','Свидание','Вечерний','Смоки','Нюд','Свадьба','Съёмка'];
+const MK_HOW = {
+  eye: { t:'Как определить форму глаз — 4 проверки с зеркалом', body: `
+    <div class="how-row"><b>1 · Складка видна?</b><span>Смотрите прямо. Складка века видна полностью — обычная форма. Кожа сверху прикрывает подвижное веко частично или целиком — <em>нависшее веко</em>. Складки нет вовсе, веко гладкое — <em>монолид</em>.</span></div>
+    <div class="how-row"><b>2 · Белок под радужкой</b><span>Если при взгляде прямо видна белая полоска под радужкой — глаза <em>круглые</em>. Радужка касается века и сверху, и снизу — <em>миндалевидные</em>.</span></div>
+    <div class="how-row"><b>3 · Уголки</b><span>Приложите карандаш горизонтально от внутреннего уголка: внешний уголок оказался ниже — <em>опущенные уголки</em>.</span></div>
+    <div class="how-row"><b>4 · Глубина</b><span>В профиль: надбровная кость заметно нависает, глаз «в тени» — <em>глубоко посаженные</em>.</span></div>` },
+  sp: { t:'Как определить посадку — тест «третьим глазом»', body: `
+    <svg viewBox="0 0 340 70" class="how-svg"><g stroke="#8B92AA" fill="none" stroke-width="1.6">
+      <ellipse cx="60" cy="38" rx="26" ry="13"/><ellipse cx="150" cy="38" rx="26" ry="13"/>
+      <path d="M88 38 H122" stroke="#19C6F7" stroke-dasharray="4 3"/>
+    </g><circle cx="60" cy="38" r="6" fill="#5B6CFF"/><circle cx="150" cy="38" r="6" fill="#5B6CFF"/>
+    <text x="105" y="16" text-anchor="middle" font-size="10" fill="#19C6F7" font-family="JetBrains Mono, monospace">= один глаз?</text>
+    <text x="200" y="34" font-size="11" fill="#B7BCCC" font-family="Manrope, Arial">между глазами должен</text><text x="200" y="50" font-size="11" fill="#B7BCCC" font-family="Manrope, Arial">помещаться ровно один глаз</text></svg>
+    <div class="how-row"><b>Тест</b><span>Мысленно вставьте «третий глаз» между своими. Помещается ровно — <em>нормальная</em> посадка. Остаётся лишнее место — <em>широко посаженные</em>. Не влезает — <em>близко посаженные</em>. Для точности сфотографируйте лицо прямо и померьте на экране.</span></div>` },
+  face: { t:'Как определить форму лица — 3 замера', body: `
+    <div class="how-row"><b>1 · Соберите волосы</b><span>Полностью назад, встаньте к зеркалу прямо. Можно обвести контур лица на зеркале помадой — старый приём визажистов, работает безотказно.</span></div>
+    <div class="how-row"><b>2 · Три ширины</b><span>Сравните лоб, скулы, челюсть. Скулы шире всего, контуры мягкие — <em>овал</em> (длина ≈ в 1,5 раза больше ширины) или <em>круг</em> (ширина ≈ длине). Все три примерно равны, углы челюсти чёткие — <em>квадрат</em>. Лоб заметно шире челюсти, подбородок узкий — <em>сердце</em>. Скулы резко шире лба и челюсти — <em>ромб</em>.</span></div>
+    <div class="how-row"><b>3 · Длина</b><span>Лицо длиннее ширины больше чем в 1,5 раза — <em>вытянутое</em>, какими бы ни были остальные замеры.</span></div>` },
+  skin: { t:'Как определить тон и подтон', body: `
+    <div class="how-row"><b>Тон</b><span>Смотрите на внутреннюю сторону предплечья при дневном свете — там кожа не тронута загаром. Сравните со шкалой в кнопках выше.</span></div>
+    <div class="how-row"><b>Подтон</b><span>Вены на запястье: зелёные — тёплый подтон, синие и фиолетовые — холодный, и те и другие — нейтральный. Это решает, какой у вас нюд и румяна: тёплым — персик и терракота, холодным — роза и ягода.</span></div>` }
+};
+window.mkHow = k=>{ const el = document.getElementById('how-'+k); if(el) el.classList.toggle('open'); };
+
 const EYE_SHAPES = ['Миндалевидные','Нависшее веко','Монолид','Опущенные уголки','Круглые','Глубоко посаженные'];
 const SPACING = ['Нормальная','Близко посаженные','Широко посаженные'];
 const FACES = ['Овал','Круг','Квадрат','Сердце','Ромб','Вытянутое'];
@@ -7203,7 +7256,17 @@ function renderMakeup(){
       <ul class="mk-mist">${R.mistakes.map(m=>'<li>'+m+'</li>').join('')}</ul>
     </div></div>
     <div class="look badv"><div class="look-in">
-      <h3>Косметичка под схему</h3>
+      <h3>Кисти — пять штук закрывают всё</h3>
+      <div class="mk-brush">
+        ${[['Спонж / дуэт-кисть','тон и консилер: влажным спонжем — тонко и без полос','спонж для макияжа'],
+           ['Плоская синтетика','нанести цвет на веко плотно, «припечатывая»','плоская кисть для теней'],
+           ['Пушистая растушёвочная','переход в складке — главная кисть схемы, без неё пятна','кисть для растушевки теней'],
+           ['Карандашная','затемнение у ресниц, растушевать стрелку, нижнее веко','карандашная кисть для теней'],
+           ['Скошенная','брови и стрелка гелевой подводкой','скошенная кисть для бровей']].map(b=>`<div class="mk-br"><b>${b[0]}</b><span>${b[1]}</span>${beautyButtons(b[2])}</div>`).join('')}
+      </div>
+      <div class="tip" style="margin-top:10px">В шагах выше у каждого пункта подписано серым, чем он делается. Мыть кисти раз в неделю детским шампунем: грязные кисти — это пятнистая растушёвка и высыпания.</div>
+    </div></div>
+    <div class="look badv mk-wide"><div class="look-in"><h3>Косметичка под схему</h3>
       ${R.kit.map(k=>`<div class="item"><div class="nm">${k[0]}</div><div class="pr">${R.P(k[2])}</div>${beautyButtons(k[1])}</div>`).join('')}
       <div class="total">✦ бюджет: ${M.budget} · цены ориентировочные</div>
     </div></div>`;
@@ -7227,13 +7290,14 @@ window.renderMakeupForm = ()=>{
   if(!M.hair && typeof S!=='undefined' && S.hair) M.hair = S.hair;
   if(!M.budget && typeof B!=='undefined' && B.budget) M.budget = B.budget;
   const g = (t,inner)=>`<div class="grp"><label class="t">${t}</label>${inner}</div>`;
+  const how = k=>`<div class="mk-how" id="how-${k}"><div class="how-t">${MK_HOW[k].t}</div>${MK_HOW[k].body}</div>`;
   f.innerHTML =
     g('Какой макияж', mkChips('goal', GOALS)) +
-    g('Форма глаз', mkChips('eye', EYE_SHAPES)) +
-    g('Посадка глаз', mkChips('sp', SPACING)) +
-    g('Форма лица', mkChips('face', FACES)) +
+    g('Форма глаз <button class="mk-howb" onclick="mkHow(\'eye\')">не знаю — как определить?</button>', mkChips('eye', EYE_SHAPES) + how('eye')) +
+    g('Посадка глаз <button class="mk-howb" onclick="mkHow(\'sp\')">тест с зеркалом</button>', mkChips('sp', SPACING) + how('sp')) +
+    g('Форма лица <button class="mk-howb" onclick="mkHow(\'face\')">3 замера</button>', mkChips('face', FACES) + how('face')) +
     g('Цвет глаз', mkChips('eyes', EYES.map(e=>e[0]), EYES)) +
-    g('Тон кожи', mkChips('skin', SKIN.map(s=>s[0]), SKIN)) +
+    g('Тон кожи <button class="mk-howb" onclick="mkHow(\'skin\')">по венам на запястье</button>', mkChips('skin', SKIN.map(s=>s[0]), SKIN) + how('skin')) +
     g('Цвет волос — для бровей', mkChips('hair', HAIR.map(h=>h[0]), HAIR)) +
     g('Какие тени хочется', mkChips('shade', SHADES, SHADES.map(s=>[s, PAL[s].p[1][2][0]]))) +
     g('Бюджет на косметичку', mkChips('budget', MBUDGETS)) +
