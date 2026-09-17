@@ -3532,7 +3532,7 @@ body::before{background:
   <p>Четыре шага анкеты — три готовых образа под вашу фигуру, цветотип, повод и бюджет. Каждая вещь — реальная позиция на Wildberries, Ozon или Lamoda, открывается в один клик.</p>
   <div class="hero-cta">
     <button class="btn primary hero-ct" onclick="openColor()"><span class="hc-dots"><i></i><i></i><i></i><i></i><i></i></span>Мои цвета — бесплатно · 60 секунд</button>
-    <button class="btn ghost" onclick="document.querySelector('.stage').scrollIntoView({behavior:'smooth'})">Начать подбор образов</button>
+    <button class="btn ghost" onclick="glide('.stage')">Начать подбор образов</button>
   </div>
   <div class="hero-hook"><span>7 ответов</span><i>→</i><span>палитра из 24 цветов</span><i>→</i><span>карточка в сторис</span></div>
   <div class="stats-band sb3">
@@ -3806,7 +3806,7 @@ body::before{background:
       <div class="moat-item"><b>Правила, а не рандом</b><p>За каждой рекомендацией — конкретное правило стилистики, которое можно проверить: спросите любого стилиста про цветотип и коррекцию фигуры.</p></div>
     </div>
   </div>
-  <div class="pg-cta"><button class="btn primary" onclick="closePage();setTimeout(()=>document.querySelector('.stage').scrollIntoView({behavior:'smooth'}),100)">✦ Собрать мой образ — бесплатно</button></div>
+  <div class="pg-cta"><button class="btn primary" onclick="closePage();setTimeout(()=>glide('.stage'),100)">✦ Собрать мой образ — бесплатно</button></div>
 </section>
 
 <section class="sec pageview" id="termsPage">
@@ -3866,7 +3866,7 @@ body::before{background:
   <div class="rf-note">* сроки зачисления устанавливают банки, не мы. После возврата доступ закрывается — это честно в обе стороны.</div>
 </div></details>
   <div class="pg-cta">
-    <button class="btn primary" onclick="closePage();setTimeout(()=>document.querySelector('.stage').scrollIntoView({behavior:'smooth'}),100)">Попробовать бесплатно</button>
+    <button class="btn primary" onclick="closePage();setTimeout(()=>glide('.stage'),100)">Попробовать бесплатно</button>
   </div>
 </section>
 
@@ -3961,7 +3961,7 @@ body::before{background:
     <div class="road-item"><span>ПЛАН</span><b>LOOKA Pro для стилистов</b><p>Инструмент для тех, кто ведёт клиенток: их анкеты, палитры, гардеробы и капсулы в одном кабинете, ваш логотип на паспорте и карточках.</p></div>
     <div class="road-item"><span>ПЛАН</span><b>Один план красоты</b><p>Гардероб, косметичка и уход — в один план с бюджетом на месяц и годовой отчёт: сколько образов, цена выхода, что не носится. Красота перестаёт быть хаосом трат.</p></div>
   </div>
-  <div class="pg-cta"><button class="btn primary" onclick="closePage();setTimeout(()=>document.querySelector('.stage').scrollIntoView({behavior:'smooth'}),100)">✦ Попробовать LOOKA сейчас — бесплатно</button></div>
+  <div class="pg-cta"><button class="btn primary" onclick="closePage();setTimeout(()=>glide('.stage'),100)">✦ Попробовать LOOKA сейчас — бесплатно</button></div>
 </section>
 
 <section class="sec reveal" id="tools">
@@ -6346,13 +6346,13 @@ window.cityAC = (inp, sug, onPick, filter)=>{
                 <div class="td-cta2-feats"><span>фасоны под фигуру</span><span>цвета под цветотип</span><span>размеры в ссылках</span><span>советы стилиста</span></div>
                 ${missing.length ? '<div class="td-cta2-miss">не хватает: '+missing.join(' · ')+'</div>' : ''}
                 <button class="btn primary" onclick="openProfile('tdGo')">Заполнить быстрый профиль →</button>
-                <button class="btn ghost" style="margin-left:8px" onclick="S.event='${ev}';closePage();setTimeout(()=>document.querySelector('.stage').scrollIntoView({behavior:'smooth'}),100)">Большая анкета</button>
+                <button class="btn ghost" style="margin-left:8px" onclick="S.event='${ev}';closePage();setTimeout(()=>glide('.stage'),100)">Большая анкета</button>
               </div>
             </div>`;
             out.innerHTML = `<div class="tp-weather"><div class="t">${t>0?'+':''}${t}°</div><div class="w"><b>${esc(g.display_name.split(',')[0])}</b> · ${wcode(c.weather_code)} · ветер ${Math.round(c.wind_speed_10m)} км/ч</div></div>
               ${lookHtml||''}${profileCta}
               <div class="tp-card"><span class="k">ФОРМУЛА ДНЯ ПО ПОГОДЕ</span><ul class="tp-list">${tips.map(x=>'<li>'+x+'</li>').join('')}<li>${evTip}</li></ul></div>
-              ${lookHtml ? `<div class="tp-row"><button class="btn ghost" onclick="document.getElementById('tdGo').click()">↻ Пересобрать образ</button><button class="btn ghost" onclick="S.event='${ev}';closePage();setTimeout(()=>document.querySelector('.stage').scrollIntoView({behavior:'smooth'}),100)">Три варианта в анкете →</button></div>` : ''}
+              ${lookHtml ? `<div class="tp-row"><button class="btn ghost" onclick="document.getElementById('tdGo').click()">↻ Пересобрать образ</button><button class="btn ghost" onclick="S.event='${ev}';closePage();setTimeout(()=>glide('.stage'),100)">Три варианта в анкете →</button></div>` : ''}
               <div class="tp-note">погода: open-meteo.com · ${w.timezone}</div>`;
             if(window.fxZone) fxZone(out);
           }catch(e){ out.innerHTML='<div class="tp-note">Не нашла город или погода недоступна — проверьте название и интернет.</div>'; }
@@ -6437,7 +6437,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
         const tabs = document.getElementById('dcTabs'), out = document.getElementById('dcOut');
         tabs.innerHTML = Object.keys(DC).map(k=>'<button>'+k+'</button>').join('');
         const show = k=>{ const d = DC[k]; tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.textContent===k));
-          out.innerHTML = `<div class="tp-card"><span class="k">${k.toUpperCase()} — ЧТО ЭТО</span>${d[0]}</div><div class="tp-card"><span class="k">ДЛЯ ВАС</span>${d[1]}</div><div class="tp-row"><button class="btn primary" onclick="S.event='${d[2]}';closePage();setTimeout(()=>document.querySelector('.stage').scrollIntoView({behavior:'smooth'}),100)">Собрать образ под этот код →</button></div>`; };
+          out.innerHTML = `<div class="tp-card"><span class="k">${k.toUpperCase()} — ЧТО ЭТО</span>${d[0]}</div><div class="tp-card"><span class="k">ДЛЯ ВАС</span>${d[1]}</div><div class="tp-row"><button class="btn primary" onclick="S.event='${d[2]}';closePage();setTimeout(()=>glide('.stage'),100)">Собрать образ под этот код →</button></div>`; };
         tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>show(b.textContent)); show('Smart casual');
       }},
     sos:{cases:['Встреча «через час» из ниоткуда','Проспала в важный день','Двадцать минут на себя, пока ребёнок спит','Внезапные гости'], check:['Лицо: тон, тушь, губы — три минуты','Обувь чистая — её видят первой','Один акцент: серьги или помада','Комплект проверенный, не экспериментальный','30 секунд у зеркала в полный рост'], c:'#FFC46B', n:'05', tag:'До выхода 10, 30 или 60 минут. Порядок действий, при котором вы выйдете собранной, а не в панике.', why:['Приоритеты по правилу «лицо → обувь → один акцент»','Проверенные, а не экспериментальные комплекты — в спешке рискуют не так','Хронометраж на каждый шаг: не «быстро», а «три минуты»'], h:'SOS-образ', d:'До выхода мало времени. Порядок действий, который спасает.', ui:`
@@ -7791,7 +7791,7 @@ HUB.chips = (st, key, arr, opt={})=>{
 };
 HUB.pop = (html, i)=>`<div class="pop" style="animation-delay:${(i*0.06).toFixed(2)}s">${html}</div>`;
 HUB.pick = (st, key, v, multi)=>{ if(multi){ const a = st[key]||[]; const i = a.indexOf(v); i<0 ? a.push(v) : a.splice(i,1); st[key]=a; } else st[key]=v; };
-HUB.done = (out)=>{ if(window.fxTilt) fxTilt(out); if(window.fxGlow) fxGlow(out); if(window.fxZone) fxZone(out); const y = out.getBoundingClientRect().top + window.scrollY - 110; window.scrollTo({top:y, behavior:'smooth'}); };
+HUB.done = (out)=>{ if(window.fxTilt) fxTilt(out); if(window.fxGlow) fxGlow(out); if(window.fxZone) fxZone(out); glide(out, 110, 950); };
 HUB.prof = ()=>({ hair:S.hair, eyes:S.eyes, skin:S.skin, figure:S.figure, budget:S.budget });
 
 /* ================= ЦВЕТОТИП ПО 12 СЕЗОНАМ ================= */
@@ -7955,7 +7955,7 @@ function renderColor(){
       <div class="cs-three"><div><b>Температура</b><span>${Z.t}</span></div><div><b>Глубина</b><span>${Z.d}</span></div><div><b>Чистота</b><span>${Z.c}</span></div></div>
       <div class="cs-rel"><span>Если что-то «почти, но не совсем» — загляните к соседям, границы сезонов мягкие:</span>${rel.map(r=>`<em>${r}</em>`).join('')}</div>
       <div class="cs-share"><button class="btn primary" onclick="ctShare()">✦ Карточка палитры — сохранить / поделиться</button><button class="btn ghost" onclick="window.print()">⎙ Распечатать</button></div>
-      <div class="cs-cta"><b>Палитра — это 5 % того, что LOOKA соберёт о вас.</b><span>Анкета за 2 минуты — и три готовых образа в этих цветах, под вашу фигуру и бюджет, со ссылками на покупку.</span><button class="btn primary" onclick="closePage();setTimeout(()=>document.querySelector('.stage').scrollIntoView({behavior:'smooth'}),150)">✦ Три образа в моих цветах →</button></div>
+      <div class="cs-cta"><b>Палитра — это 5 % того, что LOOKA соберёт о вас.</b><span>Анкета за 2 минуты — и три готовых образа в этих цветах, под вашу фигуру и бюджет, со ссылками на покупку.</span><button class="btn primary" onclick="closePage();setTimeout(()=>glide('.stage'),150)">✦ Три образа в моих цветах →</button></div>
     </div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Ваши 24 цвета</h3><div class="tip">Любой из них у лица делает кожу ровнее, а глаза — ярче. Проверка дома: приложите вещь к лицу при дневном свете — «ваш» цвет убирает тени под глазами, «не ваш» — подчёркивает.</div><div class="cs-grid">${sw(Z.pal)}</div></div></div>
     <div class="look badv"><div class="look-in"><h3>Табу у лица</h3><div class="tip">Не «никогда» — а не рядом с лицом. Внизу образа, в сумке или обуви они безопасны.</div><div class="cs-grid cs-no">${sw(Z.no,'no')}</div></div></div>
@@ -8014,11 +8014,30 @@ window.renderColorForm = ()=>{
     `<button class="btn primary" id="ctGo" ${['hair','eyes','skin','veins','metal','sun','contrast'].every(k=>C[k])?'':'disabled'} onclick="renderColor()">✦ Определить мой цветотип</button>`;
 };
 window.renderColor = renderColor;
+
+/* мягкий длинный скролл вместо резкого браузерного */
+window.glide = (target, offset, dur)=>{
+  const el = typeof target==='string' ? document.querySelector(target) : target;
+  if(!el) return;
+  offset = offset==null ? 110 : offset; dur = dur || 950;
+  const from = window.scrollY, to = Math.max(0, el.getBoundingClientRect().top + from - offset);
+  if(Math.abs(to-from) < 4) return;
+  let start = null, stop = false;
+  const cancel = ()=>{ stop = true; ['wheel','touchstart','keydown'].forEach(e=>window.removeEventListener(e, cancel)); };
+  ['wheel','touchstart','keydown'].forEach(e=>window.addEventListener(e, cancel, {passive:true}));
+  const ease = t => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; // easeInOutCubic
+  const tick = ts=>{ if(stop) return; if(!start) start = ts;
+    const k = Math.min(1, (ts-start)/dur);
+    window.scrollTo(0, from + (to-from)*ease(k));
+    if(k < 1) requestAnimationFrame(tick); else cancel();
+  };
+  requestAnimationFrame(tick);
+};
 window.openColor = ()=>{ openPage('colorPage'); renderColorForm();
   // плавно довозим до анкеты (если результата ещё нет — иначе человек вернулся смотреть свой сезон)
   setTimeout(()=>{ const out = document.getElementById('ctOut');
     const target = (out && out.innerHTML.trim()) ? out : document.querySelector('#colorPage .bt-form');
-    if(target){ const y = target.getBoundingClientRect().top + window.scrollY - 110; if(y > 40) window.scrollTo({top:y, behavior:'smooth'}); }
+    if(target) glide(target, 110, 1100);
   }, 350); };
 window.SEASONS = SEASONS; window.currentSeason = ()=>{ try{ return ['hair','eyes','skin','veins','metal','sun','contrast'].every(k=>C[k]) ? computeSeason() : null; }catch(e){ return null; } };
 })();
@@ -8616,7 +8635,7 @@ window.renderWardrobe = renderWardrobe;
 /* ================= ЭКОСИСТЕМА: сетка разделов и меню ================= */
 (function(){
 const HUBS = [
-  ['✦','Подбор образов','анкета → три образа под фигуру и бюджет со ссылками', "closePage();setTimeout(()=>document.querySelector('.stage').scrollIntoView({behavior:'smooth'}),100)", 'бесплатно'],
+  ['✦','Подбор образов','анкета → три образа под фигуру и бюджет со ссылками', "closePage();setTimeout(()=>glide('.stage'),100)", 'бесплатно'],
   ['◐','Цветотип','12 сезонов, 24 ваших цвета, карточка палитры', 'openColor()', 'бесплатно'],
   ['✧','Бьюти-скан','разбор внешности по селфи: стрижка, брови, помада', 'openBeauty()', 'доступ'],
   ['◉','Макияж-гид','схема глаза и лица под вашу форму, 14 шагов', 'openMakeup()', 'доступ'],
