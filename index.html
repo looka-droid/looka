@@ -3557,9 +3557,14 @@ body::before{background:
 @media(max-width:560px){.tj-ph{grid-template-columns:38px 1fr;gap:12px}.tj-node{width:38px;height:38px}.tj::before{left:18px}.tj-card{padding:16px}}
 
 /* ================= БУТИКИ + ПОИСК ================= */
-.nav-find{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.16);border-radius:99px;padding:6px 14px;background:rgba(255,255,255,.04);color:#C2C7D6;cursor:pointer;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.4px;text-transform:uppercase;transition:all .2s}
-.nav-find i{font-style:normal;font-size:14px;color:#19C6F7}
-.nav-find:hover{border-color:rgba(199,157,240,.6);color:#fff}
+.nav-find{display:inline-flex;align-items:center;gap:10px;min-width:250px;border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:9px 12px 9px 16px;background:rgba(255,255,255,.05);color:#9BA3BC;cursor:pointer;font-family:'Manrope';font-size:13px;text-transform:none;letter-spacing:0;transition:all .22s}
+.nav-find i{font-style:normal;font-size:16px;color:#19C6F7}
+.nav-find span{flex:1;text-align:left;white-space:nowrap}
+.nav-find em{font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:.5px;color:#7C8399;border:1px solid rgba(255,255,255,.16);border-radius:6px;padding:3px 6px}
+.nav-find:hover{border-color:transparent;color:#ECEDF2;background:linear-gradient(rgba(14,16,26,.9),rgba(14,16,26,.9)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;box-shadow:0 6px 20px rgba(120,100,200,.25)}
+.nav-find:hover i{color:#C79DF2}
+@media(max-width:1200px){.nav-find{min-width:190px}.nav-find em{display:none}}
+@media(max-width:900px){.nav-find{min-width:0;padding:8px 14px}.nav-find span{display:none}}
 .fnd-ov{position:fixed;inset:0;z-index:120;background:rgba(6,7,12,.72);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;padding:12vh 16px 16px}
 .fnd-ov.open{display:flex;animation:popIn .2s both}
 .fnd-box{width:min(640px,100%);border:1px solid rgba(255,255,255,.14);border-radius:18px;background:#10121C;box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:hidden}
@@ -3617,6 +3622,162 @@ body::before{background:
 .stage-pop{animation:stagePop .9s cubic-bezier(.2,.8,.2,1) both}
 @keyframes stagePop{0%{transform:scale(.985);opacity:.65}60%{transform:scale(1.004)}100%{transform:none;opacity:1}}
 @media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none}.stage-pop{animation:none}}
+
+/* ================= О LOOKA: вкладки и блок на главной ================= */
+.ab-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 26px;padding:14px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));position:relative}
+.ab-tabs::before{content:attr(data-t);position:absolute;top:-9px;left:16px;padding:0 8px;background:#0E101A;font-family:'JetBrains Mono';font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#8B92AA}
+.ab-tab{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.13);border-radius:99px;padding:9px 16px;background:rgba(255,255,255,.03);color:#C2C7D6;cursor:pointer;font-family:'Manrope';font-size:13px;font-weight:600;transition:all .22s}
+.ab-tab i{font-style:normal;font-size:13px;color:#8B92AA;transition:color .22s}
+.ab-tab:hover{border-color:transparent;color:#fff;background:linear-gradient(rgba(16,18,28,.72),rgba(16,18,28,.72)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box}
+.ab-tab:hover i{color:#C79DF2}
+.ab-tab.on{cursor:default;border-color:transparent;color:#0B0C12;font-weight:700;background:linear-gradient(180deg,#FFFFFF,#EEF0F7) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;box-shadow:0 6px 18px rgba(140,120,220,.28)}
+.ab-tab.on i{color:#3A2F55}
+.ab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:22px}
+.ab-card{position:relative;overflow:hidden;text-align:left;display:flex;flex-direction:column;gap:7px;padding:20px;border:1px solid rgba(255,255,255,.11);border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));color:#ECEDF2;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s}
+.ab-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#19C6F7,transparent 70%)}
+.ab-card:nth-child(2)::before{background:linear-gradient(90deg,#37E08A,transparent 70%)}
+.ab-card:nth-child(3)::before{background:linear-gradient(90deg,#C79DF2,transparent 70%)}
+.ab-card:nth-child(4)::before{background:linear-gradient(90deg,#F2A6C6,transparent 70%)}
+.ab-card i{font-style:normal;width:38px;height:38px;display:grid;place-items:center;border-radius:10px;font-size:18px;background:rgba(25,198,247,.12);color:#19C6F7}
+.ab-card:nth-child(2) i{background:rgba(55,224,138,.12);color:#37E08A}
+.ab-card:nth-child(3) i{background:rgba(199,157,240,.12);color:#C79DF2}
+.ab-card:nth-child(4) i{background:rgba(242,166,198,.12);color:#F2A6C6}
+.ab-card b{font-size:16px}
+.ab-card span{font-size:13px;line-height:1.55;color:#B7BCCC;flex:1}
+.ab-card em{font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#8B92AA;transition:color .22s}
+.ab-card:hover{transform:translateY(-4px);border-color:rgba(199,157,240,.45);box-shadow:0 20px 44px rgba(0,0,0,.35)}
+.ab-card:hover em{color:#C79DF2}
+@media(max-width:560px){.ab-tabs{gap:6px}.ab-tab{padding:8px 13px;font-size:12px}}
+
+.mp-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}
+.mp-foot span{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA}
+.mp-foot b{color:#C7A6F0}
+
+/* блок «о макияже и укладках» на странице «Кто мы» */
+.ab-two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+@media(max-width:760px){.ab-two{grid-template-columns:1fr}}
+.ab-blk{border:1px solid rgba(255,255,255,.11);border-radius:16px;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012))}
+.ab-blk h3{font-size:18px;margin-bottom:9px}
+.ab-blk p{font-size:13.5px;line-height:1.6;color:#C2C7D6}
+.ab-blk p b{color:#ECEDF2}
+.ab-ic{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;font-size:20px;margin-bottom:12px;background:rgba(199,157,240,.14);color:#C79DF2}
+.ab-blk:nth-child(2) .ab-ic{background:rgba(25,198,247,.14);color:#19C6F7}
+.ab-list{list-style:none;padding:0;margin:12px 0 16px;display:grid;gap:7px}
+.ab-list li{position:relative;padding-left:18px;font-size:13px;line-height:1.5;color:#B7BCCC}
+.ab-list li::before{content:'✦';position:absolute;left:0;font-size:10px;color:#C79DF2}
+.ab-blk:nth-child(2) .ab-list li::before{color:#19C6F7}
+.ab-quote{margin-top:20px;padding:18px 22px;border-radius:14px;border:1px solid rgba(199,157,240,.28);background:linear-gradient(135deg,rgba(199,157,240,.08),rgba(25,198,247,.04));font-size:14.5px;line-height:1.65;color:#D6DAE6}
+
+/* ================= РИТУАЛ ДНЯ + ДОЛГАЯ КРАСОТА ================= */
+#ritSec{padding-top:0}
+.rit-card{position:relative;overflow:hidden;border-radius:20px;border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(135deg,rgba(242,166,198,.14),rgba(199,157,240,.12) 45%,rgba(25,198,247,.1));
+  box-shadow:0 22px 60px rgba(0,0,0,.35)}
+.rit-aura{position:absolute;inset:-40%;background:conic-gradient(from 0deg,rgba(242,166,198,.35),rgba(199,157,240,.3),rgba(25,198,247,.3),rgba(55,224,138,.25),rgba(242,166,198,.35));filter:blur(56px);opacity:.5;animation:ritSpin 16s linear infinite;pointer-events:none}
+@keyframes ritSpin{to{transform:rotate(360deg)}}
+.rit-in{position:relative;padding:26px 28px}
+.rit-k{font-family:'JetBrains Mono';font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:#FFD9E8;display:inline-flex;align-items:center;gap:9px;margin-bottom:10px}
+.rit-k::before{content:'';width:7px;height:7px;border-radius:50%;background:#F2A6C6;box-shadow:0 0 0 0 rgba(242,166,198,.6);animation:ritPulse 2.4s ease-out infinite}
+@keyframes ritPulse{0%{box-shadow:0 0 0 0 rgba(242,166,198,.55)}100%{box-shadow:0 0 0 14px rgba(242,166,198,0)}}
+.rit-in h3{font-size:26px;margin-bottom:8px}
+.rit-in p{font-size:14.5px;line-height:1.6;color:#E3E6EF;max-width:680px}
+.rit-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.rit-streak{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:#E8D6E6}
+.rit-streak b{color:#fff;font-size:13px}
+.rit-card.done{border-color:rgba(55,224,138,.45)}
+.rit-card.done .rit-aura{opacity:.32}
+@media(max-width:560px){.rit-in{padding:20px 18px}.rit-in h3{font-size:21px}}
+.gl-pill{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.gl-pill{grid-template-columns:1fr}}
+.gl-p{border:1px solid rgba(255,255,255,.11);border-radius:14px;padding:16px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012))}
+.gl-p i{font-style:normal;font-size:19px;color:#C79DF2;display:block;margin-bottom:8px}
+.gl-p b{display:block;font-size:15px;margin-bottom:6px}
+.gl-p span{font-size:13px;line-height:1.55;color:#B7BCCC;display:block;margin-bottom:8px}
+.gl-myth{border-left:2px solid rgba(255,157,176,.5);padding:8px 0 8px 13px;margin-top:10px}
+.gl-myth b{display:block;font-size:14px;color:#FF9DB0;margin-bottom:4px}
+.gl-myth span{font-size:13px;line-height:1.55;color:#B7BCCC}
+
+/* ================= СЕТКА РАЗДЕЛОВ ПО ГРУППАМ + БОЛЬШОЙ ПОИСК ================= */
+.hub-groups{display:grid;gap:30px;margin-top:8px}
+.hub-gr-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.hub-gr-h b{font-size:19px;font-weight:800}
+.hub-gr-h span{font-size:13px;color:#8B92AA}
+.hub-gr-h i{margin-left:auto;font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.5px;color:#8B92AA;border:1px solid rgba(255,255,255,.14);border-radius:99px;padding:4px 10px}
+.hub-search{position:relative;overflow:hidden;display:grid;grid-template-columns:auto 1fr;grid-template-areas:"ic txt" "fl fl";align-items:center;gap:18px 20px;border-radius:22px;padding:30px 32px;border:1px solid rgba(25,198,247,.3);background:linear-gradient(135deg,rgba(25,198,247,.1),rgba(199,157,240,.08) 55%,rgba(242,166,198,.06))}
+.hub-search::before{content:'';position:absolute;inset:-50%;background:conic-gradient(from 0deg,rgba(25,198,247,.25),rgba(199,157,240,.22),rgba(242,166,198,.2),rgba(25,198,247,.25));filter:blur(60px);opacity:.45;animation:ritSpin 20s linear infinite;pointer-events:none}
+.hs-ic{grid-area:ic;position:relative;width:60px;height:60px;flex:0 0 auto;display:grid;place-items:center;border-radius:14px;font-size:26px;background:rgba(25,198,247,.16);color:#19C6F7}
+.hs-txt{grid-area:txt;position:relative}
+.hs-txt b{display:block;font-size:22px;margin-bottom:6px}
+.hs-txt span{font-size:13.5px;line-height:1.55;color:#B7BCCC}
+.hs-field{grid-area:fl;position:relative;display:flex;gap:12px;width:100%}
+.hs-field input{flex:1;background:rgba(10,12,20,.55);border:1.5px solid rgba(255,255,255,.16);border-radius:14px;padding:18px 22px;color:#ECEDF2;font-family:'Manrope';font-size:17px;outline:none;transition:border-color .2s,box-shadow .2s}
+.hs-field input::placeholder{color:#7C8399}
+.hs-field input:focus{border-color:transparent;background:linear-gradient(rgba(10,12,20,.85),rgba(10,12,20,.85)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;box-shadow:0 0 0 4px rgba(150,130,230,.16)}
+@media(max-width:700px){.hub-search{padding:22px 18px;gap:14px;grid-template-columns:1fr;grid-template-areas:"ic" "txt" "fl"}.hs-txt b{font-size:19px}.hs-field input{padding:15px 16px;font-size:15px}}
+
+/* отступы результатов и карточек */
+.look .look-in{padding:22px 24px}
+@media(max-width:560px){.look .look-in{padding:18px 16px}}
+.look-in > .cs-k{margin-bottom:10px;display:inline-flex}
+.look-in > h3{margin-bottom:10px;line-height:1.25}
+.look-in > .tip{margin-top:4px;line-height:1.65}
+.look-in .item{padding:13px 0}
+.look-in .item + .item{border-top:1px solid rgba(255,255,255,.07)}
+.look-in .item .nm{margin-bottom:2px}
+/* ---------- «Как работает»: чище и дороже ---------- */
+.hp-stage{padding:26px 18px;border-radius:20px;background:
+  radial-gradient(700px 300px at 22% 18%,rgba(199,157,240,.1),transparent 62%),
+  radial-gradient(600px 280px at 82% 70%,rgba(25,198,247,.09),transparent 60%),
+  rgba(15,17,26,.96)}
+.hp-flow{stroke:url(#hpGrad);stroke-width:1.4;stroke-dasharray:none;opacity:.35;animation:none;filter:none}
+.hp-flow.out{stroke-width:2;opacity:.6}
+.hp-flow.lit{opacity:.95;stroke-width:2.4;animation:none;filter:drop-shadow(0 0 8px rgba(199,157,240,.7))}
+.hp-dot{fill:#C79DF2;filter:drop-shadow(0 0 7px rgba(199,157,240,.9))}
+.hp-dot.out{fill:#7CF0B2;filter:drop-shadow(0 0 8px rgba(124,240,178,.9))}
+.hp-tag rect{fill:rgba(255,255,255,.035);stroke:rgba(255,255,255,.16);stroke-width:1.2;rx:18}
+.hp-tag text{fill:#B7BCCC;font-size:11.5px;letter-spacing:2.4px}
+.hp-tag{animation:none;transition:opacity .3s}
+.hp-tag:hover rect,.hp-tag.lit rect{fill:rgba(199,157,240,.18);stroke:#C79DF2}
+.hp-tag:hover text,.hp-tag.lit text{fill:#fff}
+.hp-ring.r1{stroke:rgba(199,157,240,.55);stroke-dasharray:2 10;stroke-linecap:round;animation:hpSpin 22s linear infinite}
+.hp-ring.r2{stroke:rgba(25,198,247,.5);stroke-dasharray:2 8;stroke-linecap:round;animation:hpSpin 16s linear infinite reverse}
+.hp-heart{fill:rgba(199,157,240,.14);stroke:rgba(255,255,255,.5);stroke-width:1.2;animation:hpBreath 4.5s ease-in-out infinite}
+@keyframes hpBreath{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.06);opacity:1}}
+.hp-out rect{fill:rgba(255,255,255,.04);stroke:rgba(255,255,255,.14);stroke-width:1.2}
+.hp-out{animation:hpOutSoft 6s ease-in-out infinite}
+@keyframes hpOutSoft{0%,12%{opacity:0;transform:translateX(-6px)}28%,88%{opacity:1;transform:none}100%{opacity:0;transform:translateX(-6px)}}
+.hp-out.o2{animation-delay:.5s}.hp-out.o3{animation-delay:1s}
+.hp-zone{fill:#6E7489;font-size:10px;letter-spacing:3px}
+.hp-comet{fill:rgba(199,157,240,.9);filter:drop-shadow(0 0 10px rgba(199,157,240,.8))}
+.hp-nova{fill:none;stroke:rgba(199,157,240,.5)}
+
+[data-hub] .hub-gr.rv{opacity:0;transform:translateY(24px)}
+[data-hub] .hub-gr.rv-in{opacity:1;transform:none}
+
+/* аккаунт */
+.acc-top{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap}
+.acc-ava{position:relative;width:104px;height:104px;flex:0 0 auto;border-radius:50%;cursor:pointer;display:grid;place-items:center;overflow:hidden;
+  background:linear-gradient(135deg,rgba(25,198,247,.2),rgba(199,157,240,.2));border:1.5px solid rgba(255,255,255,.18);transition:border-color .22s,transform .22s}
+.acc-ava:hover{border-color:rgba(199,157,240,.7);transform:translateY(-2px)}
+.acc-ava img{width:100%;height:100%;object-fit:cover}
+.acc-ava span{font-size:34px;font-weight:800;color:#ECEDF2;letter-spacing:1px}
+.acc-ava i{position:absolute;bottom:0;left:0;right:0;font-style:normal;text-align:center;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1.2px;text-transform:uppercase;padding:5px 0;background:rgba(8,9,15,.72);color:#C7A6F0}
+.acc-fields{flex:1;min-width:260px}
+.acc-in{width:100%;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);border-radius:10px;padding:12px 14px;color:#ECEDF2;font-family:'Manrope';font-size:14px;outline:none;margin-bottom:12px;transition:border-color .2s,box-shadow .2s}
+.acc-in:focus{border-color:transparent;background:linear-gradient(rgba(18,20,32,.92),rgba(18,20,32,.92)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;box-shadow:0 0 0 4px rgba(150,130,230,.14)}
+.acc-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.acc-two{grid-template-columns:1fr}}
+.acc-age{font-size:13px;color:#C7A6F0}
+.acc-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:20px}
+.acc-stats>div{border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 14px;background:rgba(255,255,255,.025)}
+.acc-stats b{display:block;font-size:20px;font-weight:800;background:linear-gradient(90deg,#19C6F7,#C79DF2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.acc-stats span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA}
+
+.acc-auth .look-in{padding-top:20px}
+.g-slot{margin:14px 0 6px;min-height:44px;display:flex}
+.acc-mail{font-size:14px;color:#C7A6F0;margin-bottom:12px}
+.acc-toggle{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#C9CEDD;cursor:pointer}
+.acc-toggle input{margin-top:3px;width:18px;height:18px;accent-color:#C79DF2;cursor:pointer}
 </style>
 </head>
 <body>
@@ -3631,13 +3792,13 @@ body::before{background:
 <header>
   <div class="logo" onclick="goHome()" role="button" title="На главную">LOO<em>KA</em></div>
   <nav class="topnav">
-    <a href="#how" onclick="openPage('howPage');return false">Как работает</a><span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#pass" onclick="openPage('passPage');return false">Паспорт</a><a href="#my" onclick="openPage('myPage');return false">Мой LOOKA</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i>⌕</i><span>Поиск</span></button><a href="#about" onclick="openPage('aboutPage');return false">Кто мы</a><a href="#pricing" onclick="openPage('termsPage');return false">Условия</a><a href="#roadmap" onclick="openPage('devPage');return false">Развитие</a><a href="#docs" onclick="openPage('docsPage');return false">Документы</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a>
+    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#my" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i>⌕</i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button>
   </nav>
 </header>
 <div class="sysbar sb2">
   <span class="sb-on"><i></i>SYSTEM ONLINE</span>
   <span class="sb-clock" id="sbClock">МСК --:--:--</span>
-  <span class="sb-rot"><b id="sbRot">РАЗДЕЛОВ: 18 · ПОМОЩНИКОВ: 8 · ПОИСК ПО САЙТУ</b></span>
+  <span class="sb-rot"><b id="sbRot">РАЗДЕЛОВ: 19 · ПОМОЩНИКОВ: 8 · ПОИСК ПО САЙТУ</b></span>
   <button class="reg-btn" onclick="openRegion()">🇷🇺 Россия и СНГ <i>▾</i></button>
   <span class="sb-scan"></span>
 </div>
@@ -3679,18 +3840,15 @@ body::before{background:
   <div class="how">
     <div class="how-card"><span class="num">01</span><h3>Анкета — 2 минуты</h3><p>Четыре шага: параметры и тип фигуры, цвета внешности, повод и бюджет. По желанию добавьте фото в полный рост — подбор станет точнее.</p></div>
     <div class="how-card"><span class="num">02</span><h3>Анализ данных</h3><p>Сервис сопоставляет тип фигуры с фасонами, которые его корректируют, а цвета внешности — с палитрой, которая вам идёт. Без «как всем».</p></div>
-    <div class="how-card"><span class="num">03</span><h3>Готовые образы</h3><p>Три законченных образа с ценами. У каждой вещи — кнопки Wildberries, Ozon и Lamoda: проверяйте условия и заказывайте на площадке.</p></div>
+    <div class="how-card"><span class="num">03</span><h3>Готовые образы</h3><p>Три законченных образа с ценами. У каждой вещи — кнопки магазинов вашего региона: проверяйте условия и заказывайте на площадке.</p></div>
   </div>
 </section>
 
 <section class="sec reveal">
   <h2 class="big">МЫ НЕ МАГАЗИН — <span class="holo">МЫ НАВИГАТОР</span></h2>
-  <p class="lead">LOOKA ничего не продаёт и не влияет на цены. Сервис собирает образ и ведёт вас к вещам на трёх крупнейших площадках страны — сравнивайте условия, наличие размеров и выбирайте, где удобнее.</p>
-  <div class="mp-band">
-    <div class="mp-card wbc"><b>WILDBERRIES</b><span>самый большой выбор и быстрые пункты выдачи</span></div>
-    <div class="mp-card ozc"><b>OZON</b><span>частые скидки и рассрочка без переплат</span></div>
-    <div class="mp-card lmc"><b>LAMODA</b><span>бренды, примерка при курьере и лёгкий возврат</span></div>
-  </div>
+  <p class="lead">LOOKA ничего не продаёт и не влияет на цены. Сервис собирает образ и ведёт вас к вещам в магазины <b id="mpReg">вашего региона</b> — сравнивайте условия, наличие размеров и выбирайте, где удобнее. Регион переключается в любой момент: площадки, размерная сетка и валюта меняются вместе с ним.</p>
+  <div class="mp-band" id="mpBand"></div>
+  <div class="mp-foot"><button class="btn ghost" onclick="openRegion()">⌘ Сменить регион</button><span>сейчас площадок в вашем регионе: <b id="mpCnt">—</b></span></div>
 </section>
 
 <div class="stage">
@@ -3820,16 +3978,34 @@ body::before{background:
   </div>
 </section>
 
+<section class="sec reveal" id="ritSec">
+  <div id="ritBox"></div>
+</section>
+
 <section class="sec reveal hub-home" id="hub">
-  <div class="eyebrow">всё для вас · 18 разделов на ваших данных</div>
-  <h2 class="big">Не советы — <span class="holo">система, которая вас помнит</span></h2>
+  <div class="eyebrow">всё для вас · 19 разделов на ваших данных</div>
+  <h2 class="big">Не советы из интернета — <span class="holo">система, которая знает вас</span></h2>
   <p class="lead">Цветотип, кожа, волосы, макияж, гардероб, капсула, событие — каждый раздел строится на вашей анкете, показывает результат картинкой и ведёт до покупки в вашей стране. Чат этого не сделает: у него нет вашей палитры и вашего шкафа.</p>
   <div class="hub-grid" data-hub></div>
+</section>
+
+<section class="sec reveal" id="aboutBlock">
+  <div class="eyebrow">о сервисе</div>
+  <h2 class="big">Всё о LOOKA — <span class="holo">в четырёх карточках</span></h2>
+  <p class="lead">Кто это делает, сколько стоит, куда развивается и на каких условиях работает. Без мелкого шрифта и звёздочек.</p>
+  <div class="ab-grid">
+    <button class="ab-card" onclick="openPage('howPage')"><i>⚙</i><b>Как работает</b><span>Три шага: анкета → анализ данных → готовые образы со ссылками</span><em>технология →</em></button>
+    <button class="ab-card" onclick="openPage('aboutPage')"><i>◐</i><b>Кто мы</b><span>Анна и её проект: почему появилась LOOKA и кто отвечает на письма</span><em>познакомиться →</em></button>
+    <button class="ab-card" onclick="openPage('termsPage')"><i>₽</i><b>Условия и оплата</b><span>5 000 ₽ один раз, без подписок · возврат 14 дней одним письмом</span><em>смотреть цену →</em></button>
+    <button class="ab-card" onclick="openPage('devPage')"><i>↗</i><b>Развитие</b><span>Траектория: что работает, что на старте и куда идём — плюс карта мира</span><em>план →</em></button>
+    <button class="ab-card" onclick="openPage('docsPage')"><i>▤</i><b>Документы</b><span>Оферта, политика данных, реквизиты самозанятой</span><em>документы →</em></button>
+  </div>
 </section>
 
 
 <section class="sec pageview" id="howPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab on"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
   <div class="eyebrow">технология</div>
   <h2 class="big">Как LOOKA собирает <span class="holo">ваш образ</span></h2>
   <p class="lead">Это не случайный генератор и не «тест из интернета». LOOKA работает на правилах, которыми пользуются профессиональные стилисты — только применяет их к вашим данным за минуту, а не за консультацию от 10 000 ₽. Вот весь путь, шаг за шагом, без магии и тумана.</p>
@@ -3849,14 +4025,14 @@ body::before{background:
       <path id="hpf4" class="hp-flow" d="M175,220 C270,220 300,160 400,160"/>
       <path id="hpf5" class="hp-flow" d="M175,270 C280,270 300,160 400,160"/>
       <path id="hpfo" class="hp-flow out" d="M510,160 C600,160 620,160 700,160"/>
-      <circle class="hp-dot d1" r="3"><animateMotion dur="2.2s" repeatCount="indefinite" path="M175,70 C280,70 300,160 400,160"/></circle>
-      <circle class="hp-dot d2" r="3"><animateMotion dur="2.6s" begin="0.4s" repeatCount="indefinite" path="M175,120 C270,120 300,160 400,160"/></circle>
-      <circle class="hp-dot d3" r="3"><animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M175,170 C270,170 320,160 400,160"/></circle>
-      <circle class="hp-dot d4" r="3"><animateMotion dur="2.8s" begin="1.2s" repeatCount="indefinite" path="M175,220 C270,220 300,160 400,160"/></circle>
-      <circle class="hp-dot d5" r="3"><animateMotion dur="2.5s" begin="1.6s" repeatCount="indefinite" path="M175,270 C280,270 300,160 400,160"/></circle>
+      <circle class="hp-dot d1" r="3.4"><animateMotion dur="4.4s" repeatCount="indefinite" path="M175,70 C280,70 300,160 400,160"/></circle>
+      <circle class="hp-dot d2" r="3.4"><animateMotion dur="5.2s" begin="0.4s" repeatCount="indefinite" path="M175,120 C270,120 300,160 400,160"/></circle>
+      <circle class="hp-dot d3" r="3.4"><animateMotion dur="4.8s" begin="0.8s" repeatCount="indefinite" path="M175,170 C270,170 320,160 400,160"/></circle>
+      <circle class="hp-dot d4" r="3.4"><animateMotion dur="5.6s" begin="1.2s" repeatCount="indefinite" path="M175,220 C270,220 300,160 400,160"/></circle>
+      <circle class="hp-dot d5" r="3.4"><animateMotion dur="5s" begin="1.6s" repeatCount="indefinite" path="M175,270 C280,270 300,160 400,160"/></circle>
       <circle class="hp-comet" id="hpComet1" r="4.5"/>
       <circle class="hp-comet c2" id="hpComet2" r="4.5"/>
-      <circle class="hp-dot out" r="3.5"><animateMotion dur="1.6s" repeatCount="indefinite" path="M510,160 C600,160 620,160 700,160"/></circle>
+      <circle class="hp-dot out" r="4"><animateMotion dur="3.2s" repeatCount="indefinite" path="M510,160 C600,160 620,160 700,160"/></circle>
       <g class="hp-tag hp-int" data-k="figure" data-p="hpf1"><rect x="30" y="50" rx="17" width="145" height="36"/><text x="102" y="73">ФИГУРА</text></g>
       <g class="hp-tag hp-int" data-k="palette" data-p="hpf2"><rect x="30" y="100" rx="17" width="145" height="36"/><text x="102" y="123">ЦВЕТОТИП</text></g>
       <g class="hp-tag hp-int" data-k="size" data-p="hpf3"><rect x="30" y="150" rx="17" width="145" height="36"/><text x="102" y="173">РАЗМЕРЫ</text></g>
@@ -3958,6 +4134,7 @@ body::before{background:
 
 <section class="sec pageview" id="termsPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab on"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
   <div class="eyebrow">условия и гарантии</div>
   <h2 class="big">Честные условия — <span class="holo">без звёздочек</span></h2>
   <p class="lead">Всё важное — на одной странице, простым языком. Никакого мелкого шрифта, скрытых подписок и «акция действует до полуночи». Мы зарабатываем на хорошем сервисе, а не на невнимательности.</p>
@@ -4051,6 +4228,7 @@ body::before{background:
 
 <section class="sec pageview" id="devPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab on"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
   <div class="eyebrow">развитие</div>
   <h2 class="big">Карта мира <span class="holo">LOOKA</span></h2>
   <p class="lead">Правила стиля общие для всех — а магазины и языки у каждого рынка свои. Наведите на материк — увидите его площадки. Или введите свой город: карта приблизится, а ниже появятся популярные онлайн-магазины вашего региона.</p>
@@ -4250,7 +4428,7 @@ body::before{background:
 <section class="sec pageview" id="hubPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
   <div class="eyebrow">всё для вас · в одном месте</div>
-  <h2 class="big">Не советы — <span class="holo">система, которая вас помнит</span></h2>
+  <h2 class="big">Не советы из интернета — <span class="holo">система, которая знает вас</span></h2>
   <p class="lead">Каждый раздел LOOKA строится на ваших данных, показывает результат картинкой и ведёт до покупки в вашей стране. Это то, чего не сделать промптом: у чата нет вашей палитры, вашего шкафа и вашей примерочной.</p>
   <div class="hub-grid" data-hub></div>
 </section>
@@ -4364,6 +4542,7 @@ body::before{background:
 
 <section class="sec pageview" id="aboutPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab on"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
   <div class="about-wrap">
     <div class="about-card">
       <div class="ct-av" style="width:72px;height:72px"><span style="font-size:28px">А</span><i></i></div>
@@ -4378,6 +4557,42 @@ body::before{background:
         <div class="pop" style="animation-delay:.24s"><b>Официально</b><span>работаю как самозанятая, реквизиты и оферта — в «Документах»</span></div>
       </div>
       <div class="to-row" style="margin-top:20px"><button class="btn primary" onclick="openPage('contactsPage')">Написать мне</button><button class="btn ghost" onclick="openPage('devPage')">Куда растёт LOOKA →</button></div>
+    </div>
+
+    <div class="about-card" style="margin-top:22px">
+      <div class="eyebrow">почему у нас есть макияж и укладки</div>
+      <h2 class="big" style="font-size:30px">Образ начинается <span class="holo">выше плеч</span></h2>
+      <p class="lead">Можно собрать безупречный комплект — и всё равно чувствовать, что «что-то не так». Потому что первое, что видят люди, — это лицо и волосы. Поэтому LOOKA никогда не была только про одежду: макияж и укладка у нас на равных с гардеробом, и считаются они по тем же вашим данным.</p>
+
+      <div class="ab-two">
+        <div class="ab-blk">
+          <div class="ab-ic">◉</div>
+          <h3>Макияж — не «урок для всех»</h3>
+          <p>В интернете миллион роликов «макияж для нависшего века», и в каждом надо угадать, ваш ли это случай. Мы идём с другого конца: вы определяете свою форму глаз, посадку, форму лица и подтон кожи — прямо в анкете, с картинками и тестами «как это понять». А дальше получаете <b>свою схему</b>: где лежит тёмное, где светлое, куда ведётся стрелка, какой кистью и в каком порядке — 14 шагов. И главное — что именно в вашем случае испортит результат.</p>
+          <ul class="ab-list">
+            <li>Пиктограммы вместо терминов — выбираете глазами, а не словами</li>
+            <li>Схема под цвет теней, который хочется носить именно вам</li>
+            <li>Пять кистей, которые закрывают всё, — с ценами под ваш бюджет</li>
+            <li>«Повторить макияж с фото»: скрин из Pinterest → шаги под ваши черты, а если пришлёте фото косметички — ещё и вашими продуктами</li>
+          </ul>
+          <button class="btn ghost" onclick="openMakeup()">Открыть макияж-гид →</button>
+        </div>
+
+        <div class="ab-blk">
+          <div class="ab-ic">✂</div>
+          <h3>Укладки — по схеме, а не «на глаз»</h3>
+          <p>Самая частая история: девушка повторяет укладку из ролика, получается не так — и вывод «у меня не получится никогда». Обычно дело не в руках, а в том, что у автора ролика другие волосы. Поэтому в LOOKA укладка — это пошаговый тренажёр: рисованная голова показывает, <b>куда ведётся движение</b> на каждом шаге — спереди, сбоку или сзади, а шаги открываются по одному, чтобы не потеряться.</p>
+          <ul class="ab-list">
+            <li>Шесть укладок: от объёма у корней за пять минут до голливудской волны</li>
+            <li>Стрелки направления прямо на схеме — видно, куда поворачивать утюжок</li>
+            <li>Отдельная настройка под тонкие и густые волосы: температура, толщина прядей, время</li>
+            <li>Стрижка и цвет — по форме лица и цветотипу, с наглядным сравнением «идёт / не ваше»</li>
+          </ul>
+          <button class="btn ghost" onclick="openHair()">Открыть волосы и укладки →</button>
+        </div>
+      </div>
+
+      <div class="ab-quote">Мой принцип простой: LOOKA не делает из вас другого человека. Она показывает, как усилить то, что уже есть, — и объясняет почему, чтобы в следующий раз вы решили сами.</div>
     </div>
   </div>
 </section>
@@ -4443,8 +4658,20 @@ body::before{background:
   <div id="shBox"></div>
 </section>
 
+<section class="sec pageview" id="glowPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero">
+    <div class="eyebrow">долгая красота · план на годы</div>
+    <h2 class="big">Сохранить себя — <span class="holo">это навык, а не удача</span></h2>
+    <p class="lead">Восемь ответов — и личный план: утро, вечер, неделя, месяц и привычки, которые влияют на внешность сильнее любого крема. Только то, что имеет доказанную эффективность, плюс честный список мифов, на которые уходят деньги. Без процедур, инъекций и пластики.</p>
+  </div>
+  <div class="bt-form look mk-form"><div id="glForm"></div></div>
+  <div class="looks" id="glOut"></div>
+</section>
+
 <section class="sec pageview" id="docsPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab on"><i>▤</i>Документы</button></div>
   <div class="eyebrow">документы</div>
   <h2 class="big">Всё по-честному — <span class="holo">и всё написано</span></h2>
   <p class="lead">Шесть документов, которые описывают наши отношения: что вы покупаете, что мы гарантируем, что делаем с вашими данными и как вернуть деньги. Перед каждым — короткое резюме простым языком, чтобы не читать юридический текст целиком.</p>
@@ -4571,6 +4798,7 @@ body::before{background:
 
 <section class="sec pageview" id="passPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="ab-tabs" data-t="разделы «Мой LOOKA»"><button class="ab-tab" onclick="openPage('myPage')"><i>◆</i>Мой LOOKA</button><button class="ab-tab on"><i>▤</i>Стиль-паспорт</button></div>
   <div class="eyebrow">стиль-паспорт</div>
   <h2 class="big">Ваш стиль — <span class="holo">на одной странице</span></h2>
   <p class="lead">Документ, который вы получаете по своим данным: палитра, фигура, размеры во всех сетках мира, формула макияжа, капсульная база и список «чего не покупать». Сохраните в PDF, покажите консультанту в магазине, поделитесь с подругой.</p>
@@ -4581,9 +4809,11 @@ body::before{background:
 
 <section class="sec pageview" id="myPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="eyebrow">мой looka</div>
+  <div class="ab-tabs" data-t="разделы «Мой LOOKA»"><button class="ab-tab on"><i>◆</i>Мой LOOKA</button><button class="ab-tab" onclick="openPage('passPage')"><i>▤</i>Стиль-паспорт</button></div>
+  <div class="eyebrow" id="accHi">мой looka</div>
   <h2 class="big">Ваш LOOKA — <span class="holo">учится и помнит</span></h2>
-  <p class="lead">Профиль, вкус, избранное и покупки — в одном месте. Всё хранится на вашем устройстве; перенести на другой — одной ссылкой.</p>
+  <p class="lead">Профиль, вкус, избранное и покупки — в одном месте. Всё хранится на вашем устройстве, а перенести на новое можно одним файлом.</p>
+  <div id="accBox"></div>
   <div id="myBox"></div>
 </section>
 
@@ -5487,7 +5717,40 @@ const BRAND_NOTES = {
 const brandNotes = ()=> BRAND_NOTES[REGION] || BRAND_NOTES.eu;
 let REGION = 'cis';
 try{ const r = localStorage.getItem('looka_region'); if(r && REGIONS[r]) REGION = r; }catch(e){}
+window.mpBandDraw = ()=>{
+  const band = document.getElementById('mpBand'); if(!band) return;
+  const R = REGIONS[REGION] || REGIONS.cis;
+  const NOTE = {
+    'WB':'самый большой выбор и быстрые пункты выдачи','OZON':'частые скидки и рассрочка без переплат',
+    'LAMODA':'бренды, примерка при курьере и лёгкий возврат','МАРКЕТ':'сравнение цен и быстрая доставка',
+    'KASPI':'рассрочка и доставка по всему Казахстану','ZALANDO':'европейские бренды и бесплатный возврат',
+    'ASOS':'молодые бренды и широкая размерная сетка','AMAZON':'всё в одном месте и быстрая доставка',
+    'ABOUT YOU':'много брендов и удобные фильтры по фигуре','TRENDYOL':'доступные цены и большой выбор',
+    'NOON':'локальная доставка и оплата при получении','MYNTRA':'индийские и мировые бренды',
+    'SHEIN':'низкие цены, смотрите отзывы по размеру','NAMSHI':'бренды и быстрая доставка по региону',
+    'ZOZOTOWN':'японские бренды и точные размеры','MUSINSA':'корейские бренды и уличный стиль',
+    'NORDSTROM':'премиум-бренды и щедрый возврат','ZAPPOS':'обувь и бесплатная доставка в обе стороны',
+    'COUPANG':'доставка на следующий день','GMARKET':'огромный выбор и купоны','RAKUTEN':'бонусы и японские марки',
+    'OUNASS':'люкс и дизайнерские бренды','AJIO':'тренды и локальные бренды','FLIPKART':'широкий выбор и рассрочка',
+    'HEPSIBURADA':'быстрая доставка по Турции','THE ICONIC':'доставка за день и лёгкий возврат','MYER':'универмаг и классические бренды',
+    'JUMIA':'крупнейшая площадка континента','ZANDO':'локальные бренды и оплата при получении','SUPERBALIST':'молодые марки и стрит',
+    'MERCADO LIBRE':'крупнейшая площадка региона','DAFITI':'мода и обувь с быстрой доставкой',
+    'FARFETCH':'премиум и дизайнерские марки','MERCADO':'крупнейшая площадка региона'
+  };
+  const shops = (R.shops||[]).slice(0,4);
+  band.innerHTML = shops.map((s,i)=>`<div class="mp-card pop" style="animation-delay:${(i*0.06).toFixed(2)}s"><b>${s[0]}</b><span>${NOTE[s[0]]||'площадка вашего региона — условия и наличие проверяйте на месте'}</span></div>`).join('');
+  const r1 = document.getElementById('mpReg'); if(r1) r1.textContent = (R.f? R.f+' ':'') + R.n;
+  const r2 = document.getElementById('mpCnt'); if(r2) r2.textContent = (R.shops||[]).length;
+};
 window.setRegion = key=>{
+  if(window.mpBandDraw) setTimeout(mpBandDraw, 0);
+  /* фиксируем позицию: перерисовка блоков не должна утаскивать экран */
+  const _y = window.scrollY, _root = document.documentElement, _sb = _root.style.scrollBehavior;
+  _root.style.scrollBehavior = 'auto';
+  const _keep = ()=>window.scrollTo(0, _y);
+  const _t0 = performance.now();
+  const _hold = ()=>{ _keep(); if(performance.now()-_t0 < 700) requestAnimationFrame(_hold); else _root.style.scrollBehavior = _sb; };
+  requestAnimationFrame(_hold);
   if(!REGIONS[key]) return; REGION = key;
   try{ localStorage.setItem('looka_region', key); }catch(e){}
   if(window.regBtnDraw) regBtnDraw();
@@ -5500,6 +5763,8 @@ window.setRegion = key=>{
   if(tg && document.getElementById('tdOut') && document.getElementById('tdOut').innerHTML) tg.click();
   if(tr && document.getElementById('trOut') && document.getElementById('trOut').innerHTML) tr.click();
 };
+document.addEventListener('DOMContentLoaded', ()=>{ if(window.mpBandDraw) mpBandDraw(); });
+if(document.readyState !== 'loading' && window.mpBandDraw) mpBandDraw();
 window.showCityStep = (key, focus)=>{
   const rc = document.getElementById('regCityBox'); if(!rc) return;
   rc.style.display=''; rc.classList.remove('in'); void rc.offsetWidth; rc.classList.add('in');
@@ -6073,6 +6338,8 @@ window.openPage = (id, anchor)=>{
   if(id==='lookrefPage' && window.renderLookRef) renderLookRef();
   if(id==='framesPage' && window.renderFrames) renderFrames();
   if(id==='shopsPage' && window.renderShops) renderShops();
+  if(id==='glowPage' && window.renderGlowForm) renderGlowForm();
+  if(id==='myPage'){ if(window.renderAcc) renderAcc(); if(window.accGreet) accGreet(); }
   if(id==='carePage' && window.renderCare) renderCare();
   if(anchor){
     setTimeout(()=>{
@@ -8857,28 +9124,57 @@ window.renderWardrobe = renderWardrobe;
 
 /* ================= ЭКОСИСТЕМА: сетка разделов и меню ================= */
 (function(){
-const HUBS = [
-  ['✦','Подбор образов','анкета → три образа под фигуру и бюджет со ссылками', "goQuiz()", 'бесплатно'],
-  ['◐','Цветотип','12 сезонов, 24 ваших цвета, карточка палитры', 'openColor()', 'бесплатно'],
-  ['✧','Бьюти-скан','разбор внешности по селфи: стрижка, брови, помада', 'openBeauty()', 'доступ'],
-  ['◉','Макияж-гид','схема глаза и лица под вашу форму, 14 шагов', 'openMakeup()', 'доступ'],
-  ['❍','Уход за кожей','утро и вечер под тип кожи, активы, чего не покупать', 'openSkin()', 'доступ'],
-  ['✂','Волосы','стрижка под форму лица, цвет под цветотип', 'openHair()', 'доступ'],
-  ['▣','Мой гардероб','одевает утром из ваших вещей, план недели, дыры', 'openWardrobe()', 'доступ'],
-  ['▦','Капсула сезона','14 вещей → 30 образов, докупить только недостающее', 'openCapsule()', 'доступ'],
-  ['◈','Событие под ключ','свадьба, собеседование, свидание — план по дням', 'openEvent()', 'доступ'],
-  ['▧','Студия','манекен с вашими пропорциями, ракурсы, раскладка, обложка', 'openStudio()', 'доступ'],
-  ['◈','Повторить образ','фото из Pinterest → те же вещи под вашу фигуру', 'openLookRef()', 'доступ'],
-  ['◫','Очки и серьги','оправа и серьги по форме лица, что не брать', 'openFrames()', 'бесплатно'],
-  ['⌗','Бутики','Instagram- и Telegram-магазины: поиск по нику и категориям', 'openShops()', 'бесплатно'],
-  ['◠','Бельё','размер бра по двум меркам, какой бра под какой верх', 'openBra()', 'бесплатно'],
-  ['❊','Уход за вещами','значки ярлыка, ткани, SOS-пятно за 10 минут', 'openCare()', 'бесплатно'],
-  ['✆','Консилиум','дерматолог · визажист · стилист · трихолог отвечают', "openPage('askPage')", 'доступ'],
-  ['⚙','Помощники','погода, чемодан, размеры, дресс-код, SOS и ещё', "openPage('toolsPage')", 'бесплатно'],
-  ['▤','Стиль-паспорт','всё о вас на одной странице, PDF', "openPage('passPage')", 'доступ']
+const GROUPS = [
+  { t:'Что надеть', d:'от анкеты до вещей в корзине — без «нечего носить»', items:[
+    ['✦','Три образа за две минуты','ответили на анкету — получили готовые комплекты со ссылками', "goQuiz()", 'бесплатно'],
+    ['▣','Шкаф, который сам одевает','ваши вещи → образ на сегодня, план недели и что докупить', 'openWardrobe()', 'доступ'],
+    ['▦','14 вещей — 30 образов','капсула сезона: докупаете только недостающее', 'openCapsule()', 'доступ'],
+    ['◈','Важный день под ключ','свадьба, собеседование, свидание — план по дням', 'openEvent()', 'доступ'],
+    ['◇','Увидела — хочу так же','фото из Pinterest → тот же образ под вашу фигуру и бюджет', 'openLookRef()', 'доступ'],
+    ['▧','Примерочная без магазина','манекен с вашими пропорциями, все ракурсы, обложка', 'openStudio()', 'доступ'],
+    ['⌗','Бутики, которых нет в поиске','маленькие бренды из Instagram и Telegram — по нику', 'openShops()', 'бесплатно']
+  ]},
+  { t:'Ваша внешность', d:'лицо, волосы, кожа — по вашим чертам, а не «как всем»', items:[
+    ['◐','Ваши 24 цвета','цветотип за 60 секунд и палитра, с которой не ошибиться', 'openColor()', 'бесплатно'],
+    ['✧','Разбор по селфи','сильные черты, архетип и ваш вау-фактор', 'openBeauty()', 'доступ'],
+    ['◉','Макияж по вашей схеме','где тёмное, где светлое, какой кистью — 14 шагов', 'openMakeup()', 'доступ'],
+    ['✂','Волосы: стрижка и укладки','что идёт вашему лицу + шесть укладок по схемам', 'openHair()', 'доступ'],
+    ['❍','Кожа: утро и вечер','рутина под ваш тип, активы и чего не покупать никогда', 'openSkin()', 'доступ'],
+    ['✺','Долгая красота','личный план на годы: что доказано работает, а что миф', 'openGlow()', 'доступ'],
+    ['◫','Оправа и серьги под лицо','что идёт вашей форме лица — и что не брать', 'openFrames()', 'бесплатно']
+  ]},
+  { t:'Чтобы всё сидело', d:'размеры, посадка и вещи, которые живут годами', items:[
+    ['◠','Ваш настоящий размер бра','две мерки — и точный размер в RU, EU и US', 'openBra()', 'бесплатно'],
+    ['❊','Спасти любимую вещь','значки на ярлыке, ткани и SOS по пятнам за 10 минут', 'openCare()', 'бесплатно'],
+    ['⚙','Восемь помощников','погода, чемодан, размеры, дресс-код, SOS и ещё', "openPage('toolsPage')", 'бесплатно']
+  ]},
+  { t:'Всё о вас', d:'итог, которым делятся — и живые ответы экспертов', items:[
+    ['▤','Ваш стиль-паспорт','всё о вас на одной странице: PDF и карточка в сторис', "openPage('passPage')", 'доступ'],
+    ['◆','Мой LOOKA','избранное, покупки и что вам подошло', "openPage('myPage')", 'бесплатно'],
+    ['✆','Спросить эксперта','дерматолог · визажист · стилист · трихолог отвечают', "openPage('askPage')", 'доступ']
+  ]}
 ];
-const card = (h,i)=>`<button class="hub-card pop" style="animation-delay:${(i*0.06).toFixed(2)}s" onclick="${h[3].replace(/"/g,'&quot;')}"><i>${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span><em class="${h[4]==='бесплатно'?'free':''}">${h[4]}</em></button>`;
-document.querySelectorAll('[data-hub]').forEach(g=>{ g.innerHTML = HUBS.map(card).join(''); });
+const card = (h,i)=>`<button class="hub-card pop" style="animation-delay:${(i*0.05).toFixed(2)}s" onclick="${h[3].replace(/"/g,'&quot;')}"><i>${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span><em class="${h[4]==='бесплатно'?'free':''}">${h[4]}</em></button>`;
+const SEARCH_CARD = `
+  <div class="hub-search">
+    <div class="hs-ic">⌕</div>
+    <div class="hs-txt">
+      <b>Спросите как у подруги</b>
+      <span>«Чем отстирать вино», «какой у меня размер бра», «мои цвета», «что взять в Сочи» — напишите своими словами, LOOKA откроет нужное.</span>
+    </div>
+    <div class="hs-field">
+      <input id="hubQ" type="text" placeholder="что у вас случилось?" autocomplete="off" onfocus="openFind()" oninput="openFind(this.value); this.value=''">
+      <button class="btn primary" onclick="openFind(document.getElementById('hubQ').value)">Найти</button>
+    </div>
+  </div>`;
+document.querySelectorAll('[data-hub]').forEach(g=>{
+  g.classList.remove('hub-grid'); g.classList.add('hub-groups');
+  g.innerHTML = GROUPS.map((gr,gi)=>`
+    <div class="hub-gr">
+      <div class="hub-gr-h"><b>${gr.t}</b><span>${gr.d}</span><i>${gr.items.length}</i></div>
+      <div class="hub-grid">${gr.items.map(card).join('')}</div>
+    </div>`).join('') + SEARCH_CARD;
+});
 window.navDD2 = (a, page)=>{
   if(matchMedia('(hover: hover)').matches){ openPage(page||'hubPage'); return false; }
   return navDD(a);
@@ -9674,7 +9970,7 @@ const IDX = [
 const norm = s=>String(s||'').toLowerCase().replace(/ё/g,'е').trim();
 window.findGo = act=>{ closeFind(); setTimeout(()=>{ try{ eval(act); }catch(e){} }, 180); };
 window.closeFind = ()=>{ const o=document.getElementById('fndOv'); if(o){ o.classList.remove('open'); document.body.style.overflow=''; } };
-window.openFind = ()=>{
+window.openFind = (pre)=>{
   let ov = document.getElementById('fndOv');
   if(!ov){ ov = document.createElement('div'); ov.id='fndOv'; ov.className='fnd-ov';
     ov.onclick = e=>{ if(e.target===ov) closeFind(); };
@@ -9683,7 +9979,7 @@ window.openFind = ()=>{
     document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeFind(); });
   }
   ov.classList.add('open'); document.body.style.overflow='hidden';
-  const q = document.getElementById('fndQ'); q.value=''; q.oninput = ()=>paint(q.value); q.focus(); paint('');
+  const q = document.getElementById('fndQ'); q.value = pre||''; q.oninput = ()=>paint(q.value); q.focus(); paint(q.value);
 };
 function paint(v){
   const res = document.getElementById('fndRes'); if(!res) return;
@@ -9722,6 +10018,449 @@ document.addEventListener('keydown', e=>{
   window.openPage = function(id){ orig.apply(null, arguments); if(id==='devPage') setTimeout(setup, 60); };
   if(document.body.classList.contains('subpage')) setup();
 })();
+/* ================= ДОЛГАЯ КРАСОТА: персональный план + ритуал дня ================= */
+(function(){
+const G = HUB.ls('looka_glow', { age:null, focus:[], sun:null, sleep:null, hab:[], lvl:null, budget:null, skin:null, climate:null, preg:null, sens:[], health:[], act:null, time:null, plan:null });
+const AGE = ['18–24','25–34','35–44','45–54','55+'];
+const FOCUS = ['Сухость и стянутость','Тусклость, нет сияния','Пигментные пятна','Упругость овала','Морщинки у глаз','Расширенные поры','Краснота и сосуды','Высыпания'];
+const SUN = ['Почти не бываю на солнце','Умеренно — город, прогулки','Много: юг, спорт на улице'];
+const SLEEP = ['Меньше 6 часов','6–7 часов','7–9 часов'];
+const HAB = ['Курю','Часто алкоголь','Много сахара','Мало воды','Высокий стресс','Сплю на животе/боку лицом в подушку','Спорт 2+ раза в неделю','Ничего из этого'];
+const LVL = ['Только умываюсь','Крем и иногда маска','Полноценный уход'];
+const BUD = ['до 3 000 ₽','3 000–8 000 ₽','8 000 ₽ +'];
+const GSKIN = ['Жирная','Комбинированная','Нормальная','Сухая','Чувствительная'];
+const CLIM = ['Холодный, отопление зимой','Умеренный','Жаркий и влажный','Сухой и ветреный','Высокогорье, яркое солнце'];
+const PREG = ['Нет','Беременность','Кормлю грудью','Планирую беременность'];
+const SENS = ['Легко краснею от новых средств','Аллергия на отдушки','Розацеа / купероз','Атопичная кожа','Ничего из этого'];
+const HEALTH = ['Сердце или сосуды','Повышенное давление','Пониженное давление','Спина или суставы','Щитовидная железа','Диабет','Ничего из этого'];
+const ACT = ['Почти не двигаюсь','Хожу пешком','Тренируюсь 1–2 раза','Тренируюсь 3+ раза'];
+const GTIME = ['5 минут','10–15 минут','Готова на полноценный ритуал'];
+
+window.glPick = (k,v)=>{
+  if(k==='focus'||k==='hab'||k==='sens'||k==='health'){
+    if(v==='Ничего из этого'){ G[k] = ['Ничего из этого']; }
+    else { const a = (G[k]||[]).filter(x=>x!=='Ничего из этого'); const i = a.indexOf(v); i<0 ? a.push(v) : a.splice(i,1); G[k] = a; }
+  } else G[k] = v;
+  HUB.save('looka_glow', G);
+  const box = document.getElementById('glForm'); if(box) renderGlowForm();
+};
+const has = (k,v)=>(G[k]||[]).includes(v);
+
+/* ---------- ДОКАЗАТЕЛЬНАЯ БАЗА ---------- */
+const PILLARS = [
+ ['☀','Защита от солнца','Ультрафиолет отвечает примерно за 80 % видимых возрастных изменений кожи лица — морщин, пятен, потери плотности. Это единственный пункт, который работает сильнее любого крема: SPF 30–50 каждый день, включая зиму и пасмурно, повторно днём при долгом свете из окна или на улице.','спф 50 для лица'],
+ ['◗','Ретиноиды','Самая изученная группа с доказанным влиянием на морщины, тон и плотность кожи. Начинать мягко: ретинол 0,2–0,3 % два раза в неделю на ночь, наращивать месяцами. Не сочетать в один вечер с кислотами. Беременность и кормление — нельзя.','ретинол сыворотка для лица'],
+ ['◎','Антиоксиданты утром','Витамин C и его стабильные формы, ниацинамид, феруловая кислота — уменьшают повреждение от города и солнца, выравнивают тон. Утром под SPF — лучшая пара.','витамин с сыворотка для лица'],
+ ['◇','Барьер кожи','Керамиды, скваланы, пантенол, гиалуроновая кислота на влажную кожу. Здоровый барьер = меньше раздражения, ровнее тон, дольше держится всё остальное. Пересушенная кожа стареет визуально быстрее.','крем с керамидами'],
+ ['☾','Сон','Во сне идёт восстановление коллагена и снижается кортизол. Меньше 6 часов регулярно — заметно по цвету лица и отёкам уже через неделю. Спать на спине или на шёлковой наволочке — меньше заломов на щеке.','наволочка шелковая'],
+ ['◍','Белок и питание','Коллаген строится из аминокислот: около 1,2–1,6 г белка на кг веса при активном образе жизни. Омега-3, овощи, ягоды — против воспаления. Резкие скачки сахара ускоряют гликацию — процесс, из-за которого кожа теряет упругость.','омега 3'],
+ ['◈','Мышцы и движение','Силовые 2–3 раза в неделю держат осанку и объём лица — плечи, шея и спина меняют внешность сильнее, чем крем. Плюс кровоток и цвет лица.',''],
+ ['✕','Курение и алкоголь','Курение сужает сосуды и разрушает коллаген — это самый быстрый путь к серому тону и морщинам вокруг рта. Алкоголь обезвоживает и даёт отёки и красноту наутро.','']
+];
+const MYTH = [
+ ['Питьевой коллаген «для лица»','Доказательства слабые и противоречивые: в ЖКТ он расщепляется на аминокислоты, адресно в лицо не идёт. Те же деньги эффективнее в SPF, ретинол и белок в тарелке.'],
+ ['Кремы «с коллагеном»','Молекула слишком велика, чтобы пройти барьер кожи. Работает как обычный увлажнитель — не переплачивайте за слово на банке.'],
+ ['Дорогое = эффективное','Ниацинамид, ретинол и SPF в аптечной марке за 900 ₽ работают так же, как в люксе за 9 000 ₽: смотрите состав и концентрацию, а не бренд.'],
+ ['Умывание «до скрипа»','Скрип — это разрушенный барьер. Через месяц такой чистоты кожа отвечает сухостью, раздражением и жирностью одновременно.'],
+ ['Скрабы с косточками','Микротрещины и краснота вместо обновления. Мягкие кислоты 1–2 раза в неделю делают то же самое без травмы.'],
+ ['«Лицо надо тренировать как мышцы»','Часть мимических упражнений усиливает заломы. Работает не гимнастика лица, а осанка, сон и уход.']
+];
+function build(){
+  const age = G.age||'25–34', f = G.focus||[], hab = G.hab||[];
+  const preg = ['Беременность','Кормлю грудью','Планирую беременность'].includes(G.preg);
+  const sens = (G.sens||[]).filter(x=>x!=='Ничего из этого');
+  const health = (G.health||[]).filter(x=>x!=='Ничего из этого');
+  const quick = G.time==='5 минут';
+  const idx = AGE.indexOf(age);
+  const AM = [], PM = [], WEEK = [], MONTH = [], LIFE = [], KIT = [];
+  AM.push(['Умывание','Тёплая вода и мягкий гель; при сухости утром — просто вода.']);
+  AM.push(['Антиоксидант','Витамин C или ниацинамид — тонким слоем на сухую кожу.']);
+  if(f.includes('Сухость и стянутость')||f.includes('Расширенные поры')) AM.push(['Увлажнение','Гиалуроновая сыворотка на влажную кожу, сверху крем — иначе она сушит.']);
+  AM.push(['Крем','По типу кожи: флюид или плотный с керамидами.']);
+  AM.push(['SPF 30–50','Главный шаг дня. Два пальца на лицо и шею, обновлять при долгом солнце.']);
+  PM.push(['Снять день','Гидрофильное масло или мицеллярная, затем гель — если был SPF или макияж.']);
+  if(preg) PM.push(['Без ретиноидов','Ретинол, ретиналь и третиноин при беременности и кормлении не применяют. Замена с доказанной пользой: азелаиновая кислота, ниацинамид, витамин C. Любой состав в этот период согласуйте с врачом, который вас ведёт.']);
+  else if(idx>=1) PM.push(['Ретиноид','Старт: 2 раза в неделю, «сэндвич» — крем, ретинол, крем. Через месяц — через день.'+(sens.length?' Кожа у вас реактивная: начните с 0,2 % и раз в неделю.':'')]);
+  else PM.push(['Мягкое обновление','Азелаиновая кислота или ниацинамид — раньше 25 сильные ретиноиды обычно не нужны.']);
+  if(f.includes('Пигментные пятна')) PM.push(['Против пигмента','Азелаиновая или транексамовая кислота, арбутин — курсом 3 месяца. Без SPF всё вернётся.']);
+  if(f.includes('Морщинки у глаз')) PM.push(['Зона глаз','Крем с пептидами или мягкий ретинальдегид, безымянным пальцем, не растягивая кожу.']);
+  if(f.includes('Краснота и сосуды')) PM.push(['Успокоение','Центелла, пантенол, ниацинамид. Исключить горячую воду, сауну и жёсткие скрабы.']);
+  PM.push(['Барьер на ночь','Крем с керамидами; в отопительный сезон — плотнее. Не забывать шею и тыльную сторону кистей.']);
+  if(sens.includes('Розацеа / купероз')||sens.includes('Атопичная кожа')) WEEK.push(['Кислоты — осторожно','При куперозе и атопии жёсткие кислоты и скрабы усиливают реакцию. Мягкий PHA раз в неделю и только на спокойной коже.']);
+  else WEEK.push(['Кислоты 1–2 раза','AHA/BHA вечером в дни без ретинола — ровный тон и свечение.'+(quick?' Вам хватит одного раза в неделю.':'')]);
+  WEEK.push(['Маска по потребности','Увлажняющая или успокаивающая, 15 минут, остатки вбить.']);
+  if(health.length) WEEK.push(['Движение — только с вашим врачом','Вы отметили: '+health.join(', ').toLowerCase()+'. При этих состояниях нагрузку подбирают индивидуально, и LOOKA здесь ничего не назначает. Спокойная база, против которой обычно не возражают, — ходьба в комфортном темпе. Силовые, интенсивность, наклоны вниз головой и задержки дыхания — обсуждайте со специалистом.']);
+  else if(G.act==='Почти не двигаюсь') WEEK.push(['Начните с ходьбы','20–30 минут в день. Кровоток и осанка дают коже больше, чем новая баночка, и это бесплатно.']);
+  else if(G.act==='Тренируюсь 3+ раза'||hab.includes('Спорт 2+ раза в неделю')) WEEK.push(['Держите силовые','Осанка и тонус мышц шеи и спины меняют внешность сильнее крема. После тренировки умывайтесь: пот в порах = высыпания.']);
+  else WEEK.push(['2 силовые тренировки','Спина, плечи, ягодицы: осанка визуально молодит мгновенно и надолго.']);
+  MONTH.push(['Ревизия косметички','Открытые сыворотки живут 6–12 месяцев; SPF после сезона в сумке — на выброс.']);
+  MONTH.push(['Фото без макияжа','Одинаковый свет, раз в месяц. Это единственный честный способ увидеть прогресс — в зеркале он незаметен.']);
+  if(idx>=2) MONTH.push(['Раз в год — дерматолог','Проверка родинок и состояние кожи. Не для процедур, а чтобы ничего не пропустить.']);
+  if(hab.includes('Курю')) LIFE.push(['Курение','Самый сильный ускоритель старения кожи после солнца. Даже сокращение даёт видимый результат за 2–3 месяца.']);
+  if(hab.includes('Часто алкоголь')) LIFE.push(['Алкоголь','Отёки и краснота наутро, обезвоживание. Попробуйте две недели без — разница будет видна на фото.']);
+  if(hab.includes('Много сахара')) LIFE.push(['Сахар','Резкие скачки ускоряют гликацию коллагена. Не запрет, а порядок: белок и овощи до сладкого.']);
+  if(hab.includes('Мало воды')) LIFE.push(['Вода','Обезвоженная кожа сильнее подчёркивает морщинки. Ориентир — светлая моча, а не «8 стаканов».']);
+  if(hab.includes('Высокий стресс')) LIFE.push(['Стресс','Кортизол разрушает коллаген и держит воспаление. Работают сон, прогулки, дыхание — банально и доказано.']);
+  if(hab.includes('Сплю на животе/боку лицом в подушку')) LIFE.push(['Поза сна','Заломы на щеке от подушки со временем закрепляются. Шёлковая наволочка и попытки спать на спине.']);
+  if(G.sleep==='Меньше 6 часов') LIFE.push(['Сон','Ваш главный недобор. Плюс час сна даст коже больше, чем любая новая сыворотка.']);
+  if(G.sun==='Много: юг, спорт на улице') LIFE.push(['Солнце','Вам SPF 50 обязателен круглый год + очки и кепка. Это 80 % результата в вашем случае.']);
+  if(G.climate==='Холодный, отопление зимой') LIFE.push(['Сухой воздух','Отопление обезвоживает кожу сильнее мороза: увлажнитель в спальне и более плотный крем с ноября по март.']);
+  if(G.climate==='Жаркий и влажный') LIFE.push(['Жара и влажность','Лёгкие текстуры, SPF-флюид вместо плотного крема, обновлять каждые 2–3 часа на улице.']);
+  if(G.climate==='Высокогорье, яркое солнце') LIFE.push(['Высокий УФ','На высоте ультрафиолет жёстче: SPF 50, очки и головной убор даже в облачный день.']);
+  if(G.climate==='Сухой и ветреный') LIFE.push(['Ветер','Барьерный крем перед выходом и бальзам для губ: ветер повреждает барьер не хуже мороза.']);
+  if(sens.includes('Аллергия на отдушки')) LIFE.push(['Отдушки','Ищите пометку fragrance free: отдушка — самая частая причина реакции на «хорошее» средство.']);
+  if(preg) LIFE.push(['Беременность и кормление','В этот период список активов другой: ретиноиды нельзя, высокие концентрации кислот и часть SPF-фильтров обсуждаются с врачом. База сейчас — мягкое очищение, увлажнение и минеральный SPF.']);
+  if(quick) LIFE.push(['Ваш формат — минимум','Три шага утром (умыться, крем, SPF) и два вечером дают 80 % результата. Короткая рутина каждый день лучше длинной по настроению.']);
+  if(!LIFE.length) LIFE.push(['Привычки','Базовые привычки у вас в порядке — держите их, это и есть главный вклад в долгую красоту.']);
+  KIT.push(['Солнцезащитный крем SPF 50','спф 50 для лица']);
+  KIT.push(['Антиоксидантная сыворотка','витамин с сыворотка для лица']);
+  if(idx>=1) KIT.push(['Ретинол 0,3 %','ретинол 0.3 сыворотка']); else KIT.push(['Азелаиновая кислота','азелаиновая кислота для лица']);
+  KIT.push(['Крем с керамидами','крем с керамидами']);
+  if(f.includes('Пигментные пятна')) KIT.push(['Средство от пигмента','транексамовая кислота сыворотка']);
+  if(f.includes('Морщинки у глаз')) KIT.push(['Крем для век с пептидами','крем для век пептиды']);
+  if(f.includes('Тусклость, нет сияния')) KIT.push(['Кислотный тоник','тоник с кислотами для лица']);
+  KIT.push(['Шёлковая наволочка','наволочка шелковая']);
+  return { AM, PM, WEEK, MONTH, LIFE, KIT };
+}
+
+/* ---------- РИТУАЛ ДНЯ ---------- */
+const RIT = ()=>{
+  const f = (G.focus||[]), hab = (G.hab||[]), idx = AGE.indexOf(G.age||'25–34');
+  const base = [
+    ['SPF даже сегодня','Два пальца крема на лицо и шею — 80 % результата в долгой красоте делает именно этот шаг.'],
+    ['Сыворотка на влажную кожу','Гиалуроновая кислота работает только на влажной коже — на сухой она тянет воду изнутри.'],
+    ['Не забудьте шею и кисти','Их не красят и не прикрывают — а возраст читается по ним первым. Остатки крема всегда туда.'],
+    ['Стакан воды сейчас','Обезвоженность подчёркивает мелкие морщинки сильнее, чем их глубина.'],
+    ['Лечь на час раньше','Коллаген восстанавливается во сне. Плюс час — заметнее любой новой банки.'],
+    ['Белок в каждый приём','Коллаген строится из аминокислот: творог, рыба, яйца, бобовые.'],
+    ['Не трите глаза','Кожа там самая тонкая — механическое трение даёт заломы быстрее возраста.'],
+    ['Осанка — 10 секунд','Развернули плечи, макушка вверх. Осанка молодит мгновенно и бесплатно.'],
+    ['Очки на улицу','Прищур на солнце — это будущие морщинки у глаз. Очки работают как SPF для взгляда.']
+  ];
+  if(f.includes('Сухость и стянутость')) base.push(['Увлажнение дважды','Сухой коже — крем утром и вечером, и не умываться горячей водой: она смывает липиды барьера.']);
+  if(f.includes('Пигментные пятна')) base.push(['Пигмент любит тень','Сегодня — головной убор и SPF повторно днём. Без этого любое средство от пятен бесполезно.']);
+  if(idx>=1) base.push(['Вечер ретинола?','Если сегодня по плану ретинол — только он, без кислот. И крем сверху.']);
+  if(hab.includes('Высокий стресс')) base.push(['Пять минут тишины','Кортизол разрушает коллаген. Пять минут дыхания — это уход за кожей, а не «эзотерика».']);
+  if(hab.includes('Сплю на животе/боку лицом в подушку')) base.push(['Шёлковая наволочка','Заломы на щеке от хлопка со временем закрепляются. Шёлк — самая дешёвая антивозрастная покупка.']);
+  const day = Math.floor(Date.now()/864e5);
+  return base[day % base.length];
+};
+function streak(){
+  let s = {}; try{ s = JSON.parse(localStorage.getItem('looka_ritual')||'{}'); }catch(e){}
+  return s;
+}
+window.ritDone = ()=>{
+  const s = streak(); const today = new Date().toDateString();
+  if(s.last === today){ myToast('На сегодня уже отмечено ✓'); return; }
+  const y = new Date(Date.now()-864e5).toDateString();
+  s.n = (s.last === y ? (s.n||0)+1 : 1); s.last = today;
+  localStorage.setItem('looka_ritual', JSON.stringify(s));
+  ritDraw(); myToast('Отмечено. Серия: '+s.n+' '+(s.n===1?'день':s.n<5?'дня':'дней'));
+};
+window.ritDraw = ()=>{
+  const box = document.getElementById('ritBox'); if(!box) return;
+  const r = RIT(), s = streak(), done = s.last === new Date().toDateString();
+  const n = s.n||0;
+  box.innerHTML = `
+    <div class="rit-card ${done?'done':''}">
+      <div class="rit-aura"></div>
+      <div class="rit-in">
+        <div class="rit-k">РИТУАЛ ДНЯ · ДОЛГАЯ КРАСОТА</div>
+        <h3>${r[0]}</h3>
+        <p>${r[1]}</p>
+        <div class="rit-row">
+          <button class="btn primary" onclick="ritDone()">${done?'✓ Сегодня сделано':'Отметить — сделала'}</button>
+          <button class="btn ghost" onclick="openGlow()">Мой план красоты →</button>
+          <span class="rit-streak">${n?`серия: <b>${n}</b> ${n===1?'день':n<5?'дня':'дней'}`:'начните серию сегодня'}</span>
+        </div>
+      </div>
+    </div>`;
+};
+
+window.renderGlowForm = ()=>{
+  const f = document.getElementById('glForm'); if(!f) return;
+  const g = HUB.grp;
+  f.innerHTML =
+    g('Ваш возраст', HUB.chips(G,'age',AGE,{pick:'glPick'})) +
+    g('Что беспокоит больше всего <span class="to-opt">можно несколько</span>', HUB.chips(G,'focus',FOCUS,{multi:1,pick:'glPick'})) +
+    g('Сколько солнца в вашей жизни', HUB.chips(G,'sun',SUN,{pick:'glPick'})) +
+    g('Сон в обычную ночь', HUB.chips(G,'sleep',SLEEP,{pick:'glPick'})) +
+    g('Привычки — честно, это влияет сильнее кремов <span class="to-opt">можно несколько</span>', HUB.chips(G,'hab',HAB,{multi:1,pick:'glPick'})) +
+    g('Ваш тип кожи', HUB.chips(G,'skin',GSKIN,{pick:'glPick'})) +
+    g('Климат, в котором живёте', HUB.chips(G,'climate',CLIM,{pick:'glPick'})) +
+    g('Особая чувствительность <span class="to-opt">можно несколько</span>', HUB.chips(G,'sens',SENS,{multi:1,pick:'glPick'})) +
+    g('Беременность и кормление <span class="to-opt">важно: меняет список средств</span>', HUB.chips(G,'preg',PREG,{pick:'glPick'})) +
+    g('Состояния, которые влияют на нагрузку <span class="to-opt">чтобы не советовать лишнего</span>', HUB.chips(G,'health',HEALTH,{multi:1,pick:'glPick'})) +
+    g('Как вы двигаетесь сейчас', HUB.chips(G,'act',ACT,{pick:'glPick'})) +
+    g('Сколько времени готовы тратить на уход', HUB.chips(G,'time',GTIME,{pick:'glPick'})) +
+    g('Сейчас ухаживаете так', HUB.chips(G,'lvl',LVL,{pick:'glPick'})) +
+    g('Бюджет на уход в месяц', HUB.chips(G,'budget',BUD,{pick:'glPick'})) +
+    `<button class="btn primary" id="glGo" ${(G.age&&G.focus.length&&G.sun&&G.sleep&&G.skin&&G.budget)?'':'disabled'} onclick="renderGlow()">✦ Собрать мой план</button>`;
+};
+window.renderGlow = ()=>{
+  const out = document.getElementById('glOut'); if(!out) return;
+  const P = build();
+  const sec = (t, arr, k)=>`<div class="look badv"><div class="look-in"><h3>${t}</h3>${arr.map((s,i)=>HUB.pop(`<div class="item"><div class="nm">${s[0]}</div><div class="tip" style="margin:3px 0 0">${s[1]}</div></div>`,i)).join('')}</div></div>`;
+  out.innerHTML =
+    `<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">ВАШ ПЛАН ДОЛГОЙ КРАСОТЫ</div>
+      <h3>${G.age} · ${(G.focus||[]).slice(0,2).join(', ').toLowerCase()||'профилактика'}</h3>
+      <div class="tip">План собран из того, что имеет доказанную эффективность в дерматологии: защита от солнца, ретиноиды, антиоксиданты, барьер кожи, сон, белок и мышцы. Без процедур, инъекций и пластики — это отдельный разговор с врачом, а не с сервисом.</div>
+    </div></div>` +
+    sec('Утро', P.AM) + sec('Вечер', P.PM) + sec('Раз в неделю', P.WEEK) + sec('Раз в месяц и в год', P.MONTH) +
+    sec('Привычки — ваш личный список', P.LIFE) +
+    `<div class="look badv mk-wide"><div class="look-in"><h3>Что купить под этот план</h3>
+      ${P.KIT.map((k,i)=>HUB.pop(`<div class="item"><div class="nm">${k[0]}</div>${beautyButtons(k[1])}</div>`,i)).join('')}
+      <div class="tip" style="margin-top:10px">Бюджет ${G.budget}: берите по одному средству за раз и вводите с интервалом в две недели — так понятно, что именно сработало.</div>
+    </div></div>` +
+    `<div class="look badv mk-wide"><div class="look-in"><h3>Что работает — и что нет</h3>
+      <div class="gl-pill">${PILLARS.map((p,i)=>HUB.pop(`<div class="gl-p"><i>${p[0]}</i><b>${p[1]}</b><span>${p[2]}</span>${p[3]?beautyButtons(p[3]):''}</div>`,i)).join('')}</div>
+      <div class="hp-sub" style="margin-top:18px">МИФЫ, НА КОТОРЫЕ УХОДЯТ ДЕНЬГИ</div>
+      ${MYTH.map((m,i)=>HUB.pop(`<div class="gl-myth"><b>✕ ${m[0]}</b><span>${m[1]}</span></div>`,i)).join('')}
+    </div></div>` +
+    `<div class="b-priv">LOOKA не ставит диагнозов, не назначает лечение и не заменяет врача. Всё перечисленное — общие принципы ухода и образа жизни. Заболевания кожи, беременность, приём лекарств, состояния сердца, давления, суставов и щитовидной железы — вопросы к вашему врачу: план ухода и нагрузок в этих случаях согласуйте с ним.</div>`;
+  HUB.done(out);
+  if(window.ritDraw) ritDraw();
+};
+window.openGlow = ()=>{ openPage('glowPage'); renderGlowForm(); if(G.age&&G.focus.length) renderGlow(); };
+})();
+
+document.addEventListener('DOMContentLoaded', ()=>{ if(window.ritDraw) ritDraw(); });
+if(document.readyState !== 'loading' && window.ritDraw) ritDraw();
+
+/* появление карточек разделов по мере скролла */
+(function(){
+  const run = ()=>{
+    const items = document.querySelectorAll('[data-hub] .hub-gr, [data-hub] .hub-search, #aboutBlock .ab-card');
+    if(!items.length || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('rv-in'); io.unobserve(e.target); } }); }, {threshold:.12, rootMargin:'0px 0px -50px 0px'});
+    items.forEach((e,i)=>{ if(e.classList.contains('rv-in')) return; e.classList.add('rv'); e.style.transitionDelay = Math.min((i%4)*80, 320)+'ms'; io.observe(e); });
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', ()=>setTimeout(run,120)); else setTimeout(run,120);
+})();
+/* ================= АККАУНТ: профиль, аватар, дата рождения, перенос ================= */
+(function(){
+const A = HUB.ls('looka_acc', { name:'', ava:'', dob:'', city:'', tg:'' });
+const KEYS = ['looka_acc','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_fit','looka_igshops','looka_shops','looka_bra','looka_city','looka_glow','looka_ritual','looka_region','looka_studio','looka_tryon','looka_mkref','looka_lookref','looka_quiz'];
+const save = ()=>HUB.save('looka_acc', A);
+const initials = n=>String(n||'').trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase() || '✦';
+
+window.accEdit = (k,v)=>{ A[k] = v; save(); if(window.authSync) authSync(true); const d=document.getElementById('accDob'); if(k==='dob'&&d) renderAcc(); };
+window.accAva = f=>{
+  if(!f) return;
+  const img = new Image();
+  img.onload = ()=>{ const c=document.createElement('canvas'); c.width=c.height=256;
+    const k=Math.max(256/img.width,256/img.height), w=img.width*k, hh=img.height*k;
+    const x=c.getContext('2d'); x.drawImage(img,(256-w)/2,(256-hh)/2,w,hh);
+    A.ava = c.toDataURL('image/jpeg',.86); save(); renderAcc(); };
+  img.src = URL.createObjectURL(f);
+};
+window.accAvaDel = ()=>{ A.ava=''; save(); renderAcc(); };
+function ageLine(){
+  if(!A.dob) return '';
+  const d = new Date(A.dob); if(isNaN(d)) return '';
+  const now = new Date();
+  let age = now.getFullYear()-d.getFullYear();
+  const bd = new Date(now.getFullYear(), d.getMonth(), d.getDate());
+  if(bd < new Date(now.getFullYear(), now.getMonth(), now.getDate())) bd.setFullYear(now.getFullYear()+1); else age--;
+  if(bd.getMonth()===now.getMonth() && bd.getDate()===now.getDate()) return '🎂 сегодня ваш день рождения — поздравляем!';
+  const left = Math.ceil((bd - now)/864e5);
+  age = now.getFullYear()-d.getFullYear() - ((new Date(now.getFullYear(), d.getMonth(), d.getDate())>now)?1:0);
+  return `${age} ${age%10===1&&age%100!==11?'год':[2,3,4].includes(age%10)&&![12,13,14].includes(age%100)?'года':'лет'} · до дня рождения ${left} ${left===1?'день':left<5?'дня':'дней'}`;
+}
+window.accExport = ()=>{
+  const data = {}; KEYS.forEach(k=>{ const v = localStorage.getItem(k); if(v) data[k]=v; });
+  const blob = new Blob([JSON.stringify({v:1, ts:Date.now(), data}, null, 1)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'looka-profile-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
+  myToast('Файл профиля сохранён — перенесите его на другое устройство');
+};
+window.accImport = f=>{
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{ try{
+      const j = JSON.parse(r.result);
+      if(!j || !j.data) throw new Error('не тот файл');
+      Object.entries(j.data).forEach(([k,v])=>{ if(KEYS.includes(k)) localStorage.setItem(k,v); });
+      myToast('Профиль перенесён. Обновляю страницу…');
+      setTimeout(()=>location.reload(), 900);
+    }catch(e){ myToast('Не получилось прочитать файл: '+e.message); } };
+  r.readAsText(f);
+};
+window.accWipe = ()=>{
+  if(!confirm('Удалить профиль и все данные LOOKA на этом устройстве? Отменить будет нельзя.')) return;
+  KEYS.forEach(k=>localStorage.removeItem(k)); location.reload();
+};
+function stats(){
+  const n = k=>{ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } };
+  const w = n('looka_wardrobe'), my = n('looka_my'), rit = n('looka_ritual')||{};
+  const done = ['looka_color','looka_makeup','looka_skin','looka_hair','looka_glow','looka_bra'].filter(k=>localStorage.getItem(k)).length;
+  return [
+    ['разделов пройдено', done+' из 6'],
+    ['вещей в гардеробе', (w&&w.items?w.items.length:0)],
+    ['в избранном', (my&&my.fav?my.fav.length:0)],
+    ['серия ритуала', (rit.n||0)]
+  ];
+}
+window.renderAcc = ()=>{
+  const box = document.getElementById('accBox'); if(!box) return;
+  setTimeout(()=>{ if(window.authMount) authMount(); }, 30);
+  box.innerHTML = `
+  <div class="look badv mk-wide acc-card"><div class="look-in">
+    <div class="acc-top">
+      <div class="acc-ava" onclick="document.getElementById('accAvaInp').click()">
+        ${A.ava?`<img src="${A.ava}" alt="аватар">`:`<span>${initials(A.name)}</span>`}
+        <i>${A.ava?'сменить':'+ фото'}</i>
+      </div>
+      <div class="acc-fields">
+        <label class="t">Имя и фамилия</label>
+        <input class="acc-in" value="${(A.name||'').replace(/"/g,'&quot;')}" placeholder="Как к вам обращаться" oninput="accEdit('name',this.value)">
+        <div class="acc-two">
+          <div><label class="t">Дата рождения</label><input class="acc-in" type="date" value="${A.dob||''}" onchange="accEdit('dob',this.value)"></div>
+          <div><label class="t">Город</label><input class="acc-in" value="${(A.city||'').replace(/"/g,'&quot;')}" placeholder="для погоды и магазинов" oninput="accEdit('city',this.value)"></div>
+        </div>
+        ${A.dob?`<div class="acc-age">${ageLine()}</div>`:''}
+        ${A.ava?'<button class="chip" style="margin-top:10px" onclick="accAvaDel()">убрать фото</button>':''}
+      </div>
+    </div>
+    <div class="acc-stats">${stats().map((s,i)=>`<div class="pop" style="animation-delay:${(i*0.05).toFixed(2)}s"><b>${s[1]}</b><span>${s[0]}</span></div>`).join('')}</div>
+    <input type="file" id="accAvaInp" accept="image/*" style="display:none" onchange="accAva(this.files[0])">
+  </div></div>
+
+  <div class="look badv mk-wide acc-auth"><div class="look-in">
+    ${(()=>{ const A2 = window.authState ? authState() : {in:false};
+      if(!A2.in) return `<h3>Вход и синхронизация</h3>
+        <div class="tip">Войдите через Google — профиль, гардероб и планы будут доступны на любом устройстве, а вход занимает один тап. Без входа сайт работает как раньше: всё хранится только на этом устройстве.</div>
+        <div id="gBtn" class="g-slot"></div>
+        <div class="b-priv">Мы получаем от Google только имя, почту и аватар. Пароль Google нам не передаётся и не хранится.</div>`;
+      return `<h3>Вы вошли</h3>
+        <div class="acc-mail">${A2.email||''}</div>
+        <label class="acc-toggle"><input type="checkbox" ${A2.sync?'checked':''} onchange="authSyncToggle()"><span>Синхронизировать с облаком — профиль подхватится на другом устройстве</span></label>
+        <div class="to-row" style="margin-top:14px">
+          <button class="btn ghost" onclick="authSync()">↻ Сохранить сейчас</button>
+          <button class="btn ghost" onclick="authPull()">⤓ Загрузить из облака</button>
+          <button class="btn ghost" onclick="authOut()">Выйти</button>
+          <button class="btn ghost" onclick="authDelete()">Удалить аккаунт</button>
+        </div>`;
+    })()}
+  </div></div>
+
+  <div class="look badv mk-wide"><div class="look-in">
+    <h3>Перенос на другое устройство</h3>
+    <div class="tip">Ваш профиль, гардероб, палитра и планы хранятся в этом браузере — не на сервере. Чтобы перенести их на новый телефон или ноутбук, сохраните файл профиля и откройте его там же кнопкой «Загрузить».</div>
+    <div class="to-row" style="margin-top:14px">
+      <button class="btn primary" onclick="accExport()">⤓ Сохранить файл профиля</button>
+      <label class="btn ghost" style="cursor:pointer">⤒ Загрузить профиль<input type="file" accept="application/json" style="display:none" onchange="accImport(this.files[0])"></label>
+      <button class="btn ghost" onclick="accWipe()">Удалить все данные</button>
+    </div>
+    <div class="b-priv">Вход через Google и облачная синхронизация появятся, когда включим серверную часть — тогда профиль будет подхватываться на любом устройстве автоматически. Пока перенос файлом: он работает всегда и не требует доверять данные никому.</div>
+  </div></div>`;
+};
+window.accGreet = ()=>{
+  const el = document.getElementById('accHi'); if(!el) return;
+  const h = new Date().getHours();
+  const part = h<5?'Доброй ночи':h<12?'Доброе утро':h<18?'Добрый день':'Добрый вечер';
+  el.textContent = A.name ? `${part}, ${A.name.split(/\s+/)[0]}` : part;
+};
+})();
+
+document.addEventListener('DOMContentLoaded', ()=>{ if(window.accGreet) accGreet(); });
+if(document.readyState !== 'loading' && window.accGreet) accGreet();
+
+/* ================= ВХОД ЧЕРЕЗ GOOGLE + ОБЛАЧНЫЙ ПРОФИЛЬ ================= */
+(function(){
+const CLIENT_ID = '485514192792-hbbgde4cen2mp816hvm82tjarm129i47.apps.googleusercontent.com';
+const SYNC_KEYS = ['looka_acc','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_bra','looka_glow','looka_ritual','looka_region','looka_shops','looka_igshops','looka_city'];
+const S2 = { token:null, email:'', busy:false, sync:false };
+try{ const s = JSON.parse(localStorage.getItem('looka_session')||'null'); if(s){ S2.token=s.token; S2.email=s.email||''; S2.sync=!!s.sync; } }catch(e){}
+const api = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
+const keep = ()=>localStorage.setItem('looka_session', JSON.stringify({token:S2.token, email:S2.email, sync:S2.sync}));
+window.authState = ()=>({ in:!!S2.token, email:S2.email, sync:S2.sync });
+
+function snapshot(){ const d={}; SYNC_KEYS.forEach(k=>{ const v=localStorage.getItem(k); if(v) d[k]=v; }); return d; }
+function apply(data){ if(!data) return 0; let n=0; Object.entries(data).forEach(([k,v])=>{ if(SYNC_KEYS.includes(k) && typeof v==='string'){ localStorage.setItem(k,v); n++; } }); return n; }
+
+window.authSync = async (silent)=>{
+  if(!S2.token || !S2.sync) return;
+  try{
+    const acc = JSON.parse(localStorage.getItem('looka_acc')||'{}');
+    const r = await fetch(api('/sync'), {method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+S2.token},
+      body: JSON.stringify({ profile:{name:acc.name||'', dob:acc.dob||'', city:acc.city||'', ava:(acc.ava||'').slice(0,200000)}, data: snapshot() })});
+    const j = await r.json();
+    if(!r.ok) throw new Error(j.error||'ошибка синхронизации');
+    if(!silent) myToast('Профиль сохранён в облаке');
+  }catch(e){ if(!silent) myToast('Не удалось синхронизировать: '+e.message); }
+};
+window.authPull = async ()=>{
+  if(!S2.token) return;
+  try{
+    const r = await fetch(api('/me'), {headers:{'Authorization':'Bearer '+S2.token}});
+    const j = await r.json();
+    if(!r.ok) throw new Error(j.error||'нет доступа');
+    const n = apply(j.data);
+    const acc = JSON.parse(localStorage.getItem('looka_acc')||'{}');
+    ['name','dob','city','ava'].forEach(k=>{ if(!acc[k] && j.profile && j.profile[k]) acc[k]=j.profile[k]; });
+    localStorage.setItem('looka_acc', JSON.stringify(acc));
+    myToast(n ? 'Загружено с вашего аккаунта — обновляю…' : 'Вы вошли');
+    if(n) setTimeout(()=>location.reload(), 900); else { if(window.renderAcc) renderAcc(); if(window.accGreet) accGreet(); }
+  }catch(e){ myToast('Не получилось получить профиль: '+e.message); }
+};
+window.authOut = async ()=>{
+  try{ await fetch(api('/logout'), {method:'POST', headers:{'Authorization':'Bearer '+S2.token}}); }catch(e){}
+  S2.token=null; S2.email=''; S2.sync=false; localStorage.removeItem('looka_session');
+  if(window.renderAcc) renderAcc(); myToast('Вы вышли. Данные остались на этом устройстве.');
+};
+window.authSyncToggle = async ()=>{
+  S2.sync = !S2.sync; keep();
+  if(S2.sync) await authSync();
+  if(window.renderAcc) renderAcc();
+};
+window.authDelete = async ()=>{
+  if(!confirm('Удалить аккаунт и все данные в облаке? Данные на этом устройстве останутся.')) return;
+  try{ const r = await fetch(api('/account/delete'), {method:'POST', headers:{'Authorization':'Bearer '+S2.token}});
+    if(!r.ok) throw new Error((await r.json()).error||'ошибка'); }catch(e){ myToast('Не получилось: '+e.message); return; }
+  S2.token=null; S2.sync=false; localStorage.removeItem('looka_session');
+  if(window.renderAcc) renderAcc(); myToast('Аккаунт удалён из облака');
+};
+
+async function onCredential(resp){
+  if(S2.busy) return; S2.busy = true;
+  try{
+    const r = await fetch(api('/auth/google'), {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({credential: resp.credential})});
+    const j = await r.json();
+    if(!r.ok) throw new Error(j.error||'вход не удался');
+    S2.token = j.token; S2.email = j.email || ''; S2.sync = true; keep();
+    const acc = JSON.parse(localStorage.getItem('looka_acc')||'{}');
+    if(!acc.name && j.profile && j.profile.name) acc.name = j.profile.name;
+    if(!acc.ava && j.profile && j.profile.ava) acc.ava = j.profile.ava;
+    localStorage.setItem('looka_acc', JSON.stringify(acc));
+    if(j.isNew || !Object.keys(j.data||{}).length){ await authSync(true); if(window.renderAcc) renderAcc(); if(window.accGreet) accGreet(); myToast('Добро пожаловать! Профиль привязан к вашему Google'); }
+    else await authPull();
+  }catch(e){ myToast('Вход не удался: '+e.message); }
+  S2.busy = false;
+}
+
+let gisReady = false;
+window.authMount = ()=>{
+  const slot = document.getElementById('gBtn'); if(!slot) return;
+  const draw = ()=>{
+    try{
+      google.accounts.id.initialize({ client_id: CLIENT_ID, callback: onCredential, auto_select:false, cancel_on_tap_outside:true });
+      slot.innerHTML='';
+      google.accounts.id.renderButton(slot, {theme:'filled_black', size:'large', shape:'pill', text:'signin_with', locale:'ru', width:260});
+    }catch(e){ slot.innerHTML = '<div class="tip">Вход через Google сейчас недоступен. Профиль работает и без него — данные хранятся на устройстве.</div>'; }
+  };
+  if(gisReady && window.google && google.accounts) return draw();
+  const s = document.createElement('script');
+  s.src = 'https://accounts.google.com/gsi/client'; s.async = true; s.defer = true;
+  s.onload = ()=>{ gisReady = true; draw(); };
+  s.onerror = ()=>{ slot.innerHTML = '<div class="tip">Google не отвечает — возможно, он заблокирован в вашей сети. Профиль работает и без входа: данные хранятся на этом устройстве, перенести можно файлом ниже.</div>'; };
+  document.head.appendChild(s);
+};
+/* автосинхронизация раз в минуту, если включена */
+setInterval(()=>{ if(S2.token && S2.sync) authSync(true); }, 60000);
+window.addEventListener('beforeunload', ()=>{ if(S2.token && S2.sync) navigator.sendBeacon && navigator.sendBeacon(api('/sync')); });
+})();
+
 fxGlow(document);
 fxTilt(document);
 </script>
