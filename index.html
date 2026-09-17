@@ -3499,6 +3499,62 @@ body::before{background:
 .cs-rel{margin-top:16px;padding:13px 16px;border-radius:12px;border:1px solid rgba(199,157,240,.22);background:linear-gradient(135deg,rgba(199,157,240,.07),rgba(25,198,247,.04));display:flex;flex-wrap:wrap;align-items:center;gap:9px;font-size:12.5px;color:#A9AFC4;line-height:1.5}
 .cs-rel em{font-style:normal;font-size:12.5px;color:#ECEDF2;border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:5px 12px;background:rgba(255,255,255,.05);white-space:nowrap}
 .cs-share{margin-top:18px}
+
+/* отчёт бьюти-скана */
+.rep-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.rep-note{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.5px;color:#8B92AA;text-transform:uppercase;border:1px solid rgba(255,255,255,.14);border-radius:99px;padding:6px 12px}
+.rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:680px){.rep-grid{grid-template-columns:1fr}}
+.rep-sec{border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:15px 16px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012))}
+.rep-sec b{display:block;font-size:12px;letter-spacing:.5px;color:#C7A6F0;margin-bottom:9px}
+.rep-list{list-style:none;display:grid;gap:7px;padding:0;margin:0}
+.rep-list li{position:relative;padding-left:16px;font-size:13px;line-height:1.5;color:#D6DAE6}
+.rep-list li::before{content:'·';position:absolute;left:2px;color:#19C6F7;font-weight:800}
+.rep-arch{margin-top:14px;border:1px solid rgba(199,157,240,.3);border-radius:14px;padding:16px;background:linear-gradient(135deg,rgba(199,157,240,.08),rgba(25,198,247,.04))}
+.rep-quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.rep-quick>div{display:flex;gap:10px;align-items:flex-start;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:11px 12px;background:rgba(255,255,255,.02);font-size:12.5px;line-height:1.45;color:#D2D6E4}
+.rep-quick i{flex:0 0 auto;width:22px;height:22px;display:grid;place-items:center;border-radius:50%;font-style:normal;font-family:'JetBrains Mono';font-size:10.5px;background:linear-gradient(135deg,#19C6F7,#C79DF2);color:#0B0C12;font-weight:700}
+.rep-conf{margin-top:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:#B7BCCC;border-top:1px solid rgba(255,255,255,.08);padding-top:12px}
+.rep-conf em{font-style:normal;color:#C7A6F0;letter-spacing:3px;margin-left:6px}
+.rep-why{color:#8B92AA;font-size:12px}
+
+/* ================= ТРАЕКТОРИЯ (страница «Развитие») ================= */
+.tj{position:relative;margin-top:26px;display:grid;gap:22px}
+.tj::before{content:'';position:absolute;left:23px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#37E08A,#19C6F7 30%,#C79DF2 65%,#F2A6C6);opacity:.5;border-radius:2px}
+.tj-ph{position:relative;display:grid;grid-template-columns:48px 1fr;gap:16px;align-items:start}
+.tj-node{position:relative;z-index:1;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#12141F;border:1.5px solid rgba(255,255,255,.18);box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.tj-node i{font-style:normal;font-family:'JetBrains Mono';font-size:12px;color:#B7BCCC;font-weight:700}
+.ph-now .tj-node{border-color:rgba(55,224,138,.6)}
+.ph-now .tj-node i{color:#37E08A}
+.tj-node.cur{border-color:transparent;background:linear-gradient(#12141F,#12141F) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2) border-box}
+.tj-node.cur i{color:#19C6F7}
+.tj-node.cur::after{content:'';position:absolute;inset:-7px;border-radius:50%;border:1.5px solid rgba(25,198,247,.4);animation:tjPulse 2.2s ease-out infinite}
+@keyframes tjPulse{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.35);opacity:0}}
+.tj-node.star{border-color:rgba(242,166,198,.55)}
+.tj-node.star i{color:#F2A6C6;font-size:16px}
+.tj-card{border:1px solid rgba(255,255,255,.11);border-radius:16px;padding:20px 22px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));transition:transform .25s,border-color .25s,box-shadow .25s}
+.tj-card:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.4);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.tj-top{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.tj-top h3{font-size:20px}
+.tj-tag{align-self:flex-start;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;border-radius:99px;padding:5px 12px}
+.tj-tag.ok{color:#37E08A;border:1px solid rgba(55,224,138,.4);background:rgba(55,224,138,.08)}
+.tj-tag.run{color:#19C6F7;border:1px solid rgba(25,198,247,.4);background:rgba(25,198,247,.08)}
+.tj-tag.plan{color:#B7BCCC;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04)}
+.tj-items{display:grid;gap:9px}
+.tj-items>div{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.55;color:#C9CEDD}
+.tj-items i{font-style:normal;flex:0 0 auto;margin-top:1px;font-size:11px}
+.ph-now .tj-items i{color:#37E08A}
+.ph-next .tj-items i{color:#19C6F7}
+.ph-world .tj-items i{color:#C79DF2}
+.ph-daily .tj-items i{color:#F2A6C6}
+.tj-items b{color:#ECEDF2}
+.tj-bar{margin-top:14px;height:5px;border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden}
+.tj-bar i{display:block;height:100%;width:78%;border-radius:5px;background:linear-gradient(90deg,#19C6F7,#C79DF2);background-size:200% 100%;animation:tjShimmer 2.6s linear infinite}
+@keyframes tjShimmer{to{background-position:-200% 0}}
+.tj-note{margin-top:8px;font-size:12px;color:#8B92AA}
+.tj-final p{font-size:14px;line-height:1.65;color:#C9CEDD;max-width:640px}
+.ph-star .tj-card{border-color:rgba(242,166,198,.35);background:linear-gradient(135deg,rgba(242,166,198,.07),rgba(199,157,240,.05))}
+@media(max-width:560px){.tj-ph{grid-template-columns:38px 1fr;gap:12px}.tj-node{width:38px;height:38px}.tj::before{left:18px}.tj-card{padding:16px}}
 </style>
 </head>
 <body>
@@ -3632,7 +3688,7 @@ body::before{background:
 
   <button class="btn ghost" id="bBack" onclick="closeBeauty()">← Вернуться на главную</button>
   <div class="bt-form look">
-    <h3>Разбор за 3 ответа</h3>
+    <h3>Анкета разбора — 2 минуты</h3>
     <div class="grp"><label class="t">Стиль, к которому тянет</label>
       <div class="chips" id="bStyle">
         <button class="chip" onclick="bpick('style','Естественный')">Естественный</button>
@@ -3652,6 +3708,35 @@ body::before{background:
         <button class="chip" onclick="bpick('skin','Сухая')">Сухая</button>
         <button class="chip" onclick="bpick('skin','Комбинированная')">Комбинированная</button>
         <button class="chip" onclick="bpick('skin','Чувствительная')">Чувствительная</button>
+      </div></div>
+    <div class="grp"><label class="t">Цель разбора</label>
+      <div class="chips" id="bGoal">
+        <button class="chip" onclick="bpick('goal','Выглядеть дороже')">Выглядеть дороже</button>
+        <button class="chip" onclick="bpick('goal','Свежее и отдохнувшее')">Свежее и отдохнувшее</button>
+        <button class="chip" onclick="bpick('goal','Усилить то, что есть')">Усилить то, что есть</button>
+        <button class="chip" onclick="bpick('goal','Хочу смену имиджа')">Хочу смену имиджа</button>
+      </div></div>
+    <div class="grp"><label class="t">Ваш уровень в макияже</label>
+      <div class="chips" id="bLvl">
+        <button class="chip" onclick="bpick('lvl','Новичок')">Новичок</button>
+        <button class="chip" onclick="bpick('lvl','Уверенный')">Уверенный</button>
+        <button class="chip" onclick="bpick('lvl','Почти визажист')">Почти визажист</button>
+      </div></div>
+    <div class="grp"><label class="t">Сколько времени на сборы утром</label>
+      <div class="chips" id="bTime">
+        <button class="chip" onclick="bpick('time','5 минут')">5 минут</button>
+        <button class="chip" onclick="bpick('time','15 минут')">15 минут</button>
+        <button class="chip" onclick="bpick('time','30 минут и больше')">30 минут и больше</button>
+      </div></div>
+    <div class="grp"><label class="t">Что вам в себе нравится <span class="to-opt">можно несколько</span></label>
+      <div class="chips" id="bLike">
+        <button class="chip" onclick="blike('Глаза')">Глаза</button>
+        <button class="chip" onclick="blike('Губы')">Губы</button>
+        <button class="chip" onclick="blike('Скулы')">Скулы</button>
+        <button class="chip" onclick="blike('Брови')">Брови</button>
+        <button class="chip" onclick="blike('Овал лица')">Овал лица</button>
+        <button class="chip" onclick="blike('Кожа')">Кожа</button>
+        <button class="chip" onclick="blike('Волосы')">Волосы</button>
       </div></div>
     <div class="grp"><label class="t">Селфи — по желанию, для точного разбора черт лица</label>
       <div class="chips"><button class="chip" id="bSelfBtn" onclick="document.getElementById('bSelfInp').click();return false">Загрузить селфи</button></div>
@@ -3929,37 +4014,64 @@ body::before{background:
   </div>
   <div class="wm-info" id="wmInfo"><span class="wm-hint">✦ Наведите на материк или найдите свой город</span></div>
 
-  <div class="hp-sub">ЭКОСИСТЕМА КРАСОТЫ</div>
-  <p class="hp-line">Стиль не заканчивается платьем. Сегодня LOOKA — это 12 разделов от ваших данных: цветотип, макияж, уход, волосы, гардероб, капсула, событие под ключ и помощники на каждый день. Дальше — то, что чат-боты не сделают никогда: примерка на вашем фото, реальные вещи с ценами и утро, которое начинается с готового образа.</p>
-  <div class="eco-tree">
-    <svg viewBox="0 0 800 480" id="ecoSvg">
-      <path class="eco-br t" pathLength="1" d="M400,450 C400,405 400,350 400,300"/>
-      <path class="eco-br b1" pathLength="1" d="M400,312 C340,302 275,292 224,266"/>
-      <path class="eco-br b2" pathLength="1" d="M400,312 C460,302 525,292 576,266"/>
-      <path class="eco-br b3" pathLength="1" d="M400,262 C320,232 240,198 178,160"/>
-      <path class="eco-br b4" pathLength="1" d="M400,262 C480,232 560,198 622,160"/>
-      <path class="eco-br b5" pathLength="1" d="M400,216 C362,162 318,118 278,88"/>
-      <path class="eco-br b7" pathLength="1" d="M400,216 C438,162 482,118 522,88"/>
-      <path class="eco-br b6" pathLength="1" d="M400,216 C400,162 400,112 400,66"/>
-      <g class="eco-node ok" data-b="b1" data-k="wardrobe"><circle cx="224" cy="266" r="15"/><text x="224" y="300">Гардероб · цветотип</text><text class="st" x="224" y="271">✓</text></g>
-      <g class="eco-node ok" data-b="b2" data-k="beauty"><circle cx="576" cy="266" r="15"/><text x="576" y="300">Бьюти · макияж · уход</text><text class="st" x="576" y="271">✓</text></g>
-      <g class="eco-node ok" data-b="b3" data-k="tools"><circle cx="178" cy="160" r="15"/><text x="178" y="130">Помощники</text><text class="st" x="178" y="165">✓</text></g>
-      <g class="eco-node ok" data-b="b4" data-k="capsule"><circle cx="622" cy="160" r="15"/><text x="622" y="130">Капсула сезона</text><text class="st" x="622" y="165">✓</text></g>
-      <g class="eco-node plan" data-b="b5" data-k="academy"><circle cx="278" cy="88" r="15"/><text x="278" y="58">Примерка на себе</text><text class="st" x="278" y="93">✦</text></g>
-      <g class="eco-node ok" data-b="b7" data-k="event"><circle cx="522" cy="88" r="15"/><text x="522" y="58">Событие под ключ</text><text class="st" x="522" y="93">✓</text></g>
-      <g class="eco-node crown" data-b="b6" data-k="plan"><circle cx="400" cy="58" r="19"/><text x="400" y="24">Один план красоты</text><text class="st big" x="400" y="65">✦</text></g>
-      <text class="eco-root" x="400" y="474">LOOKA</text>
-    </svg>
-    <span class="eco-leaf l1"></span><span class="eco-leaf l2"></span><span class="eco-leaf l3"></span>
-    <div class="eco-cap" id="ecoCap">✦ Наведите на ветку: зелёные плоды уже работают, янтарные — растут</div>
-  </div>
-  <div class="road">
-    <div class="road-item"><span>СЛЕДУЮЩИЙ ШАГ</span><b>Примерка на своём фото</b><p>Кнопка уже стоит в каждом образе: нейросеть переносит весь комплект на ваше фото в полный рост, сохраняя лицо и фигуру. Открываем, как только подключим генерацию картинок для России.</p></div>
-    <div class="road-item"><span>СЛЕДУЮЩИЙ ШАГ</span><b>Реальные вещи вместо поиска</b><p>Карточки конкретных товаров с фото, ценой и вашим размером в наличии — прямо в образе. Плюс честные пометки «маломерит / большемерит» по опыту клиенток LOOKA, которых нет ни у одного чата.</p></div>
-    <div class="road-item"><span>ПЛАН</span><b>Утро в Telegram</b><p>В 7:30 в мессенджер приходит образ дня из вашего гардероба под погоду за окном. Не надо открывать сайт — LOOKA сама приходит к вам.</p></div>
-    <div class="road-item"><span>ПЛАН</span><b>Мир: английский и магазины</b><p>Полная английская версия, Zalando, ASOS, Amazon и локальные площадки 15 регионов. Правила стиля общие — магазины у каждой страны свои.</p></div>
-    <div class="road-item"><span>ПЛАН</span><b>LOOKA Pro для стилистов</b><p>Инструмент для тех, кто ведёт клиенток: их анкеты, палитры, гардеробы и капсулы в одном кабинете, ваш логотип на паспорте и карточках.</p></div>
-    <div class="road-item"><span>ПЛАН</span><b>Один план красоты</b><p>Гардероб, косметичка и уход — в один план с бюджетом на месяц и годовой отчёт: сколько образов, цена выхода, что не носится. Красота перестаёт быть хаосом трат.</p></div>
+  <div class="hp-sub">ТРАЕКТОРИЯ LOOKA</div>
+  <p class="hp-line">Мы строим не «сайт с советами», а персонального стилиста для миллионов женщин — от Москвы до Сеула. Вот честная карта пути: что уже в ваших руках, что на низком старте и куда мы идём. Каждая фаза открывается для всех, кто уже с нами, — без доплат.</p>
+
+  <div class="tj">
+    <div class="tj-ph ph-now">
+      <div class="tj-node"><i>01</i></div>
+      <div class="tj-card">
+        <div class="tj-top"><span class="tj-tag ok">✓ уже работает</span><h3>Личный стилист в кармане</h3></div>
+        <div class="tj-items">
+          <div><i>◆</i><span><b>17 разделов</b> — от цветотипа и макияжа до белья, ухода за вещами и Студии</span></div>
+          <div><i>◆</i><span><b>8 помощников</b> на каждый день: погода, чемодан, размеры, дресс-код</span></div>
+          <div><i>◆</i><span><b>Стиль-паспорт и карточки для сторис</b> — палитра и образы, которыми делятся</span></div>
+          <div><i>◆</i><span><b>Таблица посадки брендов</b> — честные «маломерит/большемерит» от реальных клиенток</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tj-ph ph-next">
+      <div class="tj-node cur"><i>02</i></div>
+      <div class="tj-card">
+        <div class="tj-top"><span class="tj-tag run">⟳ на низком старте</span><h3>Увидеть себя до покупки</h3></div>
+        <div class="tj-items">
+          <div><i>◇</i><span><b>Примерка на вашем фото</b> — образ переносится на вас, лицо и фигура сохраняются</span></div>
+          <div><i>◇</i><span><b>Студия в полную силу</b> — манекен с вашими пропорциями, образ со всех сторон 360°, обложка как из кампании</span></div>
+          <div><i>◇</i><span><b>Фото-ярлык</b> — сфотографировали бирку, получили правила ухода</span></div>
+        </div>
+        <div class="tj-bar"><i></i></div>
+        <div class="tj-note">кнопки уже стоят на сайте — включаются в день подключения генерации картинок</div>
+      </div>
+    </div>
+    <div class="tj-ph ph-world">
+      <div class="tj-node"><i>03</i></div>
+      <div class="tj-card">
+        <div class="tj-top"><span class="tj-tag plan">◇ горизонт</span><h3>LOOKA говорит с миром</h3></div>
+        <div class="tj-items">
+          <div><i>◇</i><span><b>Английская версия</b> — те же разборы для девушек от Лондона до Сеула</span></div>
+          <div><i>◇</i><span><b>15 регионов и их магазины</b>: Zalando, ASOS, Amazon и локальные площадки — карта выше уже готова</span></div>
+          <div><i>◇</i><span><b>Живые карточки товаров</b> — фото, цена и ваш размер в наличии прямо в образе</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tj-ph ph-daily">
+      <div class="tj-node"><i>04</i></div>
+      <div class="tj-card">
+        <div class="tj-top"><span class="tj-tag plan">◇ горизонт</span><h3>LOOKA приходит сама</h3></div>
+        <div class="tj-items">
+          <div><i>◇</i><span><b>Утро в Telegram</b> — в 7:30 образ дня из вашего шкафа под погоду за окном</span></div>
+          <div><i>◇</i><span><b>Один план красоты</b> — гардероб, косметичка и уход в один бюджет с годовым отчётом</span></div>
+          <div><i>◇</i><span><b>LOOKA Pro для стилистов</b> — кабинет клиенток под вашим логотипом</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tj-ph ph-star">
+      <div class="tj-node star"><i>✦</i></div>
+      <div class="tj-card tj-final">
+        <div class="tj-top"><h3><span class="holo">Личный стилист — у каждой</span></h3></div>
+        <p>Услуга, которая всегда стоила от 30 000 ₽ за разбор, становится доступной каждой девушке на планете за цену одного платья. Ваша анкета, палитра и посадка любимых брендов — данные, которые с каждым месяцем делают LOOKA умнее. Вы здесь с самого начала.</p>
+      </div>
+    </div>
   </div>
   <div class="pg-cta"><button class="btn primary" onclick="closePage();setTimeout(()=>glide('.stage'),100)">✦ Попробовать LOOKA сейчас — бесплатно</button></div>
 </section>
@@ -5695,10 +5807,13 @@ if(!matchMedia('(hover: hover)').matches && !matchMedia('(prefers-reduced-motion
 }
 
 /* ================= БЬЮТИ-СКАН ================= */
-const B = { style:null, budget:null, selfie:null, skin:null };
+const B = { style:null, budget:null, selfie:null, skin:null, goal:null, lvl:null, time:null, like:[] };
+window.blike = v=>{ const i = B.like.indexOf(v); i<0 ? B.like.push(v) : B.like.splice(i,1);
+  document.querySelectorAll('#bLike .chip').forEach(c=>c.classList.toggle('on', B.like.includes(c.textContent.trim()))); };
 window.bpick = (k,v)=>{
   B[k]=v;
-  const box = document.getElementById(k==='style'?'bStyle':k==='skin'?'bSkin':'bBudget');
+  const box = document.getElementById({style:'bStyle',skin:'bSkin',goal:'bGoal',lvl:'bLvl',time:'bTime'}[k]||'bBudget');
+  if(!box) return;
   box.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on', c.textContent===v));
   document.getElementById('bGo').disabled = !(B.style && B.budget);
 };
@@ -5779,7 +5894,21 @@ function beautyLocal(){
 }
 function renderBeauty(r, mode){
   const Q = Object.assign({cut:'оттеночный бальзам для волос', brows:'карандаш для бровей', eyes:'палетка теней', liner:'подводка лайнер', lips:'помада', care:'крем для лица'}, r.q||{});
-  const wowHtml = r.wow ? `<div class="look badv mk-wide wow-card"><div class="look-in">
+  const li = a=>(a||[]).map(x=>`<li>${x}</li>`).join('');
+  const confN = r.conf ? ({'низкая':1,'средняя':2,'высокая':3}[r.conf.lvl]||2) : 0;
+  const repHtml = r.impression ? `<div class="look badv mk-wide rep-card"><div class="look-in">
+      <div class="rep-head"><div><div class="cs-k">ОТЧЁТ LOOKA · РАЗБОР ПО ФОТО</div><h3>Ваш бьюти-профиль</h3></div><div class="rep-note">визуальные рекомендации · не оценка и не диагноз</div></div>
+      <div class="rep-grid">
+        <div class="rep-sec"><b>◐ Общее впечатление</b><ul class="rep-list">${li(r.impression)}</ul></div>
+        <div class="rep-sec"><b>◈ Ключевые черты</b><ul class="rep-list">${li(r.features)}</ul></div>
+        <div class="rep-sec"><b>◇ Сильные стороны</b><ul class="rep-list">${li(r.strengths)}</ul></div>
+        <div class="rep-sec"><b>↗ Что усилит уход</b><ul class="rep-list">${li(r.improve)}</ul></div>
+      </div>
+      ${r.arch?`<div class="rep-arch"><div class="cs-k" style="margin-bottom:6px">ВАШ АРХЕТИП</div><h3 class="holo" style="font-size:21px;margin-bottom:10px">${r.arch.mix}</h3><div class="cs-row"><b>Держит образ</b><span>${r.arch.keep||''}</span></div><div class="cs-row"><b>Ломает образ</b><span>${r.arch.break||''}</span></div>${r.risk?`<div class="cs-row" style="color:#FFB84C"><b>Главный риск</b><span>${r.risk}</span></div>`:''}</div>`:''}
+      ${(r.quick&&r.quick.length)?`<div class="cs-k" style="margin:16px 0 10px">5 БЫСТРЫХ АПГРЕЙДОВ</div><div class="rep-quick">${r.quick.map((q,i)=>`<div class="pop" style="animation-delay:${(i*0.06).toFixed(2)}s"><i>${i+1}</i><span>${q}</span></div>`).join('')}</div>`:''}
+      ${r.conf?`<div class="rep-conf"><span>Точность анализа: <b>${r.conf.lvl}</b> <em>${'●'.repeat(confN)}${'○'.repeat(Math.max(0,3-confN))}</em></span><span class="rep-why">${r.conf.why||''}</span></div>`:''}
+    </div></div>` : '';
+  const wowHtml = repHtml + (r.wow ? `<div class="look badv mk-wide wow-card"><div class="look-in">
       <div class="cs-k">ВАШ ВАУ-ФАКТОР</div><h3>✦ ${r.wow}</h3>
       <div class="wow-grid">
         <div><b>Днём</b><span>${r.wowDay||''}</span></div>
@@ -5787,7 +5916,7 @@ function renderBeauty(r, mode){
         <div><b>Серьги и вырезы</b><span>${r.wowAcc||''}</span></div>
       </div>
       <div class="tip" style="margin-top:10px">Правило одной звезды: в каждом образе усиливайте именно эту черту, остальное — фоном. Так работает «эффект дорогой внешности».</div>
-    </div></div>` : '';
+    </div></div>` : '');
   const cards = [
     ['Причёска и волосы', r.cut, Q.cut], ['Брови', r.brows, Q.brows], ['Глаза и палитра', r.eyes, Q.eyes],
     ['Стрелки', r.liner, Q.liner], ['Губы', r.lips, Q.lips], ['Уход за кожей', r.care||'Заполните тип кожи — подберу рутину.', Q.care], ['Ваша формула стиля', r.style, null]
@@ -5812,12 +5941,14 @@ async function genBeauty(){
   btn.disabled = true; btn.textContent = 'Разбираем внешность…';
   try{
     if(!B.selfie) throw new Error('офлайн-режим');
-    const prompt = `Ты — топовый визажист и стилист по волосам. По селфи и данным (стиль: ${B.style}, волосы: ${S.hair||'-'}, глаза: ${S.eyes||'-'}, кожа: ${S.skin||'-'}) дай персональный разбор. Ответь ТОЛЬКО JSON:
-{"wow":"её самая выигрышная черта одной фразой (глаза/губы/скулы/брови/волосы/овал) — что делает внешность запоминающейся","wowDay":"как подчеркнуть эту черту днём: 1-2 приёма макияжа","wowEve":"как усилить вечером","wowAcc":"аксессуары под эту черту: форма серёг и вырезы, конкретно","cut":"стрижка/укладка под форму лица, 1-2 фразы","brows":"брови","eyes":"палитра теней","liner":"какие стрелки","lips":"цвет помады","care":"уход по типу кожи ${B.skin||'не указан'} в 2 фразах","style":"формула стиля одной фразой","prods":[{"n":"продукт с оттенком","q":"поисковый запрос","p":"~900 ₽"}]}
-6-7 prods под бюджет ${B.budget}. Коротко, без текста вне JSON. Внешность не оценивай, только рекомендации.`;
+    const prompt = `Ты — топовый визажист, стилист и fashion-редактор уровня Vogue. По селфи и анкете дай персональный разбор.
+Анкета: стиль — ${B.style}; цель — ${B.goal||'-'}; уровень в макияже — ${B.lvl||'-'}; время на сборы — ${B.time||'-'}; сама в себе любит: ${(B.like||[]).join(', ')||'-'}; волосы: ${S.hair||'-'}, глаза: ${S.eyes||'-'}, кожа: ${S.skin||'-'}, тип кожи: ${B.skin||'-'}.
+Тон: тёплый, конкретный, без лести и критики. Сложность приёмов — под её уровень и время на сборы. Ответь ТОЛЬКО JSON:
+{"impression":["3-4 коротких пункта — общее впечатление от внешности, тепло и точно"],"features":["4-6 ключевых черт лица, по 2-4 слова"],"strengths":["3-4 сильные стороны — что фотогенично и держит лицо"],"improve":["2-3 деликатных пункта: что выиграет от ухода или приёма — про действия, не про недостатки"],"arch":{"mix":"визуальный архетип — смесь 2-3 направлений (soft power, modern muse, quiet luxury, romantic drama, editorial minimalism...)","keep":"что во внешности поддерживает архетип","break":"что ломает образ — 1 фраза"},"risk":"главный визуальный риск одной фразой (что может упростить или удешевить образ)","quick":["5 быстрых апгрейдов: волосы; кожа или макияж; одна вещь; цвет у лица; аксессуар"],"conf":{"lvl":"низкая|средняя|высокая","why":"что ограничивает точность: свет, ракурс, качество фото — 1 фраза"},"wow":"её самая выигрышная черта одной фразой (глаза/губы/скулы/брови/волосы/овал) — что делает внешность запоминающейся","wowDay":"как подчеркнуть эту черту днём: 1-2 приёма макияжа","wowEve":"как усилить вечером","wowAcc":"аксессуары под эту черту: форма серёг и вырезы, конкретно","cut":"стрижка/укладка под форму лица, 1-2 фразы","brows":"брови","eyes":"палитра теней","liner":"какие стрелки","lips":"цвет помады","care":"уход по типу кожи ${B.skin||'не указан'} в 2 фразах","style":"формула стиля одной фразой","prods":[{"n":"продукт с оттенком","q":"поисковый запрос","p":"~900 ₽"}]}
+6-7 prods под бюджет ${B.budget}. Коротко, без текста вне JSON. ЗАПРЕЩЕНО: численные оценки и баллы внешности, сравнения с другими, критика черт — только что и как усилить.`;
     const r = await aiFetch({
       method:"POST", headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,
+      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:2200,
         messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:B.selfie}},{type:"text",text:prompt}]}]})
     });
     const data = await r.json();
@@ -5836,7 +5967,12 @@ window.openBeauty = ()=>{
   document.querySelectorAll('.pageview').forEach(p=>p.classList.remove('active-page'));
   document.body.classList.add('beauty-mode');
   const b = document.getElementById('beauty'); if(b) b.classList.add('in');
-  window.scrollTo({top:0, behavior:'smooth'});
+  window.scrollTo({top:0, behavior:'auto'});
+  // плавно довозим до анкеты (или до готового результата, если он уже есть)
+  setTimeout(()=>{ const res = document.getElementById('bres');
+    const target = (res && res.innerHTML.trim() && res.offsetParent) ? res : document.querySelector('#beauty .bt-form');
+    if(target && window.glide) glide(target, 110, 1100);
+  }, 350);
 };
 window.closeBeauty = ()=>{
   document.body.classList.remove('beauty-mode');
