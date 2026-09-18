@@ -3929,6 +3929,28 @@ header nav.topnav{gap:4px;align-items:center}
 .bb-tab.on::after{content:'';position:absolute;left:0;bottom:0;height:3px;width:100%;background:linear-gradient(90deg,#19C6F7,#C79DF2 55%,#F2A6C6);transform-origin:left;animation:bbFill 9s linear both}
 .bb-slider:hover .bb-tab.on::after{animation-play-state:paused}
 @media(max-width:560px){.bb-tab{height:34px;padding:0 14px;font-size:12.5px}}
+
+/* меню аккаунта */
+.acc-pop{position:fixed;z-index:150;width:min(290px,calc(100vw - 24px));padding:8px;border-radius:18px;
+  border:1px solid rgba(255,255,255,.14);background:#11131D;box-shadow:0 26px 70px rgba(0,0,0,.6);
+  display:none;transform-origin:top right}
+.acc-pop.open{display:block;animation:apIn .26s cubic-bezier(.2,.8,.2,1) both}
+@keyframes apIn{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1;transform:none}}
+.ap-head{display:flex;align-items:center;gap:12px;padding:12px 12px 14px}
+.ap-ava{width:42px;height:42px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;overflow:hidden;font-size:14px;font-weight:800;color:#0B0C12;background:linear-gradient(135deg,#19C6F7,#C79DF2)}
+.ap-ava img{width:100%;height:100%;object-fit:cover}
+.ap-head b{display:block;font-size:15px;line-height:1.2}
+.ap-head span{font-size:12px;color:#8B92AA;word-break:break-all}
+.ap-streak{margin:0 12px 10px;padding:8px 12px;border-radius:10px;font-size:12px;color:#C7A6F0;background:rgba(199,157,240,.1);border:1px solid rgba(199,157,240,.25)}
+.ap-streak b{color:#fff}
+.ap-it{width:100%;display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:center;text-align:left;padding:11px 12px;border:none;border-radius:12px;background:none;color:#ECEDF2;cursor:pointer;transition:background .18s}
+.ap-it i{font-style:normal;font-size:14px;color:#C79DF2;grid-row:span 2}
+.ap-it span{font-size:14px;font-weight:600}
+.ap-it em{grid-column:2;font-style:normal;font-size:11.5px;color:#8B92AA;margin-top:1px}
+.ap-it:hover{background:linear-gradient(90deg,rgba(25,198,247,.12),rgba(199,157,240,.08))}
+.ap-it.out i,.ap-it.out span{color:#FF9DB0}
+.ap-it.out:hover{background:rgba(255,157,176,.1)}
+.ap-sep{height:1px;margin:6px 10px;background:rgba(255,255,255,.08)}
 </style>
 </head>
 <body>
@@ -3943,7 +3965,7 @@ header nav.topnav{gap:4px;align-items:center}
 <header>
   <div class="logo" onclick="goHome()" role="button" title="На главную">LOO<em>KA</em></div>
   <nav class="topnav">
-    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i>⌕</i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu()"><span>Войти</span></button>
+    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i>⌕</i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu(event)"><span>Войти</span></button>
   </nav>
 </header>
 <div class="sysbar sb2">
@@ -10640,7 +10662,36 @@ window.navAccDraw = ()=>{
     el.classList.toggle('in', !!s.in);
   });
 };
-window.accMenu = ()=>{ if(st().in){ openPage('myPage'); } else openAuth(); };
+window.accMenu = (ev)=>{
+  if(!st().in){ openAuth(); return; }
+  if(ev && ev.stopPropagation) ev.stopPropagation();
+  let m = document.getElementById('accPop');
+  if(m && m.classList.contains('open')){ closeAccPop(); return; }
+  if(!m){ m = document.createElement('div'); m.id='accPop'; m.className='acc-pop'; document.body.appendChild(m); }
+  const a = acc(), s = st();
+  const rit = (()=>{ try{ return (JSON.parse(localStorage.getItem('looka_ritual')||'{}').n)||0; }catch(e){ return 0; } })();
+  m.innerHTML = `
+    <div class="ap-head">
+      <div class="ap-ava">${a.ava?`<img src="${a.ava}">`:(initials(a.name)||'✦')}</div>
+      <div><b>${a.name||'Ваш профиль'}</b><span>${s.email||''}</span></div>
+    </div>
+    ${rit?`<div class="ap-streak">◆ серия ритуала: <b>${rit}</b> ${rit===1?'день':rit<5?'дня':'дней'}</div>`:''}
+    <button class="ap-it" onclick="closeAccPop();openPage('myPage')"><i>◆</i><span>Редактировать профиль</span><em>имя, фото, дата рождения</em></button>
+    <button class="ap-it" onclick="closeAccPop();openPage('passPage')"><i>▤</i><span>Стиль-паспорт</span><em>всё о вас на одной странице</em></button>
+    <button class="ap-it" onclick="closeAccPop();openWardrobe()"><i>▣</i><span>Мой гардероб</span><em>вещи, образ дня, план недели</em></button>
+    <button class="ap-it" onclick="closeAccPop();authSync()"><i>↻</i><span>Сохранить в облако</span><em>синхронизировать сейчас</em></button>
+    <div class="ap-sep"></div>
+    <button class="ap-it" onclick="closeAccPop();openPage('contactsPage')"><i>✉</i><span>Написать в поддержку</span></button>
+    <button class="ap-it out" onclick="closeAccPop();authOut()"><i>⇥</i><span>Выйти</span></button>`;
+  const btn = document.getElementById('navAcc') || document.querySelector('.nav-acc');
+  const r = btn ? btn.getBoundingClientRect() : {bottom:60, right:window.innerWidth-16};
+  m.style.top = (r.bottom + 10) + 'px';
+  m.style.right = Math.max(12, window.innerWidth - r.right) + 'px';
+  m.classList.add('open');
+  setTimeout(()=>document.addEventListener('click', closeAccPop, {once:true}), 30);
+};
+window.closeAccPop = ()=>{ const m = document.getElementById('accPop'); if(m) m.classList.remove('open'); };
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAccPop(); });
 
 window.openAuth = (reason)=>{
   let ov = document.getElementById('auOv');
