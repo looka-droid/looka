@@ -7485,7 +7485,7 @@ window.saveProfile = ()=>{
   const nav = document.getElementById('topbarNav');
   nav.innerHTML = src.innerHTML;
   const dd = nav.querySelector('#navDD'); if(dd){ dd.id = 'navDD2'; }
-  const na = nav.querySelector('#navAcc'); if(na){ na.removeAttribute('id'); }
+  const na = nav.querySelector('#navAcc'); if(na){ na.removeAttribute('id'); na.setAttribute('onclick','accMenu(event)'); }
   const f = ()=>{ const gone = hdr.getBoundingClientRect().bottom < 0; bar.classList.toggle('on', gone); };
   window.addEventListener('scroll', f, {passive:true}); f();
 })();
@@ -10718,7 +10718,11 @@ window.accMenu = (ev)=>{
     <div class="ap-sep"></div>
     <button class="ap-it" onclick="closeAccPop();openPage('contactsPage')"><i>✉</i><span>Написать в поддержку</span></button>
     <button class="ap-it out" onclick="closeAccPop();authOut()"><i>⇥</i><span>Выйти</span></button>`;
-  const btn = document.getElementById('navAcc') || document.querySelector('.nav-acc');
+  let btn = (ev && ev.currentTarget && ev.currentTarget.closest) ? ev.currentTarget.closest('.nav-acc') : null;
+  if(!btn){ // берём ту кнопку, что реально видна на экране
+    btn = [...document.querySelectorAll('.nav-acc')].find(b=>{ const q=b.getBoundingClientRect(); return q.bottom > 0 && q.top < window.innerHeight; })
+       || document.getElementById('navAcc') || document.querySelector('.nav-acc');
+  }
   const r = btn ? btn.getBoundingClientRect() : {bottom:60, right:window.innerWidth-16};
   m.style.top = (r.bottom + 10) + 'px';
   m.style.right = Math.max(12, window.innerWidth - r.right) + 'px';
