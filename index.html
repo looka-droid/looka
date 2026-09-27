@@ -4101,6 +4101,29 @@ header nav.topnav{gap:4px;align-items:center}
 .dna-h span{font-size:13px;color:#B7BCCC;line-height:1.5}
 .dna-sec{margin-bottom:18px}
 @media(max-width:640px){.pageview .mk-hero{padding:24px 18px 22px}.pageview .mk-hero .big{font-size:28px}.pageview .mk-hero::after{font-size:30px;right:16px;top:12px}}
+
+/* портрет */
+.por-card{border-color:rgba(199,157,240,.4)}
+.por-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media(max-width:700px){.por-grid{grid-template-columns:1fr}}
+.por-it{padding:13px 15px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012))}
+.por-it b{display:block;font-size:12px;letter-spacing:.5px;color:#C7A6F0;margin-bottom:6px;text-transform:uppercase;font-family:'JetBrains Mono';font-weight:500}
+.por-it span{font-size:13.5px;line-height:1.55;color:#D6DAE6}
+
+/* бренды */
+.brand-box{margin-top:14px;padding:20px 22px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012))}
+.brand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:12px 0 10px}
+.brand{padding:13px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+.brand b{display:block;font-size:15px}
+.brand span{display:block;font-size:12.5px;color:#C7A6F0;margin:2px 0 6px}
+.brand em{display:block;font-style:normal;font-size:12.5px;line-height:1.5;color:#B7BCCC;margin-bottom:8px}
+
+.finds{display:grid;gap:10px}
+.find{display:block;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));color:#ECEDF2;text-decoration:none;transition:transform .2s,border-color .2s}
+.find:hover{transform:translateY(-2px);border-color:rgba(199,157,240,.45)}
+.find b{display:block;font-size:15px}
+.find span{display:block;font-size:13px;color:#B7BCCC;margin-top:3px}
+.find em{display:block;font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#8B92AA;margin-top:8px}
 </style>
 </head>
 <body>
@@ -4129,9 +4152,9 @@ header nav.topnav{gap:4px;align-items:center}
 
 
 <section class="hero">
-  <div class="eyebrow">LOOKA — сервис персонального подбора одежды</div>
-  <h1>Одежда, подобранная<br><span class="holo">под ваши параметры</span></h1>
-  <p>Четыре шага анкеты — три готовых образа под вашу фигуру, цветотип, повод и бюджет. Каждая вещь — реальная позиция на Wildberries, Ozon или Lamoda, открывается в один клик.</p>
+  <div class="eyebrow">LOOKA — ваш личный стилист, визажист и косметолог в одном</div>
+  <h1>Стиль, красота и уход —<br><span class="holo">подобранные под вас, а не «под всех»</span></h1>
+  <p>Цветотип за минуту, образы под фигуру и характер, макияж по форме ваших глаз, уход по типу кожи, волосы, бельё, гардероб и магазины вашей страны — 19 разделов, которые знают вас лучше, чем консультант в магазине.</p>
   <div class="hero-cta">
     <button class="btn primary hero-ct" onclick="openColor()"><span class="hc-dots"><i></i><i></i><i></i><i></i><i></i></span>Мои цвета — бесплатно · 60 секунд</button>
     <button class="btn ghost" onclick="glide('.stage')">Начать подбор образов</button>
@@ -5178,6 +5201,7 @@ header nav.topnav{gap:4px;align-items:center}
   <h2 class="big">Ваш LOOKA — <span class="holo">учится и помнит</span></h2>
   <p class="lead">Профиль, вкус, избранное и покупки — в одном месте. Всё хранится на вашем устройстве, а перенести на новое можно одним файлом.</p>
   <div id="accBox"></div>
+  <div id="findsBox"></div>
   <div id="myBox"></div>
 </section>
 
@@ -6710,7 +6734,7 @@ window.openPage = (id, anchor)=>{
   if(id==='shopsPage' && window.renderShops) renderShops();
   if(id==='glowPage' && window.renderGlowForm) renderGlowForm();
   if(id==='dnaPage' && window.renderDna) renderDna();
-  if(id==='myPage'){ if(window.renderAcc) renderAcc(); if(window.accGreet) accGreet(); }
+  if(id==='myPage'){ if(window.renderAcc) renderAcc(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); }
   if(id==='carePage' && window.renderCare) renderCare();
   if(anchor){
     setTimeout(()=>{
@@ -8992,10 +9016,42 @@ function renderSkin(){
     <div class="look badv mk-wide"><div class="look-in"><h3>Косметичка ухода</h3>
       <div class="sk-kit">${R.kit.map(k=>`<div class="item"><div class="nm">${k[0]}</div><div class="pr">${R.P(k[2])}</div>${beautyButtons(k[1])}</div>`).join('')}</div>
       <div class="total">✦ бюджет: ${K.budget} · хватает на 2–3 месяца · цены ориентировочные</div></div></div>`;
+  out.insertAdjacentHTML('beforeend', (K.goals||[]).concat(['SPF']).map(g=>brandCards(g)).join(''));
   out.insertAdjacentHTML('beforeend', '<div class="next-row"><span>дальше →</span><button onclick="openMakeup()">✦ Макияж-гид</button><button onclick="openPage(\'askPage\')">✦ Спросить дерматолога в Консилиуме</button><button onclick="openTool(\'cal\')">✦ Календарь красоты</button></div>');
   HUB.done(out);
 }
 window.skPick = (k,v)=>{ HUB.pick(K,k,v,k==='goals'); HUB.save('looka_skin',K); renderSkinForm(); };
+
+/* ================= ПРОВЕРЕННЫЕ БРЕНДЫ: дерматологический уровень, по задачам ================= */
+/* формат: задача → [бренд, средство-ориентир, почему, регион: ru|world|both] */
+window.CARE_BRANDS = {
+ 'Сухость и шелушение':[['CeraVe','Moisturizing Cream / лосьон с керамидами','керамиды + гиалуронка, барьер восстанавливается за 2–3 недели','both'],['La Roche-Posay','Lipikar Baume AP+M / Toleriane','аптечная классика для сухой и атопичной кожи','both'],['Bioderma','Atoderm Intensive','плотный барьерный крем без отдушек','both'],['Avène','Cicalfate+ / XeraCalm','термальная вода и успокаивающие липиды','both'],['Eucerin','UreaRepair 5 %','мочевина для очень сухой кожи и «гусиной кожи»','both'],['Librederm','Церамид крем','доступная российская альтернатива с керамидами','ru']],
+ 'Высыпания':[['La Roche-Posay','Effaclar Duo+ / Effaclar gel','ниацинамид + LHA, мягко против воспалений','both'],['Paula\'s Choice','2 % BHA Liquid','салициловая кислота — стандарт от чёрных точек','world'],['COSRX','BHA Blackhead Power Liquid / Snail 96','корейская нежная кислота и восстановление','both'],['The Ordinary','Niacinamide 10 % + Zinc','доступно и работает на блеск и поры','both'],['Geek & Gorgeous','Calm Down / Porefectly Clear','честные составы по низкой цене','world'],['ART&FACT','Salicylic Acid 2 %','российский бюджетный вариант кислоты','ru']],
+ 'Постакне / пигментация':[['SkinCeuticals','C E Ferulic','эталонный витамин C, дорого, но доказано','world'],['The Ordinary','Azelaic Acid 10 % / Alpha Arbutin','азелаиновая и арбутин — против пятен без раздражения','both'],['Geek & Gorgeous','C-Glow 15 %','стабильный витамин C по честной цене','world'],['La Roche-Posay','Mela B3','ниацинамид против пигментации','both'],['Skin1004','Madagascar Centella','успокоение после активов','both'],['Geltek','Anti-pigmentation','российская аптечная линия','ru']],
+ 'Морщины и тонус':[['Medik8','Crystal Retinal','ретинальдегид — быстрее ретинола, мягче третиноина','world'],['Geek & Gorgeous','A-Game 5 / 10','ретинальдегид доступно','world'],['The Ordinary','Retinal 0.2 % / Granactive Retinoid','мягкий вход в ретиноиды','both'],['CeraVe','Resurfacing Retinol','ретинол + керамиды для чувствительных','both'],['La Roche-Posay','Redermic R','аптечный ретинол 0,3 %','both'],['ART&FACT','Retinol 0.3 % + Lecithin','российский ретинол в липосомах','ru']],
+ 'Покраснения / реактивность':[['Avène','Antirougeurs / Tolérance','для розацеа и реактивной кожи','both'],['La Roche-Posay','Toleriane Rosaliac','убирает красноту, без отдушек','both'],['Bioderma','Sensibio AR','сосудистая краснота','both'],['Dr. Jart+','Cicapair','центелла, маскирует и лечит','both'],['Uriage','Roséliane','термальная линия для купероза','both']],
+ 'Поры и блеск':[['Paula\'s Choice','2 % BHA','сужение пор через очищение изнутри','world'],['The Ordinary','Niacinamide 10 %','себорегуляция','both'],['La Roche-Posay','Effaclar Mat','матирование на день','both'],['Innisfree','No-Sebum Powder','минеральная пудра без забивания','both'],['Aravia','Balance Cream','российский матирующий уход','ru']],
+ 'Тусклость':[['Geek & Gorgeous','Cheer Up / C-Glow','витамин C + мягкие кислоты','world'],['Sunday Riley','Good Genes','лактат для сияния (дорого)','world'],['The Ordinary','Lactic Acid 5 %','мягкое обновление','both'],['Beauty of Joseon','Glow Serum','пропаналь и ниацинамид, корейское сияние','both'],['Icon Skin','Re:Program','российские пилинги для дома','ru']],
+ 'Тёмные круги':[['The Inkey List','Caffeine Eye Cream','кофеин против отёков','world'],['La Roche-Posay','Toleriane Eye','нежный уход для век','both'],['CeraVe','Eye Repair Cream','керамиды + пептиды','both'],['Kiehl\'s','Creamy Eye Treatment with Avocado','плотный, для сухой зоны','world']],
+ 'SPF':[['La Roche-Posay','Anthelios UVMune 400','лучшая защита от UVA в аптеке','both'],['Bioderma','Photoderm Aquafluide','лёгкий флюид под макияж','both'],['Beauty of Joseon','Relief Sun Rice + Probiotics','корейский SPF без белого налёта','both'],['Round Lab','Birch Juice Moisturizing Sunscreen','увлажняющий, для сухой','both'],['Isntree','Hyaluronic Acid Watery Sun Gel','для жирной и комби','both'],['Eucerin','Sun Oil Control','матирующий SPF','both'],['Librederm','Bronzeada SPF 50','российский аптечный','ru']]
+};
+window.MAKEUP_BRANDS = {
+ 'база':[['Estée Lauder','Double Wear','стойкость 24 часа, плотное покрытие','world'],['NARS','Light Reflecting / Sheer Glow','сияние и естественность','world'],['Maybelline','Fit Me / Instant Perfector','лучший бюджет, широкая палитра','both'],['Vivienne Sabo','Nude Illusion','российский лёгкий тон','ru'],['Shik','Perfect Liquid Foundation','российский профессиональный тон','ru']],
+ 'тушь':[['Maybelline','Lash Sensational','объём и разделение, доступно','both'],['Benefit','They\'re Real','длина и стойкость','world'],['Lancôme','Hypnôse / Lash Idôle','люкс-эталон','world'],['Vivienne Sabo','Cabaret','культовая бюджетная тушь','ru']],
+ 'брови':[['Anastasia Beverly Hills','Brow Wiz / Dipbrow','мировой стандарт','world'],['NYX','Micro Brow Pencil','бюджетный аналог','both'],['Shik','Brow Powder','российская профессиональная марка','ru']],
+ 'губы':[['Rom&nd','Juicy Lasting Tint','корейский тинт, естественный цвет','both'],['MAC','Ruby Woo / Velvet Teddy','красный и нюд-эталоны','world'],['Charlotte Tilbury','Pillow Talk','самый продаваемый нюд мира','world'],['Influence Beauty','Ximera / тинты','российский бренд с сильными пигментами','ru']],
+ 'тени':[['Natasha Denona','мини-палетки','пигмент и растушёвка','world'],['Huda Beauty','Nude Obsessions','нюдовые палетки под цвет кожи','world'],['Krygina','палетки','российский бренд визажиста','ru'],['Peripera','Ink Pocket','корейские мини-палетки','both']],
+ 'румяна и хайлайтер':[['Rare Beauty','Soft Pinch Liquid Blush','жидкие румяна, хватает на год','world'],['Milk','Cooling Water Jelly Tint','стик-тинт для щёк','world'],['Rom&nd','Better Than Cheek','корейские мягкие румяна','both'],['Shik','Blush / Highlighter','российский профессиональный вариант','ru']]
+};
+window.brandCards = (task, isMakeup)=>{
+  const src = isMakeup ? MAKEUP_BRANDS : CARE_BRANDS; const arr = src[task]; if(!arr) return '';
+  const R = (typeof REGION!=='undefined' && REGION) ? REGION : 'cis';
+  const ok = arr.filter(b=> b[3]==='both' || (R==='cis' ? b[3]==='ru' : b[3]==='world'));
+  const list = ok.length ? ok : arr;
+  return `<div class="brand-box"><div class="cs-k">ПРОВЕРЕННЫЕ БРЕНДЫ · ${task.toUpperCase()}</div>
+    <div class="brand-grid">${list.map((b,i)=>HUB.pop(`<div class="brand"><b>${b[0]}</b><span>${b[1]}</span><em>${b[2]}</em>${beautyButtons(b[0]+' '+b[1])}</div>`,i)).join('')}</div>
+    <div class="tip">Составы и линейки меняются — проверяйте актуальную формулу на сайте бренда. Дерматологические марки (аптечные) — самый безопасный старт при чувствительной коже.</div></div>`;
+};
 window.renderSkinForm = ()=>{
   const f = document.getElementById('skForm'); if(!f) return;
   if(!K.type && B.skin) K.type = B.skin;
@@ -10746,6 +10802,52 @@ function stats(){
     ['серия ритуала', (rit.n||0)]
   ];
 }
+
+/* ================= НАХОДКИ ДЛЯ ВАС: подписка на новые магазины и средства ================= */
+(function(){
+const api = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : '').replace(/\/$/,'') + p;
+const tok = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; }catch(e){ return null; } };
+const CATS=['одежда','обувь','сумки','украшения','бьюти','уход','бельё'];
+const F = HUB.ls('looka_finds', { on:false, cats:['одежда','бьюти'], beauty:[] });
+const BEAUTY_TAGS=['ретинол','spf','витамин c','кислоты','керамиды','корейский уход','нюд','красная помада','тушь','брови','ароматы','ногти'];
+const myStyles = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_dna')||'{}').styles||[]); }catch(e){ return []; } };
+window.findsToggle = (k,v)=>{ const a=F[k]||[]; const i=a.indexOf(v); i<0?a.push(v):a.splice(i,1); F[k]=a; HUB.save('looka_finds',F); renderFinds(); };
+window.findsOn = async ()=>{ F.on=!F.on; HUB.save('looka_finds',F); await findsSave(true); renderFinds(); };
+window.findsSave = async (silent)=>{
+  const t=tok(); if(!t){ if(!silent) openAuth('Подписаться на находки под ваш стиль'); return; }
+  try{ const r=await fetch(api('/finds/prefs'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({styles:myStyles(),cats:F.cats,beauty:F.beauty,on:F.on,region:(typeof REGION!=='undefined'?REGION:'cis')})});
+    const j=await r.json(); if(!r.ok) throw new Error(j.error||'ошибка'); F.tg=!!j.tg; HUB.save('looka_finds',F); if(!silent) myToast(F.on?'Подписка включена':'Подписка выключена'); }
+  catch(e){ if(!silent) myToast('Не удалось сохранить: '+e.message); }
+};
+window.findsLinkTg = async ()=>{
+  const t=tok(); if(!t){ openAuth('Подключить Telegram к находкам'); return; }
+  try{ const r=await fetch(api('/tg/link'),{method:'POST',headers:{'Authorization':'Bearer '+t}}); const j=await r.json(); if(!r.ok) throw new Error(j.error||'ошибка');
+    window.open('https://t.me/'+j.bot+'?start='+j.code,'_blank'); myToast('Откройте бота и нажмите Start — код '+j.code+' подставится сам'); }
+  catch(e){ myToast('Не получилось: '+e.message); }
+};
+window.findsLoad = async ()=>{
+  const box=document.getElementById('findsFeed'); if(!box) return;
+  try{ const t=tok(); const r=await fetch(api('/finds'+(t?'':'?all=1')),{headers: t?{'Authorization':'Bearer '+t}:{}}); const j=await r.json();
+    if(j.tg!==undefined) { F.tg=!!j.tg; }
+    box.innerHTML = (j.finds||[]).length ? j.finds.map((f,i)=>HUB.pop(`<a class="find" href="${f.url}" target="_blank" rel="noopener"><b>${f.t}</b><span>${f.note||''}</span><em>${f.cat} · #${(f.tags||[]).join(' #')}${f.score?' · совпадение '+f.score:''}</em></a>`,i)).join('') : '<div class="tip">Пока находок под ваш стиль нет — как только появится магазин или средство под ваши эстетики, оно окажется здесь и в Telegram.</div>';
+  }catch(e){ box.innerHTML='<div class="tip">Лента недоступна без интернета.</div>'; }
+};
+window.renderFinds = ()=>{
+  const box=document.getElementById('findsBox'); if(!box) return;
+  const st=myStyles();
+  box.innerHTML=`<div class="look badv mk-wide"><div class="look-in">
+    <div class="cs-k">НАХОДКИ ДЛЯ ВАС</div><h3>Новые магазины и средства под ваш стиль — на телефон</h3>
+    <div class="tip">Мы отсматриваем Instagram, Telegram и сайты брендов. Как только появляется бутик под ваши эстетики (${st.length?st.slice(0,4).join(', '):'заполните Стиль-ДНК'}) или средство под ваш уход — вы получаете сообщение в Telegram и видите его здесь.</div>
+    <label class="acc-toggle" style="margin-top:14px"><input type="checkbox" ${F.on?'checked':''} onchange="findsOn()"><span>Присылать находки под мой стиль</span></label>
+    <div class="grp" style="margin-top:14px"><label class="t">Что интересно <span class="to-opt">несколько</span></label><div class="chips">${CATS.map(c=>`<button class="chip ${F.cats.includes(c)?'on':''}" onclick="findsToggle('cats','${c}')">${c}</button>`).join('')}</div></div>
+    <div class="grp"><label class="t">В уходе и макияже <span class="to-opt">несколько</span></label><div class="chips">${BEAUTY_TAGS.map(c=>`<button class="chip ${F.beauty.includes(c)?'on':''}" onclick="findsToggle('beauty','${c}')">${c}</button>`).join('')}</div></div>
+    <div class="to-row"><button class="btn primary" onclick="findsSave()">Сохранить</button><button class="btn ghost" onclick="findsLinkTg()">${F.tg?'✓ Telegram подключён':'✈ Подключить Telegram'}</button></div>
+    <div class="b-priv">Сообщения приходят только по вашим стилям и категориям; выключить — галочкой здесь или командой /stop в боте. Без спама и рекламы чужих товаров.</div>
+  </div></div>
+  <div class="look badv mk-wide"><div class="look-in"><h3>Лента находок</h3><div id="findsFeed" class="finds"><div class="tip">Загружаю…</div></div></div></div>`;
+  findsLoad();
+};
+})();
 window.renderAcc = ()=>{
   const box = document.getElementById('accBox'); if(!box) return;
   setTimeout(()=>{ if(window.authMount) authMount(); }, 30);
@@ -10942,6 +11044,7 @@ window.accMenu = (ev)=>{
     <button class="ap-it" onclick="closeAccPop();openPage('myPage')"><i>◆</i><span>Редактировать профиль</span><em>имя, фото, дата рождения</em></button>
     <button class="ap-it" onclick="closeAccPop();openPage('passPage')"><i>▤</i><span>Стиль-паспорт</span><em>всё о вас на одной странице</em></button>
     <button class="ap-it" onclick="closeAccPop();openWardrobe()"><i>▣</i><span>Мой гардероб</span><em>вещи, образ дня, план недели</em></button>
+    <button class="ap-it" onclick="closeAccPop();openPage('myPage');setTimeout(()=>{const f=document.getElementById('findsBox'); if(f&&window.glide) glide(f,110,800);},400)"><i>✦</i><span>Находки для вас</span><em>новые магазины и средства — в Telegram</em></button>
     <button class="ap-it" onclick="closeAccPop();authSync()"><i>↻</i><span>Сохранить в облако</span><em>синхронизировать сейчас</em></button>
     <div class="ap-sep"></div>
     <button class="ap-it" onclick="closeAccPop();openPage('contactsPage')"><i>✉</i><span>Написать в поддержку</span></button>
@@ -11267,6 +11370,9 @@ function paint(part){
   const filled = D.styles.length && Object.keys(D.fits).length && Object.keys(D.ch).length>=3;
   D.done = !!filled; save();
   box.innerHTML = ['styles','fits','char','colors','never','taste','dos','pers','beau'].map(k=>`<section class="bt-form look mk-form dna-sec" id="dna-${k}">${P[k]}</section>`).join('') +
+    (()=>{ const por=dnaPortrait(); return por.length>=3 ? `<div class="look badv mk-wide por-card"><div class="look-in"><div class="cs-k">ВАШ ПОРТРЕТ · ЧТО LOOKA ПОНЯЛА ИЗ ВАШИХ ОТВЕТОВ</div><h3>Вы для нас — открытая книга. Вот как мы вас читаем</h3>
+      <div class="por-grid">${por.map((p,i)=>HUB.pop(`<div class="por-it"><b>${p[0]}</b><span>${p[1]}</span></div>`,i)).join('')}</div>
+      <div class="tip" style="margin-top:12px">Портрет собран только из ваших выборов — без единого написанного слова. Ответите на больше вопросов — станет точнее. Именно он управляет подбором, примеркой и разборами.</div></div></div>` : ''; })() +
     `<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">${filled?'СТИЛЬ-ДНК СОБРАН':'ЗАПОЛНЯЙТЕ ПОСТЕПЕННО'}</div>
       <h3>${filled?'Теперь ИИ знает, что вы носите':'Минимум — эстетики, посадки и характер'}</h3>
       <div class="tip">${dnaSummary()||'Каждый ответ сохраняется сразу. Подбор образов, Студия, бьюти-скан и «Повторить образ» будут учитывать всё это автоматически.'}</div>
@@ -11274,6 +11380,58 @@ function paint(part){
     </div></div>`;
   if(part){ const el=document.getElementById('dna-'+part); if(el && window.fxZone) fxZone(el); }
 }
+
+/* ===== ПОРТРЕТ: выводы о человеке из её ответов (не из слов — из выбора) ===== */
+const has=(k,v,src)=>((src||D.dos)[k]||[]).includes(v);
+const anyOf=(k,arr,src)=>arr.some(v=>has(k,v,src));
+window.dnaPortrait = ()=>{
+  const P=[]; const S2=window.S||{}; const a=archetype();
+  const pick=(k,src)=>((src||D.dos)[k]||[]);
+  // 1. характер и решения
+  const shop=pick('shop'), lifeK=pick('life'), self=pick('self',D.pers), val=pick('val',D.pers), energy=pick('energy',D.pers)[0];
+  let decision='';
+  if(has('Шопинг — это…',null) ){}
+  const chShop = D.ch[4]; // 0 охота,1 быстро,2 удовольствие,3 стресс
+  decision = chShop===1?'решает быстро и по списку — ей нужны готовые комплекты, а не витрина':chShop===3?'выбор утомляет — ей нужна одна уверенная рекомендация вместо десяти вариантов':chShop===0?'любит искать редкое — ценит небанальные вещи и маленькие бренды':chShop===2?'шопинг — удовольствие: покажите больше вариантов и историю вещи':'';
+  if(decision) P.push(['Как принимает решения',decision]);
+  const traits=[]; if(self.includes('перфекционистка')) traits.push('важна безупречная посадка'); if(self.includes('спонтанная')) traits.push('покупает под настроение — нужны образы «на сегодня»'); if(self.includes('тихая наблюдательница')||anyOf('mood',['дорого и спокойно'],D.pers)) traits.push('не любит быть громкой — акценты тихие, дорогие'); if(self.includes('душа компании')||anyOf('mood',['ярко и смело'],D.pers)) traits.push('готова к ярким акцентам'); if(self.includes('практичная')||self.includes('сильная и прямая')) traits.push('ценит функцию и удобство выше моды');
+  if(a) traits.unshift('архетип «'+ARCH[a][0]+'»: '+ARCH[a][1]);
+  if(traits.length) P.push(['Характер в одежде',traits.join('; ')]);
+  // 2. риск и комфорт
+  const fear=pick('fear',D.pers), want=pick('want',D.pers);
+  let risk = D.attention>=4||want.includes('стать заметнее')?'смелая: можно предлагать акценты и новое':D.attention<=2||fear.includes('привлечь лишнее внимание')?'осторожная: новое вводить по одной вещи, без резких акцентов':'умеренная: одна новая деталь на образ';
+  if(fear.includes('выглядеть дешевле')||want.includes('выглядеть дороже')) risk+='; главный критерий — «выглядит дорого»';
+  if(fear.includes('выглядеть старше')||want.includes('вернуть лёгкость')) risk+='; боится «постареть» в образе — избегать тяжёлых и «взрослых» вещей';
+  P.push(['Отношение к риску',risk]);
+  P.push(['Комфорт против эффекта',D.comfort<=2?'удобство — первое условие, красота вторая: неудобное не наденет даже если идёт':D.comfort>=4?'ради эффекта потерпит — можно предлагать каблук и структурные вещи':'баланс: красиво, но чтобы можно было жить']);
+  // 3. деньги и покупки
+  const price=pick('price')[0], bud=pick('budgetm',D.pers)[0], freq=pick('freq')[0];
+  let money=''; if(price) money+='комфортно за вещь: '+price; if(bud) money+=(money?'; ':'')+'в месяц: '+bud; if(freq) money+=(money?'; ':'')+'обновляет '+freq.toLowerCase();
+  const spendType = /15 000|40 000/.test(price+bud)?'щедрая покупательница — ценит качество и готова платить за «надолго»':/до 2 000|до 5 000/.test(price+bud)?'экономная — важны цена и «носится с чем угодно»':'средний чек — нужна аргументация «почему стоит»';
+  P.push(['Деньги',(money?money+'. ':'')+spendType]);
+  if(shop.length||(D.brandsL||[]).length) P.push(['Где покупает',shop.concat(D.brandsL||[]).join(', ')]);
+  // 4. что купит скорее всего
+  const fits=Object.entries(D.fits).filter(([k,v])=>v.length).map(([k,v])=>k.toLowerCase().replace(/ и .*$/,'')+': '+v.slice(0,2).join(', '));
+  const occ=pick('occ'), fav=pick('fav'), gap=pick('gap');
+  const buy=[]; if(fits.length) buy.push(fits.join('; ')); if(fav.length) buy.push('возвращается к: '+fav.join(', ')); if(gap.length) buy.push('ближайшая покупка: '+gap.join(', ')); if(occ.length) buy.push('поводы: '+occ.join(', '));
+  if(buy.length) P.push(['Что купит скорее всего',buy.join('. ')]);
+  // 5. красота
+  const mk=pick('mkstyle',D.beau), mt=pick('mktime',D.beau)[0], lips=pick('lips',D.beau), no=pick('mkno',D.beau);
+  const beauty=[]; if(mk.length) beauty.push(mk.join(', ')); if(mt) beauty.push(mt+' мин в будни'); if(lips.length) beauty.push('губы: '+lips.join(', ')); if(no.length) beauty.push('не предлагать: '+no.join(', '));
+  if(beauty.length) P.push(['Красота',beauty.join(' · ')]);
+  // 6. триггеры
+  const trig=[]; const compl=pick('compl',D.pers), gift=pick('gift',D.pers), conf=pick('conf',D.pers);
+  if(compl.length) trig.push('хочет слышать: '+compl.join(', ')); if(gift.length) trig.push('радует: '+gift.join(', ')); if(conf.length) trig.push('чувствует себя красивой, когда '+conf.join(', '));
+  if(trig.length) P.push(['Что её включает',trig.join('; ')]);
+  const off=[]; if(D.never.length) off.push('никогда: '+D.never.slice(0,5).join(', ')); const peeve=pick('peeve'); if(peeve.length) off.push('раздражает: '+peeve.join(', ')); const lim=pick('limit',D.pers).filter(x=>x!=='нет ограничений'); if(lim.length) off.push('ограничения: '+lim.join(', '));
+  if(off.length) P.push(['Что её выключает',off.join('; ')]);
+  // 7. как говорить
+  const tone=pick('talk',D.pers)[0]; if(tone) P.push(['Как с ней говорить',tone]);
+  const soon=pick('soon',D.pers).filter(x=>x!=='ничего особенного'); if(soon.length) P.push(['Что впереди',soon.join(', ')+' — образы под это в первую очередь']);
+  const self2=pick('self2',D.pers); if(self2.length) P.push(['Куда она идёт','через год видит себя: '+self2.join(', ')+' — одевать в ту, кем она хочет стать']);
+  return P;
+};
+window.dnaPortraitText = ()=>dnaPortrait().map(p=>p[0]+': '+p[1]).join('. ');
 window.dnaSummary = ()=>{
   const a=archetype(); const parts=[];
   if(D.styles.length) parts.push('эстетики: '+D.styles.join(', '));
@@ -11298,6 +11456,7 @@ window.dnaSummary = ()=>{
   const tone=(D.pers.talk||[])[0]; if(tone) parts.push('ТОН ОБЩЕНИЯ С НЕЙ: '+tone);
   const beauParts=BEAU.filter(q=>(D.beau[q[0]]||[]).length).map(q=>q[1].toLowerCase()+': '+D.beau[q[0]].join(', '));
   if(beauParts.length) parts.push('красота и макияж: '+beauParts.join('; '));
+  const por=dnaPortrait(); if(por.length>=3) parts.push('ПОРТРЕТ (выводы, действуй по ним): '+por.map(p=>p[0]+' — '+p[1]).join('; '));
   return parts.length>1 ? parts.join('. ') : '';
 };
 /* правила для офлайн-движка: что исключать и что предпочитать */
