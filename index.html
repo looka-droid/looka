@@ -4124,6 +4124,23 @@ header nav.topnav{gap:4px;align-items:center}
 .find b{display:block;font-size:15px}
 .find span{display:block;font-size:13px;color:#B7BCCC;margin-top:3px}
 .find em{display:block;font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#8B92AA;margin-top:8px}
+
+/* выпадающее меню: под своей кнопкой, не улетает */
+@media(min-width:901px){
+  .nav-dd{position:relative}
+  .nav-dd .dd,.nav-dd .dd.open{position:absolute!important;top:calc(100% + 12px)!important;left:0!important;right:auto!important;width:560px!important;min-width:0!important;max-width:calc(100vw - 32px);max-height:none!important;overflow:visible!important;transform:none}
+  .nav-dd.dd-right .dd,.nav-dd.dd-right .dd.open{left:auto!important;right:0!important}
+}
+
+.gate-box{width:min(560px,100%)}
+.gate-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 12px}
+.gplan{text-align:left;padding:14px 14px 12px;border-radius:16px;cursor:pointer;color:#ECEDF2;border:1.5px solid rgba(255,255,255,.14);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));transition:transform .2s,border-color .2s}
+.gplan:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.5)}
+.gplan.on{border-color:transparent;background:linear-gradient(rgba(16,18,28,.9),rgba(16,18,28,.9)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box}
+.gplan small{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#8B92AA}
+.gplan b{display:block;font-size:22px;font-weight:800;margin:4px 0;background:linear-gradient(90deg,#19C6F7,#C79DF2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gplan span{display:block;font-size:11.5px;color:#B7BCCC;line-height:1.4}
+@media(max-width:560px){.gate-plans{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -9584,7 +9601,7 @@ const GROUPS = [
     ['✆','Спросить эксперта','дерматолог · визажист · стилист · трихолог отвечают', "openPage('askPage')", 'доступ']
   ]}
 ];
-const card = (h,i)=>`<button class="hub-card pop" style="animation-delay:${(i*0.05).toFixed(2)}s" onclick="${h[3].replace(/"/g,'&quot;')}"><i>${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span><em class="${h[4]==='бесплатно'?'free':''}">${h[4]}</em></button>`;
+const card = (h,i)=>`<button class="hub-card pop" style="animation-delay:${(i*0.05).toFixed(2)}s" onclick="${(h[4]==='доступ' ? 'gate('+JSON.stringify(h[3]).replace(/"/g,'&quot;')+','+JSON.stringify(h[1]).replace(/"/g,'&quot;')+')' : h[3]).replace(/"/g,'&quot;')}"><i>${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span><em class="${h[4]==='бесплатно'?'free':''}">${h[4]}</em></button>`;
 const SEARCH_CARD = `
   <div class="hub-search">
     <div class="hs-ic">⌕</div>
@@ -11507,6 +11524,31 @@ window.PLANS = { week:{t:'неделя',p:'390 ₽',n:'LOOKA · НЕДЕЛЯ',on
                  month:{t:'месяц',p:'990 ₽',n:'LOOKA · МЕСЯЦ',once:'подписка на месяц · отменяется в один тап · без скрытых списаний'},
                  year:{t:'год',p:'4 990 ₽',n:'LOOKA · ГОД',once:'12 месяцев по цене семи · отменяется в один тап'} };
 window.curPlan = (function(){ try{ return localStorage.getItem('looka_plan')||'month'; }catch(e){ return 'month'; } })();
+
+/* ================= ПЕЙВОЛ: выбор подписки перед платным разделом ================= */
+window.hasAccess = ()=>{ try{ return !!localStorage.getItem('looka_access') || (JSON.parse(localStorage.getItem('looka_session')||'{}').paid===true); }catch(e){ return false; } };
+window.gate = (action, title)=>{
+  if(hasAccess()){ try{ eval(action); }catch(e){} return; }
+  let ov=document.getElementById('gateOv');
+  if(!ov){ ov=document.createElement('div'); ov.id='gateOv'; ov.className='au-ov'; ov.onclick=e=>{ if(e.target===ov) closeGate(); }; document.body.appendChild(ov); }
+  const P=PLANS;
+  ov.innerHTML=`<div class="au-box gate-box"><div class="au-aura"></div><button class="au-x" onclick="closeGate()">✕</button>
+    <div class="au-in">
+      <div class="au-mark">✦</div>
+      <div class="cs-k">раздел по подписке</div>
+      <h3>${title||'Этот раздел'} — в подписке LOOKA</h3>
+      <p>Выберите срок. Все 19 разделов, генерации и обновления включены. Отмена в один тап, возврат первой оплаты 14 дней.</p>
+      <div class="gate-plans">
+        ${Object.entries(P).map(([k,v])=>`<button class="gplan ${k==='month'?'on':''}" onclick="gatePick('${k}')"><small>${v.t}</small><b>${v.p}</b><span>${k==='week'?'попробовать всё':k==='month'?'популярный · ≈ 33 ₽ в день':'−58 % · 5 месяцев в подарок'}</span></button>`).join('')}
+      </div>
+      <button class="btn ghost au-skip" onclick="closeGate();try{${action.replace(/"/g,'&quot;')}}catch(e){}">Сначала посмотреть раздел</button>
+      <div class="au-note">Без подписки разделы можно открывать и смотреть: результаты, генерации и сохранение — после оплаты.</div>
+    </div></div>`;
+  ov.classList.add('open'); document.body.style.overflow='hidden';
+};
+window.closeGate=()=>{ const o=document.getElementById('gateOv'); if(o){ o.classList.remove('open'); document.body.style.overflow=''; } };
+window.gatePick=k=>{ pickPlan(k); closeGate(); openPay(); };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeGate(); });
 window.pickPlan = k=>{ if(!PLANS[k]) return; window.curPlan=k; try{ localStorage.setItem('looka_plan',k); }catch(e){}
   document.querySelectorAll('.plan').forEach(b=>b.classList.toggle('on', b.dataset.plan===k));
   const P=PLANS[k]; const s=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
@@ -11515,6 +11557,10 @@ window.pickPlan = k=>{ if(!PLANS[k]) return; window.curPlan=k; try{ localStorage
 };
 document.addEventListener('DOMContentLoaded', ()=>pickPlan(window.curPlan));
 if(document.readyState!=='loading') pickPlan(window.curPlan);
+
+/* дропдауны не выходят за экран */
+(function(){ const fix=()=>{ document.querySelectorAll('.nav-dd').forEach(dd=>{ const r=dd.getBoundingClientRect(); dd.classList.toggle('dd-right', r.left+560 > window.innerWidth-16); }); };
+  fix(); addEventListener('resize', fix); document.addEventListener('click', ()=>setTimeout(fix,0)); })();
 fxGlow(document);
 fxTilt(document);
 </script>
