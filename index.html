@@ -3986,6 +3986,121 @@ header nav.topnav{gap:4px;align-items:center}
 .acc-auth .btn.ghost:hover,#accBox .btn.ghost:hover{transform:translateY(-2px);border-color:rgba(199,157,240,.55);color:#fff}
 #accBox .b-priv{margin-top:16px;line-height:1.65}
 #accBox .tip{line-height:1.7}
+
+/* ================= «КТО МЫ»: блоки вместо простыни ================= */
+.ab-hero{display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+.ab-face{display:flex;flex-direction:column;align-items:center;gap:10px;flex:0 0 auto}
+.ab-face em{font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#8B92AA}
+.ab-hero .big{font-size:34px;line-height:1.15;margin:6px 0 10px}
+.ab-hero .lead{font-size:15px;max-width:520px}
+.ab-why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:22px 0}
+.ab-w{border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));animation:accCard .5s both}
+.ab-w:nth-child(2){animation-delay:.08s}.ab-w:nth-child(3){animation-delay:.16s}
+.ab-w i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;font-size:13px;margin-bottom:10px;background:rgba(255,157,176,.12);color:#FF9DB0}
+.ab-w b{display:block;font-size:15px;margin-bottom:5px}
+.ab-w span{font-size:13px;line-height:1.55;color:#B7BCCC}
+.ab-w.ok{border-color:rgba(55,224,138,.35);background:linear-gradient(135deg,rgba(55,224,138,.08),rgba(25,198,247,.04))}
+.ab-w.ok i{background:rgba(55,224,138,.14);color:#37E08A}
+.about-vals>div{display:flex;flex-direction:column;gap:4px;padding:16px;border-radius:14px;transition:transform .25s,border-color .25s}
+.about-vals>div:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.4)}
+.about-vals i{font-style:normal;font-size:16px;color:#C79DF2;margin-bottom:4px}
+.ab-num{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:22px}
+.ab-num>div{text-align:center;padding:16px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+.ab-num b{display:block;font-size:26px;font-weight:800;background:linear-gradient(90deg,#19C6F7,#C79DF2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ab-num span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA}
+/* доверие на главной */
+.trust-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:18px 0 6px}
+.trust-row>div{display:grid;grid-template-columns:34px 1fr;column-gap:12px;row-gap:2px;align-items:center;padding:14px 16px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));transition:transform .25s,border-color .25s}
+.trust-row>div:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.4)}
+.trust-row i{grid-row:1/3;font-style:normal;width:34px;height:34px;display:grid;place-items:center;border-radius:10px;font-size:14px;background:rgba(199,157,240,.12);color:#C79DF2}
+.trust-row b{grid-column:2;font-size:14px}
+.trust-row span{grid-column:2;font-size:12px;color:#8B92AA;line-height:1.4}
+@media(max-width:560px){.ab-hero .big{font-size:26px}.ab-num{grid-template-columns:1fr 1fr}}
+
+.to-opt{display:inline-block;margin-left:10px;padding:3px 10px;border-radius:99px;vertical-align:1px;
+  font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.3px;text-transform:uppercase;
+  color:#C7A6F0;background:rgba(199,157,240,.14);border:1px solid rgba(199,157,240,.32)}
+.grp .t,label.t{display:block}
+
+/* тело: что работает */
+.bd-what{margin-top:16px;padding:14px 16px;border-radius:12px;font-size:13.5px;line-height:1.65;color:#C9CEDD;
+  background:linear-gradient(135deg,rgba(199,157,240,.08),rgba(25,198,247,.04));border:1px solid rgba(199,157,240,.22)}
+.bd-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:12px;margin-top:14px}
+@media(max-width:760px){.bd-grid{grid-template-columns:1fr}}
+.bd-c{border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px;background:rgba(255,255,255,.025)}
+.bd-c b{display:block;font-size:13px;margin-bottom:10px}
+.bd-c.ok b{color:#37E08A}.bd-c.no b{color:#FF9DB0}
+.bd-c ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.bd-c li{position:relative;padding-left:16px;font-size:13px;line-height:1.55;color:#D2D6E4}
+.bd-c li::before{content:'·';position:absolute;left:3px;color:#37E08A;font-weight:800}
+.bd-c p{font-size:13px;line-height:1.6;color:#B7BCCC}
+.bd-who{display:flex;gap:12px;align-items:flex-start;margin-top:14px;padding:14px 16px;border-radius:14px;border:1px solid rgba(25,198,247,.3);background:rgba(25,198,247,.06)}
+.bd-who i{font-style:normal;width:30px;height:30px;flex:0 0 auto;display:grid;place-items:center;border-radius:9px;background:rgba(25,198,247,.16);color:#19C6F7;font-size:14px}
+.bd-who b{display:block;font-size:13.5px;margin-bottom:4px}
+.bd-who span{font-size:13px;line-height:1.6;color:#C2C7D6}
+.bd-real{margin-top:14px;font-size:13px;line-height:1.6;color:#C7A6F0;padding-left:2px}
+
+/* ================= СТИЛЬ-ДНК ================= */
+#dnaBox{display:grid;gap:18px}
+.dna-h{margin-bottom:16px}
+.dna-h b{display:block;font-size:18px;margin-bottom:4px}
+.dna-h span{font-size:13px;color:#98A0B6;line-height:1.5}
+.dna-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.dna-st{text-align:left;padding:13px 14px;border-radius:14px;border:1.5px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));color:#ECEDF2;cursor:pointer;transition:all .22s;display:flex;flex-direction:column;gap:5px}
+.dna-st b{font-size:14px}
+.dna-st span{font-size:11.5px;line-height:1.4;color:#98A0B6}
+.dna-st:hover{transform:translateY(-2px);border-color:rgba(199,157,240,.6)}
+.dna-st.on{border-color:transparent;background:linear-gradient(180deg,#FFFFFF,#EEF0F7) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;color:#0B0C12;box-shadow:0 8px 22px rgba(140,120,220,.3)}
+.dna-st.on span{color:#5B5670}
+.chip.no.on{background:linear-gradient(180deg,#3A1F2B,#2A1620) padding-box,linear-gradient(120deg,#FF6B8A,#FF9DB0) border-box;color:#FFB3C4;border:1.5px solid transparent;box-shadow:none}
+.dna-arch{margin:8px 0 22px;padding:16px 18px;border-radius:14px;border:1px solid rgba(199,157,240,.35);background:linear-gradient(135deg,rgba(199,157,240,.1),rgba(25,198,247,.05))}
+.dna-arch h3{margin:6px 0 6px;font-size:22px}
+.dna-range{width:100%;accent-color:#C79DF2;margin-top:6px}
+.dna-rl{display:flex;justify-content:space-between;font-size:11.5px;color:#8B92AA;margin-top:4px}
+.dna-card{border-radius:16px;padding:20px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(25,198,247,.07),rgba(199,157,240,.06));transition:transform .28s,opacity .28s}
+.dna-card.fly-r{transform:translateX(60px) rotate(4deg);opacity:0}
+.dna-card.fly-l{transform:translateX(-60px) rotate(-4deg);opacity:0}
+.dna-items{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.dna-items span{padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-size:14px;font-weight:600}
+.dna-yes{min-width:140px}
+.dna-no{min-width:140px}
+.dna-done{text-align:center;padding:14px}
+.dna-done b{display:block;font-size:17px;margin-bottom:6px}
+.dna-done span{font-size:13px;color:#98A0B6}
+.dna-cta{margin-top:18px;padding:16px 18px;border-radius:14px;border:1px solid rgba(199,157,240,.35);background:linear-gradient(135deg,rgba(199,157,240,.1),rgba(25,198,247,.05));display:flex;flex-direction:column;gap:6px}
+.dna-cta b{font-size:14.5px}
+.dna-cta span{font-size:13px;color:#B7BCCC;line-height:1.5}
+.dna-cta .btn{align-self:flex-start;margin-top:6px}
+
+/* ================= ТАРИФЫ ================= */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.plan{position:relative;text-align:left;padding:18px 18px 16px;border-radius:18px;cursor:pointer;color:#ECEDF2;
+  border:1.5px solid rgba(255,255,255,.14);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));transition:transform .2s,border-color .2s,box-shadow .2s}
+.plan:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.5)}
+.plan.on{border-color:transparent;background:linear-gradient(rgba(16,18,28,.9),rgba(16,18,28,.9)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;box-shadow:0 14px 34px rgba(140,120,220,.28)}
+.plan small{display:block;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#8B92AA}
+.plan b{display:block;font-size:30px;font-weight:800;margin:6px 0 4px;background:linear-gradient(90deg,#19C6F7,#C79DF2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.plan span{display:block;font-size:12.5px;color:#B7BCCC;line-height:1.45}
+.plan em{display:block;font-style:normal;margin-top:8px;font-size:11px;color:#7CF0B2}
+.plan-tag{position:absolute;top:-10px;right:14px;font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.4px;text-transform:uppercase;padding:4px 9px;border-radius:99px;background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#0B0C12;font-weight:700}
+.plan-tag.gold{background:linear-gradient(120deg,#FFB84C,#F2A6C6)}
+@media(max-width:640px){.plans{grid-template-columns:1fr}}
+
+/* ================= ГЕРОИ РАЗДЕЛОВ: воздух, знак, свечение ================= */
+.pageview .mk-hero{padding:34px 34px 30px;margin:4px 0 22px;border-radius:24px;border:1px solid rgba(255,255,255,.1);
+  background:radial-gradient(700px 260px at 10% 0%,rgba(199,157,240,.14),transparent 62%),radial-gradient(600px 240px at 90% 100%,rgba(25,198,247,.1),transparent 60%),linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));overflow:hidden}
+.pageview .mk-hero::after{content:'✦';position:absolute;right:26px;top:18px;font-size:44px;color:rgba(199,157,240,.18);animation:heroStar 6s ease-in-out infinite}
+@keyframes heroStar{0%,100%{transform:rotate(0) scale(1);opacity:.5}50%{transform:rotate(25deg) scale(1.15);opacity:1}}
+.pageview .mk-hero .big{font-size:40px;line-height:1.1;margin:8px 0 12px}
+.pageview .mk-hero .lead{font-size:15px;line-height:1.7;max-width:720px}
+.pageview .mk-hero .eyebrow{font-size:10px}
+.pg-back{margin-bottom:14px}
+.dna-h{padding:16px 18px;border-radius:14px;margin-bottom:16px;background:linear-gradient(135deg,rgba(199,157,240,.12),rgba(25,198,247,.06));border:1px solid rgba(199,157,240,.25)}
+.dna-h b{display:block;font-size:17px;margin-bottom:4px}
+.dna-h span{font-size:13px;color:#B7BCCC;line-height:1.5}
+.dna-sec{margin-bottom:18px}
+@media(max-width:640px){.pageview .mk-hero{padding:24px 18px 22px}.pageview .mk-hero .big{font-size:28px}.pageview .mk-hero::after{font-size:30px;right:16px;top:12px}}
 </style>
 </head>
 <body>
@@ -4000,13 +4115,13 @@ header nav.topnav{gap:4px;align-items:center}
 <header>
   <div class="logo" onclick="goHome()" role="button" title="На главную">LOO<em>KA</em></div>
   <nav class="topnav">
-    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i>⌕</i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu(event)"><span>Войти</span></button>
+    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openDna()"><i>⌘</i>Стиль-ДНК<em>ваш вкус: эстетики, посадки, характер</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i>⌕</i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu(event)"><span>Войти</span></button>
   </nav>
 </header>
 <div class="sysbar sb2">
   <span class="sb-on"><i></i>SYSTEM ONLINE</span>
   <span class="sb-clock" id="sbClock">МСК --:--:--</span>
-  <span class="sb-rot"><b id="sbRot">РАЗДЕЛОВ: 19 · ПОМОЩНИКОВ: 8 · ПОИСК ПО САЙТУ</b></span>
+  <span class="sb-rot"><b id="sbRot">РАЗДЕЛОВ: 20 · ПОМОЩНИКОВ: 8 · ПОИСК ПО САЙТУ</b></span>
   <button class="reg-btn" onclick="openRegion()">🇷🇺 Россия и СНГ <i>▾</i></button>
   <span class="sb-scan"></span>
 </div>
@@ -4053,8 +4168,14 @@ header nav.topnav{gap:4px;align-items:center}
 </section>
 
 <section class="sec reveal">
-  <h2 class="big">МЫ НЕ МАГАЗИН — <span class="holo">МЫ НАВИГАТОР</span></h2>
-  <p class="lead">LOOKA ничего не продаёт и не влияет на цены. Сервис собирает образ и ведёт вас к вещам в магазины <b id="mpReg">вашего региона</b> — сравнивайте условия, наличие размеров и выбирайте, где удобнее. Регион переключается в любой момент: площадки, размерная сетка и валюта меняются вместе с ним.</p>
+  <h2 class="big">Мы не магазин — <span class="holo">мы навигатор</span></h2>
+  <p class="lead">LOOKA ничего не продаёт и не влияет на цены — ведёт к вещам в магазины <b id="mpReg">вашего региона</b>. Регион меняете в один тап.</p>
+  <div class="trust-row">
+    <div><i>₽</i><b>От 390 ₽ в неделю</b><span>отмена в один тап, без скрытых списаний</span></div>
+    <div><i>↩</i><b>Возврат 14 дней</b><span>одним письмом, без причин</span></div>
+    <div><i>◆</i><b>Данные ваши</b><span>хранятся у вас, не продаются</span></div>
+    <div><i>✆</i><b>Отвечает автор</b><span>лично, обычно за пару часов</span></div>
+  </div>
   <div class="mp-band" id="mpBand"></div>
   <div class="mp-foot"><button class="btn ghost" onclick="openRegion()">⌘ Сменить регион</button><span>сейчас площадок в вашем регионе: <b id="mpCnt">—</b></span></div>
 </section>
@@ -4193,7 +4314,7 @@ header nav.topnav{gap:4px;align-items:center}
 </section>
 
 <section class="sec reveal hub-home" id="hub">
-  <div class="eyebrow">всё для вас · 19 разделов на ваших данных</div>
+  <div class="eyebrow">всё для вас · 20 разделов на ваших данных</div>
   <h2 class="big">Не советы из интернета — <span class="holo">система, которая знает вас</span></h2>
   <p class="lead">Цветотип, кожа, волосы, макияж, гардероб, капсула, событие — каждый раздел строится на вашей анкете, показывает результат картинкой и ведёт до покупки в вашей стране. Чат этого не сделает: у него нет вашей палитры и вашего шкафа.</p>
   <div class="hub-grid" data-hub></div>
@@ -4206,7 +4327,7 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="ab-grid">
     <button class="ab-card" onclick="openPage('howPage')"><i>⚙</i><b>Как работает</b><span>Три шага: анкета → анализ данных → готовые образы со ссылками</span><em>технология →</em></button>
     <button class="ab-card" onclick="openPage('aboutPage')"><i>◐</i><b>Кто мы</b><span>Анна и её проект: почему появилась LOOKA и кто отвечает на письма</span><em>познакомиться →</em></button>
-    <button class="ab-card" onclick="openPage('termsPage')"><i>₽</i><b>Условия и оплата</b><span>5 000 ₽ один раз, без подписок · возврат 14 дней одним письмом</span><em>смотреть цену →</em></button>
+    <button class="ab-card" onclick="openPage('termsPage')"><i>₽</i><b>Условия и оплата</b><span>от 390 ₽ в неделю · месяц 990 ₽ · год 4 990 ₽ · возврат 14 дней</span><em>смотреть цену →</em></button>
     <button class="ab-card" onclick="openPage('devPage')"><i>↗</i><b>Развитие</b><span>Траектория: что работает, что на старте и куда идём — плюс карта мира</span><em>план →</em></button>
     <button class="ab-card" onclick="openPage('docsPage')"><i>▤</i><b>Документы</b><span>Оферта, политика данных, реквизиты самозанятой</span><em>документы →</em></button>
   </div>
@@ -4314,7 +4435,7 @@ header nav.topnav{gap:4px;align-items:center}
     <div class="vs-mid">VS</div>
     <div class="vs-card vs-right">
       <div class="vs-name">LOOKA</div>
-      <div class="vs-row"><span class="v">✓</span>5 000 ₽ — разово и навсегда, 5 подборов бесплатно</div>
+      <div class="vs-row"><span class="v">✓</span>от 390 ₽ в неделю, 5 подборов бесплатно</div>
       <div class="vs-row"><span class="v">✓</span>образы через 2 минуты, в любое время</div>
       <div class="vs-row"><span class="v">✓</span>Бьюти-скан, Консилиум и Стиль-паспорт в PDF — включены</div>
       <div class="vs-row"><span class="v">✓</span><span class="reg-shops-vs">WB · Ozon · Lamoda — весь выбор страны</span> + свадебные салоны и Telegram-магазины</div>
@@ -4348,13 +4469,18 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="eyebrow">условия и гарантии</div>
   <h2 class="big">Честные условия — <span class="holo">без звёздочек</span></h2>
   <p class="lead">Всё важное — на одной странице, простым языком. Никакого мелкого шрифта, скрытых подписок и «акция действует до полуночи». Мы зарабатываем на хорошем сервисе, а не на невнимательности.</p>
-  <div class="price-card" style="margin-top:26px">
-    <div class="p-name">LOOKA · ПОЛНЫЙ ДОСТУП</div>
-    <div class="p-price">5 000 ₽</div>
-    <div class="p-once">разовый платёж · навсегда · без подписок и автосписаний</div>
-    <div class="p-refund">✓ 14 дней на возврат: передумали — вернём деньги одним письмом, без выяснения причин</div>
+  <div class="plans" id="plans">
+    <button class="plan" data-plan="week" onclick="pickPlan('week')"><small>Неделя</small><b>390 ₽</b><span>попробовать всё · 7 дней</span><em>без автопродления</em></button>
+    <button class="plan on" data-plan="month" onclick="pickPlan('month')"><i class="plan-tag">популярный</i><small>Месяц</small><b>990 ₽</b><span>≈ 33 ₽ в день · все разделы и генерации</span><em>отменяется в один тап</em></button>
+    <button class="plan" data-plan="year" onclick="pickPlan('year')"><i class="plan-tag gold">−58 %</i><small>Год</small><b>4 990 ₽</b><span>≈ 416 ₽ в месяц · 5 месяцев в подарок</span><em>лучшая цена</em></button>
+  </div>
+  <div class="price-card" style="margin-top:14px">
+    <div class="p-name" id="pName">LOOKA · МЕСЯЦ</div>
+    <div class="p-price" id="pPrice">990 ₽</div>
+    <div class="p-once" id="pOnce">подписка на месяц · отменяется в один тап · без скрытых списаний</div>
+    <div class="p-refund">✓ 14 дней на возврат первой оплаты: передумали — вернём одним письмом, без выяснения причин</div>
     <div class="p-ref" id="pRef"></div>
-    <div class="p-gift">🎁 Можно <b style="cursor:pointer;border-bottom:1px dotted" onclick="openPage('giftPage')">подарить</b> — именная карточка с кодом для подруги или мамы</div>
+    <div class="p-gift">🎁 Можно <b style="cursor:pointer;border-bottom:1px dotted" onclick="openPage('giftPage')">подарить</b> год LOOKA — именная карточка с кодом для подруги или мамы</div>
     <ul class="p-list">
       <li>Безлимитные подборы образов и пересборки — 8 поводов, включая свадьбу</li>
       <li>Бьюти-скан: причёска, стрелки, помада, уход по типу кожи — с косметичкой</li>
@@ -4380,7 +4506,7 @@ header nav.topnav{gap:4px;align-items:center}
       <div class="moat-item"><b>Данные не продаются</b><p>Анкета и фото используются только для подбора. Никакой передачи третьим лицам, никакого спама, фото не сохраняется.</p></div>
     </div>
   </div>
-  <details class="faq" style="margin-top:34px"><summary>Почему именно 5 000 ₽?</summary><div>Одна консультация офлайн-стилиста стоит от 10 000 ₽ и заканчивается вместе со встречей. LOOKA — это разовый платёж за инструмент, который остаётся с вами: к каждому событию, каждому сезону, с обновлениями без доплат. По сути — цена одной вещи из вашего гардероба.</div></details>
+  <details class="faq" style="margin-top:34px"><summary>Почему такие цены?</summary><div>Одна консультация офлайн-стилиста стоит от 10 000 ₽ и заканчивается вместе со встречей. LOOKA — это разовый платёж за инструмент, который остаётся с вами: к каждому событию, каждому сезону, с обновлениями без доплат. По сути — цена одной вещи из вашего гардероба.</div></details>
   <details class="faq"><summary>Что происходит сразу после оплаты?</summary><div>Доступ открывается сразу, на почту приходит электронный чек. Лимит подборов снимается — пользуйтесь без ограничений с первой минуты.</div></details>
   <details class="faq"><summary>А если мне не понравится?</summary><div>Сначала — кнопка «Пересобрать»: образы соберутся заново в другом стиле. Если сервис в целом не ваш — возврат в течение 14 дней, без вопросов. Мы не держим тех, кому не подошло.</div></details>
   <details class="faq" id="refundFaq"><summary>Условия возврата — полностью</summary><div>
@@ -4755,18 +4881,36 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab on"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
   <div class="about-wrap">
     <div class="about-card">
-      <div class="ct-av" style="width:72px;height:72px"><span style="font-size:28px">А</span><i></i></div>
-      <div class="eyebrow" style="margin-top:16px">кто делает LOOKA</div>
-      <h2 class="big">Меня зовут Анна.<br><span class="holo">LOOKA — мой проект, не корпорация</span></h2>
-      <p class="lead">Я устала от «стильных подборок», которые подходят всем — то есть никому. От шкафа, полного вещей, к которому нечего надеть. От покупок «под настроение», которые ни с чем не сочетаются. И собрала сервис, который начинает не с трендов, а с вас: фигура, цвета внешности, размер, бюджет — и только потом одежда.</p>
-      <p class="lead">Здесь нет колл-центра и «вашего звонка, очень важного для нас». На письма отвечаю я, лично, обычно в течение пары часов. Если что-то не работает — я это чиню. Если сервис вам не подошёл — возвращаю деньги, без выяснения причин.</p>
-      <div class="about-vals">
-        <div class="pop"><b>Без подписок</b><span>один платёж — навсегда, автосписаний нет в принципе</span></div>
-        <div class="pop" style="animation-delay:.08s"><b>Возврат 14 дней</b><span>передумали — вернём, вопрос закрыт одним письмом</span></div>
-        <div class="pop" style="animation-delay:.16s"><b>Данные — в вашем телефоне</b><span>анкета и гардероб хранятся у вас, а не на моих серверах</span></div>
-        <div class="pop" style="animation-delay:.24s"><b>Официально</b><span>работаю как самозанятая, реквизиты и оферта — в «Документах»</span></div>
+      <div class="ab-hero">
+        <div class="ab-face"><div class="ct-av" style="width:92px;height:92px"><span style="font-size:34px">А</span><i></i></div><em>Анна · основатель</em></div>
+        <div>
+          <div class="eyebrow">кто делает LOOKA</div>
+          <h2 class="big">LOOKA — мой проект,<br><span class="holo">а не корпорация</span></h2>
+          <p class="lead">На письма отвечаю я. Ломается — чиню я. Не подошло — возвращаю деньги я. Без колл-центра и «ваш звонок очень важен».</p>
+        </div>
       </div>
-      <div class="to-row" style="margin-top:20px"><button class="btn primary" onclick="openPage('contactsPage')">Написать мне</button><button class="btn ghost" onclick="openPage('devPage')">Куда растёт LOOKA →</button></div>
+
+      <div class="ab-why">
+        <div class="ab-w"><i>✕</i><b>Устала от «модных подборок»</b><span>они подходят всем — то есть никому</span></div>
+        <div class="ab-w"><i>✕</i><b>Устала от полного шкафа</b><span>в котором нечего надеть</span></div>
+        <div class="ab-w ok"><i>✓</i><b>Сделала наоборот</b><span>сначала вы — фигура, цвета, размер, бюджет. Одежда потом</span></div>
+      </div>
+
+      <div class="about-vals">
+        <div class="pop"><i>∞</i><b>Честная подписка</b><span>неделя, месяц или год · отмена в один тап</span></div>
+        <div class="pop" style="animation-delay:.08s"><i>↩</i><b>Возврат 14 дней</b><span>одним письмом, без причин</span></div>
+        <div class="pop" style="animation-delay:.16s"><i>◆</i><b>Данные ваши</b><span>в вашем телефоне и аккаунте</span></div>
+        <div class="pop" style="animation-delay:.24s"><i>▤</i><b>Официально</b><span>самозанятая, оферта и реквизиты</span></div>
+      </div>
+
+      <div class="ab-num">
+        <div><b>19</b><span>разделов</span></div>
+        <div><b>8</b><span>помощников</span></div>
+        <div><b>15</b><span>регионов мира</span></div>
+        <div><b>~2 ч</b><span>ответ на письмо</span></div>
+      </div>
+
+      <div class="to-row" style="margin-top:22px"><button class="btn primary" onclick="openPage('contactsPage')">Написать мне</button><button class="btn ghost" onclick="openPage('devPage')">Куда растёт LOOKA →</button></div>
     </div>
 
     <div class="about-card" style="margin-top:22px">
@@ -4814,7 +4958,7 @@ header nav.topnav{gap:4px;align-items:center}
   <p class="lead">Простые условия без договоров на 40 страниц: ваш личный код даёт подписчицам скидку, а вам — процент с каждой оплаты по нему.</p>
   <div class="moat-grid">
     <div class="moat-item"><b>−10 % вашим подписчицам</b><p>Личный промокод от вашего имени: «по коду LIZA — скидка». Девушки любят покупать «по коду от своей».</p></div>
-    <div class="moat-item"><b>20 % с каждой продажи</b><p>1 000 ₽ с каждого доступа, купленного по вашему коду. Выплата раз в месяц на карту или самозанятость — как удобно.</p></div>
+    <div class="moat-item"><b>20 % с каждой оплаты</b><p>С каждой недели, месяца и года, оплаченных по вашему коду, — включая продления. Выплата раз в месяц на карту или самозанятость — как удобно.</p></div>
     <div class="moat-item"><b>Готовый контент</b><p>Карточка цветотипа для сторис, «мой гардероб: 14 вещей → 30 образов», примерка — сервис сам генерирует то, что интересно снимать.</p></div>
     <div class="moat-item"><b>Ранний доступ</b><p>Полный доступ бесплатно — пользуйтесь всем и показывайте честно, включая то, что не понравилось.</p></div>
   </div>
@@ -4849,10 +4993,10 @@ header nav.topnav{gap:4px;align-items:center}
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
   <div class="eyebrow">подарочный сертификат</div>
   <h2 class="big">Подарить LOOKA — <span class="holo">подарить «мне идёт»</span></h2>
-  <p class="lead">Полный доступ навсегда в подарок подруге, сестре, маме: красивая именная карточка с кодом — в течение часа после оплаты.</p>
+  <p class="lead">Год LOOKA в подарок подруге, сестре, маме: красивая именная карточка с кодом — в течение часа после оплаты.</p>
   <div class="moat-grid">
     <div class="moat-item"><b>1 · Напишите нам</b><p>«Хочу подарить» в Telegram или на почту: имя получательницы и дату, к которой нужен сертификат.</p></div>
-    <div class="moat-item"><b>2 · Оплатите как обычно</b><p>Те же 5 000 ₽, реквизиты в «Условиях». Действуют и коды блогеров.</p></div>
+    <div class="moat-item"><b>2 · Оплатите как обычно</b><p>Год LOOKA — 4 990 ₽, реквизиты в «Условиях». Действуют и коды блогеров.</p></div>
     <div class="moat-item"><b>3 · Получите карточку</b><p>Пришлём именную карточку-сертификат с кодом — отправьте её или распечатайте. Активация — в одно письмо, срок не горит.</p></div>
   </div>
   <div class="to-row" style="margin-top:22px"><a class="btn primary" href="https://t.me/looka_support?text=Хочу подарить доступ LOOKA" target="_blank" rel="noopener">✈ Хочу подарить</a><button class="btn ghost" onclick="openPage('termsPage')">Условия и возврат</button></div>
@@ -4879,6 +5023,16 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="looks" id="glOut"></div>
 </section>
 
+<section class="sec pageview" id="dnaPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero">
+    <div class="eyebrow">стиль-днк · ваш вкус, а не «стиль вообще»</div>
+    <h2 class="big">ИИ не знает, что вы носите. <span class="holo">Расскажите — один раз</span></h2>
+    <p class="lead">Y2K или old money, оверсайз или по фигуре, каблуки или никогда, какой вы человек и что вас раздражает в одежде. Девять блоков — эстетики, посадки, характер, цвета, «никогда», калибровка на образах, досье, личность и красота — только выбор ответов, ничего писать не нужно. И каждый подбор, примерка и разбор в LOOKA начинают говорить именно с вами. Всё сохраняется по ходу.</p>
+  </div>
+  <div id="dnaBox"></div>
+</section>
+
 <section class="sec pageview" id="docsPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
   <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab on"><i>▤</i>Документы</button></div>
@@ -4897,7 +5051,7 @@ header nav.topnav{gap:4px;align-items:center}
     <div class="docs-body" id="docsBody">
       <article class="doc on" id="doc-offer">
         <div class="doc-head"><h3>Публичная оферта</h3><span>редакция от 31 августа 2026 · вступает в силу с момента публикации</span></div>
-        <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>Вы платите 5 000 ₽ один раз — и получаете полный доступ к LOOKA без подписок и автосписаний.</li><li>Оплата = согласие с этими условиями (это и называется акцепт оферты).</li><li>Вернуть деньги можно в течение 14 дней без объяснения причин.</li><li>LOOKA даёт рекомендации; покупаете вещи вы сами у маркетплейсов — с ними у вас отдельные отношения.</li></ul></div>
+        <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>Вы выбираете срок — неделя, месяц или год — и получаете полный доступ к LOOKA на этот срок. Продление только по вашему подтверждению, отмена в один тап.</li><li>Оплата = согласие с этими условиями (это и называется акцепт оферты).</li><li>Вернуть деньги можно в течение 14 дней без объяснения причин.</li><li>LOOKA даёт рекомендации; покупаете вещи вы сами у маркетплейсов — с ними у вас отдельные отношения.</li></ul></div>
         <h4>1. Термины</h4>
         <p><b>Исполнитель</b> — Бредихина Анна Викторовна, плательщик налога на профессиональный доход (самозанятый), ИНН 773178276864. <b>Сервис</b> — сайт LOOKA и его функции: подбор образов, Бьюти-скан, Помощники, Консилиум. <b>Пользователь</b> — дееспособное физическое лицо, принявшее условия оферты. <b>Доступ</b> — право использовать все функции Сервиса без ограничения количества подборов.</p>
         <h4>2. Предмет</h4>
@@ -4907,7 +5061,7 @@ header nav.topnav{gap:4px;align-items:center}
         <p>3.1. Договор считается заключённым с момента оплаты Доступа (п. 3 ст. 438 ГК РФ). Оплачивая, Пользователь подтверждает, что ознакомлен с офертой, Политикой конфиденциальности и Условиями возврата и принимает их полностью.</p>
         <p>3.2. До оплаты Пользователю доступны 5 (пять) бесплатных подборов — для оценки Сервиса.</p>
         <h4>4. Стоимость и оплата</h4>
-        <p>4.1. Стоимость Доступа — 5 000 (пять тысяч) рублей, единовременно. НДС не облагается (Исполнитель применяет специальный налоговый режим «Налог на профессиональный доход»).</p>
+        <p>4.1. Стоимость Доступа: 390 рублей за 7 дней, 990 рублей за 30 дней, 4 990 рублей за 365 дней. НДС не облагается (Исполнитель применяет специальный налоговый режим «Налог на профессиональный доход»).</p>
         <p>4.2. Оплата производится по ссылке, направленной Исполнителем по заявке Пользователя, через платёжный сервис. Исполнитель не получает данных банковской карты Пользователя.</p>
         <p>4.3. После оплаты Пользователь получает чек в электронном виде и код активации Доступа. Доступ действует бессрочно.</p>
         <h4>5. Права и обязанности</h4>
@@ -5030,11 +5184,11 @@ header nav.topnav{gap:4px;align-items:center}
 <section class="sec reveal" id="pricing">
   <div class="eyebrow">доступ и оплата</div>
   <h2 class="big">Прозрачные условия — <span class="holo">один платёж</span></h2>
-  <p class="lead">Консультация офлайн-стилиста стоит от 10 000 ₽ и заканчивается вместе со встречей. Доступ к LOOKA — разовый платёж без подписок и автосписаний: пользуйтесь без ограничений, сколько потребуется.</p>
+  <p class="lead">Консультация офлайн-стилиста стоит от 10 000 ₽ и заканчивается вместе со встречей. Доступ к LOOKA — от 390 ₽ в неделю, отмена в один тап: пользуйтесь столько, сколько нужно.</p>
   <div class="price-card">
-    <div class="p-name">LOOKA · ПОЛНЫЙ ДОСТУП</div>
-    <div class="p-price">5 000 ₽</div>
-    <div class="p-once">разовый платёж · без подписок</div>
+    <div class="p-name">LOOKA · ПОДПИСКА</div>
+    <div class="p-price">от 390 ₽</div>
+    <div class="p-once">неделя 390 ₽ · месяц 990 ₽ · год 4 990 ₽</div>
     <ul class="p-list">
       <li>Безлимитные подборы образов и пересборки — 8 поводов, включая свадьбу</li>
       <li>Бьюти-скан: причёска, стрелки, помада, уход по типу кожи — с косметичкой</li>
@@ -5058,7 +5212,7 @@ header nav.topnav{gap:4px;align-items:center}
   <p class="lead">Прозрачно, в четыре шага. Данные карты видит только платёжная система — сервис к ним доступа не имеет и не хранит их.</p>
   <div class="how">
     <div class="how-card"><span class="num">01</span><h3>Выбираете доступ</h3><p>Нажимаете «Оформить доступ» в условиях — без регистрации и лишних форм.</p></div>
-    <div class="how-card"><span class="num">02</span><h3>Оплачиваете удобно</h3><p>Банковская карта или СБП через защищённый платёжный сервис. Разовый платёж — подписок и автосписаний нет.</p></div>
+    <div class="how-card"><span class="num">02</span><h3>Оплачиваете удобно</h3><p>Банковская карта или СБП через защищённый платёжный сервис. Неделя, месяц или год — отмена в один тап, скрытых списаний нет.</p></div>
     <div class="how-card"><span class="num">03</span><h3>Получаете чек</h3><p>Электронный чек приходит на почту сразу после оплаты — всё официально.</p></div>
     <div class="how-card"><span class="num">04</span><h3>Пользуетесь сразу</h3><p>Доступ открывается мгновенно. Не подошло — возврат в течение 14 дней без объяснения причин.</p></div>
   </div>
@@ -5102,7 +5256,7 @@ header nav.topnav{gap:4px;align-items:center}
 <section class="sec reveal" id="docs">
   <div class="eyebrow">прозрачность</div>
   <h2 class="big">Документы <span class="holo">и гарантии</span></h2>
-  <details class="faq"><summary>Публичная оферта</summary><div>Полный текст оферты публикуется здесь до старта продаж. Ключевые условия уже зафиксированы: разовый платёж 5 000 ₽ без подписок и автосписаний; возврат средств в течение 14 дней без объяснения причин; доступ открывается сразу после оплаты.</div></details>
+  <details class="faq"><summary>Публичная оферта</summary><div>Полный текст оферты публикуется здесь до старта продаж. Ключевые условия уже зафиксированы: тарифы: неделя 390 ₽, месяц 990 ₽, год 4 990 ₽; продление только с подтверждением, отмена в один тап; возврат средств в течение 14 дней без объяснения причин; доступ открывается сразу после оплаты.</div></details>
   <details class="faq"><summary>Политика конфиденциальности</summary><div>Данные анкеты используются только для подбора и не передаются третьим лицам. Загруженное фото не сохраняется на серверах — оно участвует только в момент подбора. Мы не запрашиваем данные карт: оплату обрабатывает защищённый платёжный сервис.</div></details>
   <details class="faq"><summary>Реквизиты продавца</summary><div>Наименование, ИНН и контактные данные продавца публикуются в этом разделе до старта продаж — как того требует закон о защите прав потребителей.</div></details>
   <div class="contact-band" id="contacts">
@@ -5115,7 +5269,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec reveal">
   <h2 class="big">ЧАСТЫЕ <span class="holo">ВОПРОСЫ</span></h2>
-  <details class="faq"><summary>Сколько стоит доступ?</summary><div>Первые 5 подборов — бесплатные, чтобы вы оценили качество до оплаты. Полный доступ — разовый платёж 5 000 ₽ без подписок и автосписаний: безлимитные пересборки, все сценарии, подбор по фото.</div></details>
+  <details class="faq"><summary>Сколько стоит доступ?</summary><div>Первые 5 подборов — бесплатные, чтобы вы оценили качество до оплаты. Полный доступ — тарифы: неделя 390 ₽, месяц 990 ₽, год 4 990 ₽; продление только с подтверждением, отмена в один тап: безлимитные пересборки, все сценарии, подбор по фото.</div></details>
   <details class="faq"><summary>Как проходит оплата?</summary><div>Через защищённый платёжный сервис. Данные карты видит только платёжная система — сервис к ним доступа не имеет. Доступ открывается сразу после оплаты.</div></details>
   <details class="faq"><summary>Можно ли вернуть деньги?</summary><div>Да. Если сервис не подошёл — возврат в течение 14 дней с момента оплаты, без объяснения причин.</div></details>
   <details class="faq"><summary>Обязательно ли загружать фото?</summary><div>Нет. Анкеты достаточно. Фото — по желанию: с ним подбор точнее попадает в цветотип и пропорции. Фото не сохраняется и используется только в момент подбора.</div></details>
@@ -5162,7 +5316,7 @@ header nav.topnav{gap:4px;align-items:center}
     <button class="pay-x" onclick="closePay()">✕</button>
     <div class="pay-tabs"><button class="on" onclick="payTab(0)">Оформить доступ</button><button onclick="payTab(1)">У меня есть код</button></div>
     <div class="pay-pane" id="payP0">
-      <div class="p-name">LOOKA · ПОЛНЫЙ ДОСТУП · 5 000 ₽</div>
+      <div class="p-name" id="payPlanName">LOOKA · МЕСЯЦ · 990 ₽</div>
       <p class="pay-lead">Оставьте имя и способ связи — пришлём ссылку на оплату и после оплаты активируем доступ. Обычно это занимает несколько минут в рабочее время.</p>
       <div class="pay-row"><input id="payName" placeholder="Как к вам обращаться"></div>
       <div class="pay-row"><input id="payPhone" placeholder="Телефон или @телеграм"></div>
@@ -5363,7 +5517,8 @@ const STEPS = [
     ${grp('Вес', `<div class="slider-row"><button class="mini" onclick="bump('weight',-1)">−</button><input id="r-weight" type="range" min="40" max="140" value="${S.weight}" oninput="setVal('weight',this.value)"><button class="mini" onclick="bump('weight',1)">+</button><span class="val" id="v-weight">${S.weight} кг</span></div>`)}
     ${grp('Тип фигуры', chips('figure', S.gender==='Мужчина'?FIG_M:FIG_F))}
     ${grp('Что учесть — можно несколько (необязательно)', '<div class="chips">'+(S.gender==='Мужчина'?FOCUS_M:FOCUS_F).map(f=>'<button class="chip '+(S.focus.includes(f)?'on':'')+'" onclick="toggleFocus(\''+f+'\')">'+f+'</button>').join('')+'</div>')}
-    ${grp('Стиль, к которому тянет', chips('style', STYLES))}`}},
+    ${grp('Стиль, к которому тянет', chips('style', STYLES))}
+    <div class="dna-cta"><b>${(window.dnaFilled&&dnaFilled())?'✓ Стиль-ДНК заполнен — подбор учитывает ваш вкус':'ИИ не угадает ваш вкус по одному слову'}</b><span>${(window.dnaFilled&&dnaFilled())?'Можно дополнить: калибровка на 12 образах делает подбор точнее.':'Y2K или old money, оверсайз или по фигуре, что никогда не наденете — расскажите один раз.'}</span><button class="btn ghost" type="button" onclick="openDna()">${(window.dnaFilled&&dnaFilled())?'Дополнить ДНК →':'Заполнить стиль-ДНК · 5 минут →'}</button></div>`}},
   {label:'Шаг 3 из 5 / Размеры', title:'Ваши размеры', render(){return `
     ${grp('Размер одежды (RU)', chips('clothSize', S.gender==='Мужчина'?SIZES_M:SIZES_F))}
     ${grp('Размер обуви', chips('shoeSize', S.gender==='Мужчина'?SHOES_M:SHOES_F))}`}},
@@ -5647,7 +5802,10 @@ const SEASON_RULES = {
 function localGen(){
   const male = S.gender==='Мужчина';
   const SR = SEASON_RULES[S.season||seasonNow()] || SEASON_RULES['Осень'];
-  let db = (male?W_M:W_F).filter(it=>it[4].includes(S.event) && !SR.ex.test(it[0]+' '+it[1]));
+  const DR = window.dnaRules ? dnaRules() : {ex:[],pref:[]};
+  const dnaOk = it => !DR.ex.some(r=>r.test(it[0]+' '+it[1]));
+  let db = (male?W_M:W_F).filter(it=>it[4].includes(S.event) && !SR.ex.test(it[0]+' '+it[1]) && dnaOk(it));
+  if(DR.pref.length){ const score = it => DR.pref.reduce((a,p)=>a+((it[0]+' '+it[1]).toLowerCase().includes(String(p).toLowerCase().split(' ')[0])?1:0),0); db = db.slice().sort((x,y)=>score(y)-score(x)); }
   if(db.length<8) db = (male?W_M:W_F).filter(it=>it[4].includes(S.event));
   const tier = BUDGETS.indexOf(S.budget), mult=[.55,.85,1.3,2.1,3.4][tier<0?1:tier];
   const pal = PAL();
@@ -5713,6 +5871,7 @@ async function generate(regen){
 
   const prompt = `Ты — профессиональный стилист. Подбери 3 РАЗНЫХ готовых образа (полный комплект одежды/обуви/аксессуаров) для человека:
 пол: ${S.gender}, возраст: ${S.age}, рост ${S.height} см, вес ${S.weight} кг, тип фигуры: ${S.figure}, размер одежды RU ${S.clothSize}, размер обуви ${S.shoeSize}, волосы: ${S.hair}, глаза: ${S.eyes}, тон кожи: ${S.skin}. Что учесть: ${(S.focus||[]).join(', ')||'ничего особенного'}. Любимый стиль: ${S.style||'любой'}.
+${(window.dnaSummary&&dnaSummary())?'СТИЛЬ-ДНК КЛИЕНТКИ (главный источник правды о вкусе, важнее общих правил): '+dnaSummary()+'. Строго соблюдай список «никогда» и не повторяй то, что ей не понравилось.':''}
 Событие: ${S.event}. Сезон за окном: ${S.season||seasonNow()} — подбирай строго по сезону (зимой обязателен тёплый верхний слой и закрытая утеплённая обувь, летом — лёгкие ткани и открытая обувь, в межсезонье — слои). Бюджет на весь образ: ${S.budget}.
 Ты собираешь эффектные законченные образы уровня журнального стилиста. Правила: цвета ВСЕХ вещей — включая обувь, сумку и верхнюю одежду — согласованы между собой и выигрышно смотрятся при этом тоне кожи, волос и глаз; обувь и сумка сочетаются по цвету; в каждом образе есть стильный аксессуар под формат (очки, украшение, ремень, платок); учитывай коррекцию фигуры. Вещи должны реально продаваться на Wildberries/Ozon/Lamoda.
 ${regen && lastTitles.length ? 'Пользователю НЕ понравились прошлые образы: '+lastTitles.join(', ')+'. Собери СОВЕРШЕННО другие — иные стили, цвета и вещи.' : ''}
@@ -6490,6 +6649,7 @@ async function genBeauty(){
     if(!B.selfie) throw new Error('офлайн-режим');
     const prompt = `Ты — топовый визажист, стилист и fashion-редактор уровня Vogue. По селфи и анкете дай персональный разбор.
 Анкета: стиль — ${B.style}; цель — ${B.goal||'-'}; уровень в макияже — ${B.lvl||'-'}; время на сборы — ${B.time||'-'}; сама в себе любит: ${(B.like||[]).join(', ')||'-'}; волосы: ${S.hair||'-'}, глаза: ${S.eyes||'-'}, кожа: ${S.skin||'-'}, тип кожи: ${B.skin||'-'}.
+${(window.dnaBeauty&&dnaBeauty())?'ЕЁ БЬЮТИ-ДНК (обязательно учитывай привычки и запреты, не предлагай то, чего она не переносит): '+dnaBeauty()+'.':''}
 Тон: тёплый, конкретный, без лести и критики. Сложность приёмов — под её уровень и время на сборы. Ответь ТОЛЬКО JSON:
 {"impression":["3-4 коротких пункта — общее впечатление от внешности, тепло и точно"],"features":["4-6 ключевых черт лица, по 2-4 слова"],"strengths":["3-4 сильные стороны — что фотогенично и держит лицо"],"improve":["2-3 деликатных пункта: что выиграет от ухода или приёма — про действия, не про недостатки"],"arch":{"mix":"визуальный архетип — смесь 2-3 направлений (soft power, modern muse, quiet luxury, romantic drama, editorial minimalism...)","keep":"что во внешности поддерживает архетип","break":"что ломает образ — 1 фраза"},"risk":"главный визуальный риск одной фразой (что может упростить или удешевить образ)","quick":["5 быстрых апгрейдов: волосы; кожа или макияж; одна вещь; цвет у лица; аксессуар"],"conf":{"lvl":"низкая|средняя|высокая","why":"что ограничивает точность: свет, ракурс, качество фото — 1 фраза"},"wow":"её самая выигрышная черта одной фразой (глаза/губы/скулы/брови/волосы/овал) — что делает внешность запоминающейся","wowDay":"как подчеркнуть эту черту днём: 1-2 приёма макияжа","wowEve":"как усилить вечером","wowAcc":"аксессуары под эту черту: форма серёг и вырезы, конкретно","cut":"стрижка/укладка под форму лица, 1-2 фразы","brows":"брови","eyes":"палитра теней","liner":"какие стрелки","lips":"цвет помады","care":"уход по типу кожи ${B.skin||'не указан'} в 2 фразах","style":"формула стиля одной фразой","prods":[{"n":"продукт с оттенком","q":"поисковый запрос","p":"~900 ₽"}]}
 6-7 prods под бюджет ${B.budget}. Коротко, без текста вне JSON. ЗАПРЕЩЕНО: численные оценки и баллы внешности, сравнения с другими, критика черт — только что и как усилить.`;
@@ -6549,6 +6709,7 @@ window.openPage = (id, anchor)=>{
   if(id==='framesPage' && window.renderFrames) renderFrames();
   if(id==='shopsPage' && window.renderShops) renderShops();
   if(id==='glowPage' && window.renderGlowForm) renderGlowForm();
+  if(id==='dnaPage' && window.renderDna) renderDna();
   if(id==='myPage'){ if(window.renderAcc) renderAcc(); if(window.accGreet) accGreet(); }
   if(id==='carePage' && window.renderCare) renderCare();
   if(anchor){
@@ -7432,7 +7593,8 @@ window.sendPay = (how, btn)=>{
   if(btn){ btn.parentElement.querySelectorAll('.btn').forEach(b=>{ b.classList.remove('primary'); b.classList.add('ghost'); }); btn.classList.add('primary'); btn.classList.remove('ghost'); }
   const n = document.getElementById('payName').value.trim(), c = document.getElementById('payPhone').value.trim();
   if(!n || !c){ alert('Заполните имя и способ связи'); return; }
-  const txt = 'Хочу оформить доступ LOOKA (5 000 ₽).\nИмя: '+n+'\nСвязь: '+c+'\nЖду ссылку на оплату.';
+  const PL = window.PLANS ? PLANS[window.curPlan||'month'] : {t:'месяц',p:'990 ₽'};
+  const txt = 'Хочу оформить LOOKA · '+PL.t+' ('+PL.p+').\nИмя: '+n+'\nСвязь: '+c+'\nЖду ссылку на оплату.';
   if(how==='tg') window.open('https://t.me/'+PAY_TG+'?text='+encodeURIComponent(txt), '_blank');
   else location.href = 'mailto:'+PAY_MAIL+'?subject='+encodeURIComponent('Заявка на доступ LOOKA — '+n)+'&body='+encodeURIComponent(txt);
 };
@@ -9338,6 +9500,7 @@ window.renderWardrobe = renderWardrobe;
 const GROUPS = [
   { t:'Что надеть', d:'от анкеты до вещей в корзине — без «нечего носить»', items:[
     ['✦','Три образа за две минуты','ответили на анкету — получили готовые комплекты со ссылками', "goQuiz()", 'бесплатно'],
+    ['⌘','Стиль-ДНК','35 эстетик, посадки, характер, «никогда» — чтобы ИИ знал ваш вкус', 'openDna()', 'бесплатно'],
     ['▣','Шкаф, который сам одевает','ваши вещи → образ на сегодня, план недели и что докупить', 'openWardrobe()', 'доступ'],
     ['▦','14 вещей — 30 образов','капсула сезона: докупаете только недостающее', 'openCapsule()', 'доступ'],
     ['◈','Важный день под ключ','свадьба, собеседование, свидание — план по дням', 'openEvent()', 'доступ'],
@@ -9732,8 +9895,8 @@ window.openCare = ()=>{ openPage('carePage'); renderCare(); };
   let ref = null; try{ ref = JSON.parse(localStorage.getItem('looka_ref')||'null'); }catch(e){}
   if(!ref) return;
   const days = (Date.now()-ref.ts)/864e5; if(days>60){ localStorage.removeItem('looka_ref'); return; }
-  setTimeout(()=>myToast('Вы по приглашению @'+ref.code+' — вам скидка 10 % на полный доступ'), 1800);
-  const upd = ()=>{ const el = document.getElementById('pRef'); if(el) el.innerHTML = 'Ваш код от <b>@'+ref.code+'</b>: <b>4 500 ₽ вместо 5 000 ₽</b> — назовите код '+ref.code.toUpperCase()+' при оплате'; };
+  setTimeout(()=>myToast('Вы по приглашению @'+ref.code+' — вам скидка 10 % на первую оплату'), 1800);
+  const upd = ()=>{ const el = document.getElementById('pRef'); if(el) el.innerHTML = 'Ваш код от <b>@'+ref.code+'</b>: <b>−10 % на первую оплату</b> (на неделю, месяц или год) — назовите код '+ref.code.toUpperCase()+' при оплате'; };
   upd(); const orig = window.openPage; window.openPage = function(){ orig.apply(null, arguments); setTimeout(upd, 50); };
 })();
 /* ================= ПОВТОРИТЬ МАКИЯЖ С ФОТО: референс + ваша косметичка ================= */
@@ -10169,6 +10332,7 @@ const IDX = [
  ['Бутики','инстаграм телеграм магазины бутики ник каталог','openShops()','раздел'],
  ['Консилиум','вопрос эксперт дерматолог трихолог визажист спросить','openPage(\'askPage\')','раздел'],
  ['Стиль-паспорт','паспорт итог карточка сторис pdf всё обо мне','openPage(\'passPage\')','раздел'],
+ ['Стиль-ДНК','стиль вкус эстетика y2k old money оверсайз посадка характер никогда бренды','openDna()','раздел'],
  ['Мой LOOKA','избранное покупки история сохранённое','openPage(\'myPage\')','раздел'],
  ['Что надеть сегодня','погода сегодня градусы город','openTool(\'today\')','помощник'],
  ['Чемодан в поездку','поездка чемодан отпуск сборы багаж','openTool(\'trip\')','помощник'],
@@ -10394,6 +10558,68 @@ window.ritDraw = ()=>{
     </div>`;
 };
 
+
+const BODY = {
+ 'Растяжки':{ what:'Разрывы в глубоком слое кожи от быстрого роста, беременности или скачков веса. Свежие — розово-фиолетовые, старые — белые, похожие на шрамы.',
+   work:['Свежие (красные) отвечают лучше всего — начинать сразу, как заметили','Крем с ретиноидом на ночь (не при беременности и кормлении) — единственная группа с доказанным эффектом на свежие','Увлажнение и мочевина: делает кожу эластичнее и менее заметной','Аппаратные методы у врача: фракционный лазер, микронидлинг — заметное улучшение, но не исчезновение'],
+   who:'Дерматолог или косметолог с медицинским образованием — по лазеру и микронидлингу. При беременности — только увлажнение, всё активное после родов и кормления.',
+   no:'«Кремы от растяжек» без активов, мумиё, масла как единственное средство, обёртывания — на структуру кожи не влияют.',
+   buy:[['Крем с мочевиной 10 %','крем для тела с мочевиной 10'],['Ретиноид для тела','крем для тела с ретинолом'],['Центелла для тела','крем с центеллой для тела']],
+   real:'Честно: полностью убрать растяжки нельзя ничем. Реально — сделать бледнее и ровнее на 30–60 %.' },
+ 'Живот и вздутие':{ what:'«Гормональный живот» — не диагноз, а собирательное слово. За этим может стоять вздутие от питания, задержка жидкости, слабые мышцы кора, стресс и кортизол, а иногда — состояния щитовидной железы, СПКЯ или инсулинорезистентность.',
+   work:['Сначала исключить медицинские причины — это единственный верный первый шаг','Дневник самочувствия: что ели, как спали, когда сильнее — врачу это скажет больше, чем фото','Мышцы кора и осанка: планка и дыхательные упражнения визуально меняют живот сильнее, чем любые обёртывания','Сон и стресс: кортизол влияет на распределение жира и задержку жидкости'],
+   who:'Терапевт → по результатам: эндокринолог (щитовидная железа, инсулин), гинеколог (СПКЯ), гастроэнтеролог (вздутие). Анализы назначает врач, а не интернет.',
+   no:'«Чаи для похудения», детокс, дренажные добавки, «сжигатели жира», пояса для похудения — либо слабительные, либо пустышки.',
+   buy:[['Коврик для упражнений','коврик для фитнеса'],['Резинки для тренировок','фитнес резинки набор']],
+   real:'Локально убрать жир с живота упражнениями невозможно — это физиология. Меняется общий состав тела, осанка и тонус мышц.' },
+ 'Ягодицы и ноги':{ what:'Форма ягодиц — это в основном мышцы и то, как расположен таз. Именно поэтому их действительно можно менять, в отличие от формы костей.',
+   work:['Силовые с прогрессией 2–3 раза в неделю: приседания, тяги, выпады, ягодичный мост','Прогрессия важнее количества: каждые 2 недели чуть больше вес или повторы','Белок в питании — без него мышцы не растут','Терпение: первые изменения видны через 8–12 недель, это норма'],
+   who:'Тренер на 2–3 занятия, чтобы поставить технику — это дешевле, чем лечить спину. При проблемах со спиной, суставами, давлением или после родов — сначала врач или реабилитолог.',
+   no:'Ежедневные «10 000 приседаний», массажёры «для ягодиц», кремы для объёма, разделение на «мужские» и «женские» упражнения.',
+   buy:[['Резинки для ягодиц','резинки для ягодиц набор'],['Гантели разборные','гантели разборные']],
+   real:'Изменить форму реально, но в рамках своей анатомии: ширина таза и места прикрепления мышц не меняются.' },
+ 'Целлюлит':{ what:'Особенность строения женской подкожной клетчатки. Есть примерно у 85–90 % женщин любого веса и возраста, включая моделей.',
+   work:['Мышечный тонус и общий состав тела делают рельеф ровнее','Увлажнение и уход за кожей тела улучшают вид','Аппаратные процедуры у врача дают временный эффект — требуют поддержки'],
+   who:'Косметолог с медицинским образованием, если хочется аппаратных методик. Обязательно спрашивайте про реальные ожидания и курс.',
+   no:'Антицеллюлитные кремы с «жиросжигающим» эффектом, вакуумные банки до синяков, обёртывания плёнкой, «выведение шлаков».',
+   buy:[['Скраб для тела','скраб для тела кофейный'],['Крем для тела увлажняющий','крем для тела увлажняющий']],
+   real:'Полностью убрать нельзя. Можно сделать менее заметным. Это не болезнь и не признак «запущенности».' },
+ 'Осанка и шея':{ what:'То, что чаще всего читается как возраст и усталость: сведённые плечи, «холка», вытянутая вперёд шея от телефона.',
+   work:['Упражнения на верх спины и заднюю дельту 2–3 раза в неделю','Высота экрана на уровне глаз — половина проблемы уходит сама','Перерывы каждые 40–60 минут','Растяжка грудных: они укорочены у всех, кто сидит'],
+   who:'Врач ЛФК или реабилитолог, если есть боль, онемение или «холка» заметно растёт. При грыжах и протрузиях — только по назначению.',
+   no:'Корсеты «для осанки» на целый день — мышцы слабеют ещё сильнее. Резкие вправления у мануальщиков без диагноза.',
+   buy:[['Резинка-эспандер','эспандер лента для спины'],['Подставка для ноутбука','подставка для ноутбука регулируемая']],
+   real:'Осанка — самый быстрый визуальный апгрейд: разница заметна уже через 3–4 недели.' },
+ 'Кожа тела':{ what:'Сухость, «гусиная кожа» на плечах, шелушение голеней, высыпания на спине.',
+   work:['Мочевина 10–20 % для сухости и кератоза («гусиной кожи»)','Кислоты для тела при высыпаниях на спине','Крем на влажную кожу сразу после душа','SPF на открытые участки — руки и грудь стареют первыми'],
+   who:'Дерматолог, если высыпания болезненные, не проходят месяцами или оставляют пятна.',
+   no:'Жёсткие мочалки, скрабы с косточками, горячий душ подолгу — всё это разрушает барьер.',
+   buy:[['Лосьон с мочевиной','лосьон для тела с мочевиной'],['Кислотный лосьон для тела','лосьон для тела с кислотами'],['SPF для тела','солнцезащитный крем для тела']],
+   real:'Здесь результат самый быстрый и предсказуемый: 2–4 недели регулярного ухода.' }
+};
+window.glBody = k=>{ G.bodyPick = k; HUB.save('looka_glow', G); renderBodyBlock(); };
+window.renderBodyBlock = ()=>{
+  const box = document.getElementById('glBody'); if(!box) return;
+  const k = G.bodyPick || 'Растяжки', d = BODY[k];
+  const health = (G.health||[]).filter(x=>x!=='Ничего из этого');
+  box.innerHTML = `
+    <div class="look badv mk-wide"><div class="look-in">
+      <div class="cs-k">ТЕЛО · ЧТО РЕАЛЬНО РАБОТАЕТ</div>
+      <h3>Выберите, что беспокоит</h3>
+      <div class="chips" style="margin-top:12px">${Object.keys(BODY).map(x=>`<button class="chip ${k===x?'on':''}" onclick="glBody('${x}')">${x}</button>`).join('')}</div>
+      <div class="bd-what">${d.what}</div>
+      <div class="bd-grid">
+        <div class="bd-c ok"><b>✓ Что работает</b><ul>${d.work.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div class="bd-c no"><b>✕ На что не тратить деньги</b><p>${d.no}</p></div>
+      </div>
+      <div class="bd-who"><i>✚</i><div><b>К кому идти</b><span>${d.who}</span></div></div>
+      ${health.length?`<div class="mr-warn">⚠ Вы отметили: ${health.join(', ').toLowerCase()}. Любые нагрузки и процедуры в этом случае — только после разговора с вашим врачом.</div>`:''}
+      <div class="bd-real">◆ Честно об ожиданиях: ${d.real}</div>
+      ${d.buy.length?`<div class="hp-sub" style="margin-top:16px">ЧТО ПРИГОДИТСЯ</div>${d.buy.map((bq,i)=>HUB.pop(`<div class="item"><div class="nm">${bq[0]}</div>${shopButtons({n:bq[0],q:bq[1]})}</div>`,i)).join('')}`:''}
+      <div class="b-priv">LOOKA не ставит диагнозов и не назначает лечение. Если что-то болит, быстро меняется или мешает жить — это к врачу, а не к сервису.</div>
+    </div></div>`;
+  if(window.fxZone) fxZone(box);
+};
 window.renderGlowForm = ()=>{
   const f = document.getElementById('glForm'); if(!f) return;
   const g = HUB.grp;
@@ -10435,6 +10661,8 @@ window.renderGlow = ()=>{
       ${MYTH.map((m,i)=>HUB.pop(`<div class="gl-myth"><b>✕ ${m[0]}</b><span>${m[1]}</span></div>`,i)).join('')}
     </div></div>` +
     `<div class="b-priv">LOOKA не ставит диагнозов, не назначает лечение и не заменяет врача. Всё перечисленное — общие принципы ухода и образа жизни. Заболевания кожи, беременность, приём лекарств, состояния сердца, давления, суставов и щитовидной железы — вопросы к вашему врачу: план ухода и нагрузок в этих случаях согласуйте с ним.</div>`;
+  out.insertAdjacentHTML('beforeend', '<div id="glBody"></div>');
+  renderBodyBlock();
   HUB.done(out);
   if(window.ritDraw) ritDraw();
 };
@@ -10457,7 +10685,7 @@ if(document.readyState !== 'loading' && window.ritDraw) ritDraw();
 /* ================= АККАУНТ: профиль, аватар, дата рождения, перенос ================= */
 (function(){
 const A = HUB.ls('looka_acc', { name:'', ava:'', dob:'', city:'', tg:'' });
-const KEYS = ['looka_acc','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_fit','looka_igshops','looka_shops','looka_bra','looka_city','looka_glow','looka_ritual','looka_region','looka_studio','looka_tryon','looka_mkref','looka_lookref','looka_quiz'];
+const KEYS = ['looka_acc','looka_dna','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_fit','looka_igshops','looka_shops','looka_bra','looka_city','looka_glow','looka_ritual','looka_region','looka_studio','looka_tryon','looka_mkref','looka_lookref','looka_quiz'];
 const save = ()=>HUB.save('looka_acc', A);
 const initials = n=>String(n||'').trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase() || '✦';
 
@@ -10586,7 +10814,7 @@ if(document.readyState !== 'loading' && window.accGreet) accGreet();
 /* ================= ВХОД ЧЕРЕЗ GOOGLE + ОБЛАЧНЫЙ ПРОФИЛЬ ================= */
 (function(){
 const CLIENT_ID = '485514192792-hbbgde4cen2mp816hvm82tjarm129i47.apps.googleusercontent.com';
-const SYNC_KEYS = ['looka_acc','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_bra','looka_glow','looka_ritual','looka_region','looka_shops','looka_igshops','looka_city'];
+const SYNC_KEYS = ['looka_acc','looka_dna','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_bra','looka_glow','looka_ritual','looka_region','looka_shops','looka_igshops','looka_city'];
 const S2 = { token:null, email:'', busy:false, sync:false };
 try{ const s = JSON.parse(localStorage.getItem('looka_session')||'null'); if(s){ S2.token=s.token; S2.email=s.email||''; S2.sync=!!s.sync; } }catch(e){}
 const api = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
@@ -10811,6 +11039,323 @@ if(document.readyState!=='loading'){ navAccDraw(); decorateSave(); }
   const sr = window.setRegion;
   if(typeof sr==='function') window.setRegion = function(){ const r = sr.apply(null, arguments); setTimeout(bbShopsDraw, 30); return r; };
 })();
+/* ================= СТИЛЬ-ДНК: чтобы ИИ знал, что вы носите на самом деле ================= */
+(function(){
+const D = HUB.ls('looka_dna', { styles:[], fits:{}, ch:{}, comfort:3, attention:3, colLove:[], colNo:[], prints:[], printsNo:[], never:[], brands:'', muse:'', taste:{like:[],no:[]}, done:false, dos:{} });
+if(!D.dos) D.dos={}; if(!D.pers) D.pers={}; if(!D.beau) D.beau={};
+const AESTH = [
+ ['Y2K','2000-е: низкая посадка, кроп-топы, блеск, мини, бабочки','кроп-топ,джинсы низкая посадка,мини-юбка,сумка багет'],
+ ['Old money','тихая роскошь старых денег: кашемир, бежевый, лоферы, рубашки','кашемировый свитер,рубашка,лоферы,тренч'],
+ ['Quiet luxury','дорого без логотипов: идеальный крой, серый, кремовый, шёлк','пальто,шёлковая блуза,прямые брюки,лоферы'],
+ ['Clean girl','гладкий пучок, белая футболка, золото, минимум и свежесть','белая футболка,прямые джинсы,золотые серьги,кроссовки белые'],
+ ['Coquette','банты, кружево, пастель, нежная женственность','кружевной топ,юбка миди,балетки,бант'],
+ ['Balletcore','боди, кардиганы, юбки-запах, балетки, розовый и серый','боди,кардиган,юбка запах,балетки'],
+ ['Dark academia','библиотечный шик: твид, жилеты, тёмная палитра, оксфорды','жилет,твидовый жакет,рубашка,оксфорды'],
+ ['Light academia','то же, но в светлом: бежевый, кремовый, лён','льняная рубашка,брюки бежевые,лоферы,кардиган'],
+ ['Cottagecore','деревенская сказка: цветочные платья, корзины, вязание','платье цветочное,кардиган вязаный,сандалии,сумка плетёная'],
+ ['Coastal','морское побережье: лён, белый, полоска, плетёное','льняные брюки,белая рубашка,сандалии,шляпа'],
+ ['Gorpcore','аутдор в городе: анорак, флис, трекинговые кроссовки','анорак,флисовая куртка,трекинговые кроссовки,карго'],
+ ['Streetwear','улица: оверсайз худи, кроссовки, карго, кепка','худи оверсайз,карго,кроссовки массивные,кепка'],
+ ['Скандинавский минимализм','базовые цвета, чистые формы, удобство','пальто прямое,водолазка,прямые джинсы,кеды'],
+ ['Парижский шик','тельняшка, тренч, красная помада, небрежная элегантность','тренч,тельняшка,прямые джинсы,балетки'],
+ ['Гранж','фланель, рваный деним, ботинки, небрежность 90-х','рубашка в клетку,джинсы рваные,ботинки грубые,футболка'],
+ ['Панк / рок','кожа, заклёпки, чёрный, косуха, тяжёлые ботинки','косуха,футболка чёрная,ботинки грубые,джинсы чёрные'],
+ ['Готика','чёрный, кружево, бархат, серебро, драматизм','платье чёрное,бархат,ботинки,серебряные украшения'],
+ ['E-girl / альт','цепи, клетка, полосатые рукава, яркие акценты','юбка в клетку,футболка оверсайз,ботинки платформа,цепь'],
+ ['Soft girl','пастель, сердечки, облачные свитера, милота','свитер пастельный,юбка мини,кеды,заколки'],
+ ['Mob wife','мех, леопард, крупное золото, драма и роскошь','шуба искусственная,платье леопард,золотые серьги,каблуки'],
+ ['Бохо','свобода, принты, замша, бахрома, многослойность','платье макси,жилет замшевый,сандалии,сумка с бахромой'],
+ ['Ретро 70-х','клёш, замша, коричневая гамма, вельвет','джинсы клёш,вельветовые брюки,блуза,сапоги'],
+ ['80-е','плечи, яркие цвета, деним на деним, объём','жакет с плечами,джинсы мом,лоферы,серьги крупные'],
+ ['90-е','мом-джинсы, слип-платья, кроссовки, минимализм с характером','джинсы мом,платье комбинация,кроссовки,рубашка'],
+ ['Спорт-шик','спортивные вещи с элегантным: легинсы и пальто, кроссовки и жакет','легинсы,жакет,кроссовки белые,бомбер'],
+ ['Preppy','студенческая классика: поло, плиссе, жилеты, лоферы','поло,юбка плиссе,жилет,лоферы'],
+ ['Романтика','воланы, цветы, мягкие ткани, женственные силуэты','платье с воланами,блуза,юбка миди,балетки'],
+ ['Классика / офис','костюм, рубашка, лодочки, чёткие линии','жакет,брюки классические,рубашка белая,лодочки'],
+ ['Артистичный','смелые принты, необычные формы, эксперимент','платье с принтом,жакет яркий,ботинки,сумка необычная'],
+ ['Бойфренд / андрогинный','мужской крой на женской фигуре: широкие брюки, рубашки','рубашка оверсайз,широкие брюки,лоферы,жилет'],
+ ['Glam / вечерний','блеск, атлас, каблуки, драматичный макияж','платье атласное,каблуки,клатч,серьги'],
+ ['K-fashion','корейская улица: многослойность, оверсайз, аккуратные акценты','кардиган оверсайз,рубашка,широкие брюки,кроссовки'],
+ ['Techwear / кибер','чёрный функционал: карманы, стропы, мембраны','куртка техно,карго чёрные,кроссовки чёрные,сумка на грудь'],
+ ['Western','ковбойские сапоги, деним, замша, бахрома','сапоги казаки,джинсы прямые,рубашка джинсовая,ремень'],
+ ['Casual базовый','просто и удобно: джинсы, футболка, кеды','джинсы прямые,футболка,кеды,куртка джинсовая']
+];
+const FITS = {
+ 'Футболки и топы':['оверсайз','по фигуре','кроп','бокси / прямая','с длинным рукавом','майка-борцовка'],
+ 'Джинсы и брюки':['скинни','прямые','широкие / палаццо','клёш','мом','багги','карго','с высокой посадкой','с низкой посадкой'],
+ 'Платья и юбки':['мини','миди','макси','слип / комбинация','на запах','футляр','рубашка','плиссе','не ношу платья'],
+ 'Верхняя одежда':['косуха','тренч','пальто прямое','пальто оверсайз','бомбер','пуховик','жакет','джинсовка'],
+ 'Обувь':['кроссовки','кеды','лоферы','ботинки','сапоги','каблук','балетки','сандалии','платформа'],
+ 'Сумки':['шоппер','кросс-боди','багет','рюкзак','клатч','поясная']
+};
+const CHAR = [
+ ['В компании вы чаще…',['в центре внимания','наблюдаю и слушаю','веду за собой','поддерживаю и объединяю'],['artist','explorer','leader','keeper']],
+ ['Идеальный выходной',['выставка и новый район','плед, чай и сериал','спорт или дорога','вечеринка с друзьями'],['explorer','keeper','leader','artist']],
+ ['Приятнее всего услышать',['«как стильно!»','«как уютно рядом с тобой»','«как смело!»','«как нежно и женственно»'],['leader','keeper','rebel','romantic']],
+ ['В одежде раздражает',['когда неудобно','когда как у всех','когда слишком просто','когда вызывающе'],['keeper','rebel','artist','romantic']],
+ ['Шопинг — это…',['охота за редким','быстро и по списку','удовольствие на весь день','стресс, лучше бы за меня решили'],['artist','leader','romantic','explorer']]
+];
+const ARCH = {
+ leader:['Лидер','чёткие линии, структура, монохром, дорогая простота','жакет,прямые брюки,лоферы,пальто'],
+ romantic:['Романтик','мягкие ткани, воланы, пастель, женственные силуэты','платье миди,блуза,балетки,кардиган'],
+ rebel:['Бунтарка','контраст, кожа, чёрный, дерзкие акценты','косуха,ботинки грубые,джинсы,футболка'],
+ explorer:['Исследовательница','функциональные вещи, слои, карманы, удобная обувь','анорак,карго,кроссовки,рюкзак'],
+ keeper:['Хранительница уюта','трикотаж, комфорт, тёплые цвета, мягкость','свитер,джинсы прямые,кеды,кардиган'],
+ artist:['Артистка','принты, необычные формы, эксперименты с цветом','платье с принтом,жакет яркий,ботинки,сумка необычная']
+};
+const COLORS = ['чёрный','белый','бежевый','серый','кремовый','коричневый','синий','голубой','деним','зелёный','хаки','оливковый','красный','бордовый','розовый','пудровый','лиловый','жёлтый','оранжевый','золото','серебро'];
+const PRINTS = ['однотонное','полоска','клетка','горох','цветы','леопард','зебра','абстракция','логотипы','надписи','пейсли','геометрия'];
+const NEVER = ['мини','каблуки выше 5 см','глубокое декольте','обтягивающее','открытый живот','открытая спина','животные принты','логотипы напоказ','бижутерия','шерсть (колется)','синтетика','кожа','мех','розовый','рюши и воланы','капюшоны','низкая посадка','широкие брюки','узкие брюки'];
+
+const toggle=(arr,v,max)=>{ const i=arr.indexOf(v); if(i>=0) arr.splice(i,1); else { if(max && arr.length>=max){ myToast('Максимум '+max+' — оставьте главное'); return; } arr.push(v); } };
+window.dnaStyle = v=>{ toggle(D.styles,v,5); save(); paint('styles'); };
+window.dnaFit = (cat,v)=>{ D.fits[cat]=D.fits[cat]||[]; toggle(D.fits[cat],v,3); save(); paint('fits'); };
+window.dnaCh = (q,i)=>{ D.ch[q]=i; save(); paint('char'); };
+window.dnaScale = (k,v)=>{ D[k]=+v; save(); };
+window.dnaCol = (k,v)=>{ toggle(D[k],v); if(k==='colLove' && D.colNo.includes(v)) D.colNo=D.colNo.filter(x=>x!==v); if(k==='colNo' && D.colLove.includes(v)) D.colLove=D.colLove.filter(x=>x!==v); save(); paint('colors'); };
+window.dnaPr = (k,v)=>{ toggle(D[k],v); save(); paint('colors'); };
+window.dnaNever = v=>{ toggle(D.never,v); save(); paint('never'); };
+window.dnaList=(k,v,max)=>{ const a=D[k]||[]; const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(a.length>=max){ myToast('Максимум '+max); return; } a.push(v); } D[k]=a; save(); paint('never'); };
+window.dnaText = (k,v)=>{ D[k]=v; save(); };
+function save(){ HUB.save('looka_dna', D); }
+function archetype(){
+  const sc={}; CHAR.forEach((q,i)=>{ const a=D.ch[i]; if(a==null) return; const k=q[2][a]; sc[k]=(sc[k]||0)+1; });
+  const top=Object.entries(sc).sort((a,b)=>b[1]-a[1]); return top.length? top[0][0] : null;
+}
+window.dnaArchetype = archetype;
+
+/* калибровка вкуса: 12 карточек-образов из каталога, «моё / не моё» */
+let cards=[], ci=0;
+function mkCards(){
+  const male=S.gender==='Мужчина', db=(typeof W_F!=='undefined' ? (male?W_M:W_F) : (window.W_F||[]))||[];
+  const cats={top:[],bottom:[],dress:[],outer:[],shoes:[],acc:[]}; db.forEach(it=>{ if(cats[it[3]]) cats[it[3]].push(it); });
+  const pick=a=>a.length?a[Math.floor(Math.random()*a.length)]:null;
+  cards=[]; const seen=new Set();
+  for(let i=0;i<40 && cards.length<12;i++){
+    const useDress=!male && Math.random()<.3;
+    const items=useDress?[pick(cats.dress),pick(cats.shoes),pick(cats.acc)]:[pick(cats.top),pick(cats.bottom),pick(cats.shoes),Math.random()<.5?pick(cats.outer):null];
+    const names=items.filter(Boolean).map(x=>x[0]); const key=names.join('|'); if(seen.has(key)||names.length<3) continue; seen.add(key); cards.push(names);
+  }
+  ci=0;
+}
+window.dnaSwipe = like=>{
+  const c=cards[ci]; if(!c) return;
+  (like?D.taste.like:D.taste.no).push(c.join(' + ')); D.taste.like=D.taste.like.slice(-30); D.taste.no=D.taste.no.slice(-30); save();
+  const el=document.getElementById('dnaCard'); if(el){ el.classList.add(like?'fly-r':'fly-l'); }
+  setTimeout(()=>{ ci++; paint('taste'); }, 260);
+};
+window.dnaMore = ()=>{ mkCards(); paint('taste'); };
+
+
+/* 7 · ДОСЬЕ — всё, что стилист спросил бы на первой встрече */
+const DOS = [
+ ['life','Как проходит обычная неделя',['офис и дресс-код','офис свободный','удалёнка','учёба','с детьми дома','много встреч и событий','в дороге и разъездах','творческая работа'],3],
+ ['show','Что любите подчёркивать',['талию','ноги','декольте','плечи и руки','спину','шею','рост','ничего специально'],3],
+ ['hide','Что предпочитаете не акцентировать',['живот','бёдра','руки','грудь','колени','ничего — я себе нравлюсь'],3],
+ ['fab','Ткани, которые любите на ощупь',['хлопок','лён','шёлк и атлас','шерсть и кашемир','трикотаж','кожа','деним','вискоза и тенсел','кружево','бархат'],4],
+ ['fabNo','Ткани, которые не переносите',['синтетика, которая «не дышит»','колючая шерсть','мнущийся лён','блестящий атлас','кожзам','ничего такого'],3],
+ ['heel','Каблук',['никогда','только на события','3–5 см — комфортно','люблю высокий','платформа — да, шпилька — нет'],1],
+ ['metal','Украшения',['золото','серебро','смешиваю','минимум украшений','крупные заметные','мелкие и тонкие'],2],
+ ['bagpri','В сумке важнее всего',['вместительность','лёгкость','чтобы через плечо','чтобы дорого выглядела','цвет под обувь'],2],
+ ['shop','Как покупаете одежду',['маркетплейсы','торговые центры','маленькие бренды и бутики','секонды и винтаж','заказываю из-за рубежа','редко — только по необходимости'],3],
+ ['price','Сколько комфортно за одну вещь',['до 2 000 ₽','2 000–5 000 ₽','5 000–15 000 ₽','15 000 ₽ и выше — если это надолго'],1],
+ ['freq','Как часто обновляете гардероб',['раз в сезон','раз в месяц что-то новое','когда порвётся','люблю покупать часто'],1],
+ ['size','Проблемы с размером',['верх и низ разных размеров','длинные руки/ноги — рукава короткие','маленький рост — всё длинное','высокий рост — всё короткое','грудь: верх не сходится','бёдра: джинсы не лезут','нет проблем'],3],
+ ['cold','Погода и тело',['вечно мёрзну','вечно жарко','нормально','сильно потею — важны ткани'],2],
+ ['groom','Сколько времени на сборы утром',['5 минут','15 минут','30 минут','час — и это удовольствие'],1],
+ ['occ','Куда чаще всего нужны образы',['работа','свидания','встречи с подругами','семейные события','путешествия','спорт','дом и уют','вечеринки и выходы'],4],
+ ['mood','Как хотите, чтобы вас видели',['дорого и спокойно','ярко и смело','нежно и женственно','умно и собранно','свободно и расслабленно','загадочно','по-спортивному легко'],2],
+ ['peeve','Что раздражает в одежде',['бирки и швы','узкие пояса','тесные рукава','когда задирается','когда просвечивает','когда мнётся','когда «как у всех»'],3],
+ ['eco','Важно ли',['натуральные ткани','российские бренды','локальные марки','этичное производство','неважно — главное красиво'],2],
+ ['dream','Вещь мечты',['идеальный тренч','кожаная куртка','вечернее платье','сумка «на всю жизнь»','белые кроссовки, которые не пачкаются','костюм на заказ','пальто как в кино'],2],
+ ['hairmk','Волосы и макияж в будни',['без макияжа','5-минутный нюд','полноценный макияж','волосы всегда собраны','волосы всегда распущены','люблю менять'],2],
+ ['fav','Любимая вещь в шкафу',['жакет','джинсы','платье','кожаная куртка','кроссовки','пальто','рубашка','юбка','свитер','сумка'],2],
+ ['favwhy','Почему она любимая',['в ней я собранная','в ней удобно','в ней меня хвалят','она подходит ко всему','она про меня'],2],
+ ['gap','Чего не хватает в гардеробе',['брюк, которые сидят','обуви на каждый день','верхней одежды','вещей на выход','базовых футболок','сумки','вообще всего — начинаю заново'],3],
+ ['q','Что в моде было непонятно',['как сочетать цвета','что такое капсула','какая посадка мне идёт','как одеваться по дресс-коду','как не выглядеть скучно','как выглядеть дороже за те же деньги'],3]
+];
+/* 8 · ЛИЧНОСТЬ И ЖЕЛАНИЯ — чтобы попадать в характер, а не только в шкаф */
+const PERS = [
+ ['val','Что для вас важнее всего в жизни сейчас',['семья и близкие','карьера и рост','свобода и путешествия','творчество','здоровье и тело','спокойствие и дом','любовь и отношения','деньги и независимость'],3],
+ ['self','Какой вы человек, если честно',['мягкая и заботливая','сильная и прямая','мечтательная','ироничная','перфекционистка','спонтанная','тихая наблюдательница','душа компании'],3],
+ ['energy','Ваша энергия',['утро — моё время','раскачиваюсь к вечеру','ровная весь день','волнами: то всё, то ничего'],1],
+ ['conf','Когда чувствуете себя красивой',['когда всё удобно','когда на меня смотрят','когда одна дома','когда сделала укладку','когда получила комплимент','когда всё сидит идеально'],3],
+ ['fear','Чего боитесь в одежде',['выглядеть нелепо','выглядеть старше','выглядеть дешевле','привлечь лишнее внимание','слиться с толпой','что скажут близкие'],3],
+ ['want','Чего хочется от стиля в этом году',['выглядеть дороже','стать заметнее','наконец удобно','повзрослеть в образе','вернуть лёгкость','найти свою фишку','перестать думать об этом каждое утро'],3],
+ ['self2','Кем себя видите через год',['уверенной на работе','влюблённой','путешествующей','с новым телом','спокойной и в балансе','с собственным делом','мамой'],3],
+ ['icons','Чей стиль вам близок',['тихая роскошь без логотипов','голливудская классика','парижская небрежность','скандинавская чистота','уличная дерзость','романтика и пастель','драма и чёрный','спорт-шик'],3],
+ ['music','Что вы слушаете',['поп','инди и мечтательное','хип-хоп и R&B','рок','электронику','классику и джаз','всё подряд под настроение'],3],
+ ['weekend','Идеальные выходные',['спа и уход','поход и природа','кафе, галереи, город','дома под плед','вечеринка','шопинг','ничего не делать'],3],
+ ['body','Отношение к телу сейчас',['люблю и принимаю','хочу подтянуть','стесняюсь','меняюсь — беременность, роды, вес','не думаю об этом'],2],
+ ['soon','Что впереди в ближайшие месяцы',['свадьба — своя','свадьба подруги','новая работа','собеседования','отпуск у моря','отпуск в холод','важное свидание','фотосессия','день рождения','ничего особенного'],4],
+ ['gift','Что вас радует по-настоящему',['новая вещь','комплимент','порядок в шкафу','когда всё сложилось само','когда сэкономила','когда удивила всех'],3],
+ ['talk','Как с вами говорить',['по-дружески и с юмором','коротко и по делу','тепло и бережно','вдохновляюще, как подруга-стилист'],1],
+ ['three','Три слова о себе',['тёплая','сильная','упрямая','нежная','весёлая','умная','сдержанная','яркая','заботливая','независимая','мечтательная','практичная'],3],
+ ['compl','Какой комплимент хотите слышать чаще',['«ты выглядишь дорого»','«как тебе идёт»','«ты такая стильная»','«с тобой уютно»','«ты выглядишь отдохнувшей»','«ты помолодела»'],2],
+ ['limit','Есть ли ограничения, о которых стоит помнить',['ношу только брюки','не открываю руки','не открываю ноги','закрытые плечи','религиозные требования к одежде','беременность','кормлю грудью','нет ограничений'],3],
+ ['budgetm','Бюджет на гардероб в месяц',['до 5 000 ₽','5 000–15 000 ₽','15 000–40 000 ₽','40 000 ₽ и больше'],1]
+];
+/* 9 · КРАСОТА И МАКИЯЖ — чтобы бьюти-разборы попадали в её привычки */
+const BEAU = [
+ ['mkstyle','Какой макияж вам ближе',['нюд, «без макияжа»','акцент на глаза','акцент на губы','вечерний с дымкой','яркий и смелый','корейский свежий','ретро-стрелки'],3],
+ ['mktime','Сколько минут на макияж в будни',['0 — не крашусь','5','10–15','20–30','больше 30'],1],
+ ['base','Тональная основа',['не пользуюсь','лёгкий тинт или BB','среднее покрытие','плотное покрытие','только консилер'],1],
+ ['lips','Губы',['бальзам','нюд','розовый','коралловый','красный','ягодный и сливовый','блеск','матовые'],3],
+ ['eyes','Глаза',['только тушь','стрелки','натуральные тени','яркие тени','дымка','накладные ресницы','ничего'],3],
+ ['brows','Брови',['естественные','чётко очерченные','ламинирование','татуаж или перманент','не трогаю'],1],
+ ['blush','Румяна и скульптор',['люблю румяна','скульптурирование','хайлайтер','ничего из этого'],3],
+ ['skinf','Как хочется, чтобы кожа выглядела',['сияющая','матовая','естественная','фарфоровая','загорелая'],2],
+ ['mkno','Что в макияже не переносите',['ощущение маски','блёстки','тяжёлые ресницы','яркие губы','стрелки','ничего'],3],
+ ['brandm','Косметика, к которой тянет',['люкс','аптечные марки','корейская','российские бренды','масс-маркет','натуральная и чистая','всё равно — главное результат'],3],
+ ['nails','Ногти',['короткие натуральные','нюд гель-лак','яркий цвет','длинные и заметные','не крашу'],2],
+ ['scent','Аромат',['свежий и цитрусовый','цветочный','сладкий гурманский','древесный и тёплый','пудровый','не пользуюсь духами'],2],
+ ['hairst','Волосы обычно',['распущенные прямые','локоны','пучок','хвост','косы','короткая стрижка','под платком или шапкой'],2],
+ ['hairc','Отношение к окрашиванию',['натуральный цвет','крашусь в свой тон','люблю менять цвет','мелирование и балаяж','хочу перемен, но боюсь'],1],
+ ['care','Уход за кожей сейчас',['умываюсь и всё','крем и SPF','полноценный утро и вечер','люблю пробовать новое','ничего не понимаю в этом'],1],
+ ['skinq','Что беспокоит в коже',['сухость','жирный блеск','высыпания','пигментация','покраснения','морщинки','тусклость','ничего'],3],
+ ['proc','Процедуры',['только уход дома','чистки и уходы у косметолога','аппаратные процедуры','инъекции — да','инъекции — никогда'],2],
+ ['bwant','Чего хотите от бьюти-разбора',['выглядеть свежее','выглядеть моложе','подчеркнуть глаза','научиться быстрому макияжу','найти свой красный','понять, что мне вообще идёт'],3]
+];
+window.dnaBeau = (k,v,max)=>{ const a=D.beau[k]||[]; const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max===1) a.length=0; if(a.length>=max){ myToast('Максимум '+max); return; } a.push(v); } D.beau[k]=a; save(); paint('beau'); };
+window.dnaPers = (k,v,max)=>{ const a=D.pers[k]||[]; const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max===1) a.length=0; if(a.length>=max){ myToast('Максимум '+max); return; } a.push(v); } D.pers[k]=a; save(); paint('pers'); };
+window.dnaPersText = (k,v)=>{ D.pers[k]=v; save(); };
+window.dnaDos = (k,v,max)=>{ const a=D.dos[k]||[]; const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max===1) a.length=0; if(a.length>=max){ myToast('Максимум '+max); return; } a.push(v); } D.dos[k]=a; save(); paint('dos'); };
+window.dnaDosText = (k,v)=>{ D.dos[k]=v; save(); };
+const chips=(arr,on,fn,cls)=>arr.map(v=>`<button class="chip ${on.includes(v)?'on':''} ${cls||''}" onclick="${fn}">${v}</button>`).join('');
+function paint(part){
+  const box=document.getElementById('dnaBox'); if(!box) return;
+  const P={};
+  P.styles=`<div class="dna-h"><b>1 · Эстетики, которые ваши</b><span>выберите до 5 — по ним ИИ поймёт ваш вкус, а не «стиль вообще»</span></div>
+    <div class="dna-grid">${AESTH.map(a=>`<button class="dna-st ${D.styles.includes(a[0])?'on':''}" onclick="dnaStyle('${a[0]}')"><b>${a[0]}</b><span>${a[1]}</span></button>`).join('')}</div>`;
+  P.fits=`<div class="dna-h"><b>2 · Как вы носите вещи</b><span>посадка решает больше, чем название стиля: оверсайз и по фигуре — два разных человека</span></div>
+    ${Object.entries(FITS).map(([cat,arr])=>`<div class="grp"><label class="t">${cat} <span class="to-opt">до 3</span></label><div class="chips">${chips(arr,D.fits[cat]||[],`dnaFit('${cat}','\${v}')`).replace(/\$\{v\}/g,'')}</div></div>`).join('')}`;
+  // build fits properly (template above can't inject v) → rebuild
+  P.fits=`<div class="dna-h"><b>2 · Как вы носите вещи</b><span>посадка решает больше, чем название стиля: оверсайз и по фигуре — два разных человека</span></div>`+
+    Object.entries(FITS).map(([cat,arr])=>`<div class="grp"><label class="t">${cat} <span class="to-opt">до 3</span></label><div class="chips">${arr.map(v=>`<button class="chip ${(D.fits[cat]||[]).includes(v)?'on':''}" onclick="dnaFit('${cat}','${v}')">${v}</button>`).join('')}</div></div>`).join('');
+  const ar=archetype();
+  P.char=`<div class="dna-h"><b>3 · Характер</b><span>пять быстрых вопросов — из них складывается ваш архетип, и образы перестают быть «для всех»</span></div>
+    ${CHAR.map((q,i)=>`<div class="grp"><label class="t">${q[0]}</label><div class="chips">${q[1].map((o,j)=>`<button class="chip ${D.ch[i]===j?'on':''}" onclick="dnaCh(${i},${j})">${o}</button>`).join('')}</div></div>`).join('')}
+    ${ar?`<div class="dna-arch"><div class="cs-k">ВАШ АРХЕТИП</div><h3>${ARCH[ar][0]}</h3><div class="tip">В одежде это: ${ARCH[ar][1]}.</div></div>`:''}
+    <div class="grp"><label class="t">Комфорт или эффект?</label><input type="range" min="1" max="5" value="${D.comfort}" oninput="dnaScale('comfort',this.value)" class="dna-range"><div class="dna-rl"><span>только удобно</span><span>ради красоты потерплю</span></div></div>
+    <div class="grp"><label class="t">Хочу быть…</label><input type="range" min="1" max="5" value="${D.attention}" oninput="dnaScale('attention',this.value)" class="dna-range"><div class="dna-rl"><span>незаметной</span><span>в центре внимания</span></div></div>`;
+  P.colors=`<div class="dna-h"><b>4 · Цвета и принты</b><span>ИИ предлагает цветотип — а вы говорите, что реально любите и что не наденете</span></div>
+    <div class="grp"><label class="t">Люблю носить</label><div class="chips">${COLORS.map(v=>`<button class="chip ${D.colLove.includes(v)?'on':''}" onclick="dnaCol('colLove','${v}')">${v}</button>`).join('')}</div></div>
+    <div class="grp"><label class="t">Не надену никогда</label><div class="chips">${COLORS.map(v=>`<button class="chip no ${D.colNo.includes(v)?'on':''}" onclick="dnaCol('colNo','${v}')">${v}</button>`).join('')}</div></div>
+    <div class="grp"><label class="t">Принты — да</label><div class="chips">${PRINTS.map(v=>`<button class="chip ${D.prints.includes(v)?'on':''}" onclick="dnaPr('prints','${v}')">${v}</button>`).join('')}</div></div>
+    <div class="grp"><label class="t">Принты — нет</label><div class="chips">${PRINTS.map(v=>`<button class="chip no ${D.printsNo.includes(v)?'on':''}" onclick="dnaPr('printsNo','${v}')">${v}</button>`).join('')}</div></div>`;
+  P.never=`<div class="dna-h"><b>5 · Никогда</b><span>самое важное: то, что вы не наденете, — ИИ больше не предложит</span></div>
+    <div class="chips">${NEVER.map(v=>`<button class="chip no ${D.never.includes(v)?'on':''}" onclick="dnaNever('${v}')">${v}</button>`).join('')}</div>
+    <div class="grp" style="margin-top:22px"><label class="t">Где чаще покупаете <span class="to-opt">до 4</span></label><div class="chips">${['Zara / Massimo Dutti','Lime','12storeez','Befree / Sela','Wildberries','Ozon','Lamoda','H&M / Uniqlo','маленькие бренды в Instagram','секонд и винтаж','люксовые бутики','заказываю из-за рубежа'].map(v=>`<button class="chip ${(D.brandsL||[]).includes(v)?'on':''}" onclick="dnaList('brandsL','${v}',4)">${v}</button>`).join('')}</div></div>
+    <div class="grp"><label class="t">Чей стиль ближе всего <span class="to-opt">до 3</span></label><div class="chips">${['европейская актриса','голливудская звезда','корейская айдол','французская парижанка','модель off-duty','it-girl из Instagram','подруга с хорошим вкусом','никто — только свой'].map(v=>`<button class="chip ${(D.museL||[]).includes(v)?'on':''}" onclick="dnaList('museL','${v}',3)">${v}</button>`).join('')}</div></div>`;
+  if(!cards.length) mkCards();
+  const c=cards[ci];
+  P.taste=`<div class="dna-h"><b>6 · Калибровка вкуса</b><span>12 образов: «моё» или «не моё». Так ИИ учится на ваших реакциях, а не на словах</span></div>
+    ${c?`<div class="dna-card" id="dnaCard"><div class="cs-k">ОБРАЗ ${ci+1} ИЗ ${cards.length}</div><div class="dna-items">${c.map(n=>`<span>${n}</span>`).join('')}</div>
+      <div class="to-row" style="margin-top:16px"><button class="btn ghost dna-no" onclick="dnaSwipe(false)">✕ Не моё</button><button class="btn primary dna-yes" onclick="dnaSwipe(true)">♥ Моё</button></div></div>`
+    :`<div class="dna-done"><b>Калибровка готова</b><span>${D.taste.like.length} «моё» · ${D.taste.no.length} «не моё». Чем больше ответов, тем точнее подбор.</span><button class="btn ghost" style="margin-top:12px" onclick="dnaMore()">Ещё 12 образов</button></div>`}`;
+  const dosN = DOS.filter(q=>(D.dos[q[0]]||[]).length).length;
+  P.dos=`<div class="dna-h"><b>7 · Досье</b><span>то, что стилист спросил бы на первой встрече: тело, ткани, каблук, деньги, привычки. Заполнено ${dosN} из ${DOS.length}</span></div>
+    ${DOS.map(q=>`<div class="grp"><label class="t">${q[1]} <span class="to-opt">${q[3]===1?'один вариант':'до '+q[3]}</span></label><div class="chips">${q[2].map(v=>`<button class="chip ${(D.dos[q[0]]||[]).includes(v)?'on':''}" onclick="dnaDos('${q[0]}','${v.replace(/'/g,'’')}',${q[3]})">${v}</button>`).join('')}</div></div>`).join('')}
+`;
+  const persN = PERS.filter(q=>(D.pers[q[0]]||[]).length).length;
+  P.pers=`<div class="dna-h"><b>8 · Личность и желания</b><span>чтобы образы попадали не только в фигуру, но и в вас: ценности, страхи, планы, настроение. Заполнено ${persN} из ${PERS.length}</span></div>
+    ${PERS.map(q=>`<div class="grp"><label class="t">${q[1]} <span class="to-opt">${q[3]===1?'один вариант':'до '+q[3]}</span></label><div class="chips">${q[2].map(v=>`<button class="chip ${(D.pers[q[0]]||[]).includes(v)?'on':''}" onclick="dnaPers('${q[0]}','${v.replace(/'/g,'’')}',${q[3]})">${v}</button>`).join('')}</div></div>`).join('')}
+`;
+  const beauN = BEAU.filter(q=>(D.beau[q[0]]||[]).length).length;
+  P.beau=`<div class="dna-h"><b>9 · Красота и макияж</b><span>чтобы бьюти-скан, макияж-гид и уход говорили на вашем языке: привычки, что любите, что не переносите. Заполнено ${beauN} из ${BEAU.length}</span></div>
+    ${BEAU.map(q=>`<div class="grp"><label class="t">${q[1]} <span class="to-opt">${q[3]===1?'один вариант':'до '+q[3]}</span></label><div class="chips">${q[2].map(v=>`<button class="chip ${(D.beau[q[0]]||[]).includes(v)?'on':''}" onclick="dnaBeau('${q[0]}','${v.replace(/'/g,'’')}',${q[3]})">${v}</button>`).join('')}</div></div>`).join('')}`;
+  const filled = D.styles.length && Object.keys(D.fits).length && Object.keys(D.ch).length>=3;
+  D.done = !!filled; save();
+  box.innerHTML = ['styles','fits','char','colors','never','taste','dos','pers','beau'].map(k=>`<section class="bt-form look mk-form dna-sec" id="dna-${k}">${P[k]}</section>`).join('') +
+    `<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">${filled?'СТИЛЬ-ДНК СОБРАН':'ЗАПОЛНЯЙТЕ ПОСТЕПЕННО'}</div>
+      <h3>${filled?'Теперь ИИ знает, что вы носите':'Минимум — эстетики, посадки и характер'}</h3>
+      <div class="tip">${dnaSummary()||'Каждый ответ сохраняется сразу. Подбор образов, Студия, бьюти-скан и «Повторить образ» будут учитывать всё это автоматически.'}</div>
+      <div class="to-row" style="margin-top:14px"><button class="btn primary" onclick="goQuiz()">✦ Собрать образы с учётом ДНК</button><button class="btn ghost" onclick="openWardrobe()">Мой гардероб</button></div>
+    </div></div>`;
+  if(part){ const el=document.getElementById('dna-'+part); if(el && window.fxZone) fxZone(el); }
+}
+window.dnaSummary = ()=>{
+  const a=archetype(); const parts=[];
+  if(D.styles.length) parts.push('эстетики: '+D.styles.join(', '));
+  const fits=Object.entries(D.fits).filter(([k,v])=>v.length).map(([k,v])=>k.toLowerCase()+' — '+v.join('/')); if(fits.length) parts.push('посадки: '+fits.join('; '));
+  if(a) parts.push('архетип: '+ARCH[a][0]+' ('+ARCH[a][1]+')');
+  parts.push('комфорт/эффект '+D.comfort+'/5, внимание '+D.attention+'/5');
+  if(D.colLove.length) parts.push('любимые цвета: '+D.colLove.join(', '));
+  if(D.colNo.length) parts.push('не носит цвета: '+D.colNo.join(', '));
+  if(D.prints.length) parts.push('принты да: '+D.prints.join(', '));
+  if(D.printsNo.length) parts.push('принты нет: '+D.printsNo.join(', '));
+  if(D.never.length) parts.push('НИКОГДА не предлагать: '+D.never.join(', '));
+  if((D.brandsL||[]).length) parts.push('где покупает: '+D.brandsL.join(', '));
+  if((D.museL||[]).length) parts.push('референс стиля: '+D.museL.join(', '));
+  if(D.taste.like.length) parts.push('понравились образы: '+D.taste.like.slice(-6).join(' | '));
+  if(D.taste.no.length) parts.push('НЕ понравились: '+D.taste.no.slice(-6).join(' | '));
+  const dosParts=DOS.filter(q=>(D.dos[q[0]]||[]).length).map(q=>q[1].toLowerCase()+': '+D.dos[q[0]].join(', '));
+  if(dosParts.length) parts.push('досье: '+dosParts.join('; '));
+
+  const persParts=PERS.filter(q=>(D.pers[q[0]]||[]).length).map(q=>q[1].toLowerCase()+': '+D.pers[q[0]].join(', '));
+  if(persParts.length) parts.push('личность: '+persParts.join('; '));
+
+  const tone=(D.pers.talk||[])[0]; if(tone) parts.push('ТОН ОБЩЕНИЯ С НЕЙ: '+tone);
+  const beauParts=BEAU.filter(q=>(D.beau[q[0]]||[]).length).map(q=>q[1].toLowerCase()+': '+D.beau[q[0]].join(', '));
+  if(beauParts.length) parts.push('красота и макияж: '+beauParts.join('; '));
+  return parts.length>1 ? parts.join('. ') : '';
+};
+/* правила для офлайн-движка: что исключать и что предпочитать */
+window.dnaRules = ()=>{
+  const ex=[]; const pref=[];
+  const N=D.never; const H=(D.dos.heel||[])[0]; if(H==='никогда') ex.push(/каблук|лодочк|шпильк/i); const FN=D.dos.fabNo||[]; if(FN.some(x=>/атлас/.test(x))) ex.push(/атлас/i); if(FN.some(x=>/лён/.test(x))) ex.push(/льнян/i);
+  if(N.includes('мини')) ex.push(/мини/i);
+  if(N.includes('каблуки выше 5 см')) ex.push(/каблук|лодочк|шпильк|босонож/i);
+  if(N.includes('глубокое декольте')) ex.push(/декольте|глубок/i);
+  if(N.includes('обтягивающее')) ex.push(/облегающ|обтягив|скинни|футляр|боди/i);
+  if(N.includes('открытый живот')) ex.push(/кроп|топ-бра|топ бра/i);
+  if(N.includes('открытая спина')) ex.push(/открыт.*спин/i);
+  if(N.includes('животные принты')) ex.push(/леопард|зебр|змеин/i);
+  if(N.includes('логотипы напоказ')) ex.push(/логотип/i);
+  if(N.includes('шерсть (колется)')) ex.push(/шерст/i);
+  if(N.includes('синтетика')) ex.push(/полиэстер|синтет/i);
+  if(N.includes('кожа')) ex.push(/кожан|косух/i);
+  if(N.includes('мех')) ex.push(/мех|шуб|дублён/i);
+  if(N.includes('розовый')) ex.push(/розов|пудров/i);
+  if(N.includes('рюши и воланы')) ex.push(/волан|рюш/i);
+  if(N.includes('капюшоны')) ex.push(/худи|капюшон/i);
+  if(N.includes('широкие брюки')) ex.push(/широк|палаццо/i);
+  if(N.includes('узкие брюки')) ex.push(/скинни|узк/i);
+  if(N.includes('низкая посадка')) ex.push(/низк.*посадк/i);
+  (D.fits['Платья и юбки']||[]).includes('не ношу платья') && ex.push(/плать|сарафан/i);
+  D.colNo.forEach(c=>ex.push(new RegExp(c.replace(/ый$/,''),'i')));
+  D.styles.forEach(s=>{ const a=AESTH.find(x=>x[0]===s); if(a) a[2].split(',').forEach(x=>pref.push(x)); });
+  const ar=archetype(); if(ar) ARCH[ar][2].split(',').forEach(x=>pref.push(x));
+  Object.values(D.fits).flat().forEach(f=>pref.push(f));
+  D.taste.no.forEach(s=>s.split(' + ').forEach(n=>ex.push(new RegExp(n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i'))));
+  return {ex, pref, likes:D.taste.like};
+};
+window.renderDna = ()=>paint();
+window.openDna = ()=>{ openPage('dnaPage'); paint(); };
+window.dnaFilled = ()=>!!D.done;
+window.dnaBeauty = ()=>{ const parts=[];
+  const beauParts=BEAU.filter(q=>(D.beau[q[0]]||[]).length).map(q=>q[1].toLowerCase()+': '+D.beau[q[0]].join(', ')); if(beauParts.length) parts.push(beauParts.join('; '));
+  const a=archetype(); if(a) parts.push('архетип: '+ARCH[a][0]);
+  const tone=(D.pers.talk||[])[0]; if(tone) parts.push('тон общения: '+tone);
+  const fear=(D.pers.fear||[]); if(fear.length) parts.push('боится: '+fear.join(', '));
+  const want=(D.pers.want||[]); if(want.length) parts.push('хочет: '+want.join(', '));
+  return parts.join('. '); };
+})();
+
+
+/* ================= ТАРИФЫ ================= */
+window.PLANS = { week:{t:'неделя',p:'390 ₽',n:'LOOKA · НЕДЕЛЯ',once:'7 дней доступа ко всем разделам · без автопродления'},
+                 month:{t:'месяц',p:'990 ₽',n:'LOOKA · МЕСЯЦ',once:'подписка на месяц · отменяется в один тап · без скрытых списаний'},
+                 year:{t:'год',p:'4 990 ₽',n:'LOOKA · ГОД',once:'12 месяцев по цене семи · отменяется в один тап'} };
+window.curPlan = (function(){ try{ return localStorage.getItem('looka_plan')||'month'; }catch(e){ return 'month'; } })();
+window.pickPlan = k=>{ if(!PLANS[k]) return; window.curPlan=k; try{ localStorage.setItem('looka_plan',k); }catch(e){}
+  document.querySelectorAll('.plan').forEach(b=>b.classList.toggle('on', b.dataset.plan===k));
+  const P=PLANS[k]; const s=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+  s('pName',P.n); s('pPrice',P.p); s('pOnce',P.once); s('payPlanName',P.n+' · '+P.p);
+  const el=document.getElementById('pRef'); if(el && el.innerHTML){ el.innerHTML = el.innerHTML.replace(/на (неделю|месяц|год)/,'на '+(k==='week'?'неделю':k==='month'?'месяц':'год')); }
+};
+document.addEventListener('DOMContentLoaded', ()=>pickPlan(window.curPlan));
+if(document.readyState!=='loading') pickPlan(window.curPlan);
 fxGlow(document);
 fxTilt(document);
 </script>
