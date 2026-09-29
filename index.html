@@ -4310,6 +4310,31 @@ header nav.topnav{gap:4px;align-items:center}
 .sh-card em{display:block;font-style:normal;font-size:12.5px;color:#7CF0B2;margin:8px 0}
 .sh-grid.no .sh-card em{color:#FF9DB0}
 .sh-x{opacity:.7}
+
+/* подсказки «как это выглядит» */
+.hint-box{position:fixed;z-index:160;width:300px;padding:14px;border-radius:16px;border:1px solid rgba(255,255,255,.14);background:#11131D;box-shadow:0 26px 70px rgba(0,0,0,.6);opacity:0;transform:translateY(6px) scale(.98);pointer-events:none;transition:opacity .18s,transform .18s}
+.hint-box.on{opacity:1;transform:none}
+.hint-look{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
+.look-svg{width:96px;height:192px}
+.hint-big{width:96px;display:grid;place-items:center}
+.hint-big .chip-ic{width:96px;height:56px;color:#C79DF2}
+.hint-look b{display:block;font-size:15px;margin-bottom:4px}
+.hint-look span{display:block;font-size:12.5px;line-height:1.5;color:#B7BCCC}
+.hint-look em{display:block;margin-top:8px;font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#8B92AA}
+.hint-q{position:absolute;bottom:10px;right:10px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:700;color:#C7A6F0;border:1px solid rgba(199,157,240,.45);background:rgba(199,157,240,.12);cursor:pointer;z-index:2}
+.chip{position:relative}
+.chip .hint-q{position:static;margin-left:8px;width:18px;height:18px;font-size:10px}
+@media(hover:hover){.hint-q{display:none}.chip .hint-q{display:none}}
+#hintOv .hint-look{grid-template-columns:auto 1fr}
+
+.look-ph{width:110px;height:170px;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.04);display:grid;place-items:center;position:relative}
+.look-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.look-ph small{position:absolute;left:0;right:0;bottom:0;padding:3px 6px;font-size:8px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.7))}
+.look-ph .look-svg{width:96px;height:160px}
+.hint-pin{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;color:#C7A6F0;text-decoration:none}
+.dna-st .st-ph{position:absolute;right:0;top:0;bottom:0;width:38%;opacity:.55;mask-image:linear-gradient(90deg,transparent,#000 40%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%);pointer-events:none}
+.dna-st .st-ph img{width:100%;height:100%;object-fit:cover}
+.dna-st.on .st-ph{opacity:.85}
 </style>
 </head>
 <body>
@@ -8775,7 +8800,7 @@ function renderMakeup(){
 
 
 /* пиктограммы вариантов — чтобы выбирать глазами, а не словами */
-const PICTO = (()=>{
+window.PICTO = (()=>{
   const w = s=>`<svg viewBox="0 0 44 26" class="chip-ic" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${s}</svg>`;
   const eye = { 
     'Миндалевидные': w('<path d="M6 13 C13 5 31 5 38 13 C31 21 13 21 6 13Z"/><circle cx="22" cy="13" r="4.4"/>'),
@@ -8816,7 +8841,7 @@ function mkChips(key, arr, colored){
   const ic = PICTO[key];
   return '<div class="chips'+(ic?' pict':'')+'">' + arr.map(v=>{
     const col = colored ? (colored.find(c=>c[0]===v)||[])[1] : null;
-    return `<button class="chip ${M[key]===v?'on':''}" data-k="${key}" data-v="${v.replace(/"/g,'&quot;')}" onclick="mkPick('${key}','${v.replace(/'/g,"\\'")}')">${ic&&ic[v]?ic[v]:''}${col?`<i class="sw" style="background:${col}"></i>`:''}${v}</button>`;
+    return `<button class="chip ${M[key]===v?'on':''}" data-k="${key}" data-v="${v.replace(/"/g,'&quot;')}" ${ic&&ic[v]?`data-hint="${key}:${v.replace(/"/g,'&quot;')}"`:''} onclick="mkPick('${key}','${v.replace(/'/g,"\\'")}')">${ic&&ic[v]?ic[v]:''}${col?`<i class="sw" style="background:${col}"></i>`:''}${v}${ic&&ic[v]&&window.hintBtn?hintBtn(key,v):''}</button>`;
   }).join('') + '</div>';
 }
 window.mkPick = (k,v)=>{ M[k]=v; try{ localStorage.setItem('looka_makeup', JSON.stringify(M)); }catch(e){}
@@ -11913,7 +11938,7 @@ function paint(part){
   const box=document.getElementById('dnaBox'); if(!box) return;
   const P={};
   P.styles=`<div class="dna-h"><b>1 · Эстетики, которые ваши</b><span>выберите до 5 — по ним ИИ поймёт ваш вкус, а не «стиль вообще»</span></div>
-    <div class="dna-grid">${AESTH.map(a=>{ const p=aestPal(a[0]); return `<button class="dna-st ${D.styles.includes(a[0])?'on':''}" onclick="dnaStyle('${a[0]}')" style="--p1:${p[0]};--p2:${p[1]};--p3:${p[2]}"><i class="st-pal"><s style="background:${p[0]}"></s><s style="background:${p[1]}"></s><s style="background:${p[2]}"></s></i><b>${a[0]}</b><span>${a[1]}</span><em>${(a[2]||'').split(',').slice(0,3).join(' · ')}</em><u>✓</u></button>`; }).join('')}</div>`;
+    <div class="dna-grid">${AESTH.map(a=>{ const p=aestPal(a[0]); return `<button class="dna-st ${D.styles.includes(a[0])?'on':''}" onclick="dnaStyle('${a[0]}')" style="--p1:${p[0]};--p2:${p[1]};--p3:${p[2]}" data-hint="aest:${a[0].replace(/"/g,'&quot;')}">${window.hintBtn?hintBtn('aest',a[0]):''}<i class="st-pal"><s style="background:${p[0]}"></s><s style="background:${p[1]}"></s><s style="background:${p[2]}"></s></i><b>${a[0]}</b><span>${a[1]}</span><em>${(a[2]||'').split(',').slice(0,3).join(' · ')}</em><u>✓</u></button>`; }).join('')}</div>`;
   P.fits=`<div class="dna-h"><b>2 · Как вы носите вещи</b><span>посадка решает больше, чем название стиля: оверсайз и по фигуре — два разных человека</span></div>
     ${Object.entries(FITS).map(([cat,arr])=>`<div class="grp"><label class="t">${cat} <span class="to-opt">до 3</span></label><div class="chips">${chips(arr,D.fits[cat]||[],`dnaFit('${cat}','\${v}')`).replace(/\$\{v\}/g,'')}</div></div>`).join('')}`;
   // build fits properly (template above can't inject v) → rebuild
@@ -12148,7 +12173,8 @@ window.sparkleReveal = (el)=>{
   setTimeout(()=>{ el.classList.remove('sp-hide'); el.classList.add('sp-in'); }, 650);
   setTimeout(()=>box.remove(), 2400);
 };
-(function(){ const o=window.openPage; window.openPage=function(id){ o.apply(null,arguments); if(id==='dnaPage'){ setTimeout(()=>{ const t=document.querySelector('#dnaPage .por-card')||document.querySelector('#dnaPage .mk-hero'); sparkleReveal(t); },120); } }; })();
+window.dnaPhotos = ()=>{ document.querySelectorAll('.dna-st[data-hint^="aest:"]').forEach(async el=>{ if(el.querySelector('.st-ph')) return; const n=el.dataset.hint.slice(5); const p=await aestPhoto(n); if(p){ const d=document.createElement('div'); d.className='st-ph'; d.innerHTML=`<img src="${p.url}" alt="" loading="lazy">`; el.appendChild(d); } }); };
+(function(){ const o=window.openPage; window.openPage=function(id){ o.apply(null,arguments); if(id==='dnaPage'){ setTimeout(()=>{ if(window.dnaPhotos) dnaPhotos(); },300); setTimeout(()=>{ const t=document.querySelector('#dnaPage .por-card')||document.querySelector('#dnaPage .mk-hero'); sparkleReveal(t); },120); } }; })();
 
 /* главная: витрина ДНК и таблица «бесплатно / по подписке» */
 (function(){
@@ -12184,6 +12210,121 @@ window.moodClose=()=>{ const o=document.getElementById('moodOv'); if(o){ o.class
 window.moodPick=m=>{ const rule=(MOODS.find(x=>x[1]===m)||[])[2]||''; try{ localStorage.setItem('looka_mood', JSON.stringify({m, rule, day:new Date().toDateString()})); }catch(e){}
   moodClose(); myToast('Сегодня: '+m+' — учту в образе дня'); if(window.openDayLook){ setTimeout(()=>{ try{ openDayLook(); }catch(e){} }, 400); } };
 window.moodToday=()=>{ try{ const x=JSON.parse(localStorage.getItem('looka_mood')||'{}'); return x.day===new Date().toDateString()? x : null; }catch(e){ return null; } };
+
+
+/* ================= ФОТО-ПРИМЕРЫ ЭСТЕТИК: свои ссылки → сток Pexels → рисунок ================= */
+window.AEST_IMG = {  /* сюда можно вписать свои ссылки на картинки: 'Y2K':'https://…jpg' */ };
+window.AEST_Q = { 'Y2K':'y2k outfit fashion','Old money':'old money aesthetic outfit','Quiet luxury':'quiet luxury outfit','Clean girl':'clean girl aesthetic outfit','Coquette':'coquette aesthetic outfit','Balletcore':'balletcore outfit','Dark academia':'dark academia outfit','Light academia':'light academia outfit','Cottagecore':'cottagecore dress','Coastal':'coastal linen outfit','Gorpcore':'gorpcore outfit','Streetwear':'streetwear outfit woman','Скандинавский минимализм':'scandinavian minimalist outfit','Парижский шик':'parisian chic outfit','Гранж':'grunge outfit woman','Панк / рок':'punk rock outfit woman','Готика':'gothic fashion woman','E-girl / альт':'egirl alt fashion','Soft girl':'soft girl aesthetic outfit','Mob wife':'mob wife aesthetic fur','Бохо':'boho outfit woman','Ретро 70-х':'70s retro outfit','80-е':'80s fashion outfit','90-е':'90s fashion outfit','Спорт-шик':'athleisure chic outfit','Preppy':'preppy outfit woman','Романтика':'romantic feminine outfit','Классика / офис':'classic office outfit woman','Артистичный':'artsy eclectic outfit','Бойфренд / oversize':'oversized boyfriend outfit' };
+const PH = {};
+window.aestPhoto = async n=>{
+  if(AEST_IMG[n]) return { url:AEST_IMG[n] };
+  if(PH[n]!==undefined) return PH[n];
+  PH[n]=null;
+  try{ const api=String(typeof LOOKA_API!=='undefined'?LOOKA_API:'').replace(/\/$/,''); const r=await fetch(api+'/photo?q='+encodeURIComponent(AEST_Q[n]||(n+' outfit'))); const j=await r.json(); PH[n]=(j.photos&&j.photos[0])||null; }catch(e){ PH[n]=null; }
+  return PH[n];
+};
+window.aestPinterest = n=>'https://www.pinterest.com/search/pins/?q='+encodeURIComponent((AEST_Q[n]||n)+' aesthetic');
+
+/* ================= ПОДСКАЗКИ «КАК ЭТО ВЫГЛЯДИТ» при наведении / тапе ================= */
+(function(){
+/* образ-иллюстрация по эстетике: фигура + вещи в палитре */
+const LOOKS = {
+ 'Y2K':{top:'crop',bottom:'lowjeans',shoes:'platform',acc:'baguette'}, 'Old money':{top:'blazer',bottom:'trousers',shoes:'loafer',acc:'scarf'}, 'Quiet luxury':{top:'coat',bottom:'trousers',shoes:'loafer'},
+ 'Clean girl':{top:'tee',bottom:'jeans',shoes:'sneak',acc:'hoops'}, 'Coquette':{top:'lace',bottom:'midi',shoes:'ballet',acc:'bow'}, 'Balletcore':{top:'cardigan',bottom:'wrap',shoes:'ballet'},
+ 'Dark academia':{top:'blazer',bottom:'trousers',shoes:'oxford',acc:'scarf'}, 'Light academia':{top:'shirt',bottom:'trousers',shoes:'loafer'}, 'Cottagecore':{top:'puff',bottom:'maxi',shoes:'ballet',acc:'basket'},
+ 'Coastal':{top:'shirt',bottom:'wide',shoes:'sandal',acc:'hat'}, 'Gorpcore':{top:'anorak',bottom:'cargo',shoes:'trek',acc:'cap'}, 'Streetwear':{top:'hoodie',bottom:'cargo',shoes:'chunky',acc:'cap'},
+ 'Скандинавский минимализм':{top:'knit',bottom:'wide',shoes:'sneak'}, 'Парижский шик':{top:'stripe',bottom:'jeans',shoes:'ballet',acc:'trench'}, 'Гранж':{top:'flannel',bottom:'ripped',shoes:'combat'},
+ 'Панк / рок':{top:'leather',bottom:'jeans',shoes:'combat',acc:'chain'}, 'Готика':{top:'lace',bottom:'maxi',shoes:'combat',acc:'choker'}, 'E-girl / альт':{top:'stripe',bottom:'mini',shoes:'platform',acc:'chain'},
+ 'Soft girl':{top:'cardigan',bottom:'mini',shoes:'sneak',acc:'clips'}, 'Mob wife':{top:'fur',bottom:'trousers',shoes:'heel',acc:'gold'}, 'Бохо':{top:'blouse',bottom:'maxi',shoes:'sandal',acc:'fringe'},
+ 'Ретро 70-х':{top:'blouse',bottom:'flare',shoes:'platform'}, '80-е':{top:'shoulder',bottom:'jeans',shoes:'heel',acc:'hoops'}, '90-е':{top:'tee',bottom:'momjeans',shoes:'sneak'},
+ 'Спорт-шик':{top:'blazer',bottom:'leggings',shoes:'sneak'}, 'Preppy':{top:'vest',bottom:'pleated',shoes:'loafer'}, 'Романтика':{top:'puff',bottom:'midi',shoes:'ballet',acc:'bow'},
+ 'Классика / офис':{top:'blazer',bottom:'pencil',shoes:'heel'}, 'Артистичный':{top:'oversize',bottom:'wide',shoes:'combat',acc:'scarf'}, 'Бойфренд / oversize':{top:'oversize',bottom:'jeans',shoes:'sneak'}
+};
+const TOPS = {
+ crop:'<path d="M42 88 L78 88 L82 112 L38 112 Z"/>', tee:'<path d="M36 88 L84 88 L88 100 L80 100 L80 136 L40 136 L40 100 L32 100 Z"/>',
+ shirt:'<path d="M36 88 L84 88 L88 102 L80 102 L80 146 L40 146 L40 102 L32 102 Z"/><path d="M60 92 L60 146" stroke="#0B0C12" stroke-width="1.5"/>',
+ blazer:'<path d="M32 90 L88 90 L92 150 L28 150 Z"/><path d="M60 100 L48 150 M60 100 L72 150" stroke="#0B0C12" stroke-width="1.5"/><path d="M52 90 L60 106 L68 90" fill="#0B0C12" opacity=".35"/>',
+ coat:'<path d="M30 90 L90 90 L96 190 L24 190 Z"/><path d="M60 100 L60 190" stroke="#0B0C12" stroke-width="1.5"/>',
+ hoodie:'<path d="M30 92 L90 92 L94 150 L26 150 Z"/><path d="M46 92 C50 80 70 80 74 92" fill="#0B0C12" opacity=".3"/>',
+ cardigan:'<path d="M34 90 L86 90 L90 150 L30 150 Z"/><path d="M60 96 L60 150" stroke="#0B0C12" stroke-width="2" stroke-dasharray="3 3"/>',
+ knit:'<path d="M34 88 L86 88 L90 146 L30 146 Z"/><path d="M40 100 L80 100 M40 112 L80 112 M40 124 L80 124" stroke="#0B0C12" stroke-width="1" opacity=".4"/>',
+ lace:'<path d="M40 90 L80 90 L84 130 L36 130 Z"/><path d="M44 96 L76 96 M44 106 L76 106 M44 116 L76 116" stroke="#fff" stroke-width="1" opacity=".7" stroke-dasharray="2 2"/>',
+ puff:'<path d="M40 90 L80 90 L84 132 L36 132 Z"/><ellipse cx="34" cy="98" rx="10" ry="12"/><ellipse cx="86" cy="98" rx="10" ry="12"/>',
+ stripe:'<path d="M38 88 L82 88 L86 136 L34 136 Z"/><path d="M36 96 L84 96 M36 106 L84 106 M36 116 L84 116 M36 126 L84 126" stroke="#0B0C12" stroke-width="3"/>',
+ flannel:'<path d="M34 90 L86 90 L90 150 L30 150 Z"/><path d="M42 90 L42 150 M60 90 L60 150 M78 90 L78 150 M34 110 L86 110 M34 130 L86 130" stroke="#0B0C12" stroke-width="1.5" opacity=".5"/>',
+ leather:'<path d="M32 90 L88 90 L92 146 L28 146 Z"/><path d="M60 94 L60 146 M48 94 L52 146" stroke="#8C8C8C" stroke-width="2"/>',
+ fur:'<path d="M28 90 L92 90 L98 156 L22 156 Z"/><path d="M28 90 Q30 100 26 110 Q30 120 26 130 Q30 140 24 156" stroke="#0B0C12" stroke-width="2" fill="none" opacity=".4"/>',
+ blouse:'<path d="M36 88 L84 88 L90 146 L30 146 Z"/><path d="M60 88 L60 146" stroke="#fff" stroke-width="1" opacity=".5"/>',
+ anorak:'<path d="M30 90 L90 90 L94 156 L26 156 Z"/><path d="M60 96 L60 156" stroke="#0B0C12" stroke-width="2"/><path d="M46 90 C50 78 70 78 74 90" fill="#0B0C12" opacity=".3"/>',
+ shoulder:'<path d="M26 90 L94 90 L90 150 L30 150 Z"/>', oversize:'<path d="M26 90 L94 90 L96 160 L24 160 Z"/>', vest:'<path d="M40 90 L80 90 L84 140 L36 140 Z"/><path d="M60 100 L60 140" stroke="#0B0C12" stroke-width="1.5"/>'
+};
+const BOTS = {
+ lowjeans:'<path d="M40 118 L80 118 L84 220 L64 220 L60 150 L56 220 L36 220 Z"/>', jeans:'<path d="M40 134 L80 134 L84 220 L64 220 L60 160 L56 220 L36 220 Z"/>',
+ momjeans:'<path d="M40 130 L80 130 L86 220 L64 220 L60 160 L56 220 L34 220 Z"/>', ripped:'<path d="M40 148 L80 148 L84 220 L64 220 L60 170 L56 220 L36 220 Z"/><path d="M42 180 L52 180 M70 190 L80 190" stroke="#0B0C12" stroke-width="2"/>',
+ trousers:'<path d="M40 148 L80 148 L82 220 L64 220 L60 165 L56 220 L38 220 Z"/>', wide:'<path d="M40 140 L80 140 L92 222 L62 222 L60 170 L58 222 L28 222 Z"/>',
+ cargo:'<path d="M40 148 L80 148 L86 222 L64 222 L60 170 L56 222 L34 222 Z"/><rect x="40" y="176" width="10" height="12" fill="#0B0C12" opacity=".3"/><rect x="70" y="176" width="10" height="12" fill="#0B0C12" opacity=".3"/>',
+ flare:'<path d="M42 140 L78 140 L92 222 L64 222 L60 170 L56 222 L28 222 Z"/>', leggings:'<path d="M42 148 L78 148 L76 222 L62 222 L60 165 L58 222 L44 222 Z"/>',
+ mini:'<path d="M40 128 L80 128 L84 160 L36 160 Z"/>', midi:'<path d="M40 128 L80 128 L88 200 L32 200 Z"/>', maxi:'<path d="M40 128 L80 128 L92 222 L28 222 Z"/>',
+ wrap:'<path d="M40 148 L80 148 L88 200 L32 200 Z"/><path d="M52 148 L74 200" stroke="#0B0C12" stroke-width="1.5"/>', pleated:'<path d="M40 138 L80 138 L88 180 L32 180 Z"/><path d="M46 138 L44 180 M54 138 L53 180 M62 138 L62 180 M70 138 L71 180" stroke="#0B0C12" stroke-width="1" opacity=".5"/>',
+ pencil:'<path d="M42 148 L78 148 L80 206 L40 206 Z"/>'
+};
+const SHOES = {
+ sneak:'<path d="M32 222 L58 222 L58 232 L30 232 Z M62 222 L88 222 L90 232 L62 232 Z"/>', chunky:'<path d="M30 220 L58 220 L58 234 L26 234 Z M62 220 L90 220 L94 234 L62 234 Z"/>',
+ loafer:'<path d="M34 224 L58 224 L58 232 L34 232 Z M62 224 L86 224 L86 232 L62 232 Z"/>', oxford:'<path d="M34 224 L58 224 L58 233 L34 233 Z M62 224 L86 224 L86 233 L62 233 Z"/>',
+ ballet:'<path d="M36 226 L58 226 L58 232 L36 232 Z M62 226 L84 226 L84 232 L62 232 Z"/>', heel:'<path d="M38 222 L58 222 L58 230 L44 230 L42 236 L40 236 Z M62 222 L82 222 L82 230 L68 230 L66 236 L64 236 Z"/>',
+ platform:'<path d="M32 218 L58 218 L58 234 L32 234 Z M62 218 L88 218 L88 234 L62 234 Z"/>', combat:'<path d="M34 208 L58 208 L58 234 L32 234 Z M62 208 L86 208 L88 234 L62 234 Z"/>',
+ trek:'<path d="M30 218 L58 218 L58 234 L28 234 Z M62 218 L90 218 L92 234 L62 234 Z"/>', sandal:'<path d="M36 228 L58 228 L58 232 L36 232 Z M62 228 L84 228 L84 232 L62 232 Z"/>'
+};
+const ACC = {
+ baguette:'<path d="M84 128 L102 128 L104 144 L86 144 Z"/><path d="M88 128 C90 118 100 118 100 128" fill="none" stroke="#0B0C12" stroke-width="1.5"/>', scarf:'<path d="M50 88 L70 88 L74 98 L60 100 L46 98 Z" opacity=".9"/>',
+ hoops:'<circle cx="44" cy="70" r="5" fill="none" stroke="#D9A93A" stroke-width="2"/><circle cx="76" cy="70" r="5" fill="none" stroke="#D9A93A" stroke-width="2"/>', bow:'<path d="M50 84 L60 90 L70 84 L60 92 Z"/>',
+ basket:'<path d="M90 140 L108 140 L104 170 L94 170 Z"/>', hat:'<ellipse cx="60" cy="40" rx="30" ry="6"/><path d="M42 40 C44 20 76 20 78 40 Z"/>', cap:'<path d="M40 44 C44 26 76 26 80 44 L92 46 L88 50 L40 50 Z"/>',
+ trench:'<path d="M28 88 L92 88 L98 180 L22 180 Z" opacity=".55"/>', chain:'<path d="M48 88 C52 100 68 100 72 88" fill="none" stroke="#C0C0C0" stroke-width="2"/>', choker:'<path d="M50 84 L70 84" stroke="#0B0C12" stroke-width="4"/>',
+ clips:'<path d="M44 30 L54 34 M66 34 L76 30" stroke="#FF5BA7" stroke-width="3"/>', gold:'<path d="M46 86 C52 104 68 104 74 86" fill="none" stroke="#D9A93A" stroke-width="3"/>', fringe:'<path d="M36 132 L36 148 M44 132 L44 150 M76 132 L76 150 M84 132 L84 148" stroke="#0B0C12" stroke-width="1.5" opacity=".6"/>'
+};
+window.aestLook = n=>{
+  const L=LOOKS[n]||{top:'tee',bottom:'jeans',shoes:'sneak'}; const p=(window.aestPal?aestPal(n):['#C79DF2','#19C6F7','#F2A6C6']);
+  const A=window.AESTH?(AESTH.find(x=>x[0]===n)||[]):[];
+  const ph = (window.PH_CACHE=window.PH_CACHE||{}); const photo = AEST_IMG[n] ? {url:AEST_IMG[n]} : null;
+  if(!photo){ aestPhoto(n).then(p=>{ if(p && document.querySelector('.hint-box.on [data-aest="'+n+'"]')) { const im=document.querySelector('.hint-box.on [data-aest="'+n+'"]'); im.innerHTML=`<img src="${p.url}" alt="${n}">${p.by?`<small>фото: ${p.by} · Pexels</small>`:''}`; } }); }
+  return `<div class="hint-look"><div class="look-ph" data-aest="${n.replace(/"/g,'&quot;')}">${photo?`<img src="${photo.url}" alt="${n}">`:`<svg viewBox="0 0 120 240" class="look-svg">
+    <g fill="#2B2F45"><circle cx="60" cy="56" r="20"/><path d="M46 76 L74 76 L84 92 L36 92 Z"/><path d="M40 90 L80 90 L84 222 L36 222 Z"/><path d="M32 96 L40 96 L38 160 L28 160 Z"/><path d="M80 96 L88 96 L92 160 L82 160 Z"/></g>
+    <g fill="${p[1]}">${BOTS[L.bottom]||''}</g>
+    <g fill="${p[0]}">${TOPS[L.top]||''}</g>
+    <g fill="${p[2]}">${SHOES[L.shoes]||''}</g>
+    <g fill="${p[2]}">${L.acc?ACC[L.acc]||'':''}</g>
+    <path d="M42 52 C44 30 76 30 78 52 L78 70 C70 62 50 62 42 70 Z" fill="#1F2235"/>
+  </svg>`}</div><div><b>${n}</b><span>${A[1]||''}</span><em>${(A[2]||'').split(',').slice(0,4).join(' · ')}</em><a class="hint-pin" href="${aestPinterest(n)}" target="_blank" rel="noopener">◈ Ещё примеры в Pinterest →</a></div></div>`;
+};
+/* глаза, посадка, лицо — крупная схема + как понять на себе */
+const EXPL = {
+ eye:{ 'Миндалевидные':'уголки на одной линии, глаз вытянут как миндаль; видно и веко, и складку', 'Нависшее веко':'кожа над складкой опускается и закрывает подвижное веко — складки почти не видно, когда глаз открыт', 'Монолид':'нет заметной складки, веко ровное — часто у азиатского типа', 'Опущенные уголки':'внешний уголок ниже внутреннего, взгляд «грустный»', 'Круглые':'высота глаза почти равна ширине, белок виден и над, и под радужкой', 'Глубоко посаженные':'глаз «утоплен» под надбровной дугой, веко в тени' },
+ sp:{ 'Нормальная':'между глазами помещается ровно один глаз', 'Близко посаженные':'между глазами меньше одного глаза — светлое во внутренний уголок', 'Широко посаженные':'между глазами больше одного глаза — тёмное ближе к переносице' },
+ face:{ 'Овал':'лоб чуть шире подбородка, линии мягкие — «эталон», идёт почти всё', 'Круг':'ширина почти равна длине, скулы — самая широкая часть, подбородок мягкий', 'Квадрат':'лоб, скулы и челюсть одинаковой ширины, челюсть с углами', 'Сердце':'широкий лоб, узкий заострённый подбородок', 'Ромб':'скулы шире лба и челюсти, подбородок заострён', 'Вытянутое':'длина заметно больше ширины, высокий лоб' }
+};
+window.hintHTML = (kind, v)=>{
+  if(kind==='aest') return aestLook(v);
+  const ic = window.PICTO && PICTO[kind] && PICTO[kind][v];
+  const t = (EXPL[kind]||{})[v]||'';
+  return `<div class="hint-look"><div class="hint-big">${ic||''}</div><div><b>${v}</b><span>${t}</span></div></div>`;
+};
+let box=null, hideT=null;
+const show=(el)=>{ const [kind,v]=(el.dataset.hint||'').split(':'); if(!kind||!v) return;
+  if(!box){ box=document.createElement('div'); box.className='hint-box'; document.body.appendChild(box); }
+  box.innerHTML=hintHTML(kind, v); box.classList.add('on'); clearTimeout(hideT);
+  const r=el.getBoundingClientRect(); const W=box.offsetWidth||300, H=box.offsetHeight||200;
+  let x=r.right+12, y=r.top; if(x+W>window.innerWidth-8) x=r.left-W-12; if(x<8) x=Math.max(8, r.left); if(y+H>window.innerHeight-8) y=Math.max(8, window.innerHeight-H-8);
+  box.style.left=x+'px'; box.style.top=y+'px'; };
+const hide=()=>{ hideT=setTimeout(()=>{ if(box) box.classList.remove('on'); },120); };
+document.addEventListener('mouseover', e=>{ const el=e.target.closest('[data-hint]'); if(el && matchMedia('(hover:hover)').matches) show(el); });
+document.addEventListener('mouseout', e=>{ const el=e.target.closest('[data-hint]'); if(el) hide(); });
+document.addEventListener('scroll', ()=>{ if(box) box.classList.remove('on'); }, {passive:true});
+/* на телефоне — маленькая кнопка «?» */
+window.hintTap = (el,e)=>{ e.preventDefault(); e.stopPropagation(); const [kind,v]=(el.dataset.hint||'').split(':'); let ov=document.getElementById('hintOv'); if(!ov){ ov=document.createElement('div'); ov.id='hintOv'; ov.className='au-ov'; ov.onclick=ev=>{ if(ev.target===ov) ov.classList.remove('open'); }; document.body.appendChild(ov); }
+  ov.innerHTML=`<div class="au-box" style="width:min(420px,100%)"><button class="au-x" onclick="document.getElementById('hintOv').classList.remove('open')">✕</button><div class="au-in">${hintHTML(kind,v)}</div></div>`; ov.classList.add('open'); };
+window.hintBtn = (kind,v)=>`<i class="hint-q" data-hint="${kind}:${String(v).replace(/"/g,'&quot;')}" onclick="hintTap(this,event)" title="как это выглядит">?</i>`;
+})();
+
 fxGlow(document);
 fxTilt(document);
 </script>
