@@ -4176,6 +4176,65 @@ header nav.topnav{gap:4px;align-items:center}
 .pay-card b.mono{font-size:11px;letter-spacing:.3px;word-break:break-all}
 .pay-card .btn{padding:8px 12px;font-size:10px}
 @media(max-width:560px){.pay-card{grid-template-columns:1fr auto}.pay-card span{grid-column:1/-1}}
+
+/* ================= НОВЫЕ БЛОКИ ГЛАВНОЙ ================= */
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:22px}
+.qk{text-align:left;padding:18px 18px 16px;border-radius:18px;cursor:pointer;color:#ECEDF2;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));transition:transform .25s,border-color .25s,box-shadow .25s;position:relative;overflow:hidden}
+.qk::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.08) 50%,transparent 65%);background-size:250% 100%;background-position:180% 0;transition:background-position .9s}
+.qk:hover{transform:translateY(-4px);border-color:transparent;background:linear-gradient(rgba(16,18,28,.85),rgba(16,18,28,.85)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;box-shadow:0 14px 34px rgba(140,120,220,.25)}
+.qk:hover::after{background-position:-60% 0}
+.qk i{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;font-style:normal;font-size:18px;color:#0B0C12;margin-bottom:12px}
+.qk b{display:block;font-size:16px;margin-bottom:6px}
+.qk span{display:block;font-size:12.5px;line-height:1.5;color:#B7BCCC}
+.qk em{display:block;margin-top:10px;font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#7CF0B2}
+.who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:22px}
+.who{text-align:left;padding:20px;border-radius:18px;cursor:pointer;color:#ECEDF2;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));transition:transform .25s,border-color .25s}
+.who:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.5)}
+.who b{display:block;font-size:17px;line-height:1.25;margin-bottom:8px}
+.who span{display:block;font-size:13.5px;line-height:1.6;color:#B7BCCC}
+.who em{display:block;margin-top:12px;font-style:normal;font-size:13px;font-weight:600;color:#C7A6F0}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.st3{padding:22px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012))}
+.st3 i{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;font-style:normal;font-weight:800;font-size:18px;color:#0B0C12;background:linear-gradient(135deg,#19C6F7,#C79DF2);margin-bottom:14px}
+.st3 b{display:block;font-size:17px;margin-bottom:8px}
+.st3 span{display:block;font-size:13.5px;line-height:1.6;color:#B7BCCC}
+@media(max-width:820px){.steps3{grid-template-columns:1fr}}
+
+.au-or{margin:12px 0;text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8B92AA}
+.au-tg{width:100%;background:linear-gradient(120deg,#2AABEE,#229ED9);color:#fff}
+#tgLogin .tip{margin-top:10px}
+
+.ap-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 8px 8px}
+.ap-stats>div{padding:9px 8px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:center}
+.ap-stats b{display:block;font-size:15px;background:linear-gradient(90deg,#19C6F7,#C79DF2);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap-stats span{font-size:10px;color:#8B92AA}
+.ap-tags{margin:0 12px 8px;font-size:11.5px;color:#C7A6F0}
+
+.hub-card{position:relative}
+.hub-card .lock{position:absolute;top:12px;right:12px;font-style:normal;font-size:13px;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.15)}
+.hub-card.locked:hover .lock{background:linear-gradient(120deg,#19C6F7,#C79DF2);border-color:transparent}
+
+/* ================= КАБИНЕТ ================= */
+.dash{margin:18px 0 20px;padding:22px 24px;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:radial-gradient(600px 240px at 0% 0%,rgba(199,157,240,.14),transparent 60%),radial-gradient(500px 220px at 100% 100%,rgba(25,198,247,.1),transparent 60%),linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012))}
+.dash-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.dash-head h3{margin:6px 0 0;font-size:22px}
+.dash-ring{position:relative;width:72px;height:72px;flex:0 0 auto}
+.dash-ring svg{width:100%;height:100%}
+.dash-ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:14px}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.dash-it{text-align:left;padding:14px 15px;border-radius:14px;cursor:pointer;color:#ECEDF2;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);transition:transform .2s,border-color .2s}
+.dash-it:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.5)}
+.dash-it.ok{border-color:rgba(55,224,138,.35);background:linear-gradient(135deg,rgba(55,224,138,.08),rgba(25,198,247,.04))}
+.dash-it small{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA}
+.dash-it b{display:block;font-size:15px;margin:6px 0 4px;line-height:1.3}
+.dash-it span{display:block;font-size:11.5px;color:#C7A6F0}
+.my-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.my-tab{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:99px;cursor:pointer;color:#B7BCCC;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.03);font-family:'Manrope';font-size:13.5px;font-weight:600;transition:all .2s}
+.my-tab i{font-style:normal;color:#C79DF2}
+.my-tab:hover{color:#fff;border-color:rgba(199,157,240,.5)}
+.my-tab.on{color:#0B0C12;border-color:transparent;background:linear-gradient(180deg,#FFF,#EEF0F7);box-shadow:0 8px 22px rgba(140,120,220,.3)}
+.my-tab.on i{color:#5B3FA0}
+@media(max-width:560px){.my-tab{height:36px;padding:0 12px;font-size:12.5px}}
 </style>
 </head>
 <body>
@@ -4383,6 +4442,45 @@ header nav.topnav{gap:4px;align-items:center}
 </section>
 
 <section class="sec reveal" id="makeup" hidden></section>
+
+
+<!-- ================= БЫСТРЫЕ КРЮЧКИ: за 60 секунд, бесплатно ================= -->
+<section class="sec reveal" id="quickSec">
+  <div class="eyebrow">попробуйте за 60 секунд · бесплатно и без входа</div>
+  <h2 class="big">Пять вещей, которые изменят ваше утро <span class="holo">уже сегодня</span></h2>
+  <div class="quick-grid">
+    <button class="qk" onclick="openColor()"><i style="background:linear-gradient(135deg,#19C6F7,#C79DF2)">◐</i><b>Ваши 24 цвета</b><span>цветотип из 12 сезонов и палитра, в которой вы «свежая», а не «уставшая»</span><em>60 секунд · бесплатно</em></button>
+    <button class="qk" onclick="openBeauty()"><i style="background:linear-gradient(135deg,#F2A6C6,#FF6FA8)">✧</i><b>Разбор по селфи</b><span>сильные черты, ваш вау-фактор, стрижка и цвет помады — по одному фото</span><em>1 минута · первый разбор бесплатно</em></button>
+    <button class="qk" onclick="openDna()"><i style="background:linear-gradient(135deg,#C79DF2,#F2A6C6)">✦</i><b>Ваш портрет</b><span>типаж, характер, что купите и чего боитесь — LOOKA читает вас по кликам</span><em>3 минуты · бесплатно</em></button>
+    <button class="qk" onclick="goQuiz()"><i style="background:linear-gradient(135deg,#37E08A,#19C6F7)">▤</i><b>Три образа под вас</b><span>фигура, повод, бюджет — готовые комплекты со ссылками на покупку</span><em>2 минуты · 5 подборов бесплатно</em></button>
+    <button class="qk" onclick="openMakeup()"><i style="background:linear-gradient(135deg,#FFB84C,#F2A6C6)">◉</i><b>Макияж под вашу форму глаз</b><span>где положить, какой кистью, что испортит — 14 шагов под вас</span><em>2 минуты · попробовать</em></button>
+  </div>
+</section>
+
+<!-- ================= ДЛЯ КОГО ================= -->
+<section class="sec reveal" id="whoSec">
+  <div class="eyebrow">для кого LOOKA</div>
+  <h2 class="big">Узнали себя? <span class="holo">Начните с вашего сценария</span></h2>
+  <div class="who-grid">
+    <button class="who" onclick="openWardrobe()"><b>«Полный шкаф — нечего надеть»</b><span>Сфотографируйте вещи — шкаф сам соберёт образы на неделю и покажет, чего одной вещи не хватает.</span><em>Шкаф, который сам одевает →</em></button>
+    <button class="who" onclick="openColor()"><b>«Покупаю — и не ношу»</b><span>Скорее всего, вещи не вашего цвета или посадки. Цветотип и Стиль-ДНК закрывают это раз и навсегда.</span><em>Ваши 24 цвета →</em></button>
+    <button class="who" onclick="openMakeup()"><b>«Не умею краситься»</b><span>Схема под вашу форму глаз: где положить, какой кистью, что испортит — 14 шагов и косметичка под бюджет.</span><em>Макияж по вашей схеме →</em></button>
+    <button class="who" onclick="openSkin()"><b>«Кожа — вечная лотерея»</b><span>Рутина под тип кожи, проверенные бренды под задачу и проверка любого средства: подойдёт ли именно вам.</span><em>Кожа: утро и вечер →</em></button>
+    <button class="who" onclick="openEvent()"><b>«Через неделю событие»</b><span>Свадьба, собеседование, свидание, юбилей — образ под повод, дресс-код и погоду, с планом покупок.</span><em>Образ под событие →</em></button>
+    <button class="who" onclick="openGlow()"><b>«Хочу выглядеть моложе — честно»</b><span>Что доказано работает, а что миф: план на годы по коже, теле и привычкам, без чудо-кремов.</span><em>Долгая красота →</em></button>
+  </div>
+</section>
+
+<!-- ================= КАК ЭТО РАБОТАЕТ ================= -->
+<section class="sec reveal" id="howSec">
+  <div class="eyebrow">как это работает</div>
+  <h2 class="big">Три шага — <span class="holo">и LOOKA знает вас лучше консультанта</span></h2>
+  <div class="steps3">
+    <div class="st3"><i>1</i><b>Расскажите о себе кликами</b><span>Цветотип, фигура, Стиль-ДНК: эстетики, посадки, характер, привычки в макияже. Ни одного текстового поля — только выбор.</span></div>
+    <div class="st3"><i>2</i><b>Получите портрет и подборы</b><span>LOOKA собирает ваш портрет — как принимаете решения, что купите, чего боитесь — и строит на нём образы, макияж и уход.</span></div>
+    <div class="st3"><i>3</i><b>Живите с этим каждый день</b><span>Ритуал дня, образ под погоду, находки под ваш стиль в Telegram и гардероб, который помнит, что вы носили.</span></div>
+  </div>
+</section>
 
 <section class="sec reveal" id="ritSec">
   <div id="ritBox"></div>
@@ -5251,12 +5349,19 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="ab-tabs" data-t="разделы «Мой LOOKA»"><button class="ab-tab on"><i>◆</i>Мой LOOKA</button><button class="ab-tab" onclick="openPage('passPage')"><i>▤</i>Стиль-паспорт</button></div>
   <div class="eyebrow" id="accHi">мой looka</div>
   <h2 class="big">Ваш LOOKA — <span class="holo">учится и помнит</span></h2>
-  <p class="lead">Профиль, вкус, избранное и покупки — в одном месте. Всё хранится на вашем устройстве, а перенести на новое можно одним файлом.</p>
-  <div id="accBox"></div>
-  <div id="netBox"></div>
-  <div id="chkBox"></div>
-  <div id="findsBox"></div>
-  <div id="myBox"></div>
+  <div id="dashBox"></div>
+  <div class="my-tabs" id="myTabs">
+    <button class="my-tab on" data-tab="results" onclick="myTab('results')"><i>✦</i>Результаты</button>
+    <button class="my-tab" data-tab="profile" onclick="myTab('profile')"><i>◆</i>Профиль</button>
+    <button class="my-tab" data-tab="shops" onclick="myTab('shops')"><i>▣</i>Магазины и заказы</button>
+    <button class="my-tab" data-tab="check" onclick="myTab('check')"><i>✚</i>Проверить средство</button>
+    <button class="my-tab" data-tab="finds" onclick="myTab('finds')"><i>✈</i>Находки</button>
+  </div>
+  <div class="my-pane" data-pane="results"><div id="myBox"></div></div>
+  <div class="my-pane" data-pane="profile" hidden><div id="accBox"></div></div>
+  <div class="my-pane" data-pane="shops" hidden><div id="netBox"></div></div>
+  <div class="my-pane" data-pane="check" hidden><div id="chkBox"></div></div>
+  <div class="my-pane" data-pane="finds" hidden><div id="findsBox"></div></div>
 </section>
 
 <section class="sec reveal" id="pricing">
@@ -6792,7 +6897,7 @@ window.openPage = (id, anchor)=>{
   if(id==='shopsPage' && window.renderShops) renderShops();
   if(id==='glowPage' && window.renderGlowForm) renderGlowForm();
   if(id==='dnaPage' && window.renderDna) renderDna();
-  if(id==='myPage'){ if(window.renderAcc) renderAcc(); if(window.renderNet) renderNet(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); }
+  if(id==='myPage'){ if(window.renderDash) renderDash(); if(window.renderAcc) renderAcc(); if(window.renderNet) renderNet(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); myTab('results'); }
   if(id==='carePage' && window.renderCare) renderCare();
   if(anchor){
     setTimeout(()=>{
@@ -8919,6 +9024,7 @@ function drapeSVG(pal, no){
 
 function renderColor(){
   const s = computeSeason(), Z = SEASONS[s];
+  try{ localStorage.setItem('looka_cs', JSON.stringify({season:s, ts:Date.now()})); }catch(e){}
   const out = document.getElementById('ctOut');
   const sw = (arr, cls)=>arr.map((c,i)=>HUB.pop(`<div class="cs-sw ${cls||''}"><i style="background:${c[0]}"></i><span>${c[1]}</span></div>`, i)).join('');
   const rel = { 'Светлая весна':['Светлое лето','Тёплая весна'], 'Тёплая весна':['Тёплая осень','Яркая весна'], 'Яркая весна':['Яркая зима','Тёплая весна'], 'Светлое лето':['Светлая весна','Холодное лето'], 'Холодное лето':['Холодная зима','Мягкое лето'], 'Мягкое лето':['Мягкая осень','Холодное лето'], 'Мягкая осень':['Мягкое лето','Тёплая осень'], 'Тёплая осень':['Тёплая весна','Тёмная осень'], 'Тёмная осень':['Тёмная зима','Тёплая осень'], 'Тёмная зима':['Тёмная осень','Холодная зима'], 'Холодная зима':['Холодное лето','Яркая зима'], 'Яркая зима':['Яркая весна','Тёмная зима'] }[s];
@@ -9694,7 +9800,7 @@ const GROUPS = [
     ['✆','Спросить эксперта','дерматолог · визажист · стилист · трихолог отвечают', "openPage('askPage')", 'доступ']
   ]}
 ];
-const card = (h,i)=>`<button class="hub-card pop" style="animation-delay:${(i*0.05).toFixed(2)}s" onclick="${(h[4]==='доступ' ? 'gate('+JSON.stringify(h[3]).replace(/"/g,'&quot;')+','+JSON.stringify(h[1]).replace(/"/g,'&quot;')+')' : h[3]).replace(/"/g,'&quot;')}"><i>${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span><em class="${h[4]==='бесплатно'?'free':''}">${h[4]}</em></button>`;
+const card = (h,i)=>`<button class="hub-card pop ${h[4]==='доступ'&&!(window.hasAccess&&hasAccess())?'locked':''}" style="animation-delay:${(i*0.05).toFixed(2)}s" onclick="${(h[4]==='доступ' ? 'gate('+JSON.stringify(h[3]).replace(/"/g,'&quot;')+','+JSON.stringify(h[1]).replace(/"/g,'&quot;')+')' : h[3]).replace(/"/g,'&quot;')}">${h[4]==='доступ'&&!(window.hasAccess&&hasAccess())?'<i class="lock" title="по подписке">🔒</i>':''}<i>${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span><em class="${h[4]==='бесплатно'?'free':''}">${h[4]}</em></button>`;
 const SEARCH_CARD = `
   <div class="hub-search">
     <div class="hs-ic">⌕</div>
@@ -11039,6 +11145,32 @@ window.chkProduct = async ()=>{
   }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; }
 };
 })();
+
+/* ================= КАБИНЕТ: сводка результатов + вкладки ================= */
+window.myTab = t=>{ document.querySelectorAll('#myPage .my-tab').forEach(b=>b.classList.toggle('on', b.dataset.tab===t)); document.querySelectorAll('#myPage .my-pane').forEach(p=>{ p.hidden = p.dataset.pane!==t; }); const pane=document.querySelector('#myPage .my-pane[data-pane="'+t+'"] > div'); if(pane && window.sparkleReveal) sparkleReveal(pane); };
+window.renderDash = ()=>{
+  const box=document.getElementById('dashBox'); if(!box) return;
+  const g=k=>{ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } };
+  const cs=g('looka_cs'), D2=g('looka_dna')||{}, K2=g('looka_skin')||{}, W=(g('looka_wardrobe')||{}).items||[], R=g('looka_ritual')||{}, H=g('looka_hair')||{}, A=g('looka_acc')||{}, Q=g('looka_state')||g('looka_quiz')||{};
+  const tr = window.dnaTypeResult ? dnaTypeResult() : null; const TN={rom:'Романтик',dram:'Драматик',cls:'Классик',nat:'Натурал',gam:'Гамин',boh:'Богема',spt:'Спорт-шик'};
+  const arch = (window.dnaArchetype && dnaArchetype()) || '';
+  const cards=[
+    ['Цветотип', cs&&cs.season ? cs.season : null, 'openColor()', 'пройти за 60 секунд'],
+    ['Стилевой типаж', tr&&Object.keys(D2.tq||{}).length>=6 ? TN[tr.main] : null, 'openDna()', '12 вопросов'],
+    ['Архетип', arch||null, 'openDna()', 'тест характера'],
+    ['Эстетики', (D2.styles||[]).length ? D2.styles.slice(0,3).join(' · ') : null, 'openDna()', 'выбрать'],
+    ['Кожа', K2.type ? K2.type+(K2.goals&&K2.goals.length?' · '+K2.goals[0]:'') : null, 'openSkin()', 'тип и рутина'],
+    ['Форма лица', H.face||null, 'openHair()', 'стрижка и укладки'],
+    ['Гардероб', W.length ? W.length+' '+(W.length===1?'вещь':W.length<5?'вещи':'вещей') : null, 'openWardrobe()', 'добавить вещи'],
+    ['Ритуал дня', R.n ? 'серия '+R.n+' '+(R.n===1?'день':R.n<5?'дня':'дней') : null, "closePage();setTimeout(()=>{const r=document.getElementById('ritSec'); if(r&&window.glide) glide(r,110,800);},300)", 'начать серию']
+  ];
+  const done=cards.filter(c=>c[1]).length;
+  box.innerHTML=`<div class="dash">
+    <div class="dash-head"><div><div class="cs-k">ВАШИ РЕЗУЛЬТАТЫ · ${done} ИЗ ${cards.length}</div><h3>${A.name?A.name.split(' ')[0]+', в':'В'}от что LOOKA о вас уже знает</h3></div><div class="dash-ring"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="20" cy="20" r="17" fill="none" stroke="url(#dg)" stroke-width="4" stroke-linecap="round" stroke-dasharray="${(106.8*done/cards.length).toFixed(1)} 200" transform="rotate(-90 20 20)"/><defs><linearGradient id="dg"><stop offset="0" stop-color="#19C6F7"/><stop offset="1" stop-color="#C79DF2"/></linearGradient></defs></svg><b>${Math.round(done/cards.length*100)}%</b></div></div>
+    <div class="dash-grid">${cards.map((c,i)=>HUB.pop(`<button class="dash-it ${c[1]?'ok':''}" onclick="${c[2].replace(/"/g,'&quot;')}"><small>${c[0]}</small><b>${c[1]||'—'}</b><span>${c[1]?'открыть →':c[3]+' →'}</span></button>`,i)).join('')}</div>
+  </div>`;
+  if(window.sparkleReveal) sparkleReveal(box.firstElementChild);
+};
 window.renderAcc = ()=>{
   const box = document.getElementById('accBox'); if(!box) return;
   setTimeout(()=>{ if(window.authMount) authMount(); }, 30);
@@ -11160,20 +11292,37 @@ window.authDelete = async ()=>{
   if(window.renderAcc) renderAcc(); myToast('Аккаунт удалён из облака');
 };
 
+window.authApply = async (j, via)=>{
+  S2.token = j.token; S2.email = j.email || ''; S2.sync = true; keep();
+  const acc = JSON.parse(localStorage.getItem('looka_acc')||'{}');
+  if(!acc.name && j.profile && j.profile.name) acc.name = j.profile.name;
+  if(!acc.ava && j.profile && j.profile.ava) acc.ava = j.profile.ava;
+  localStorage.setItem('looka_acc', JSON.stringify(acc));
+  if(window.closeAuth) closeAuth();
+  if(j.isNew || !Object.keys(j.data||{}).length){ await authSync(true); if(window.renderAcc) renderAcc(); if(window.accGreet) accGreet(); if(window.navAccDraw) navAccDraw(); myToast('Добро пожаловать! Профиль привязан к '+via); }
+  else await authPull();
+};
+let tgPoll=null;
+window.authTg = async ()=>{
+  try{
+    const r = await fetch(api('/auth/tg/start'), {method:'POST'}); const j = await r.json(); if(!r.ok) throw new Error(j.error||'ошибка');
+    const box=document.getElementById('tgLogin'); if(box) box.innerHTML=`<div class="tip">Откройте бота и нажмите <b>Start</b> — вход произойдёт сам. Код: <b>${j.code}</b></div><div class="st-load"><i></i><i></i><i></i></div>`;
+    window.open('https://t.me/'+j.bot+'?start='+j.code, '_blank');
+    clearInterval(tgPoll); let n=0;
+    tgPoll = setInterval(async ()=>{ n++; if(n>90){ clearInterval(tgPoll); if(box) box.innerHTML='<div class="tip">Время вышло — нажмите ещё раз.</div>'; return; }
+      try{ const p = await fetch(api('/auth/tg/poll?code='+j.code)); const q = await p.json();
+        if(q.status==='ok'){ clearInterval(tgPoll); await authApply(q, 'Telegram'); }
+        if(q.status==='expired'){ clearInterval(tgPoll); if(box) box.innerHTML='<div class="tip">Код устарел — нажмите ещё раз.</div>'; }
+      }catch(e){} }, 2000);
+  }catch(e){ myToast('Не получилось: '+e.message); }
+};
 async function onCredential(resp){
   if(S2.busy) return; S2.busy = true;
   try{
     const r = await fetch(api('/auth/google'), {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({credential: resp.credential})});
     const j = await r.json();
     if(!r.ok) throw new Error(j.error||'вход не удался');
-    S2.token = j.token; S2.email = j.email || ''; S2.sync = true; keep();
-    const acc = JSON.parse(localStorage.getItem('looka_acc')||'{}');
-    if(!acc.name && j.profile && j.profile.name) acc.name = j.profile.name;
-    if(!acc.ava && j.profile && j.profile.ava) acc.ava = j.profile.ava;
-    localStorage.setItem('looka_acc', JSON.stringify(acc));
-    if(window.closeAuth) closeAuth();
-    if(j.isNew || !Object.keys(j.data||{}).length){ await authSync(true); if(window.renderAcc) renderAcc(); if(window.accGreet) accGreet(); if(window.navAccDraw) navAccDraw(); myToast('Добро пожаловать! Профиль привязан к вашему Google'); }
-    else await authPull();
+    await authApply(j, 'вашему Google');
   }catch(e){ myToast('Вход не удался: '+e.message); }
   S2.busy = false;
 }
@@ -11231,11 +11380,12 @@ window.accMenu = (ev)=>{
       <div class="ap-ava">${a.ava?`<img src="${a.ava}">`:(initials(a.name)||'✦')}</div>
       <div><b>${a.name||'Ваш профиль'}</b><span>${s.email||''}</span></div>
     </div>
-    ${rit?`<div class="ap-streak">◆ серия ритуала: <b>${rit}</b> ${rit===1?'день':rit<5?'дня':'дней'}</div>`:''}
-    <button class="ap-it" onclick="closeAccPop();openPage('myPage')"><i>◆</i><span>Редактировать профиль</span><em>имя, фото, дата рождения</em></button>
+    ${(()=>{ let W=0,C='',T=''; try{ W=(JSON.parse(localStorage.getItem('looka_wardrobe')||'{}').items||[]).length; }catch(e){} try{ C=(JSON.parse(localStorage.getItem('looka_cs')||'{}').season)||''; }catch(e){} try{ const D2=JSON.parse(localStorage.getItem('looka_dna')||'{}'); T=(D2.styles||[]).slice(0,2).join(' · '); }catch(e){}
+      return `<div class="ap-stats"><div><b>${rit}</b><span>${rit===1?'день':rit<5?'дня':'дней'} ритуала</span></div><div><b>${W}</b><span>вещей в шкафу</span></div><div><b>${C||'—'}</b><span>цветотип</span></div></div>${T?`<div class="ap-tags">✦ ${T}</div>`:''}`; })()}
+    <button class="ap-it" onclick="closeAccPop();openPage('myPage');setTimeout(()=>myTab('profile'),350)"><i>◆</i><span>Редактировать профиль</span><em>имя, фото, дата рождения</em></button>
     <button class="ap-it" onclick="closeAccPop();openPage('passPage')"><i>▤</i><span>Стиль-паспорт</span><em>всё о вас на одной странице</em></button>
     <button class="ap-it" onclick="closeAccPop();openWardrobe()"><i>▣</i><span>Мой гардероб</span><em>вещи, образ дня, план недели</em></button>
-    <button class="ap-it" onclick="closeAccPop();openPage('myPage');setTimeout(()=>{const f=document.getElementById('findsBox'); if(f&&window.glide) glide(f,110,800);},400)"><i>✦</i><span>Находки для вас</span><em>новые магазины и средства — в Telegram</em></button>
+    <button class="ap-it" onclick="closeAccPop();openPage('myPage');setTimeout(()=>myTab('finds'),350)"><i>✦</i><span>Находки для вас</span><em>новые магазины и средства — в Telegram</em></button>
     <button class="ap-it" onclick="closeAccPop();authSync()"><i>↻</i><span>Сохранить в облако</span><em>синхронизировать сейчас</em></button>
     <div class="ap-sep"></div>
     <button class="ap-it" onclick="closeAccPop();openPage('contactsPage')"><i>✉</i><span>Написать в поддержку</span></button>
@@ -11275,7 +11425,10 @@ window.openAuth = (reason)=>{
         <li>Пароль придумывать не надо</li>
       </ul>
       <div id="gBtn" class="g-slot au-g"></div>
-      <div class="au-note">Мы получаем от Google только имя, почту и аватар. Пароль Google нам не передаётся. Можно продолжить и без входа — тогда данные останутся только на этом устройстве.</div>
+      <div class="au-or">или</div>
+      <button class="btn primary au-tg" onclick="authTg()">✈ Войти через Telegram</button>
+      <div id="tgLogin"></div>
+      <div class="au-note">Google даёт нам только имя, почту и аватар; Telegram — только имя. Пароли нам не передаются. Вход по номеру телефона и почте появится, когда подключим отправку кодов.</div>
       <button class="btn ghost au-skip" onclick="closeAuth()">Продолжить без входа</button>
     </div>
   </div>`;
@@ -11774,7 +11927,7 @@ window.sparkleReveal = (el)=>{
   setTimeout(()=>{ el.classList.remove('sp-hide'); el.classList.add('sp-in'); }, 650);
   setTimeout(()=>box.remove(), 2400);
 };
-(function(){ const o=window.openPage; window.openPage=function(id){ o.apply(null,arguments); if(id==='myPage'||id==='dnaPage'){ setTimeout(()=>{ const t=document.querySelector(id==='myPage'?'#accBox .acc-card':'#dnaPage .por-card')||document.querySelector('#'+id+' .mk-hero'); sparkleReveal(t); },120); } }; })();
+(function(){ const o=window.openPage; window.openPage=function(id){ o.apply(null,arguments); if(id==='dnaPage'){ setTimeout(()=>{ const t=document.querySelector('#dnaPage .por-card')||document.querySelector('#dnaPage .mk-hero'); sparkleReveal(t); },120); } }; })();
 fxGlow(document);
 fxTilt(document);
 </script>
