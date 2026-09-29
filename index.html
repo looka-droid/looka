@@ -4286,6 +4286,30 @@ header nav.topnav{gap:4px;align-items:center}
 .sub-plans{margin-top:18px}
 @media(max-width:900px){.dna-home{grid-template-columns:1fr;padding:24px 18px}.sub-cols{grid-template-columns:1fr}}
 @media(max-width:560px){.dna-home-r{grid-template-columns:1fr 1fr}}
+
+.mood-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 12px}
+.mood{text-align:left;padding:14px 12px;border-radius:14px;cursor:pointer;color:#ECEDF2;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);transition:transform .2s,border-color .2s}
+.mood:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.5)}
+.mood.on{border-color:transparent;background:linear-gradient(rgba(16,18,28,.9),rgba(16,18,28,.9)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box}
+.mood i{font-style:normal;font-size:20px;display:block;margin-bottom:6px}
+.mood b{display:block;font-size:14px}
+.mood span{display:block;font-size:11.5px;color:#8B92AA;line-height:1.4;margin-top:3px}
+@media(max-width:560px){.mood-grid{grid-template-columns:1fr 1fr}}
+.quick-grid.q8{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+
+/* обувь */
+.sh-ico{width:64px;height:36px;display:block}
+.sh-gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin:10px 0 6px}
+.sh-g{padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02)}
+.sh-g b{display:block;font-size:13px;margin-top:4px}
+.sh-g span{display:block;font-size:11.5px;color:#8B92AA;line-height:1.4}
+.sh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:12px}
+.sh-card{padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012))}
+.sh-card b{display:block;font-size:15px;margin-top:8px}
+.sh-card span{display:block;font-size:12.5px;color:#B7BCCC;line-height:1.5;margin-top:4px}
+.sh-card em{display:block;font-style:normal;font-size:12.5px;color:#7CF0B2;margin:8px 0}
+.sh-grid.no .sh-card em{color:#FF9DB0}
+.sh-x{opacity:.7}
 </style>
 </head>
 <body>
@@ -4498,13 +4522,16 @@ header nav.topnav{gap:4px;align-items:center}
 <!-- ================= БЫСТРЫЕ КРЮЧКИ: за 60 секунд, бесплатно ================= -->
 <section class="sec reveal" id="quickSec">
   <div class="eyebrow">попробуйте за 60 секунд · бесплатно и без входа</div>
-  <h2 class="big">Пять вещей, которые изменят ваше утро <span class="holo">уже сегодня</span></h2>
-  <div class="quick-grid">
-    <button class="qk" onclick="openColor()"><i style="background:linear-gradient(135deg,#19C6F7,#C79DF2)">◐</i><b>Ваши 24 цвета</b><span>цветотип из 12 сезонов и палитра, в которой вы «свежая», а не «уставшая»</span><em>60 секунд · бесплатно</em></button>
-    <button class="qk" onclick="openBeauty()"><i style="background:linear-gradient(135deg,#F2A6C6,#FF6FA8)">✧</i><b>Разбор по селфи</b><span>сильные черты, ваш вау-фактор, стрижка и цвет помады — по одному фото</span><em>1 минута · первый разбор бесплатно</em></button>
-    <button class="qk" onclick="openDna()"><i style="background:linear-gradient(135deg,#C79DF2,#F2A6C6)">✦</i><b>Ваш портрет</b><span>типаж, характер, что купите и чего боитесь — LOOKA читает вас по кликам</span><em>3 минуты · бесплатно</em></button>
-    <button class="qk" onclick="goQuiz()"><i style="background:linear-gradient(135deg,#37E08A,#19C6F7)">▤</i><b>Три образа под вас</b><span>фигура, повод, бюджет — готовые комплекты со ссылками на покупку</span><em>2 минуты · 5 подборов бесплатно</em></button>
-    <button class="qk" onclick="openMakeup()"><i style="background:linear-gradient(135deg,#FFB84C,#F2A6C6)">◉</i><b>Макияж под вашу форму глаз</b><span>где положить, какой кистью, что испортит — 14 шагов под вас</span><em>2 минуты · попробовать</em></button>
+  <h2 class="big">Восемь вещей, которые изменят ваше утро <span class="holo">уже сегодня</span></h2>
+  <div class="quick-grid q8">
+    <button class="qk" onclick="openColor()"><i style="background:linear-gradient(135deg,#19C6F7,#C79DF2)">◐</i><b>Цветотип</b><span>12 сезонов и ваши 24 цвета — с примерами, что это значит</span><em>60 секунд · бесплатно</em></button>
+    <button class="qk" onclick="openDna()"><i style="background:linear-gradient(135deg,#C79DF2,#F2A6C6)">✦</i><b>Взлом личности</b><span>характер, как принимаете решения, что купите, чего боитесь — по кликам</span><em>3 минуты · бесплатно</em></button>
+    <button class="qk" onclick="openDna();setTimeout(()=>{const t=document.getElementById('dna-type'); if(t&&window.glide) glide(t,110,800);},500)"><i style="background:linear-gradient(135deg,#F2A6C6,#FFB84C)">◈</i><b>Ваш типаж</b><span>романтик, драматик, классик, натурал, гамин, богема или спорт-шик</span><em>12 вопросов · бесплатно</em></button>
+    <button class="qk" onclick="moodOpen()"><i style="background:linear-gradient(135deg,#37E08A,#19C6F7)">☼</i><b>Настроение сегодня</b><span>как вы сейчас + погода за окном → образ и макияж на этот день</span><em>10 секунд · бесплатно</em></button>
+    <button class="qk" onclick="goQuiz()"><i style="background:linear-gradient(135deg,#C79DF2,#19C6F7)">▤</i><b>Одежда</b><span>три образа под фигуру, повод и бюджет — с картинками, что за вещь</span><em>2 минуты · 5 подборов бесплатно</em></button>
+    <button class="qk" onclick="openShoes()"><i style="background:linear-gradient(135deg,#FFB84C,#F2A6C6)">◡</i><b>Обувь</b><span>какая обувь идёт вашим ногам, росту и образам — лоферы, ботинки, каблук</span><em>1 минута · попробовать</em></button>
+    <button class="qk" onclick="openMakeup()"><i style="background:linear-gradient(135deg,#FF6FA8,#C79DF2)">◉</i><b>Макияж</b><span>схема под вашу форму глаз, губы и брови — 14 шагов с рисунками</span><em>2 минуты · попробовать</em></button>
+    <button class="qk" onclick="openHair()"><i style="background:linear-gradient(135deg,#19C6F7,#37E08A)">✂</i><b>Причёски</b><span>что идёт вашему лицу + шесть укладок по схемам и видео</span><em>1 минута · попробовать</em></button>
   </div>
 </section>
 
@@ -5038,6 +5065,16 @@ header nav.topnav{gap:4px;align-items:center}
   </div>
   <div class="bt-form look mk-form"><div id="skForm"></div></div>
   <div class="looks" id="skOut"></div>
+</section>
+
+<section class="sec pageview" id="shoesPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero">
+    <div class="eyebrow">обувь · что реально идёт вашим ногам</div>
+    <h2 class="big">Какая обувь ваша — <span class="holo">по росту, ногам и образам</span></h2>
+    <p class="lead">Лоферы, мэри-джейн, челси, слингбэки, платформа — у каждой пары есть картинка и объяснение, что это. Ответьте на шесть вопросов — получите свою «обувную капсулу»: что покупать, что не брать и с чем носить.</p>
+  </div>
+  <div id="shBox"></div>
 </section>
 
 <section class="sec pageview" id="hairPage">
@@ -6128,7 +6165,7 @@ async function generate(regen){
 
   const prompt = `Ты — профессиональный стилист. Подбери 3 РАЗНЫХ готовых образа (полный комплект одежды/обуви/аксессуаров) для человека:
 пол: ${S.gender}, возраст: ${S.age}, рост ${S.height} см, вес ${S.weight} кг, тип фигуры: ${S.figure}, размер одежды RU ${S.clothSize}, размер обуви ${S.shoeSize}, волосы: ${S.hair}, глаза: ${S.eyes}, тон кожи: ${S.skin}. Что учесть: ${(S.focus||[]).join(', ')||'ничего особенного'}. Любимый стиль: ${S.style||'любой'}.
-${(window.dnaSummary&&dnaSummary())?'СТИЛЬ-ДНК КЛИЕНТКИ (главный источник правды о вкусе, важнее общих правил): '+dnaSummary()+'. Строго соблюдай список «никогда» и не повторяй то, что ей не понравилось.':''}
+${(window.moodToday&&moodToday())?'НАСТРОЕНИЕ СЕГОДНЯ: '+moodToday().m+' — '+moodToday().rule+'. ':''}${(window.dnaSummary&&dnaSummary())?'СТИЛЬ-ДНК КЛИЕНТКИ (главный источник правды о вкусе, важнее общих правил): '+dnaSummary()+'. Строго соблюдай список «никогда» и не повторяй то, что ей не понравилось.':''}
 Событие: ${S.event}. Сезон за окном: ${S.season||seasonNow()} — подбирай строго по сезону (зимой обязателен тёплый верхний слой и закрытая утеплённая обувь, летом — лёгкие ткани и открытая обувь, в межсезонье — слои). Бюджет на весь образ: ${S.budget}.
 Ты собираешь эффектные законченные образы уровня журнального стилиста. Правила: цвета ВСЕХ вещей — включая обувь, сумку и верхнюю одежду — согласованы между собой и выигрышно смотрятся при этом тоне кожи, волос и глаз; обувь и сумка сочетаются по цвету; в каждом образе есть стильный аксессуар под формат (очки, украшение, ремень, платок); учитывай коррекцию фигуры. Вещи должны реально продаваться на Wildberries/Ozon/Lamoda.
 ${regen && lastTitles.length ? 'Пользователю НЕ понравились прошлые образы: '+lastTitles.join(', ')+'. Собери СОВЕРШЕННО другие — иные стили, цвета и вещи.' : ''}
@@ -9338,6 +9375,100 @@ window.brandCards = (task, isMakeup)=>{
     <div class="brand-grid">${list.map((b,i)=>HUB.pop(`<div class="brand"><b>${b[0]}</b><span>${b[1]}</span><em>${b[2]}</em>${beautyButtons(b[0]+' '+b[1])}</div>`,i)).join('')}</div>
     <div class="tip">Составы и линейки меняются — проверяйте актуальную формулу на сайте бренда. Дерматологические марки (аптечные) — самый безопасный старт при чувствительной коже.</div></div>`;
 };
+
+/* ================= ОБУВЬ: подбор с картинками ================= */
+(function(){
+const SHQ = HUB.ls('looka_shoes', { h:'', leg:'', ankle:'', size:'', heel:'', life:[], done:false });
+const Q=[
+ ['h','Ваш рост',['до 160','160–170','170–178','выше 178']],
+ ['leg','Ноги',['стройные','полные в икрах','полные в бёдрах','длинные тонкие','короткие относительно тела']],
+ ['ankle','Щиколотка',['тонкая','обычная','широкая или отёкшая к вечеру']],
+ ['size','Размер',['до 36','37–38','39–40','41 и больше']],
+ ['heel','Каблук',['никогда','только на события','3–5 см — комфортно','люблю высокий','платформа — да']],
+ ['life','Где чаще носите',['офис','город и прогулки','свидания и выходы','спорт и активность','дом и дача']]
+];
+/* картинки-схемы обуви (свои, SVG) */
+const ICO = {
+ loafers:'<path d="M6 30 C10 30 16 22 26 18 C34 15 44 16 52 22 C56 25 58 29 58 32 L6 32 Z" fill="var(--c,#C79DF2)"/><path d="M22 20 C28 22 34 22 40 19" stroke="#0B0C12" stroke-width="2" fill="none"/>',
+ mary:'<path d="M6 30 C10 28 18 22 30 20 C42 18 50 22 56 30 L56 32 L6 32 Z" fill="var(--c,#C79DF2)"/><path d="M20 22 L40 20" stroke="#0B0C12" stroke-width="2.5"/><circle cx="41" cy="20" r="2.2" fill="#0B0C12"/>',
+ ballet:'<path d="M6 30 C12 28 22 24 34 22 C44 21 52 24 58 30 L58 32 L6 32 Z" fill="var(--c,#C79DF2)"/><path d="M20 26 C30 22 40 22 50 25" stroke="#0B0C12" stroke-width="2" fill="none"/>',
+ sling:'<path d="M14 30 C20 28 28 22 38 20 C46 19 52 22 56 28 L56 32 L14 32 Z" fill="var(--c,#C79DF2)"/><path d="M6 10 L14 32" stroke="var(--c,#C79DF2)" stroke-width="4"/><path d="M14 22 C10 18 8 14 6 10" stroke="#0B0C12" stroke-width="2" fill="none"/>',
+ pumps:'<path d="M18 28 C24 24 32 18 42 14 C50 11 56 14 58 22 L58 32 L18 32 Z" fill="var(--c,#C79DF2)"/><path d="M18 32 L14 12 L18 12 L22 32 Z" fill="var(--c,#C79DF2)"/>',
+ block:'<path d="M18 28 C24 24 32 18 42 14 C50 11 56 14 58 22 L58 32 L18 32 Z" fill="var(--c,#C79DF2)"/><rect x="12" y="14" width="10" height="18" fill="var(--c,#C79DF2)"/>',
+ chelsea:'<path d="M14 6 L38 6 L38 20 C46 22 54 26 58 30 L58 32 L14 32 Z" fill="var(--c,#C79DF2)"/><path d="M18 8 L18 18" stroke="#0B0C12" stroke-width="3"/>',
+ knee:'<path d="M14 2 L36 2 L38 22 C46 24 54 27 58 30 L58 32 L14 32 Z" fill="var(--c,#C79DF2)"/>',
+ sneak:'<path d="M4 30 C8 28 14 24 20 20 C26 16 30 14 36 16 C42 18 48 22 58 26 L58 32 L4 32 Z" fill="var(--c,#C79DF2)"/><path d="M4 32 L58 32" stroke="#0B0C12" stroke-width="3"/><path d="M22 20 L28 24 M28 18 L34 22" stroke="#0B0C12" stroke-width="2"/>',
+ platform:'<path d="M6 24 C12 22 22 18 34 16 C44 15 52 18 58 24 L58 26 L6 26 Z" fill="var(--c,#C79DF2)"/><rect x="6" y="26" width="52" height="8" fill="#0B0C12" opacity=".8"/>',
+ sandal:'<path d="M6 30 L58 30 L58 32 L6 32 Z" fill="var(--c,#C79DF2)"/><path d="M14 30 L30 14 M30 14 L46 30 M20 30 L40 22" stroke="var(--c,#C79DF2)" stroke-width="3" fill="none"/>',
+ mule:'<path d="M20 30 C26 26 34 20 44 18 C50 17 56 20 58 28 L58 32 L20 32 Z" fill="var(--c,#C79DF2)"/><path d="M28 24 C34 20 40 20 46 22" stroke="#0B0C12" stroke-width="2" fill="none"/>',
+ combat:'<path d="M14 4 L36 4 L38 22 C46 24 54 27 58 30 L58 33 L14 33 Z" fill="var(--c,#C79DF2)"/><path d="M20 8 L30 8 M20 13 L30 13 M20 18 L30 18" stroke="#0B0C12" stroke-width="2"/><path d="M14 33 L58 33" stroke="#0B0C12" stroke-width="3"/>'
+};
+window.shoeIcon=(k,c)=>`<svg class="sh-ico" viewBox="0 0 64 36" style="--c:${c||'#C79DF2'}">${ICO[k]||ICO.loafers}</svg>`;
+const CAT=[
+ ['loafers','Лоферы','туфли без шнурков и застёжек, на низком каблуке; идут с брюками, джинсами, юбками миди','офис, город'],
+ ['mary','Мэри-джейн','туфли с ремешком через подъём; удлиняют ногу, если ремешок тонкий и в тон коже','город, выходы'],
+ ['ballet','Балетки','плоские туфли с мягким носом; лучше с брюками до щиколотки и юбками ниже колена','город'],
+ ['sling','Слингбэки','туфли с открытой пяткой и ремешком; самый «дорогой» вариант на низком каблуке','офис, свидания'],
+ ['pumps','Лодочки','классические туфли с закрытым носом и каблуком; беж в тон коже визуально удлиняет ноги','выходы, офис'],
+ ['block','Устойчивый каблук','широкий каблук 4–7 см: эффект каблука без боли; идут при широкой щиколотке','офис, выходы'],
+ ['chelsea','Челси','ботинки с резинками по бокам, без шнурков; универсальная осень','город, офис'],
+ ['knee','Сапоги до колена','идут при стройных или длинных ногах; при полных икрах — с мягким голенищем','город, выходы'],
+ ['sneak','Кроссовки','белые минималистичные — база под всё; массивные — под стрит и оверсайз','город, спорт'],
+ ['platform','Платформа','плоская толстая подошва: рост без каблука и без нагрузки на стопу','город, выходы'],
+ ['sandal','Босоножки на ремешках','тонкие ремешки удлиняют ногу; закрытая щиколотка укорачивает','лето, выходы'],
+ ['mule','Мюли','туфли без задника; лучше при тонкой щиколотке, не для долгой ходьбы','свидания, город'],
+ ['combat','Грубые ботинки','на шнуровке и толстой подошве; уравновешивают лёгкие платья и юбки','город, гранж и стрит']
+];
+window.shPick=(k,v)=>{ if(k==='life'){ const a=SHQ.life; const i=a.indexOf(v); i<0?a.push(v):a.splice(i,1); } else SHQ[k]=v; HUB.save('looka_shoes',SHQ); renderShoesForm(); };
+function rules(){
+  const yes=new Set(), no=new Set(), why={};
+  const add=(k,w)=>{ yes.add(k); if(!(why[k]||'').includes(w)) why[k]=(why[k]?why[k]+'; ':'')+w; };
+  const ban=(k,w)=>{ no.add(k); if(!(why[k]||'').includes(w)) why[k]=(why[k]?why[k]+'; ':'')+w; };
+  if(SHQ.h==='до 160'){ add('sling','открытая пятка удлиняет ногу'); add('pumps','беж в тон коже — плюс 5 см визуально'); add('platform','рост без каблука'); ban('knee','сапоги до колена режут ногу при небольшом росте'); ban('combat','тяжёлый низ укорачивает'); }
+  if(SHQ.h==='выше 178'){ add('loafers','высокий рост носит плоское красиво'); add('sneak','база'); add('chelsea','пропорции позволяют'); }
+  if(SHQ.leg==='полные в икрах'){ ban('knee','голенище давит и подчёркивает'); add('chelsea','заканчиваются под щиколоткой'); add('loafers','открывают подъём'); }
+  if(SHQ.leg==='короткие относительно тела'){ add('mary','тонкий ремешок в тон коже'); add('pumps','низкий вырез удлиняет'); ban('sandal','ремешки на щиколотке укорачивают'); }
+  if(SHQ.leg==='стройные'||SHQ.leg==='длинные тонкие'){ add('knee','ваш вариант'); add('combat','контраст с лёгким верхом'); add('sandal','ремешки идут'); }
+  if(SHQ.ankle==='широкая или отёкшая к вечеру'){ ban('sandal','ремешки врезаются'); ban('mule','нет опоры'); add('block','устойчивый каблук, закрытая пятка'); add('chelsea','эластичные вставки'); }
+  if(SHQ.ankle==='тонкая'){ add('mule','подчеркнут щиколотку'); add('sling','ремешок на тонкой щиколотке смотрится дорого'); }
+  if(SHQ.heel==='никогда'){ ban('pumps','вы не носите каблук'); ban('block','вы не носите каблук'); add('loafers','замена каблуку в офисе'); add('platform','рост без каблука'); add('ballet','на каждый день'); }
+  if(SHQ.heel==='люблю высокий'){ add('pumps','ваш вариант'); add('sling','вариант на каждый день'); }
+  if(SHQ.heel==='3–5 см — комфортно'){ add('block','ваша высота'); add('mary','на маленьком каблуке'); }
+  if(SHQ.heel==='платформа — да'){ add('platform','ваш вариант'); }
+  if(SHQ.size==='41 и больше'){ ban('mary','ремешок визуально удлиняет стопу'); ban('ballet','плоский нос увеличивает стопу'); add('sling','вырез сбоку сокращает стопу'); add('chelsea','нейтрализуют размер'); }
+  if(SHQ.size==='до 36'){ add('ballet','маленькая стопа носит плоское изящно'); add('mary','ваш вариант'); ban('platform','грубит маленькую стопу'); }
+  if(SHQ.life.includes('офис')){ add('loafers','офисная база'); add('sling','офис и после'); }
+  if(SHQ.life.includes('спорт и активность')){ add('sneak','база'); }
+  if(SHQ.life.includes('свидания и выходы')){ add('sling','дорого без усилий'); }
+  if(SHQ.life.includes('город и прогулки')){ add('sneak','ходьба'); add('chelsea','осень-весна'); }
+  no.forEach(k=>yes.delete(k));
+  return {yes:[...yes], no:[...no], why};
+}
+window.renderShoesForm=()=>{
+  const box=document.getElementById('shBox'); if(!box) return;
+  const ready=SHQ.h&&SHQ.leg&&SHQ.ankle&&SHQ.size&&SHQ.heel;
+  box.innerHTML=`<div class="look badv mk-wide bt-form"><div class="look-in">
+    ${Q.map(q=>`<div class="grp"><label class="t">${q[1]}${q[0]==='life'?' <span class="to-opt">несколько</span>':''}</label><div class="chips">${q[2].map(v=>`<button class="chip ${(q[0]==='life'?SHQ.life.includes(v):SHQ[q[0]]===v)?'on':''}" onclick="shPick('${q[0]}','${v}')">${v}</button>`).join('')}</div></div>`).join('')}
+    <div class="cs-k" style="margin-top:14px">ЧТО ЭТО ВООБЩЕ ТАКОЕ · СЛОВАРЬ С КАРТИНКАМИ</div>
+    <div class="sh-gloss">${CAT.map(c=>`<div class="sh-g">${shoeIcon(c[0],'#8B92AA')}<b>${c[1]}</b><span>${c[2]}</span></div>`).join('')}</div>
+    <div class="to-row"><button class="btn primary" ${ready?'':'disabled'} onclick="renderShoes()">Собрать обувную капсулу →</button></div>
+  </div></div><div id="shOut"></div>`;
+  if(SHQ.done && ready) renderShoes(true);
+};
+window.renderShoes=(quiet)=>{
+  const out=document.getElementById('shOut'); if(!out) return; SHQ.done=true; HUB.save('looka_shoes',SHQ);
+  const R=rules(); const byK=Object.fromEntries(CAT.map(c=>[c[0],c]));
+  const yes=R.yes.length?R.yes:['loafers','sneak','chelsea','sling'];
+  out.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">ВАША ОБУВНАЯ КАПСУЛА · ${yes.length} ПАР</div><h3>Что покупать — и почему именно это</h3>
+    <div class="sh-grid">${yes.map((k,i)=>{ const c=byK[k]; return HUB.pop(`<div class="sh-card">${shoeIcon(k,'#C79DF2')}<b>${c[1]}</b><span>${c[2]}</span><em>✓ ${R.why[k]||c[3]}</em>${shopButtons({n:c[1],q:c[1]+' женские'})}</div>`,i); }).join('')}</div>
+    ${R.no.length?`<div class="cs-k" style="margin-top:18px">НЕ ВАШЕ · ДЕНЬГИ МИМО</div><div class="sh-grid no">${R.no.map(k=>{ const c=byK[k]; return `<div class="sh-card"><div class="sh-x">${shoeIcon(k,'#FF9DB0')}</div><b>${c[1]}</b><em>✕ ${R.why[k]}</em></div>`; }).join('')}</div>`:''}
+    <div class="tip" style="margin-top:14px">Цвет базы: беж или карамель в тон коже удлиняет ногу; чёрный «отрезает» стопу — берите его к чёрным брюкам или колготкам. Меряйте вечером: к вечеру стопа шире.</div>
+    <div class="next-row"><span>дальше →</span><button onclick="goQuiz()">▤ Образы под эту обувь</button><button onclick="openWardrobe()">▣ Добавить в гардероб</button></div>
+  </div></div>`;
+  if(!quiet) HUB.done(out);
+};
+window.openShoes=()=>{ openPage('shoesPage'); renderShoesForm(); };
+})();
 window.renderSkinForm = ()=>{
   const f = document.getElementById('skForm'); if(!f) return;
   if(!K.type && B.skin) K.type = B.skin;
@@ -9843,6 +9974,7 @@ const GROUPS = [
   { t:'Что надеть', d:'от анкеты до вещей в корзине — без «нечего носить»', items:[
     ['✦','Три образа за две минуты','ответили на анкету — получили готовые комплекты со ссылками', "goQuiz()", 'бесплатно'],
     ['⌘','Стиль-ДНК','35 эстетик, посадки, характер, «никогда» — чтобы ИИ знал ваш вкус', 'openDna()', 'бесплатно'],
+    ['◡','Обувь, которая ваша','лоферы, слингбэки, челси — что идёт росту и ногам, с картинками', 'openShoes()', 'бесплатно'],
     ['▣','Шкаф, который сам одевает','ваши вещи → образ на сегодня, план недели и что докупить', 'openWardrobe()', 'доступ'],
     ['▦','14 вещей — 30 образов','капсула сезона: докупаете только недостающее', 'openCapsule()', 'доступ'],
     ['◈','Важный день под ключ','свадьба, собеседование, свидание — план по дням', 'openEvent()', 'доступ'],
@@ -12032,6 +12164,26 @@ window.sparkleReveal = (el)=>{
   const pl=document.getElementById('subPlans');
   if(pl && window.PLANS){ pl.innerHTML=`<div class="plans">${Object.entries(PLANS).map(([k,v])=>`<button class="plan ${k==='month'?'on':''}" onclick="pickPlan('${k}');openPay()"><small>${v.t}</small><b>${v.p}</b><span>${k==='week'?'попробовать всё · без автопродления':k==='month'?'≈ 33 ₽ в день · все разделы и генерации':'≈ 416 ₽ в месяц · 5 месяцев в подарок'}</span><em>${k==='year'?'лучшая цена':'отменяется в один тап'}</em></button>`).join('')}</div><div class="tip" style="text-align:center;margin-top:10px">Возврат первой оплаты 14 дней одним письмом. Продление — только с вашим подтверждением.</div>`; }
 })();
+
+/* ================= НАСТРОЕНИЕ СЕГОДНЯ ================= */
+window.MOODS=[['⚡','Заряжена','яркие акценты, каблук или структурный жакет'],['☁','Тихо и уютно','мягкие ткани, монохром, комфорт'],['♥','Хочу нравиться','силуэт, губы, любимый аромат'],['◆','Собранная','чистые линии, нейтральные цвета, минимум деталей'],['✿','Легко и игриво','цвет, принт, кроссовки и юбка'],['☾','Устала','всё удобное, но не «домашнее»: слои и пальто']];
+window.moodOpen=()=>{
+  let ov=document.getElementById('moodOv');
+  if(!ov){ ov=document.createElement('div'); ov.id='moodOv'; ov.className='au-ov'; ov.onclick=e=>{ if(e.target===ov) moodClose(); }; document.body.appendChild(ov); }
+  let cur=''; try{ cur=(JSON.parse(localStorage.getItem('looka_mood')||'{}')).m||''; }catch(e){}
+  const wx=window.WX_LAST||null;
+  ov.innerHTML=`<div class="au-box"><div class="au-aura"></div><button class="au-x" onclick="moodClose()">✕</button><div class="au-in">
+    <div class="au-mark">☼</div><div class="cs-k">настроение сегодня</div><h3>Как вы сейчас?</h3>
+    <p>Одно нажатие — и образ дня, макияж и укладка подстроятся под ваше настроение${wx?' и погоду ('+wx+')':' и погоду'}, а не только под гардероб.</p>
+    <div class="mood-grid">${MOODS.map(m=>`<button class="mood ${cur===m[1]?'on':''}" onclick="moodPick('${m[1]}')"><i>${m[0]}</i><b>${m[1]}</b><span>${m[2]}</span></button>`).join('')}</div>
+    <div class="au-note">Настроение действует сегодня и учитывается в подборе образов, макияже и ритуале дня.</div>
+  </div></div>`;
+  ov.classList.add('open'); document.body.style.overflow='hidden';
+};
+window.moodClose=()=>{ const o=document.getElementById('moodOv'); if(o){ o.classList.remove('open'); document.body.style.overflow=''; } };
+window.moodPick=m=>{ const rule=(MOODS.find(x=>x[1]===m)||[])[2]||''; try{ localStorage.setItem('looka_mood', JSON.stringify({m, rule, day:new Date().toDateString()})); }catch(e){}
+  moodClose(); myToast('Сегодня: '+m+' — учту в образе дня'); if(window.openDayLook){ setTimeout(()=>{ try{ openDayLook(); }catch(e){} }, 400); } };
+window.moodToday=()=>{ try{ const x=JSON.parse(localStorage.getItem('looka_mood')||'{}'); return x.day===new Date().toDateString()? x : null; }catch(e){ return null; } };
 fxGlow(document);
 fxTilt(document);
 </script>
