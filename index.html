@@ -4141,6 +4141,41 @@ header nav.topnav{gap:4px;align-items:center}
 .gplan b{display:block;font-size:22px;font-weight:800;margin:4px 0;background:linear-gradient(90deg,#19C6F7,#C79DF2);-webkit-background-clip:text;background-clip:text;color:transparent}
 .gplan span{display:block;font-size:11.5px;color:#B7BCCC;line-height:1.4}
 @media(max-width:560px){.gate-plans{grid-template-columns:1fr}}
+
+.net-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:14px}
+.net-it b{display:block;font-size:12px;letter-spacing:.4px;color:#C7A6F0;margin-bottom:5px}
+.net-it .acc-in{margin:0}
+.mr-url{display:flex;flex-direction:column}
+.skc-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.skc-v{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.5px;text-transform:uppercase;border:1px solid;border-radius:99px;padding:6px 12px}
+.skc-s{font-size:14px;font-weight:700}
+.skc-res p{font-size:13.5px;line-height:1.6;color:#D6DAE6;margin:6px 0}
+
+.mp a.ali{opacity:.7;font-size:10px}
+.ava-sil{width:100%;height:100%}
+.na-ava{font-size:14px}
+.sp-rain{position:fixed;inset:0;z-index:150;pointer-events:none;overflow:hidden}
+.sp-rain i{position:absolute;top:-20px;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);filter:drop-shadow(0 0 6px currentColor);animation:spFall linear forwards}
+@keyframes spFall{0%{transform:translateY(-20px) rotate(0);opacity:0}10%{opacity:1}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
+.sp-hide{opacity:0;transform:translateY(16px) scale(.98)}
+.sp-in{animation:spIn .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes spIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.pay-geo{margin:12px 0 4px;text-align:left}
+.pay-geo .chip{padding:7px 12px;font-size:12px}
+
+.chk-res{padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
+.chk-v{font-size:18px;font-weight:800;margin-bottom:6px}
+.type-res{margin-top:12px}
+
+.pay-cards{margin:10px 0 6px;text-align:left}
+.pay-cards .tip{font-size:12.5px;margin-top:10px}
+.pay-lead{font-size:13px}
+.pay-card{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);margin-top:8px}
+.pay-card span{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA}
+.pay-card b{font-family:'JetBrains Mono';font-size:15px;letter-spacing:1.5px;color:#ECEDF2}
+.pay-card b.mono{font-size:11px;letter-spacing:.3px;word-break:break-all}
+.pay-card .btn{padding:8px 12px;font-size:10px}
+@media(max-width:560px){.pay-card{grid-template-columns:1fr auto}.pay-card span{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -5218,6 +5253,8 @@ header nav.topnav{gap:4px;align-items:center}
   <h2 class="big">Ваш LOOKA — <span class="holo">учится и помнит</span></h2>
   <p class="lead">Профиль, вкус, избранное и покупки — в одном месте. Всё хранится на вашем устройстве, а перенести на новое можно одним файлом.</p>
   <div id="accBox"></div>
+  <div id="netBox"></div>
+  <div id="chkBox"></div>
   <div id="findsBox"></div>
   <div id="myBox"></div>
 </section>
@@ -5358,7 +5395,11 @@ header nav.topnav{gap:4px;align-items:center}
     <div class="pay-tabs"><button class="on" onclick="payTab(0)">Оформить доступ</button><button onclick="payTab(1)">У меня есть код</button></div>
     <div class="pay-pane" id="payP0">
       <div class="p-name" id="payPlanName">LOOKA · МЕСЯЦ · 990 ₽</div>
-      <p class="pay-lead">Оставьте имя и способ связи — пришлём ссылку на оплату и после оплаты активируем доступ. Обычно это занимает несколько минут в рабочее время.</p>
+    <div class="pay-geo"><label class="t">Откуда платите</label><div class="chips" id="payGeo">
+      <button class="chip on" onclick="payGeoPick(this,'ru')">Россия</button><button class="chip" onclick="payGeoPick(this,'kz')">Казахстан</button><button class="chip" onclick="payGeoPick(this,'by')">Беларусь</button><button class="chip" onclick="payGeoPick(this,'eu')">Европа</button><button class="chip" onclick="payGeoPick(this,'us')">США / Канада</button><button class="chip" onclick="payGeoPick(this,'ae')">ОАЭ / Залив</button><button class="chip" onclick="payGeoPick(this,'tr')">Турция</button><button class="chip" onclick="payGeoPick(this,'other')">Другая страна</button>
+    </div><div class="tip" id="payGeoNote" style="font-size:12.5px;margin-top:8px"></div></div>
+      <div id="payDetails"></div>
+      <p class="pay-lead" id="payLead">После перевода напишите нам — и получите код доступа. Обычно это занимает несколько минут в рабочее время.</p>
       <div class="pay-row"><input id="payName" placeholder="Как к вам обращаться"></div>
       <div class="pay-row"><input id="payPhone" placeholder="Телефон или @телеграм"></div>
       <div class="pay-row pay-two">
@@ -5366,7 +5407,7 @@ header nav.topnav{gap:4px;align-items:center}
         <button class="btn ghost" onclick="sendPay('mail', this)">Отправить на почту</button>
       </div>
       <div class="pay-steps">
-        <div><b>1</b>заявка</div><div>→</div><div><b>2</b>ссылка на оплату</div><div>→</div><div><b>3</b>код доступа</div>
+        <div><b>1</b>перевод</div><div>→</div><div><b>2</b>заявка</div><div>→</div><div><b>3</b>код доступа</div>
       </div>
       <div class="pay-note">Данные нужны только чтобы связаться с вами по этой заявке. Возврат — 14 дней без вопросов.</div>
     </div>
@@ -6031,7 +6072,7 @@ function toEN(q){
   return [...new Set(out)].join(' ');
 }
 const REGIONS = {
-  cis:{n:'Россия и СНГ', f:'🇷🇺', lang:'ru', size:'RU', shops:[['WB','wb','https://www.wildberries.ru/catalog/0/search.aspx?search={q}'],['OZON','oz','https://www.ozon.ru/search/?text={q}'],['LAMODA','lm','https://www.lamoda.ru/catalogsearch/result/?q={q}'],['МАРКЕТ','ym','https://market.yandex.ru/search?text={q}']],
+  cis:{n:'Россия и СНГ', f:'🇷🇺', lang:'ru', size:'RU', shops:[['WB','wb','https://www.wildberries.ru/catalog/0/search.aspx?search={q}'],['OZON','oz','https://www.ozon.ru/search/?text={q}'],['LAMODA','lm','https://www.lamoda.ru/catalogsearch/result/?q={q}'],['МАРКЕТ','ym','https://market.yandex.ru/search?text={q}'],['ALI','ali','https://aliexpress.ru/wholesale?SearchText={q}']],
     beauty:[['ЛЭТУАЛЬ','le','https://www.letu.ru/search?q={q}'],['ЗОЛОТОЕ ЯБЛОКО','gy','https://goldapple.ru/search?q={q}'],['РИВ ГОШ','rg','https://rivegauche.ru/search?text={q}'],['WB','wb','https://www.wildberries.ru/catalog/0/search.aspx?search={q}'],['OZON','oz','https://www.ozon.ru/search/?text={q}'],['МАРКЕТ','ym','https://market.yandex.ru/search?text={q}']],
     bridal:[['Mary Trufel','https://marytrufel.com'],['To Be Bride','https://tobebride.ru'],['Gabbiano','https://gabbiano.ru']], groom:[['Kanzler','https://kanzler-style.ru'],['Henderson','https://henderson.ru']]},
   kz:{n:'Казахстан', f:'🇰🇿', lang:'ru', size:'RU', shops:[['KASPI','ym','https://kaspi.kz/shop/search/?text={q}'],['WB','wb','https://www.wildberries.kz/catalog/0/search.aspx?search={q}'],['OZON','oz','https://www.ozon.kz/search/?text={q}'],['LAMODA','lm','https://www.lamoda.kz/catalogsearch/result/?q={q}']],
@@ -6751,7 +6792,7 @@ window.openPage = (id, anchor)=>{
   if(id==='shopsPage' && window.renderShops) renderShops();
   if(id==='glowPage' && window.renderGlowForm) renderGlowForm();
   if(id==='dnaPage' && window.renderDna) renderDna();
-  if(id==='myPage'){ if(window.renderAcc) renderAcc(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); }
+  if(id==='myPage'){ if(window.renderAcc) renderAcc(); if(window.renderNet) renderNet(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); }
   if(id==='carePage' && window.renderCare) renderCare();
   if(anchor){
     setTimeout(()=>{
@@ -7626,7 +7667,39 @@ window.openTool = key=>{
 /* ================= ОПЛАТА: заявка → ссылка → код ================= */
 const ACCESS_HASHES = ["abf3706d63025259f74b779b7feb12e654207e6b596d868101e8e422039abdc0", "5a510cd4b0c9e0da3d063b8d0bfbdd382f07f89f61ffb78a6f6cbf618cea0889", "b41bcda096e92906b6a8dc642329a6eefa28e2b573cff079b61e70bab0c5ec60", "db5edeb2edeb8cd63945daca6d51acb2635a8e979c01560d2d5118667163301e", "ead39ad9012c1427ff6b571033296aadae7447046acbd3c836863f4b71b337de", "80b3c1cf20287375f9db146e98210b904ba966b270050d666fbbbfd90ee161e4", "348b8a0556b418d2e70080903030104e235e409da2069b9da55b6be81fa183e5", "264496dad76bd5a182349988da3ff3d535fb3f0b33efef8e66f4a810cdea65f7", "89ac3f484b53d599f255f98bb7d0adbfa7e61e92d33757adc83e9dedb28f5d0b", "511dab7ebdbbdea6a8f954638ef30865489a72ff0e744c650bb63aa9b11e19b0", "04f9e2a8b50150d7ce6ae7a75c6af539358e19dca5fc07952fee0cc81f55731a", "7ae012fdc491932986bb62394b9a441847069b71e5b05189ff2e8c8934277fe2", "df60b9ca5b9f4fa0c03a62ad23c4844265ed09fdd58bc0d41dab4c51c422488a", "001c2c8949ae3de6e7ba2b0058c6c90a24fcc9c610aff4d56bd99eec58117991", "627be560a189a727b60d0054664ac20294fc97a904a2b92af66fa1bbb3748bb3", "ec36779fec92e762dd5317e670c937349e5e508096c52a2ae46c55f4143506de", "5e8c6c9a1ef00fc4717c0d251bdc5ca946acb8d41a0784c37bf4b2faeba52f6c", "3daf4c055e749283b86ad258d2be6614dceba550f02c8732a24ac88b28933d24", "3bb48cce4a94d437c41d10d6db83e1ed9dc24644c59d3bdbbb98751a517f6444", "a2b215c4ed362a0b769433396a0cfb5ffe4a40506cb046665d54b43e28e9f656", "92c800117d11a9b4b039d6b6a75771b5b07b4e5f59a1e52318fb60bcd0a34ffa", "7872961c4658a56e4fe2e38edc734f2b094351b2f298a2e4788e0cbb59ae5290", "67c8e8a968d004ec6bef43d9dfedcb8c225f251535e3c3c3744e0bb8858f1435", "3af3f4ac97cd186c5e0bd7990551bf60fd42d32c7fdd0761f3e97b1cfd16ecf5", "3cd60fa5ae57b51614891a35c94aa4a14c5cd685cd094614f4debd030595940f", "bd3f6816369ecc0950f81ce18c23b137c57f5b60aa3fa67ddb6d9adb91d590ed", "836efe29b75170d7c6c90d0ec5472de86ebe2ba5807e5c9840169eb6e839bc5d", "b7d1ca3e570848429f07e5bf3261a601ae9741d1ffc40507a563a08871a5113b", "068499c9e1c74f65d7b36b42bdc8f3ad1082f9b862e1a5796b70b172b0349c70", "b1a62f9b1e93614fa6a16833f64f4a8467963760d576d50f124dd32a17b8de42"];
 const PAY_TG = 'looka_support', PAY_MAIL = 'hello@looka.ru';
-window.openPay = ()=>{ document.getElementById('payOv').classList.add('on'); payTab(0); };
+/* реквизиты: Россия — перевод на карту; заграница — крипта, если адреса заданы (иначе — через поддержку) */
+window.PAY_CARDS = [ ['ВТБ','2200 2480 7613 8501'], ['Сбербанк','2202 2036 4557 5152'] ];
+window.PAY_CRYPTO = { btc:'', usdt:'' };  // сюда — адреса кошельков, когда появятся
+window.copyTxt = t=>{ try{ navigator.clipboard.writeText(t.replace(/\s/g,'')); myToast('Скопировано'); }catch(e){ myToast(t); } };
+window.payDetailsDraw = ()=>{
+  const d=document.getElementById('payDetails'); if(!d) return;
+  const k=window.payGeoKey||'ru'; const P=PLANS[window.curPlan||'month'];
+  if(k==='ru'||k==='by'){
+    d.innerHTML=`<div class="pay-cards"><div class="cs-k">ПЕРЕВОД НА КАРТУ · ${P.p}</div>
+      ${PAY_CARDS.map(c=>`<div class="pay-card"><span>${c[0]}</span><b>${c[1]}</b><button class="btn ghost" onclick="copyTxt('${c[1]}')">копировать</button></div>`).join('')}
+      <div class="tip">В комментарии к переводу — ваша почта или @телеграм, чтобы мы нашли платёж. Получатель — самозанятая, чек придёт после активации.</div></div>`;
+    document.getElementById('payLead').textContent='После перевода отправьте заявку ниже — и получите код доступа. Обычно это занимает несколько минут в рабочее время.';
+  } else {
+    const has = PAY_CRYPTO.btc||PAY_CRYPTO.usdt;
+    d.innerHTML = has ? `<div class="pay-cards"><div class="cs-k">ОПЛАТА КРИПТОВАЛЮТОЙ · ЭКВИВАЛЕНТ ${P.p}</div>
+      ${PAY_CRYPTO.usdt?`<div class="pay-card"><span>USDT (TRC-20)</span><b class="mono">${PAY_CRYPTO.usdt}</b><button class="btn ghost" onclick="copyTxt('${PAY_CRYPTO.usdt}')">копировать</button></div>`:''}
+      ${PAY_CRYPTO.btc?`<div class="pay-card"><span>Bitcoin</span><b class="mono">${PAY_CRYPTO.btc}</b><button class="btn ghost" onclick="copyTxt('${PAY_CRYPTO.btc}')">копировать</button></div>`:''}
+      <div class="tip">Курс — на момент перевода. После перевода пришлите заявку ниже с хешем транзакции.</div></div>`
+      : `<div class="pay-cards"><div class="cs-k">ОПЛАТА ИЗ-ЗА РУБЕЖА</div><div class="tip">Оставьте заявку — пришлём удобный способ для вашей страны в ответ (карта другой страны, перевод или криптовалюта).</div></div>`;
+    document.getElementById('payLead').textContent='Оставьте имя и способ связи — ответим со способом оплаты и после оплаты активируем доступ.';
+  }
+};
+window.payGeoPick=(btn,k)=>{ document.querySelectorAll('#payGeo .chip').forEach(c=>c.classList.toggle('on',c===btn));
+  const N={ru:'Перевод по номеру карты из любого российского банка — реквизиты ниже.',
+    kz:'Kaspi Gold / Kaspi Pay или карта Halyk, Forte, Freedom — в тенге по курсу дня.',
+    by:'Карта Беларусбанка, Альфа-Банка, Приорбанка — через СБП или картой.',
+    eu:'Visa / Mastercard любого европейского банка (Revolut, N26, Wise) — списание в евро.',
+    us:'Visa / Mastercard / Amex, Apple Pay и Google Pay — списание в долларах.',
+    ae:'Visa / Mastercard банков Залива (Emirates NBD, ADCB, Al Rajhi) — в дирхамах или долларах.',
+    tr:'Карта Ziraat, Garanti, İş Bankası — в лирах; при ошибке — карта другой страны.',
+    other:'Visa / Mastercard любого банка — списание в долларах. Если платёж не проходит, напишите в поддержку: подберём способ.'};
+  const n=document.getElementById('payGeoNote'); if(n) n.textContent=N[k]||N.other; window.payGeoKey=k; payDetailsDraw(); };
+window.openPay = ()=>{ document.getElementById('payOv').classList.add('on'); payTab(0); const k=window.payGeoKey||'ru'; const chips=[...document.querySelectorAll('#payGeo .chip')]; const btn=chips.find(c=>(c.getAttribute('onclick')||'').includes("'"+k+"'"))||chips[0]; payGeoPick(btn,k); };
 window.closePay = ()=>document.getElementById('payOv').classList.remove('on');
 window.payTab = i=>{ document.getElementById('payP0').style.display = i?'none':''; document.getElementById('payP1').style.display = i?'':'none';
   document.querySelectorAll('.pay-tabs button').forEach((b,k)=>b.classList.toggle('on', k===i)); };
@@ -7635,7 +7708,7 @@ window.sendPay = (how, btn)=>{
   const n = document.getElementById('payName').value.trim(), c = document.getElementById('payPhone').value.trim();
   if(!n || !c){ alert('Заполните имя и способ связи'); return; }
   const PL = window.PLANS ? PLANS[window.curPlan||'month'] : {t:'месяц',p:'990 ₽'};
-  const txt = 'Хочу оформить LOOKA · '+PL.t+' ('+PL.p+').\nИмя: '+n+'\nСвязь: '+c+'\nЖду ссылку на оплату.';
+  const txt = 'Хочу оформить LOOKA · '+PL.t+' ('+PL.p+').\nИмя: '+n+'\nСвязь: '+c+'\nСтрана: '+(window.payGeoKey||'ru')+'\n'+((window.payGeoKey||'ru')==='ru'||window.payGeoKey==='by'?'Перевёл(а) на карту, жду код.':'Жду способ оплаты.');
   if(how==='tg') window.open('https://t.me/'+PAY_TG+'?text='+encodeURIComponent(txt), '_blank');
   else location.href = 'mailto:'+PAY_MAIL+'?subject='+encodeURIComponent('Заявка на доступ LOOKA — '+n)+'&body='+encodeURIComponent(txt);
 };
@@ -9017,6 +9090,22 @@ function build(){
   return { am, pm, week, no, doc, rules, kit, P };
 }
 
+
+/* ================= ПРОВЕРИТЬ СРЕДСТВО: подходит ли именно мне ================= */
+window.skCheck = async ()=>{
+  const el=document.getElementById('skcIn'); const name=(el&&el.value||'').trim(); const out=document.getElementById('skcOut'); if(!name){ myToast('Напишите название средства'); return; }
+  out.innerHTML='<div class="tip">Смотрю состав и сверяю с вашей кожей…</div>';
+  const dna = window.dnaBeauty ? dnaBeauty() : '';
+  const prompt = `Ты — косметолог-химик. Средство: «${name}». Клиентка: тип кожи ${K.type||'-'}, задачи: ${(K.goals||[]).join(', ')||'-'}, возраст ${K.age||'-'}, климат ${K.climate||'-'}, бюджет ${K.budget||'-'}, регион ${typeof REGION!=='undefined'?REGION:'cis'}. ${dna?'Её бьюти-ДНК: '+dna+'.':''}
+Ответь ТОЛЬКО JSON: {"verdict":"подходит|подходит с оговорками|не подходит","score":число 1-10 «насколько это средство для неё»,"why":"2-3 предложения: ключевые активы и как они лягут на её кожу","result":"чего ждать и через сколько недель, честно","warn":"что может пойти не так, с чем не сочетать","better":[{"n":"альтернатива 1 — качественная, доступная в её регионе","why":"почему лучше или дешевле","q":"поисковый запрос"},{"n":"альтернатива 2 — другой ценовой сегмент","why":"...","q":"..."},{"n":"альтернатива 3 — иностранная, если стоит того (в редких случаях AliExpress — только проверенные бренды)","why":"...","q":"..."}],"tag":"один тег: уход|макияж"}`;
+  try{ const r=await aiFetch({model:'claude-sonnet-4-6',max_tokens:900,messages:[{role:'user',content:prompt}]}); const j=await r.json(); const txt=(j.content||[]).map(c=>c.text||'').join(''); const m=txt.match(/\{[\s\S]*\}/); if(!m) throw new Error('нет ответа'); const d=JSON.parse(m[0]);
+    const col = d.verdict==='подходит'?'#37E08A':d.verdict==='не подходит'?'#FF9DB0':'#FFB84C';
+    out.innerHTML=`<div class="skc-res"><div class="skc-head"><span class="skc-v" style="color:${col};border-color:${col}">${d.verdict}</span><span class="skc-s">${d.score}/10 для вас</span></div>
+      <p><b>Почему:</b> ${d.why}</p><p><b>Результат:</b> ${d.result}</p>${d.warn?`<p style="color:#FFB84C"><b>Осторожно:</b> ${d.warn}</p>`:''}
+      <div class="cs-k" style="margin:14px 0 8px">ЧТО ПОДОЙДЁТ ЛУЧШЕ ИЛИ ДЕШЕВЛЕ</div>${(d.better||[]).map((b,i)=>HUB.pop(`<div class="item"><div class="nm">${b.n}</div><div class="tip" style="margin:2px 0 6px">${b.why}</div>${beautyButtons(b.q||b.n)}</div>`,i)).join('')}
+      <div class="b-priv">Оценка по составу и вашим ответам, не медицинская рекомендация. При реакции — прекратить и к дерматологу.</div></div>`;
+  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; }
+};
 function renderSkin(){
   const R = build(); const out = document.getElementById('skOut');
   const routine = (arr, cls)=>`<ol class="rt ${cls}">${arr.map((s,i)=>HUB.pop(`<li><span class="rt-n">${i+1}</span><div><b>${s[0]}</b><span class="mk-tool">${s[2]||''}</span><p>${s[1]}</p></div></li>`, i)).join('')}</ol>`;
@@ -9034,6 +9123,10 @@ function renderSkin(){
       <div class="sk-kit">${R.kit.map(k=>`<div class="item"><div class="nm">${k[0]}</div><div class="pr">${R.P(k[2])}</div>${beautyButtons(k[1])}</div>`).join('')}</div>
       <div class="total">✦ бюджет: ${K.budget} · хватает на 2–3 месяца · цены ориентировочные</div></div></div>`;
   out.insertAdjacentHTML('beforeend', (K.goals||[]).concat(['SPF']).map(g=>brandCards(g)).join(''));
+  out.insertAdjacentHTML('beforeend', `<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">ПРОВЕРИТЬ СРЕДСТВО</div><h3>Подойдёт ли мне это?</h3>
+    <div class="tip">Увидели крем, сыворотку или тон в магазине или у блогера — напишите название. LOOKA сверит состав с вашим типом кожи, задачами и бюджетом, скажет, какого результата ждать, и предложит, что подойдёт лучше или дешевле — российское и иностранное.</div>
+    <div class="add" style="margin-top:12px"><input id="skcIn" class="acc-in" placeholder="например: CeraVe Moisturizing Cream или The Ordinary Niacinamide 10 %" style="margin:0;flex:1"><button class="btn primary" onclick="skCheck()">Проверить</button></div>
+    <div id="skcOut" style="margin-top:12px"></div></div></div>`);
   out.insertAdjacentHTML('beforeend', '<div class="next-row"><span>дальше →</span><button onclick="openMakeup()">✦ Макияж-гид</button><button onclick="openPage(\'askPage\')">✦ Спросить дерматолога в Консилиуме</button><button onclick="openTool(\'cal\')">✦ Календарь красоты</button></div>');
   HUB.done(out);
 }
@@ -9979,6 +10072,11 @@ const LIM = 10;
 function q(){ const m = new Date().toISOString().slice(0,7); let s = {m,n:0}; try{ s = JSON.parse(localStorage.getItem('looka_mkref')||'null')||s; }catch(e){} if(s.m!==m) s = {m,n:0}; return s; }
 async function toB64(f, max){ return new Promise(res=>{ const img=new Image(); img.onload=()=>{ const c=document.createElement('canvas'); const k=Math.min(1,max/Math.max(img.width,img.height)); c.width=img.width*k; c.height=img.height*k; c.getContext('2d').drawImage(img,0,0,c.width,c.height); res(c.toDataURL('image/jpeg',.85)); }; img.src=URL.createObjectURL(f); }); }
 window.mrPickRef = async f=>{ if(f) R.ref = await toB64(f, 1000); renderMkRef(); };
+window.mrFromUrl = async ()=>{ const el=document.getElementById('mrUrl'); const u=(el&&el.value||'').trim(); if(!u){ myToast('Вставьте ссылку на фото'); return; }
+  myToast('Скачиваю фото…');
+  try{ const r=await fetch(LOOKA_API+'/img',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:u})}); const j=await r.json(); if(!r.ok) throw new Error(j.error||'ошибка');
+    R.ref='data:'+j.mime+';base64,'+j.b64; renderMkRef(); myToast('Фото загружено — можно разбирать'); }
+  catch(e){ myToast('Не вышло: '+e.message); } };
 window.mrPickProds = async f=>{ if(f) R.prods = await toB64(f, 1100); renderMkRef(); };
 window.mrClear = k=>{ R[k] = null; renderMkRef(); };
 window.mrGo = async ()=>{
@@ -10032,6 +10130,7 @@ window.renderMkRef = ()=>{
     <div class="to-row" style="margin-top:14px"><button class="btn primary" ${(!R.ref||R.busy)?'disabled':''} onclick="mrGo()">${R.busy?'Разбираю референс… ~20 секунд':'✦ Разобрать и адаптировать под меня'}</button><span class="to-q">${(LOOKA_API||GEMINI_KEY)?('осталось разборов в этом месяце: '+(LIM-q().n)):'включится вместе с ИИ-мостом'}</span></div>
     ${R.busy?'<div class="st-load"><i></i><i></i><i></i></div>':''}
     <input type="file" id="mrInp1" accept="image/*" style="display:none" onchange="mrPickRef(this.files[0])">
+    <div class="mr-url"><input id="mrUrl" class="acc-in" placeholder="…или вставьте ссылку на фото из интернета — Pinterest, Instagram, любой сайт" style="margin:10px 0 0"><button class="btn ghost" onclick="mrFromUrl()" style="margin-top:8px;align-self:flex-start">↓ Взять фото по ссылке</button></div>
     <input type="file" id="mrInp2" accept="image/*" style="display:none" onchange="mrPickProds(this.files[0])">
     <div class="b-priv">Заполните анкету выше — схема с референса будет пересчитана под вашу форму глаз и посадку, а не скопирована вслепую. Фото уходят в ИИ только на время разбора и нигде не хранятся.</div>`;
 };
@@ -10113,6 +10212,7 @@ window.renderStyling = ()=>{
     <div class="look badv mk-wide hs-panel"><div class="look-in">
       <div class="hs-head"><h3>${st.n}</h3><div class="hs-meta"><span>⏱ ${st.time}</span><span>длина: ${st.len}</span></div></div>
       <div class="tip">Понадобится: ${st.tools}.</div>
+      <div class="to-row" style="margin:6px 0 12px"><a class="btn ghost" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(st.n+' укладка пошагово')}">▶ Видео-туториал на YouTube</a><a class="btn ghost" target="_blank" rel="noopener" href="https://www.pinterest.com/search/pins/?q=${encodeURIComponent(st.n+' hairstyle tutorial')}">◈ Пошаговые картинки в Pinterest</a></div>
       <div class="hs-grid">
         <div class="hs-scheme">${head(cur.v, cur.ex||'')}</div>
         <div class="hs-steps">
@@ -10865,6 +10965,80 @@ window.renderFinds = ()=>{
   findsLoad();
 };
 })();
+
+/* ================= МОИ АККАУНТЫ И МАГАЗИНЫ ================= */
+(function(){
+const NET = HUB.ls('looka_net', { acc:{}, orders:[] });
+const SITES = {
+  cis:[['wb','Wildberries','https://www.wildberries.ru'],['ozon','Ozon','https://www.ozon.ru'],['lamoda','Lamoda','https://www.lamoda.ru'],['ya','Золотое Яблоко','https://goldapple.ru'],['letu','Лэтуаль','https://www.letu.ru'],['ali','AliExpress','https://aliexpress.ru'],['ig','Instagram','https://instagram.com/'],['pin','Pinterest','https://pinterest.com/'],['tg','Telegram','https://t.me/'],['vk','VK','https://vk.com/'],['other','Другой сайт','']],
+  world:[['amazon','Amazon','https://amazon.com'],['zalando','Zalando','https://zalando.com'],['asos','ASOS','https://asos.com'],['sephora','Sephora','https://sephora.com'],['ali','AliExpress','https://aliexpress.com'],['ig','Instagram','https://instagram.com/'],['pin','Pinterest','https://pinterest.com/'],['tiktok','TikTok','https://tiktok.com/@'],['other','Другой сайт','']]
+};
+const list = ()=> (typeof REGION!=='undefined' && REGION==='cis') ? SITES.cis : SITES.world;
+window.netSet = (k,v)=>{ NET.acc[k]=v.trim(); HUB.save('looka_net',NET); if(window.authSync) authSync(true); };
+window.netImport = async f=>{
+  if(!f) return; const box=document.getElementById('netOut'); box.innerHTML='<div class="tip">Читаю заказы со скриншота…</div>';
+  try{
+    const b64 = await toB64(f, 1400);
+    const prompt = `На скриншоте — история заказов или корзина из интернет-магазина. Выпиши купленные вещи и косметику. Ответь ТОЛЬКО JSON: {"items":[{"name":"название коротко","cat":"верх|низ|платье|верхняя одежда|обувь|сумка|аксессуар|уход|макияж","brand":"бренд или пусто","color":"цвет или пусто","price":число или 0}],"styles":["1-3 эстетики, к которым тяготеют покупки"],"beauty":["1-3 темы ухода/макияжа, если есть"]}`;
+    const r = await aiFetch({model:'claude-sonnet-4-6',max_tokens:900,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:'image/jpeg',data:b64.split(',')[1]||b64}},{type:'text',text:prompt}]}]});
+    const j = await r.json(); const txt=(j.content||[]).map(c=>c.text||'').join(''); const m=txt.match(/\{[\s\S]*\}/); if(!m) throw new Error('не разобрала скриншот');
+    const d = JSON.parse(m[0]); const items=(d.items||[]).slice(0,30);
+    NET.orders = NET.orders.concat(items.map(x=>({...x, ts:Date.now()}))).slice(-200); HUB.save('looka_net',NET);
+    // в гардероб — одежда, в находки — стили
+    try{ const W=JSON.parse(localStorage.getItem('looka_wardrobe')||'{"items":[]}'); items.filter(x=>!/уход|макияж/.test(x.cat)).forEach(x=>{ W.items.push({n:x.name+(x.brand?' · '+x.brand:''),t:x.cat,c:x.color||'',s:'любой',f:'кэжуал',p:x.price||0,ts:Date.now()}); }); localStorage.setItem('looka_wardrobe',JSON.stringify(W)); }catch(e){}
+    try{ const F=JSON.parse(localStorage.getItem('looka_finds')||'{}'); F.beauty=[...new Set((F.beauty||[]).concat(d.beauty||[]))]; localStorage.setItem('looka_finds',JSON.stringify(F)); }catch(e){}
+    box.innerHTML = `<div class="tip">Нашла ${items.length} ${items.length===1?'покупку':items.length<5?'покупки':'покупок'}: ${items.map(x=>x.name).join(', ')}. Одежда добавлена в гардероб, ${(d.styles||[]).length?'стили '+d.styles.join(', ')+' учтены в подборах':''}.</div>`;
+    if(window.authSync) authSync(true);
+  }catch(e){ box.innerHTML='<div class="tip">Не получилось: '+e.message+'. Попробуйте более чёткий скриншот списка заказов.</div>'; }
+};
+window.renderNet = ()=>{
+  const box=document.getElementById('netBox'); if(!box) return;
+  const L=list();
+  box.innerHTML=`<div class="look badv mk-wide"><div class="look-in">
+    <div class="cs-k">МОИ АККАУНТЫ И МАГАЗИНЫ</div><h3>Где вы покупаете и что смотрите</h3>
+    <div class="tip">Укажите ники и ссылки — LOOKA будет подбирать образы и средства в тех магазинах, где вы уже покупаете, и присылать находки по вашим вкусам. Пароли не нужны и никогда не запрашиваются.</div>
+    <div class="net-grid">${L.map(s=>`<label class="net-it"><b>${s[1]}</b><input class="acc-in" value="${(NET.acc[s[0]]||'').replace(/"/g,'&quot;')}" placeholder="${s[0]==='other'?'адрес сайта':/ig|pin|tg|vk|tiktok/.test(s[0])?'@ник':'почта или телефон аккаунта — по желанию'}" onchange="netSet('${s[0]}',this.value)"></label>`).join('')}</div>
+    <div class="cs-k" style="margin-top:18px">ИМПОРТ ЗАКАЗОВ</div>
+    <div class="tip">Магазины не отдают историю заказов сторонним сайтам. Поэтому — скриншот раздела «Мои заказы» (WB, Ozon, Lamoda, Золотое Яблоко, любой): LOOKA прочитает покупки, добавит одежду в гардероб и поймёт ваш вкус по реальным покупкам.</div>
+    <div class="to-row" style="margin-top:12px"><label class="btn primary" style="cursor:pointer">⤒ Загрузить скриншот заказов<input type="file" accept="image/*" style="display:none" onchange="netImport(this.files[0])"></label></div>
+    <div id="netOut" style="margin-top:10px">${NET.orders.length?`<div class="tip">Учтено покупок: ${NET.orders.length}. Последние: ${NET.orders.slice(-5).map(o=>o.name).join(', ')}</div>`:''}</div>
+  </div></div>`;
+};
+})();
+
+/* ================= ПРОВЕРИТЬ СРЕДСТВО ================= */
+(function(){
+let chkImg=null;
+window.chkPhoto = async f=>{ if(!f) return; chkImg = await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res({data:String(r.result).split(',')[1], type:f.type||'image/jpeg'}); r.readAsDataURL(f); }); myToast('Фото прикреплено'); };
+window.renderChk = ()=>{ const box=document.getElementById('chkBox'); if(!box) return;
+  box.innerHTML=`<div class="look badv mk-wide"><div class="look-in">
+    <div class="cs-k">ПРОВЕРИТЬ СРЕДСТВО</div><h3>Подойдёт ли мне это?</h3>
+    <div class="tip">Название или фото средства — и честный ответ по вашему типу кожи, задачам, чувствительности и бюджету: что даст, чего не даст, чем заменить дешевле или лучше. Российские и мировые бренды.</div>
+    <div class="acc-two" style="margin-top:12px"><div><label class="t">Название</label><input class="acc-in" id="chkName" placeholder="например: CeraVe Moisturizing Cream или Geltek ретинол"></div><div><label class="t">Или фото упаковки</label><label class="btn ghost" style="cursor:pointer;display:inline-block">📷 Фото<input type="file" accept="image/*" style="display:none" onchange="chkPhoto(this.files[0])"></label></div></div>
+    <div class="to-row"><button class="btn primary" onclick="chkProduct()">Проверить</button></div>
+    <div id="chkOut" style="margin-top:12px"></div></div></div>`; };
+window.chkProduct = async ()=>{
+  const name=(document.getElementById('chkName')||{}).value||''; if(!name && !chkImg){ myToast('Введите название или прикрепите фото'); return; }
+  const out=document.getElementById('chkOut'); out.innerHTML='<div class="tip">Смотрю состав и вашу кожу…</div>';
+  let K2={}; try{ K2=JSON.parse(localStorage.getItem('looka_skin')||'{}'); }catch(e){}
+  const bd = window.dnaBeauty ? dnaBeauty() : '';
+  const prompt=`Ты — косметический химик и дерматолог-косметолог. Клиентка спрашивает, подойдёт ли ей средство${name?' «'+name+'»':' с фото'}. Её данные: тип кожи ${K2.type||'-'}, задачи ${(K2.goals||[]).join(', ')||'-'}, возраст ${K2.age||'-'}, климат ${K2.climate||'-'}, бюджет ${K2.budget||'-'}. ${bd?'Её бьюти-профиль: '+bd+'.':''} Ответь ТОЛЬКО JSON: {"verdict":"подходит|подходит с оговоркой|не подходит","score":"1-5 число","why":"2 предложения почему","actives":["ключевые активы и их роль"],"result":"какой реальный результат и через сколько недель","warn":"с чем не сочетать / кому нельзя / что может раздражать","better":[{"n":"альтернатива лучше или дешевле","q":"поисковый запрос","why":"почему"}],"budget":"вписывается ли в её бюджет и на сколько хватит"} Бренды называй настоящие, российские и мировые. Если не знаешь средство — так и скажи в why, не выдумывай состав.`;
+  try{
+    const content = chkImg ? [{type:'image',source:{type:'base64',media_type:chkImg.type,data:chkImg.data}},{type:'text',text:prompt}] : prompt;
+    const res=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1400, messages:[{role:'user',content}] }) });
+    const j=await res.json(); const txt=(j.content||[]).map(c=>c.text||'').join(''); const m=txt.match(/\{[\s\S]*\}/); const R=JSON.parse(m?m[0]:txt);
+    const col = /^подходит$/i.test(R.verdict)?'#37E08A':/оговор/i.test(R.verdict)?'#FFB84C':'#FF9DB0';
+    out.innerHTML=`<div class="chk-res"><div class="chk-v" style="color:${col}">${R.verdict} · ${'★'.repeat(+R.score||0)}${'☆'.repeat(Math.max(0,5-(+R.score||0)))}</div><p>${R.why||''}</p>
+      ${(R.actives||[]).length?`<div class="cs-row"><b>Активы</b><span>${R.actives.join(' · ')}</span></div>`:''}
+      <div class="cs-row"><b>Результат</b><span>${R.result||''}</span></div>
+      ${R.warn?`<div class="cs-row" style="color:#FFB84C"><b>Осторожно</b><span>${R.warn}</span></div>`:''}
+      <div class="cs-row"><b>Бюджет</b><span>${R.budget||''}</span></div>
+      ${(R.better||[]).length?`<div class="cs-k" style="margin:12px 0 8px">ЛУЧШЕ ИЛИ ДЕШЕВЛЕ</div>${R.better.map(b=>`<div class="item"><div class="nm">${b.n}</div><div class="tip">${b.why||''}</div>${beautyButtons(b.q||b.n)}</div>`).join('')}`:''}
+      <div class="b-priv">Оценка по составу и вашему профилю, не медицинское заключение. При заболеваниях кожи — дерматолог.</div></div>`;
+    chkImg=null;
+  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; }
+};
+})();
 window.renderAcc = ()=>{
   const box = document.getElementById('accBox'); if(!box) return;
   setTimeout(()=>{ if(window.authMount) authMount(); }, 30);
@@ -10872,7 +11046,7 @@ window.renderAcc = ()=>{
   <div class="look badv mk-wide acc-card"><div class="look-in">
     <div class="acc-top">
       <div class="acc-ava" onclick="document.getElementById('accAvaInp').click()">
-        ${A.ava?`<img src="${A.ava}" alt="аватар">`:`<span>${initials(A.name)}</span>`}
+        ${A.ava?`<img src="${A.ava}" alt="аватар">`:`<svg class="ava-sil" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="avg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#19C6F7"/><stop offset="1" stop-color="#C79DF2"/></linearGradient></defs><circle cx="50" cy="50" r="50" fill="rgba(255,255,255,.06)"/>${(window.S&&S.gender==='Мужчина')?'<circle cx="50" cy="36" r="15" fill="url(#avg)"/><path d="M22 92 C22 68 34 62 50 62 C66 62 78 68 78 92 Z" fill="url(#avg)"/>':'<circle cx="50" cy="34" r="14" fill="url(#avg)"/><path d="M36 30 C34 18 46 12 52 14 C64 16 70 26 66 40 C62 36 58 34 54 34 C50 36 46 40 40 44 C36 40 36 34 36 30Z" fill="url(#avg)"/><path d="M24 92 C26 70 36 62 50 62 C64 62 74 70 76 92 Z" fill="url(#avg)"/>'}</svg>`}
         <i>${A.ava?'сменить':'+ фото'}</i>
       </div>
       <div class="acc-fields">
@@ -10933,7 +11107,7 @@ if(document.readyState !== 'loading' && window.accGreet) accGreet();
 /* ================= ВХОД ЧЕРЕЗ GOOGLE + ОБЛАЧНЫЙ ПРОФИЛЬ ================= */
 (function(){
 const CLIENT_ID = '485514192792-hbbgde4cen2mp816hvm82tjarm129i47.apps.googleusercontent.com';
-const SYNC_KEYS = ['looka_acc','looka_dna','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_bra','looka_glow','looka_ritual','looka_region','looka_shops','looka_igshops','looka_city'];
+const SYNC_KEYS = ['looka_net','looka_finds','looka_dna','looka_acc','looka_dna','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_bra','looka_glow','looka_ritual','looka_region','looka_shops','looka_igshops','looka_city'];
 const S2 = { token:null, email:'', busy:false, sync:false };
 try{ const s = JSON.parse(localStorage.getItem('looka_session')||'null'); if(s){ S2.token=s.token; S2.email=s.email||''; S2.sync=!!s.sync; } }catch(e){}
 const api = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
@@ -11039,7 +11213,7 @@ window.navAccDraw = ()=>{
   document.body.classList.toggle('authed', !!s.in);
   b.forEach(el=>{
     el.innerHTML = s.in
-      ? `<i class="na-ava">${a.ava?`<img src="${a.ava}">`:(initials(a.name)||'✦')}</i><span>${(a.name||s.email||'').split(/\s+/)[0]||'Профиль'}</span>`
+      ? `<i class="na-ava">${a.ava?`<img src="${a.ava}">`:((window.S&&S.gender==='Мужчина')?'♂':'♀')}</i><span>${(a.name||s.email||'').split(/\s+/)[0]||'Профиль'}</span>`
       : `<span>Войти</span>`;
     el.classList.toggle('in', !!s.in);
   });
@@ -11336,6 +11510,25 @@ const BEAU = [
  ['proc','Процедуры',['только уход дома','чистки и уходы у косметолога','аппаратные процедуры','инъекции — да','инъекции — никогда'],2],
  ['bwant','Чего хотите от бьюти-разбора',['выглядеть свежее','выглядеть моложе','подчеркнуть глаза','научиться быстрому макияжу','найти свой красный','понять, что мне вообще идёт'],3]
 ];
+
+/* 10 · СТИЛЕВОЙ ТИПАЖ — 12 вопросов → романтик / драматик / классик / натурал / гамин / богема / спорт-шик */
+const TYPES7 = { rom:['Романтик','мягкие линии, кружево, пастель, объём у плеч, локоны — ваша сила в нежности'], dram:['Драматик','чёткие линии, контраст, чёрный, крупные акценты — вы входите и вас видят'], cls:['Классик','чистые линии, качество, нейтральные цвета, ничего лишнего — вам верят с первого взгляда'], nat:['Натурал','свобода, натуральные ткани, кэжуал, минимум укладки — вы удобная сама себе'], gam:['Гамин','короткие стрижки, игривые детали, мини, полоска — вы озорная и лёгкая'], boh:['Богема','принты, слои, этника, украшения с историей — вы про свободу и путешествия'], spt:['Спорт-шик','кроссовки с жакетом, техничные ткани, функция — вы в движении'] };
+const TQ = [
+ ['Утро выходного. Что надеваете первым',[['мягкий кардиган и юбка','rom'],['чёрный тотал-лук','dram'],['белая рубашка и джинсы','cls'],['лён и кроссовки','nat'],['мини и полосатый лонгслив','gam'],['длинная юбка с принтом','boh'],['спортивный костюм премиум','spt']]],
+ ['Ваша идеальная сумка',[['маленькая с бантом','rom'],['крупная геометричная','dram'],['структурная классическая','cls'],['холщовая шоппер','nat'],['кросс-боди яркая','gam'],['плетёная или с бахромой','boh'],['рюкзак или поясная','spt']]],
+ ['Обувь, в которой вы — это вы',[['балетки или мэри-джейн','rom'],['высокие сапоги или шпилька','dram'],['лоферы','cls'],['кеды или биркенштоки','nat'],['ботинки на шнуровке','gam'],['ковбойские сапоги или сандалии','boh'],['кроссовки','spt']]],
+ ['Что для вас «красиво»',[['нежно','rom'],['эффектно','dram'],['безупречно','cls'],['естественно','nat'],['задорно','gam'],['душевно','boh'],['удобно и модно','spt']]],
+ ['Любимый принт',[['цветы и горох','rom'],['без принтов, только контраст','dram'],['тонкая клетка или полоска','cls'],['без принтов, фактура','nat'],['яркая полоска, сердечки','gam'],['пейсли, этника, пэчворк','boh'],['логотип или графика','spt']]],
+ ['Волосы в идеале',[['локоны','rom'],['гладкие тёмные или яркие','dram'],['ухоженные, аккуратные','cls'],['натуральные, слегка небрежные','nat'],['короткие','gam'],['длинные с косами или волной','boh'],['высокий хвост','spt']]],
+ ['Вечеринка. Ваш образ',[['платье с открытыми плечами','rom'],['чёрное с вырезом','dram'],['маленькое чёрное, жемчуг','cls'],['джинсы и красивый топ','nat'],['мини и ботинки','gam'],['длинное с принтом, много колец','boh'],['брюки-палаццо и кроп','spt']]],
+ ['Ваш цвет',[['пудра, лаванда','rom'],['чёрный, бордо, изумруд','dram'],['синий, бежевый, белый','cls'],['хаки, песок, деним','nat'],['красный, жёлтый, полоска','gam'],['терракота, охра, бирюза','boh'],['серый, неон, белый','spt']]],
+ ['Что покупаете чаще',[['платья и юбки','rom'],['жакеты с плечами и вещи-заявления','dram'],['базу высокого качества','cls'],['джинсы и футболки','nat'],['необычные детали и аксессуары','gam'],['вещи с рынков и из путешествий','boh'],['кроссовки и худи','spt']]],
+ ['В кино вам ближе героиня',[['романтичная мечтательница','rom'],['роковая и сильная','dram'],['элегантная и собранная','cls'],['своя в доску, без пафоса','nat'],['озорная и дерзкая','gam'],['путешественница и художница','boh'],['спортивная и быстрая','spt']]],
+ ['Украшения',[['жемчуг и тонкие цепочки','rom'],['крупные серьги, металл','dram'],['золотые часы, одно кольцо','cls'],['почти ничего','nat'],['необычные, маленькие','gam'],['много колец, камни','boh'],['спортивные часы','spt']]],
+ ['Если бы одно слово о вас',[['нежность','rom'],['сила','dram'],['стиль','cls'],['свобода','nat'],['игра','gam'],['душа','boh'],['движение','spt']]]
+];
+window.dnaTQ = (qi, code)=>{ D.tq=D.tq||{}; D.tq[qi]=code; save(); paint('type'); };
+window.dnaTypeResult = ()=>{ const t=D.tq||{}; const sc={}; Object.values(t).forEach(c=>sc[c]=(sc[c]||0)+1); const arr=Object.entries(sc).sort((a,b)=>b[1]-a[1]); if(!arr.length) return null; const n=Object.keys(t).length; return { main:arr[0][0], second:arr[1]?arr[1][0]:null, n, pct:Math.round(arr[0][1]/Math.max(1,n)*100) }; };
 window.dnaBeau = (k,v,max)=>{ const a=D.beau[k]||[]; const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max===1) a.length=0; if(a.length>=max){ myToast('Максимум '+max); return; } a.push(v); } D.beau[k]=a; save(); paint('beau'); };
 window.dnaPers = (k,v,max)=>{ const a=D.pers[k]||[]; const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max===1) a.length=0; if(a.length>=max){ myToast('Максимум '+max); return; } a.push(v); } D.pers[k]=a; save(); paint('pers'); };
 window.dnaPersText = (k,v)=>{ D.pers[k]=v; save(); };
@@ -11384,9 +11577,13 @@ function paint(part){
   const beauN = BEAU.filter(q=>(D.beau[q[0]]||[]).length).length;
   P.beau=`<div class="dna-h"><b>9 · Красота и макияж</b><span>чтобы бьюти-скан, макияж-гид и уход говорили на вашем языке: привычки, что любите, что не переносите. Заполнено ${beauN} из ${BEAU.length}</span></div>
     ${BEAU.map(q=>`<div class="grp"><label class="t">${q[1]} <span class="to-opt">${q[3]===1?'один вариант':'до '+q[3]}</span></label><div class="chips">${q[2].map(v=>`<button class="chip ${(D.beau[q[0]]||[]).includes(v)?'on':''}" onclick="dnaBeau('${q[0]}','${v.replace(/'/g,'’')}',${q[3]})">${v}</button>`).join('')}</div></div>`).join('')}`;
+  const tr=dnaTypeResult(); const tqN=Object.keys(D.tq||{}).length;
+  P.type=`<div class="dna-h"><b>10 · Стилевой типаж</b><span>12 вопросов — и точный типаж: романтик, драматик, классик, натурал, гамин, богема или спорт-шик. Отвечайте не «как хочу», а «как есть». Заполнено ${tqN} из 12</span></div>
+    ${TQ.map((q,qi)=>`<div class="grp"><label class="t">${qi+1}. ${q[0]}</label><div class="chips">${q[1].map(o=>`<button class="chip ${(D.tq||{})[qi]===o[1]?'on':''}" onclick="dnaTQ(${qi},'${o[1]}')">${o[0]}</button>`).join('')}</div></div>`).join('')}
+    ${tr && tqN>=6 ? `<div class="look badv mk-wide type-res"><div class="look-in"><div class="cs-k">ВАШ ТИПАЖ · ${tr.pct} % ОТВЕТОВ</div><h3 class="holo">${TYPES7[tr.main][0]}${tr.second?` <span style="font-size:16px;color:#B7BCCC">с оттенком «${TYPES7[tr.second][0]}»</span>`:''}</h3><div class="tip">${TYPES7[tr.main][1]}.${tr.second?' Второй голос — '+TYPES7[tr.second][1].split(' — ')[0]+'.':''} Типаж — не приговор, а компас: вещи из этой группы вы будете носить чаще всего.</div></div></div>` : (tqN?`<div class="tip">Ответьте минимум на 6 вопросов — покажу типаж.</div>`:'')}`;
   const filled = D.styles.length && Object.keys(D.fits).length && Object.keys(D.ch).length>=3;
   D.done = !!filled; save();
-  box.innerHTML = ['styles','fits','char','colors','never','taste','dos','pers','beau'].map(k=>`<section class="bt-form look mk-form dna-sec" id="dna-${k}">${P[k]}</section>`).join('') +
+  box.innerHTML = ['styles','fits','char','colors','never','taste','dos','pers','beau','type'].map(k=>`<section class="bt-form look mk-form dna-sec" id="dna-${k}">${P[k]}</section>`).join('') +
     (()=>{ const por=dnaPortrait(); return por.length>=3 ? `<div class="look badv mk-wide por-card"><div class="look-in"><div class="cs-k">ВАШ ПОРТРЕТ · ЧТО LOOKA ПОНЯЛА ИЗ ВАШИХ ОТВЕТОВ</div><h3>Вы для нас — открытая книга. Вот как мы вас читаем</h3>
       <div class="por-grid">${por.map((p,i)=>HUB.pop(`<div class="por-it"><b>${p[0]}</b><span>${p[1]}</span></div>`,i)).join('')}</div>
       <div class="tip" style="margin-top:12px">Портрет собран только из ваших выборов — без единого написанного слова. Ответите на больше вопросов — станет точнее. Именно он управляет подбором, примеркой и разборами.</div></div></div>` : ''; })() +
@@ -11473,6 +11670,7 @@ window.dnaSummary = ()=>{
   const tone=(D.pers.talk||[])[0]; if(tone) parts.push('ТОН ОБЩЕНИЯ С НЕЙ: '+tone);
   const beauParts=BEAU.filter(q=>(D.beau[q[0]]||[]).length).map(q=>q[1].toLowerCase()+': '+D.beau[q[0]].join(', '));
   if(beauParts.length) parts.push('красота и макияж: '+beauParts.join('; '));
+  const tr=dnaTypeResult(); if(tr && Object.keys(D.tq||{}).length>=6) parts.push('СТИЛЕВОЙ ТИПАЖ: '+TYPES7[tr.main][0]+(tr.second?' с оттенком '+TYPES7[tr.second][0]:'')+' — '+TYPES7[tr.main][1]);
   const por=dnaPortrait(); if(por.length>=3) parts.push('ПОРТРЕТ (выводы, действуй по ним): '+por.map(p=>p[0]+' — '+p[1]).join('; '));
   return parts.length>1 ? parts.join('. ') : '';
 };
@@ -11527,6 +11725,9 @@ window.curPlan = (function(){ try{ return localStorage.getItem('looka_plan')||'m
 
 /* ================= ПЕЙВОЛ: выбор подписки перед платным разделом ================= */
 window.hasAccess = ()=>{ try{ return !!localStorage.getItem('looka_access') || (JSON.parse(localStorage.getItem('looka_session')||'{}').paid===true); }catch(e){ return false; } };
+const TRIES_MAX=5;
+window.triesLeft=()=>{ try{ return Math.max(0, TRIES_MAX - (+localStorage.getItem('looka_tries')||0)); }catch(e){ return TRIES_MAX; } };
+window.useTry=()=>{ try{ localStorage.setItem('looka_tries', String((+localStorage.getItem('looka_tries')||0)+1)); }catch(e){} };
 window.gate = (action, title)=>{
   if(hasAccess()){ try{ eval(action); }catch(e){} return; }
   let ov=document.getElementById('gateOv');
@@ -11541,8 +11742,9 @@ window.gate = (action, title)=>{
       <div class="gate-plans">
         ${Object.entries(P).map(([k,v])=>`<button class="gplan ${k==='month'?'on':''}" onclick="gatePick('${k}')"><small>${v.t}</small><b>${v.p}</b><span>${k==='week'?'попробовать всё':k==='month'?'популярный · ≈ 33 ₽ в день':'−58 % · 5 месяцев в подарок'}</span></button>`).join('')}
       </div>
-      <button class="btn ghost au-skip" onclick="closeGate();try{${action.replace(/"/g,'&quot;')}}catch(e){}">Сначала посмотреть раздел</button>
-      <div class="au-note">Без подписки разделы можно открывать и смотреть: результаты, генерации и сохранение — после оплаты.</div>
+      ${triesLeft()>0?`<button class="btn ghost au-skip" onclick="closeGate();useTry();try{${action.replace(/"/g,'&quot;')}}catch(e){}">Открыть бесплатно · осталось ${triesLeft()} из ${TRIES_MAX}</button>
+      <div class="au-note">Пять бесплатных открытий платных разделов — чтобы увидеть, за что платите. Цветотип, бельё, уход за вещами, бутики и помощники бесплатны всегда.</div>`
+      :`<div class="au-note">Бесплатные открытия закончились. Неделя за 390 ₽ — меньше чашки кофе в день, и все разделы ваши.</div>`}
     </div></div>`;
   ov.classList.add('open'); document.body.style.overflow='hidden';
 };
@@ -11561,6 +11763,18 @@ if(document.readyState!=='loading') pickPlan(window.curPlan);
 /* дропдауны не выходят за экран */
 (function(){ const fix=()=>{ document.querySelectorAll('.nav-dd').forEach(dd=>{ const r=dd.getBoundingClientRect(); dd.classList.toggle('dd-right', r.left+560 > window.innerWidth-16); }); };
   fix(); addEventListener('resize', fix); document.addEventListener('click', ()=>setTimeout(fix,0)); })();
+
+/* блёстки сверху вниз перед появлением карточки */
+window.sparkleReveal = (el)=>{
+  if(!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  el.classList.add('sp-hide');
+  const box=document.createElement('div'); box.className='sp-rain'; document.body.appendChild(box);
+  const cols=['#19C6F7','#C79DF2','#F2A6C6','#FFFFFF','#FFD9A8'];
+  for(let i=0;i<60;i++){ const s=document.createElement('i'); s.style.left=Math.random()*100+'%'; s.style.background=cols[i%5]; s.style.color=cols[i%5]; s.style.animationDelay=(Math.random()*.7)+'s'; s.style.animationDuration=(1.2+Math.random()*.9)+'s'; const z=6+Math.random()*10; s.style.width=s.style.height=z+'px'; box.appendChild(s); }
+  setTimeout(()=>{ el.classList.remove('sp-hide'); el.classList.add('sp-in'); }, 650);
+  setTimeout(()=>box.remove(), 2400);
+};
+(function(){ const o=window.openPage; window.openPage=function(id){ o.apply(null,arguments); if(id==='myPage'||id==='dnaPage'){ setTimeout(()=>{ const t=document.querySelector(id==='myPage'?'#accBox .acc-card':'#dnaPage .por-card')||document.querySelector('#'+id+' .mk-hero'); sparkleReveal(t); },120); } }; })();
 fxGlow(document);
 fxTilt(document);
 </script>
