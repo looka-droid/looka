@@ -4235,6 +4235,57 @@ header nav.topnav{gap:4px;align-items:center}
 .my-tab.on{color:#0B0C12;border-color:transparent;background:linear-gradient(180deg,#FFF,#EEF0F7);box-shadow:0 8px 22px rgba(140,120,220,.3)}
 .my-tab.on i{color:#5B3FA0}
 @media(max-width:560px){.my-tab{height:36px;padding:0 12px;font-size:12.5px}}
+
+.g-slot{min-height:0}
+.g-fb{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:46px;border-radius:99px;background:#fff;color:#1F2430;font-family:'Manrope';font-size:14px;font-weight:700;text-transform:none;letter-spacing:0;border:1px solid rgba(0,0,0,.08)}
+.g-ico{width:18px;height:18px;border-radius:50%;background:conic-gradient(#4285F4 0 25%,#34A853 0 50%,#FBBC05 0 75%,#EA4335 0);position:relative}
+.g-ico::after{content:'';position:absolute;inset:5px;border-radius:50%;background:#fff}
+.au-box .btn.au-tg{width:100%;height:46px;border-radius:99px;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(120deg,#2AABEE,#229ED9)!important;color:#fff!important;font-family:'Manrope';font-size:14px;font-weight:700;text-transform:none;letter-spacing:0;box-shadow:0 8px 20px rgba(34,158,217,.35)}
+.au-or{margin:14px 0}
+.au-list{margin-bottom:18px}
+
+/* эстетики — карточки с палитрой */
+.dna-st{position:relative;overflow:hidden;padding:16px 16px 14px;border-radius:16px;text-align:left;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));transition:transform .22s,border-color .22s,box-shadow .22s}
+.dna-st::before{content:'';position:absolute;inset:0;background:radial-gradient(240px 120px at 100% 0%,color-mix(in srgb,var(--p1) 22%,transparent),transparent 70%);opacity:.6;pointer-events:none}
+.dna-st:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--p1) 60%,transparent);box-shadow:0 12px 30px color-mix(in srgb,var(--p1) 22%,transparent)}
+.dna-st.on{border-color:transparent;background:linear-gradient(rgba(16,18,28,.96),rgba(16,18,28,.96)) padding-box,linear-gradient(120deg,var(--p1),var(--p2),var(--p3)) border-box;box-shadow:0 14px 34px color-mix(in srgb,var(--p1) 30%,transparent)}
+.dna-st.on b,.dna-st.on span{color:#fff}.dna-st.on span{color:#D6DAE6}.dna-st.on::before{opacity:.25}
+.dna-st .st-pal{display:flex;gap:4px;margin-bottom:10px}
+.dna-st .st-pal s{display:block;width:18px;height:18px;border-radius:50%;text-decoration:none;border:1px solid rgba(255,255,255,.2)}
+.dna-st b{display:block;font-size:15.5px;margin-bottom:5px}
+.dna-st span{display:block;font-size:12.5px;line-height:1.5;color:#B7BCCC}
+.dna-st em{display:block;font-style:normal;margin-top:8px;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#8B92AA}
+.dna-st u{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;text-decoration:none;font-size:12px;color:#0B0C12;background:linear-gradient(120deg,var(--p1),var(--p2));opacity:0;transform:scale(.5);transition:all .25s}
+.dna-st.on u{opacity:1;transform:scale(1)}
+
+/* главная: ДНК и подписка */
+.dna-home{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;align-items:center;padding:34px;border-radius:26px;border:1px solid rgba(255,255,255,.1);
+  background:radial-gradient(700px 300px at 0% 0%,rgba(199,157,240,.16),transparent 60%),radial-gradient(500px 300px at 100% 100%,rgba(25,198,247,.12),transparent 60%),linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01))}
+.dna-home-r{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.dh-card{position:relative;padding:14px 13px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);animation:pop .6s both;overflow:hidden}
+.dh-card::before{content:'';position:absolute;inset:0;background:radial-gradient(200px 100px at 100% 0%,color-mix(in srgb,var(--p1) 22%,transparent),transparent 70%);pointer-events:none}
+.dh-card i{display:flex;gap:3px;margin-bottom:8px}
+.dh-card i s{display:block;width:12px;height:12px;border-radius:50%;text-decoration:none;border:1px solid rgba(255,255,255,.2)}
+.dh-card b{display:block;font-size:13.5px}
+.dh-card span{display:block;font-size:11px;line-height:1.4;color:#8B92AA;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dh-more{grid-column:1/-1;text-align:center;padding:12px;border-radius:14px;border:1px dashed rgba(199,157,240,.4);color:#C7A6F0;font-size:13px;font-weight:600;cursor:pointer}
+.dh-more:hover{background:rgba(199,157,240,.08)}
+.sub-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.sub-col{border-radius:22px;border:1px solid rgba(255,255,255,.1);padding:20px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01))}
+.sub-col.paid{border-color:transparent;background:linear-gradient(rgba(16,18,28,.92),rgba(16,18,28,.92)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box}
+.sub-h b{display:block;font-size:20px}
+.sub-h span{display:block;font-size:12.5px;color:#B7BCCC;margin-top:4px}
+.sub-col ul{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:6px}
+.sub-col li{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;cursor:pointer;transition:background .2s}
+.sub-col li:hover{background:rgba(255,255,255,.05)}
+.sub-col li i{font-style:normal;color:#C79DF2;text-align:center}
+.sub-col li b{display:block;font-size:13.5px}
+.sub-col li span{display:block;font-size:11.5px;color:#8B92AA;line-height:1.35}
+.sub-col li em{font-style:normal;font-size:12px;color:#37E08A}
+.sub-col.paid li em{color:#C7A6F0}
+.sub-plans{margin-top:18px}
+@media(max-width:900px){.dna-home{grid-template-columns:1fr;padding:24px 18px}.sub-cols{grid-template-columns:1fr}}
+@media(max-width:560px){.dna-home-r{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -4472,6 +4523,25 @@ header nav.topnav{gap:4px;align-items:center}
 </section>
 
 <!-- ================= КАК ЭТО РАБОТАЕТ ================= -->
+<section class="sec reveal" id="dnaSec">
+  <div class="dna-home">
+    <div class="dna-home-l">
+      <div class="eyebrow">стиль-днк · главное отличие LOOKA</div>
+      <h2 class="big">ИИ не угадывает ваш вкус. <span class="holo">Он его знает</span></h2>
+      <p class="lead">Десять блоков одними кликами: 35 эстетик от Y2K до old money, посадки — оверсайз или по фигуре, характер, «никогда не надену», калибровка на образах, досье, личность, макияж и стилевой типаж. Из этого LOOKA собирает ваш портрет — и каждый подбор, разбор и примерка говорят именно с вами.</p>
+      <div class="to-row"><button class="btn primary" onclick="openDna()">Собрать мой Стиль-ДНК →</button><span class="to-q">бесплатно · 3 минуты · без единого текстового поля</span></div>
+    </div>
+    <div class="dna-home-r" id="dnaHomeCards"></div>
+  </div>
+</section>
+
+<section class="sec reveal" id="subSec">
+  <div class="eyebrow">что внутри · бесплатно и по подписке</div>
+  <h2 class="big">Бесплатно — чтобы узнать себя. <span class="holo">По подписке — чтобы жить с этим каждый день</span></h2>
+  <div class="sub-cols" id="subCols"></div>
+  <div class="sub-plans" id="subPlans"></div>
+</section>
+
 <section class="sec reveal" id="howSec">
   <div class="eyebrow">как это работает</div>
   <h2 class="big">Три шага — <span class="holo">и LOOKA знает вас лучше консультанта</span></h2>
@@ -9813,6 +9883,7 @@ const SEARCH_CARD = `
       <button class="btn primary" onclick="openFind(document.getElementById('hubQ').value)">Найти</button>
     </div>
   </div>`;
+window.GROUPS=GROUPS;
 let HUB_TAB = 0;
 window.hubTab = i=>{ HUB_TAB = i; drawHub(); const g=document.querySelector('[data-hub]'); if(g && window.glide) glide(g, 140, 600); };
 function drawHub(){
@@ -11337,6 +11408,9 @@ window.authMount = ()=>{
       google.accounts.id.renderButton(slot, {theme:'filled_black', size:'large', shape:'pill', text:'signin_with', locale:'ru', width:260});
     }catch(e){ slot.innerHTML = '<div class="tip">Вход через Google сейчас недоступен. Профиль работает и без него — данные хранятся на устройстве.</div>'; }
   };
+  const fallback=()=>{ if(slot.querySelector('iframe, div[role=button], .g-fb')) return;
+    slot.innerHTML='<button class="btn g-fb" onclick="authGoogleTry()"><i class="g-ico"></i>Войти через Google</button>'; };
+  setTimeout(fallback, 2500);
   if(gisReady && window.google && google.accounts) return draw();
   const s = document.createElement('script');
   s.src = 'https://accounts.google.com/gsi/client'; s.async = true; s.defer = true;
@@ -11344,6 +11418,8 @@ window.authMount = ()=>{
   s.onerror = ()=>{ slot.innerHTML = '<div class="tip">Google не отвечает — возможно, он заблокирован в вашей сети. Профиль работает и без входа: данные хранятся на этом устройстве, перенести можно файлом ниже.</div>'; };
   document.head.appendChild(s);
 };
+window.authGoogleTry = ()=>{ try{ if(window.google && google.accounts){ google.accounts.id.initialize({ client_id: CLIENT_ID, callback: onCredential }); google.accounts.id.prompt(n=>{ if(n.isNotDisplayed && n.isNotDisplayed()) myToast('Google не открылся — возможно, заблокирован в вашей сети. Войдите через Telegram.'); }); return; } }catch(e){}
+  myToast('Google недоступен в вашей сети — войдите через Telegram'); };
 /* автосинхронизация раз в минуту, если включена */
 setInterval(()=>{ if(S2.token && S2.sync) authSync(true); }, 60000);
 window.addEventListener('beforeunload', ()=>{ if(S2.token && S2.sync) navigator.sendBeacon && navigator.sendBeacon(api('/sync')); });
@@ -11687,12 +11763,25 @@ window.dnaPers = (k,v,max)=>{ const a=D.pers[k]||[]; const i=a.indexOf(v); if(i>
 window.dnaPersText = (k,v)=>{ D.pers[k]=v; save(); };
 window.dnaDos = (k,v,max)=>{ const a=D.dos[k]||[]; const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max===1) a.length=0; if(a.length>=max){ myToast('Максимум '+max); return; } a.push(v); } D.dos[k]=a; save(); paint('dos'); };
 window.dnaDosText = (k,v)=>{ D.dos[k]=v; save(); };
+
+const AEST_PAL = {
+ 'Y2K':['#FF5FB3','#7DE1FF','#F5F5F5'], 'Old money':['#C9B48C','#2F3A2F','#F1E9DB'], 'Quiet luxury':['#8C8C8C','#EDE7DD','#2B2B2B'], 'Clean girl':['#FFFFFF','#D9B36A','#EFE6DA'],
+ 'Coquette':['#F7C6D9','#FFFFFF','#E8A6C1'], 'Balletcore':['#F3C5D3','#A9A9B3','#FFFFFF'], 'Dark academia':['#3B2A1F','#6E4B2A','#1B1A17'], 'Light academia':['#E8DCC3','#CDB58F','#F7F2E7'],
+ 'Cottagecore':['#DCE6C8','#E9B7B0','#F8F1DC'], 'Coastal':['#FFFFFF','#2E5C8A','#E6D8B8'], 'Gorpcore':['#5C6B48','#FF6A00','#2D2D2D'], 'Streetwear':['#111111','#7B7B7B','#E0E0E0'],
+ 'Скандинавский минимализм':['#F2F0EB','#B8B4AA','#3A3A3A'], 'Парижский шик':['#1E1E1E','#FFFFFF','#B3001B'], 'Гранж':['#4A3B33','#7A2E2E','#2A2A2A'], 'Панк / рок':['#000000','#C1121F','#8A8A8A'],
+ 'Готика':['#0B0B0F','#4B1E3A','#8A8A9A'], 'E-girl / альт':['#111111','#FF3DA5','#7CF0FF'], 'Soft girl':['#FFD1E8','#CDEBFF','#FFF5B8'], 'Mob wife':['#3A2418','#D4AF37','#7A1F1F'],
+ 'Бохо':['#B5651D','#E3C08D','#6B8F71'], 'Ретро 70-х':['#B5651D','#E1A100','#6B3F1E'], '80-е':['#FF2E88','#00E5FF','#FFE600'], '90-е':['#3F5FA8','#1A1A1A','#E7E1D6'],
+ 'Спорт-шик':['#111111','#FFFFFF','#8C8C8C'], 'Preppy':['#0F2E5C','#B3001B','#F2E6C8'], 'Романтика':['#F4D6E5','#E7C3D3','#FFFFFF'], 'Классика / офис':['#1F2A44','#FFFFFF','#B9B9B9'],
+ 'Артистичный':['#E63946','#457B9D','#F1FAEE'], 'Бойфренд / oversize':['#4A5A73','#DDE3EA','#2A2A2A']
+};
+const aestPal = n=>{ if(AEST_PAL[n]) return AEST_PAL[n]; let x=0; for(const c of n) x=(x*31+c.charCodeAt(0))>>>0; const hh=x%360; return [`hsl(${hh},60%,55%)`,`hsl(${(hh+40)%360},50%,80%)`,`hsl(${(hh+200)%360},40%,25%)`]; };
+window.AESTH=AESTH; window.aestPal=aestPal;
 const chips=(arr,on,fn,cls)=>arr.map(v=>`<button class="chip ${on.includes(v)?'on':''} ${cls||''}" onclick="${fn}">${v}</button>`).join('');
 function paint(part){
   const box=document.getElementById('dnaBox'); if(!box) return;
   const P={};
   P.styles=`<div class="dna-h"><b>1 · Эстетики, которые ваши</b><span>выберите до 5 — по ним ИИ поймёт ваш вкус, а не «стиль вообще»</span></div>
-    <div class="dna-grid">${AESTH.map(a=>`<button class="dna-st ${D.styles.includes(a[0])?'on':''}" onclick="dnaStyle('${a[0]}')"><b>${a[0]}</b><span>${a[1]}</span></button>`).join('')}</div>`;
+    <div class="dna-grid">${AESTH.map(a=>{ const p=aestPal(a[0]); return `<button class="dna-st ${D.styles.includes(a[0])?'on':''}" onclick="dnaStyle('${a[0]}')" style="--p1:${p[0]};--p2:${p[1]};--p3:${p[2]}"><i class="st-pal"><s style="background:${p[0]}"></s><s style="background:${p[1]}"></s><s style="background:${p[2]}"></s></i><b>${a[0]}</b><span>${a[1]}</span><em>${(a[2]||'').split(',').slice(0,3).join(' · ')}</em><u>✓</u></button>`; }).join('')}</div>`;
   P.fits=`<div class="dna-h"><b>2 · Как вы носите вещи</b><span>посадка решает больше, чем название стиля: оверсайз и по фигуре — два разных человека</span></div>
     ${Object.entries(FITS).map(([cat,arr])=>`<div class="grp"><label class="t">${cat} <span class="to-opt">до 3</span></label><div class="chips">${chips(arr,D.fits[cat]||[],`dnaFit('${cat}','\${v}')`).replace(/\$\{v\}/g,'')}</div></div>`).join('')}`;
   // build fits properly (template above can't inject v) → rebuild
@@ -11928,6 +12017,21 @@ window.sparkleReveal = (el)=>{
   setTimeout(()=>box.remove(), 2400);
 };
 (function(){ const o=window.openPage; window.openPage=function(id){ o.apply(null,arguments); if(id==='dnaPage'){ setTimeout(()=>{ const t=document.querySelector('#dnaPage .por-card')||document.querySelector('#dnaPage .mk-hero'); sparkleReveal(t); },120); } }; })();
+
+/* главная: витрина ДНК и таблица «бесплатно / по подписке» */
+(function(){
+  const c=document.getElementById('dnaHomeCards');
+  if(c && typeof AESTH!=='undefined'){ const pick=['Y2K','Old money','Clean girl','Coquette','Dark academia','Streetwear','Парижский шик','Mob wife','Coastal'];
+    c.innerHTML = pick.map((n,i)=>{ const a=AESTH.find(x=>x[0]===n); if(!a) return ''; const p=(typeof aestPal==='function'?aestPal(n):['#C79DF2','#19C6F7','#F2A6C6']);
+      return `<div class="dh-card" style="animation-delay:${(i*.08).toFixed(2)}s;--p1:${p[0]};--p2:${p[1]}"><i><s style="background:${p[0]}"></s><s style="background:${p[1]}"></s><s style="background:${p[2]}"></s></i><b>${n}</b><span>${a[1]}</span></div>`; }).join('') + `<div class="dh-more" onclick="openDna()">+26 эстетик, посадки, характер, макияж →</div>`; }
+  const s=document.getElementById('subCols');
+  if(s && typeof GROUPS!=='undefined'){ const free=[], paid=[]; GROUPS.forEach(g=>g.items.forEach(it=>(it[4]==='доступ'?paid:free).push(it)));
+    const li=(it,lock)=>`<li onclick="${lock?('gate('+JSON.stringify(it[3]).replace(/"/g,'&quot;')+','+JSON.stringify(it[1]).replace(/"/g,'&quot;')+')'):it[3].replace(/"/g,'&quot;')}"><i>${it[0]}</i><div><b>${it[1]}</b><span>${it[2]}</span></div>${lock?'<em>🔒</em>':'<em>✓</em>'}</li>`;
+    s.innerHTML=`<div class="sub-col free"><div class="sub-h"><b>Бесплатно всегда</b><span>${free.length} разделов, включая восемь помощников — без входа и карты</span></div><ul>${free.map(it=>li(it,false)).join('')}</ul></div>
+      <div class="sub-col paid"><div class="sub-h"><b>По подписке</b><span>${paid.length} разделов, безлимит генераций, находки в Telegram · первые 5 открытий бесплатно</span></div><ul>${paid.map(it=>li(it,!(window.hasAccess&&hasAccess()))).join('')}<li onclick="openPage('myPage')"><i>✈</i><div><b>Находки под ваш стиль</b><span>новые магазины и средства — в Telegram</span></div><em>${(window.hasAccess&&hasAccess())?'✓':'🔒'}</em></li></ul></div>`; }
+  const pl=document.getElementById('subPlans');
+  if(pl && window.PLANS){ pl.innerHTML=`<div class="plans">${Object.entries(PLANS).map(([k,v])=>`<button class="plan ${k==='month'?'on':''}" onclick="pickPlan('${k}');openPay()"><small>${v.t}</small><b>${v.p}</b><span>${k==='week'?'попробовать всё · без автопродления':k==='month'?'≈ 33 ₽ в день · все разделы и генерации':'≈ 416 ₽ в месяц · 5 месяцев в подарок'}</span><em>${k==='year'?'лучшая цена':'отменяется в один тап'}</em></button>`).join('')}</div><div class="tip" style="text-align:center;margin-top:10px">Возврат первой оплаты 14 дней одним письмом. Продление — только с вашим подтверждением.</div>`; }
+})();
 fxGlow(document);
 fxTilt(document);
 </script>
