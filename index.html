@@ -4537,9 +4537,9 @@ header nav.topnav{gap:4px;align-items:center}
 .find-shop b{display:block;font-size:14px}.find-shop span{display:block;font-size:12px;color:#8B92AA}
 @media(max-width:560px){.fav{grid-template-columns:1fr}}
 
-.pal-card{position:relative;display:grid;place-items:center;text-align:center}
-.pal-name{font-family:'Manrope';font-weight:800;font-size:16px;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.4);padding:0 8px}
-.pal-wait{position:absolute;bottom:8px;font-size:9px;color:rgba(255,255,255,.75);letter-spacing:.5px}
+.pal-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:10px}
+.pal-name{font-family:'Manrope';font-weight:800;font-size:15px;line-height:1.15;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.45)}
+.pal-items{font-size:9px;line-height:1.35;color:rgba(255,255,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.55);font-family:'JetBrains Mono';letter-spacing:.3px;text-transform:uppercase}
 .look-ph img{position:relative;z-index:1}
 </style>
 </head>
@@ -5999,7 +5999,7 @@ async function geminiCall(models, parts, gen){
 async function aiFetch(opts){
   opts = Object.assign({ method:'POST', headers:{'Content-Type':'application/json'} }, opts);
   const body = JSON.parse(opts.body);
-  if(LOOKA_API) return fetch(LOOKA_API.replace(/\/$/,'')+'/ai', opts);
+  if(LOOKA_API){ let r = await fetch(LOOKA_API.replace(/\/$/,'')+'/ai', opts); if(r.status===502||r.status===503){ await new Promise(x=>setTimeout(x,1500)); r = await fetch(LOOKA_API.replace(/\/$/,'')+'/ai', opts); } return r; }
   if(GEMINI_KEY){
     const parts = []; const c = body.messages[0].content;
     if(typeof c==='string') parts.push({text:c});
@@ -12480,7 +12480,7 @@ window.shrinkImage = (file, max=1280, q=.86)=>new Promise(res=>{ const img=new I
   img.onload=()=>{ const k=Math.min(1, max/Math.max(img.width,img.height)); const c=document.createElement('canvas'); c.width=Math.round(img.width*k); c.height=Math.round(img.height*k); c.getContext('2d').drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(u); const d=c.toDataURL('image/jpeg',q); res({ data:d.split(',')[1], type:'image/jpeg', url:d }); };
   img.onerror=()=>{ const r=new FileReader(); r.onload=()=>res({ data:String(r.result).split(',')[1], type:file.type||'image/jpeg', url:String(r.result) }); r.readAsDataURL(file); }; img.src=u; });
 window.aiJSON = async res=>{ let j={}; try{ j=await res.json(); }catch(e){ throw new Error('сервер не ответил — попробуйте ещё раз'); }
-  if(j.error){ const d=(j.error.detail||j.error.message||j.error.status||j.error); throw new Error(/429|квота|quota/i.test(String(d))?'лимит запросов ИИ на сегодня исчерпан — попробуйте через час':'ИИ недоступен: '+String(d).slice(0,80)); }
+  if(j.error){ const d=String(j.error.detail||j.error.message||j.error.status||j.error); if(/503|high demand|overloaded|перегруж/i.test(d)) throw new Error('ИИ сейчас перегружен — подождите минуту и нажмите ещё раз'); if(/429|квота|quota|RESOURCE_EXHAUSTED/i.test(d)) throw new Error('лимит запросов ИИ на сегодня исчерпан — попробуйте через час'); throw new Error('ИИ недоступен — попробуйте ещё раз'); }
   const txt=(j.content||[]).map(c=>c.text||'').join('').trim(); if(!txt) throw new Error('пустой ответ — попробуйте другое фото или ещё раз');
   const m=txt.match(/\{[\s\S]*\}/); try{ return JSON.parse(m?m[0]:txt); }catch(e){ throw new Error('ответ пришёл не целиком — нажмите ещё раз'); } };
 window.dnaMergePers = obj=>{ D.pers=D.pers||{}; Object.assign(D.pers, obj||{}); save(); };
@@ -12749,7 +12749,7 @@ window.sparkleReveal = (el)=>{
   setTimeout(()=>{ el.classList.remove('sp-hide'); el.classList.add('sp-in'); }, 650);
   setTimeout(()=>box.remove(), 2400);
 };
-window.dnaPhotos = ()=>{ document.querySelectorAll('.dna-st[data-hint^="aest:"]').forEach(async el=>{ if(el.querySelector('.st-ph')) return; const n=el.dataset.hint.slice(5); const p=await aestPhoto(n); if(p){ const d=document.createElement('div'); d.className='st-ph'; d.innerHTML=`<img src="${p.url}" alt="" loading="lazy">`; el.appendChild(d); } }); };
+window.dnaPhotos = async ()=>{ const els=[...document.querySelectorAll('.dna-st[data-hint^="aest:"]')].filter(el=>!el.querySelector('.st-ph')); for(const el of els){ const n=el.dataset.hint.slice(5); const p=await aestPhoto(n); if(p && !el.querySelector('.st-ph')){ const d=document.createElement('div'); d.className='st-ph'; d.innerHTML=`<img src="${p.url}" alt="" loading="lazy">`; el.appendChild(d); } } };
 (function(){ const o=window.openPage; window.openPage=function(id){ o.apply(null,arguments); if(id==='dnaPage'){ setTimeout(()=>{ if(window.dnaPhotos) dnaPhotos(); },300); setTimeout(()=>{ const t=document.querySelector('#dnaPage .por-card')||document.querySelector('#dnaPage .mk-hero'); sparkleReveal(t); },120); } }; })();
 
 /* главная: витрина ДНК и таблица «бесплатно / по подписке» */
@@ -12864,8 +12864,8 @@ window.aestLook = n=>{
   const L=LOOKS[n]||{top:'tee',bottom:'jeans',shoes:'sneak'}; const p=(window.aestPal?aestPal(n):['#C79DF2','#19C6F7','#F2A6C6']);
   const A=window.AESTH?(AESTH.find(x=>x[0]===n)||[]):[];
   const photo = AEST_IMG[n] ? {url:AEST_IMG[n]} : null;
-  if(!photo){ aestPhoto(n).then(p=>{ const im=document.querySelector('.hint-box.on [data-aest="'+n+'"], #hintOv.open [data-aest="'+n+'"]'); if(p && im) im.innerHTML=`<img src="${p.url}" alt="${n}">${p.by?`<small>фото: ${p.by} · Pexels</small>`:''}`; }); }
-  return `<div class="hint-look"><div class="look-ph pal-card" data-aest="${n.replace(/"/g,'&quot;')}" style="background:linear-gradient(160deg,${p[0]},${p[1]} 55%,${p[2]})">${photo?`<img src="${photo.url}" alt="${n}">`:`<span class="pal-name">${n}</span><span class="pal-wait">фото готовится…</span>`}</div><div><b>${n}</b><span>${A[1]||''}</span><em>${(A[2]||'').split(',').slice(0,4).join(' · ')}</em><a class="hint-pin" href="${aestPinterest(n)}" target="_blank" rel="noopener">◈ Ещё примеры в Pinterest →</a></div></div>`;
+  if(!photo){ aestPhoto(n).then(p=>{ const im=document.querySelector('.hint-box.on [data-aest="'+n+'"], #hintOv.open [data-aest="'+n+'"]'); if(p && im) im.innerHTML=`<img src="${p.url}" alt="${n}">${p.by?`<small>фото: ${p.by}${p.src?' · '+p.src:''}</small>`:''}`; }); }
+  return `<div class="hint-look"><div class="look-ph pal-card" data-aest="${n.replace(/"/g,'&quot;')}" style="background:linear-gradient(160deg,${p[0]},${p[1]} 55%,${p[2]})">${photo?`<img src="${photo.url}" alt="${n}">`:`<span class="pal-name">${n}</span><span class="pal-items">${(A[2]||'').split(',').slice(0,3).join(' · ')}</span>`}</div><div><b>${n}</b><span>${A[1]||''}</span><em>${(A[2]||'').split(',').slice(0,4).join(' · ')}</em><a class="hint-pin" href="${aestPinterest(n)}" target="_blank" rel="noopener">◈ Ещё примеры в Pinterest →</a></div></div>`;
 };
 /* глаза, посадка, лицо — крупная схема + как понять на себе */
 const EXPL = {
