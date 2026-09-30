@@ -4518,10 +4518,17 @@ header nav.topnav{gap:4px;align-items:center}
 .vote-res b{margin-right:10px;font-size:15px}
 @media(max-width:560px){.gift-sizes{grid-template-columns:1fr 1fr}}
 
-.sp-box{margin:0 0 18px;padding:20px 22px;border-radius:18px;border:1px solid transparent;background:linear-gradient(rgba(12,14,22,.9),rgba(12,14,22,.9)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box}
+.sp-row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:stretch;margin-top:14px}
+.sp-drop{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:18px 20px;border-radius:14px;border:1.5px dashed rgba(199,157,240,.5);background:rgba(199,157,240,.06);cursor:pointer;transition:background .2s,border-color .2s}
+.sp-drop:hover{background:rgba(199,157,240,.12);border-color:#C79DF2}
+.sp-drop i{font-style:normal;font-size:22px}
+.sp-drop b{font-size:15px}
+.sp-drop span{font-size:12.5px;color:#8B92AA;line-height:1.45}
+@media(max-width:640px){.sp-row{grid-template-columns:1fr}}
+.sp-box{margin:0 0 18px;padding:24px 26px;border-radius:18px;border:1px solid transparent;background:linear-gradient(rgba(12,14,22,.9),rgba(12,14,22,.9)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box}
 .sp-box h3{margin:6px 0 8px;font-size:20px}
-.sp-prev{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.sp-prev img{width:90px;height:120px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.14)}
+.sp-prev{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sp-prev img{width:78px;height:104px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.14)}
 .fav-list{display:grid;gap:8px;margin-top:12px}
 .fav{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
 .fav a{color:#ECEDF2;text-decoration:none}
@@ -4529,6 +4536,11 @@ header nav.topnav{gap:4px;align-items:center}
 .find-shop{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 14px;border-radius:12px;border:1px solid rgba(199,157,240,.3);background:rgba(199,157,240,.06);margin-bottom:8px}
 .find-shop b{display:block;font-size:14px}.find-shop span{display:block;font-size:12px;color:#8B92AA}
 @media(max-width:560px){.fav{grid-template-columns:1fr}}
+
+.pal-card{position:relative;display:grid;place-items:center;text-align:center}
+.pal-name{font-family:'Manrope';font-weight:800;font-size:16px;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.4);padding:0 8px}
+.pal-wait{position:absolute;bottom:8px;font-size:9px;color:rgba(255,255,255,.75);letter-spacing:.5px}
+.look-ph img{position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -12437,7 +12449,7 @@ window.dnaBeau = (k,v,max)=>{ const a=D.beau[k]||[]; const i=a.indexOf(v); if(i>
 
 /* ================= НЕ ЗНАЕТЕ СВОЙ СТИЛЬ? ФОТО ЖЕЛАЕМОГО + ВАШИ ЗАКАЗЫ → СТИЛЬ ================= */
 let spImgs=[];
-window.spFiles = async files=>{ spImgs=[]; for(const f of [...files].slice(0,3)){ spImgs.push(await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res({data:String(r.result).split(',')[1],type:f.type||'image/jpeg'}); r.readAsDataURL(f); })); } const pv=document.getElementById('spPrev'); if(pv) pv.innerHTML=spImgs.map(i=>`<img src="data:${i.type};base64,${i.data}">`).join(''); };
+window.spFiles = async files=>{ spImgs=[]; for(const f of [...files].slice(0,3)){ spImgs.push(await shrinkImage(f, 1024)); } const pv=document.getElementById('spPrev'); if(pv) pv.innerHTML=spImgs.map(i=>`<img src="${i.url}">`).join(''); const b=document.getElementById('spGo'); if(b) b.classList.add('primary'); };
 window.styleFromPhotos = async ()=>{
   const out=document.getElementById('spOut'); if(!spImgs.length){ myToast('Прикрепите 1–3 фото образов, которые нравятся'); return; }
   out.innerHTML='<div class="tip">Смотрю фото и ваши покупки…</div>';
@@ -12446,7 +12458,7 @@ window.styleFromPhotos = async ()=>{
   const list=AESTH.map(a=>a[0]).join(', ');
   const prompt=`Ты — стилист. На фото — образы, которые нравятся клиентке (она не знает, как назвать свой стиль). ${orders?'Что она реально покупала (WB/Ozon/Lamoda): '+orders+'.':''} ${hist?'Стиль её покупок: '+hist+'.':''} Определи её стиль. Список эстетик, из которых выбирать (используй ТОЧНО эти названия): ${list}. Ответь ТОЛЬКО JSON: {"styles":["2-4 эстетики из списка, по убыванию"],"name":"как назвать её стиль одной фразой, по-человечески","why":"2-3 предложения: что общего на фото и в покупках","fits":{"Футболки и топы":["оверсайз|по фигуре|кроп|бокси / прямая"],"Джинсы и брюки":["скинни|прямые|широкие / палаццо|клёш|мом|багги|карго"]},"colors":["4-6 цветов, которые повторяются"],"signature":["3 вещи-маркера этого стиля"],"avoid":["2-3 вещи, которые ломают этот стиль"],"first":[{"n":"первая вещь купить","q":"поисковый запрос","why":"почему"}]}`;
   try{ const content=spImgs.map(i=>({type:'image',source:{type:'base64',media_type:i.type,data:i.data}})).concat([{type:'text',text:prompt}]);
-    const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1400, messages:[{role:'user',content}] }) }); const j=await r.json(); const txt=(j.content||[]).map(c=>c.text||'').join(''); const m=txt.match(/\{[\s\S]*\}/); const R=JSON.parse(m?m[0]:txt);
+    const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1400, messages:[{role:'user',content}] }) }); const R=await aiJSON(r);
     const known=new Set(AESTH.map(a=>a[0])); (R.styles||[]).filter(s=>known.has(s)).forEach(s=>{ if(!D.styles.includes(s) && D.styles.length<5) D.styles.push(s); });
     Object.entries(R.fits||{}).forEach(([cat,arr])=>{ if(FITS[cat]) D.fits[cat]=[...new Set((D.fits[cat]||[]).concat((arr||[]).filter(v=>FITS[cat].includes(v))))].slice(0,3); });
     (R.colors||[]).forEach(c=>{ if(COLORS.some(x=>x[0]===c) && !D.colLove.includes(c) && D.colLove.length<6) D.colLove.push(c); });
@@ -12462,6 +12474,15 @@ window.styleFromPhotos = async ()=>{
       <div class="to-row" style="margin-top:12px"><button class="btn primary" onclick="goQuiz()">Подобрать образы в этом стиле →</button><button class="btn ghost" onclick="openPage('myPage');setTimeout(()=>myTab('shops'),350)">⤒ Добавить заказы для точности</button></div></div>`;
     if(window.lifeHearts) lifeHearts(out2);
   }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
+
+/* ================= ОБЩИЕ УТИЛИТЫ ДЛЯ ФОТО И ОТВЕТОВ ИИ ================= */
+window.shrinkImage = (file, max=1280, q=.86)=>new Promise(res=>{ const img=new Image(); const u=URL.createObjectURL(file);
+  img.onload=()=>{ const k=Math.min(1, max/Math.max(img.width,img.height)); const c=document.createElement('canvas'); c.width=Math.round(img.width*k); c.height=Math.round(img.height*k); c.getContext('2d').drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(u); const d=c.toDataURL('image/jpeg',q); res({ data:d.split(',')[1], type:'image/jpeg', url:d }); };
+  img.onerror=()=>{ const r=new FileReader(); r.onload=()=>res({ data:String(r.result).split(',')[1], type:file.type||'image/jpeg', url:String(r.result) }); r.readAsDataURL(file); }; img.src=u; });
+window.aiJSON = async res=>{ let j={}; try{ j=await res.json(); }catch(e){ throw new Error('сервер не ответил — попробуйте ещё раз'); }
+  if(j.error){ const d=(j.error.detail||j.error.message||j.error.status||j.error); throw new Error(/429|квота|quota/i.test(String(d))?'лимит запросов ИИ на сегодня исчерпан — попробуйте через час':'ИИ недоступен: '+String(d).slice(0,80)); }
+  const txt=(j.content||[]).map(c=>c.text||'').join('').trim(); if(!txt) throw new Error('пустой ответ — попробуйте другое фото или ещё раз');
+  const m=txt.match(/\{[\s\S]*\}/); try{ return JSON.parse(m?m[0]:txt); }catch(e){ throw new Error('ответ пришёл не целиком — нажмите ещё раз'); } };
 window.dnaMergePers = obj=>{ D.pers=D.pers||{}; Object.assign(D.pers, obj||{}); save(); };
 window.dnaPers = (k,v,max)=>{ const a=D.pers[k]||[]; const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max===1) a.length=0; if(a.length>=max){ myToast('Максимум '+max); return; } a.push(v); } D.pers[k]=a; save(); paint('pers'); };
 window.dnaPersText = (k,v)=>{ D.pers[k]=v; save(); };
@@ -12486,8 +12507,9 @@ function paint(part){
   const P={};
   P.styles=`<div class="sp-box"><div class="cs-k">НЕ ЗНАЕТЕ, КАК НАЗЫВАЕТСЯ ВАШ СТИЛЬ?</div><h3>Покажите 1–3 фото образов, которые нравятся — LOOKA назовёт стиль сама</h3>
       <div class="tip">Скриншоты из Pinterest, фото из Instagram, чужие луки — что угодно. Если вы уже загрузили заказы из WB / Ozon, LOOKA сверит «что нравится» с «что покупаете» и назовёт настоящий стиль, а не вымечтанный. Эстетики ниже заполнятся сами.</div>
-      <div class="to-row" style="margin-top:12px"><label class="btn primary" style="cursor:pointer">📷 Выбрать фото<input type="file" accept="image/*" multiple style="display:none" onchange="spFiles(this.files)"></label><button class="btn ghost" onclick="styleFromPhotos()">Определить мой стиль →</button></div>
-      <div id="spPrev" class="sp-prev"></div><div id="spOut"></div></div>
+      <div class="sp-row"><label class="sp-drop"><input type="file" accept="image/*" multiple style="display:none" onchange="spFiles(this.files)"><i>📷</i><b>Выбрать 1–3 фото</b><span>скриншот Pinterest, лук из Instagram, своё фото в любимом образе</span></label><div id="spPrev" class="sp-prev"></div></div>
+      <div class="to-row" style="margin-top:14px"><button class="btn ghost" id="spGo" onclick="styleFromPhotos()">Определить мой стиль →</button><span class="to-q">ИИ смотрит фото и ваши покупки · 10–20 секунд</span></div>
+      <div id="spOut" style="margin-top:14px"></div></div>
     <div class="dna-h"><b>1 · Эстетики, которые ваши</b><span>выберите до 5 — по ним ИИ поймёт ваш вкус, а не «стиль вообще»${D.styleName?' · по фото: <b>'+D.styleName+'</b>':''}</span></div>
     <div class="dna-grid">${AESTH.map(a=>{ const p=aestPal(a[0]); return `<button class="dna-st ${D.styles.includes(a[0])?'on':''}" onclick="dnaStyle('${a[0]}')" style="--p1:${p[0]};--p2:${p[1]};--p3:${p[2]}" data-hint="aest:${a[0].replace(/"/g,'&quot;')}">${window.hintBtn?hintBtn('aest',a[0]):''}<i class="st-pal"><s style="background:${p[0]}"></s><s style="background:${p[1]}"></s><s style="background:${p[2]}"></s></i><b>${a[0]}</b><span>${a[1]}</span><em>${(a[2]||'').split(',').slice(0,3).join(' · ')}</em><u>✓</u></button>`; }).join('')}</div>`;
   P.fits=`<div class="dna-h"><b>2 · Как вы носите вещи</b><span>посадка решает больше, чем название стиля: оверсайз и по фигуре — два разных человека</span></div>
@@ -12774,7 +12796,9 @@ window.aestPhoto = async n=>{
   if(AEST_IMG[n]) return { url:AEST_IMG[n] };
   if(PH[n]!==undefined) return PH[n];
   PH[n]=null;
-  try{ const api=String(typeof LOOKA_API!=='undefined'?LOOKA_API:'').replace(/\/$/,''); const r=await fetch(api+'/photo?q='+encodeURIComponent(AEST_Q[n]||(n+' outfit'))); const j=await r.json(); PH[n]=(j.photos&&j.photos[0])||null; }catch(e){ PH[n]=null; }
+  const api=String(typeof LOOKA_API!=='undefined'?LOOKA_API:'').replace(/\/$/,'');
+  try{ const r=await fetch(api+'/photo?q='+encodeURIComponent(AEST_Q[n]||(n+' outfit'))); const j=await r.json(); PH[n]=(j.photos&&j.photos[0])||null; }catch(e){ PH[n]=null; }
+  if(!PH[n]){ try{ const A=(window.AESTH||[]).find(x=>x[0]===n)||[]; const r=await fetch(api+'/aest-img?name='+encodeURIComponent(n)+'&desc='+encodeURIComponent((A[1]||'')+'; '+(A[2]||''))); const j=await r.json(); if(j.img) PH[n]={ url:j.img, by:'' }; }catch(e){} }
   return PH[n];
 };
 window.aestPinterest = n=>'https://www.pinterest.com/search/pins/?q='+encodeURIComponent((AEST_Q[n]||n)+' aesthetic');
@@ -12839,16 +12863,9 @@ const ACC = {
 window.aestLook = n=>{
   const L=LOOKS[n]||{top:'tee',bottom:'jeans',shoes:'sneak'}; const p=(window.aestPal?aestPal(n):['#C79DF2','#19C6F7','#F2A6C6']);
   const A=window.AESTH?(AESTH.find(x=>x[0]===n)||[]):[];
-  const ph = (window.PH_CACHE=window.PH_CACHE||{}); const photo = AEST_IMG[n] ? {url:AEST_IMG[n]} : null;
-  if(!photo){ aestPhoto(n).then(p=>{ if(p && document.querySelector('.hint-box.on [data-aest="'+n+'"]')) { const im=document.querySelector('.hint-box.on [data-aest="'+n+'"]'); im.innerHTML=`<img src="${p.url}" alt="${n}">${p.by?`<small>фото: ${p.by} · Pexels</small>`:''}`; } }); }
-  return `<div class="hint-look"><div class="look-ph" data-aest="${n.replace(/"/g,'&quot;')}">${photo?`<img src="${photo.url}" alt="${n}">`:`<svg viewBox="0 0 120 240" class="look-svg">
-    <g fill="#2B2F45"><circle cx="60" cy="56" r="20"/><path d="M46 76 L74 76 L84 92 L36 92 Z"/><path d="M40 90 L80 90 L84 222 L36 222 Z"/><path d="M32 96 L40 96 L38 160 L28 160 Z"/><path d="M80 96 L88 96 L92 160 L82 160 Z"/></g>
-    <g fill="${p[1]}">${BOTS[L.bottom]||''}</g>
-    <g fill="${p[0]}">${TOPS[L.top]||''}</g>
-    <g fill="${p[2]}">${SHOES[L.shoes]||''}</g>
-    <g fill="${p[2]}">${L.acc?ACC[L.acc]||'':''}</g>
-    <path d="M42 52 C44 30 76 30 78 52 L78 70 C70 62 50 62 42 70 Z" fill="#1F2235"/>
-  </svg>`}</div><div><b>${n}</b><span>${A[1]||''}</span><em>${(A[2]||'').split(',').slice(0,4).join(' · ')}</em><a class="hint-pin" href="${aestPinterest(n)}" target="_blank" rel="noopener">◈ Ещё примеры в Pinterest →</a></div></div>`;
+  const photo = AEST_IMG[n] ? {url:AEST_IMG[n]} : null;
+  if(!photo){ aestPhoto(n).then(p=>{ const im=document.querySelector('.hint-box.on [data-aest="'+n+'"], #hintOv.open [data-aest="'+n+'"]'); if(p && im) im.innerHTML=`<img src="${p.url}" alt="${n}">${p.by?`<small>фото: ${p.by} · Pexels</small>`:''}`; }); }
+  return `<div class="hint-look"><div class="look-ph pal-card" data-aest="${n.replace(/"/g,'&quot;')}" style="background:linear-gradient(160deg,${p[0]},${p[1]} 55%,${p[2]})">${photo?`<img src="${photo.url}" alt="${n}">`:`<span class="pal-name">${n}</span><span class="pal-wait">фото готовится…</span>`}</div><div><b>${n}</b><span>${A[1]||''}</span><em>${(A[2]||'').split(',').slice(0,4).join(' · ')}</em><a class="hint-pin" href="${aestPinterest(n)}" target="_blank" rel="noopener">◈ Ещё примеры в Pinterest →</a></div></div>`;
 };
 /* глаза, посадка, лицо — крупная схема + как понять на себе */
 const EXPL = {
