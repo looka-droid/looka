@@ -4335,6 +4335,118 @@ header nav.topnav{gap:4px;align-items:center}
 .dna-st .st-ph{position:absolute;right:0;top:0;bottom:0;width:38%;opacity:.55;mask-image:linear-gradient(90deg,transparent,#000 40%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%);pointer-events:none}
 .dna-st .st-ph img{width:100%;height:100%;object-fit:cover}
 .dna-st.on .st-ph{opacity:.85}
+
+/* полоса доверия — цифры вместо иконок */
+.trust-strip{display:grid;grid-template-columns:repeat(4,1fr);margin:18px 0 6px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012))}
+.ts{padding:18px 20px;border-right:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden}
+.ts:last-child{border-right:none}
+.ts::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(199,157,240,.08) 50%,transparent 60%);background-size:300% 100%;background-position:180% 0;transition:background-position .9s}
+.ts:hover::after{background-position:-60% 0}
+.ts b{display:block;font-size:24px;font-weight:800;line-height:1.05;background:linear-gradient(90deg,#19C6F7,#C79DF2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ts span{display:block;margin-top:6px;font-size:12.5px;line-height:1.45;color:#B7BCCC}
+@media(max-width:760px){.trust-strip{grid-template-columns:1fr 1fr}.ts{border-bottom:1px solid rgba(255,255,255,.08)}.ts:nth-child(2n){border-right:none}.ts:nth-last-child(-n+2){border-bottom:none}}
+
+/* новые платные разделы */
+.lc-prev{max-width:220px;border-radius:14px;margin-top:12px;border:1px solid rgba(255,255,255,.12)}
+.lc-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+@media(max-width:700px){.lc-cols{grid-template-columns:1fr}}
+.lc-col{padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+.lc-col b{display:block;font-size:13px;margin-bottom:8px}
+.lc-col.ok b{color:#37E08A}.lc-col.no b{color:#FF9DB0}
+.lc-col ul,.lc-list{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.lc-col li,.lc-list li{position:relative;padding-left:16px;font-size:13.5px;line-height:1.55;color:#D2D6E4}
+.lc-col li::before,.lc-list li::before{content:'·';position:absolute;left:3px;color:#37E08A;font-weight:800}
+.lc-list.no li::before{color:#FF9DB0}
+.lc-one{margin-top:14px;padding:16px;border-radius:14px;border:1px solid rgba(199,157,240,.35);background:linear-gradient(135deg,rgba(199,157,240,.12),rgba(25,198,247,.05))}
+.lc-one b{display:block;font-size:16px;margin:6px 0 4px}
+.lc-one span{display:block;font-size:13.5px;line-height:1.6;color:#C9CEDD}
+.rc-rules{display:grid;gap:8px;margin-top:10px}
+.rc-r{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025)}
+.rc-r i{font-style:normal;width:32px;height:32px;display:grid;place-items:center;border-radius:10px;font-weight:800;color:#0B0C12;background:linear-gradient(135deg,#19C6F7,#C79DF2)}
+.rc-r b{display:block;font-size:14px}
+.rc-r span{display:block;font-size:13px;line-height:1.55;color:#B7BCCC;margin-top:3px}
+
+/* ================= ПЕРВЫЙ ЭКРАН · КОСМОС ================= */
+.hero-live{position:relative;overflow:hidden;padding:48px 0 30px;min-height:auto}
+.hero-live h1{font-size:clamp(34px,5vw,60px);line-height:1.08;margin:12px 0 4px}
+.hero-live h1::after{display:none}
+.hero-live .holo{display:inline}
+.cosmos{position:absolute;inset:-20% -10%;pointer-events:none;z-index:0}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;transition:transform .8s ease-out}
+.o1{width:520px;height:520px;left:-10%;top:-10%;background:radial-gradient(circle,#C79DF2,transparent 65%);animation:orbA 14s ease-in-out infinite}
+.o2{width:460px;height:460px;right:-8%;top:10%;background:radial-gradient(circle,#19C6F7,transparent 65%);animation:orbB 18s ease-in-out infinite}
+.o3{width:380px;height:380px;left:35%;bottom:-20%;background:radial-gradient(circle,#F2A6C6,transparent 65%);animation:orbA 22s ease-in-out infinite reverse}
+@keyframes orbA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}}
+@keyframes orbB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-50px,30px) scale(1.1)}}
+.stars i{position:absolute;border-radius:50%;background:#fff;box-shadow:0 0 6px #fff;animation:starTw ease-in-out infinite}
+@keyframes starTw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.2)}}
+.stars b{position:absolute;bottom:-10px;width:3px;height:3px;border-radius:50%;background:#C79DF2;box-shadow:0 0 8px #C79DF2;animation:starRise linear infinite}
+@keyframes starRise{to{transform:translateY(-120vh) translateX(30px);opacity:0}}
+.ring{position:absolute;border-radius:50%;border:1px solid rgba(199,157,240,.18);animation:ringSpin 40s linear infinite}
+.r1{width:640px;height:640px;right:-14%;top:-30%;border-style:dashed}
+.r2{width:420px;height:420px;right:-4%;top:-12%;animation-direction:reverse;animation-duration:28s}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+.hero-in{position:relative;z-index:1;max-width:820px;margin:0 auto;text-align:center}
+.hero-mood{margin:26px auto 18px;padding:18px 20px;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));backdrop-filter:blur(8px);animation:pop .6s .2s both}
+.hm-q{font-size:17px;font-weight:700;margin-bottom:12px}
+.hm-q span{display:block;font-size:12.5px;font-weight:400;color:#8B92AA;margin-top:4px}
+.hm-q a{color:#C7A6F0}
+.hm-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.hm{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:99px;cursor:pointer;color:#ECEDF2;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);font-family:'Manrope';font-size:13.5px;font-weight:600;transition:transform .2s,border-color .2s,background .2s}
+.hm i{font-style:normal}
+.hm:hover{transform:translateY(-2px);border-color:rgba(199,157,240,.6)}
+.hm.on{color:#0B0C12;border-color:transparent;background:linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6);box-shadow:0 8px 22px rgba(140,120,220,.35)}
+.hero-chat{margin:0 auto 18px;padding:18px 20px;border-radius:22px;border:1px solid transparent;background:linear-gradient(rgba(12,14,22,.85),rgba(12,14,22,.85)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;box-shadow:0 20px 60px rgba(140,120,220,.2);animation:pop .6s .35s both}
+.hc-lbl{font-size:13px;color:#B7BCCC;margin-bottom:10px}
+.hc-row{display:flex;gap:10px}
+.hc-row input{flex:1;min-width:0;height:48px;padding:0 16px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font:inherit;font-size:14px}
+.hc-row input::placeholder{color:#7A8098}
+.hc-row .btn{height:48px;padding:0 20px;border-radius:14px;white-space:nowrap}
+.hc-ex{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.hc-ex button{border:none;border-radius:99px;padding:6px 11px;font-size:12px;cursor:pointer;color:#C7A6F0;background:rgba(199,157,240,.1);font-family:'Manrope'}
+.hc-ex button:hover{background:rgba(199,157,240,.2)}
+.hero-live .hero-cta{justify-content:center;margin-top:8px}
+.hero-live .stats-band{margin-top:22px}
+@media(max-width:640px){.hero-live{padding-top:36px}.hc-row{flex-direction:column}.hc-row .btn{width:100%}.hm{padding:9px 12px;font-size:12.5px}}
+
+/* живой пример */
+.demo-people{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.dp{text-align:left;display:grid;grid-template-columns:44px 1fr;column-gap:12px;row-gap:2px;align-items:center;padding:12px 14px;border-radius:16px;cursor:pointer;color:#ECEDF2;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);transition:transform .2s,border-color .2s}
+.dp i{grid-row:1/4;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;color:#0B0C12;font-size:17px}
+.dp b{font-size:15px}
+.dp span{font-size:12px;color:#B7BCCC}
+.dp em{font-style:normal;font-size:11px;color:#8B92AA}
+.dp:hover{transform:translateY(-2px);border-color:rgba(199,157,240,.5)}
+.dp.on{border-color:transparent;background:linear-gradient(rgba(16,18,28,.9),rgba(16,18,28,.9)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box}
+.demo-why{margin:16px 0 12px;font-size:13.5px;color:#B7BCCC}
+.demo-why b{color:#ECEDF2}
+.demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.demo-look{padding:18px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012))}
+.dl-h b{display:block;font-size:16px}
+.dl-h span{display:block;font-size:12.5px;color:#8B92AA;margin:3px 0 10px}
+.demo-look ul{list-style:none;padding:0;margin:0 0 10px;display:grid;gap:6px}
+.demo-look li{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.demo-look li em{font-style:normal;color:#8B92AA;white-space:nowrap}
+.mp-demo{margin-top:4px}
+@media(max-width:900px){.demo-people{grid-template-columns:1fr 1fr}.demo-grid{grid-template-columns:1fr}}
+
+/* ночной стилист */
+.night{padding:24px 26px;border-radius:24px;border:1px solid transparent;background:linear-gradient(rgba(12,14,22,.92),rgba(12,14,22,.92)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;box-shadow:0 20px 60px rgba(140,120,220,.18)}
+.nt-h h3{margin:6px 0 4px;font-size:22px}
+.nt-h p{color:#B7BCCC;font-size:14px;line-height:1.6;max-width:640px}
+.nt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.nt-look{padding:16px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
+.nt-look.on{border-color:rgba(199,157,240,.6);background:linear-gradient(135deg,rgba(199,157,240,.12),rgba(25,198,247,.05))}
+.nt-m{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.nt-m i{font-style:normal;font-size:16px}
+.nt-m b{font-size:15px}
+.nt-m em{font-style:normal;margin-left:auto;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#7CF0B2;font-family:'JetBrains Mono'}
+.nt-look ul{list-style:none;padding:0;margin:0 0 10px;display:grid;gap:6px}
+.nt-look li{display:flex;align-items:center;gap:8px;font-size:13.5px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.nt-look li .sw{width:12px;height:12px;border-radius:50%;flex:0 0 auto;border:1px solid rgba(255,255,255,.2)}
+.nt-look li em{font-style:normal;margin-left:auto;font-size:11px;color:#8B92AA}
+.nt-tip{font-size:12.5px;color:#C7A6F0;margin-bottom:10px}
+@media(max-width:900px){.nt-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -4362,20 +4474,27 @@ header nav.topnav{gap:4px;align-items:center}
 
 
 
-<section class="hero">
-  <div class="eyebrow">LOOKA — ваш личный стилист, визажист и косметолог в одном</div>
-  <h1>Стиль, красота и уход —<br><span class="holo">подобранные под вас, а не «под всех»</span></h1>
-  <p>Цветотип за минуту, образы под фигуру и характер, макияж по форме ваших глаз, уход по типу кожи, волосы, бельё, гардероб и магазины вашей страны — 19 разделов, которые знают вас лучше, чем консультант в магазине.</p>
-  <div class="hero-cta">
-    <button class="btn primary hero-ct" onclick="openColor()"><span class="hc-dots"><i></i><i></i><i></i><i></i><i></i></span>Мои цвета — бесплатно · 60 секунд</button>
-    <button class="btn ghost" onclick="glide('.stage')">Начать подбор образов</button>
-  </div>
-  <div class="hero-hook"><span>7 ответов</span><i>→</i><span>палитра из 24 цветов</span><i>→</i><span>карточка в сторис</span></div>
-  <div class="stats-band sb3">
-    <div class="sb"><b>15</b><span>регионов мира<br>и их маркетплейсы</span></div>
-    <div class="sb"><b>2<em class="u">мин</em></b><span>от анкеты<br>до готовых образов</span></div>
-    <div class="sb"><b>∞</b><span>пересборок<br>без ограничений</span></div>
-    <div class="sb"><b>0<em class="u">₽</em></b><span>пять подборов —<br>бесплатно</span></div>
+<section class="hero hero-live">
+  <div class="cosmos" aria-hidden="true"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="stars" id="stars"></div><div class="ring r1"></div><div class="ring r2"></div></div>
+  <div class="hero-in">
+    <div class="eyebrow">LOOKA — ваш личный стилист, визажист и косметолог в одном</div>
+    <h1>Стиль, красота и уход —<br><span class="holo">подобранные под вас, а не «под всех»</span></h1>
+    <div class="hero-mood" id="heroMood">
+      <div class="hm-q">Как вы сегодня? <span>образ, макияж и ритуал подстроятся под настроение и погоду</span></div>
+      <div class="hm-chips" id="hmChips"></div>
+    </div>
+    <div class="hero-chat">
+      <div class="hc-lbl">Или просто спросите — как у подруги, которая стилист, визажист и дерматолог</div>
+      <div class="hc-row"><input id="heroAsk" placeholder="например: что надеть на свидание, если хочу выглядеть дорого, но не стараться?" onkeydown="if(event.key==='Enter') heroAskGo()"><button class="btn primary" onclick="heroAskGo()">Спросить</button></div>
+      <div class="hc-ex"><button onclick="heroAskEx(this)">как понять свой цветотип?</button><button onclick="heroAskEx(this)">к обеду блестит лоб — что делать?</button><button onclick="heroAskEx(this)">оверсайз мне идёт или полнит?</button><button onclick="heroAskEx(this)">какая стрижка под круглое лицо?</button></div>
+    </div>
+    <div class="hero-cta"><button class="btn ghost" onclick="openColor()">◐ Мои цвета — 60 секунд</button><button class="btn ghost" onclick="openDna()">✦ Взлом личности</button><button class="btn ghost" onclick="goQuiz()">▤ Три образа</button></div>
+    <div class="stats-band sb3">
+      <div class="sb"><b>20</b><span>разделов<br>про вас, не «про всех»</span></div>
+      <div class="sb"><b>35</b><span>эстетик<br>от Y2K до old money</span></div>
+      <div class="sb"><b>15</b><span>регионов мира<br>и их магазины</span></div>
+      <div class="sb"><b>0<em class="u">₽</em></b><span>цветотип, портрет,<br>пять подборов</span></div>
+    </div>
   </div>
 </section>
 
@@ -4404,11 +4523,11 @@ header nav.topnav{gap:4px;align-items:center}
 <section class="sec reveal">
   <h2 class="big">Мы не магазин — <span class="holo">мы навигатор</span></h2>
   <p class="lead">LOOKA ничего не продаёт и не влияет на цены — ведёт к вещам в магазины <b id="mpReg">вашего региона</b>. Регион меняете в один тап.</p>
-  <div class="trust-row">
-    <div><i>₽</i><b>От 390 ₽ в неделю</b><span>отмена в один тап, без скрытых списаний</span></div>
-    <div><i>↩</i><b>Возврат 14 дней</b><span>одним письмом, без причин</span></div>
-    <div><i>◆</i><b>Данные ваши</b><span>хранятся у вас, не продаются</span></div>
-    <div><i>✆</i><b>Отвечает автор</b><span>лично, обычно за пару часов</span></div>
+  <div class="trust-strip">
+    <div class="ts"><b>390 ₽</b><span>неделя · отмена в один тап</span></div>
+    <div class="ts"><b>14 дней</b><span>на возврат первой оплаты</span></div>
+    <div class="ts"><b>0 продаж</b><span>ваших данных — никому и никогда</span></div>
+    <div class="ts"><b>~2 часа</b><span>ответ от автора лично</span></div>
   </div>
   <div class="mp-band" id="mpBand"></div>
   <div class="mp-foot"><button class="btn ghost" onclick="openRegion()">⌘ Сменить регион</button><span>сейчас площадок в вашем регионе: <b id="mpCnt">—</b></span></div>
@@ -4545,6 +4664,16 @@ header nav.topnav{gap:4px;align-items:center}
 
 
 <!-- ================= БЫСТРЫЕ КРЮЧКИ: за 60 секунд, бесплатно ================= -->
+<section class="sec reveal" id="nightSec"><div id="nightBox"></div></section>
+
+<section class="sec reveal" id="demoSec">
+  <div class="eyebrow">живой пример · без регистрации и анкеты</div>
+  <h2 class="big">Не верьте словам — <span class="holo">посмотрите, что получит она</span></h2>
+  <p class="lead">Выберите девушку — и увидите настоящий подбор LOOKA: три образа под фигуру, цветотип, повод и бюджет, с вещами из магазинов вашего региона. Так же будет и у вас — только про вас.</p>
+  <div class="demo-people" id="demoPeople"></div>
+  <div class="demo-out" id="demoOut"></div>
+</section>
+
 <section class="sec reveal" id="quickSec">
   <div class="eyebrow">попробуйте за 60 секунд · бесплатно и без входа</div>
   <h2 class="big">Восемь вещей, которые изменят ваше утро <span class="holo">уже сегодня</span></h2>
@@ -4570,6 +4699,9 @@ header nav.topnav{gap:4px;align-items:center}
     <button class="who" onclick="openMakeup()"><b>«Не умею краситься»</b><span>Схема под вашу форму глаз: где положить, какой кистью, что испортит — 14 шагов и косметичка под бюджет.</span><em>Макияж по вашей схеме →</em></button>
     <button class="who" onclick="openSkin()"><b>«Кожа — вечная лотерея»</b><span>Рутина под тип кожи, проверенные бренды под задачу и проверка любого средства: подойдёт ли именно вам.</span><em>Кожа: утро и вечер →</em></button>
     <button class="who" onclick="openEvent()"><b>«Через неделю событие»</b><span>Свадьба, собеседование, свидание, юбилей — образ под повод, дресс-код и погоду, с планом покупок.</span><em>Образ под событие →</em></button>
+    <button class="who" onclick="openLookCheck()"><b>«Вроде всё норм, но что-то не то»</b><span>Фото в полный рост — и честный разбор: что работает, что портит, какую одну вещь заменить, чтобы образ «собрался».</span><em>Что не так с моим образом →</em></button>
+    <button class="who" onclick="openRich()"><b>«Хочу выглядеть дорого, а денег нет»</b><span>Дорого — это не цена, а посадка, ткань, цвет и обувь. Десять приёмов под вас и пять вещей до 3 000 ₽.</span><em>Дорого за копейки →</em></button>
+    <button class="who" onclick="openBodyShift()"><b>«Тело изменилось, шкаф — нет»</b><span>После родов, похудела или поправилась — что спасти из старого, что купить на «сейчас», что подождёт.</span><em>Тело изменилось →</em></button>
     <button class="who" onclick="openGlow()"><b>«Хочу выглядеть моложе — честно»</b><span>Что доказано работает, а что миф: план на годы по коже, теле и привычкам, без чудо-кремов.</span><em>Долгая красота →</em></button>
   </div>
 </section>
@@ -5092,6 +5224,37 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="looks" id="skOut"></div>
 </section>
 
+
+<section class="sec pageview" id="lookCheckPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero">
+    <div class="eyebrow">разбор моего образа · честно, но бережно</div>
+    <h2 class="big">Что не так с этим образом — <span class="holo">и как исправить за одну вещь</span></h2>
+    <p class="lead">Сфотографируйте себя в полный рост в том, в чём собираетесь выйти. LOOKA скажет, что работает, что портит, какую одну вещь заменить — и как выглядеть на 20 000 ₽ дороже за тот же бюджет.</p>
+  </div>
+  <div id="lcBox"></div>
+</section>
+
+<section class="sec pageview" id="richPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero">
+    <div class="eyebrow">выглядеть дорого · при любом бюджете</div>
+    <h2 class="big">Дорого за копейки — <span class="holo">10 приёмов под вас и 5 вещей до 3 000 ₽</span></h2>
+    <p class="lead">«Дорого» — это не цена, а сочетание: ткань, посадка, цвет, обувь и одна деталь. Ответьте на четыре вопроса — получите личные правила и конкретные вещи, которые превращают масс-маркет в «где ты это купила?».</p>
+  </div>
+  <div id="rcBox"></div>
+</section>
+
+<section class="sec pageview" id="bodyShiftPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero">
+    <div class="eyebrow">тело изменилось · гардероб — тоже</div>
+    <h2 class="big">Похудела, поправилась, после родов — <span class="holo">что носить прямо сейчас</span></h2>
+    <p class="lead">Самый честный раздел: как одеваться в переходный период, чтобы чувствовать себя собой уже сегодня — что из старого спасти, что купить на «сейчас», а что подождёт. Без «просто похудей» и без стыда.</p>
+  </div>
+  <div id="bsBox"></div>
+</section>
+
 <section class="sec pageview" id="shoesPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
   <div class="mk-hero">
@@ -5491,7 +5654,7 @@ header nav.topnav{gap:4px;align-items:center}
   </div>
   <div class="my-pane" data-pane="results"><div id="myBox"></div></div>
   <div class="my-pane" data-pane="profile" hidden><div id="accBox"></div></div>
-  <div class="my-pane" data-pane="shops" hidden><div id="netBox"></div></div>
+  <div class="my-pane" data-pane="shops" hidden><div id="netBox"></div><div id="cartBox"></div></div>
   <div class="my-pane" data-pane="check" hidden><div id="chkBox"></div></div>
   <div class="my-pane" data-pane="finds" hidden><div id="findsBox"></div></div>
 </section>
@@ -7029,7 +7192,7 @@ window.openPage = (id, anchor)=>{
   if(id==='shopsPage' && window.renderShops) renderShops();
   if(id==='glowPage' && window.renderGlowForm) renderGlowForm();
   if(id==='dnaPage' && window.renderDna) renderDna();
-  if(id==='myPage'){ if(window.renderDash) renderDash(); if(window.renderAcc) renderAcc(); if(window.renderNet) renderNet(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); myTab('results'); }
+  if(id==='myPage'){ if(window.renderDash) renderDash(); if(window.renderAcc) renderAcc(); if(window.renderNet) renderNet(); if(window.renderCart) renderCart(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); myTab('results'); }
   if(id==='carePage' && window.renderCare) renderCare();
   if(anchor){
     setTimeout(()=>{
@@ -8072,7 +8235,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDayLook(); }
   }
   fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,precipitation,wind_speed_10m,weather_code&timezone=auto`)
     .then(r=>r.json()).then(w=>{
-      const c = w.current, t = Math.round(c.temperature_2m);
+      const c = w.current, t = Math.round(c.temperature_2m); window.WX_LAST_OBJ={t, w:wcode(c.weather_code), city:city.n}; window.WX_LAST=(t>0?'+':'')+t+'° '+wcode(c.weather_code); if(window.nightDraw) setTimeout(nightDraw,50);
       document.getElementById('dlTitle').textContent = greet+'!'; document.getElementById('dlSub').textContent = 'Образ на сегодня — под погоду и ваш профиль';
       document.getElementById('dlWx').innerHTML = '<div class="t">'+(t>0?'+':'')+t+'°</div><div class="w"><b>'+city.n+'</b>'+wcode(c.weather_code)+' · ветер '+Math.round(c.wind_speed_10m)+' км/ч</div><div class="ev">'+ev+'</div>';
       document.getElementById('dlLead').textContent = 'Образ под ваш профиль и '+(t>0?'+':'')+t+'° в городе '+city.n+' уже собран — с вещами, ссылками и советами стилиста.';
@@ -9494,6 +9657,95 @@ window.renderShoes=(quiet)=>{
 };
 window.openShoes=()=>{ openPage('shoesPage'); renderShoesForm(); };
 })();
+
+/* ================= ТРИ ПЛАТНЫХ РАЗДЕЛА: РАЗБОР ОБРАЗА · ДОРОГО ЗА КОПЕЙКИ · ТЕЛО ИЗМЕНИЛОСЬ ================= */
+(function(){
+const ctx = ()=>{ const S3=window.S||{}; return `Клиентка: пол ${S3.gender||'женщина'}, фигура ${S3.body||'-'}, рост ${S3.height||'-'}, цветотип ${(JSON.parse(localStorage.getItem('looka_cs')||'{}').season)||'-'}, регион ${(typeof REGION!=='undefined'?REGION:'cis')}. ${(window.dnaSummary&&dnaSummary())?'СТИЛЬ-ДНК: '+dnaSummary():''}`; };
+const parseJ = txt=>{ const m=txt.match(/\{[\s\S]*\}/); return JSON.parse(m?m[0]:txt); };
+const item = (it,i)=>HUB.pop(`<div class="item"><div class="nm">${it.n}</div><div class="tip">${it.why||''}${it.price?' · '+it.price:''}</div>${shopButtons({n:it.n,q:it.q||it.n})}</div>`,i);
+const readFile = f=>new Promise(res=>{ const r=new FileReader(); r.onload=()=>res({data:String(r.result).split(',')[1],type:f.type||'image/jpeg'}); r.readAsDataURL(f); });
+
+/* --- разбор образа по фото --- */
+const LC = HUB.ls('looka_lookcheck', { where:'', want:'' });
+let lcImg=null;
+window.lcPick=(k,v)=>{ LC[k]=v; HUB.save('looka_lookcheck',LC); renderLookCheck(); };
+window.lcFile=async f=>{ if(!f) return; lcImg=await readFile(f); const im=document.getElementById('lcPrev'); if(im){ im.src='data:'+lcImg.type+';base64,'+lcImg.data; im.style.display='block'; } };
+window.renderLookCheck=()=>{ const box=document.getElementById('lcBox'); if(!box) return;
+  box.innerHTML=`<div class="look badv mk-wide bt-form"><div class="look-in">
+    <div class="grp"><label class="t">Фото в полный рост</label><div class="to-row"><label class="btn primary" style="cursor:pointer">📷 Загрузить фото<input type="file" accept="image/*" style="display:none" onchange="lcFile(this.files[0])"></label><span class="tip" style="margin:0">Свет из окна, без фильтров, обувь в кадре</span></div><img id="lcPrev" class="lc-prev" style="display:none" alt=""></div>
+    <div class="grp"><label class="t">Куда идёте</label><div class="chips">${['работа','свидание','встреча с подругами','семейное событие','прогулка','вечеринка','фотосессия'].map(v=>`<button class="chip ${LC.where===v?'on':''}" onclick="lcPick('where','${v}')">${v}</button>`).join('')}</div></div>
+    <div class="grp"><label class="t">Чего хотите от образа</label><div class="chips">${['выглядеть дороже','стройнее','моложе','заметнее','спокойнее и собраннее','просто понять, что не так'].map(v=>`<button class="chip ${LC.want===v?'on':''}" onclick="lcPick('want','${v}')">${v}</button>`).join('')}</div></div>
+    <div class="to-row"><button class="btn primary" onclick="lookCheckGo()">Разобрать образ →</button></div>
+  </div></div><div id="lcOut"></div>`; };
+window.lookCheckGo=async ()=>{ if(!lcImg){ myToast('Сначала загрузите фото'); return; } const out=document.getElementById('lcOut'); out.innerHTML='<div class="tip">Смотрю образ…</div>';
+  const prompt=`Ты — честный, но бережный стилист. Разбери образ на фото. ${ctx()} Куда идёт: ${LC.where||'-'}. Хочет: ${LC.want||'-'}. Ответь ТОЛЬКО JSON: {"score":"оценка 1-10 числом","verdict":"одна фраза — главное впечатление","works":["2-4 вещи, которые работают и почему"],"kills":["1-3 вещи, которые портят, и почему — про вещь, не про тело"],"one":{"what":"ОДНА замена, которая меняет всё","why":"почему","n":"что купить 2-4 слова","q":"поисковый запрос","price":"ориентир цены"},"fix_now":["3 приёма без покупок: заправить, подвернуть, сменить обувь, добавить/убрать деталь"],"expensive":"как этот же образ сделать «дороже» на вид одним ходом","items":[{"n":"вещь для этого образа","q":"запрос","why":"зачем","price":"цена"}]} Не обсуждай вес и тело — только вещи, посадку, цвет и пропорции.`;
+  try{ const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1500, messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:lcImg.type,data:lcImg.data}},{type:'text',text:prompt}]}] }) });
+    const j=await r.json(); const R=parseJ((j.content||[]).map(c=>c.text||'').join(''));
+    out.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">РАЗБОР ОБРАЗА · ${R.score}/10</div><h3>${R.verdict||''}</h3>
+      <div class="lc-cols"><div class="lc-col ok"><b>✓ Работает</b><ul>${(R.works||[]).map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="lc-col no"><b>✕ Портит</b><ul>${(R.kills||[]).map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+      ${R.one?`<div class="lc-one"><div class="cs-k">ОДНА ЗАМЕНА, КОТОРАЯ МЕНЯЕТ ВСЁ</div><b>${R.one.what}</b><span>${R.one.why}</span>${R.one.n?item({n:R.one.n,q:R.one.q,why:'',price:R.one.price},0):''}</div>`:''}
+      <div class="cs-k" style="margin-top:14px">ПРЯМО СЕЙЧАС, БЕЗ ПОКУПОК</div><ul class="lc-list">${(R.fix_now||[]).map(x=>`<li>${x}</li>`).join('')}</ul>
+      ${R.expensive?`<div class="tip" style="color:#C7A6F0;margin-top:10px">💎 Чтобы выглядело дороже: ${R.expensive}</div>`:''}
+      ${(R.items||[]).length?`<div class="hp-sub" style="margin-top:14px">ДОКУПИТЬ К ЭТОМУ ОБРАЗУ</div>${R.items.map(item).join('')}`:''}
+      <div class="next-row"><span>дальше →</span><button onclick="openRich()">💎 Дорого за копейки</button><button onclick="openWardrobe()">▣ В гардероб</button></div>
+    </div></div>`; HUB.done(out);
+  }catch(e){ out.innerHTML='<div class="tip">Не получилось разобрать: '+e.message+'. Попробуйте фото при дневном свете.</div>'; } };
+window.openLookCheck=()=>{ openPage('lookCheckPage'); renderLookCheck(); };
+
+/* --- дорого за копейки --- */
+const RC = HUB.ls('looka_rich', { budget:'', where:[], own:[], pain:'' });
+window.rcPick=(k,v,multi)=>{ if(multi){ const a=RC[k]; const i=a.indexOf(v); i<0?a.push(v):a.splice(i,1); } else RC[k]=v; HUB.save('looka_rich',RC); renderRich(); };
+window.renderRich=()=>{ const box=document.getElementById('rcBox'); if(!box) return;
+  const ch=(k,arr,multi)=>arr.map(v=>`<button class="chip ${(multi?RC[k].includes(v):RC[k]===v)?'on':''}" onclick="rcPick('${k}','${v}',${!!multi})">${v}</button>`).join('');
+  box.innerHTML=`<div class="look badv mk-wide bt-form"><div class="look-in">
+    <div class="grp"><label class="t">Бюджет на вещь</label><div class="chips">${ch('budget',['до 1 500 ₽','до 3 000 ₽','до 6 000 ₽','до 12 000 ₽'])}</div></div>
+    <div class="grp"><label class="t">Где покупаете <span class="to-opt">несколько</span></label><div class="chips">${ch('where',['WB / Ozon','Lamoda','Zara / Massimo Dutti','Lime / 12storeez','H&M / Uniqlo','секонд и винтаж'],true)}</div></div>
+    <div class="grp"><label class="t">Что уже есть <span class="to-opt">несколько</span></label><div class="chips">${ch('own',['чёрный жакет','белая рубашка','прямые джинсы','тренч','лоферы','белые кроссовки','базовая сумка','золотые серьги'],true)}</div></div>
+    <div class="grp"><label class="t">Что мешает выглядеть дорого</label><div class="chips">${ch('pain',['вещи мнутся и катышки','всё сидит «как-то не так»','много цветов','обувь дешевит','нет «изюминки»','не знаю, в чём дело'])}</div></div>
+    <div class="to-row"><button class="btn primary" onclick="richGo()">Собрать правила и вещи →</button></div>
+  </div></div><div id="rcOut"></div>`; };
+window.richGo=async ()=>{ const out=document.getElementById('rcOut'); out.innerHTML='<div class="tip">Считаю, что делает дорого именно вас…</div>';
+  const prompt=`Ты — стилист, который умеет делать масс-маркет «дорогим». ${ctx()} Бюджет на вещь: ${RC.budget||'-'}. Покупает: ${RC.where.join(', ')||'-'}. Уже есть: ${RC.own.join(', ')||'-'}. Мешает: ${RC.pain||'-'}. Ответь ТОЛЬКО JSON: {"rules":[{"t":"приём 3-6 слов","d":"как применить именно ей, 1-2 предложения"}],"never":["4 вещи, которые дешевят её образ"],"items":[{"n":"вещь до её бюджета 2-4 слова","q":"поисковый запрос для маркетплейса","why":"почему выглядит дорого","price":"цена"}],"look":"один готовый образ из её вещей + 1-2 новых, который выглядит дороже 30 000 ₽"} Правил — 10, вещей — 5. Никаких люксовых брендов — только доступные.`;
+  try{ const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1600, messages:[{role:'user',content:prompt}] }) });
+    const j=await r.json(); const R=parseJ((j.content||[]).map(c=>c.text||'').join(''));
+    out.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">10 ПРИЁМОВ · ДОРОГО ПОД ВАС</div>
+      <div class="rc-rules">${(R.rules||[]).map((x,i)=>HUB.pop(`<div class="rc-r"><i>${i+1}</i><div><b>${x.t}</b><span>${x.d}</span></div></div>`,i)).join('')}</div>
+      <div class="cs-k" style="margin-top:16px">ЧТО ДЕШЕВИТ · НЕ ДЕЛАТЬ</div><ul class="lc-list no">${(R.never||[]).map(x=>`<li>${x}</li>`).join('')}</ul>
+      ${R.look?`<div class="lc-one"><div class="cs-k">ГОТОВЫЙ ОБРАЗ «ДОРОЖЕ 30 000 ₽»</div><span>${R.look}</span></div>`:''}
+      <div class="hp-sub" style="margin-top:14px">5 ВЕЩЕЙ ДО ${RC.budget||'БЮДЖЕТА'}</div>${(R.items||[]).map(item).join('')}
+      <div class="next-row"><span>дальше →</span><button onclick="openLookCheck()">📷 Разобрать мой образ</button><button onclick="goQuiz()">▤ Три образа</button></div>
+    </div></div>`; HUB.done(out);
+  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
+window.openRich=()=>{ openPage('richPage'); renderRich(); };
+
+/* --- тело изменилось --- */
+const BS = HUB.ls('looka_bodyshift', { what:'', stage:'', mind:[], keep:[] });
+window.bsPick=(k,v,multi)=>{ if(multi){ const a=BS[k]; const i=a.indexOf(v); i<0?a.push(v):a.splice(i,1); } else BS[k]=v; HUB.save('looka_bodyshift',BS); renderBodyShift(); };
+window.renderBodyShift=()=>{ const box=document.getElementById('bsBox'); if(!box) return;
+  const ch=(k,arr,multi)=>arr.map(v=>`<button class="chip ${(multi?BS[k].includes(v):BS[k]===v)?'on':''}" onclick="bsPick('${k}','${v}',${!!multi})">${v}</button>`).join('');
+  box.innerHTML=`<div class="look badv mk-wide bt-form"><div class="look-in">
+    <div class="grp"><label class="t">Что изменилось</label><div class="chips">${ch('what',['похудела','поправилась','беременность','после родов','кормлю грудью','после операции или болезни','тело меняется — не знаю, к чему'])}</div></div>
+    <div class="grp"><label class="t">На каком этапе</label><div class="chips">${ch('stage',['только началось','в процессе','уже стабильно','вернусь к прежнему'])}</div></div>
+    <div class="grp"><label class="t">Что сейчас особенно важно <span class="to-opt">несколько</span></label><div class="chips">${ch('mind',['удобство','скрыть живот','подчеркнуть талию','грудь изменилась','ничего не давит','быстро одеться','чувствовать себя красивой','доступ для кормления'],true)}</div></div>
+    <div class="grp"><label class="t">Что из старого хочется спасти <span class="to-opt">несколько</span></label><div class="chips">${ch('keep',['джинсы','платья','жакеты','пальто','рубашки','юбки','ничего — начну заново'],true)}</div></div>
+    <div class="to-row"><button class="btn primary" onclick="bodyShiftGo()">Собрать гардероб на сейчас →</button></div>
+  </div></div><div id="bsOut"></div>`; };
+window.bodyShiftGo=async ()=>{ const out=document.getElementById('bsOut'); out.innerHTML='<div class="tip">Собираю гардероб переходного периода…</div>';
+  const prompt=`Ты — стилист, который специализируется на гардеробе в переходный период. Говори бережно, без оценок тела, без слов «скрыть недостатки» и «похудей». ${ctx()} Что изменилось: ${BS.what||'-'}, этап: ${BS.stage||'-'}. Важно: ${BS.mind.join(', ')||'-'}. Хочет спасти: ${BS.keep.join(', ')||'-'}. Ответь ТОЛЬКО JSON: {"mood":"2 предложения поддержки без сюсюканья — про то, что одежда должна служить ей сейчас","save":[{"t":"что из старого носить и как","d":"как адаптировать: ремень, навыпуск, слои"}],"buy_now":[{"n":"вещь на «сейчас» 2-4 слова","q":"поисковый запрос","why":"почему именно сейчас","price":"цена"}],"wait":["2-3 покупки, которые лучше отложить, и почему"],"formulas":[{"t":"формула образа","d":"верх + низ + обувь + деталь под её ситуацию"}],"tips":["3-4 приёма посадки и пропорций для этого периода"],"lingerie":"1-2 предложения про бельё для этого периода, если уместно"} buy_now — 5 вещей, formulas — 3.`;
+  try{ const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1700, messages:[{role:'user',content:prompt}] }) });
+    const j=await r.json(); const R=parseJ((j.content||[]).map(c=>c.text||'').join(''));
+    out.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">ГАРДЕРОБ НА СЕЙЧАС</div><h3>${R.mood||''}</h3>
+      ${(R.save||[]).length?`<div class="cs-k" style="margin-top:12px">СПАСАЕМ ИЗ СТАРОГО</div><div class="rc-rules">${R.save.map((x,i)=>HUB.pop(`<div class="rc-r"><i>✓</i><div><b>${x.t}</b><span>${x.d}</span></div></div>`,i)).join('')}</div>`:''}
+      <div class="hp-sub" style="margin-top:14px">5 ВЕЩЕЙ НА «СЕЙЧАС»</div>${(R.buy_now||[]).map(item).join('')}
+      ${(R.formulas||[]).length?`<div class="cs-k" style="margin-top:14px">ТРИ ФОРМУЛЫ ОБРАЗА</div><div class="rc-rules">${R.formulas.map((x,i)=>`<div class="rc-r"><i>${i+1}</i><div><b>${x.t}</b><span>${x.d}</span></div></div>`).join('')}</div>`:''}
+      ${(R.tips||[]).length?`<div class="cs-k" style="margin-top:14px">ПОСАДКА И ПРОПОРЦИИ</div><ul class="lc-list">${R.tips.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+      ${(R.wait||[]).length?`<div class="cs-k" style="margin-top:14px">ПОДОЖДЁТ</div><ul class="lc-list no">${R.wait.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+      ${R.lingerie?`<div class="tip" style="margin-top:10px">${R.lingerie}</div>`:''}
+      <div class="next-row"><span>дальше →</span><button onclick="openBra()">◠ Размер бра сейчас</button><button onclick="openWardrobe()">▣ В гардероб</button></div>
+    </div></div>`; HUB.done(out);
+  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
+window.openBodyShift=()=>{ openPage('bodyShiftPage'); renderBodyShift(); };
+})();
 window.renderSkinForm = ()=>{
   const f = document.getElementById('skForm'); if(!f) return;
   if(!K.type && B.skin) K.type = B.skin;
@@ -9999,6 +10251,9 @@ const GROUPS = [
   { t:'Что надеть', d:'от анкеты до вещей в корзине — без «нечего носить»', items:[
     ['✦','Три образа за две минуты','ответили на анкету — получили готовые комплекты со ссылками', "goQuiz()", 'бесплатно'],
     ['⌘','Стиль-ДНК','35 эстетик, посадки, характер, «никогда» — чтобы ИИ знал ваш вкус', 'openDna()', 'бесплатно'],
+    ['📷','Что не так с моим образом','фото в полный рост → что портит, одна замена, которая меняет всё', 'openLookCheck()', 'доступ'],
+    ['💎','Дорого за копейки','10 приёмов под вас и 5 вещей до 3 000 ₽, которые выглядят на 30 000', 'openRich()', 'доступ'],
+    ['🤍','Тело изменилось — что носить','похудела, поправилась, после родов: гардероб на сейчас, без стыда', 'openBodyShift()', 'доступ'],
     ['◡','Обувь, которая ваша','лоферы, слингбэки, челси — что идёт росту и ногам, с картинками', 'openShoes()', 'бесплатно'],
     ['▣','Шкаф, который сам одевает','ваши вещи → образ на сегодня, план недели и что докупить', 'openWardrobe()', 'доступ'],
     ['▦','14 вещей — 30 образов','капсула сезона: докупаете только недостающее', 'openCapsule()', 'доступ'],
@@ -11344,6 +11599,24 @@ window.renderNet = ()=>{
 (function(){
 let chkImg=null;
 window.chkPhoto = async f=>{ if(!f) return; chkImg = await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res({data:String(r.result).split(',')[1], type:f.type||'image/jpeg'}); r.readAsDataURL(f); }); myToast('Фото прикреплено'); };
+window.cartComplete = async ()=>{
+  const out=document.getElementById('cartOut'); if(!out) return; out.innerHTML='<div class="tip">Смотрю, что в корзине, и что докупить под бюджет…</div>';
+  let NET={orders:[]}; try{ NET=JSON.parse(localStorage.getItem('looka_net')||'{"orders":[]}'); }catch(e){}
+  const last=(NET.orders||[])[0]; const items=last?(last.items||[]).map(i=>i.name||i.n||i).filter(Boolean):[];
+  const budget=(document.getElementById('cartBudget')||{}).value||'до 5 000 ₽';
+  if(!items.length){ out.innerHTML='<div class="tip">Сначала загрузите скриншот корзины или заказов выше — тогда LOOKA дособерёт образ из того, что вы уже выбрали.</div>'; return; }
+  const prompt=`Ты — стилист. У клиентки в корзине: ${items.join('; ')}. Бюджет на докупку: ${budget}. ${(window.dnaSummary&&dnaSummary())?'Её Стиль-ДНК: '+dnaSummary():''} Ответь ТОЛЬКО JSON: {"keep":["что из корзины оставить и почему"],"drop":["что убрать — дубль или не сочетается, почему"],"looks":[{"t":"название образа","from":["вещи из корзины"],"add":[{"n":"докупить 2-4 слова","q":"поисковый запрос","why":"зачем","price":"цена"}]}],"total":"сколько выходит с докупкой"} Образов — 3, докупок — не больше 2 на образ, в бюджет.`;
+  try{ const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1500, messages:[{role:'user',content:prompt}] }) }); const j=await r.json(); const txt=(j.content||[]).map(c=>c.text||'').join(''); const m=txt.match(/\{[\s\S]*\}/); const R=JSON.parse(m?m[0]:txt);
+    out.innerHTML=`<div class="chk-res"><div class="cs-k">ИЗ ВАШЕЙ КОРЗИНЫ · ${items.length} ВЕЩЕЙ</div>
+      ${(R.keep||[]).length?`<div class="cs-row"><b>Оставить</b><span>${R.keep.join(' · ')}</span></div>`:''}${(R.drop||[]).length?`<div class="cs-row" style="color:#FF9DB0"><b>Убрать</b><span>${R.drop.join(' · ')}</span></div>`:''}
+      ${(R.looks||[]).map(L=>`<div class="lc-one"><b>${L.t}</b><span>из корзины: ${(L.from||[]).join(', ')}</span>${(L.add||[]).map(a=>`<div class="item"><div class="nm">+ ${a.n}</div><div class="tip">${a.why||''}${a.price?' · '+a.price:''}</div>${shopButtons({n:a.n,q:a.q||a.n})}</div>`).join('')}</div>`).join('')}
+      ${R.total?`<div class="tip" style="margin-top:10px">Итого: ${R.total}</div>`:''}</div>`;
+  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
+window.renderCart = ()=>{ const box=document.getElementById('cartBox'); if(!box) return;
+  box.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">КОРЗИНА → ОБРАЗ</div><h3>Что в корзине — и что докупить, чтобы получился образ</h3>
+    <div class="tip">LOOKA смотрит на вещи из вашей корзины или последних заказов, убирает дубли и то, что не сочетается, и предлагает 1–2 докупки под ваш бюджет — чтобы из «вещей» получились образы.</div>
+    <div class="grp" style="margin-top:12px"><label class="t">Бюджет на докупку</label><select class="acc-in" id="cartBudget"><option>до 2 000 ₽</option><option selected>до 5 000 ₽</option><option>до 10 000 ₽</option><option>без ограничений</option></select></div>
+    <div class="to-row"><button class="btn primary" onclick="cartComplete()">Дособрать образы →</button></div><div id="cartOut" style="margin-top:12px"></div></div></div>`; };
 window.renderChk = ()=>{ const box=document.getElementById('chkBox'); if(!box) return;
   box.innerHTML=`<div class="look badv mk-wide"><div class="look-in">
     <div class="cs-k">ПРОВЕРИТЬ СРЕДСТВО</div><h3>Подойдёт ли мне это?</h3>
@@ -11467,7 +11740,7 @@ if(document.readyState !== 'loading' && window.accGreet) accGreet();
 /* ================= ВХОД ЧЕРЕЗ GOOGLE + ОБЛАЧНЫЙ ПРОФИЛЬ ================= */
 (function(){
 const CLIENT_ID = '485514192792-hbbgde4cen2mp816hvm82tjarm129i47.apps.googleusercontent.com';
-const SYNC_KEYS = ['looka_net','looka_finds','looka_dna','looka_acc','looka_dna','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_bra','looka_glow','looka_ritual','looka_region','looka_shops','looka_igshops','looka_city'];
+const SYNC_KEYS = ['looka_night','looka_mood','looka_net','looka_finds','looka_dna','looka_acc','looka_dna','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_bra','looka_glow','looka_ritual','looka_region','looka_shops','looka_igshops','looka_city'];
 const S2 = { token:null, email:'', busy:false, sync:false };
 try{ const s = JSON.parse(localStorage.getItem('looka_session')||'null'); if(s){ S2.token=s.token; S2.email=s.email||''; S2.sync=!!s.sync; } }catch(e){}
 const api = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
@@ -12323,6 +12596,91 @@ document.addEventListener('scroll', ()=>{ if(box) box.classList.remove('on'); },
 window.hintTap = (el,e)=>{ e.preventDefault(); e.stopPropagation(); const [kind,v]=(el.dataset.hint||'').split(':'); let ov=document.getElementById('hintOv'); if(!ov){ ov=document.createElement('div'); ov.id='hintOv'; ov.className='au-ov'; ov.onclick=ev=>{ if(ev.target===ov) ov.classList.remove('open'); }; document.body.appendChild(ov); }
   ov.innerHTML=`<div class="au-box" style="width:min(420px,100%)"><button class="au-x" onclick="document.getElementById('hintOv').classList.remove('open')">✕</button><div class="au-in">${hintHTML(kind,v)}</div></div>`; ov.classList.add('open'); };
 window.hintBtn = (kind,v)=>`<i class="hint-q" data-hint="${kind}:${String(v).replace(/"/g,'&quot;')}" onclick="hintTap(this,event)" title="как это выглядит">?</i>`;
+})();
+
+
+/* ================= ПЕРВЫЙ ЭКРАН: настроение, чат, космос ================= */
+window.heroMoodDraw=()=>{ const c=document.getElementById('hmChips'); if(!c||!window.MOODS) return; const cur=(window.moodToday&&moodToday()||{}).m;
+  c.innerHTML=MOODS.map(m=>`<button class="hm ${cur===m[1]?'on':''}" onclick="heroMoodPick('${m[1]}')"><i>${m[0]}</i><b>${m[1]}</b></button>`).join('');
+  const q=document.querySelector('#heroMood .hm-q'); if(q && cur) q.innerHTML=`Сегодня вы — <b>${cur.toLowerCase()}</b> <span>образ дня, макияж и ритуал уже учитывают это · <a href="#" onclick="event.preventDefault();openDayLook()">показать образ дня →</a></span>`; };
+window.heroMoodPick=m=>{ const rule=(MOODS.find(x=>x[1]===m)||[])[2]||''; try{ localStorage.setItem('looka_mood', JSON.stringify({m, rule, day:new Date().toDateString()})); }catch(e){} heroMoodDraw(); if(window.sparkleReveal){ const t=document.querySelector('.hero-chat'); sparkleReveal(t); } myToast('Сегодня: '+m+' — образ дня подстроен'); setTimeout(()=>{ try{ openDayLook(); }catch(e){} },500); };
+window.heroAskGo=()=>{ const v=(document.getElementById('heroAsk')||{}).value||''; if(!v.trim()){ document.getElementById('heroAsk').focus(); return; } openPage('askPage'); setTimeout(()=>{ const t=document.getElementById('askInp'); if(t){ t.value=v; t.focus(); if(window.askGo) askGo(); } },400); };
+window.heroAskEx=b=>{ const i=document.getElementById('heroAsk'); i.value=b.textContent; heroAskGo(); };
+(function(){ const s=document.getElementById('stars'); if(!s||matchMedia('(prefers-reduced-motion: reduce)').matches) return; for(let i=0;i<70;i++){ const d=document.createElement('i'); d.style.left=Math.random()*100+'%'; d.style.top=Math.random()*100+'%'; const z=1+Math.random()*2.2; d.style.width=d.style.height=z+'px'; d.style.animationDuration=(2+Math.random()*4)+'s'; d.style.animationDelay=(-Math.random()*4)+'s'; s.appendChild(d); }
+  for(let i=0;i<12;i++){ const d=document.createElement('b'); d.style.left=Math.random()*100+'%'; d.style.animationDuration=(14+Math.random()*16)+'s'; d.style.animationDelay=(-Math.random()*20)+'s'; s.appendChild(d); }
+  addEventListener('pointermove', e=>{ const x=(e.clientX/innerWidth-.5), y=(e.clientY/innerHeight-.5); document.querySelectorAll('.cosmos .orb').forEach((o,i)=>{ const k=(i+1)*10; o.style.transform=`translate(${x*k}px,${y*k}px)`; }); }, {passive:true}); })();
+if(document.readyState!=='loading') heroMoodDraw(); else document.addEventListener('DOMContentLoaded', heroMoodDraw);
+
+/* ================= ЖИВОЙ ПРИМЕР НА ГЛАВНОЙ ================= */
+(function(){
+const PEOPLE=[
+ {n:'Аня', a:'27 · груша · 164 см', ini:'А', p:['#F2A6C6','#C79DF2'], S:{gender:'Женщина', body:'Груша', height:'160–169', event:'Свидание', budget:'2 000–5 000 ₽', style:'Романтичный', focus:[], season:null}, why:'бёдра шире плеч — акцент вверх, низ спокойный'},
+ {n:'Дана', a:'34 · яблоко · 171 см', ini:'Д', p:['#19C6F7','#37E08A'], S:{gender:'Женщина', body:'Яблоко', height:'170–179', event:'Офис / работа', budget:'5 000–12 000 ₽', style:'Минимализм', focus:[], season:null}, why:'вертикали и V-вырез, ничего не давит на талию'},
+ {n:'Лиза', a:'22 · песочные часы · 158 см', ini:'Л', p:['#FFB84C','#F2A6C6'], S:{gender:'Женщина', body:'Песочные часы', height:'до 159', event:'Прогулка / кэжуал', budget:'до 2 000 ₽', style:'Спорт-шик', focus:[], season:null}, why:'талия подчёркнута, пропорции вверх — рост визуально больше'},
+ {n:'Мария', a:'41 · прямоугольник · 176 см', ini:'М', p:['#C79DF2','#19C6F7'], S:{gender:'Женщина', body:'Прямоугольник', height:'170–179', event:'Торжество', budget:'12 000 ₽ +', style:'Классика', focus:[], season:null}, why:'создаём талию поясом и линиями, длина — сила'}
+];
+let cur=0;
+window.demoPick=i=>{ cur=i; demoDraw(); };
+window.demoDraw=()=>{
+  const pp=document.getElementById('demoPeople'), out=document.getElementById('demoOut'); if(!pp||!out) return;
+  pp.innerHTML=PEOPLE.map((p,i)=>`<button class="dp ${i===cur?'on':''}" onclick="demoPick(${i})"><i style="background:linear-gradient(135deg,${p.p[0]},${p.p[1]})">${p.ini}</i><b>${p.n}</b><span>${p.a}</span><em>${p.S.event.toLowerCase()} · ${p.S.budget}</em></button>`).join('');
+  const P=PEOPLE[cur]; const saved=Object.assign({},S); Object.assign(S,P.S); S.season=null;
+  let looks=[]; try{ looks=localGen(); }catch(e){ looks=[]; } Object.assign(S,saved);
+  out.innerHTML=`<div class="demo-why">✦ Почему так: <b>${P.why}</b> · регион: ${REGIONS[REGION].n}</div>
+    <div class="demo-grid">${looks.slice(0,3).map((l,li)=>HUB.pop(`<div class="demo-look"><div class="dl-h"><b>${l.t}</b><span>${l.v||''}</span></div><ul>${l.items.slice(0,4).map(it=>`<li><span>${it.n}</span><em>${it.p||''}</em></li>`).join('')}</ul>${l.items[0]?(()=>{ const d=document.createElement('div'); d.innerHTML=shopButtons(l.items[0]); const mp=d.querySelector('.mp'); if(!mp) return ''; [...mp.querySelectorAll('a')].slice(3).forEach(a=>a.remove()); mp.classList.add('mp-demo'); d.querySelectorAll('.ig-row,.igs').forEach(x=>x.remove()); return mp.outerHTML; })():''}</div>`,li)).join('')}</div>
+    <div class="to-row" style="justify-content:center;margin-top:16px"><button class="btn primary" onclick="goQuiz()">Хочу так же — про меня →</button><span class="to-q">2 минуты · 5 подборов бесплатно</span></div>`;
+};
+if(document.readyState!=='loading') setTimeout(demoDraw,50); else document.addEventListener('DOMContentLoaded', ()=>setTimeout(demoDraw,50));
+const sr=window.setRegion; if(typeof sr==='function') window.setRegion=function(){ const r=sr.apply(null,arguments); setTimeout(demoDraw,40); return r; };
+})();
+
+/* ================= НОЧНОЙ СТИЛИСТ: утром не думать, что надеть ================= */
+(function(){
+const MOODMAP = {
+  'Заряжена':{ want:/жакет|каблук|лодочк|платье|красн|кожан|юбк/i, tip:'один яркий акцент — и хватит' },
+  'Собранная':{ want:/жакет|рубашк|брюк|лофер|тренч|пальто|чёрн|бел|сер|беж/i, tip:'чистые линии, нейтральные цвета' },
+  'Устала':{ want:/свитер|кардиган|худи|джинс|кроссов|трикотаж|оверсайз|пальто|плать/i, tip:'всё удобное, но не «домашнее»: слои и одна хорошая вещь' }
+};
+const CATK = { top:/^Верх$/i, bottom:/^Низ$/i, dress:/^Платье$/i, outer:/^Верхняя одежда$/i, shoes:/^Обувь$/i, bag:/^Сумка$/i, acc:/^Аксессуар$/i };
+const pickBy=(items,re,want)=>{ const pool=items.filter(i=>re.test(i.cat)); if(!pool.length) return null; const fav=pool.filter(i=>want.test(i.name+' '+i.color+' '+(i.form||''))); const src=(fav.length?fav:pool).slice().sort((a,b)=>(a.worn||0)-(b.worn||0)); return src[Math.floor(Math.random()*Math.min(3,src.length))]; };
+function build(items, wx){
+  const mo=new Date().getMonth(); const cold = wx && wx.t!=null ? wx.t<12 : (mo>=10||mo<=2);
+  const rain = !!(wx && /дожд|ливень|морось|снег/i.test(wx.w||''));
+  const out={};
+  Object.entries(MOODMAP).forEach(([mood,M])=>{
+    const used=new Set(); const take=re=>{ const it=pickBy(items.filter(i=>!used.has(i.id)),re,M.want); if(it) used.add(it.id); return it; };
+    const look=[]; const dress = Math.random()<.35 ? take(CATK.dress) : null;
+    if(dress) look.push(dress); else { const t=take(CATK.top), b=take(CATK.bottom); if(t) look.push(t); if(b) look.push(b); }
+    if(cold){ const o=take(CATK.outer); if(o) look.push(o); }
+    const s=take(CATK.shoes); if(s) look.push(s);
+    const g=take(CATK.bag); if(g) look.push(g); const a=take(CATK.acc); if(a) look.push(a);
+    out[mood]={ items:look, tip:M.tip+(rain?' · сегодня осадки — закрытая обувь':'')+(cold?' · прохладно — слои':'') };
+  });
+  return out;
+}
+window.nightPlan = (force)=>{
+  let W={items:[]}; try{ W=JSON.parse(localStorage.getItem('looka_wardrobe')||'{"items":[]}'); }catch(e){}
+  if(!W.items || W.items.length<3) return null;
+  const key=new Date().toDateString();
+  let N=null; try{ N=JSON.parse(localStorage.getItem('looka_night')||'null'); }catch(e){}
+  if(N && N.day===key && !force) return N;
+  const wx = window.WX_LAST_OBJ||null;
+  N={ day:key, wx, looks:build(W.items, wx), made:Date.now() };
+  try{ localStorage.setItem('looka_night', JSON.stringify(N)); }catch(e){}
+  if(window.authSync) setTimeout(()=>authSync(true), 800);
+  return N;
+};
+window.nightDraw = ()=>{
+  const box=document.getElementById('nightBox'); if(!box) return;
+  const N=nightPlan(); const mood=(window.moodToday&&moodToday()||{}).m;
+  if(!N){ box.innerHTML=`<div class="night"><div class="nt-h"><div class="cs-k">УТРОМ НЕ ДУМАТЬ, ЧТО НАДЕТЬ</div><h3>Ночью LOOKA соберёт образы из ваших вещей</h3><p>Добавьте хотя бы 5 вещей в гардероб (можно скриншотом заказов) — и каждое утро вас будут ждать три готовых образа под настроение и погоду.</p><div class="to-row"><button class="btn primary" onclick="openWardrobe()">▣ Добавить вещи</button><button class="btn ghost" onclick="openPage('myPage');setTimeout(()=>myTab('shops'),350)">⤒ Скриншот заказов</button></div></div></div>`; return; }
+  const order = mood && N.looks[mood] ? [mood].concat(Object.keys(N.looks).filter(k=>k!==mood)) : Object.keys(N.looks);
+  box.innerHTML=`<div class="night"><div class="nt-h"><div class="cs-k">СОБРАНО НОЧЬЮ · ИЗ ВАШЕГО ГАРДЕРОБА${N.wx&&N.wx.t!=null?' · '+(N.wx.t>0?'+':'')+N.wx.t+'° '+(N.wx.w||''):''}</div><h3>${mood?'Вы сегодня — '+mood.toLowerCase()+'. Вот ваш образ':'Три образа на сегодня — выберите настроение'}</h3></div>
+    <div class="nt-grid">${order.map((m,i)=>{ const L=N.looks[m]; const M=(window.MOODS||[]).find(x=>x[1]===m)||['✦']; return HUB.pop(`<div class="nt-look ${m===mood?'on':''}"><div class="nt-m"><i>${M[0]}</i><b>${m}</b>${m===mood?'<em>ваше сегодня</em>':''}</div><ul>${L.items.map(it=>`<li><span class="sw" style="background:${(window.WD_COLORS&&WD_COLORS[it.color])||'#8B92AA'}"></span>${it.name}<em>${it.cat}</em></li>`).join('')}</ul><div class="nt-tip">${L.tip}</div><div class="to-row"><button class="btn ghost" onclick="nightWear('${m}')">Надену это</button><button class="btn ghost" onclick="nightPlan(true);nightDraw()">↻ Другой вариант</button></div></div>`,i); }).join('')}</div>
+    <div class="tip" style="margin-top:12px">Образы обновляются каждую ночь и приходят утром в Telegram, если он подключён. Чем больше вещей в гардеробе и полнее Стиль-ДНК — тем точнее.</div></div>`;
+};
+window.nightWear = m=>{ try{ const W=JSON.parse(localStorage.getItem('looka_wardrobe')||'{"items":[]}'); const N=JSON.parse(localStorage.getItem('looka_night')||'null'); const ids=new Set((N&&N.looks[m]||{items:[]}).items.map(i=>i.id)); W.items.forEach(i=>{ if(ids.has(i.id)){ i.worn=(i.worn||0)+1; i.last=Date.now(); } }); localStorage.setItem('looka_wardrobe', JSON.stringify(W)); }catch(e){} const rule=((window.MOODS||[]).find(x=>x[1]===m)||[])[2]||''; try{ localStorage.setItem('looka_mood', JSON.stringify({m,rule,day:new Date().toDateString()})); }catch(e){} if(window.heroMoodDraw) heroMoodDraw(); myToast('Записала: сегодня — '+m+'. Вещи отмечены как надетые'); nightDraw(); };
+if(document.readyState!=='loading') setTimeout(nightDraw,80); else document.addEventListener('DOMContentLoaded', ()=>setTimeout(nightDraw,80));
 })();
 
 fxGlow(document);
