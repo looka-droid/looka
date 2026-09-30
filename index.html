@@ -4494,6 +4494,41 @@ header nav.topnav{gap:4px;align-items:center}
 @keyframes introSlide{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
 #introCta.pulse{animation:ctaPulse 1.8s ease-in-out infinite}
 @keyframes ctaPulse{0%,100%{box-shadow:0 0 0 0 rgba(199,157,240,.5)}50%{box-shadow:0 0 0 14px rgba(199,157,240,0)}}
+
+/* события */
+.ev-list{display:grid;gap:10px;margin-top:12px}
+.ev{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
+.ev.soon{border-color:rgba(255,184,76,.5);background:linear-gradient(135deg,rgba(255,184,76,.1),rgba(242,166,198,.05))}
+.ev-d b{display:block;font-size:14px;color:#FFB84C}.ev-d span{font-size:11.5px;color:#8B92AA}
+.ev-t b{display:block;font-size:15px}.ev-t span{font-size:12px;color:#8B92AA}
+.ev .x{border:none;background:none;color:#8B92AA;cursor:pointer;font-size:14px}
+@media(max-width:600px){.ev{grid-template-columns:1fr}}
+
+/* дарящим и подругам */
+.gift-sizes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.gift-sizes>div{padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);text-align:center}
+.gift-sizes small{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:#8B92AA}
+.gift-sizes b{display:block;font-size:16px;margin-top:4px;background:linear-gradient(90deg,#19C6F7,#C79DF2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pub-box{width:min(560px,100%)}
+.vote-items{list-style:none;padding:0;margin:12px 0;display:grid;gap:6px}
+.vote-items li{padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:14px}
+.vote-btns{display:flex;gap:10px}
+.vote-btns .btn{flex:1;height:48px}
+.vote-ph{width:100%;max-height:320px;object-fit:cover;border-radius:14px;margin-top:8px}
+.vote-res b{margin-right:10px;font-size:15px}
+@media(max-width:560px){.gift-sizes{grid-template-columns:1fr 1fr}}
+
+.sp-box{margin:0 0 18px;padding:20px 22px;border-radius:18px;border:1px solid transparent;background:linear-gradient(rgba(12,14,22,.9),rgba(12,14,22,.9)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box}
+.sp-box h3{margin:6px 0 8px;font-size:20px}
+.sp-prev{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.sp-prev img{width:90px;height:120px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.14)}
+.fav-list{display:grid;gap:8px;margin-top:12px}
+.fav{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
+.fav a{color:#ECEDF2;text-decoration:none}
+.fav .x{border:none;background:none;color:#8B92AA;cursor:pointer}
+.find-shop{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 14px;border-radius:12px;border:1px solid rgba(199,157,240,.3);background:rgba(199,157,240,.06);margin-bottom:8px}
+.find-shop b{display:block;font-size:14px}.find-shop span{display:block;font-size:12px;color:#8B92AA}
+@media(max-width:560px){.fav{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -5697,14 +5732,18 @@ header nav.topnav{gap:4px;align-items:center}
     <button class="my-tab on" data-tab="results" onclick="myTab('results')"><i>✦</i>Результаты</button>
     <button class="my-tab" data-tab="profile" onclick="myTab('profile')"><i>◆</i>Профиль</button>
     <button class="my-tab" data-tab="shops" onclick="myTab('shops')"><i>▣</i>Магазины и заказы</button>
-    <button class="my-tab" data-tab="check" onclick="myTab('check')"><i>✚</i>Проверить средство</button>
+    <button class="my-tab" data-tab="check" onclick="myTab('check')"><i>✚</i>Купить или нет</button>
+    <button class="my-tab" data-tab="soon" onclick="myTab('soon')"><i>◷</i>Скоро</button>
+    <button class="my-tab" data-tab="share" onclick="myTab('share')"><i>♥</i>Подругам и дарящим</button>
     <button class="my-tab" data-tab="finds" onclick="myTab('finds')"><i>✈</i>Находки</button>
   </div>
   <div class="my-pane" data-pane="results"><div id="myBox"></div></div>
   <div class="my-pane" data-pane="profile" hidden><div id="accBox"></div></div>
   <div class="my-pane" data-pane="shops" hidden><div id="netBox"></div><div id="cartBox"></div></div>
-  <div class="my-pane" data-pane="check" hidden><div id="chkBox"></div></div>
-  <div class="my-pane" data-pane="finds" hidden><div id="findsBox"></div></div>
+  <div class="my-pane" data-pane="check" hidden><div id="buyBox"></div><div id="chkBox"></div></div>
+  <div class="my-pane" data-pane="soon" hidden><div id="evBox"></div></div>
+  <div class="my-pane" data-pane="share" hidden><div id="giftBox"></div><div id="voteBox"></div></div>
+  <div class="my-pane" data-pane="finds" hidden><div id="favShopsBox"></div><div id="findsBox"></div></div>
 </section>
 
 <section class="sec reveal" id="pricing">
@@ -6401,7 +6440,7 @@ async function generate(regen){
 
   const prompt = `Ты — профессиональный стилист. Подбери 3 РАЗНЫХ готовых образа (полный комплект одежды/обуви/аксессуаров) для человека:
 пол: ${S.gender}, возраст: ${S.age}, рост ${S.height} см, вес ${S.weight} кг, тип фигуры: ${S.figure}, размер одежды RU ${S.clothSize}, размер обуви ${S.shoeSize}, волосы: ${S.hair}, глаза: ${S.eyes}, тон кожи: ${S.skin}. Что учесть: ${(S.focus||[]).join(', ')||'ничего особенного'}. Любимый стиль: ${S.style||'любой'}.
-${(window.moodToday&&moodToday())?'НАСТРОЕНИЕ СЕГОДНЯ: '+moodToday().m+' — '+moodToday().rule+'. ':''}${(window.lifeText&&lifeText())?lifeText()+'. ':''}${(window.dnaSummary&&dnaSummary())?'СТИЛЬ-ДНК КЛИЕНТКИ (главный источник правды о вкусе, важнее общих правил): '+dnaSummary()+'. Строго соблюдай список «никогда» и не повторяй то, что ей не понравилось.':''}
+${(window.moodToday&&moodToday())?'НАСТРОЕНИЕ СЕГОДНЯ: '+moodToday().m+' — '+moodToday().rule+'. ':''}${(window.lifeText&&lifeText())?lifeText()+'. ':''}${(window.eventsSoonText&&eventsSoonText())?'СКОРО У НЕЁ: '+eventsSoonText()+'. ':''}${(window.dnaSummary&&dnaSummary())?'СТИЛЬ-ДНК КЛИЕНТКИ (главный источник правды о вкусе, важнее общих правил): '+dnaSummary()+'. Строго соблюдай список «никогда» и не повторяй то, что ей не понравилось.':''}
 Событие: ${S.event}. Сезон за окном: ${S.season||seasonNow()} — подбирай строго по сезону (зимой обязателен тёплый верхний слой и закрытая утеплённая обувь, летом — лёгкие ткани и открытая обувь, в межсезонье — слои). Бюджет на весь образ: ${S.budget}.
 Ты собираешь эффектные законченные образы уровня журнального стилиста. Правила: цвета ВСЕХ вещей — включая обувь, сумку и верхнюю одежду — согласованы между собой и выигрышно смотрятся при этом тоне кожи, волос и глаз; обувь и сумка сочетаются по цвету; в каждом образе есть стильный аксессуар под формат (очки, украшение, ремень, платок); учитывай коррекцию фигуры. Вещи должны реально продаваться на Wildberries/Ozon/Lamoda.
 ${regen && lastTitles.length ? 'Пользователю НЕ понравились прошлые образы: '+lastTitles.join(', ')+'. Собери СОВЕРШЕННО другие — иные стили, цвета и вещи.' : ''}
@@ -7240,7 +7279,7 @@ window.openPage = (id, anchor)=>{
   if(id==='shopsPage' && window.renderShops) renderShops();
   if(id==='glowPage' && window.renderGlowForm) renderGlowForm();
   if(id==='dnaPage' && window.renderDna) renderDna();
-  if(id==='myPage'){ if(window.renderDash) renderDash(); if(window.renderAcc) renderAcc(); if(window.renderNet) renderNet(); if(window.renderCart) renderCart(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); myTab('results'); }
+  if(id==='myPage'){ if(window.renderDash) renderDash(); if(window.renderAcc) renderAcc(); if(window.renderNet) renderNet(); if(window.renderCart) renderCart(); if(window.renderBuy) renderBuy(); if(window.renderEvents) renderEvents(); if(window.renderGift) renderGift(); if(window.renderVotes) renderVotes(); if(window.renderFavShops) renderFavShops(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); myTab('results'); }
   if(id==='carePage' && window.renderCare) renderCare();
   if(anchor){
     setTimeout(()=>{
@@ -9951,7 +9990,10 @@ window.openHair = ()=>{ openPage('hairPage'); renderHairForm(); };
 
 /* ================= СОБЫТИЕ ПОД КЛЮЧ: план от даты до утра ================= */
 (function(){
-const E = HUB.ls('looka_event', { kind:null, date:null, budget:null, done:{} });
+const E = HUB.ls('looka_event', { kind:null, date:null, budget:null, done:{}, where:null, when:null, city:'', who:null });
+const WHERE = { 'Первое свидание':['ресторан','кафе или кофейня','бар','прогулка в парке','кино','выставка или музей','концерт','каток или активность','у него дома','поездка за город'], 'Гостья на свадьбе':['загс + ресторан','выездная церемония на природе','банкет в отеле','лофт или бар','за границей у моря'], 'Юбилей / вечеринка':['ресторан','клуб','дом или дача','лофт','яхта или крыша'], 'Собеседование':['офис компании','видеозвонок','кафе с руководителем','стартап-лофт'], 'Фотосессия':['студия','улица города','природа','дом','море'], 'Выпускной':['школа или вуз','ресторан','теплоход','клуб'], 'Конференция / выступление':['сцена и большой зал','панель-дискуссия','онлайн','нетворкинг'], 'Невеста':['загс','ресторан','выездная на природе','у моря','за границей'] };
+const WHEN = ['утро','день','вечер','ночь'];
+const WHO = { 'Первое свидание':['первая встреча','уже виделись','давно нравится'], default:['одна','с подругами','с партнёром','с семьёй','с коллегами'] };
 const KINDS = ['Гостья на свадьбе','Невеста','Выпускной','Собеседование','Первое свидание','Юбилей / вечеринка','Фотосессия','Конференция / выступление'];
 const BUD = ['до 10 000 ₽','10–30 тыс ₽','30–80 тыс ₽','80 тыс ₽ +'];
 const D = {
@@ -9989,7 +10031,8 @@ function renderEvent(){
   const doneN = check.filter((c,i)=>E.done[E.kind+i]).length;
   out.innerHTML = `
     <div class="look badv mk-wide ev-hero"><div class="look-in">
-      <div class="cs-k">СОБЫТИЕ ПОД КЛЮЧ</div><h3>${E.kind}${days!==null?` · ${days<0?'уже прошло':days===0?'сегодня':'через '+days+' дн.'}`:''}</h3>
+      <div class="cs-k">СОБЫТИЕ ПОД КЛЮЧ${E.where?' · '+E.where.toUpperCase():''}${E.when?' · '+E.when.toUpperCase():''}</div><h3>${E.kind}${days!==null?` · ${days<0?'уже прошло':days===0?'сегодня':'через '+days+' дн.'}`:''}</h3>
+      ${(E.where||E.when)?`<div id="evAi"><button class="btn ghost" onclick="evAiPlan()">✦ Образ именно под ${E.where||'это место'}${E.when?' · '+E.when:''} →</button></div>`:''}
       <div class="tip">${d.code}</div>
       <div class="ev-prog"><i style="width:${Math.round(doneN/check.length*100)}%"></i></div><div class="to-q">готовность ${doneN} из ${check.length}</div>
     </div></div>
@@ -10020,11 +10063,25 @@ window.evPick = (k,v)=>{ HUB.pick(E,k,v); HUB.save('looka_event',E); renderEvent
 window.evDate = v=>{ E.date = v; HUB.save('looka_event',E); };
 window.renderEventForm = ()=>{
   const f = document.getElementById('evForm'); if(!f) return;
+  const wh = WHERE[E.kind]||[]; const who = WHO[E.kind]||WHO.default;
   f.innerHTML = HUB.grp('Что за событие', HUB.chips(E,'kind',KINDS,{pick:'evPick'})) +
+    (E.kind ? HUB.grp('Где именно', HUB.chips(E,'where',wh,{pick:'evPick'})) + HUB.grp('Когда', HUB.chips(E,'when',WHEN,{pick:'evPick'})) + HUB.grp('С кем', HUB.chips(E,'who',who,{pick:'evPick'})) + HUB.grp('Город (для погоды в тот день)', `<input class="acc-in" value="${(E.city||'').replace(/"/g,'&quot;')}" placeholder="Москва, Дубай, Стамбул…" onchange="evCity(this.value)">`) : '') +
     HUB.grp('Дата', `<input type="date" class="ev-date" value="${E.date||''}" onchange="evDate(this.value)">`) +
     HUB.grp('Бюджет на всё', HUB.chips(E,'budget',BUD,{pick:'evPick'})) +
     `<button class="btn primary" ${E.kind&&E.budget?'':'disabled'} onclick="renderEvent()">✦ Составить план</button>`;
 };
+window.evCity = v=>{ E.city=v; HUB.save('looka_event',E); };
+window.evAiPlan = async ()=>{ const box=document.getElementById('evAi'); if(!box) return; box.innerHTML='<div class="tip">Думаю про место, время и погоду…</div>';
+  const S3=window.S||{}; const cs=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_cs')||'{}').season||'-'; }catch(e){ return '-'; } })();
+  const prompt=`Ты — стилист-подруга. Событие: ${E.kind}. Где: ${E.where||'-'}. Когда: ${E.when||'-'}. С кем: ${E.who||'-'}. Город: ${E.city||'-'}${E.date?', дата '+E.date:''}. Бюджет: ${E.budget||'-'}. Она: фигура ${S3.body||'-'}, рост ${S3.height||'-'}, цветотип ${cs}. ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} ${(window.lifeText&&lifeText())?lifeText()+'.':''} Учитывай МЕСТО буквально: в ресторане — каблук и удобно сидеть, в парке — обувь для ходьбы и слои, в кино — темно и прохладно, каток — тепло и подвижно, бар — вечерний свет, у него дома — уютно, но собранно, за границей у моря — климат и погода в этом городе в эту дату. Ответь ТОЛЬКО JSON: {"look":{"title":"название образа","items":[{"n":"вещь 2-4 слова","q":"поисковый запрос","why":"почему именно сюда"}],"why":"2 предложения, почему это работает именно в этом месте и в это время"},"beauty":{"mk":"макияж под свет и время","hair":"волосы","scent":"аромат"},"practical":["3-4 практичных совета под место: обувь, температура, сумка, что взять"],"dont":["2-3 вещи, которые не надо надевать именно сюда"],"line":"фраза как от подруги перед выходом"} Вещей в образе — 5.`;
+  try{ const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1500, messages:[{role:'user',content:prompt}] }) }); const j=await r.json(); const txt=(j.content||[]).map(c=>c.text||'').join(''); const m=txt.match(/\{[\s\S]*\}/); const R=JSON.parse(m?m[0]:txt);
+    box.innerHTML=`<div class="lc-one"><div class="cs-k">ОБРАЗ ПОД ${(E.where||'МЕСТО').toUpperCase()}${E.when?' · '+E.when.toUpperCase():''}</div><b>${R.look.title}</b><span>${R.look.why}</span>
+      ${(R.look.items||[]).map((it,i)=>HUB.pop(`<div class="item"><div class="nm">${it.n}</div><div class="tip">${it.why||''}</div>${shopButtons({n:it.n,q:it.q||it.n})}</div>`,i)).join('')}
+      <div class="cs-k" style="margin-top:12px">КРАСОТА ПОД СВЕТ И ВРЕМЯ</div><div class="cs-row"><b>Макияж</b><span>${R.beauty.mk}</span></div><div class="cs-row"><b>Волосы</b><span>${R.beauty.hair}</span></div><div class="cs-row"><b>Аромат</b><span>${R.beauty.scent}</span></div>
+      <div class="cs-k" style="margin-top:12px">ПРАКТИЧНО</div><ul class="lc-list">${(R.practical||[]).map(x=>`<li>${x}</li>`).join('')}</ul>
+      <div class="cs-k" style="margin-top:12px">НЕ НАДЕВАТЬ СЮДА</div><ul class="lc-list no">${(R.dont||[]).map(x=>`<li>${x}</li>`).join('')}</ul>
+      ${R.line?`<div class="lf-say" style="margin-top:12px;font-size:15px">${R.line}</div>`:''}</div>`;
+  }catch(e){ box.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
 window.renderEvent = renderEvent;
 window.openEvent = ()=>{ openPage('eventPage'); renderEventForm(); };
 })();
@@ -11187,8 +11244,9 @@ function paint(v){
       });
       return [sc, r];
     }).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]).slice(0,9).map(x=>x[1]);
-  res.innerHTML = list.length ? list.map((r,i)=>`<button class="fnd-it" style="animation-delay:${(i*0.03).toFixed(2)}s" onclick="findGo(${JSON.stringify(r[2]).replace(/"/g,'&quot;')})"><b>${r[0]}</b><span>${r[3]}</span></button>`).join('')
-    : `<div class="fnd-none">Ничего не нашлось. Попробуйте по-другому — или спросите в <b onclick="findGo('openPage(\\'askPage\\')')">Консилиуме</b>, там отвечают эксперты.</div>`;
+  const shopHtml = (window.findShopHook ? findShopHook(v) : '');
+  res.innerHTML = shopHtml + (list.length ? list.map((r,i)=>`<button class="fnd-it" style="animation-delay:${(i*0.03).toFixed(2)}s" onclick="findGo(${JSON.stringify(r[2]).replace(/"/g,'&quot;')})"><b>${r[0]}</b><span>${r[3]}</span></button>`).join('')
+    : shopHtml ? '' : `<div class="fnd-none">Ничего не нашлось. Попробуйте по-другому — или спросите в <b onclick="findGo('openPage(\\'askPage\\')')">Консилиуме</b>, там отвечают эксперты.</div>`);
 }
 document.addEventListener('keydown', e=>{
   if((e.key==='k'||e.key==='л') && (e.metaKey||e.ctrlKey)){ e.preventDefault(); openFind(); }
@@ -11569,7 +11627,7 @@ window.findsToggle = (k,v)=>{ const a=F[k]||[]; const i=a.indexOf(v); i<0?a.push
 window.findsOn = async ()=>{ F.on=!F.on; HUB.save('looka_finds',F); await findsSave(true); renderFinds(); };
 window.findsSave = async (silent)=>{
   const t=tok(); if(!t){ if(!silent) openAuth('Подписаться на находки под ваш стиль'); return; }
-  try{ const r=await fetch(api('/finds/prefs'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({styles:myStyles(),cats:F.cats,beauty:F.beauty,on:F.on,region:(typeof REGION!=='undefined'?REGION:'cis')})});
+  try{ const r=await fetch(api('/finds/prefs'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({styles:myStyles().concat((()=>{ try{ return JSON.parse(localStorage.getItem('looka_dna')||'{}').shopTags||[]; }catch(e){ return []; } })()),cats:F.cats,beauty:F.beauty,shops:(window.favShopHandles?favShopHandles():[]),on:F.on,region:(typeof REGION!=='undefined'?REGION:'cis')})});
     const j=await r.json(); if(!r.ok) throw new Error(j.error||'ошибка'); F.tg=!!j.tg; HUB.save('looka_finds',F); if(!silent) myToast(F.on?'Подписка включена':'Подписка выключена'); }
   catch(e){ if(!silent) myToast('Не удалось сохранить: '+e.message); }
 };
@@ -11665,6 +11723,139 @@ window.renderCart = ()=>{ const box=document.getElementById('cartBox'); if(!box)
     <div class="tip">LOOKA смотрит на вещи из вашей корзины или последних заказов, убирает дубли и то, что не сочетается, и предлагает 1–2 докупки под ваш бюджет — чтобы из «вещей» получились образы.</div>
     <div class="grp" style="margin-top:12px"><label class="t">Бюджет на докупку</label><select class="acc-in" id="cartBudget"><option>до 2 000 ₽</option><option selected>до 5 000 ₽</option><option>до 10 000 ₽</option><option>без ограничений</option></select></div>
     <div class="to-row"><button class="btn primary" onclick="cartComplete()">Дособрать образы →</button></div><div id="cartOut" style="margin-top:12px"></div></div></div>`; };
+
+/* ================= «КУПИТЬ ИЛИ НЕТ?» + «СКОРО»: события, к которым LOOKA готовит заранее ================= */
+(function(){
+/* --- купить или нет --- */
+let buyImg=null;
+window.buyPhoto = async f=>{ if(!f) return; buyImg=await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res({data:String(r.result).split(',')[1],type:f.type||'image/jpeg'}); r.readAsDataURL(f); }); myToast('Фото вещи прикреплено'); };
+window.renderBuy = ()=>{ const box=document.getElementById('buyBox'); if(!box) return;
+  box.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">КУПИТЬ ИЛИ НЕТ?</div><h3>Стоит ли брать эту вещь — честно, до оплаты</h3>
+    <div class="tip">Сфотографируйте вещь в магазине или вставьте название — LOOKA сверит с вашим цветотипом, посадками, «никогда», гардеробом и бюджетом и скажет: брать, брать с оговоркой или мимо. И с чем это будет носиться.</div>
+    <div class="acc-two" style="margin-top:12px"><div><label class="t">Что за вещь</label><input class="acc-in" id="buyName" placeholder="например: бежевый тренч Lime, 7 990 ₽"></div><div><label class="t">Или фото</label><label class="btn ghost" style="cursor:pointer;display:inline-block">📷 Фото вещи<input type="file" accept="image/*" style="display:none" onchange="buyPhoto(this.files[0])"></label></div></div>
+    <div class="grp"><label class="t">Цена</label><div class="chips">${['до 2 000 ₽','2 000–5 000 ₽','5 000–12 000 ₽','12 000 ₽ +'].map(v=>`<button class="chip" onclick="document.querySelectorAll('#buyBox .chip').forEach(c=>c.classList.remove('on'));this.classList.add('on');window._buyPrice='${v}'">${v}</button>`).join('')}</div></div>
+    <div class="to-row"><button class="btn primary" onclick="buyCheck()">Сказать честно →</button></div><div id="buyOut" style="margin-top:12px"></div></div></div>`; };
+window.buyCheck = async ()=>{ const name=(document.getElementById('buyName')||{}).value||''; if(!name && !buyImg){ myToast('Название или фото'); return; }
+  const out=document.getElementById('buyOut'); out.innerHTML='<div class="tip">Сверяю с вашим гардеробом и вкусом…</div>';
+  let W=[]; try{ W=(JSON.parse(localStorage.getItem('looka_wardrobe')||'{}').items||[]).map(i=>i.color+' '+i.name).slice(0,40); }catch(e){}
+  const cs=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_cs')||'{}').season||'-'; }catch(e){ return '-'; } })();
+  const prompt=`Ты — стилист-подруга, которая бережёт деньги клиентки. Вещь: ${name||'на фото'}${window._buyPrice?', цена '+window._buyPrice:''}. Цветотип: ${cs}. ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} В гардеробе уже есть: ${W.join('; ')||'нет данных'}. Ответь ТОЛЬКО JSON: {"verdict":"брать|брать с оговоркой|мимо","score":"1-10","why":"2-3 предложения: цвет, посадка, её «никогда», дубли в гардеробе","wears_with":["3 вещи из её гардероба, с которыми это носится, если есть"],"dupes":["что похожее уже есть, если есть"],"cost_per_wear":"прикидка: сколько раз наденет за сезон и во что выходит один выход","better":{"n":"альтернатива, если мимо или с оговоркой","q":"поисковый запрос","why":"почему лучше"},"line":"одна фраза как от подруги"} Если вещь не по её цветотипу или в списке «никогда» — говори прямо.`;
+  try{ const content=buyImg?[{type:'image',source:{type:'base64',media_type:buyImg.type,data:buyImg.data}},{type:'text',text:prompt}]:prompt;
+    const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1200, messages:[{role:'user',content}] }) }); const j=await r.json(); const txt=(j.content||[]).map(c=>c.text||'').join(''); const m=txt.match(/\{[\s\S]*\}/); const R=JSON.parse(m?m[0]:txt);
+    const col=/^брать$/i.test(R.verdict)?'#37E08A':/оговор/i.test(R.verdict)?'#FFB84C':'#FF9DB0';
+    out.innerHTML=`<div class="chk-res"><div class="chk-v" style="color:${col}">${R.verdict} · ${R.score}/10</div><div class="lf-say" style="text-align:left;font-size:15px">${R.line||''}</div><p style="margin-top:10px">${R.why||''}</p>
+      ${(R.wears_with||[]).length?`<div class="cs-row"><b>С чем носить</b><span>${R.wears_with.join(' · ')}</span></div>`:''}${(R.dupes||[]).length?`<div class="cs-row" style="color:#FFB84C"><b>Уже есть похожее</b><span>${R.dupes.join(' · ')}</span></div>`:''}
+      ${R.cost_per_wear?`<div class="cs-row"><b>Цена одного выхода</b><span>${R.cost_per_wear}</span></div>`:''}
+      ${R.better&&R.better.n?`<div class="hp-sub" style="margin-top:12px">ЛУЧШЕ ВЗЯТЬ</div><div class="item"><div class="nm">${R.better.n}</div><div class="tip">${R.better.why||''}</div>${shopButtons({n:R.better.n,q:R.better.q||R.better.n})}</div>`:''}</div>`; buyImg=null;
+  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
+
+/* --- скоро: события --- */
+const EV = HUB.ls('looka_events', { list:[] });
+const TYPES=['Свадьба подруги','Своя свадьба','Собеседование','Свидание','День рождения','Отпуск у моря','Отпуск в холод','Корпоратив','Фотосессия','Выпускной','Семейное событие','Первый день на работе'];
+window.evAdd=()=>{ const t=(document.getElementById('evType')||{}).value; const d=(document.getElementById('evDate')||{}).value; if(!t||!d){ myToast('Выберите событие и дату'); return; } EV.list.push({id:Date.now(),t,d,done:false}); EV.list.sort((a,b)=>a.d.localeCompare(b.d)); HUB.save('looka_events',EV); renderEvents(); if(window.authSync) authSync(true); myToast('Запомнила: '+t+' — напомню за неделю и подготовлю образ'); };
+window.evDel=id=>{ EV.list=EV.list.filter(e=>e.id!==id); HUB.save('looka_events',EV); renderEvents(); if(window.authSync) authSync(true); };
+window.evGo=t=>{ try{ const map={'Свидание':'Первое свидание','Свадьба подруги':'Гостья на свадьбе','Своя свадьба':'Невеста','Собеседование':'Собеседование','День рождения':'Юбилей / вечеринка','Корпоратив':'Юбилей / вечеринка','Фотосессия':'Фотосессия','Выпускной':'Выпускной','Первый день на работе':'Собеседование'}; const E2=JSON.parse(localStorage.getItem('looka_event')||'{}'); E2.kind=map[t]||E2.kind; localStorage.setItem('looka_event', JSON.stringify(E2)); }catch(e){} openEvent(); };
+window.renderEvents=()=>{ const box=document.getElementById('evBox'); if(!box) return; const today=new Date(); today.setHours(0,0,0,0);
+  const up=EV.list.filter(e=>new Date(e.d)>=today).slice(0,6);
+  box.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">СКОРО · LOOKA ГОТОВИТ ЗАРАНЕЕ</div><h3>Что впереди — и LOOKA помнит за вас</h3>
+    <div class="tip">Впишите событие и дату — за неделю LOOKA напомнит в Telegram, соберёт образ и список покупок, а ритуал ухода подстроится, чтобы к дате быть в форме.</div>
+    ${up.length?`<div class="ev-list">${up.map((e,i)=>{ const dd=Math.ceil((new Date(e.d)-today)/864e5); return HUB.pop(`<div class="ev ${dd<=7?'soon':''}"><div class="ev-d"><b>${dd===0?'сегодня':dd===1?'завтра':'через '+dd+' '+(dd<5?'дня':'дней')}</b><span>${new Date(e.d+'T12:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}</span></div><div class="ev-t"><b>${e.t}</b>${dd<=7?'<span>пора собирать образ</span>':'<span>напомню за неделю</span>'}</div><div class="to-row"><button class="btn ghost" onclick="evGo('${e.t}')">Собрать образ</button><button class="x" onclick="evDel(${e.id})" title="убрать">✕</button></div></div>`,i); }).join('')}</div>`:''}
+    <div class="acc-two" style="margin-top:12px"><div><label class="t">Событие</label><select class="acc-in" id="evType">${TYPES.map(t=>`<option>${t}</option>`).join('')}</select></div><div><label class="t">Дата</label><input class="acc-in" id="evDate" type="date"></div></div>
+    <div class="to-row"><button class="btn primary" onclick="evAdd()">Запомнить →</button></div></div></div>`; };
+window.eventsSoonText=()=>{ const today=new Date(); today.setHours(0,0,0,0); return EV.list.filter(e=>{ const dd=Math.ceil((new Date(e.d)-today)/864e5); return dd>=0&&dd<=10; }).map(e=>e.t+' через '+Math.ceil((new Date(e.d)-today)/864e5)+' дн.').join(', '); };
+})();
+
+/* ================= ПОДЕЛИТЬСЯ: «тем, кто дарит» и «оценит подруга» ================= */
+(function(){
+const api=p=>String(typeof LOOKA_API!=='undefined'?LOOKA_API:'').replace(/\/$/,'')+p;
+const siteUrl=()=>location.origin+location.pathname;
+const G = HUB.ls('looka_gift', { id:'', wish:[], no:[], shops:[], note:'' });
+const WISH=['сумка','серьги','тренч','кашемировый свитер','духи — мой аромат','сертификат LOOKA','уход для лица','книга','цветы','свечи','поход в спа','билеты'];
+const NO=['духи наугад','сладкое','цветы в горшках','бельё','вещи не моего размера','сувениры','мягкие игрушки','косметика наугад'];
+const sizes=()=>{ const S3=window.S||{}; let bra=''; try{ bra=(JSON.parse(localStorage.getItem('looka_bra')||'{}').result)||''; }catch(e){} return { clothes:S3.clothSize||'', shoes:S3.shoeSize||'', height:S3.height||'', bra: typeof bra==='string'?bra:(bra.ru||'') }; };
+const colors=()=>{ try{ const s=JSON.parse(localStorage.getItem('looka_cs')||'{}').season; if(!s||!window.SEASONS||!SEASONS[s]) return []; const Z=SEASONS[s]; return (Z.best||Z.pal||Z.colors||[]).slice(0,8).map(c=>Array.isArray(c)?c[1]:c); }catch(e){ return []; } };
+window.giftTog=(k,v)=>{ const a=G[k]; const i=a.indexOf(v); i<0?a.push(v):a.splice(i,1); HUB.save('looka_gift',G); renderGift(); };
+window.giftNote=v=>{ G.note=v; HUB.save('looka_gift',G); };
+window.renderGift=()=>{ const box=document.getElementById('giftBox'); if(!box) return; const sz=sizes(); const A=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_acc')||'{}'); }catch(e){ return {}; } })();
+  box.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">ТЕМ, КТО ДАРИТ · ОДНА ССЫЛКА</div><h3>Чтобы вам дарили то, что подходит</h3>
+    <div class="tip">Отправьте ссылку маме, подруге, мужу — они увидят ваши размеры, ваши цвета, что вы хотите и чего дарить не надо. Без вашего профиля и анкет: только то, что нужно дарящему.</div>
+    <div class="gift-sizes"><div><small>одежда</small><b>${sz.clothes||'—'}</b></div><div><small>обувь</small><b>${sz.shoes||'—'}</b></div><div><small>бра</small><b>${sz.bra||'—'}</b></div><div><small>цветотип</small><b>${(()=>{ try{ return JSON.parse(localStorage.getItem('looka_cs')||'{}').season||'—'; }catch(e){ return '—'; } })()}</b></div></div>
+    <div class="grp"><label class="t">Что хочу <span class="to-opt">несколько</span></label><div class="chips">${WISH.map(v=>`<button class="chip ${G.wish.includes(v)?'on':''}" onclick="giftTog('wish','${v}')">${v}</button>`).join('')}</div></div>
+    <div class="grp"><label class="t">Чего дарить не надо <span class="to-opt">несколько</span></label><div class="chips">${NO.map(v=>`<button class="chip ${G.no.includes(v)?'on':''}" onclick="giftTog('no','${v}')">${v}</button>`).join('')}</div></div>
+    <div class="grp"><label class="t">Где я люблю покупать</label><div class="chips">${['Lime','12storeez','Zara / Massimo Dutti','Wildberries','Золотое Яблоко','Лэтуаль','маленькие бренды','секонд и винтаж'].map(v=>`<button class="chip ${G.shops.includes(v)?'on':''}" onclick="giftTog('shops','${v}')">${v}</button>`).join('')}</div></div>
+    <div class="grp"><label class="t">Одна строка от вас</label><input class="acc-in" value="${(G.note||'').replace(/"/g,'&quot;')}" placeholder="например: лучше сертификат, чем угадывать" onchange="giftNote(this.value)"></div>
+    <div class="to-row"><button class="btn primary" onclick="giftShare()">${G.id?'Обновить и скопировать ссылку':'Создать ссылку для дарящих →'}</button>${G.id?`<a class="btn ghost" target="_blank" href="${siteUrl()}#gift=${G.id}">Посмотреть, как видят они</a>`:''}</div>
+    <div class="b-priv">В карточке нет фото, анкет и почты — только размеры, цвета, желания и «не дарить».</div>
+  </div></div>`; };
+window.giftShare=async()=>{ const sz=sizes(); const A=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_acc')||'{}'); }catch(e){ return {}; } })();
+  try{ const t=(JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; const r=await fetch(api('/gift/save'),{method:'POST',headers:{'Content-Type':'application/json',...(t?{'Authorization':'Bearer '+t}:{})},body:JSON.stringify({id:G.id||undefined,name:(A.name||'').split(' ')[0],sizes:sz,colors:colors(),wish:G.wish,no:G.no,shops:G.shops,note:G.note})}); const j=await r.json(); if(!r.ok) throw new Error(j.error||'ошибка');
+    G.id=j.id; HUB.save('looka_gift',G); const link=siteUrl()+'#gift='+j.id; try{ await navigator.clipboard.writeText(link); }catch(e){} myToast('Ссылка скопирована — отправьте тем, кто дарит'); renderGift(); if(window.lifeHearts) lifeHearts(document.getElementById('giftBox')); }
+  catch(e){ myToast('Не получилось: '+e.message); } };
+/* публичная карточка */
+window.giftView=async id=>{ let ov=document.getElementById('pubOv'); if(!ov){ ov=document.createElement('div'); ov.id='pubOv'; ov.className='au-ov'; document.body.appendChild(ov); }
+  ov.innerHTML=`<div class="au-box pub-box"><div class="au-aura"></div><div class="au-in"><div class="tip">Загружаю…</div></div></div>`; ov.classList.add('open'); document.body.style.overflow='hidden';
+  try{ const r=await fetch(api('/gift/'+id)); const c=await r.json(); if(!r.ok) throw new Error(c.error||'нет карточки');
+    ov.innerHTML=`<div class="au-box pub-box"><div class="au-aura"></div><button class="au-x" onclick="pubClose()">✕</button><div class="au-in">
+      <div class="au-mark">🎁</div><div class="cs-k">ПОДСКАЗКА ОТ LOOKA</div><h3>${c.name?'Что подарить — '+c.name+' подсказала':'Что подарить'} · и чего не надо</h3>
+      <div class="gift-sizes">${[['одежда',c.sizes.clothes],['обувь',c.sizes.shoes],['бра',c.sizes.bra],['рост',c.sizes.height]].filter(x=>x[1]).map(x=>`<div><small>${x[0]}</small><b>${x[1]}</b></div>`).join('')}</div>
+      ${c.colors&&c.colors.length?`<div class="cs-k" style="margin-top:12px">ЕЁ ЦВЕТА</div><div class="chips">${c.colors.map(x=>`<span class="chip on">${x}</span>`).join('')}</div>`:''}
+      ${c.wish.length?`<div class="cs-k" style="margin-top:12px">ХОЧЕТ</div><div class="chips">${c.wish.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`:''}
+      ${c.no.length?`<div class="cs-k" style="margin-top:12px;color:#FF9DB0">НЕ ДАРИТЬ</div><div class="chips">${c.no.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`:''}
+      ${c.shops.length?`<div class="cs-k" style="margin-top:12px">ГДЕ ОНА ЛЮБИТ</div><div class="tip">${c.shops.join(' · ')}</div>`:''}
+      ${c.note?`<div class="lf-say" style="margin-top:12px;font-size:15px">«${c.note}»</div>`:''}
+      <div class="to-row" style="margin-top:14px"><button class="btn primary" onclick="pubClose();openPage('giftPage')">🎁 Подарить год LOOKA</button><button class="btn ghost" onclick="pubClose()">Закрыть</button></div>
+      <div class="b-priv">Сделано в LOOKA — сервисе, который знает её стиль. Хотите такую же подсказку для себя? Это бесплатно.</div>
+    </div></div>`; }
+  catch(e){ ov.querySelector('.au-in').innerHTML='<div class="tip">'+e.message+'</div><button class="btn ghost" onclick="pubClose()">Закрыть</button>'; } };
+window.pubClose=()=>{ const o=document.getElementById('pubOv'); if(o){ o.classList.remove('open'); document.body.style.overflow=''; } if(location.hash.startsWith('#gift=')||location.hash.startsWith('#vote=')) history.replaceState(null,'',location.pathname); };
+
+/* --- оценит подруга --- */
+window.voteCreate=async(items,q)=>{ try{ const r=await fetch(api('/vote/create'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items,q})}); const j=await r.json(); if(!r.ok) throw new Error(j.error||'ошибка');
+    const link=siteUrl()+'#vote='+j.id; try{ await navigator.clipboard.writeText(link); }catch(e){} const V=HUB.ls('looka_votes',{list:[]}); V.list.unshift({id:j.id,q,items,ts:Date.now()}); V.list=V.list.slice(0,10); HUB.save('looka_votes',V);
+    myToast('Ссылка скопирована — отправьте подруге'); if(window.shareSheet) shareSheet(link,'Оцени мой образ'); else if(navigator.share){ try{ await navigator.share({title:'Оцени мой образ',url:link}); }catch(e){} } return j.id; }
+  catch(e){ myToast('Не получилось: '+e.message); } };
+window.voteNight=m=>{ try{ const N=JSON.parse(localStorage.getItem('looka_night')||'null'); const L=N&&N.looks[m]; if(!L) return; voteCreate(L.items.map(i=>i.name),'Как вам этот образ на сегодня?'); }catch(e){} };
+window.voteView=async id=>{ let ov=document.getElementById('pubOv'); if(!ov){ ov=document.createElement('div'); ov.id='pubOv'; ov.className='au-ov'; document.body.appendChild(ov); }
+  ov.innerHTML=`<div class="au-box pub-box"><div class="au-aura"></div><div class="au-in"><div class="tip">Загружаю…</div></div></div>`; ov.classList.add('open'); document.body.style.overflow='hidden';
+  const draw=(v,done)=>{ ov.innerHTML=`<div class="au-box pub-box"><div class="au-aura"></div><button class="au-x" onclick="pubClose()">✕</button><div class="au-in">
+      <div class="au-mark">👗</div><div class="cs-k">ПОДРУГА ПРОСИТ ОЦЕНИТЬ</div><h3>${v.q}</h3>
+      ${v.photo?`<img src="${v.photo}" class="vote-ph" alt="">`:''}<ul class="vote-items">${v.items.map(x=>`<li>${x}</li>`).join('')}</ul>
+      ${done?`<div class="lf-say">Спасибо! Сейчас: 👍 ${v.up} · 👎 ${v.down}</div>`:`<div class="vote-btns"><button class="btn primary" onclick="voteSend('${v.id}','up')">👍 Огонь</button><button class="btn ghost" onclick="voteSend('${v.id}','down')">👎 Не то</button></div><input class="acc-in" id="voteMsg" placeholder="пара слов, если хочется" style="margin-top:10px">`}
+      <div class="b-priv">Собрано в LOOKA — сервисе, который знает её стиль. Хотите такой же для себя? Это бесплатно.</div>
+      <div class="to-row" style="margin-top:12px"><button class="btn ghost" onclick="pubClose()">Посмотреть LOOKA</button></div></div></div>`; };
+  try{ const r=await fetch(api('/vote/'+id)); const v=await r.json(); if(!r.ok) throw new Error(v.error||'нет'); window._voteCur=v; draw(v,false); }
+  catch(e){ ov.querySelector('.au-in').innerHTML='<div class="tip">'+e.message+'</div><button class="btn ghost" onclick="pubClose()">Закрыть</button>'; }
+  window.voteSend=async(id,val)=>{ const msg=(document.getElementById('voteMsg')||{}).value||''; try{ const r=await fetch(api('/vote/'+id),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({v:val,msg})}); const j=await r.json(); const v=window._voteCur; v.up=j.up; v.down=j.down; draw(v,true); if(window.lifeHearts) lifeHearts(ov.querySelector('.au-box')); }catch(e){ myToast('Не отправилось'); } }; };
+window.renderVotes=async()=>{ const box=document.getElementById('voteBox'); if(!box) return; const V=HUB.ls('looka_votes',{list:[]});
+  box.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">ОЦЕНИТ ПОДРУГА</div><h3>Отправьте образ на голосование — как фото из примерочной, только красиво</h3>
+    <div class="tip">Кнопка «Оценит подруга» есть у каждого образа дня. Подруга откроет ссылку, нажмёт 👍 или 👎 и напишет пару слов — вы увидите здесь.</div>
+    <div id="voteList">${V.list.length?V.list.map(v=>`<div class="ev" data-vid="${v.id}"><div class="ev-t"><b>${v.q}</b><span>${v.items.join(', ')}</span></div><div class="vote-res">…</div><div class="to-row"><button class="btn ghost" onclick="navigator.clipboard&&navigator.clipboard.writeText('${siteUrl()}#vote=${v.id}');myToast('Ссылка скопирована')">Ссылка</button></div></div>`).join(''):'<div class="tip" style="margin-top:10px">Пока нет голосований. Соберите образ дня и нажмите «Оценит подруга».</div>'}</div></div></div>`;
+  for(const v of V.list){ try{ const r=await fetch(api('/vote/'+v.id)); const j=await r.json(); const el=box.querySelector(`[data-vid="${v.id}"] .vote-res`); if(el) el.innerHTML=`<b>👍 ${j.up||0}</b> <b>👎 ${j.down||0}</b>${(j.msgs||[]).length?`<div class="tip">${j.msgs.slice(-3).map(m=>'«'+m+'»').join(' · ')}</div>`:''}`; }catch(e){} } };
+/* открытие по ссылке */
+const openByHash=()=>{ const m=location.hash.match(/^#(gift|vote)=([a-z0-9]+)$/i); if(!m) return; setTimeout(()=>{ if(m[1]==='gift') giftView(m[2]); else voteView(m[2]); },400); };
+if(document.readyState!=='loading') openByHash(); else document.addEventListener('DOMContentLoaded', openByHash);
+window.addEventListener('hashchange', openByHash);
+})();
+
+/* ================= ЛЮБИМЫЕ МАГАЗИНЫ: @ник из Instagram / Telegram → избранное → уведомления ================= */
+(function(){
+const FS = HUB.ls('looka_favshops', { list:[] });
+window.favShopAdd = (h, notify)=>{ let x=String(h||'').trim().replace(/^https?:\/\/(www\.)?(instagram\.com|t\.me)\//i,'').replace(/[\/?].*$/,'').replace(/^@/,''); if(!x){ myToast('Введите @ник или ссылку'); return; }
+  if(FS.list.some(s=>s.h.toLowerCase()===x.toLowerCase())){ myToast('Уже в избранном'); return; }
+  FS.list.unshift({ h:x, notify: notify!==false, ts:Date.now() }); HUB.save('looka_favshops',FS); renderFavShops(); if(window.findsSave) findsSave(true); if(window.authSync) authSync(true); myToast('@'+x+' — в избранном'+(notify!==false?', уведомления о поступлениях включены':'')); };
+window.favShopTog = h=>{ const s=FS.list.find(x=>x.h===h); if(s){ s.notify=!s.notify; HUB.save('looka_favshops',FS); renderFavShops(); if(window.findsSave) findsSave(true); } };
+window.favShopDel = h=>{ FS.list=FS.list.filter(x=>x.h!==h); HUB.save('looka_favshops',FS); renderFavShops(); if(window.findsSave) findsSave(true); };
+window.favShopHandles = ()=>FS.list.filter(s=>s.notify).map(s=>s.h.toLowerCase());
+window.renderFavShops = ()=>{ const box=document.getElementById('favShopsBox'); if(!box) return;
+  box.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">ЛЮБИМЫЕ МАГАЗИНЫ</div><h3>Магазины из Instagram и Telegram — в избранном, с уведомлениями о новом</h3>
+    <div class="tip">Вставьте @ник или ссылку на бутик. Как только у него появятся новые поступления в находках LOOKA — вам придёт сообщение в Telegram. Ники учитываются и в подборе: вещи ищем сначала там, где вы любите.</div>
+    <div class="acc-two" style="margin-top:12px"><div><input class="acc-in" id="favIn" placeholder="@vintage.moscow или ссылка" onkeydown="if(event.key==='Enter') favShopAdd(this.value)"></div><div><button class="btn primary" onclick="favShopAdd(document.getElementById('favIn').value)">+ В избранное</button></div></div>
+    ${FS.list.length?`<div class="fav-list">${FS.list.map(s=>`<div class="fav"><a href="https://instagram.com/${s.h}" target="_blank" rel="noopener"><b>@${s.h}</b></a><label class="acc-toggle" style="padding:6px 10px"><input type="checkbox" ${s.notify?'checked':''} onchange="favShopTog('${s.h}')"><span>уведомлять о поступлениях</span></label><button class="x" onclick="favShopDel('${s.h}')">✕</button></div>`).join('')}</div>`:''}
+  </div></div>`; };
+window.findShopHook = q=>{ if(!q) return ''; const t=q.trim(); if(/^@|instagram\.com|t\.me/i.test(t)) return `<div class="find-shop"><b>Магазин ${t}</b><span>Добавить в избранное и получать уведомления о новых поступлениях</span><button class="btn primary" onclick="favShopAdd('${t.replace(/'/g,'')}');closeFind()">+ В избранное</button></div>`;
+  const shops=(window.SHOPS||[]).filter(s=>(s.n+' '+(s.ig||'')+' '+(s.tags||[]).join(' ')).toLowerCase().includes(t.toLowerCase())).slice(0,4);
+  return shops.length?shops.map(s=>`<div class="find-shop"><b>${s.n}</b><span>${(s.tags||[]).join(' · ')}</span><button class="btn ghost" onclick="favShopAdd('${(s.ig||s.n).replace(/'/g,'')}');closeFind()">♥ В избранное</button></div>`).join(''):''; };
+})();
 window.renderChk = ()=>{ const box=document.getElementById('chkBox'); if(!box) return;
   box.innerHTML=`<div class="look badv mk-wide"><div class="look-in">
     <div class="cs-k">ПРОВЕРИТЬ СРЕДСТВО</div><h3>Подойдёт ли мне это?</h3>
@@ -11711,6 +11902,7 @@ window.renderDash = ()=>{
     ['Кожа', K2.type ? K2.type+(K2.goals&&K2.goals.length?' · '+K2.goals[0]:'') : null, 'openSkin()', 'тип и рутина'],
     ['Форма лица', H.face||null, 'openHair()', 'стрижка и укладки'],
     ['Гардероб', W.length ? W.length+' '+(W.length===1?'вещь':W.length<5?'вещи':'вещей') : null, 'openWardrobe()', 'добавить вещи'],
+    ['Скоро', (window.eventsSoonText&&eventsSoonText())||null, "myTab('soon')", 'добавить событие'],
     ['Ритуал дня', R.n ? 'серия '+R.n+' '+(R.n===1?'день':R.n<5?'дня':'дней') : null, "closePage();setTimeout(()=>{const r=document.getElementById('ritSec'); if(r&&window.glide) glide(r,110,800);},300)", 'начать серию']
   ];
   const done=cards.filter(c=>c[1]).length;
@@ -11788,7 +11980,7 @@ if(document.readyState !== 'loading' && window.accGreet) accGreet();
 /* ================= ВХОД ЧЕРЕЗ GOOGLE + ОБЛАЧНЫЙ ПРОФИЛЬ ================= */
 (function(){
 const CLIENT_ID = '485514192792-hbbgde4cen2mp816hvm82tjarm129i47.apps.googleusercontent.com';
-const SYNC_KEYS = ['looka_night','looka_mood','looka_life','looka_net','looka_finds','looka_dna','looka_acc','looka_dna','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_bra','looka_glow','looka_ritual','looka_region','looka_shops','looka_igshops','looka_city'];
+const SYNC_KEYS = ['looka_favshops','looka_night','looka_mood','looka_life','looka_events','looka_gift','looka_votes','looka_net','looka_finds','looka_dna','looka_acc','looka_dna','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_bra','looka_glow','looka_ritual','looka_region','looka_shops','looka_igshops','looka_city'];
 const S2 = { token:null, email:'', busy:false, sync:false };
 try{ const s = JSON.parse(localStorage.getItem('looka_session')||'null'); if(s){ S2.token=s.token; S2.email=s.email||''; S2.sync=!!s.sync; } }catch(e){}
 const api = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
@@ -12242,6 +12434,34 @@ const TQ = [
 window.dnaTQ = (qi, code)=>{ D.tq=D.tq||{}; D.tq[qi]=code; save(); paint('type'); };
 window.dnaTypeResult = ()=>{ const t=D.tq||{}; const sc={}; Object.values(t).forEach(c=>sc[c]=(sc[c]||0)+1); const arr=Object.entries(sc).sort((a,b)=>b[1]-a[1]); if(!arr.length) return null; const n=Object.keys(t).length; return { main:arr[0][0], second:arr[1]?arr[1][0]:null, n, pct:Math.round(arr[0][1]/Math.max(1,n)*100) }; };
 window.dnaBeau = (k,v,max)=>{ const a=D.beau[k]||[]; const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max===1) a.length=0; if(a.length>=max){ myToast('Максимум '+max); return; } a.push(v); } D.beau[k]=a; save(); paint('beau'); };
+
+/* ================= НЕ ЗНАЕТЕ СВОЙ СТИЛЬ? ФОТО ЖЕЛАЕМОГО + ВАШИ ЗАКАЗЫ → СТИЛЬ ================= */
+let spImgs=[];
+window.spFiles = async files=>{ spImgs=[]; for(const f of [...files].slice(0,3)){ spImgs.push(await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res({data:String(r.result).split(',')[1],type:f.type||'image/jpeg'}); r.readAsDataURL(f); })); } const pv=document.getElementById('spPrev'); if(pv) pv.innerHTML=spImgs.map(i=>`<img src="data:${i.type};base64,${i.data}">`).join(''); };
+window.styleFromPhotos = async ()=>{
+  const out=document.getElementById('spOut'); if(!spImgs.length){ myToast('Прикрепите 1–3 фото образов, которые нравятся'); return; }
+  out.innerHTML='<div class="tip">Смотрю фото и ваши покупки…</div>';
+  let orders=''; try{ const NET=JSON.parse(localStorage.getItem('looka_net')||'{"orders":[]}'); orders=(NET.orders||[]).slice(0,3).flatMap(o=>(o.items||[]).map(i=>i.name||i.n||i)).filter(Boolean).slice(0,25).join('; '); }catch(e){}
+  const hist=(D.shopHist||[]).join(' | ');
+  const list=AESTH.map(a=>a[0]).join(', ');
+  const prompt=`Ты — стилист. На фото — образы, которые нравятся клиентке (она не знает, как назвать свой стиль). ${orders?'Что она реально покупала (WB/Ozon/Lamoda): '+orders+'.':''} ${hist?'Стиль её покупок: '+hist+'.':''} Определи её стиль. Список эстетик, из которых выбирать (используй ТОЧНО эти названия): ${list}. Ответь ТОЛЬКО JSON: {"styles":["2-4 эстетики из списка, по убыванию"],"name":"как назвать её стиль одной фразой, по-человечески","why":"2-3 предложения: что общего на фото и в покупках","fits":{"Футболки и топы":["оверсайз|по фигуре|кроп|бокси / прямая"],"Джинсы и брюки":["скинни|прямые|широкие / палаццо|клёш|мом|багги|карго"]},"colors":["4-6 цветов, которые повторяются"],"signature":["3 вещи-маркера этого стиля"],"avoid":["2-3 вещи, которые ломают этот стиль"],"first":[{"n":"первая вещь купить","q":"поисковый запрос","why":"почему"}]}`;
+  try{ const content=spImgs.map(i=>({type:'image',source:{type:'base64',media_type:i.type,data:i.data}})).concat([{type:'text',text:prompt}]);
+    const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1400, messages:[{role:'user',content}] }) }); const j=await r.json(); const txt=(j.content||[]).map(c=>c.text||'').join(''); const m=txt.match(/\{[\s\S]*\}/); const R=JSON.parse(m?m[0]:txt);
+    const known=new Set(AESTH.map(a=>a[0])); (R.styles||[]).filter(s=>known.has(s)).forEach(s=>{ if(!D.styles.includes(s) && D.styles.length<5) D.styles.push(s); });
+    Object.entries(R.fits||{}).forEach(([cat,arr])=>{ if(FITS[cat]) D.fits[cat]=[...new Set((D.fits[cat]||[]).concat((arr||[]).filter(v=>FITS[cat].includes(v))))].slice(0,3); });
+    (R.colors||[]).forEach(c=>{ if(COLORS.some(x=>x[0]===c) && !D.colLove.includes(c) && D.colLove.length<6) D.colLove.push(c); });
+    D.styleName=R.name||''; save(); paint();
+    const out2=document.getElementById('spOut');
+    out2.innerHTML=`<div class="lc-one"><div class="cs-k">ВАШ СТИЛЬ · ПО ФОТО${orders?' И ПОКУПКАМ':''}</div><b>${R.name}</b><span>${R.why}</span>
+      <div class="chips" style="margin-top:10px">${(R.styles||[]).map(s=>`<span class="chip on">${s}</span>`).join('')}</div>
+      ${(R.colors||[]).length?`<div class="cs-row" style="margin-top:10px"><b>Цвета</b><span>${R.colors.join(', ')}</span></div>`:''}
+      ${(R.signature||[]).length?`<div class="cs-row"><b>Вещи-маркеры</b><span>${R.signature.join(' · ')}</span></div>`:''}
+      ${(R.avoid||[]).length?`<div class="cs-row" style="color:#FF9DB0"><b>Ломает стиль</b><span>${R.avoid.join(' · ')}</span></div>`:''}
+      ${(R.first||[]).length?`<div class="hp-sub" style="margin-top:12px">С ЧЕГО НАЧАТЬ</div>${R.first.map(it=>`<div class="item"><div class="nm">${it.n}</div><div class="tip">${it.why||''}</div>${shopButtons({n:it.n,q:it.q||it.n})}</div>`).join('')}`:''}
+      <div class="tip" style="margin-top:10px">Эстетики, посадки и цвета уже записаны в ваш Стиль-ДНК — ниже можно поправить.</div>
+      <div class="to-row" style="margin-top:12px"><button class="btn primary" onclick="goQuiz()">Подобрать образы в этом стиле →</button><button class="btn ghost" onclick="openPage('myPage');setTimeout(()=>myTab('shops'),350)">⤒ Добавить заказы для точности</button></div></div>`;
+    if(window.lifeHearts) lifeHearts(out2);
+  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
 window.dnaMergePers = obj=>{ D.pers=D.pers||{}; Object.assign(D.pers, obj||{}); save(); };
 window.dnaPers = (k,v,max)=>{ const a=D.pers[k]||[]; const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max===1) a.length=0; if(a.length>=max){ myToast('Максимум '+max); return; } a.push(v); } D.pers[k]=a; save(); paint('pers'); };
 window.dnaPersText = (k,v)=>{ D.pers[k]=v; save(); };
@@ -12264,7 +12484,11 @@ const chips=(arr,on,fn,cls)=>arr.map(v=>`<button class="chip ${on.includes(v)?'o
 function paint(part){
   const box=document.getElementById('dnaBox'); if(!box) return;
   const P={};
-  P.styles=`<div class="dna-h"><b>1 · Эстетики, которые ваши</b><span>выберите до 5 — по ним ИИ поймёт ваш вкус, а не «стиль вообще»</span></div>
+  P.styles=`<div class="sp-box"><div class="cs-k">НЕ ЗНАЕТЕ, КАК НАЗЫВАЕТСЯ ВАШ СТИЛЬ?</div><h3>Покажите 1–3 фото образов, которые нравятся — LOOKA назовёт стиль сама</h3>
+      <div class="tip">Скриншоты из Pinterest, фото из Instagram, чужие луки — что угодно. Если вы уже загрузили заказы из WB / Ozon, LOOKA сверит «что нравится» с «что покупаете» и назовёт настоящий стиль, а не вымечтанный. Эстетики ниже заполнятся сами.</div>
+      <div class="to-row" style="margin-top:12px"><label class="btn primary" style="cursor:pointer">📷 Выбрать фото<input type="file" accept="image/*" multiple style="display:none" onchange="spFiles(this.files)"></label><button class="btn ghost" onclick="styleFromPhotos()">Определить мой стиль →</button></div>
+      <div id="spPrev" class="sp-prev"></div><div id="spOut"></div></div>
+    <div class="dna-h"><b>1 · Эстетики, которые ваши</b><span>выберите до 5 — по ним ИИ поймёт ваш вкус, а не «стиль вообще»${D.styleName?' · по фото: <b>'+D.styleName+'</b>':''}</span></div>
     <div class="dna-grid">${AESTH.map(a=>{ const p=aestPal(a[0]); return `<button class="dna-st ${D.styles.includes(a[0])?'on':''}" onclick="dnaStyle('${a[0]}')" style="--p1:${p[0]};--p2:${p[1]};--p3:${p[2]}" data-hint="aest:${a[0].replace(/"/g,'&quot;')}">${window.hintBtn?hintBtn('aest',a[0]):''}<i class="st-pal"><s style="background:${p[0]}"></s><s style="background:${p[1]}"></s><s style="background:${p[2]}"></s></i><b>${a[0]}</b><span>${a[1]}</span><em>${(a[2]||'').split(',').slice(0,3).join(' · ')}</em><u>✓</u></button>`; }).join('')}</div>`;
   P.fits=`<div class="dna-h"><b>2 · Как вы носите вещи</b><span>посадка решает больше, чем название стиля: оверсайз и по фигуре — два разных человека</span></div>
     ${Object.entries(FITS).map(([cat,arr])=>`<div class="grp"><label class="t">${cat} <span class="to-opt">до 3</span></label><div class="chips">${chips(arr,D.fits[cat]||[],`dnaFit('${cat}','\${v}')`).replace(/\$\{v\}/g,'')}</div></div>`).join('')}`;
@@ -12733,7 +12957,7 @@ window.nightDraw = ()=>{
   if(!N){ box.innerHTML=`<div class="night"><div class="nt-h"><div class="cs-k">УТРОМ НЕ ДУМАТЬ, ЧТО НАДЕТЬ</div><h3>Ночью LOOKA соберёт образы из ваших вещей</h3><p>Добавьте хотя бы 5 вещей в гардероб (можно скриншотом заказов) — и каждое утро вас будут ждать три готовых образа под настроение и погоду.</p><div class="to-row"><button class="btn primary" onclick="openWardrobe()">▣ Добавить вещи</button><button class="btn ghost" onclick="openPage('myPage');setTimeout(()=>myTab('shops'),350)">⤒ Скриншот заказов</button></div></div></div>`; return; }
   const order = mood && N.looks[mood] ? [mood].concat(Object.keys(N.looks).filter(k=>k!==mood)) : Object.keys(N.looks);
   box.innerHTML=`<div class="night"><div class="nt-h"><div class="cs-k">СОБРАНО НОЧЬЮ · ИЗ ВАШЕГО ГАРДЕРОБА${N.wx&&N.wx.t!=null?' · '+(N.wx.t>0?'+':'')+N.wx.t+'° '+(N.wx.w||''):''}</div><h3>${mood?'Вы сегодня — '+mood.toLowerCase()+'. Вот ваш образ':'Три образа на сегодня — выберите настроение'}</h3></div>
-    <div class="nt-grid">${order.map((m,i)=>{ const L=N.looks[m]; const M=(window.MOODS||[]).find(x=>x[1]===m)||['✦']; return HUB.pop(`<div class="nt-look ${m===mood?'on':''}"><div class="nt-m"><i>${M[0]}</i><b>${m}</b>${m===mood?'<em>ваше сегодня</em>':''}</div><ul>${L.items.map(it=>`<li><span class="sw" style="background:${(window.WD_COLORS&&WD_COLORS[it.color])||'#8B92AA'}"></span>${it.name}<em>${it.cat}</em></li>`).join('')}</ul><div class="nt-tip">${L.tip}</div><div class="to-row"><button class="btn ghost" onclick="nightWear('${m}')">Надену это</button><button class="btn ghost" onclick="nightPlan(true);nightDraw()">↻ Другой вариант</button></div></div>`,i); }).join('')}</div>
+    <div class="nt-grid">${order.map((m,i)=>{ const L=N.looks[m]; const M=(window.MOODS||[]).find(x=>x[1]===m)||['✦']; return HUB.pop(`<div class="nt-look ${m===mood?'on':''}"><div class="nt-m"><i>${M[0]}</i><b>${m}</b>${m===mood?'<em>ваше сегодня</em>':''}</div><ul>${L.items.map(it=>`<li><span class="sw" style="background:${(window.WD_COLORS&&WD_COLORS[it.color])||'#8B92AA'}"></span>${it.name}<em>${it.cat}</em></li>`).join('')}</ul><div class="nt-tip">${L.tip}</div><div class="to-row"><button class="btn ghost" onclick="nightWear('${m}')">Надену это</button><button class="btn ghost" onclick="voteNight('${m}')">♥ Оценит подруга</button><button class="btn ghost" onclick="nightPlan(true);nightDraw()">↻</button></div></div>`,i); }).join('')}</div>
     <div class="tip" style="margin-top:12px">Образы обновляются каждую ночь и приходят утром в Telegram, если он подключён. Чем больше вещей в гардеробе и полнее Стиль-ДНК — тем точнее.</div></div>`;
 };
 window.nightWear = m=>{ try{ const W=JSON.parse(localStorage.getItem('looka_wardrobe')||'{"items":[]}'); const N=JSON.parse(localStorage.getItem('looka_night')||'null'); const ids=new Set((N&&N.looks[m]||{items:[]}).items.map(i=>i.id)); W.items.forEach(i=>{ if(ids.has(i.id)){ i.worn=(i.worn||0)+1; i.last=Date.now(); } }); localStorage.setItem('looka_wardrobe', JSON.stringify(W)); }catch(e){} const rule=((window.MOODS||[]).find(x=>x[1]===m)||[])[2]||''; try{ localStorage.setItem('looka_mood', JSON.stringify({m,rule,day:new Date().toDateString()})); }catch(e){} if(window.heroMoodDraw) heroMoodDraw(); myToast('Записала: сегодня — '+m+'. Вещи отмечены как надетые'); nightDraw(); };
