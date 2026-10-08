@@ -3321,6 +3321,146 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .mr-drop.has{padding:0;border-style:solid}
 .mr-drop img{width:100%;height:100%;max-height:260px;object-fit:cover}
 .mr-x{position:absolute;top:8px;right:8px;width:28px;height:28px;border:none;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;cursor:pointer}
+.mr-scanwrap{margin-top:18px;padding:18px;border-radius:20px;border:1px solid transparent;background:linear-gradient(#0C0E15,#0C0E15) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2,#F2A6C6) border-box;animation:spIn .5s both}
+.mr-scan{display:grid;grid-template-columns:230px 1fr;gap:20px;align-items:start}
+.mr-sc-img{position:relative;height:290px;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.03);display:grid;place-items:center}
+.mr-sc-img img{width:100%;height:100%;object-fit:cover;filter:saturate(1.08) contrast(1.05)}
+.mr-sc-img.noimg i{font-style:normal;font-size:40px;color:#5F667E}
+.mr-sc-img .sc-grid{opacity:1;animation:gridPulse 1.8s ease-in-out infinite}
+.mr-sc-img .sc-line{opacity:1;animation:scanMove 2.1s cubic-bezier(.4,0,.6,1) infinite}
+.mr-sc-box{position:absolute;left:18%;right:18%;top:22%;height:34%;border:1.5px solid rgba(25,198,247,.75);border-radius:8px;box-shadow:0 0 0 999px rgba(5,7,12,.28);animation:mrBox 3.4s ease-in-out infinite}
+@keyframes mrBox{0%,100%{top:20%;height:30%;left:16%;right:16%}33%{top:46%;height:22%;left:26%;right:26%}66%{top:62%;height:24%;left:22%;right:22%}}
+.mr-sc-pts{position:absolute;inset:0}
+.mr-sc-pts i{position:absolute;width:7px;height:7px;border-radius:50%;background:#19C6F7;box-shadow:0 0 12px 3px rgba(25,198,247,.6);animation:mrPt 2.2s ease-in-out infinite}
+.mr-sc-pts i:nth-child(1){left:30%;top:30%}.mr-sc-pts i:nth-child(2){left:68%;top:31%}.mr-sc-pts i:nth-child(3){left:49%;top:45%}
+.mr-sc-pts i:nth-child(4){left:34%;top:56%}.mr-sc-pts i:nth-child(5){left:65%;top:56%}.mr-sc-pts i:nth-child(6){left:49%;top:68%}.mr-sc-pts i:nth-child(7){left:49%;top:22%}
+@keyframes mrPt{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+.mr-sc-txt h3{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:6px 0 14px;min-height:50px;transition:opacity .18s;background:linear-gradient(100deg,#fff,#C7A6F0,#fff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.mr-sc-list{display:grid;gap:7px;margin-bottom:16px}
+.mr-sl{display:flex;align-items:center;gap:9px;font-size:12.5px;color:#7A8098;transition:all .35s}
+.mr-sl span{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,.14);font-family:'JetBrains Mono';font-size:10px;flex:0 0 auto;transition:all .35s}
+.mr-sl.ok{color:#D6DAE6}
+.mr-sl.ok span{border-color:rgba(55,224,138,.6);background:rgba(55,224,138,.14);color:#7CF0B2}
+@media(max-width:700px){.mr-scan{grid-template-columns:1fr}.mr-sc-img{height:230px}.mr-sc-txt h3{font-size:17px;min-height:0}}
+/* доски разбора */
+.brd{margin-top:22px;padding:20px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+.brd-head{display:grid;grid-template-columns:minmax(0,1fr) 108px;gap:18px;align-items:start;margin-bottom:14px}
+.brd-head h3{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:5px 0 6px}
+.brd-ph{position:relative;height:132px;border-radius:14px;border:1.5px dashed rgba(255,255,255,.22);background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;overflow:hidden;transition:all .25s}
+.brd-ph:hover{border-color:rgba(199,157,240,.6);background:rgba(199,157,240,.05)}
+.brd-ph i{font-style:normal;font-size:22px;color:#C7A6F0}
+.brd-ph span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA}
+.brd-ph.has{border-style:solid;cursor:default}
+.brd-ph.has img{width:100%;height:100%;object-fit:cover}
+.brd-scan{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;align-items:center;margin-top:16px;padding:16px;border-radius:16px;border:1px solid rgba(199,157,240,.3);background:rgba(199,157,240,.05)}
+.brd-sc-img{position:relative;height:190px;border-radius:12px;overflow:hidden}
+.brd-sc-img img{width:100%;height:100%;object-fit:cover}
+.brd-sc-img .sc-grid{opacity:1;animation:gridPulse 1.8s ease-in-out infinite}
+.brd-sc-img .sc-line{opacity:1;animation:scanMove 2.1s cubic-bezier(.4,0,.6,1) infinite}
+.brd-scan h4{font-size:17px;font-weight:800;margin:6px 0 12px;min-height:44px;transition:opacity .18s}
+.brd-res{margin-top:18px;animation:spIn .5s both}
+.brd-img{position:relative;display:block;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.12)}
+.brd-img img{width:100%;display:block;max-height:1400px;object-fit:contain;background:#0C0E15}
+.brd-img.done{border-color:rgba(199,157,240,.45);box-shadow:0 20px 60px -24px rgba(199,157,240,.45)}
+.brd-img.done span{opacity:1}
+.brd-wait{margin-top:10px;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:#C7A6F0}
+.brd-img span{position:absolute;right:12px;bottom:12px;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.4px;text-transform:uppercase;padding:7px 12px;border-radius:99px;background:rgba(5,7,12,.82);color:#C7A6F0;opacity:0;transition:opacity .25s}
+.brd-img:hover span{opacity:1}
+.brd-v{margin:18px 0 16px;font-size:18.5px;font-weight:800;line-height:1.45;background:linear-gradient(100deg,#fff,#E6D8FF 55%,#FFD7E8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.brd-s{position:relative;padding:15px 17px;border-radius:16px;border:1.4px solid transparent;background:linear-gradient(160deg,#151A28,#0D1017) padding-box,var(--sg,linear-gradient(135deg,#19C6F7,#C79DF2)) border-box;box-shadow:0 0 28px -14px var(--sc,#C79DF2);overflow:hidden;transition:transform .25s,box-shadow .25s}
+.brd-s::after{content:'✦';position:absolute;right:11px;top:9px;font-size:11px;color:var(--sc,#C79DF2);opacity:.6}
+.brd-s:hover{transform:translateY(-3px);box-shadow:0 14px 38px -16px var(--sc,#C79DF2)}
+.brd-s:nth-child(6n+1){--sg:linear-gradient(135deg,#19C6F7,#C79DF2);--sc:#19C6F7}
+.brd-s:nth-child(6n+2){--sg:linear-gradient(135deg,#F2A6C6,#FFB84C);--sc:#F2A6C6}
+.brd-s:nth-child(6n+3){--sg:linear-gradient(135deg,#37E08A,#19C6F7);--sc:#37E08A}
+.brd-s:nth-child(6n+4){--sg:linear-gradient(135deg,#C79DF2,#F2A6C6);--sc:#C79DF2}
+.brd-s:nth-child(6n+5){--sg:linear-gradient(135deg,#FFB84C,#F2A6C6);--sc:#FFB84C}
+.brd-s:nth-child(6n+6){--sg:linear-gradient(135deg,#19C6F7,#37E08A);--sc:#19C6F7}
+.brd-s b{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;margin-bottom:9px}
+.brd-s b::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--sc,#C79DF2);box-shadow:0 0 10px 2px var(--sc,#C79DF2);flex:0 0 auto}
+.brd-s ul{margin:0;padding-left:16px}
+.brd-s li{font-size:13px;line-height:1.55;color:#D6DAE6;margin-bottom:5px}
+.brd-no{margin-top:14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,157,176,.35);background:rgba(255,157,176,.06)}
+.brd-no b{display:block;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#FF9DB0;margin-bottom:4px}
+.brd-no span{font-size:13px;color:#D6DAE6;line-height:1.5}
+.hl-auto{position:absolute;left:8px;right:8px;bottom:8px;padding:6px 9px;border-radius:9px;background:rgba(5,7,12,.8);font-size:10.5px;line-height:1.3;color:#7CF0B2;text-align:center}
+@media(max-width:700px){.brd{padding:16px}.brd-head{grid-template-columns:1fr;gap:12px}.brd-ph{height:150px}.brd-scan{grid-template-columns:1fr}.brd-sc-img{height:170px}.brd-grid{grid-template-columns:1fr}}
+/* примерочная волос */
+.hl-top{display:grid;grid-template-columns:240px 1fr;gap:18px;margin-bottom:18px}
+.hl-drop{position:relative;min-height:260px;border-radius:18px;border:1.5px dashed rgba(255,255,255,.22);background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;padding:18px;cursor:pointer;overflow:hidden;transition:all .25s}
+.hl-drop:hover{border-color:rgba(25,198,247,.6);background:rgba(25,198,247,.05)}
+.hl-drop i{font-style:normal;font-size:28px;color:#19C6F7}
+.hl-drop b{font-size:14px}
+.hl-drop span{font-size:11.5px;color:#8B92AA;line-height:1.5;max-width:200px}
+.hl-drop.has{padding:0;border-style:solid;cursor:default}
+.hl-drop.has img{width:100%;height:100%;min-height:260px;object-fit:cover}
+.hl-side{display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+.hl-side .btn{width:100%}
+.hl-adv{padding:16px 18px;border-radius:18px;margin-bottom:18px;border:1px solid transparent;background:linear-gradient(#0C0E15,#0C0E15) padding-box,linear-gradient(135deg,#37E08A,#19C6F7,#C79DF2) border-box;animation:spIn .5s both}
+.hl-adv-g{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0 12px}
+.hl-adv-g b{display:block;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:5px}
+.hl-adv-g b.ok{color:#7CF0B2}.hl-adv-g b.no{color:#FF9DB0}
+.hl-adv-g span{font-size:13px;color:#D6DAE6;line-height:1.5}
+.hl-tabs{display:flex;gap:8px;margin-bottom:14px}
+.hl-tb{flex:1;padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#B7BCCC;font-family:'Manrope';font-size:14px;font-weight:700;cursor:pointer;transition:all .22s}
+.hl-tb:hover{border-color:rgba(199,157,240,.5);color:#fff}
+.hl-tb.on{border-color:transparent;background:linear-gradient(135deg,rgba(25,198,247,.18),rgba(199,157,240,.18));color:#fff;box-shadow:inset 0 0 0 1px rgba(199,157,240,.5)}
+.hl-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.hl-c{position:relative;display:grid;grid-template-columns:34px minmax(0,1fr);grid-template-rows:auto auto;align-items:center;gap:1px 11px;padding:11px 13px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);cursor:pointer;text-align:left;font-family:'Manrope';color:#D6DAE6;animation:popIn .5s both;transition:all .22s}
+.hl-c i{grid-row:1/3;width:34px;height:34px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.2),0 6px 18px -6px rgba(0,0,0,.8);transition:transform .25s}
+.hl-c b{grid-column:2;align-self:end;font-size:12.5px;font-weight:700;line-height:1.25;overflow-wrap:anywhere}
+.hl-c em{grid-column:2;align-self:start;font-style:normal;font-size:10.5px;color:#8B92AA}
+.hl-c:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.55)}
+.hl-c:hover i{transform:scale(1.1)}
+.hl-c.on{border-color:transparent;box-shadow:inset 0 0 0 2px #C79DF2;background:rgba(199,157,240,.1)}
+.hl-c.good::after,.hl-k.good::after{content:'вам идёт';position:absolute;top:-7px;right:9px;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1.2px;text-transform:uppercase;padding:2px 6px;border-radius:99px;background:#0C0E15;color:#7CF0B2;box-shadow:0 0 0 1px rgba(124,240,178,.5)}
+.hl-c.bad::after,.hl-k.bad::after{content:'осторожно';position:absolute;top:-7px;right:9px;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1.2px;text-transform:uppercase;padding:2px 6px;border-radius:99px;background:#0C0E15;color:#FF9DB0;box-shadow:0 0 0 1px rgba(255,157,176,.5)}
+.hl-cuts{display:grid;grid-template-columns:repeat(auto-fit,minmax(236px,1fr));gap:10px}
+.hl-k{position:relative;display:grid;grid-template-columns:76px minmax(0,1fr);gap:13px;align-items:center;padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);cursor:pointer;text-align:left;font-family:'Manrope';color:#D6DAE6;overflow:hidden;animation:popIn .5s both;transition:all .22s}
+.hl-k::after{content:'';position:absolute;left:-60%;top:0;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transform:skewX(-18deg);opacity:0}
+.hl-k:hover::after{opacity:1;animation:lfmSweep 1s ease-out}
+.hk-svg{width:76px;height:100px;display:block;border-radius:12px;background:radial-gradient(70% 60% at 50% 32%,rgba(255,255,255,.07),rgba(255,255,255,.015));overflow:hidden}
+.hk-sh{fill:#262B3C}
+.hk-h{fill:var(--hc,#4A3026);transition:fill .45s ease}
+.hk-fc{fill:#E9C6B0}
+.hk-ey{fill:#3A2A33}
+.hk-lp{fill:#B8485C}
+.hl-k:hover .hk-h{filter:brightness(1.12) saturate(1.1)}
+.hl-k .hk-svg{transform-origin:50% 12%;transition:transform .45s cubic-bezier(.2,.9,.3,1.3)}
+.hl-k:hover .hk-svg{transform:rotate(-2.5deg) scale(1.05)}
+.hk-tx b{display:block;font-size:13.5px;font-weight:700;margin-bottom:2px;line-height:1.2}
+.hk-tx em{display:block;font-style:normal;font-size:10.5px;color:#8B92AA;margin-bottom:4px}
+.hk-tx u{display:block;text-decoration:none;font-size:11px;line-height:1.4;color:#B7BCCC}
+.hl-k:hover{transform:translateY(-3px);border-color:rgba(25,198,247,.55)}
+.hl-k.on{border-color:transparent;box-shadow:inset 0 0 0 2px #19C6F7;background:rgba(25,198,247,.1)}
+.hl-k.on .hk-svg{transform:rotate(-2deg) scale(1.04)}
+.hl-scan{display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;padding:18px;border-radius:20px;border:1px solid transparent;background:linear-gradient(#0C0E15,#0C0E15) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2,#F2A6C6) border-box;animation:spIn .5s both}
+.hl-sc-img{position:relative;height:300px;border-radius:16px;overflow:hidden}
+.hl-sc-img img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05)}
+.hl-sc-img .sc-grid{opacity:1;animation:gridPulse 1.8s ease-in-out infinite}
+.hl-sc-img .sc-line{opacity:1;animation:scanMove 2s cubic-bezier(.4,0,.6,1) infinite}
+.hl-sc-mask{position:absolute;left:12%;right:12%;top:4%;height:46%;border-radius:50% 50% 42% 42%;border:1.5px solid rgba(199,157,240,.8);box-shadow:0 0 26px 4px rgba(199,157,240,.35) inset;animation:hlMask 2.6s ease-in-out infinite}
+@keyframes hlMask{0%,100%{opacity:.35;transform:scale(.97)}50%{opacity:1;transform:scale(1.02)}}
+.hl-sc-txt h3{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:6px 0 14px;min-height:48px;transition:opacity .18s;background:linear-gradient(100deg,#fff,#C7A6F0,#fff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hl-ba{margin-top:18px;padding:16px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02)}
+.hl-ba-h{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.hl-ba-h b{font-size:15px;font-weight:800}
+.hl-dl{padding:8px 14px!important;font-size:12px!important}
+.hl-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hl-pair figure{position:relative;margin:0;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.hl-pair figure.aft{border-color:rgba(199,157,240,.55);box-shadow:0 0 24px -8px rgba(199,157,240,.5)}
+.hl-pair img{width:100%;display:block;aspect-ratio:3/4;object-fit:cover}
+.hl-pair figcaption{position:absolute;left:9px;bottom:9px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;padding:4px 9px;border-radius:99px;background:rgba(5,7,12,.78);color:#C7A6F0}
+@media(max-width:700px){.hl-top{grid-template-columns:1fr}.hl-drop{min-height:220px}.hl-drop.has img{min-height:220px}.hl-scan{grid-template-columns:1fr}.hl-sc-img{height:240px}.hl-adv-g{grid-template-columns:1fr}.hl-cols{grid-template-columns:1fr}.hl-cuts{grid-template-columns:1fr}.hl-c{grid-template-columns:30px minmax(0,1fr);padding:10px 12px}.hl-c i{width:30px;height:30px}.hl-c b{font-size:13px}.hk-tx b{font-size:13.5px}.hl-ba-h{flex-direction:column;align-items:flex-start}}
+.mr-pal{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 18px}
+.mr-pc{display:flex;flex-direction:column;align-items:center;gap:5px;width:92px;animation:popIn .5s both}
+.mr-pc i{width:46px;height:46px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.18),0 8px 22px -8px rgba(0,0,0,.8);transition:transform .25s}
+.mr-pc:hover i{transform:scale(1.12)}
+.mr-pc b{font-size:11.5px;font-weight:700;text-align:center;line-height:1.25}
+.mr-pc em{font-style:normal;font-size:10px;color:#8B92AA;text-align:center;line-height:1.3}
+.mr-prod{margin-top:8px;padding:9px 11px;border-radius:10px;border:1px solid rgba(199,157,240,.3);background:rgba(199,157,240,.07);font-size:12.5px;line-height:1.5;color:#D6DAE6}
+.mr-prod span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#C7A6F0;margin-bottom:3px}
 .mr-warn{margin:10px 0;padding:10px 12px;border:1px solid rgba(255,184,76,.45);background:rgba(255,184,76,.08);font-size:13px;line-height:1.5}
 /* укладки */
 .hs-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
@@ -4449,6 +4589,33 @@ header nav.topnav{gap:4px;align-items:center}
 
 /* «что случилось?» */
 .life{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.12);text-align:left}
+.lf-moods{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:12px}
+.lfm{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:18px 16px 16px;border-radius:18px;cursor:pointer;text-align:left;overflow:hidden;font-family:'Manrope';color:#fff;border:1px solid transparent;background:linear-gradient(#0E1018,#0E1018) padding-box,var(--g) border-box;animation:popIn .55s cubic-bezier(.2,.7,.2,1) both;transition:transform .25s cubic-bezier(.2,.9,.3,1.2),box-shadow .25s}
+.lfm::before{content:'';position:absolute;inset:0;background:var(--g);opacity:.1;transition:opacity .25s}
+.lfm::after{content:'';position:absolute;left:-60%;top:0;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);transform:skewX(-18deg);opacity:0}
+.lfm:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 16px 40px -14px rgba(0,0,0,.7)}
+.lfm:hover::before{opacity:.2}
+.lfm:hover::after{opacity:1;animation:lfmSweep 1s ease-out}
+@keyframes lfmSweep{from{left:-60%}to{left:130%}}
+.lfm-i{position:relative;font-size:24px;line-height:1;background:var(--g);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 14px rgba(255,255,255,.18))}
+.lfm-i.big{font-size:38px;flex:0 0 auto}
+.lfm b{position:relative;font-size:16px;font-weight:800;letter-spacing:-.2px}
+.lfm em{position:relative;font-style:normal;font-size:12px;color:#B7BCCC;line-height:1.45}
+.lfm-go{position:absolute;right:14px;bottom:14px;font-size:15px;color:#fff;opacity:.35;transition:all .25s}
+.lfm:hover .lfm-go{opacity:1;transform:translateX(4px)}
+.lf-back{display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;border:none;background:none;color:#8B92AA;font-family:'JetBrains Mono';font-size:11px;letter-spacing:1.4px;text-transform:uppercase;cursor:pointer;transition:color .2s}
+.lf-back:hover{color:#C7A6F0}
+.lf-step2{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:18px;margin-bottom:16px;border:1px solid transparent;background:linear-gradient(#0E1018,#0E1018) padding-box,var(--g) border-box;animation:spIn .5s both}
+.lf-q2{font-size:20px;font-weight:800;letter-spacing:-.3px;margin:2px 0 3px}
+.lf-h{font-size:12px;color:#8B92AA}
+.lf-chips.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.lf-chips.big .lf{justify-content:flex-start;border-radius:14px;padding:14px 16px;font-size:14px;font-weight:600;gap:10px}
+.lf-chips.big .lf i{font-size:19px}
+.lf-chips.big .lf em{margin-left:auto;font-style:normal;opacity:.3;transition:all .2s}
+.lf-chips.big .lf:hover em{opacity:1;transform:translateX(3px)}
+.lf-skip{display:block;width:100%;margin-top:10px;padding:11px;border-radius:12px;border:1px dashed rgba(255,255,255,.14);background:none;color:#8B92AA;font-family:'Manrope';font-size:12.5px;cursor:pointer;transition:all .2s}
+.lf-skip:hover{border-color:rgba(199,157,240,.5);color:#C7A6F0}
+@media(max-width:640px){.lf-moods{grid-template-columns:1fr 1fr;gap:9px}.lfm{padding:14px 12px 13px}.lfm b{font-size:14px}.lfm em{font-size:11px}.lfm-go{display:none}.lf-chips.big{grid-template-columns:1fr}.lf-step2{gap:12px;padding:13px 14px}.lf-q2{font-size:17px}.lfm-i.big{font-size:30px}}
 .lf-q{font-size:15px;font-weight:700;margin-bottom:10px;text-align:center}
 .lf-q span{display:block;font-size:12px;font-weight:400;color:#8B92AA;margin-top:3px}
 .lf-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
@@ -4727,10 +4894,29 @@ header nav.topnav{gap:4px;align-items:center}
 @media(max-width:900px){.hack{padding:28px 20px}.hack-grid{grid-template-columns:1fr 1fr}}
 
 /* попап поддержки */
-.cheer-box{width:min(460px,100%);text-align:center}
-.cheer-ico{font-size:56px;margin-bottom:6px;animation:pop .6s both}
-.cheer-box h3{font-size:28px;margin:4px 0 10px}
-.cheer-box p{font-size:15px;line-height:1.65;color:#C7CBDA}
+.cheer-box{position:relative;overflow:hidden;width:min(460px,100%);text-align:center;border:1px solid transparent;
+  background:linear-gradient(rgba(12,14,22,.96),rgba(12,14,22,.96)) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2 50%,#F2A6C6) border-box}
+.cheer-glow{position:absolute;inset:-40% -20% auto;height:70%;background:radial-gradient(500px 220px at 50% 0%,rgba(199,157,240,.35),transparent 70%);pointer-events:none;animation:glowPulse 4s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{opacity:.6}50%{opacity:1}}
+.cheer-ring{width:92px;height:92px;margin:4px auto 14px;border-radius:50%;display:grid;place-items:center;position:relative;
+  background:radial-gradient(circle,rgba(199,157,240,.22),transparent 70%);animation:pop .6s both}
+.cheer-ring::before,.cheer-ring::after{content:'';position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(199,157,240,.45);animation:ringOut 2.6s ease-out infinite}
+.cheer-ring::after{animation-delay:1.3s}
+@keyframes ringOut{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+.cheer-ico{font-size:46px;line-height:1;animation:cheerFloat 3s ease-in-out infinite}
+@keyframes cheerFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-6px) rotate(3deg)}}
+.cheer-eye{font-family:'JetBrains Mono';font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:#8B92AA;margin-bottom:8px}
+.cheer-box h3{font-size:27px;line-height:1.2;margin:0 0 12px;background-image:linear-gradient(100deg,#fff,#D9C9FF 45%,#FFD5E8);-webkit-background-clip:text;background-clip:text;color:transparent;animation:spIn .6s .1s both}
+.cheer-box p{font-size:15px;line-height:1.7;color:#C7CBDA;animation:spIn .6s .2s both;max-width:380px;margin:0 auto}
+.cheer-acts{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap;animation:spIn .6s .3s both}
+.cheer-go{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 26px;border:none;border-radius:16px;cursor:pointer;font-family:'Manrope';font-size:14.5px;font-weight:800;color:#0B0C12;background:linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6);box-shadow:0 12px 30px rgba(140,120,220,.4);transition:transform .2s}
+.cheer-go::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%);background-size:250% 100%;animation:sweep 3s ease-in-out infinite;pointer-events:none}
+.cheer-go:hover{transform:translateY(-2px)}
+.cheer-go i{font-style:normal;transition:transform .25s}
+.cheer-go:hover i{transform:translateX(4px)}
+.cheer-later{height:52px;padding:0 22px;border-radius:16px;cursor:pointer;font-family:'Manrope';font-size:14px;font-weight:700;color:#C7CBDA;background:transparent;border:1px solid rgba(255,255,255,.18);transition:all .2s}
+.cheer-later:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+@media(max-width:480px){.cheer-box h3{font-size:23px}.cheer-acts{flex-direction:column}.cheer-go,.cheer-later{width:100%;justify-content:center}}
 
 /* образы из покупок и примерка */
 .ml-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
@@ -4839,6 +5025,39 @@ header nav.topnav{gap:4px;align-items:center}
 .life .to-row .btn.primary::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);background-size:250% 100%;animation:sweep 3.5s ease-in-out infinite;pointer-events:none}
 .life .to-row .btn:hover{transform:translateY(-2px)}
 @media(max-width:700px){.lf-grid{grid-template-columns:1fr;gap:10px}.lf-grid>div{padding:16px!important}}
+
+/* окно эстетики */
+.aest-box{width:min(440px,100%)}
+.aest-top{position:relative;height:260px;border-radius:18px;overflow:hidden;display:grid;place-items:center;margin-bottom:4px}
+.aest-top::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,12,20,0) 45%,rgba(10,12,20,.85) 100%)}
+.aest-top iframe{width:236px;height:260px;border:0;position:relative;z-index:1}
+.aest-pal{position:relative;z-index:1;text-align:center;padding:0 16px}
+.aest-pal span{font-family:'Manrope';font-weight:800;font-size:24px;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.aest-box h3{font-size:24px;margin:4px 0 8px}
+.aest-box p{font-size:14.5px;line-height:1.65;color:#C7CBDA;margin:0}
+.aest-sw{display:flex;gap:10px;margin-top:4px}
+.aest-sw i{width:38px;height:38px;border-radius:50%;border:2px solid rgba(255,255,255,.25);box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.aest-box .chips{gap:7px}
+.aest-box .to-row{gap:10px;flex-wrap:wrap}
+.aest-box .btn{height:48px;border-radius:14px;padding:0 20px;display:inline-flex;align-items:center;justify-content:center;flex:1 1 170px}
+.aest-box .btn.primary{background:linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6);color:#0B0C12!important;border:none;font-weight:800;box-shadow:0 10px 26px rgba(140,120,220,.3)}
+
+/* кнопки под карточками эстетик: курсор и отклик сразу */
+.st-act,.st-act *{cursor:pointer}
+.st-act{transition:background .15s,border-color .15s,color .15s,transform .15s}
+.st-act:active{transform:scale(.97)}
+
+/* портрет: контраст текста на градиенте */
+.por-card{background:linear-gradient(180deg,rgba(10,12,20,.92),rgba(10,12,20,.88))!important}
+.por-it{background:rgba(10,12,20,.55)!important;border-color:rgba(255,255,255,.14)!important;backdrop-filter:blur(4px)}
+.por-it b{color:#E0C9FF!important;font-size:11.5px!important;letter-spacing:1.1px!important}
+.por-it span{color:#F0F2F8!important;font-size:14px!important;line-height:1.6!important}
+.por-card .tip{color:#C8CEDE!important}
+.por-card h3{color:#fff}
+
+.aest-box .to-row .btn{min-height:50px;padding:0 20px;font-size:13px;line-height:1.25;white-space:normal;text-align:center}
+.aest-box .to-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.aest-top{box-shadow:inset 0 -60px 60px -40px rgba(0,0,0,.5)}
 </style>
 </head>
 <body>
@@ -4872,9 +5091,9 @@ header nav.topnav{gap:4px;align-items:center}
     <div class="eyebrow">LOOKA — ваш личный стилист, визажист и косметолог в одном</div>
     <h1>Стиль, красота и уход —<br><span class="holo">подобранные под вас, а не «под всех»</span></h1>
     <div class="hero-mood" id="heroMood">
-      <div class="hm-q">Как вы сегодня? <span>образ, макияж и ритуал подстроятся под настроение и погоду</span></div>
-      <div class="hm-chips" id="hmChips"></div>
+      <div class="hm-q" id="hmQ"></div>
       <div id="lifeBox"></div>
+      <div class="hm-chips" id="hmChips" hidden></div>
     </div>
     <div class="hero-chat">
       <div class="ha-lbl"><i>✦</i>Спросите, как у подруги — она стилист, визажист и дерматолог</div>
@@ -4958,6 +5177,19 @@ header nav.topnav{gap:4px;align-items:center}
 <section class="sec reveal" id="nightSec"><div id="nightBox"></div></section>
 <section class="sec reveal" id="scanSec"><div id="scanBox"></div></section>
 
+
+<section class="sec reveal" id="mirrorSec">
+  <div class="eyebrow">примерочная и разборы · по вашему фото</div>
+  <h2 class="big">Сначала <span class="holo">увидеть на себе</span> — потом решать</h2>
+  <p class="lead">Прикрепите фото — и LOOKA меняет на нём цвет волос и стрижку, разбирает чужой макияж на шаги и собирает разборы по вашей внешности: макияж, цветотип, причёски и стиль.</p>
+  <div class="quick-grid q8">
+    <button class="qk" onclick="openHairLab()"><i style="background:linear-gradient(135deg,#19C6F7,#C79DF2)">✂</i><b>Цвет и стрижка на вашем фото</b><span>14 оттенков и 12 стрижек — меняются на вашем снимке автоматически, лицо и фон остаются вашими</span><em>фото · 30 секунд</em></button>
+    <button class="qk" onclick="openMakeup();setTimeout(()=>{const b=document.getElementById('mrBox'); if(b&&window.glide) glide(b,100,800);},420)"><i style="background:linear-gradient(135deg,#FF6FA8,#C79DF2)">◉</i><b>Повторить макияж с фото</b><span>скрин из Pinterest или сторис → шаги с точными оттенками и конкретной косметикой под ваши глаза</span><em>фото · 20 секунд</em></button>
+    <button class="qk" onclick="openPage('colorPage');setTimeout(()=>{const b=document.getElementById('brdColor'); if(b&&window.glide) glide(b,100,800);},420)"><i style="background:linear-gradient(135deg,#FFB84C,#F2A6C6)">▦</i><b>Доска цветотипа</b><span>ваши цвета тканями, подтон, нейтрали, принты, металл украшений и капсула — одним листом</span><em>фото · разбор + картинка</em></button>
+    <button class="qk" onclick="openDna();setTimeout(()=>{const b=document.getElementById('brdStyle'); if(b&&window.glide) glide(b,100,800);},520)"><i style="background:linear-gradient(135deg,#C79DF2,#37E08A)">◈</i><b>Доска стиля</b><span>16 эстетик примерены на вас: какие три-пять ваши, какие спорят, силуэты и базовые вещи</span><em>фото · разбор + картинка</em></button>
+  </div>
+  <p class="tip" style="margin-top:14px">Фото уходит в ИИ только на время разбора и нигде не хранится. Результат примерки — иллюстрация, а не обещание: что реально на вашей базе волос, скажет колорист.</p>
+</section>
 
 <section id="results">
   <div class="res-head">
@@ -5481,6 +5713,7 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="bt-form look mk-form"><div id="mrBox"></div></div>
   <div class="looks" id="mrOut"></div>
   <div class="looks" id="mkOut"></div>
+  <div id="brdMakeup"></div>
   <div class="hp-sub">ПОЧЕМУ СХЕМА, А НЕ ВИДЕО</div>
   <div class="moat-grid">
     <div class="moat-item"><b>Форма важнее тренда</b><p>Один и тот же смоки на нависшем веке и на миндалевидном глазу делается в разных местах. Видео-урок с чужого лица этого не учитывает.</p></div>
@@ -5507,6 +5740,7 @@ header nav.topnav{gap:4px;align-items:center}
   </div>
   <div class="bt-form look mk-form"><div id="ctForm"></div></div>
   <div class="looks" id="ctOut"></div>
+  <div id="brdColor"></div>
   <div class="hp-sub">ПОЧЕМУ ЭТО РАБОТАЕТ</div>
   <div class="moat-grid">
     <div class="moat-item"><b>Три оси, не «весна/лето»</b><p>Температура, глубина и чистота — так работают колористы. Четыре сезона из журналов слишком грубы: половина людей в них не попадает.</p></div>
@@ -5580,6 +5814,12 @@ header nav.topnav{gap:4px;align-items:center}
     <h2 style="font-size:26px;font-weight:800;margin:6px 0 8px">Укладка, которая <span class="holo">получится с первого раза</span></h2>
     <p class="lead" style="font-size:14.5px">Шесть укладок от пятиминутного объёма до голливудской волны: схема головы показывает направление движения на каждом шаге, а внизу — что поменять, если волосы тонкие или, наоборот, густые.</p></div>
   <div id="hsBox"></div>
+  <div class="mk-hero" style="margin-top:34px"><div class="eyebrow">примерочная волос · ИИ меняет цвет и стрижку на вашем фото</div>
+    <h2 style="font-size:26px;font-weight:800;margin:6px 0 8px">Увидеть себя <span class="holo">до парикмахера</span></h2>
+    <p class="lead" style="font-size:14.5px">Загрузите фото — и посмотрите на себе любой цвет и любую стрижку, пока это ещё можно отменить. Рядом покажу, что подходит вашему цветотипу и форме лица, а что лучше не трогать.</p></div>
+  <div class="bt-form look mk-form"><div id="hlBox"></div></div>
+  <div class="looks" id="hlOut"></div>
+  <div id="brdHair"></div>
 </section>
 
 <section class="sec pageview" id="eventPage">
@@ -5801,6 +6041,7 @@ header nav.topnav{gap:4px;align-items:center}
     <p class="lead">Y2K или old money, оверсайз или по фигуре, каблуки или никогда, какой вы человек и что вас раздражает в одежде. Девять блоков — эстетики, посадки, характер, цвета, «никогда», калибровка на образах, досье, личность и красота — только выбор ответов, ничего писать не нужно. И каждый подбор, примерка и разбор в LOOKA начинают говорить именно с вами. Всё сохраняется по ходу.</p>
   </div>
   <div id="dnaBox"></div>
+  <div id="brdStyle"></div>
 </section>
 
 <section class="sec pageview" id="docsPage">
@@ -7422,9 +7663,10 @@ window.openPage = (id, anchor)=>{
   if(id==='passPage' && window.renderPassport) renderPassport();
   if(id==='myPage' && window.renderMy) renderMy();
   if(id==='makeupPage' && window.renderMakeupForm){ renderMakeupForm(); if(window.renderMkRef) renderMkRef(); }
+  if(window.brdAll) try{ brdAll(); }catch(e){}
   if(id==='colorPage' && window.renderColorForm) renderColorForm();
   if(id==='skinPage' && window.renderSkinForm) renderSkinForm();
-  if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderStyling) renderStyling(); }
+  if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderStyling) renderStyling(); if(window.hlAdopt && window.brdPhoto) hlAdopt(brdPhoto()); if(window.renderHairLab) renderHairLab(); }
   if(id==='eventPage' && window.renderEventForm) renderEventForm();
   if(id==='capsulePage' && window.renderCapsuleForm) renderCapsuleForm();
   if(id==='wardrobePage' && window.renderWardrobe){ renderWardrobe(); }
@@ -10942,6 +11184,450 @@ window.openCare = ()=>{ openPage('carePage'); renderCare(); };
   const upd = ()=>{ const el = document.getElementById('pRef'); if(el) el.innerHTML = 'Ваш код от <b>@'+ref.code+'</b>: <b>−10 % на первую оплату</b> (на неделю, месяц или год) — назовите код '+ref.code.toUpperCase()+' при оплате'; };
   upd(); const orig = window.openPage; window.openPage = function(){ orig.apply(null, arguments); setTimeout(upd, 50); };
 })();
+/* ================= ДОСКИ РАЗБОРА: инфографика по портрету + расшифровка ================= */
+(function(){
+const BP = { photo:null, busy:null, out:{} };
+const LIM = 8;
+function q(){ const m=new Date().toISOString().slice(0,7); let x={m,n:0}; try{ x=JSON.parse(localStorage.getItem('looka_boards')||'null')||x; }catch(e){} if(x.m!==m) x={m,n:0}; return x; }
+const BASE = 'Editorial beauty photography for a dark premium brand. Deep charcoal-to-ink backdrop (#0A0C12 to #161A26) with a soft cool rim light and a faint violet-to-cyan gradient glow in the background corners. Cinematic studio lighting: soft key light, cool fill, gentle rim on the hair and cheekbone. Ultra-detailed photorealistic skin with visible texture, no beauty filter, no plastic smoothing. The SAME person as in the reference photo in every frame - same face, same identity, same bone structure; never replace her with a model. CRITICAL: produce IMAGERY ONLY. Absolutely no text, no letters, no words, no numbers, no labels, no captions, no logos, no watermarks, no UI, no arrows, no annotations anywhere in the image. Pure photography laid out on the dark backdrop. Composition: an even, calm grid of frames with generous dark space between them, aligned to a strict column grid, nothing tilted, nothing overlapping. ';
+const BRD = {
+ makeup:{ t:'Доска макияжа', e:'разбор по портрету', mount:'brdMakeup',
+   d:'Одна инфографика на разворот: ваш тон и подтон, пять вариантов теней, стрелки, тушь, румяна и скульптура, шесть оттенков губ, три готовых образа и список кистей — всё на вашем лице.',
+   img:(d)=>'A vertical 2-by-3 grid of six beauty close-ups of this same woman on the dark backdrop. Top row: three tight eye close-ups showing three different eye-makeup finishes on HER eye shape. Middle row: two three-quarter beauty portraits with different lip and cheek intensity, and one profile showing cheek placement. Bottom row: one full face in an evening finish. Each frame a separate rounded photograph with dark space around it. '+(d?('The makeup across the frames uses this palette: '+d+'. '):''),
+   txt:'Разбери макияж по этому портрету как визажист LOOKA. Ответь ТОЛЬКО валидным JSON без markdown: {"v":"одна фраза — главный вывод","pal":[{"hex":"#RRGGBB","n":"название оттенка"}],"frames":["short English description of makeup look 1"],"sec":[{"h":"заголовок раздела","i":["пункт","пункт"]}],"no":["чего избегать"],"first":"с чего начать завтра утром"}. Разделы: Тон и подтон кожи; Глаза: какие оттенки теней; Стрелка: какая форма; Румяна и скульптура; Губы: 6 оттенков словами; Три готовых образа. В пунктах — конкретные оттенки и места нанесения. В pal — 6 оттенков с реальными hex-кодами. В frames — ровно 6 коротких описаний ПО-АНГЛИЙСКИ для фотокадров. Остальное по-русски, без оценок внешности и тела.' },
+ color:{ t:'Доска цветотипа', e:'палитра по портрету', mount:'brdColor',
+   d:'Ваши лучшие цвета тканями, подтон, нейтральные базы, принты, украшения в вашем металле и капсула из согласованных образов — одним листом, который можно открыть в магазине.',
+   img:(d)=>'A vertical grid of six waist-up portraits of this same woman on the dark backdrop, each wearing a different plain top in one of her best colours, draped near the face so the colour reads against her skin. Same pose, same light, same framing in every frame - only the colour of the garment changes. '+(d?('Use exactly these garment colours, one per frame, in this order: '+d+'. Match the hex values precisely. '):''),
+   txt:'Определи цветотип по этому портрету как колорист LOOKA. Ответь ТОЛЬКО валидным JSON без markdown: {"v":"сезон и одна фраза почему","pal":[{"hex":"#RRGGBB","n":"название цвета"}],"frames":["#RRGGBB name of garment colour 1"],"sec":[{"h":"заголовок","i":["пункт"]}],"no":["цвета, которых избегать у лица"],"first":"что надеть завтра из этой палитры"}. Разделы: Подтон и глубина; 8 ваших лучших цветов словами; Нейтральные базы; Металл украшений; Цвет волос; Принты. В pal — 6 её лучших цветов с реальными hex. В frames — ровно 6 строк вида "#RRGGBB dusty rose". Остальное по-русски.' },
+ hair:{ t:'Доска причёсок', e:'укладки по портрету', mount:'brdHair',
+   d:'Какие укладки идут вашей форме лица и типу волос, какие — нет, лучшие оттенки, приёмы укладки и готовые сочетания «причёска + образ».',
+   img:(d)=>'A vertical grid of six head-and-shoulders portraits of this same woman on the dark backdrop, each with a different hairstyle on HER own head: long layers with face-framing pieces, soft waves, curtain bangs, a low bun with loose strands, a half-up volume style, and a sleek deep side part. Her face, make-up and clothing stay identical in every frame; only the hair changes. Realistic hair with individual strands and natural root depth. '+(d?('The hair colours across the frames follow these shades: '+d+'. '):''),
+   txt:'Разбери причёски по этому портрету как парикмахер-стилист LOOKA. Ответь ТОЛЬКО валидным JSON без markdown: {"v":"форма лица и одна фраза о стратегии","pal":[{"hex":"#RRGGBB","n":"оттенок волос"}],"frames":["short English description of hairstyle 1"],"sec":[{"h":"заголовок","i":["пункт"]}],"no":["что вам не идёт"],"first":"что сделать с волосами завтра"}. Разделы: Форма лица и тип волос; Лучшие стрижки; Лучшие укладки; Пробор и объём; Оттенки волос; Аксессуары. В pal — 6 подходящих оттенков волос с реальными hex. В frames — ровно 6 коротких описаний причёсок ПО-АНГЛИЙСКИ. Остальное по-русски.' },
+ style:{ t:'Доска стиля', e:'эстетики по портрету',  mount:'brdStyle',
+   d:'Шестнадцать эстетик примерены на вас: какие три-пять ваши, какие спорят с внешностью, ваши силуэты, базовые вещи, палитра одежды и капсула целиком.',
+   img:(d)=>'A vertical grid of six full-body fashion photographs of this same woman on the dark backdrop, each in a different complete outfit, same pose and same light in every frame. '+(d?('The six outfits are: '+d+'. Build each outfit from real garments in those colours, head to toe, including shoes and a bag. '):'Six distinct complete outfits in muted editorial colours. '),
+   txt:'Разбери стиль по этому портрету как стилист LOOKA, опираясь на внешность, а не на моду. Ответь ТОЛЬКО валидным JSON без markdown: {"v":"формула её стиля одной строкой","pal":[{"hex":"#RRGGBB","n":"название цвета"}],"frames":["short English description of full outfit 1"],"sec":[{"h":"заголовок","i":["пункт"]}],"no":["эстетики, которые с ней спорят"],"first":"что надеть завтра"}. Разделы: Ваши 3-5 эстетик; Силуэты, которые работают; Базовые вещи; Палитра одежды; Аксессуары; Капсула на неделю. В pal — 6 цветов одежды с реальными hex. В frames — ровно 6 коротких описаний полных образов ПО-АНГЛИЙСКИ. Остальное по-русски, без оценок фигуры и веса.' }
+};
+const BSTG = ['Считываю портрет…','Определяю подтон и контраст…','Подбираю варианты…','Собираю доску…','Свожу свет и цвет…','Пишу расшифровку по-русски…'];
+let BT=null;
+window.brdSeed = d=>{ if(d && !BP.photo){ BP.photo = d; Object.keys(BRD).forEach(k=>renderBoard(k)); } };
+window.brdFile = async (k,f)=>{ if(!f) return; try{ const d=await shrinkImage(f,1100); BP.photo=(d&&d.data)?d.data:String(d).split(',').pop(); Object.keys(BRD).forEach(x=>renderBoard(x)); if(window.hlAdopt) hlAdopt(BP.photo); myToast('Портрет загружен — можно собирать доску'); }catch(e){ myToast('Фото не принято: '+(e.message||e)); } };
+window.brdMine = k=>{ const src = BP.photo || (window.hlPhoto&&hlPhoto()) || S.photo; if(src){ BP.photo=src; Object.keys(BRD).forEach(x=>renderBoard(x)); myToast('Взяла ваше фото'); } else myToast('Фото пока нет — загрузите портрет'); };
+window.brdClear = ()=>{ BP.photo=null; BP.out={}; Object.keys(BRD).forEach(x=>renderBoard(x)); };
+window.brdGo = async k=>{
+  const C=BRD[k]; if(!C || !BP.photo || BP.busy) return;
+  if(!LOOKA_API && !GEMINI_KEY){ myToast('Доски включатся вместе с генерацией картинок'); return; }
+  const st=q(); if(st.n>=LIM){ myToast('Лимит досок на этот месяц исчерпан ('+LIM+')'); return; }
+  BP.busy=k; renderBoard(k);
+  let i=0; clearInterval(BT); BT=setInterval(()=>{ i++; const h=document.getElementById('brdStage-'+k); if(!h){ clearInterval(BT); return; } h.style.opacity=0; setTimeout(()=>{ h.textContent=BSTG[i%BSTG.length]; h.style.opacity=1; },180); }, 2700);
+  let txt=null, img=null, err=null;
+  try{
+    /* 1. разбор текстом — он же задаёт, что будет на кадрах */
+    const content=[{type:'image',source:{type:'base64',media_type:'image/jpeg',data:BP.photo}},{type:'text',text:C.txt+(window.dnaSummary&&dnaSummary()?'\nЧто уже известно о её вкусе: '+dnaSummary():'')}];
+    const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:2000, messages:[{role:'user',content}] }) });
+    const j=await r.json(); if(j.error) throw new Error('разбор не прошёл');
+    const t=(j.content&&j.content[0]&&j.content[0].text||'').replace(/```json|```/g,'').trim();
+    txt=JSON.parse(t.match(/\{[\s\S]*\}/)[0]);
+  }catch(e){ err=e.message; }
+  try{
+    /* 2. кадры — ровно по её разбору, без единой буквы в картинке */
+    const fr=(txt&&txt.frames||[]).slice(0,6).filter(Boolean);
+    const prompt = BASE + (typeof C.img==='function'? C.img(fr.join('; ')) : C.img);
+    if(LOOKA_API){
+      const r=await fetch(LOOKA_API.replace(/\/$/,'')+'/tryon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({face:BP.photo,prompt})});
+      const j=await r.json(); if(!r.ok||!j.image) throw new Error(j.error||'ошибка генерации');
+      img='data:'+(j.mime||'image/png')+';base64,'+j.image;
+    } else {
+      const r=await geminiCall(GEMINI_IMAGE,[{inline_data:{mime_type:'image/jpeg',data:BP.photo}},{text:prompt}],{responseModalities:['IMAGE','TEXT']});
+      if(!r.ok) throw new Error('генератор недоступен ('+r.status+')');
+      const j=await r.json(); const o=(j.candidates?.[0]?.content?.parts||[]).find(x=>x.inlineData||x.inline_data);
+      if(!o) throw new Error('модель не вернула картинку'); const d=o.inlineData||o.inline_data;
+      img='data:'+(d.mimeType||d.mime_type||'image/png')+';base64,'+d.data;
+    }
+  }catch(e){ if(!err) err=e.message; }
+  clearInterval(BT); BP.busy=null;
+  if(!img && !txt){ renderBoard(k); myToast('Не получилось: '+(err||'попробуйте другое фото')); return; }
+  st.n++; try{ localStorage.setItem('looka_boards', JSON.stringify(st)); }catch(e){}
+  BP.out[k]={ img, txt, err, board:null }; renderBoard(k);
+  /* 3. доску собираем сами — своя вёрстка, свой шрифт, живая кириллица */
+  try{ const b = await brdCompose(k, img, txt); if(b){ BP.out[k].board=b; renderBoard(k); } }catch(e){}
+  const el=document.getElementById(BRD[k].mount); if(el&&window.glide) glide(el,100,800);
+};
+
+/* ===== СБОРКА ДОСКИ: фирменный лист LOOKA, рисуется на canvas у неё в браузере ===== */
+const BW=1240, PAD=72;
+function wrap(ctx, text, max){ const w=String(text||'').split(/\s+/); const out=[]; let l='';
+  for(const x of w){ const t=l?l+' '+x:x; if(ctx.measureText(t).width>max && l){ out.push(l); l=x; } else l=t; }
+  if(l) out.push(l); return out; }
+function rr(ctx,x,y,w,h,r){ ctx.beginPath(); if(ctx.roundRect) ctx.roundRect(x,y,w,h,r); else ctx.rect(x,y,w,h); }
+window.brdCompose = async (k, imgUrl, txt)=>{
+  const C=BRD[k]; if(!C) return null;
+  try{ if(document.fonts&&document.fonts.ready) await document.fonts.ready; }catch(e){}
+  const IM = imgUrl? await new Promise(res=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=imgUrl; }) : null;
+  const M = document.createElement('canvas').getContext('2d');
+  const F = (w,sz,fam)=>`${w} ${sz}px ${fam||"'Manrope',system-ui,sans-serif"}`;
+  const MONO = "'JetBrains Mono',ui-monospace,monospace";
+  const ops=[]; let y=0;
+  const inner = BW - PAD*2;
+  /* шапка */
+  y = 74;
+  ops.push(['hdr', y]);
+  y += 54;
+  /* кадры */
+  if(IM){ const ih = Math.min(1620, Math.round(inner * IM.height / IM.width)); ops.push(['img', y, ih]); y += ih + 46; }
+  /* вердикт */
+  const pal=(txt&&txt.pal||[]).filter(x=>x&&/^#?[0-9a-fA-F]{6}$/.test(String(x.hex||'').replace('#',''))).slice(0,6);
+  if(txt&&txt.v){ M.font=F(800,40); const ls=wrap(M, txt.v, inner); ops.push(['verd', y, ls]); y += ls.length*50 + 30; }
+  /* палитра */
+  let PSW=0;
+  if(pal.length){ PSW=Math.min(116,(inner-(pal.length-1)*16)/pal.length); const ph=26+PSW+52; ops.push(['pal', y, pal, PSW]); y += ph; }
+  /* разделы в две колонки */
+  const secs=(txt&&txt.sec||[]).slice(0,6);
+  if(secs.length){
+    const cw=(inner-26)/2; const cols=[[],[]]; const ch=[0,0];
+    secs.forEach(sec=>{
+      M.font=F(500,21); const lines=[];
+      (sec.i||[]).slice(0,6).forEach(it=>{ wrap(M,'— '+it, cw-56).forEach(l=>lines.push(l)); lines.push(null); });
+      const h = 34 + 30 + lines.filter(l=>l!==null).length*31 + lines.filter(l=>l===null).length*8 + 30;
+      const c = ch[0]<=ch[1]?0:1; cols[c].push({sec,lines,h}); ch[c]+=h+20;
+    });
+    let si=0; cols.forEach((col,ci)=>{ let cy=y; col.forEach(b=>{ ops.push(['sec', cy, b, PAD+ci*(cw+26), cw, si++]); cy+=b.h+20; }); });
+    y += Math.max(ch[0],ch[1]) + 8;
+  }
+  /* запреты */
+  if(txt&&txt.no&&txt.no.length){ M.font=F(500,21); const ls=wrap(M, txt.no.join('  ·  '), inner-56); const h=30+28+ls.length*31+28; ops.push(['no', y, ls, h]); y+=h+22; }
+  if(txt&&txt.first){ M.font=F(600,22); const ls=wrap(M, txt.first, inner-56); const h=30+26+ls.length*32+28; ops.push(['first', y, ls, h]); y+=h+22; }
+  y += 34; ops.push(['foot', y]); y += 58;
+
+  const H=Math.max(900,Math.round(y));
+  const cv=document.createElement('canvas'); cv.width=BW; cv.height=H;
+  const c=cv.getContext('2d');
+  /* фон */
+  c.fillStyle='#0A0C12'; c.fillRect(0,0,BW,H);
+  let g=c.createRadialGradient(BW*0.12,0,0,BW*0.12,0,BW*0.9); g.addColorStop(0,'rgba(25,198,247,.14)'); g.addColorStop(1,'rgba(10,12,18,0)'); c.fillStyle=g; c.fillRect(0,0,BW,H);
+  g=c.createRadialGradient(BW*0.95,H*0.42,0,BW*0.95,H*0.42,BW*0.85); g.addColorStop(0,'rgba(199,157,240,.13)'); g.addColorStop(1,'rgba(10,12,18,0)'); c.fillStyle=g; c.fillRect(0,0,BW,H);
+  g=c.createRadialGradient(BW*0.2,H,0,BW*0.2,H,BW*0.7); g.addColorStop(0,'rgba(242,166,198,.16)'); g.addColorStop(1,'rgba(10,12,18,0)'); c.fillStyle=g; c.fillRect(0,0,BW,H);
+  g=c.createRadialGradient(BW*0.5,H*0.72,0,BW*0.5,H*0.72,BW*0.6); g.addColorStop(0,'rgba(55,224,138,.08)'); g.addColorStop(1,'rgba(10,12,18,0)'); c.fillStyle=g; c.fillRect(0,0,BW,H);
+  /* тонкая сетка */
+  c.strokeStyle='rgba(255,255,255,.035)'; c.lineWidth=1;
+  for(let x=PAD;x<BW-PAD;x+=(BW-PAD*2)/6){ c.beginPath(); c.moveTo(Math.round(x)+.5,0); c.lineTo(Math.round(x)+.5,H); c.stroke(); }
+  const holo=(x0,x1)=>{ const lg=c.createLinearGradient(x0===undefined?PAD:x0,0,x1===undefined?BW-PAD:x1,0); lg.addColorStop(0,'#19C6F7'); lg.addColorStop(.5,'#C79DF2'); lg.addColorStop(1,'#F2A6C6'); return lg; };
+  const ACC=[['#19C6F7','#C79DF2'],['#F2A6C6','#FFB84C'],['#37E08A','#19C6F7'],['#C79DF2','#F2A6C6'],['#FFB84C','#F2A6C6'],['#19C6F7','#37E08A']];
+  /* блёстки: четырёхлучевые звёзды, как на сайте */
+  const spark=(x,yy,r,col,al)=>{ c.save(); c.globalAlpha=al; c.fillStyle=col;
+    c.beginPath(); c.moveTo(x,yy-r); c.quadraticCurveTo(x+r*.16,yy-r*.16,x+r,yy); c.quadraticCurveTo(x+r*.16,yy+r*.16,x,yy+r);
+    c.quadraticCurveTo(x-r*.16,yy+r*.16,x-r,yy); c.quadraticCurveTo(x-r*.16,yy-r*.16,x,yy-r); c.fill();
+    c.globalAlpha=al*.5; c.beginPath(); c.arc(x,yy,r*.3,0,7); c.fill(); c.restore(); };
+  const SPC=['#19C6F7','#C79DF2','#F2A6C6','#FFD9A8','#37E08A','#FFFFFF'];
+  const glowCard=(x,yy,w,h,a,b2,strength)=>{
+    c.save(); c.shadowColor=a; c.shadowBlur=(strength||26); rr(c,x,yy,w,h,20);
+    const bg=c.createLinearGradient(x,yy,x+w,yy+h); bg.addColorStop(0,'rgba(255,255,255,.055)'); bg.addColorStop(1,'rgba(255,255,255,.018)');
+    c.fillStyle=bg; c.fill(); c.restore();
+    const lg=c.createLinearGradient(x,yy,x+w,yy+h); lg.addColorStop(0,a); lg.addColorStop(1,b2);
+    rr(c,x,yy,w,h,20); c.strokeStyle=lg; c.lineWidth=1.8; c.stroke();
+    /* внутренний блик сверху */
+    const hl=c.createLinearGradient(x,yy,x,yy+70); hl.addColorStop(0,'rgba(255,255,255,.07)'); hl.addColorStop(1,'rgba(255,255,255,0)');
+    c.save(); rr(c,x,yy,w,h,20); c.clip(); c.fillStyle=hl; c.fillRect(x,yy,w,70); c.restore(); };
+
+  /* блёстки: детерминированный рассев, чтобы лист всегда собирался одинаково */
+  let seed=0; for(const ch of (k+BW+H)) seed=(seed*31+ch.charCodeAt(0))%100000;
+  const rnd=()=>{ seed=(seed*1103515245+12345)%2147483648; return seed/2147483648; };
+  for(let i=0;i<Math.round(H/16);i++){
+    const sx=rnd()*BW, sy=rnd()*H, r=1.6+rnd()*7, col=SPC[Math.floor(rnd()*SPC.length)];
+    const edge=Math.min(sx,BW-sx)/BW; spark(sx,sy,r,col,(.1+rnd()*.42)*(edge<.12?1:.55));
+  }
+  ops.forEach(op=>{
+    const [t,oy]=op;
+    if(t==='hdr'){
+      c.save(); c.shadowColor='rgba(199,157,240,.85)'; c.shadowBlur=18;
+      c.fillStyle=holo(); c.fillRect(PAD, oy-40, inner, 3); c.restore();
+      c.font=F(800,29); c.textBaseline='alphabetic';
+      c.save(); c.shadowColor='rgba(199,157,240,.6)'; c.shadowBlur=16;
+      c.fillStyle=holo(PAD, PAD+150); c.fillText('LOOKA', PAD, oy); c.restore();
+      spark(PAD+152, oy-22, 7, '#F2A6C6', .9); spark(PAD+168, oy-8, 4, '#19C6F7', .7);
+      const lw=c.measureText('LOOKA').width;
+      c.font=F(400,13,MONO); c.fillStyle='#A8AEC2';
+      c.fillText('· '+C.e.toUpperCase(), PAD+lw+34, oy-1);
+      c.font=F(800,20); c.textAlign='right';
+      c.save(); c.shadowColor='rgba(25,198,247,.5)'; c.shadowBlur=14;
+      c.fillStyle=holo(BW-PAD-360, BW-PAD); c.fillText(C.t.toUpperCase(), BW-PAD, oy); c.restore(); c.textAlign='left';
+    }
+    if(t==='img'){
+      const h=op[2]; c.save(); rr(c,PAD,oy,inner,h,22); c.clip();
+      c.fillStyle='#0E1018'; c.fillRect(PAD,oy,inner,h);
+      const sc=Math.min(inner/IM.width, h/IM.height);
+      c.drawImage(IM, PAD+(inner-IM.width*sc)/2, oy+(h-IM.height*sc)/2, IM.width*sc, IM.height*sc);
+      c.restore();
+      c.save(); c.shadowColor='rgba(199,157,240,.55)'; c.shadowBlur=34;
+      rr(c,PAD,oy,inner,h,22); c.strokeStyle=holo(); c.lineWidth=2.4; c.stroke(); c.restore();
+      spark(PAD+6, oy+8, 9, '#C79DF2', .95); spark(BW-PAD-8, oy+h-10, 8, '#19C6F7', .85);
+    }
+    if(t==='verd'){ c.font=F(800,41);
+      c.save(); c.shadowColor='rgba(199,157,240,.45)'; c.shadowBlur=22;
+      const vg=c.createLinearGradient(PAD,oy,BW-PAD,oy+op[2].length*50); vg.addColorStop(0,'#FFFFFF'); vg.addColorStop(.55,'#E6D8FF'); vg.addColorStop(1,'#FFD7E8');
+      c.fillStyle=vg; op[2].forEach((l,i)=>c.fillText(l, PAD, oy+36+i*50)); c.restore();
+      spark(PAD-20, oy+22, 10, '#F2A6C6', .9); }
+    if(t==='pal'){
+      const pl=op[2], sw=op[3]; c.font=F(400,12,MONO); c.fillStyle='#C7A6F0'; c.fillText('ВАША ПАЛИТРА', PAD, oy+4);
+      pl.forEach((x,i)=>{ const px=PAD+i*(sw+16); const hx=(String(x.hex).startsWith('#')?x.hex:'#'+x.hex);
+        c.save(); c.shadowColor=hx; c.shadowBlur=24;
+        rr(c,px,oy+22,sw,sw,16); c.fillStyle=hx; c.fill(); c.restore();
+        rr(c,px,oy+22,sw,sw,16); c.strokeStyle='rgba(255,255,255,.4)'; c.lineWidth=1.6; c.stroke();
+        const gl=c.createLinearGradient(px,oy+22,px,oy+22+sw*.55); gl.addColorStop(0,'rgba(255,255,255,.3)'); gl.addColorStop(1,'rgba(255,255,255,0)');
+        c.save(); rr(c,px,oy+22,sw,sw,16); c.clip(); c.fillStyle=gl; c.fillRect(px,oy+22,sw,sw*.55); c.restore();
+        spark(px+sw-12, oy+34, 5, '#FFFFFF', .8);
+        c.font=F(700,12.5); c.fillStyle='#E4E7F0';
+        wrap(c, x.n||'', sw+8).slice(0,2).forEach((l,j)=>c.fillText(l, px, oy+22+sw+20+j*15));
+      });
+    }
+    if(t==='sec'){
+      const b=op[2], x=op[3], w=op[4], A=ACC[(op[5]||0)%ACC.length];
+      glowCard(x,oy,w,b.h,A[0],A[1],30);
+      c.save(); c.shadowColor=A[0]; c.shadowBlur=14; c.beginPath(); c.arc(x+26,oy+28,5.5,0,7); c.fillStyle=A[0]; c.fill(); c.restore();
+      c.font=F(400,12,MONO);
+      const sg=c.createLinearGradient(x+42,0,x+w-20,0); sg.addColorStop(0,A[0]); sg.addColorStop(1,A[1]);
+      c.fillStyle=sg; c.fillText(String(b.sec.h||'').toUpperCase(), x+42, oy+33);
+      c.fillStyle='#E4E7F0'; c.font=F(500,21); let ly=oy+34+32;
+      b.lines.forEach(l=>{ if(l===null){ ly+=8; return; } c.fillText(l, x+26, ly+16); ly+=31; });
+      spark(x+w-16, oy+14, 6, A[1], .75);
+    }
+    if(t==='no'){
+      const ls=op[2], h=op[3];
+      c.save(); c.shadowColor='rgba(255,111,168,.45)'; c.shadowBlur=26; rr(c,PAD,oy,inner,h,18); c.fillStyle='rgba(255,111,168,.1)'; c.fill(); c.restore();
+      rr(c,PAD,oy,inner,h,18); const ng=c.createLinearGradient(PAD,oy,BW-PAD,oy+h); ng.addColorStop(0,'#FF6FA8'); ng.addColorStop(1,'#FFB84C');
+      c.strokeStyle=ng; c.lineWidth=1.8; c.stroke();
+      c.font=F(400,12,MONO); c.fillStyle='#FF9DB0'; c.fillText('ЛУЧШЕ НЕ НАДО', PAD+26, oy+32);
+      spark(BW-PAD-16, oy+14, 7, '#FF6FA8', .8);
+      c.font=F(500,21); c.fillStyle='#E4E7F0'; ls.forEach((l,i)=>c.fillText(l, PAD+26, oy+32+28+i*31));
+    }
+    if(t==='first'){
+      const ls=op[2], h=op[3];
+      c.save(); c.shadowColor='rgba(199,157,240,.55)'; c.shadowBlur=32; rr(c,PAD,oy,inner,h,18);
+      const fg2=c.createLinearGradient(PAD,oy,BW-PAD,oy+h); fg2.addColorStop(0,'rgba(25,198,247,.14)'); fg2.addColorStop(1,'rgba(242,166,198,.14)');
+      c.fillStyle=fg2; c.fill(); c.restore();
+      rr(c,PAD,oy,inner,h,18); c.strokeStyle=holo(); c.lineWidth=2; c.stroke();
+      c.font=F(400,12,MONO); c.fillStyle='#C7A6F0'; c.fillText('С ЧЕГО НАЧАТЬ', PAD+26, oy+32);
+      spark(BW-PAD-18, oy+16, 8, '#19C6F7', .85); spark(PAD+8, oy+h-12, 6, '#F2A6C6', .7);
+      c.font=F(600,22); c.fillStyle='#fff'; ls.forEach((l,i)=>c.fillText(l, PAD+26, oy+32+28+i*32));
+    }
+    if(t==='foot'){
+      c.save(); c.shadowColor='rgba(25,198,247,.7)'; c.shadowBlur=16;
+      c.fillStyle=holo(); c.fillRect(PAD, oy-22, inner, 3); c.restore();
+      c.font=F(400,13,MONO); c.fillStyle='#8B92AA';
+      c.fillText('LOOKA · ЛИЧНЫЙ РАЗБОР · '+new Date().toLocaleDateString('ru-RU'), PAD, oy+8);
+      c.textAlign='right'; c.fillText('LOOKA-DROID.GITHUB.IO/LOOKA', BW-PAD, oy+8); c.textAlign='left';
+    }
+  });
+  try{ return cv.toDataURL('image/png'); }catch(e){ return null; }
+};
+window.renderBoard = k=>{
+  const C=BRD[k]; const box=document.getElementById(C.mount); if(!box) return;
+  const R=BP.out[k]; const busy=BP.busy===k;
+  box.innerHTML = `<div class="brd">
+    <div class="brd-head"><div><div class="cs-k">${C.e}</div><h3>${C.t}</h3><p class="tip">${C.d}</p></div>
+      <div class="brd-ph ${BP.photo?'has':''}" onclick="${BP.photo?'':`document.getElementById('brdInp-${k}').click()`}">${BP.photo?`<img src="data:image/jpeg;base64,${BP.photo}" alt=""><button class="mr-x" onclick="event.stopPropagation();brdClear()">✕</button>`:'<i>◉</i><span>портрет</span>'}</div></div>
+    <input type="file" id="brdInp-${k}" accept="image/*" style="display:none" onchange="brdFile('${k}',this.files[0])">
+    <div class="to-row">
+      ${BP.photo?`<button class="btn primary" ${busy?'disabled':''} onclick="brdGo('${k}')">${busy?'Собираю доску… ~40 секунд':(R?'↻ Собрать заново':'✦ Собрать доску')}</button>`
+        :`<label class="btn primary" style="cursor:pointer">📷 Загрузить портрет<input type="file" accept="image/*" style="display:none" onchange="brdFile('${k}',this.files[0])"></label><button class="btn ghost" onclick="brdMine('${k}')">Взять моё фото</button>`}
+      <span class="to-q">${(LOOKA_API||GEMINI_KEY)?('осталось досок в этом месяце: '+(LIM-q().n)):'включится вместе с генерацией картинок'}</span>
+    </div>
+    ${busy?`<div class="brd-scan"><div class="brd-sc-img"><img src="data:image/jpeg;base64,${BP.photo}" alt=""><div class="sc-grid"></div><div class="sc-line"></div></div>
+      <div><div class="cs-k">ИИ собирает доску</div><h4 id="brdStage-${k}">${BSTG[0]}</h4><div class="sc-prog"><i></i></div><div class="sc-stat">доска и расшифровка готовятся одновременно</div></div></div>`:''}
+    ${R?`<div class="brd-res">
+      ${R.board?`<a class="brd-img done" href="${R.board}" download="looka-${k}-${Date.now()}.png"><img src="${R.board}" alt="${C.t}"><span>↓ сохранить доску</span></a>`
+        :(R.img?`<a class="brd-img" href="${R.img}" download="looka-${k}.png"><img src="${R.img}" alt="${C.t}"><span>↓ сохранить</span></a><div class="brd-wait">Собираю лист…</div>`
+               :`<div class="mr-warn">Кадры не собрались${R.err?': '+R.err:''} — разбор ниже всё равно ваш.</div>`)}
+      ${R.txt?`<div class="brd-tx">
+        ${R.txt.v?`<div class="brd-v">${R.txt.v}</div>`:''}
+        <div class="brd-grid">${(R.txt.sec||[]).map((x,i)=>`<div class="brd-s pop" style="animation-delay:${(i*.06).toFixed(2)}s"><b>${x.h}</b><ul>${(x.i||[]).map(y=>`<li>${y}</li>`).join('')}</ul></div>`).join('')}</div>
+        ${(R.txt.no&&R.txt.no.length)?`<div class="brd-no"><b>Лучше не надо</b><span>${R.txt.no.join(' · ')}</span></div>`:''}
+        ${R.txt.first?`<div class="mr-prod"><span>с чего начать</span>${R.txt.first}</div>`:''}
+      </div>`:''}
+    </div>`:''}
+    <div class="b-priv">Нейросеть снимает только кадры с вами — весь лист LOOKA собирает сам: вёрстка, шрифты, палитра и русский текст наши, поэтому доска не повторяет чужие шаблоны и кириллица не рассыпается. Фото уходит в ИИ только на время разбора и нигде не хранится.</div>
+  </div>`;
+};
+window.brdAll = ()=>Object.keys(BRD).forEach(k=>renderBoard(k));
+window.brdPhoto = ()=>BP.photo;
+})();
+
+/* ================= ПРИМЕРОЧНАЯ ВОЛОС: ИИ меняет цвет и стрижку на фото ================= */
+(function(){
+const H = { photo:null, tab:'color', color:null, cut:null, busy:0, res:[], advice:null, stage:0 };
+const LIM = 12;
+function q(){ const m=new Date().toISOString().slice(0,7); let x={m,n:0}; try{ x=JSON.parse(localStorage.getItem('looka_hairlab')||'null')||x; }catch(e){} if(x.m!==m) x={m,n:0}; return x; }
+const COLORS_H = [
+ ['Пепельный блонд','#D7CFC2','ash blonde, cool beige-grey tone, no yellow','холодный'],
+ ['Тёплый медовый блонд','#DEBC84','warm honey blonde with golden ribbons','тёплый'],
+ ['Клубничный блонд','#D9A389','strawberry blonde, soft copper-pink blonde','тёплый'],
+ ['Русый натуральный','#A98B6B','natural light brown, soft neutral tone','нейтральный'],
+ ['Карамель и балаяж','#B98A5C','caramel balayage, soft sun-kissed gradient','тёплый'],
+ ['Медный','#B5612C','vivid copper ginger, rich saturated orange-red','тёплый'],
+ ['Рыжий махагон','#8E3B2E','mahogany auburn red, deep warm red-brown','тёплый'],
+ ['Вишнёвый','#6E2230','cherry cola red, cool deep berry red','холодный'],
+ ['Шоколадный','#4A3026','rich chocolate brown, glossy neutral brown','нейтральный'],
+ ['Эспрессо','#2E2220','espresso dark brown, almost black with warm depth','тёплый'],
+ ['Холодный чёрный','#15131A','blue-black, cool jet black with glossy shine','холодный'],
+ ['Мокко-брюнет','#3B2C2A','mocha brunette, soft matte brown','нейтральный'],
+ ['Платина','#E7E3DC','icy platinum blonde, almost white, cool','холодный'],
+ ['Розовое золото','#D8A2A0','rose gold pastel, soft pink-blonde','холодный']
+];
+/* силуэты стрижек: масса волос (за лицом) + чёлка (поверх лба) */
+const HC_SH = 'M38 72 L38 88 C24 93 16 104 14 132 L86 132 C84 104 76 93 62 88 L62 72Z';
+const hcSvg = (m,f)=>`<svg class="hk-svg" viewBox="0 0 100 132" aria-hidden="true"><path class="hk-sh" d="${HC_SH}"/><path class="hk-h" d="${m}"/><ellipse class="hk-fc" cx="50" cy="50" rx="16.5" ry="20.5"/><ellipse class="hk-ey" cx="43.5" cy="48" rx="2" ry="1.3"/><ellipse class="hk-ey" cx="56.5" cy="48" rx="2" ry="1.3"/><path class="hk-lp" d="M46 60 C48 63 52 63 54 60 C52 62 48 62 46 60Z"/>${f?`<path class="hk-h" d="${f}"/>`:''}</svg>`;
+const M_PIXIE='M31 52 C27 24 37 14 50 14 C63 14 73 24 69 52 C66 38 62 32 50 32 C38 32 34 38 31 52Z';
+const M_PXBOB='M30 58 C26 24 37 13 50 13 C63 13 74 24 70 58 L71 70 L64 68 C65 48 62 33 50 33 C38 33 35 48 36 68 L29 70Z';
+const M_BOB='M28 58 C24 24 36 13 50 13 C64 13 76 24 72 58 L72 74 L63 74 L64 44 C62 34 58 31 50 31 C42 31 38 34 36 44 L37 74 L28 74Z';
+const M_GBOB='M28 58 C24 24 36 13 50 13 C64 13 76 24 72 58 L75 80 L63 76 L64 44 C62 34 58 31 50 31 C42 31 38 34 36 44 L37 76 L25 80Z';
+const M_LOB='M27 58 C23 24 36 13 50 13 C64 13 77 24 73 58 L76 94 L63 94 L64 44 C62 34 58 31 50 31 C42 31 38 34 36 44 L37 94 L24 94Z';
+const M_LONG='M26 58 C22 24 36 12 50 12 C64 12 78 24 74 58 L78 120 L63 120 L64 44 C62 34 58 31 50 31 C42 31 38 34 36 44 L37 120 L22 120Z';
+const M_LAYER='M26 58 C22 24 36 12 50 12 C64 12 78 24 74 58 C77 80 79 102 77 120 L68 112 L71 92 L64 44 C62 34 58 31 50 31 C42 31 38 34 36 44 L29 92 L32 112 L23 120 C21 102 23 80 26 58Z';
+const M_WOLF='M26 54 C20 22 36 10 50 10 C64 10 80 22 74 54 C78 74 76 98 72 114 L66 100 L69 84 L64 44 C62 34 58 31 50 31 C42 31 38 34 36 44 L31 84 L34 100 L28 114 C24 98 22 74 26 54Z';
+const M_ITAL='M24 54 C17 18 36 8 50 8 C64 8 83 18 76 54 C79 72 77 86 73 96 L64 90 L64 44 C62 34 58 31 50 31 C42 31 38 34 36 44 L36 90 L27 96 C23 86 21 72 24 54Z';
+const F_SIDE='M34 40 C37 28 47 24 57 28 C63 30 66 36 66 41 C60 34 50 31 42 35 C38 37 35 39 34 40Z';
+const F_CURT='M34 38 C37 26 44 22 50 23 C56 22 63 26 66 38 C62 31 56 29 50 37 C44 29 38 31 34 38Z';
+const F_STR='M33 29 L67 29 L67 45 C60 41 40 41 33 45Z';
+const F_CHOP='M34 38 C38 26 46 23 50 24 C54 23 62 26 66 38 C63 32 60 36 57 31 C54 36 52 31 50 35 C48 31 46 36 43 31 C40 36 37 32 34 38Z';
+const CUTS_H = [
+ ['Боб до челюсти', M_BOB, F_STR, 'french bob ending exactly at the jawline, blunt one-length hemline, short straight fringe to the brows','овал, вытянутое','рамка для скул, но открывает шею — объём держится сам'],
+ ['Удлинённое каре', M_LOB, '', 'long bob (lob) ending at the collarbone, soft blunt ends, centre parting, no fringe','круглое, квадратное','самая безопасная длина: и собрать можно, и распустить'],
+ ['Каскад с шторкой', M_LAYER, F_CURT, 'long layered shag, face-framing layers starting at the cheekbone, soft curtain bangs parted in the middle','квадратное, круглое','смягчает углы лица и даёт движение тонким волосам'],
+ ['Пикси', M_PIXIE, F_SIDE, 'short textured pixie crop, close at the nape and sides, piecey side-swept fringe','овал, сердце','максимум характера и пять минут утром — но отращивать год'],
+ ['Пикси-боб', M_PXBOB, F_SIDE, 'short pixie bob, soft tapered nape, longer textured top, side fringe','овал, ромб','мягче пикси: короткий затылок, но длина у лица остаётся'],
+ ['Волчица (wolf cut)', M_WOLF, F_CHOP, 'wolf cut: heavy choppy layers on top, wispy thinned ends, shaggy choppy fringe','овал, вытянутое','объём сверху и лёгкость снизу — для густых и прямых'],
+ ['Итальянка', M_ITAL, F_CURT, 'italian cut: round volume on the crown, layered rounded silhouette to the shoulders','вытянутое, прямоугольное','круглый объём на макушке укорачивает вытянутое лицо'],
+ ['Длина с лесенкой', M_LAYER, '', 'long hair with face-framing layers starting at the chin, no fringe, soft graduated ends','круглое, квадратное','длину сохраняем, лицо открываем — компромисс без ножниц по длине'],
+ ['Ровный срез до груди', M_LONG, '', 'one-length cut to the chest, perfectly blunt heavy hemline, no layers, no fringe','любая','визуально уплотняет концы: лучшее для тонких волос'],
+ ['Шторка-чёлка', M_LONG, F_CURT, 'keep the current length, add soft curtain bangs parted in the middle, blending into the length','круглое, вытянутое','самая мягкая чёлка: можно убрать за ухо и передумать'],
+ ['Прямая чёлка', M_LONG, F_STR, 'keep the current length, add a straight full fringe cut to the eyebrows','вытянутое, овал','укорачивает лицо и открывает глаза — но требует укладки каждый день'],
+ ['Каре с градуировкой', M_GBOB, '', 'graduated bob: shorter stacked nape, longer front pieces, A-line silhouette','круглое, полное','стрижка-подтяжка: короткий затылок поднимает линию челюсти']
+];
+window.hlTab = t=>{ H.tab=t; renderHairLab(); };
+let HAUTO=null;
+function hlAuto(){ clearTimeout(HAUTO); if(!H.photo || H.busy) return; if(H.color===null && H.cut===null) return;
+  HAUTO = setTimeout(()=>{ if(!H.busy) hlGo(); }, 650); }
+window.hlPickColor = i=>{ H.color = (H.color===i?null:i); renderHairLab(); hlAuto(); };
+window.hlPickCut = i=>{ H.cut = (H.cut===i?null:i); renderHairLab(); hlAuto(); };
+window.hlFile = async f=>{ if(!f) return; try{ const d = await shrinkImage(f, 1100); H.photo = (d&&d.data)?d.data:String(d).split(',').pop(); H.res=[]; if(window.brdSeed) brdSeed(H.photo); renderHairLab(); const o=document.getElementById('hlOut'); if(o) o.innerHTML=''; myToast('Фото загружено — выберите цвет или стрижку, примерка запустится сама'); }catch(e){ myToast('Фото не принято: '+(e.message||e)); } };
+window.hlUseMine = ()=>{ if(S.photo){ H.photo = S.photo; H.res=[]; renderHairLab(); myToast('Взяла фото из анкеты'); } else myToast('В анкете фото пока нет — загрузите здесь'); };
+window.hlPhoto = ()=>H.photo;
+window.hlAdopt = d=>{ if(d && !H.photo){ H.photo=d; H.res=[]; renderHairLab(); } };
+window.hlClear = ()=>{ H.photo=null; H.res=[]; renderHairLab(); const o=document.getElementById('hlOut'); if(o) o.innerHTML=''; };
+const STG = ['Нахожу линию роста волос…','Снимаю маску волос по контуру…','Считываю подтон кожи и глаз…','Перекрашиваю прядь за прядью…','Пересобираю форму и объём…','Свожу свет и блики…','Проверяю, что лицо не изменилось…'];
+function scanBox(){
+  return `<div class="hl-scan"><div class="hl-sc-img"><img src="data:image/jpeg;base64,${H.photo}" alt=""><div class="sc-grid"></div><div class="sc-line"></div><div class="hl-sc-mask"></div></div>
+    <div class="hl-sc-txt"><div class="cs-k">ИИ работает с вашим фото</div><h3 id="hlStage">${STG[0]}</h3>
+      <div class="mr-sc-list">${STG.slice(0,6).map((t,i)=>`<div class="mr-sl" id="hlSl${i}"><span>${i+1}</span>${t.replace('…','')}</div>`).join('')}</div>
+      <div class="sc-prog"><i></i></div><div class="sc-stat">20–40 секунд · лицо остаётся вашим, меняются только волосы</div></div></div>`;
+}
+let HT=null;
+function stageRun(){ let i=0; clearInterval(HT); HT=setInterval(()=>{ i++; const h=document.getElementById('hlStage'); if(!h){ clearInterval(HT); return; } h.style.opacity=0; setTimeout(()=>{ h.textContent=STG[i%STG.length]; h.style.opacity=1; },180); const li=document.getElementById('hlSl'+((i-1)%6)); if(li) li.classList.add('ok'); }, 2800); }
+window.hlGo = async ()=>{
+  if(!H.photo || H.busy) return;
+  if(H.color===null && H.cut===null){ myToast('Выберите цвет, стрижку — или и то, и другое'); return; }
+  if(!LOOKA_API && !GEMINI_KEY){ myToast('Примерочная включится вместе с генерацией картинок'); return; }
+  const st=q(); if(st.n>=LIM){ myToast('Лимит примерок волос на этот месяц исчерпан ('+LIM+')'); return; }
+  const C = H.color!==null?COLORS_H[H.color]:null, K = H.cut!==null?CUTS_H[H.cut]:null;
+  H.busy=1; renderHairLab();
+  const out=document.getElementById('hlOut'); if(out){ out.innerHTML = scanBox(); stageRun(); if(window.glide) glide(out,110,700); }
+  let base=''; try{ const hh=JSON.parse(localStorage.getItem('looka_hair')||'{}'); base=[hh.type,hh.dens,hh.len].filter(Boolean).join(', '); }catch(e){}
+  const prompt = 'This is an unretouched photograph of a real woman. Perform a precise, photorealistic HAIR-ONLY edit, as a professional retoucher would for a salon portfolio. '
+    + (base?('Her natural hair is: '+base+'. '):'')
+    + (C?('COLOUR: recolour her hair to '+C[2]+'. '
+        + 'Make it look like real dyed hair, never a flat colour overlay: build it from several tones of the same family, keep the roots about two shades deeper for 2-3 cm, let the mid-lengths be slightly lighter than the roots and the ends lightest, and keep the colour slightly cooler in shadow and warmer where the light hits. '
+        + 'Hair is semi-transparent at the edges: individual strands and flyaways must keep their soft edges against the background, with no hard cut-out line and no coloured halo. '
+        + 'The colour must not bleed onto her skin, eyebrows, eyelashes, ears, neck, clothes or the background. Eyebrows stay exactly as they are. '):'COLOUR: keep her existing hair colour, tone and shine pixel-for-pixel. ')
+    + (K?('CUT: restyle the hair into '+K[3]+'. '
+        + 'Rebuild the silhouette as a real stylist would on HER head: follow her actual hairline, parting, crown whorl, ear position and the shape of her skull. Keep her own hair texture and curl pattern — do not straighten curls or curl straight hair. '
+        + 'Cut ends must look cut: visible individual ends, slight irregularity, no helmet, no wig, no painted-on shape. If the hair becomes shorter, the background and shoulders behind the removed hair must be reconstructed believably. '):'CUT: keep her current haircut, length, parting and volume exactly. ')
+    + 'LIGHT: match the existing photograph exactly — same light direction, same colour temperature, same contrast, same softness of shadows, same grain and noise level, same focus and depth of field. The hair must cast its own soft shadow on the forehead, temples, ear and neck, and pick up the same highlights as the original photo. '
+    + 'UNCHANGED: face, facial features, expression, eyes, eyebrows, lashes, makeup, skin texture, pores, moles, freckles, jawline, neck, body, clothes, jewellery, pose, framing, lighting and background must remain IDENTICAL to the original, pixel for pixel. Do not beautify, slim, smooth or retouch her face. '
+    + 'The result must be indistinguishable from a real photograph of the same woman taken in the same second after a hair appointment. '
+    + 'Avoid: flat block colour, wig look, helmet hair, plastic or 3D-rendered hair, glowing halo around the head, colour bleeding onto skin or background, blurred or smudged hairline, cartoon or illustration style, beauty-filter skin, text, watermark, collage, split screen, extra people.';
+  try{
+    let img=null, mime='image/png';
+    if(LOOKA_API){
+      const r = await fetch(LOOKA_API.replace(/\/$/,'')+'/tryon', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ face:H.photo, prompt }) });
+      const j = await r.json();
+      if(!r.ok || !j.image) throw new Error((j.error||'ошибка генерации')+(j.detail?' · '+j.detail:''));
+      img=j.image; mime=j.mime||mime;
+    } else {
+      const r = await geminiCall(GEMINI_IMAGE, [{inline_data:{mime_type:'image/jpeg',data:H.photo}},{text:prompt}], {responseModalities:['IMAGE','TEXT']});
+      if(!r.ok) throw new Error('генератор недоступен ('+r.status+')');
+      const j = await r.json(); const o=(j.candidates?.[0]?.content?.parts||[]).find(x=>x.inlineData||x.inline_data);
+      if(!o) throw new Error('модель не вернула картинку'); const d=o.inlineData||o.inline_data; img=d.data; mime=d.mimeType||d.mime_type||mime;
+    }
+    st.n++; localStorage.setItem('looka_hairlab', JSON.stringify(st));
+    clearInterval(HT); H.busy=0;
+    H.res.unshift({ img:'data:'+mime+';base64,'+img, c:C?C[0]:null, k:K?K[0]:null, ts:Date.now() });
+    H.res = H.res.slice(0,8);
+    renderHairLab(); hlDrawRes();
+  }catch(e){ clearInterval(HT); H.busy=0; renderHairLab(); const o=document.getElementById('hlOut'); if(o) o.innerHTML=`<div class="mr-warn">Не вышло: ${e.message}. Попробуйте фото, где лицо и волосы видно целиком и крупно.</div>`; }
+};
+window.hlDrawRes = ()=>{
+  const out=document.getElementById('hlOut'); if(!out) return;
+  if(!H.res.length){ out.innerHTML=''; return; }
+  out.innerHTML = `<div class="look badv mk-wide"><div class="look-in">
+    <div class="cs-k">ПРИМЕРКА НА ВАШЕМ ФОТО</div><h3>Так это выглядит на вас</h3>
+    <div class="tip">Слева — вы сейчас, справа — результат. Это иллюстрация, а не обещание: покажите картинку колористу, он скажет, за сколько сеансов это реально на вашей базе.</div>
+    ${H.res.map((r,i)=>`<div class="hl-ba pop" style="animation-delay:${(i*.08).toFixed(2)}s">
+      <div class="hl-ba-h"><b>${[r.c,r.k].filter(Boolean).join(' · ')||'Новый образ'}</b><a class="btn ghost hl-dl" download="looka-hair-${i+1}.png" href="${r.img}">↓ Сохранить</a></div>
+      <div class="hl-pair"><figure><img src="data:image/jpeg;base64,${H.photo}" alt=""><figcaption>до</figcaption></figure><figure class="aft"><img src="${r.img}" alt=""><figcaption>после</figcaption></figure></div>
+      <div class="to-row"><a class="btn ghost" target="_blank" rel="noopener" href="https://www.pinterest.com/search/pins/?q=${encodeURIComponent((r.c||'')+' '+(r.k||'')+' hair')}">◈ Такие же в Pinterest</a>${r.c?`<span class="to-q">Скажите колористу: «${r.c}»</span>`:''}</div>
+    </div>`).join('')}
+  </div></div>`;
+  if(window.HUB&&HUB.done) HUB.done(out); else if(window.glide) glide(out,110,900);
+};
+window.hlAdvice = async ()=>{
+  if(H.busy===2) return;
+  let hh={}, mm={}; try{ hh=JSON.parse(localStorage.getItem('looka_hair')||'{}'); }catch(e){}
+  try{ mm=JSON.parse(localStorage.getItem('looka_makeup')||'{}'); }catch(e){}
+  const cs=(()=>{ try{ return (JSON.parse(localStorage.getItem('looka_cs')||'{}')).type||(JSON.parse(localStorage.getItem('looka_color')||'{}')).type||''; }catch(e){ return ''; } })();
+  H.busy=2; renderHairLab();
+  const prompt='Ты — колорист и парикмахер LOOKA. Клиентка: форма лица '+(hh.face||mm.face||'не указана')+', структура волос '+(hh.type||'не указана')+', густота '+(hh.dens||'не указана')+', длина сейчас '+(hh.len||'не указана')+', времени на укладку утром '+(hh.time||'не указано')+', цветотип '+(cs||'не определён')+', цвет глаз '+(S.eyes||mm.eyes||'не указан')+', тон кожи '+(S.skin||mm.skin||'не указан')+'.\n'
+   +'Доступные цвета: '+COLORS_H.map(c=>c[0]).join(', ')+'.\nДоступные стрижки: '+CUTS_H.map(c=>c[0]).join(', ')+'.\n'
+   +'Ответь ТОЛЬКО валидным JSON без markdown: {"yes_c":["3-4 названия цветов из списка, которые ей пойдут"],"no_c":["1-2 цвета из списка, которых лучше избегать"],"yes_k":["2-3 стрижки из списка"],"no_k":["1-2 стрижки из списка"],"why":"3-4 фразы: почему именно так — по цветотипу, форме лица и структуре волос","salon":"что сказать мастеру одной фразой"}\nПо-русски, без оценок внешности и без слов о весе.';
+  try{
+    const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:900, messages:[{role:'user', content:prompt}] }) });
+    const j = await r.json();
+    if(j.error) throw new Error('мост ответил ошибкой');
+    const t=(j.content&&j.content[0]&&j.content[0].text||'').replace(/```json|```/g,'').trim();
+    H.advice = JSON.parse(t); H.busy=0; renderHairLab();
+  }catch(e){ H.busy=0; renderHairLab(); myToast('Совет не загрузился: '+e.message); }
+};
+window.renderHairLab = ()=>{
+  const box=document.getElementById('hlBox'); if(!box) return;
+  const A=H.advice;
+  const tag=(n,arr,cls)=>arr&&arr.indexOf(n)>=0?` ${cls}`:'';
+  box.innerHTML = `
+  <div class="hl-top">
+    <div class="hl-drop ${H.photo?'has':''}" onclick="${H.photo?'':"document.getElementById('hlInp').click()"}">
+      ${H.photo?`<img src="data:image/jpeg;base64,${H.photo}" alt=""><button class="mr-x" onclick="event.stopPropagation();hlClear()">✕</button>`:`<i>◉</i><b>Ваше фото</b><span>селфи при ровном свете, лицо и волосы видно целиком, без фильтров и шапки</span>`}
+      ${H.photo?'<span class="hl-auto">цвет и стрижка меняются на нём автоматически</span>':''}
+    </div>
+    <div class="hl-side">
+      <div class="cs-k">как это работает</div>
+      <p class="tip">ИИ оставляет ваше лицо и свет как есть и меняет только волосы. Выберите цвет, стрижку — или и то и другое сразу — и посмотрите «до/после» на себе, а не на модели из каталога.</p>
+      ${H.photo?'':`<label class="btn primary" style="cursor:pointer">📷 Загрузить фото<input type="file" id="hlInp" accept="image/*" style="display:none" onchange="hlFile(this.files[0])"></label>
+      <button class="btn ghost" onclick="hlUseMine()">Взять фото из анкеты</button>`}
+      <button class="btn ghost" ${H.busy?'disabled':''} onclick="hlAdvice()">${H.busy===2?'Думаю…':'✦ Что мне вообще подойдёт?'}</button>
+    </div>
+  </div>
+  ${H.photo?'':'<input type="file" id="hlInp" accept="image/*" style="display:none" onchange="hlFile(this.files[0])">'}
+  ${A?`<div class="hl-adv"><div class="cs-k">РЕКОМЕНДАЦИЯ ПОД ВАШИ ДАННЫЕ</div>
+    <div class="hl-adv-g"><div><b class="ok">Вам пойдёт</b><span>${(A.yes_c||[]).concat(A.yes_k||[]).join(' · ')}</span></div><div><b class="no">Лучше не трогать</b><span>${(A.no_c||[]).concat(A.no_k||[]).join(' · ')||'жёстких запретов нет'}</span></div></div>
+    <p class="tip">${A.why||''}</p>${A.salon?`<div class="mr-prod"><span>фраза для мастера</span>${A.salon}</div>`:''}</div>`:''}
+  <div class="hl-tabs"><button class="hl-tb ${H.tab==='color'?'on':''}" onclick="hlTab('color')">Цвет${H.color!==null?' ✓':''}</button><button class="hl-tb ${H.tab==='cut'?'on':''}" onclick="hlTab('cut')">Стрижка${H.cut!==null?' ✓':''}</button></div>
+  ${H.tab==='color'?`<div class="hl-cols">${COLORS_H.map((c,i)=>`<button class="hl-c ${H.color===i?'on':''}${tag(c[0],A&&A.yes_c,'good')}${tag(c[0],A&&A.no_c,'bad')}" onclick="hlPickColor(${i})" style="animation-delay:${(i*.04).toFixed(2)}s"><i style="background:${c[1]}"></i><b>${c[0]}</b><em>${c[3]}</em></button>`).join('')}</div>`
+   :`<div class="hl-cuts" style="--hc:${H.color!==null?COLORS_H[H.color][1]:'#4A3026'}">${CUTS_H.map((c,i)=>`<button class="hl-k ${H.cut===i?'on':''}${tag(c[0],A&&A.yes_k,'good')}${tag(c[0],A&&A.no_k,'bad')}" onclick="hlPickCut(${i})" style="animation-delay:${(i*.05).toFixed(2)}s">${hcSvg(c[1],c[2])}<span class="hk-tx"><b>${c[0]}</b><em>идёт: ${c[4]}</em><u>${c[5]}</u></span></button>`).join('')}</div>`}
+  <div class="to-row" style="margin-top:16px"><button class="btn primary" ${(!H.photo||H.busy||(H.color===null&&H.cut===null))?'disabled':''} onclick="clearTimeout(HAUTO);hlGo()">${H.busy===1?'Меняю волосы… ~30 секунд':(H.photo?'↻ Переделать':'✦ Примерить на моём фото')}</button><button class="btn ghost" ${(H.busy||!H.photo)?'disabled':''} onclick="H_rand()">⚄ Удиви меня</button><span class="to-q">${(LOOKA_API||GEMINI_KEY)?('осталось примерок в этом месяце: '+(LIM-q().n)):'включится вместе с генерацией картинок'}</span></div>
+  <div class="b-priv">${H.photo?'Выбираете цвет или стрижку — примерка на вашем фото запускается сама. ':''}Фото уходит в ИИ только на время примерки и нигде не хранится. Результат — иллюстрация: реальный цвет зависит от вашей базы и состояния волос, это решает колорист.</div>`;
+};
+window.H_rand = ()=>{ H.color=Math.floor(Math.random()*COLORS_H.length); H.cut=Math.floor(Math.random()*CUTS_H.length); renderHairLab(); hlGo(); };
+window.openHairLab = ()=>{ if(window.openPage) openPage('hairPage'); if(!H.photo && window.brdPhoto && brdPhoto()) H.photo=brdPhoto(); setTimeout(()=>{ renderHairLab(); const b=document.getElementById('hlBox'); if(b&&window.glide) glide(b,100,700); }, 120); };
+})();
+
 /* ================= ПОВТОРИТЬ МАКИЯЖ С ФОТО: референс + ваша косметичка ================= */
 (function(){
 const R = { ref:null, prods:null, busy:false };
@@ -10960,7 +11646,7 @@ window.mrGo = async ()=>{
   if(!R.ref || R.busy) return;
   if(!LOOKA_API && !GEMINI_KEY){ myToast('Разбор референсов включится вместе с ИИ-мостом'); return; }
   const s = q(); if(s.n >= LIM){ myToast('Лимит разборов на этот месяц исчерпан ('+LIM+')'); return; }
-  R.busy = true; renderMkRef();
+  R.busy = true; renderMkRef(); mrScanStart();
   let M = {}; try{ M = JSON.parse(localStorage.getItem('looka_makeup')||'{}'); }catch(e){}
   const me = ['Мои данные:', M.eye?('форма глаз — '+M.eye):null, M.sp?('посадка — '+M.sp):null, M.face?('форма лица — '+M.face):null, (M.eyes||S.eyes)?('цвет глаз — '+(M.eyes||S.eyes)):null, (M.skin||S.skin)?('тон кожи — '+(M.skin||S.skin)):null].filter(Boolean).join(' ');
   const content = [ {type:'image', source:{type:'base64', media_type:'image/jpeg', data:R.ref.split(',')[1]}} ];
@@ -10970,8 +11656,8 @@ window.mrGo = async ()=>{
 (me||'Данных о внешности нет — дай универсальную схему.') + '\n' +
 'Разбери макияж с референса и адаптируй под её черты (если её форма глаз или посадка другие — скажи, что изменить, а не копировать вслепую).\n' +
 'Ответь ТОЛЬКО валидным JSON без markdown:\n' +
-'{"name":"название макияжа 2-4 слова","vibe":"1 фраза — характер этого макияжа","steps":[{"z":"зона (Кожа/Брови/Веко/Стрелка/Ресницы/Румяна/Губы)","d":"что и как сделать, конкретно, с оттенками","tool":"чем: какая кисть/спонж/палец","own":"её продукт со второго фото, если подходит, иначе пустая строка"}],"adapt":"2-3 фразы: что изменено под её черты и почему","buy":[{"n":"чего не хватает","q":"поисковый запрос"}],"warn":"если на референсе техника, которая ей не пойдёт — предупреди, иначе пустая строка"}\n' +
-'Шагов 6-10, в порядке реального нанесения. По-русски.'});
+'{"name":"название макияжа 2-4 слова","vibe":"1 фраза — характер этого макияжа","pal":[{"hex":"#RRGGBB","n":"как называется оттенок","w":"где он лежит на лице"}],"steps":[{"z":"зона (Кожа/Брови/Веко/Стрелка/Ресницы/Румяна/Губы)","d":"что и как сделать: точные оттенки, границы растяжки, сколько слоёв, что чем перекрыть","tool":"чем: какая кисть по номеру или форме / спонж / палец","prod":"конкретная косметика: тип средства + 1-2 примера марок и названий оттенков в её бюджете","own":"её продукт со второго фото, если подходит, иначе пустая строка"}],"adapt":"2-3 фразы: что изменено под её черты и почему","buy":[{"n":"чего не хватает","q":"поисковый запрос"}],"warn":"если на референсе техника, которая ей не пойдёт — предупреди, иначе пустая строка"}\n' +
+'В pal — 4-6 главных оттенков с РЕАЛЬНЫМИ hex-кодами, снятыми с фото. Шагов 7-10, в порядке реального нанесения. В каждом шаге обязательно назови оттенок словами и дай конкретный продукт, которым это повторить. По-русски.'});
   try{
     const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1900, messages:[{role:'user', content}] }) });
     const j = await r.json();
@@ -10979,20 +11665,40 @@ window.mrGo = async ()=>{
     const t = (j.content&&j.content[0]&&j.content[0].text||'').replace(/```json|```/g,'').trim();
     const d = JSON.parse(t);
     s.n++; localStorage.setItem('looka_mkref', JSON.stringify(s));
-    R.busy = false; renderMkRef();
+    mrScanStop(); R.busy = false; renderMkRef();
     const out = document.getElementById('mrOut');
     out.innerHTML = `
       <div class="look badv mk-wide"><div class="look-in">
         <div class="cs-k">РАЗБОР РЕФЕРЕНСА</div>
         <h3>${d.name||'Ваш макияж'}</h3><div class="tip">${d.vibe||''}</div>
         ${d.warn?'<div class="mr-warn">⚠ '+d.warn+'</div>':''}
-        <ol class="mk-steps">${(d.steps||[]).map((st,i)=>HUB.pop(`<li><b>${st.z}</b><span class="mk-tool">${st.tool||''}${st.own?' · ваш продукт: '+st.own:''}</span><p>${st.d}</p></li>`,i)).join('')}</ol>
+        ${(d.pal&&d.pal.length)?'<div class="mr-pal">'+d.pal.map((c,i)=>`<div class="mr-pc" style="animation-delay:${(i*.07).toFixed(2)}s"><i style="background:${c.hex||'#888'}"></i><b>${c.n||''}</b><em>${c.w||''}</em></div>`).join('')+'</div>':''}
+        <ol class="mk-steps">${(d.steps||[]).map((st,i)=>HUB.pop(`<li><b>${st.z}</b><span class="mk-tool">${st.tool||''}${st.own?' · ваш продукт: '+st.own:''}</span><p>${st.d}</p>${st.prod?'<div class="mr-prod"><span>чем повторить</span>'+st.prod+'</div>':''}</li>`,i)).join('')}</ol>
         ${d.adapt?'<div class="hp-sub" style="margin-top:14px">АДАПТИРОВАНО ПОД ВАС</div><div class="tip">'+d.adapt+'</div>':''}
         ${(d.buy&&d.buy.length)?'<div class="hp-sub" style="margin-top:14px">ЧЕГО НЕ ХВАТАЕТ</div>'+d.buy.map(b=>`<div class="item"><div class="nm">${b.n}</div>${beautyButtons(b.q||b.n)}</div>`).join(''):''}
       </div></div>`;
     HUB.done(out);
-  }catch(e){ R.busy = false; renderMkRef(); myToast('Не разобрала: '+e.message); }
+  }catch(e){ mrScanStop(); R.busy = false; renderMkRef(); myToast('Не разобрала: '+e.message); }
 };
+/* анимация «ИИ изучает фото»: сканирующая линия по референсу + стадии разбора */
+const MR_STAGES = ['Ищу лицо и свет на фото…','Разбираю кожу: тон, финиш, плотность…','Считываю схему глаз: где тёмное, где блик…','Определяю оттенки теней и подводки…','Читаю румяна и скульптуру…','Разбираю губы: цвет, текстура, контур…','Сверяю с вашей формой глаз и посадкой…','Подбираю, чем это повторить…','Собираю шаги в правильном порядке…'];
+let MR_T = null;
+window.mrScanStart = ()=>{
+  const out = document.getElementById('mrOut'); if(!out) return;
+  out.innerHTML = `<div class="mr-scanwrap"><div class="mr-scan">
+      <div class="mr-sc-img ${R.ref?'':'noimg'}">${R.ref?`<img src="${R.ref}" alt="">`:'<i>◈</i>'}<div class="sc-grid"></div><div class="sc-line"></div><div class="mr-sc-box"></div><div class="mr-sc-pts">${Array.from({length:7}).map((_,i)=>`<i style="animation-delay:${(i*.22).toFixed(2)}s"></i>`).join('')}</div></div>
+      <div class="mr-sc-txt"><div class="cs-k">ИИ изучает референс</div><h3 id="mrStage">${MR_STAGES[0]}</h3>
+        <div class="mr-sc-list">${MR_STAGES.slice(0,6).map((t,i)=>`<div class="mr-sl" id="mrSl${i}"><span>${i+1}</span>${t.replace('…','')}</div>`).join('')}</div>
+        <div class="sc-prog"><i></i></div><div class="sc-stat">обычно 15–25 секунд · не закрывайте страницу</div></div>
+    </div></div>`;
+  if(window.glide) glide(out, 110, 700);
+  let i = 0; clearInterval(MR_T);
+  MR_T = setInterval(()=>{ i++; const h=document.getElementById('mrStage'); if(!h){ clearInterval(MR_T); return; }
+    h.style.opacity=0; setTimeout(()=>{ h.textContent = MR_STAGES[i % MR_STAGES.length]; h.style.opacity=1; }, 180);
+    const li=document.getElementById('mrSl'+((i-1)%6)); if(li) li.classList.add('ok');
+  }, 2600);
+};
+window.mrScanStop = ()=>{ clearInterval(MR_T); MR_T=null; };
 window.renderMkRef = ()=>{
   const box = document.getElementById('mrBox'); if(!box) return;
   box.innerHTML = `
@@ -12678,18 +13384,18 @@ const BEAU = [
 /* 10 · СТИЛЕВОЙ ТИПАЖ — 12 вопросов → романтик / драматик / классик / натурал / гамин / богема / спорт-шик */
 const TYPES7 = { rom:['Романтик','мягкие линии, кружево, пастель, объём у плеч, локоны — ваша сила в нежности'], dram:['Драматик','чёткие линии, контраст, чёрный, крупные акценты — вы входите и вас видят'], cls:['Классик','чистые линии, качество, нейтральные цвета, ничего лишнего — вам верят с первого взгляда'], nat:['Натурал','свобода, натуральные ткани, кэжуал, минимум укладки — вы удобная сама себе'], gam:['Гамин','короткие стрижки, игривые детали, мини, полоска — вы озорная и лёгкая'], boh:['Богема','принты, слои, этника, украшения с историей — вы про свободу и путешествия'], spt:['Спорт-шик','кроссовки с жакетом, техничные ткани, функция — вы в движении'] };
 const TQ = [
- ['Утро выходного. Что надеваете первым',[['мягкий кардиган и юбка','rom'],['чёрный тотал-лук','dram'],['белая рубашка и джинсы','cls'],['лён и кроссовки','nat'],['мини и полосатый лонгслив','gam'],['длинная юбка с принтом','boh'],['спортивный костюм премиум','spt']]],
- ['Ваша идеальная сумка',[['маленькая с бантом','rom'],['крупная геометричная','dram'],['структурная классическая','cls'],['холщовая шоппер','nat'],['кросс-боди яркая','gam'],['плетёная или с бахромой','boh'],['рюкзак или поясная','spt']]],
- ['Обувь, в которой вы — это вы',[['балетки или мэри-джейн','rom'],['высокие сапоги или шпилька','dram'],['лоферы','cls'],['кеды или биркенштоки','nat'],['ботинки на шнуровке','gam'],['ковбойские сапоги или сандалии','boh'],['кроссовки','spt']]],
- ['Что для вас «красиво»',[['нежно','rom'],['эффектно','dram'],['безупречно','cls'],['естественно','nat'],['задорно','gam'],['душевно','boh'],['удобно и модно','spt']]],
- ['Любимый принт',[['цветы и горох','rom'],['без принтов, только контраст','dram'],['тонкая клетка или полоска','cls'],['без принтов, фактура','nat'],['яркая полоска, сердечки','gam'],['пейсли, этника, пэчворк','boh'],['логотип или графика','spt']]],
- ['Волосы в идеале',[['локоны','rom'],['гладкие тёмные или яркие','dram'],['ухоженные, аккуратные','cls'],['натуральные, слегка небрежные','nat'],['короткие','gam'],['длинные с косами или волной','boh'],['высокий хвост','spt']]],
- ['Вечеринка. Ваш образ',[['платье с открытыми плечами','rom'],['чёрное с вырезом','dram'],['маленькое чёрное, жемчуг','cls'],['джинсы и красивый топ','nat'],['мини и ботинки','gam'],['длинное с принтом, много колец','boh'],['брюки-палаццо и кроп','spt']]],
- ['Ваш цвет',[['пудра, лаванда','rom'],['чёрный, бордо, изумруд','dram'],['синий, бежевый, белый','cls'],['хаки, песок, деним','nat'],['красный, жёлтый, полоска','gam'],['терракота, охра, бирюза','boh'],['серый, неон, белый','spt']]],
- ['Что покупаете чаще',[['платья и юбки','rom'],['жакеты с плечами и вещи-заявления','dram'],['базу высокого качества','cls'],['джинсы и футболки','nat'],['необычные детали и аксессуары','gam'],['вещи с рынков и из путешествий','boh'],['кроссовки и худи','spt']]],
- ['В кино вам ближе героиня',[['романтичная мечтательница','rom'],['роковая и сильная','dram'],['элегантная и собранная','cls'],['своя в доску, без пафоса','nat'],['озорная и дерзкая','gam'],['путешественница и художница','boh'],['спортивная и быстрая','spt']]],
- ['Украшения',[['жемчуг и тонкие цепочки','rom'],['крупные серьги, металл','dram'],['золотые часы, одно кольцо','cls'],['почти ничего','nat'],['необычные, маленькие','gam'],['много колец, камни','boh'],['спортивные часы','spt']]],
- ['Если бы одно слово о вас',[['нежность','rom'],['сила','dram'],['стиль','cls'],['свобода','nat'],['игра','gam'],['душа','boh'],['движение','spt']]]
+ ['Встреча с подругами в кафе — что надеваете',[['платье миди и кардиган','rom'],['чёрный костюм и каблук','dram'],['белую рубашку и прямые джинсы','cls'],['свитер, джинсы, кроссовки','nat'],['мини и ботинки','gam'],['длинную юбку с принтом','boh'],['спортивный костюм и дорогие кроссовки','spt']]],
+ ['Какая сумка у вас в руках чаще всего',[['маленькая с бантом или цепочкой','rom'],['крупная геометричная','dram'],['структурная классическая','cls'],['холщовая шоппер','nat'],['яркая кросс-боди','gam'],['плетёная или с бахромой','boh'],['рюкзак или поясная','spt']]],
+ ['В какой обуви вы чувствуете себя собой',[['балетки или мэри-джейн','rom'],['высокие сапоги или шпилька','dram'],['лоферы','cls'],['кеды или биркенштоки','nat'],['ботинки на шнуровке','gam'],['ковбойские сапоги или сандалии','boh'],['кроссовки','spt']]],
+ ['Какой комплимент приятнее услышать',[['«какая ты нежная»','rom'],['«ты сногсшибательна»','dram'],['«ты выглядишь безупречно»','cls'],['«ты такая настоящая»','nat'],['«с тобой весело»','gam'],['«у тебя особенный вкус»','boh'],['«ты выглядишь свежо»','spt']]],
+ ['Какой принт купите не раздумывая',[['цветы или горох','rom'],['никакой — только чистый цвет','dram'],['тонкая клетка или полоска','cls'],['никакой — важнее фактура','nat'],['яркая полоска или сердечки','gam'],['пейсли, этника, пэчворк','boh'],['графика или логотип','spt']]],
+ ['Волосы, в которых вам нравится себя видеть',[['мягкие локоны','rom'],['гладкие и блестящие','dram'],['ухоженное каре или пучок','cls'],['как есть, без укладки','nat'],['короткая стрижка','gam'],['длинные волны или косы','boh'],['высокий хвост','spt']]],
+ ['Вечеринка через два часа — ваш образ',[['платье с открытыми плечами','rom'],['чёрное с вырезом','dram'],['маленькое чёрное и жемчуг','cls'],['джинсы и красивый топ','nat'],['мини и ботинки','gam'],['длинное с принтом и много колец','boh'],['брюки-палаццо и кроп-топ','spt']]],
+ ['Какого цвета больше всего в вашем шкафу',[['пудра, лаванда','rom'],['чёрный, бордо, изумруд','dram'],['синий, бежевый, белый','cls'],['хаки, песок, деним','nat'],['красный, жёлтый, полоска','gam'],['терракота, охра, бирюза','boh'],['серый, белый, неон','spt']]],
+ ['На что уходит больше всего денег в гардеробе',[['платья и юбки','rom'],['вещи-заявления: жакеты, пальто','dram'],['качественная база','cls'],['джинсы и футболки','nat'],['аксессуары и необычные детали','gam'],['вещи из путешествий и винтаж','boh'],['обувь и спортивные вещи','spt']]],
+ ['Какая героиня вам ближе',[['романтичная мечтательница','rom'],['роковая и сильная','dram'],['элегантная и собранная','cls'],['своя в доску, без пафоса','nat'],['озорная и дерзкая','gam'],['путешественница и художница','boh'],['спортивная и быстрая','spt']]],
+ ['Украшения, которые носите каждый день',[['жемчуг и тонкие цепочки','rom'],['крупные серьги, металл','dram'],['золотые часы и одно кольцо','cls'],['почти ничего','nat'],['маленькие и необычные','gam'],['много колец, камни, этника','boh'],['спортивные часы','spt']]],
+ ['Одно слово, которым вас описали бы близкие',[['нежная','rom'],['сильная','dram'],['элегантная','cls'],['свободная','nat'],['весёлая','gam'],['творческая','boh'],['энергичная','spt']]]
 ];
 window.dnaTQ = (qi, code)=>{ D.tq=D.tq||{}; D.tq[qi]=code; save(); paint('type'); };
 window.dnaTypeResult = ()=>{ const t=D.tq||{}; const sc={}; Object.values(t).forEach(c=>sc[c]=(sc[c]||0)+1); const arr=Object.entries(sc).sort((a,b)=>b[1]-a[1]); if(!arr.length) return null; const n=Object.keys(t).length; return { main:arr[0][0], second:arr[1]?arr[1][0]:null, n, pct:Math.round(arr[0][1]/Math.max(1,n)*100) }; };
@@ -13242,9 +13948,10 @@ window.hintBtn = (kind,v)=>`<i class="hint-q" data-hint="${kind}:${String(v).rep
 
 
 /* ================= ПЕРВЫЙ ЭКРАН: настроение, чат, космос ================= */
-window.heroMoodDraw=()=>{ const c=document.getElementById('hmChips'); if(!c||!window.MOODS) return; const cur=(window.moodToday&&moodToday()||{}).m;
-  c.innerHTML=MOODS.map(m=>`<button class="hm ${cur===m[1]?'on':''}" onclick="heroMoodPick('${m[1]}')"><i>${m[0]}</i><b>${m[1]}</b></button>`).join('');
-  const q=document.querySelector('#heroMood .hm-q'); if(q && cur) q.innerHTML=`Сегодня вы — <b>${cur.toLowerCase()}</b> <span>образ дня, макияж и ритуал уже учитывают это · <a href="#" onclick="event.preventDefault();openDayLook()">показать образ дня →</a></span>`; };
+window.heroMoodDraw=()=>{ const cur=(window.moodToday&&moodToday()||{}).m;
+  const q=document.getElementById('hmQ'); if(!q) return;
+  q.innerHTML = cur ? `Сегодня вы — <b>${cur.toLowerCase()}</b> <span>образ дня, макияж и ритуал уже учитывают это · <a href="#" onclick="event.preventDefault();openDayLook()">показать образ дня →</a></span>` : '';
+  q.hidden = !cur; };
 window.heroMoodPick=m=>{ const rule=(MOODS.find(x=>x[1]===m)||[])[2]||''; try{ localStorage.setItem('looka_mood', JSON.stringify({m, rule, day:new Date().toDateString()})); }catch(e){} heroMoodDraw(); if(window.sparkleReveal){ const t=document.querySelector('.hero-chat'); sparkleReveal(t); } myToast('Сегодня: '+m+' — образ дня подстроен'); setTimeout(()=>{ try{ openDayLook(); }catch(e){} },500); };
 window.heroAskGo=()=>{ const v=(document.getElementById('heroAsk')||{}).value||''; if(!v.trim()){ document.getElementById('heroAsk').focus(); return; } openPage('askPage'); setTimeout(()=>{ const t=document.getElementById('askInp'); if(t){ t.value=v; t.focus(); if(window.askGo) askGo(); } },400); };
 (function(){ const start=()=>{ const el=document.getElementById('heroAsk'); if(!el) return setTimeout(start,500); if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -13339,8 +14046,24 @@ const LIFE = [
  ['💔','Бросил / расстались','breakup'], ['⚡','Поссорились','fight'], ['💼','Работа достала','work'], ['🌧','Просто грустно','sad'],
  ['🌀','Тревожно','anx'], ['🔥','Всё бесит','angry'], ['🥱','Нет сил','tired'], ['🎉','Есть что отпраздновать','win'], ['✨','Ничего — просто хочу красиво','fine'],
  ['🩸','Месячные','cycle'], ['🌙','ПМС','pms'], ['🌷','Овуляция — чувствую себя огонь','ovul'], ['🍼','Ребёнок не дал спать','kid'], ['⏳','Нет времени на себя','notime'],
- ['💌','Завтра свидание','date'], ['📋','Завтра собеседование','interview'], ['🤒','Приболела','sick'], ['🧳','Завтра в дорогу','trip'], ['😶','Не хочу никого видеть','hide']
+ ['💌','Завтра свидание','date'], ['📋','Завтра собеседование','interview'], ['🤒','Приболела','sick'], ['🧳','Завтра в дорогу','trip'], ['😶','Не хочу никого видеть','hide'],
+ ['🧸','Устала от ребёнка','kidtired'], ['🫗','Всё надоело','allfed'], ['🪞','Муж/партнёр не замечает','unseen'], ['🖤','Узнала об измене','betray'],
+ ['🫧','Сомневаюсь в себе','doubt'], ['🕯','Одиноко','lonely'], ['🧩','Поссорилась с подругой','friendfight'], ['🗝','Новая работа, первый день','newjob'],
+ ['📖','Экзамен или защита','exam'], ['🍽','Знакомство с его родными','meetfamily'], ['⏮','Встреча с бывшим','meetex'], ['📸','Завтра фотосессия','photo'],
+ ['🕰','Кажется, я постарела','agefear'], ['🪙','Нет денег на себя','money']
 ];
+/* шаг 1 — настроение крупными блоками, шаг 2 — с чем оно связано */
+const LGRP = [
+ ['☼','Хорошее','в ресурсе, хочется красиво','#37E08A,#19C6F7',['win','fine','ovul','date','photo']],
+ ['☁','Апатичное','нет сил, всё через силу','#8B92AA,#C79DF2',['tired','allfed','notime','kid','kidtired','sick']],
+ ['☂','Грустное','тяжело на душе','#19C6F7,#C79DF2',['sad','anx','lonely','hide','unseen','money']],
+ ['✹','На нервах','бесит, раздражает, злюсь','#FF6FA8,#FFB84C',['angry','fight','work','pms','friendfight']],
+ ['♡','Больно','задели, предали, сомневаюсь в себе','#C79DF2,#FF6FA8',['betray','breakup','doubt','unseen','agefear','lonely']],
+ ['✿','Овуляционное','тело на подъёме, энергии много','#F2A6C6,#FF6FA8',['ovul','date','win','fine']],
+ ['☾','Цикл','тело диктует правила','#C79DF2,#F2A6C6',['cycle','pms','ovul','sick']],
+ ['◈','Волнуюсь','завтра важное','#C79DF2,#19C6F7',['date','interview','newjob','exam','meetfamily','meetex','trip']]
+];
+let LG = null;
 /* фразы под тон общения из ДНК: bold — по-дружески с юмором, soft — тепло и бережно, short — коротко и по делу, coach — вдохновляюще */
 const SAY = {
  breakup:{ bold:['Он потерял. Ты — нет. Завтра выглядим так, чтобы у общих знакомых были вопросы.','Слёзы сегодня разрешены, спортивки — нет. Завтра — «где ты это купила?»-образ.'], soft:['Больно — и это нормально. Завтра соберём образ, в котором ты почувствуешь себя собой, а не «после».'], short:['Завтра: образ, который держит спину. Всё остальное подождёт.'], coach:['Ты не «после него». Ты — до всего, что дальше. Завтра одеваемся в эту версию.'],
@@ -13379,6 +14102,34 @@ const SAY = {
    plan:{ mood:'Устала', mk:'ничего; максимум — бальзам и увлажнение', rit:'вода, сон, тепло; кожа — только увлажнение и SPF, если выходишь', act:'отменить одно дело завтра без чувства вины' } },
  trip:{ bold:['Дорога — это где всё должно быть удобным и всё равно фотогеничным. Завтра — слои и кроссовки, которые не стыдно.'], soft:['Перед дорогой важно не думать. Завтра — образ из слоёв: снять, надеть, не помять.'], short:['Завтра: слои, кроссовки, ничего мнущегося, сумка через плечо.'], coach:['Дорога — это новая ты на каждой остановке. Завтра одеваемся легко.'],
    plan:{ mood:'Собранная', mk:'тинт, бальзам, мист с собой', rit:'собрать чемодан по «Чемодану» в помощниках, крем и SPF в ручную кладь', act:'открыть помощника «Чемодан» — 5 минут, и ничего не забыто' } },
+ kidtired:{ bold:['Любить и уставать — это одновременно, а не вместо. Завтра: образ, который собирается левой рукой, пока правой держишь ребёнка.'], soft:['Вы не плохая мать от того, что устали. Завтра — три вещи, которые сочетаются сами, и ни одного решения утром.'], short:['Завтра: тёмный низ, свободный верх, кроссовки. Четыре минуты.'], coach:['Ресурс не берётся из воздуха. Завтра одежда будет работать на вас, а не наоборот.'],
+   plan:{ mood:'Устала', mk:'консилер, тинт, брови — 3 минуты', rit:'15 минут, где вас никто не трогает: душ, балкон, машина — что угодно', act:'попросить час помощи и не извиняться за это' } },
+ allfed:{ bold:['«Всё надоело» — это не каприз, это пустой бак. Завтра меняем хотя бы картинку в зеркале.'], soft:['Когда надоело всё, менять всё не нужно. Поменяем одну вещь — ту, что ближе всего.'], short:['Завтра — одна новая деталь в привычном образе. Остальное не трогаем.'], coach:['Выгорание лечится не подвигом, а мелочами. Начнём с завтрашнего утра.'],
+   plan:{ mood:'Собранная', mk:'другая помада — не «лучше», а просто другая', rit:'убрать из комнаты одну вещь, которая раздражает; лечь раньше', act:'надеть завтра то, что давно висит с биркой' } },
+ unseen:{ bold:['Вас видно. Просто кто-то разучился смотреть — и это про него, не про вас.'], soft:['Когда рядом перестают замечать, легко решить, что дело в вас. Это не так. Завтра соберём образ, в котором вы сами себя увидите.'], short:['Завтра — образ для себя, не для него. Начнём с зеркала.'], coach:['Первый взгляд, который должен вернуться, — ваш собственный. Завтра работаем на него.'],
+   plan:{ mood:'Хочу нравиться', mk:'то, что нравится вам, а не «ему шло»', rit:'посмотреть на себя в зеркало дольше трёх секунд и найти, что нравится', act:'сделать завтра одно дело только для своего удовольствия' } },
+ betray:{ bold:['Это он разрушил доверие, не вы. Решать сегодня ничего не нужно. Завтра просто соберём вас — по частям, но соберём.'], soft:['То, что вы узнали, очень больно, и никакая одежда это не чинит. Но завтра утром вам всё равно вставать — и я сделаю так, чтобы хотя бы это было легко.'], short:['Сегодня — не решать. Завтра — образ, в котором держится спина.'], coach:['Сомнения в себе сейчас — это боль говорит, а не правда о вас. Завтра одеваемся в ту, кем вы были до этого разговора.'],
+   plan:{ mood:'Собранная', mk:'минимум и стойкое: тинт, брови, бальзам', rit:'еда, вода, сон — по-честному, даже если не хочется; телефон подальше от кровати', act:'рассказать одному человеку, который точно на вашей стороне. Решение может подождать, поддержка — нет' } },
+ doubt:{ bold:['Сомнение — не диагноз, а погода. Завтра оденемся в ту версию, которая вам нравилась.'], soft:['Сомневаться в себе умеют все. Завтра — вещи, в которых вам спокойно, и ни одной, в которой надо «соответствовать».'], short:['Завтра — только любимое. Ничего «на вырост» и ничего «если похудею».'], coach:['Вы не стали хуже — вы устали. Завтра одеваемся в то, что подтверждает первое.'],
+   plan:{ mood:'Собранная', mk:'то, что вы умеете делать с закрытыми глазами', rit:'выписать три вещи, которые у вас получились за месяц. Да, прямо списком', act:'убрать из шкафа одну вещь, которая каждый раз говорит вам, что вы недостаточно' } },
+ lonely:{ bold:['Одиночество — паршивая штука, но не приговор и не ваша вина. Завтра выйдем в люди хотя бы за кофе.'], soft:['Одиноко бывает даже среди людей. Завтра — образ, в котором приятно выйти из дома, даже ненадолго.'], short:['Завтра: выйти из дома в чём-то хорошем. Один час, один маршрут.'], coach:['Контакт начинается с выхода. Завтра дадим вам повод.'],
+   plan:{ mood:'Легко и игриво', mk:'немного цвета — тинт и бальзам', rit:'написать первой одному человеку. Любому. Просто «как ты?»', act:'запланировать на завтра выход из дома с конкретной целью' } },
+ friendfight:{ bold:['Подруги — это долго и сложно. Завтра — образ, в котором легко первой написать.'], soft:['С близкими ссориться больнее, чем с чужими. Завтра — мягкий образ, чтобы хватило сил на разговор.'], short:['Завтра — спокойный образ. Разговор — когда остынете обе.'], coach:['Вы обе правы и обе устали. Завтра одеваемся в примирение.'],
+   plan:{ mood:'Тихо и уютно', mk:'нюд, минимум', rit:'написать ей сообщение в заметках и не отправлять до утра', act:'перечитать утром и отправить, если всё ещё хочется' } },
+ newjob:{ bold:['Первый день — это ваш подиум. Завтра — образ «я тут уже неделю и всё знаю».'], soft:['Первый день волнителен у всех. Завтра — проверенный образ, в котором не надо думать об одежде вообще.'], short:['Завтра: нейтральная база, одна деталь, закрытая обувь. На полтона строже, чем у них.'], coach:['Вас уже выбрали. Завтра просто приходим и работаем.'],
+   plan:{ mood:'Собранная', mk:'ровный тон, брови, нюд', rit:'приготовить образ и сумку с вечера, проверить дорогу', act:'записать три имени коллег в первый же час — это снимает половину стресса' } },
+ exam:{ bold:['Комиссия тоже люди и тоже хотят домой. Завтра — образ, который не отвлекает ни их, ни вас.'], soft:['Волнение перед защитой — нормально и даже полезно. Завтра — удобный, спокойный образ, в котором ничего не мешает.'], short:['Завтра: нейтрально, удобно, без каблука и без украшений, которые хочется трогать.'], coach:['Вы знаете больше, чем вам сейчас кажется. Завтра одеваемся так, чтобы это было видно.'],
+   plan:{ mood:'Собранная', mk:'минимум, стойкое', rit:'не учить после полуночи — спать; вода и перекус в сумку', act:'проговорить вслух первые две фразы выступления' } },
+ meetfamily:{ bold:['Родителей не впечатляют — с ними знакомятся. Завтра — вы, только чуть аккуратнее.'], soft:['Волноваться нормально. Завтра — образ, в котором вам удобно сидеть за столом три часа.'], short:['Завтра: закрытое, спокойных цветов, удобная обувь. Ничего нового.'], coach:['Вы идёте смотреть на них так же, как они на вас. Завтра одеваемся как равная.'],
+   plan:{ mood:'Собранная', mk:'ровный тон, нюд, брови', rit:'узнать заранее, что за формат и что принести; выспаться', act:'придумать два вопроса, которые вам действительно интересно им задать' } },
+ meetex:{ bold:['Пусть увидит, как хорошо вы живёте. Завтра — тот самый образ.'], soft:['Встреча с бывшим — всегда немного экзамен. Завтра — образ, в котором вам спокойно, а не «назло».'], short:['Завтра: любимое, проверенное, удобное. Ничего нового и ничего вызывающего.'], coach:['Вам не нужно ничего доказывать — вы уже дальше. Завтра одеваемся в это «дальше».'],
+   plan:{ mood:'Заряжена', mk:'кожа и губы, ничего нового', rit:'решить заранее, во сколько уходите, и сказать это подруге', act:'запланировать что-то приятное сразу после встречи' } },
+ photo:{ bold:['Фотосессия — это где вы главная. Завтра — образ, который потом не захочется удалять.'], soft:['На фото важнее всего, чтобы вам было в этом хорошо. Завтра — то, в чём вы себя любите.'], short:['Завтра: однотонное, без мелкого принта и логотипов, матовые ткани. Два образа на выбор.'], coach:['Камера показывает состояние, а не одежду. Завтра позаботимся об обоих.'],
+   plan:{ mood:'Хочу нравиться', mk:'плотнее обычного, но без блеска на лице и без SPF в тон', rit:'выспаться, меньше соли, маникюр проверить — руки всегда в кадре', act:'сохранить 5 референсов поз — на площадке думать некогда' } },
+ agefear:{ bold:['Зеркало по утрам врёт всем. Завтра — образ, который про вас сегодняшнюю, а не про вас в двадцать.'], soft:['Лицо меняется — это правда и это не потеря. Завтра соберём образ, в котором вам нравится ваше отражение сейчас.'], short:['Завтра: ваша палитра, мягкие ткани, свет у лица.'], coach:['Стиль с возрастом становится точнее, а не хуже. Завтра покажу разницу.'],
+   plan:{ mood:'Хочу нравиться', mk:'увлажнение под тон, кремовые текстуры, брови — они держат лицо', rit:'уход по плану, сон, вода; никаких «до и после» в телефоне перед сном', act:'открыть раздел «Молодость кожи» и сделать один шаг из него, а не десять' } },
+ money:{ bold:['Денег нет — стиль есть. Завтра соберём образ из того, что уже висит в шкафу, и это будет не хуже.'], soft:['Без бюджета тоже можно выглядеть хорошо — просто это другая работа. Завтра — образ из того, что есть.'], short:['Завтра — только из своего шкафа. Ноль покупок.'], coach:['Стиль — это не бюджет, а выбор. Завтра докажем на практике.'],
+   plan:{ mood:'Собранная', mk:'то, что уже есть в косметичке', rit:'разобрать одну полку в шкафу — обычно там находится забытое любимое', act:'собрать три новых сочетания из старых вещей и сфотографировать' } },
  hide:{ bold:['Не хочешь никого видеть — не надо. Но если выйти придётся, образ будет броня: капюшон, очки, чёрное.'], soft:['Иногда нужно спрятаться, и это нормально. Завтра — образ-кокон: мягкий, закрытый, свой.'], short:['Завтра: закрытое, тёмное, удобное. Очки. Наушники.'], coach:['Тишина — тоже выбор. Завтра одеваемся в неё.'],
    plan:{ mood:'Устала', mk:'ничего или только брови', rit:'телефон в тишину, любимый фильм, ранний сон', act:'если так больше недели — написать кому-то близкому. Это не слабость' } }
 };
@@ -13389,7 +14140,13 @@ window.lifeDraw = ()=>{
   const L=lifeToday();
   const T0=toneKey(); const TONES=[['bold','с юмором'],['soft','бережно'],['short','коротко'],['coach','вдохновляй']];
   const toneRow=`<div class="lf-tone"><span>Как со мной говорить:</span>${TONES.map(t=>`<button class="lt ${T0===t[0]?'on':''}" onclick="lifeTone('${t[0]}')">${t[1]}</button>`).join('')}</div>`;
-  if(!L){ box.innerHTML=`<div class="life"><div class="lf-q">Что случилось? <span>можно не отвечать. Но подруга бы спросила</span></div><div class="lf-chips">${LIFE.map((x,i)=>`<button class="lf" style="animation-delay:${(i*.04).toFixed(2)}s" onclick="lifePick('${x[2]}')"><i>${x[0]}</i>${x[1]}</button>`).join('')}</div>${toneRow}</div>`; return; }
+  if(!L && LG===null){ box.innerHTML=`<div class="life"><div class="lf-q">Как вы сегодня? <span>два нажатия — и LOOKA говорит с вами так, как сейчас нужно</span></div>
+    <div class="lf-moods">${LGRP.map((g,i)=>`<button class="lfm" style="--g:linear-gradient(135deg,${g[3]});animation-delay:${(i*.06).toFixed(2)}s" onclick="lifeGrp(${i})"><span class="lfm-i">${g[0]}</span><b>${g[1]}</b><em>${g[2]}</em><span class="lfm-go">→</span></button>`).join('')}</div>${toneRow}</div>`; return; }
+  if(!L){ const g=LGRP[LG]; const items=g[4].map(k=>LIFE.find(x=>x[2]===k)).filter(Boolean);
+    box.innerHTML=`<div class="life"><button class="lf-back" onclick="lifeGrp(null)">← другое настроение</button>
+      <div class="lf-step2" style="--g:linear-gradient(135deg,${g[3]})"><span class="lfm-i big">${g[0]}</span><div><div class="cs-k">настроение · ${g[1].toLowerCase()}</div><div class="lf-q2">С чем это связано?</div><span class="lf-h">выберите самое близкое — остальное LOOKA додумает сама</span></div></div>
+      <div class="lf-chips big">${items.map((x,i)=>`<button class="lf" style="animation-delay:${(i*.06).toFixed(2)}s" onclick="lifePick('${x[2]}')"><i>${x[0]}</i>${x[1]}<em>→</em></button>`).join('')}</div>
+      <button class="lf-skip" onclick="lifePick('${g[4][0]}')">Ничего конкретного — просто такое настроение</button>${toneRow}</div>`; return; }
   const S3=SAY[L.what]; const T=toneKey(); const say=(S3[T]||S3.bold)[L.i%((S3[T]||S3.bold).length)]; const P=S3.plan; const M=(window.MOODS||[]).find(x=>x[1]===P.mood)||['✦'];
   const acc=(()=>{ try{ return (JSON.parse(localStorage.getItem('looka_acc')||'{}').name||'').split(' ')[0]; }catch(e){ return ''; } })();
   box.innerHTML=`<div class="life on"><div class="lf-say">${acc?acc+', '+say.charAt(0).toLowerCase()+say.slice(1):say}</div>
@@ -13398,33 +14155,50 @@ window.lifeDraw = ()=>{
       <div class="to-row"><button class="btn primary" onclick="lifeApply('${P.mood}')">Готовь мне это →</button><button class="btn ghost" onclick="lifeReset()">Другое</button></div>
     </div>${toneRow}</div>`;
 };
+window.lifeGrp = i=>{ LG = (i===null||i===undefined)? null : Number(i); lifeDraw(); const b=document.getElementById('lifeBox'); if(LG!==null && window.glide && b) glide(b,110,520); };
 window.lifeTone = k=>{ const map={bold:'по-дружески и с юмором',soft:'тепло и бережно',short:'коротко и по делу',coach:'вдохновляюще, как подруга-стилист'}; if(window.dnaMergePers) dnaMergePers({talk:[map[k]]}); else { try{ const D2=JSON.parse(localStorage.getItem('looka_dna')||'{}'); D2.pers=D2.pers||{}; D2.pers.talk=[map[k]]; localStorage.setItem('looka_dna', JSON.stringify(D2)); }catch(e){} } lifeDraw(); myToast('Поняла: говорю '+({bold:'с юмором',soft:'бережно',short:'коротко',coach:'вдохновляюще'})[k]); };
 const CHEER = {
- breakup:['💔','Мусор вынес себя сам','Вы не «после него» — вы до всего, что будет дальше. Сейчас соберём образы, в которых это видно без слов.'],
- fight:['⚡','Вы правы в главном','Правоту доказывают спокойствием. Соберём образ, в котором спина держится сама.'],
- work:['💼','Работа — не вся вы','Вы больше, чем должность. Соберём образы, в которых утро перестанет быть наказанием.'],
- sad:['🌧','Грустить можно','И при этом выглядеть так, чтобы отражение возвращало вас себе. Соберём мягкие образы с вашим цветом.'],
- anx:['🌀','Меньше решений — меньше тревоги','Сейчас соберём образы заранее, чтобы утром не выбирать вообще ничего.'],
- angry:['🔥','Злость — это топливо','Направим её в силуэт. Соберём образы, в которых вас видно издалека.'],
- tired:['🥱','Сил нет — и не надо','Соберём ленивые образы, которые выглядят как продуманные. Пять минут утром, максимум.'],
- win:['🎉','Это надо отметить','Соберём образы, за которые будут спрашивать повод.'],
+ breakup:['💔','Мусор вынес себя сам','Вы не «после него» — вы до всего, что будет дальше. Соберём образы, в которых это видно без единого слова.'],
+ fight:['⚡','Правоту доказывают спокойствием','Не громкостью. Соберём образ, в котором спина держится сама, а голос звучит ровно.'],
+ work:['💼','Вы больше, чем ваша должность','Работа забирает много — пусть хотя бы утро будет на вашей стороне. Соберём образы, в которых собираться приятно.'],
+ sad:['🌧','Грустить можно','И при этом хорошо выглядеть — не для кого-то, а чтобы отражение возвращало вас себе. Соберём мягкие образы в вашем цвете.'],
+ anx:['🌀','Меньше решений — меньше тревоги','Соберём образы заранее: утром не нужно будет выбирать вообще ничего.'],
+ angry:['🔥','Злость — отличное топливо','Направим её в силуэт, а не в нервы. Соберём образы, в которых вас видно издалека.'],
+ tired:['🌙','Сил нет — и не надо','Соберём ленивые образы, которые выглядят продуманными. Пять минут утром, максимум.'],
+ win:['🎉','Это надо носить на себе','Соберём образы, за которые будут спрашивать повод.'],
  cycle:['🩸','Тело работает — уважаем','Соберём образы, в которых ничего не давит, а выглядит всё равно дорого.'],
- pms:['🌙','Это гормоны, не вы','Соберём мягкое, в чём ничего не раздражает.'],
- ovul:['🌷','Вы сияете','Соберём образы, в которых это видно.'],
- kid:['🍼','Вы держите целую жизнь','Соберём образы, которые собираются за пять минут и переживают день.'],
- notime:['⏳','Времени нет — и не нужно','LOOKA соберёт за вас. Откроете утром и наденете.'],
- date:['💌','Вы идёте не понравиться','Вы идёте посмотреть, нравится ли вам. Соберём образ, в котором вам легко быть собой.'],
- interview:['📋','Вы — равная сторона','Соберём образ, который говорит «я уже здесь работаю».'],
- sick:['🤒','Болеть — это нормально','Соберём самое мягкое и тёплое, без требований к себе.'],
- trip:['🧳','Дорога любит слои','Соберём образ, который не мнётся и не надоедает.'],
- hide:['😶','Можно спрятаться','Соберём образ-кокон: закрытый, мягкий, ваш.'],
- fine:['✨','Просто красиво — лучший повод','Соберём образы без причины.']
+ pms:['🌙','Это гормоны, а не вы','Через пару дней вы снова ураган. Пока соберём мягкое, в чём ничего не раздражает.'],
+ ovul:['🌷','Вы сияете — давайте это покажем','Соберём образы, в которых энергию видно с другого конца улицы.'],
+ kid:['🍼','Вы держите на себе целую жизнь','Соберём образы, которые собираются за пять минут и переживают весь день.'],
+ notime:['⏳','На себя нет времени — значит, думаем мы','Соберём образы заранее: откроете утром и наденете.'],
+ date:['💌','Это он идёт понравиться вам','Соберём образ, в котором вам легко быть собой — и невозможно не смотреть.'],
+ interview:['📋','Вы выбираете их так же, как они вас','Соберём образ, который говорит «я уже здесь работаю» ещё до первого слова.'],
+ sick:['🤒','Болеть — это нормально','Никаких требований к себе. Соберём самое мягкое и тёплое.'],
+ trip:['🧳','Дорога любит слои','Соберём образ, который не мнётся, не надоедает и везде смотрится как надо.'],
+ hide:['🌑','Можно спрятаться','Соберём образ-кокон: закрытый, мягкий, ваш. Выйти придётся — но на своих условиях.'],
+ fine:['✨','Просто красиво — лучший повод','Соберём образы без причины. Потому что можно.'],
+ kidtired:['🧸','Любить и уставать — одновременно','Усталость не отменяет любви и не делает вас плохой матерью. Соберём образы, которые собираются за четыре минуты одной рукой.','Собрать лёгкие образы'],
+ allfed:['🫗','«Всё надоело» — это пустой бак','Не лень и не каприз. Менять всё не нужно — поменяем то, что ближе всего. Соберём образы, в которых утро выглядит иначе.','Поменять картинку'],
+ unseen:['🪞','Вас видно','Если рядом разучились смотреть — это про них, а не про вас. Соберём образы для того взгляда, который важнее: вашего собственного.','Собрать образы для себя'],
+ betray:['🖤','Это он разрушил доверие, не вы','Сегодня решать ничего не нужно, и сомневаться в себе — это боль говорит, а не правда о вас. Завтра утром вам всё равно вставать: сделаю так, чтобы хотя бы это было легко. А решение подождёт столько, сколько нужно вам.','Собрать опору на завтра'],
+ doubt:['🫧','Вы не стали хуже — вы устали','Сомнение в себе — это погода, а не диагноз. Соберём образы только из любимого: ничего «на вырост» и ничего «если похудею».','Собрать только любимое'],
+ lonely:['🕯','Одиноко бывает и среди людей','Это не ваша вина и не навсегда. Соберём образ, в котором приятно выйти из дома хотя бы за кофе — контакт начинается с выхода.','Собрать повод выйти'],
+ friendfight:['🧩','Вы обе правы и обе устали','С близкими ссориться больнее, чем с чужими. Соберём мягкий образ, в котором хватит сил написать первой.','Собрать образ на примирение'],
+ newjob:['🗝','Вас уже выбрали','Осталось прийти и работать. Соберём образ «я тут уже неделю и всё знаю» — на полтона строже, чем у них.','Собрать первый день'],
+ exam:['📖','Вы знаете больше, чем вам кажется','Соберём образ, который не отвлекает ни комиссию, ни вас: удобно, спокойно, ничего не мешает.','Собрать образ на защиту'],
+ meetfamily:['🍽','Вы смотрите на них так же, как они на вас','Родителей не впечатляют — с ними знакомятся. Соберём образ, в котором удобно сидеть за столом три часа.','Собрать образ на знакомство'],
+ meetex:['⏮','Вам нечего доказывать','Вы уже дальше. Соберём образ, в котором вам спокойно, а не «назло» — это всегда заметнее.','Собрать образ на встречу'],
+ photo:['📸','Камера показывает состояние','А не одежду. Позаботимся об обоих: соберём образы без мелкого принта и логотипов, в которых вам себя видно.','Собрать образы для съёмки'],
+ agefear:['🕰','Зеркало по утрам врёт всем','Лицо меняется — это не потеря, а другой возраст, в котором стиль становится точнее. Соберём образы про вас сегодняшнюю.','Собрать образы на сегодня'],
+ money:['🪙','Стиль — это выбор, а не бюджет','Соберём три новых образа из того, что уже висит в шкафу. Ноль покупок — и это будет не хуже.','Собрать из своего шкафа']
 };
 window.lifeCheer = what=>{ const C=CHEER[what]||CHEER.fine;
   let ov=document.getElementById('cheerOv'); if(!ov){ ov=document.createElement('div'); ov.id='cheerOv'; ov.className='au-ov'; ov.onclick=e=>{ if(e.target===ov) cheerClose(); }; document.body.appendChild(ov); }
-  ov.innerHTML=`<div class="au-box cheer-box"><div class="au-aura"></div><button class="au-x" onclick="cheerClose()">✕</button><div class="au-in">
-    <div class="cheer-ico">${C[0]}</div><h3 class="holo">${C[1]}</h3><p>${C[2]}</p>
-    <div class="to-row" style="justify-content:center;margin-top:16px"><button class="btn primary" onclick="cheerGo('${what}')">✦ Подобрать образы →</button><button class="btn ghost" onclick="cheerClose()">Позже</button></div>
+  ov.innerHTML=`<div class="au-box cheer-box"><div class="cheer-glow"></div><button class="au-x" onclick="cheerClose()">✕</button><div class="au-in">
+    <div class="cheer-ring"><div class="cheer-ico">${C[0]}</div></div>
+    <div class="cheer-eye">LOOKA рядом</div>
+    <h3>${C[1]}</h3><p>${C[2]}</p>
+    <div class="cheer-acts"><button class="cheer-go" onclick="cheerGo('${what}')"><span>${C[3]||'Подобрать образы'}</span><i>→</i></button><button class="cheer-later" onclick="cheerClose()">Позже</button></div>
   </div></div>`;
   ov.classList.add('open'); document.body.style.overflow='hidden';
   if(window.lifeHearts) lifeHearts(ov.querySelector('.au-box'));
@@ -13433,10 +14207,10 @@ window.cheerClose = ()=>{ const o=document.getElementById('cheerOv'); if(o){ o.c
 window.cheerGo = what=>{ const mood=((SAY[what]||{}).plan||{}).mood; if(mood && window.lifeApply) lifeApply(mood); cheerClose();
   let ready=false; try{ const st=JSON.parse(localStorage.getItem('looka_state')||'{}'); ready=!!(st.body&&st.event); }catch(e){}
   scanTransition(()=>{ if(ready && window.goQuiz) goQuiz(); else if(window.goQuiz) goQuiz(); }, 'Собираю образы под ваше настроение…'); };
-window.lifePick = what=>{ const L=SAY[what]; try{ localStorage.setItem('looka_life', JSON.stringify({what, i:Math.floor(Math.random()*9), day:new Date().toDateString()})); }catch(e){} lifeDraw(); const b=document.getElementById('lifeBox'); if(window.sparkleReveal) sparkleReveal(b); lifeHearts(b); if(window.authSync) authSync(true); setTimeout(()=>lifeCheer(what), 420); };
+window.lifePick = what=>{ const L=SAY[what]; LG=null; try{ localStorage.setItem('looka_life', JSON.stringify({what, i:Math.floor(Math.random()*9), day:new Date().toDateString()})); }catch(e){} lifeDraw(); const b=document.getElementById('lifeBox'); if(window.sparkleReveal) sparkleReveal(b); lifeHearts(b); if(window.authSync) authSync(true); setTimeout(()=>lifeCheer(what), 420); };
 window.lifeHearts = el=>{ if(!el||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const r=el.getBoundingClientRect(); const box=document.createElement('div'); box.className='lf-hearts'; document.body.appendChild(box); const cols=['#F2A6C6','#C79DF2','#19C6F7','#FFD9A8','#FF6FA8']; for(let i=0;i<26;i++){ const s=document.createElement('i'); s.textContent=['♥','✦','✧','❀'][i%4]; s.style.left=(r.left+Math.random()*r.width)+'px'; s.style.top=(r.top+r.height*.4)+'px'; s.style.color=cols[i%5]; s.style.animationDelay=(Math.random()*.4)+'s'; s.style.fontSize=(12+Math.random()*16)+'px'; s.style.setProperty('--dx',((Math.random()-.5)*220)+'px'); box.appendChild(s); } setTimeout(()=>box.remove(),2200); };
 window.lifeApply = mood=>{ const rule=((window.MOODS||[]).find(x=>x[1]===mood)||[])[2]||''; try{ localStorage.setItem('looka_mood', JSON.stringify({m:mood, rule, day:new Date().toDateString(), tomorrow:true})); }catch(e){} if(window.heroMoodDraw) heroMoodDraw(); if(window.nightPlan){ nightPlan(true); } if(window.nightDraw) nightDraw(); myToast('Завтра — образ «'+mood+'». Утром напомню в Telegram, если он подключён'); const n=document.getElementById('nightBox'); if(n&&window.glide) glide(n,110,800); };
-window.lifeReset = ()=>{ try{ localStorage.removeItem('looka_life'); }catch(e){} lifeDraw(); };
+window.lifeReset = ()=>{ try{ localStorage.removeItem('looka_life'); }catch(e){} LG=null; lifeDraw(); };
 window.lifeText = ()=>{ const L=lifeToday(); if(!L) return ''; const x=LIFE.find(y=>y[2]===L.what); return x? 'Сегодня у неё: '+x[1].toLowerCase()+' — учитывай это в тоне и предлагай план «'+SAY[L.what].plan.mood+'»' : ''; };
 if(document.readyState!=='loading') setTimeout(lifeDraw,60); else document.addEventListener('DOMContentLoaded', ()=>setTimeout(lifeDraw,60));
 })();
