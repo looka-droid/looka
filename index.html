@@ -1694,15 +1694,22 @@ body .vs.seen .vs-right{animation:vsIn .65s .15s cubic-bezier(.2,.8,.2,1) forwar
 
 /* выпадающий список помощников */
 .nav-dd{position:relative;display:inline-block}
-.nav-dd .dd{position:absolute;top:calc(100% + 10px);left:-10px;min-width:280px;z-index:60;display:none;padding:8px;
+.nav-dd .dd{position:absolute;top:calc(100% + 10px);left:-10px;min-width:280px;z-index:60;display:none;padding:12px;
   background:rgba(12,14,24,.98);border:1px solid rgba(25,198,247,.4);box-shadow:0 24px 60px rgba(0,0,0,.6), 0 0 30px rgba(25,198,247,.15)}
 .nav-dd .dd::before{content:'';position:absolute;top:-10px;left:0;right:0;height:10px}
-.nav-dd .dd button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;color:#E6E8F0;font-family:'Golos Text';font-size:13.5px;padding:10px 12px;cursor:pointer;text-align:left;letter-spacing:0;text-transform:none}
-.nav-dd .dd button i{font-style:normal;width:22px;text-align:center;color:var(--tc,#19C6F7)}
-.nav-dd .dd button em{font-style:normal;font-family:'JetBrains Mono';font-size:9px;color:#8B92AA;margin-left:auto}
-.nav-dd .dd button:hover{background:rgba(25,198,247,.12);color:#fff}
+.nav-dd .dd button{position:relative;display:grid;grid-template-columns:38px minmax(0,1fr);gap:3px 12px;align-items:center;width:100%;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:rgba(255,255,255,.022);color:#EDEFF5;font-family:'Golos Text';font-weight:600;font-size:13.5px;padding:11px 14px;cursor:pointer;text-align:left;letter-spacing:0;text-transform:none;overflow:hidden;transition:transform .22s cubic-bezier(.2,.9,.3,1.2),border-color .22s,background .22s,box-shadow .22s}
+.nav-dd .dd button::after{content:'';position:absolute;left:-55%;top:0;width:38%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transform:skewX(-18deg);opacity:0}
+.nav-dd .dd button i{grid-row:1/3;font-style:normal;display:grid;place-items:center;width:38px;height:38px;border-radius:12px;font-size:16px;color:var(--ic,#19C6F7);border:1px solid color-mix(in srgb, var(--ic,#19C6F7) 45%, transparent);background:color-mix(in srgb, var(--ic,#19C6F7) 13%, transparent);box-shadow:0 0 16px -4px var(--ic,#19C6F7);transition:transform .25s}
+.nav-dd .dd button em{grid-column:2;font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.4px;color:#8B92AA;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .2s}
+.nav-dd .dd button:hover{transform:translateX(4px);color:#fff;border-color:color-mix(in srgb, var(--ic,#19C6F7) 55%, transparent);background:color-mix(in srgb, var(--ic,#19C6F7) 9%, transparent);box-shadow:0 10px 28px -14px var(--ic,#19C6F7)}
+.nav-dd .dd button:hover::after{opacity:1;animation:lfmSweep .9s ease-out}
+.nav-dd .dd button:hover i{transform:scale(1.08) rotate(-4deg)}
+.nav-dd .dd button:hover em{color:#B7BCCC}
+.nav-dd .dd button:nth-child(6n+1){--ic:#19C6F7}.nav-dd .dd button:nth-child(6n+2){--ic:#C79DF2}
+.nav-dd .dd button:nth-child(6n+3){--ic:#F2A6C6}.nav-dd .dd button:nth-child(6n+4){--ic:#37E08A}
+.nav-dd .dd button:nth-child(6n+5){--ic:#FFB84C}.nav-dd .dd button:nth-child(6n+6){--ic:#8FA5FF}
 .nav-dd .dd button.soon{opacity:.55}
-@media(hover:hover){.nav-dd:hover .dd{display:block;animation:riseIn .25s ease}}
+@media(hover:hover){.nav-dd:hover .dd{display:grid;animation:ddIn .26s cubic-bezier(.2,.9,.3,1.1) both}}
 
 /* выпадающий список — поверх всего */
 header{position:relative;z-index:500}
@@ -1715,6 +1722,313 @@ header{position:relative;z-index:500}
 .pay-box{position:relative;width:min(520px,100%);padding:30px 28px;border:1px solid transparent;
   background:linear-gradient(rgba(14,16,26,.98),rgba(14,16,26,.98)) padding-box,linear-gradient(135deg,#19C6F7,rgba(255,255,255,.08) 50%,#5B6CFF) border-box;
   box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 50px rgba(25,198,247,.2)}
+/* компактный мастер оплаты */
+/* PRO-замок: маленький, не пугающий */
+/* ===== страницы разделов: общий фирменный заголовок ===== */
+.pageview .mk-hero{position:relative;padding:26px 30px 24px;margin-bottom:22px;border-radius:24px;border:1px solid transparent;background:linear-gradient(#0C0E15,#0C0E15) padding-box,linear-gradient(135deg,rgba(25,198,247,.55),rgba(199,157,240,.5),rgba(242,166,198,.45)) border-box;overflow:hidden}
+.pageview .mk-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(620px 240px at 8% 0%,rgba(25,198,247,.16),transparent 62%),radial-gradient(540px 230px at 92% 100%,rgba(199,157,240,.16),transparent 60%),radial-gradient(420px 200px at 50% 120%,rgba(242,166,198,.1),transparent 60%);pointer-events:none}
+.pageview .mk-hero>*{position:relative}
+.pageview .mk-hero .eyebrow{margin-bottom:8px}
+.pageview .mk-hero h2.big{margin:0 0 10px}
+.pageview .mk-hero .lead{max-width:760px;margin:0;color:#C2C7D6}
+.pageview .mk-hero>.pg-spark,.pg-spark{position:absolute!important;pointer-events:none;font-style:normal;opacity:.55;z-index:1}
+.pg-spark.a{top:16px;right:34px;font-size:15px;color:#19C6F7;animation:pgTw 3.4s ease-in-out infinite}
+.pg-spark.b{bottom:22px;right:76px;font-size:10px;color:#F2A6C6;animation:pgTw 3.4s ease-in-out .8s infinite}
+.pg-spark.c{top:54px;right:16px;font-size:12px;color:#C79DF2;animation:pgTw 3.4s ease-in-out 1.6s infinite}
+@keyframes pgTw{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.9;transform:scale(1.15)}}
+.pg-back{position:relative;z-index:2}
+/* подзаголовки внутри страниц ярче */
+.pageview .hp-sub{position:relative;display:inline-block;margin-top:30px;padding-left:26px;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:#C7A6F0}
+.pageview .hp-sub::before{content:'';position:absolute;left:0;top:50%;width:18px;height:2px;border-radius:2px;background:linear-gradient(90deg,#19C6F7,#C79DF2);box-shadow:0 0 10px rgba(25,198,247,.8)}
+/* «почему это работает» — карточки ярче */
+.pageview .moat-item{position:relative;border:1.3px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,var(--mi,linear-gradient(135deg,#19C6F7,#C79DF2)) border-box;box-shadow:0 0 26px -16px var(--mc,#C79DF2);transition:transform .25s,box-shadow .25s}
+.pageview .moat-item:hover{transform:translateY(-3px);box-shadow:0 14px 34px -18px var(--mc,#C79DF2)}
+.pageview .moat-item:nth-child(3n+1){--mi:linear-gradient(135deg,#19C6F7,#C79DF2);--mc:#19C6F7}
+.pageview .moat-item:nth-child(3n+2){--mi:linear-gradient(135deg,#F2A6C6,#FFB84C);--mc:#F2A6C6}
+.pageview .moat-item:nth-child(3n+3){--mi:linear-gradient(135deg,#37E08A,#19C6F7);--mc:#37E08A}
+.pageview .moat-item b{color:#fff}
+@media(max-width:640px){.pageview .mk-hero{padding:20px 18px 18px;border-radius:20px}.pg-spark{display:none}}
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px;margin-top:4px}
+.tech{position:relative;padding:17px 18px;border-radius:18px;border:1.4px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,var(--tg,linear-gradient(135deg,#19C6F7,#C79DF2)) border-box;box-shadow:0 0 26px -16px var(--tc,#C79DF2);cursor:pointer;text-align:left;font-family:'Manrope';animation:popIn .5s both;transition:transform .25s,box-shadow .25s}
+.tech:hover{transform:translateY(-4px);box-shadow:0 16px 38px -18px var(--tc,#C79DF2)}
+.tech:nth-child(5n+1){--tg:linear-gradient(135deg,#FF6FA8,#C79DF2);--tc:#FF6FA8}
+.tech:nth-child(5n+2){--tg:linear-gradient(135deg,#19C6F7,#C79DF2);--tc:#19C6F7}
+.tech:nth-child(5n+3){--tg:linear-gradient(135deg,#37E08A,#19C6F7);--tc:#37E08A}
+.tech:nth-child(5n+4){--tg:linear-gradient(135deg,#FFB84C,#F2A6C6);--tc:#FFB84C}
+.tech:nth-child(5n+5){--tg:linear-gradient(135deg,#C79DF2,#F2A6C6);--tc:#C79DF2}
+.tech i{display:block;font-style:normal;font-size:22px;margin-bottom:8px;background:var(--tg);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tech b{display:block;font-size:15px;font-weight:800;margin-bottom:4px}
+.tech span{display:block;font-size:12px;line-height:1.5;color:#8B92AA;margin-bottom:9px}
+.tech em{font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#C7A6F0}
+.mk-tut{margin-left:8px;border:none;border-radius:99px;padding:3px 9px;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1.2px;color:#07121A;background:linear-gradient(100deg,#19C6F7,#C79DF2);cursor:pointer;font-weight:700;vertical-align:middle}
+.mk-tut:hover{filter:brightness(1.15)}
+/* ===== визуальный туториал ===== */
+.tut-ov{position:fixed;inset:0;z-index:300;background:rgba(5,7,12,.82);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px}
+.tut-ov.open{display:flex}
+.tut-box{position:relative;width:min(980px,100%);max-height:92vh;overflow:auto;border-radius:26px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2,#F2A6C6) border-box;box-shadow:0 40px 100px -30px rgba(0,0,0,.9);animation:spIn .4s both}
+.tut-x{position:absolute;top:14px;right:14px;z-index:4;width:36px;height:36px;border:none;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:15px;cursor:pointer;transition:background .2s}
+.tut-x:hover{background:rgba(255,255,255,.18)}
+.tut-head{padding:22px 26px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.tut-head h3{font-size:23px;font-weight:800;letter-spacing:-.4px;margin:6px 44px 8px 0}
+.tut-meta{display:flex;flex-wrap:wrap;gap:7px}
+.tut-meta span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;padding:5px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);color:#B7BCCC}
+.tut-meta span.hi{border-color:transparent;color:#07121A;background:linear-gradient(100deg,#19C6F7,#C79DF2);font-weight:700}
+.tut-body{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:24px;padding:22px 26px 10px}
+.tut-stage{position:relative;border-radius:20px;overflow:hidden;background:radial-gradient(70% 60% at 50% 35%,rgba(25,198,247,.1),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1)}
+.tut-zoom{position:relative;width:100%;aspect-ratio:1;overflow:hidden}
+.tut-zin{position:absolute;inset:0;transition:transform .45s cubic-bezier(.2,.9,.3,1.2);transform-origin:50% 42%}
+.tut-svg{width:100%;height:100%;display:block}
+.t-f{fill:#E9C6B0}.t-n{fill:#D9B49C}.t-s{fill:#232838}
+.t-e{fill:#3A2A33}.t-b{fill:none;stroke:#4A3026;stroke-width:3.4;stroke-linecap:round}
+.t-l{fill:#B8485C}.t-i{fill:#6E7A86}.t-p{fill:#1A1620}
+.t-lash{fill:none;stroke:#241A20;stroke-width:3;stroke-linecap:round}
+.t-lp{fill:#B8485C}.t-lpm{fill:none;stroke:#8E3B4A;stroke-width:2}
+.t-h{fill:#6E4A30}
+.t-str{fill:none;stroke:#8B5E3C;stroke-width:7;stroke-linecap:round}
+.t-str.big{stroke-width:12}
+.t-base{fill:#6E4A30}.t-bun{fill:#6E4A30}
+.t-band{fill:#C79DF2;opacity:.9}
+.t-arw{fill:none;stroke:#19C6F7;stroke-width:3;stroke-linecap:round;stroke-dasharray:7 7;animation:tDash 1.2s linear infinite}
+.t-arw.d2{animation-delay:.3s}
+@keyframes tDash{to{stroke-dashoffset:-28}}
+.t-tool{fill:#C7CCDC}.t-tool2{fill:#9AA2B8}
+.t-bris{fill:none;stroke:#E4E7F0;stroke-width:2.2;stroke-linecap:round}
+.t-hand{fill:#E9C6B0;stroke:#C99B84;stroke-width:1.5}
+.t-air{fill:none;stroke:#19C6F7;stroke-width:2.4;stroke-linecap:round;opacity:.75;animation:tAir 1s ease-out infinite}
+.t-air.d2{animation-delay:.35s}
+@keyframes tAir{0%{opacity:0;transform:translateY(6px)}40%{opacity:.8}100%{opacity:0;transform:translateY(-12px)}}
+.t-zone{fill:rgba(199,157,240,.4);stroke:#C79DF2;stroke-width:1.6}
+.t-line{fill:none;stroke:#1A1620;stroke-width:6;stroke-linecap:round}
+.tut-svg g[class^="mv-"],.tut-svg g[class*=" mv-"]{transform-box:view-box}
+.tut-ov.paused .tut-svg *{animation-play-state:paused!important}
+/* движения */
+.mv-part{animation:mPart 3s ease-in-out infinite}
+@keyframes mPart{0%,100%{transform:translate(100px,6px)}50%{transform:translate(100px,52px)}}
+.mv-gl{animation:mGl 3s ease-in-out infinite}.mv-gr{animation:mGr 3s ease-in-out infinite}
+@keyframes mGl{0%,100%{transform:translate(40px,48px) rotate(-14deg) scale(.8)}50%{transform:translate(62px,114px) rotate(10deg) scale(.8)}}
+@keyframes mGr{0%,100%{transform:translate(160px,48px) rotate(14deg) scale(-.8,.8)}50%{transform:translate(138px,114px) rotate(-10deg) scale(-.8,.8)}}
+.mv-twist{animation:mTw 2.6s linear infinite;transform-origin:100px 126px}
+@keyframes mTw{to{transform:rotate(360deg)}}
+.mv-th{animation:mTh 2.6s ease-in-out infinite}
+@keyframes mTh{0%,100%{transform:translate(126px,154px) rotate(0deg) scale(.7)}50%{transform:translate(126px,154px) rotate(40deg) scale(.7)}}
+.mv-wrap{animation:mWr 3.2s ease-in-out infinite;transform-origin:100px 138px}
+@keyframes mWr{0%{transform:rotate(0deg)}70%,100%{transform:rotate(330deg)}}
+.mv-wh{animation:mWh 3.2s ease-in-out infinite}
+@keyframes mWh{0%{transform:translate(144px,134px) scale(.65)}70%,100%{transform:translate(68px,176px) scale(.65)}}
+.mv-pin1{animation:mP1 2.8s ease-in-out infinite}.mv-pin2{animation:mP2 2.8s ease-in-out .4s infinite}
+@keyframes mP1{0%{transform:translate(44px,108px) rotate(42deg)}55%,100%{transform:translate(82px,138px) rotate(42deg)}}
+@keyframes mP2{0%{transform:translate(156px,108px) rotate(-42deg)}55%,100%{transform:translate(118px,138px) rotate(-42deg)}}
+.mv-pull{animation:mPu 2.6s ease-in-out infinite}
+@keyframes mPu{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
+.mv-ph{animation:mPh 2.6s ease-in-out infinite}
+@keyframes mPh{0%,100%{transform:translate(66px,128px) scale(.65)}50%{transform:translate(44px,98px) scale(.65)}}
+.mv-br{animation:mBr 2.8s ease-in-out infinite}
+@keyframes mBr{0%,100%{transform:translate(100px,74px) rotate(180deg) scale(.8)}50%{transform:translate(100px,30px) rotate(180deg) scale(.8)}}
+.t-lift{animation:mLift 2.8s ease-in-out infinite}
+@keyframes mLift{0%,100%{opacity:.25;transform:translateY(5px)}50%{opacity:1;transform:translateY(-3px)}}
+.mv-dry{animation:mDry 3.4s ease-in-out infinite}
+@keyframes mDry{0%,100%{transform:translate(62px,44px) rotate(-34deg) scale(.85)}50%{transform:translate(138px,44px) rotate(34deg) scale(.85)}}
+.mv-flip{animation:mFlip 3.2s ease-in-out infinite}
+@keyframes mFlip{0%,100%{transform:translate(140px,170px) rotate(150deg) scale(.85)}50%{transform:translate(150px,100px) rotate(120deg) scale(.85)}}
+.mv-iron{animation:mIron 3.4s ease-in-out infinite}
+@keyframes mIron{0%{transform:translate(126px,88px) rotate(16deg) scale(.9)}60%,100%{transform:translate(142px,142px) rotate(16deg) scale(.9)}}
+.mv-curl{animation:mCurl 3.4s ease-in-out infinite;transform-origin:120px 92px}
+@keyframes mCurl{0%{opacity:.25;transform:scaleY(.5)}60%,100%{opacity:1;transform:scaleY(1)}}
+.mv-clip{animation:mClip 2.8s ease-in-out infinite}
+@keyframes mClip{0%{transform:translate(180px,118px) rotate(0deg)}60%,100%{transform:translate(142px,118px) rotate(0deg)}}
+.mv-ring{animation:mRing 2.8s ease-in-out infinite}
+@keyframes mRing{0%,55%{opacity:.5}70%,100%{opacity:1}}
+.mv-scr{animation:mScr 2.4s ease-in-out infinite;transform-origin:126px 110px}
+@keyframes mScr{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.74)}}
+.mv-sh{animation:mSh 2.4s ease-in-out infinite}
+@keyframes mSh{0%,100%{transform:translate(150px,172px) rotate(-20deg) scale(.6)}50%{transform:translate(146px,142px) rotate(-20deg) scale(.6)}}
+.mv-diff{animation:mDif 3s ease-in-out infinite}
+@keyframes mDif{0%,100%{transform:translate(176px,168px) rotate(-40deg) scale(.9)}50%{transform:translate(146px,126px) rotate(-40deg) scale(.9)}}
+.mv-b1{animation:mB1 2.8s ease-in-out infinite}.mv-b2{animation:mB2 2.8s ease-in-out infinite}.mv-b3{animation:mB3 2.8s ease-in-out .5s infinite}
+@keyframes mB1{0%,100%{transform:translateX(0)}50%{transform:translateX(30px)}}
+@keyframes mB2{0%,100%{transform:translateX(0)}50%{transform:translateX(-30px)}}
+@keyframes mB3{0%,100%{transform:translateX(0)}50%{transform:translateX(-30px)}}
+.mv-rope{animation:mRope 2.6s linear infinite;transform-origin:100px 124px}
+@keyframes mRope{to{transform:rotate(360deg)}}
+.mv-fr{animation:mFr 3.2s ease-in-out infinite}
+@keyframes mFr{0%{transform:translate(100px,40px) rotate(-90deg) scale(.7)}50%{transform:translate(62px,58px) rotate(-120deg) scale(.7)}100%{transform:translate(138px,58px) rotate(-60deg) scale(.7)}}
+.mv-fringe{animation:mLift 3.2s ease-in-out infinite}
+.mv-g1{animation:mG1 2.6s ease-in-out infinite}.mv-g2{animation:mG2 2.6s ease-in-out infinite}
+@keyframes mG1{0%,100%{transform:translate(150px,160px) rotate(-30deg) scale(.6)}50%{transform:translate(132px,104px) rotate(-30deg) scale(.6)}}
+@keyframes mG2{0%,100%{transform:translate(166px,174px) rotate(-30deg) scale(-.6,.6)}50%{transform:translate(148px,118px) rotate(-30deg) scale(-.6,.6)}}
+.mv-wet{animation:mG1 2.6s ease-in-out infinite}
+.mv-wetstr{animation:mScr 2.6s ease-in-out infinite;transform-origin:120px 70px}
+.mv-band{animation:mBand 3s ease-in-out infinite}
+@keyframes mBand{0%{transform:translateY(-34px);opacity:.3}55%,100%{transform:translateY(0);opacity:1}}
+.mv-lid{animation:mLid 2.8s ease-in-out infinite}
+@keyframes mLid{0%,100%{transform:translate(50px,58px) rotate(150deg) scale(.8)}50%{transform:translate(150px,58px) rotate(210deg) scale(.8)}}
+.mv-wing{stroke-dasharray:240;animation:mWing 3s ease-in-out infinite}
+@keyframes mWing{0%{stroke-dashoffset:240}65%,100%{stroke-dashoffset:0}}
+.mv-wb{animation:mWb 3s ease-in-out infinite}
+@keyframes mWb{0%{transform:translate(32px,112px) rotate(150deg) scale(.7)}65%,100%{transform:translate(176px,66px) rotate(150deg) scale(.7)}}
+.mv-masc{animation:mMasc 2.2s ease-in-out infinite}
+@keyframes mMasc{0%,100%{transform:translate(56px,24px) rotate(160deg) scale(.9)}25%{transform:translate(90px,14px) rotate(160deg) scale(.9)}50%{transform:translate(124px,24px) rotate(160deg) scale(.9)}75%{transform:translate(90px,14px) rotate(160deg) scale(.9)}}
+.mv-blush{animation:mBl 2.8s ease-in-out infinite}
+@keyframes mBl{0%,100%{transform:translate(46px,116px) rotate(150deg) scale(.7)}50%{transform:translate(88px,80px) rotate(150deg) scale(.7)}}
+.mv-cont{animation:mCo 2.8s ease-in-out infinite}
+@keyframes mCo{0%,100%{transform:translate(52px,84px) rotate(165deg) scale(.7)}50%{transform:translate(90px,116px) rotate(165deg) scale(.7)}}
+.mv-lipp{animation:mLip 3.2s ease-in-out infinite}
+@keyframes mLip{0%{transform:translate(96px,78px) rotate(160deg) scale(.9)}50%{transform:translate(136px,66px) rotate(160deg) scale(.9)}100%{transform:translate(172px,92px) rotate(160deg) scale(.9)}}
+/* правая колонка */
+.tut-rail{display:flex;gap:6px;margin-bottom:16px}
+.tut-rail i{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.12);cursor:pointer;transition:background .25s}
+.tut-rail i.done{background:rgba(55,224,138,.7)}
+.tut-rail i.on{background:linear-gradient(90deg,#19C6F7,#C79DF2);box-shadow:0 0 12px rgba(25,198,247,.8)}
+.tut-sn{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#C7A6F0;margin-bottom:6px}
+.tut-st{font-size:21px;font-weight:800;letter-spacing:-.3px;margin:0 0 12px}
+.tut-d{font-size:15px;line-height:1.65;color:#E4E7F0;margin:0 0 14px}
+.tut-note{padding:12px 14px;border-radius:13px;margin-bottom:10px;font-size:13.5px;line-height:1.55}
+.tut-note b{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+.tut-watch{border:1px solid rgba(55,224,138,.35);background:rgba(55,224,138,.07);color:#D6DAE6}
+.tut-watch b{color:#7CF0B2}
+.tut-err{border:1px solid rgba(255,111,168,.38);background:rgba(255,111,168,.07);color:#D6DAE6}
+.tut-err b{color:#FF9DB0}
+.tut-ctrl{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);margin-top:14px;flex-wrap:wrap}
+.tut-cb{border:none;border-radius:10px;padding:8px 12px;background:rgba(255,255,255,.07);color:#D6DAE6;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.2px;cursor:pointer;transition:all .2s}
+.tut-cb:hover{background:rgba(199,157,240,.2);color:#fff}
+.tut-cb.on{background:linear-gradient(100deg,#19C6F7,#C79DF2);color:#07121A;font-weight:700}
+.tut-timer{margin-left:auto;font-family:'JetBrains Mono';font-size:15px;color:#7CF0B2;min-width:52px;text-align:right}
+.tut-nav{display:flex;gap:9px;margin-top:16px}
+.tut-nav .btn{flex:1}
+.tut-foot{padding:0 26px 22px}
+.tut-fix{margin-top:8px;padding:16px 18px;border-radius:16px;border:1px solid rgba(255,184,76,.35);background:rgba(255,184,76,.06)}
+.tut-fix>b{display:block;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#FFD9A8;margin-bottom:10px}
+.tut-fx{padding:9px 0;border-top:1px solid rgba(255,255,255,.07);font-size:13.5px;line-height:1.55;color:#D6DAE6}
+.tut-fx:first-of-type{border-top:none}
+.tut-fx b{display:block;color:#fff;font-weight:700;margin-bottom:2px}
+.tut-zbtn{position:absolute;right:10px;bottom:10px;display:flex;gap:6px;z-index:3}
+.tut-zbtn button{width:32px;height:32px;border:none;border-radius:9px;background:rgba(5,7,12,.75);color:#C7A6F0;font-size:14px;cursor:pointer;transition:background .2s}
+.tut-zbtn button:hover{background:rgba(199,157,240,.3);color:#fff}
+.tut-loop{position:absolute;left:12px;top:12px;z-index:3;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.4px;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:rgba(5,7,12,.7);color:#7CF0B2}
+.tut-open{cursor:pointer}
+.tut-cta{display:inline-flex;align-items:center;gap:6px;margin-top:4px;padding:8px 14px;border-radius:99px;border:1.3px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2) border-box;color:#fff;font-family:'Manrope';font-size:12.5px;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.tut-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px -12px rgba(199,157,240,.9)}
+@media(max-width:820px){.tut-body{grid-template-columns:1fr;gap:18px;padding:18px 16px 8px}.tut-head{padding:18px 18px 14px}.tut-head h3{font-size:20px}.tut-foot{padding:0 16px 18px}.tut-box{max-height:94vh}}
+/* причёски под состояние волос */
+.hf-step{margin-bottom:20px;transition:opacity .3s}
+.hf-step.dim{opacity:.45}
+.hf-q{display:flex;align-items:center;gap:10px;font-size:15.5px;font-weight:700;margin-bottom:11px}
+.hf-q i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;flex:0 0 auto;font-style:normal;font-family:'JetBrains Mono';font-size:11px;color:#07121A;background:linear-gradient(135deg,#19C6F7,#C79DF2);box-shadow:0 0 12px -2px rgba(25,198,247,.8)}
+.hf-q span{font-weight:400;font-size:12px;color:#8B92AA}
+.hf-chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px}
+.hf-c{position:relative;padding:12px 14px;border-radius:14px;border:1.3px solid rgba(255,255,255,.12);background:rgba(255,255,255,.028);cursor:pointer;text-align:left;font-family:'Manrope';animation:popIn .45s both;transition:all .22s}
+.hf-c b{display:block;font-size:13.5px;font-weight:700;color:#E4E7F0;margin-bottom:3px;padding-right:18px}
+.hf-c em{display:block;font-style:normal;font-size:11px;line-height:1.4;color:#8B92AA}
+.hf-c:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.6)}
+.hf-tick{position:absolute;top:11px;right:11px;font-style:normal;font-size:12px;color:#37E08A;opacity:0;transition:opacity .2s}
+.hf-c.on{border-color:transparent;background:linear-gradient(#11141E,#11141E) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2) border-box;box-shadow:0 0 24px -10px rgba(199,157,240,.9)}
+.hf-c.on b{color:#fff}
+.hf-c.on .hf-tick{opacity:1}
+.hf-res{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);animation:spIn .5s both}
+.hf-sum{margin-bottom:18px}
+.hf-sum b{display:block;font-size:19px;font-weight:800;letter-spacing:-.3px;margin-top:5px;background:linear-gradient(100deg,#fff,#E6D8FF 55%,#FFD7E8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hf-list{display:grid;gap:12px}
+.hf-h{position:relative;padding:16px 18px;border-radius:16px;border:1.3px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,var(--hg,linear-gradient(135deg,#19C6F7,#C79DF2)) border-box;box-shadow:0 0 26px -16px var(--hc2,#C79DF2);transition:transform .25s,box-shadow .25s}
+.hf-h:hover{transform:translateY(-3px);box-shadow:0 14px 34px -18px var(--hc2,#C79DF2)}
+.hf-h:nth-child(5n+1){--hg:linear-gradient(135deg,#19C6F7,#C79DF2);--hc2:#19C6F7}
+.hf-h:nth-child(5n+2){--hg:linear-gradient(135deg,#F2A6C6,#FFB84C);--hc2:#F2A6C6}
+.hf-h:nth-child(5n+3){--hg:linear-gradient(135deg,#37E08A,#19C6F7);--hc2:#37E08A}
+.hf-h:nth-child(5n+4){--hg:linear-gradient(135deg,#C79DF2,#F2A6C6);--hc2:#C79DF2}
+.hf-h:nth-child(5n+5){--hg:linear-gradient(135deg,#FFB84C,#F2A6C6);--hc2:#FFB84C}
+.hf-h-top{display:flex;align-items:center;gap:11px;margin-bottom:11px}
+.hf-num{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;flex:0 0 auto;font-family:'JetBrains Mono';font-size:12px;color:#07121A;background:var(--hg);font-weight:700}
+.hf-h-top b{flex:1;font-size:16px;font-weight:800;letter-spacing:-.2px}
+.hf-h-top em{font-style:normal;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.2px;color:#8B92AA;white-space:nowrap}
+.hf-hit{display:flex;flex-wrap:wrap;gap:6px;margin:-4px 0 11px}
+.hf-hit span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.1px;text-transform:uppercase;padding:4px 9px;border-radius:99px;color:#7CF0B2;background:rgba(55,224,138,.1);border:1px solid rgba(55,224,138,.3)}
+.hf-hit span::before{content:'✓ '}
+.hf-why,.hf-how{font-size:13.5px;line-height:1.6;color:#D6DAE6;margin-bottom:9px}
+.hf-why span,.hf-how span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#C7A6F0;margin-bottom:3px}
+.hf-how span{color:#7CF0B2}
+.hf-no,.hf-care{margin-top:16px;padding:15px 17px;border-radius:16px}
+.hf-no{border:1.3px solid rgba(255,111,168,.4);background:rgba(255,111,168,.07)}
+.hf-care{border:1.3px solid rgba(55,224,138,.35);background:rgba(55,224,138,.06)}
+.hf-no b,.hf-care b{display:block;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:9px}
+.hf-no b{color:#FF9DB0}.hf-care b{color:#7CF0B2}
+.hf-no ul,.hf-care ul{margin:0;padding-left:18px}
+.hf-no li,.hf-care li{font-size:13px;line-height:1.6;color:#D6DAE6;margin-bottom:5px}
+.hf-med{margin-top:14px;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,184,76,.4);background:rgba(255,184,76,.07);font-size:12.5px;line-height:1.6;color:#D6DAE6}
+.hf-med b{color:#FFD9A8}
+@media(max-width:640px){.hf-chips{grid-template-columns:1fr}.hf-h{padding:14px 15px}.hf-h-top b{font-size:15px}}
+.au-box.gate-box{width:min(392px,100%);max-width:392px;padding:24px 22px 20px;border-radius:24px}
+.gt-badge{display:inline-block;padding:5px 12px;border-radius:99px;font-family:'JetBrains Mono';font-size:10px;letter-spacing:2px;color:#0A0C12;background:linear-gradient(100deg,#19C6F7,#C79DF2,#F2A6C6);font-weight:700;margin-bottom:12px}
+.gate-box h3{font-size:22px;font-weight:800;letter-spacing:-.4px;margin:0 0 8px}
+.gate-box p{font-size:14px;line-height:1.6;color:#B7BCCC;margin:0 0 16px}
+.gt-try{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;width:100%;padding:15px 18px;border-radius:16px;border:1.6px solid transparent;background:linear-gradient(#0E1119,#0E1119) padding-box,linear-gradient(135deg,#37E08A,#19C6F7,#C79DF2) border-box;box-shadow:0 0 34px -12px rgba(55,224,138,.75);cursor:pointer;text-align:left;font-family:'Manrope';transition:transform .22s,box-shadow .22s}
+.gt-try:hover{transform:translateY(-2px);box-shadow:0 14px 40px -14px rgba(55,224,138,.8)}
+.gt-try b{display:block;font-size:16px;font-weight:800;color:#fff}
+.gt-try span{display:block;font-size:11.5px;color:#8B92AA;margin-top:2px}
+.gt-try i{grid-column:2;grid-row:1/3;align-self:center;font-style:normal;font-size:19px;color:#7CF0B2;transition:transform .22s}
+.gt-try:hover i{transform:translateX(4px)}
+.gt-try>div,.gt-try b,.gt-try span{grid-column:1;text-align:left}
+.gt-or{text-align:center;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#6E7489;margin:14px 0 10px}
+.gt-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.gpl{position:relative;padding:12px 6px 11px;border-radius:13px;border:1.3px solid rgba(255,255,255,.12);background:rgba(255,255,255,.025);cursor:pointer;font-family:'Manrope';transition:all .22s}
+.gpl small{display:block;font-size:11px;color:#8B92AA;text-transform:capitalize}
+.gpl b{display:block;font-size:15px;font-weight:800;color:#fff;margin-top:3px}
+.gpl em{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-style:normal;font-family:'JetBrains Mono';font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:99px;background:#19C6F7;color:#06131A;white-space:nowrap}
+.gpl em.g{background:linear-gradient(100deg,#FFD9A8,#FFB84C);color:#2A1A05}
+.gpl:hover{transform:translateY(-2px);border-color:rgba(199,157,240,.6)}
+.gpl.on{border-color:transparent;box-shadow:inset 0 0 0 1.6px #C79DF2;background:rgba(199,157,240,.1)}
+.gt-free{margin-top:16px;padding:13px 15px;border-radius:14px;background:rgba(55,224,138,.06);border:1px solid rgba(55,224,138,.25);font-size:12px;line-height:1.55;color:#B7BCCC}
+.gt-free b{color:#7CF0B2;font-weight:700}
+/* метка PRO на карточках разделов */
+.hub-card.is-pro{position:relative}
+.hub-card em.pro{border-color:transparent!important;color:#0A0C12!important;background:linear-gradient(100deg,#19C6F7,#C79DF2)!important;font-weight:700;box-shadow:0 0 14px -4px rgba(199,157,240,.9)}
+.sub-col em.pro{font-style:normal;font-family:'JetBrains Mono';font-size:10px;line-height:1;letter-spacing:1.6px;padding:6px 11px;border-radius:99px;color:#07121A!important;background:linear-gradient(100deg,#19C6F7,#C79DF2)!important;font-weight:700;box-shadow:0 0 16px -4px rgba(199,157,240,.9);border:none!important}
+.pay-wiz{width:min(368px,100%);padding:20px 20px 16px;border-radius:22px}
+.pw-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 28px 16px 0}
+.pw-plan{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;background:linear-gradient(100deg,#19C6F7,#C79DF2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.pw-track{position:relative;width:86px;height:3px;border-radius:3px;background:rgba(255,255,255,.12);flex:0 0 auto;overflow:hidden}
+.pw-track i{display:block;height:100%;width:25%;border-radius:3px;background:linear-gradient(90deg,#19C6F7,#C79DF2,#F2A6C6);box-shadow:0 0 12px rgba(25,198,247,.7);transition:width .45s cubic-bezier(.2,.9,.3,1.2)}
+.pw-body{animation:pwIn .32s cubic-bezier(.2,.8,.3,1) both}
+@keyframes pwIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.pw-back{border:none;background:none;color:#8B92AA;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.4px;text-transform:uppercase;cursor:pointer;padding:0 0 10px;transition:color .2s}
+.pw-back:hover{color:#C7A6F0}
+.pw-h{margin-bottom:14px}
+.pw-h b{display:block;font-size:19px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
+.pw-h span{display:block;font-size:12.5px;line-height:1.5;color:#8B92AA}
+.pw-geo{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px}
+.pw-pls{display:grid;gap:7px}
+.pw-p{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:10px;padding:13px 15px;border-radius:14px;border:1.4px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,rgba(255,255,255,.12) border-box;cursor:pointer;text-align:left;font-family:'Manrope';transition:all .22s}
+.pw-p small{font-size:13.5px;font-weight:700;color:#D6DAE6;text-transform:capitalize}
+.pw-p b{font-size:18px;font-weight:800;color:#fff;text-align:right}
+.pw-p span{font-size:11px;color:#8B92AA;white-space:nowrap}
+.pw-p:hover{transform:translateX(3px);background:linear-gradient(#11141E,#11141E) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2) border-box}
+.pw-p.on{background:linear-gradient(#11141E,#11141E) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2,#F2A6C6) border-box;box-shadow:0 0 26px -10px rgba(199,157,240,.8)}
+.pw-g{display:flex;align-items:center;justify-content:center;text-align:center;padding:11px 8px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);color:#D6DAE6;font-family:'Manrope';font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.pw-g i{font-style:normal;opacity:.3;transition:all .2s}
+.pw-g:hover{border-color:rgba(199,157,240,.55);background:rgba(199,157,240,.07);transform:translateX(3px)}
+.pw-g:hover i{opacity:1;transform:translateX(3px)}
+.pw-g.on{border-color:transparent;box-shadow:inset 0 0 0 1.5px #C79DF2;background:rgba(199,157,240,.1)}
+.pw-plans{display:none}
+.pw-pl{padding:9px 6px;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);color:#8B92AA;font-family:'Manrope';font-size:11px;cursor:pointer;transition:all .2s}
+.pw-pl b{display:block;font-size:13.5px;color:#fff;margin-top:2px}
+.pw-pl:hover{border-color:rgba(25,198,247,.5)}
+.pw-pl.on{border-color:transparent;box-shadow:inset 0 0 0 1.5px #19C6F7;background:rgba(25,198,247,.1);color:#C2C7D6}
+.pw-card{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;width:100%;padding:12px 14px;margin-bottom:7px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);cursor:pointer;text-align:left;font-family:'Manrope';transition:all .2s}
+.pw-card span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.3px;text-transform:uppercase;color:#8B92AA}
+.pw-card b{font-family:'JetBrains Mono';font-size:14.5px;letter-spacing:.6px;color:#fff}
+.pw-card em{font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:#C7A6F0}
+.pw-card:hover{border-color:rgba(25,198,247,.5);background:rgba(25,198,247,.06)}
+.pw-card.copied{border-color:rgba(55,224,138,.6);background:rgba(55,224,138,.08)}
+.pw-card.copied em{color:#7CF0B2}
+.pw-tip{margin-top:10px;font-size:11.5px;line-height:1.55;color:#7A8098}
+.pw-in{width:100%;height:46px;padding:0 15px;margin-bottom:8px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;font:inherit;font-size:14px}
+.pw-in::placeholder{color:#6E7489}
+.pw-in:focus{outline:none;border-color:rgba(199,157,240,.65);background:rgba(199,157,240,.06)}
+.pw-in.mono{font-family:'JetBrains Mono';letter-spacing:2px;text-transform:uppercase}
+.pw-two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.pw-two .btn{width:100%;padding:12px 8px;font-size:13px}
+.pw-next{width:100%;margin-top:12px}
+.pw-code{width:100%;margin-top:14px;padding:9px;border:none;border-top:1px solid rgba(255,255,255,.08);background:none;color:#8B92AA;font-family:'Manrope';font-size:12.5px;cursor:pointer;transition:color .2s}
+.pw-code:hover{color:#C7A6F0}
+@media(max-width:460px){.pay-wiz{padding:18px 16px 14px}.pw-h b{font-size:17px}.pw-card b{font-size:13px}}
 .pay-x{position:absolute;top:12px;right:14px;background:none;border:none;color:#8B92AA;font-size:18px;cursor:pointer}
 .pay-x:hover{color:#fff}
 .pay-tabs{display:flex;gap:8px;margin-bottom:18px}
@@ -2030,9 +2344,13 @@ header::before{display:none}
 @media(max-width:640px){.tp-row .btn{width:100%}}
 
 /* ================= МЕГА-МЕНЮ ПОМОЩНИКОВ ================= */
-.nav-dd .dd{min-width:600px;padding:16px 16px 12px;left:-40px;border:1px solid transparent;
-  background:linear-gradient(#0d0f1a,#0d0f1a) padding-box,linear-gradient(135deg,rgba(25,198,247,.6),rgba(255,255,255,.06) 50%,rgba(91,108,255,.5)) border-box;
-  box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 40px rgba(25,198,247,.15)}
+.nav-dd .dd{min-width:620px;padding:16px;left:-40px;border-radius:22px;border:1px solid transparent;
+  background:linear-gradient(#0C0E18,#0C0E18) padding-box,linear-gradient(135deg,rgba(25,198,247,.75),rgba(199,157,240,.45) 50%,rgba(242,166,198,.6)) border-box;
+  box-shadow:0 36px 90px rgba(0,0,0,.78), 0 0 54px -14px rgba(25,198,247,.4);
+  display:none;grid-template-columns:1fr 1fr;gap:7px;animation:ddIn .26s cubic-bezier(.2,.9,.3,1.1) both}
+.nav-dd:hover .dd,.nav-dd .dd.open{display:grid}
+@keyframes ddIn{from{opacity:0;transform:translateY(-8px) scale(.985)}to{opacity:1;transform:none}}
+.nav-dd .dd::after{content:'';position:absolute;inset:0;border-radius:22px;pointer-events:none;background:radial-gradient(420px 150px at 18% 0%,rgba(25,198,247,.1),transparent 70%),radial-gradient(380px 150px at 88% 100%,rgba(242,166,198,.09),transparent 70%)}
 .dd-head{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono';font-size:10px;letter-spacing:2.5px;color:#8B92AA;padding:0 4px 12px}
 .dd-live{color:#37E08A;display:inline-flex;align-items:center;gap:7px;letter-spacing:1.5px;text-transform:none}
 .dd-live i{width:6px;height:6px;border-radius:50%;background:#37E08A;box-shadow:0 0 8px #37E08A;animation:blinkDot 1.6s ease-in-out infinite}
@@ -2365,7 +2683,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 /* мобильная выпадашка помощников */
 @media(hover:none){
   .nav-dd .dd{display:none!important;position:fixed;left:10px;right:10px;top:62px;min-width:0;width:auto;max-height:calc(100vh - 80px);overflow:auto;padding:14px 12px 12px;z-index:900}
-  .nav-dd .dd.open{display:block!important;animation:riseIn .25s ease}
+  .nav-dd .dd.open{display:grid!important;animation:ddIn .26s cubic-bezier(.2,.9,.3,1.1) both}
   .dd-grid{grid-template-columns:1fr}
   .dd-soon{grid-template-columns:1fr 1fr 1fr}
   .dd-x{position:absolute;top:8px;right:10px;background:none;border:none;color:#8B92AA;font-size:18px;cursor:pointer;padding:4px 8px}
@@ -5078,7 +5396,7 @@ header nav.topnav{gap:4px;align-items:center}
 <div class="sysbar sb2">
   <span class="sb-on"><i></i>SYSTEM ONLINE</span>
   <span class="sb-clock" id="sbClock">МСК --:--:--</span>
-  <span class="sb-rot"><b id="sbRot">РАЗДЕЛОВ: 20 · ПОМОЩНИКОВ: 8 · ПОИСК ПО САЙТУ</b></span>
+  <span class="sb-rot"><b id="sbRot">РАЗДЕЛОВ: 25 · БЕСПЛАТНЫХ: 20 · ПОМОЩНИКОВ: 8</b></span>
   <button class="reg-btn" onclick="openRegion()">🇷🇺 Россия и СНГ <i>▾</i></button>
   <span class="sb-scan"></span>
 </div>
@@ -5286,7 +5604,7 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="sub-plans" id="subPlans"></div>
 </section>
 <section class="sec reveal hub-home tone-d" id="hub">
-  <div class="eyebrow">всё для вас · 20 разделов на ваших данных</div>
+  <div class="eyebrow">всё для вас · 25 разделов, 20 из них бесплатны</div>
   <h2 class="big">Не советы из интернета — <span class="holo">система, которая знает вас</span></h2>
   <p class="lead">Цветотип, кожа, волосы, макияж, гардероб, капсула, событие — каждый раздел строится на вашей анкете, показывает результат картинкой и ведёт до покупки в вашей стране. Чат этого не сделает: у него нет вашей палитры и вашего шкафа.</p>
   <div class="hub-grid" data-hub></div>
@@ -5701,7 +6019,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="makeupPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">макияж-гид · схемы под вашу форму глаз и лица</div>
     <h2 class="big">Макияж, который <span class="holo">делают именно на вас</span></h2>
     <p class="lead">Не «урок макияжа вообще», а схема под вашу форму глаз, посадку, форму лица, цвет радужки и кожи — и под тот цвет теней, который вы хотите носить. Где положить каждый оттенок, какой кистью, в каком порядке, что испортит результат именно в вашем случае. Плюс косметичка под бюджет.</p>
@@ -5710,6 +6028,11 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="mk-hero" style="margin-top:34px"><div class="eyebrow">повторить макияж с фото</div>
   <h2 style="font-size:26px;font-weight:800;margin:6px 0 8px">Увидела — <span class="holo">повтори под своё лицо</span></h2>
   <p class="lead" style="font-size:14.5px">Загрузите референс — LOOKA разложит его на шаги и пересчитает под вашу форму глаз и посадку. Добавите фото своей косметички — распишет шаги вашими же продуктами и скажет, чего не хватает.</p></div>
+  <div class="mk-hero" style="margin-top:34px"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
+    <div class="eyebrow">техники по шагам · с анимацией движения</div>
+    <h2 style="font-size:26px;font-weight:800;margin:6px 0 8px">Руки покажут <span class="holo">лучше, чем слова</span></h2>
+    <p class="lead" style="font-size:14.5px">Пять техник, на которых спотыкаются все: каждая разобрана по шагам, с зацикленной анимацией движения кисти и возможностью приблизить. Плюс «на что смотреть» и «частая ошибка» на каждом шаге.</p></div>
+  <div id="mkTech"></div>
   <div class="bt-form look mk-form"><div id="mrBox"></div></div>
   <div class="looks" id="mrOut"></div>
   <div class="looks" id="mkOut"></div>
@@ -5733,7 +6056,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="colorPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">цветотип · 12 сезонов · карточка палитры</div>
     <h2 class="big">Ваши цвета — <span class="holo">раз и навсегда</span></h2>
     <p class="lead">Семь ответов вместо консультации за 200 $: температура, глубина и чистота вашей внешности → один из 12 сезонов, 24 цвета, которые делают кожу ровнее, и шесть, которые не стоит носить у лица. Карточку палитры можно сохранить в телефон и брать с собой в магазин.</p>
@@ -5751,7 +6074,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="skinPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">уход за кожей · рутина, а не полка</div>
     <h2 class="big">Четыре средства, <span class="holo">которые реально работают</span></h2>
     <p class="lead">Утро и вечер под ваш тип кожи, задачи и климат: что, в каком порядке, какой актив с каким не смешивать, чего не покупать никогда — и когда это уже к врачу. Косметичка под бюджет со ссылками.</p>
@@ -5763,7 +6086,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="lookCheckPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">разбор моего образа · честно, но бережно</div>
     <h2 class="big">Что не так с этим образом — <span class="holo">и как исправить за одну вещь</span></h2>
     <p class="lead">Сфотографируйте себя в полный рост в том, в чём собираетесь выйти. LOOKA скажет, что работает, что портит, какую одну вещь заменить — и как выглядеть на 20 000 ₽ дороже за тот же бюджет.</p>
@@ -5773,7 +6096,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="richPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">выглядеть дорого · при любом бюджете</div>
     <h2 class="big">Дорого за копейки — <span class="holo">10 приёмов под вас и 5 вещей до 3 000 ₽</span></h2>
     <p class="lead">«Дорого» — это не цена, а сочетание: ткань, посадка, цвет, обувь и одна деталь. Ответьте на четыре вопроса — получите личные правила и конкретные вещи, которые превращают масс-маркет в «где ты это купила?».</p>
@@ -5783,7 +6106,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="bodyShiftPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">тело изменилось · гардероб — тоже</div>
     <h2 class="big">Похудела, поправилась, после родов — <span class="holo">что носить прямо сейчас</span></h2>
     <p class="lead">Самый честный раздел: как одеваться в переходный период, чтобы чувствовать себя собой уже сегодня — что из старого спасти, что купить на «сейчас», а что подождёт. Без «просто похудей» и без стыда.</p>
@@ -5793,7 +6116,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="shoesPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">обувь · что реально идёт вашим ногам</div>
     <h2 class="big">Какая обувь ваша — <span class="holo">по росту, ногам и образам</span></h2>
     <p class="lead">Лоферы, мэри-джейн, челси, слингбэки, платформа — у каждой пары есть картинка и объяснение, что это. Ответьте на шесть вопросов — получите свою «обувную капсулу»: что покупать, что не брать и с чем носить.</p>
@@ -5803,13 +6126,18 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="hairPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">волосы · стрижка и цвет</div>
     <h2 class="big">Стрижка, которую <span class="holo">не придётся отращивать</span></h2>
     <p class="lead">Форма лица задаёт, где нужен объём; структура волос — что будет держаться без укладки; цветотип — в какой температуре красить. Три стрижки под вас, три запрета и оттенки, с которыми идти к колористу.</p>
   </div>
   <div class="bt-form look mk-form"><div id="hrForm"></div></div>
   <div class="looks" id="hrOut"></div>
+  <div class="mk-hero" style="margin-top:34px"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
+    <div class="eyebrow">причёски под состояние волос · бесплатно</div>
+    <h2 style="font-size:26px;font-weight:800;margin:6px 0 8px">Не «что модно», а <span class="holo">что выдержат ваши волосы</span></h2>
+    <p class="lead" style="font-size:14.5px">Ломкие и короткие, пористые и кудрявые, тонкие после осветления — это три разные стратегии, а не одна «причёска по форме лица». Ответьте на три вопроса кликами: подберу укладки, которые на таких волосах реально держатся, и назову то, что их добивает.</p></div>
+  <div class="bt-form look mk-form"><div id="hfBox"></div></div>
   <div class="mk-hero" style="margin-top:34px"><div class="eyebrow">укладки · пошагово со схемами</div>
     <h2 style="font-size:26px;font-weight:800;margin:6px 0 8px">Укладка, которая <span class="holo">получится с первого раза</span></h2>
     <p class="lead" style="font-size:14.5px">Шесть укладок от пятиминутного объёма до голливудской волны: схема головы показывает направление движения на каждом шаге, а внизу — что поменять, если волосы тонкие или, наоборот, густые.</p></div>
@@ -5824,7 +6152,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="eventPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">событие под ключ · план от даты до утра</div>
     <h2 class="big">Одна дата — <span class="holo">и ничего не забыть</span></h2>
     <p class="lead">Свадьба, собеседование, выпускной, свидание: дресс-код и запреты, формула образа в вашей палитре, макияж и волосы под событие, бюджет по частям и план по дням с чек-листом, который помнит, что уже сделано.</p>
@@ -5835,7 +6163,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="capsulePage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">капсула сезона · всё со всем</div>
     <h2 class="big">14 вещей — <span class="holo">30 образов</span></h2>
     <p class="lead">Капсула под фигуру, палитру и вашу реальную неделю: список, что с чем носится, сколько стоит и чего докупить, если часть уже есть. Отмеченное переносится в гардероб.</p>
@@ -5846,7 +6174,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="wardrobePage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">мой гардероб · одевает по утрам</div>
     <h2 class="big">Полный шкаф — <span class="holo">и есть что надеть</span></h2>
     <p class="lead">Добавьте вещи один раз — дальше LOOKA собирает образ на сегодня под погоду в вашем городе, планирует неделю без повторов, считает цену каждого выхода и показывает, какой одной вещи не хватает, чтобы образов стало вдвое больше. Всё хранится в вашем телефоне.</p>
@@ -5857,7 +6185,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="studioPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">студия · образ становится картинкой</div>
     <h2 class="big">Увидеть, <span class="holo">а не представить</span></h2>
     <p class="lead">Пять режимов, которые собираются из вашего профиля одной кнопкой: манекен с вашими пропорциями, образ со всех сторон, раскладка для сторис, обложка как из кампании и примерка на своём фото. Ни промптов, ни описаний себя заново — LOOKA уже знает фигуру, палитру и вещи образа.</p>
@@ -5867,7 +6195,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="braPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">бельё · фундамент любого образа</div>
     <h2 class="big">8 из 10 носят <span class="holo">не свой размер</span></h2>
     <p class="lead">Две мерки сантиметром — и точный размер бра в RU/EU/US с «сестринскими» вариантами, проверка посадки по четырём признакам и какой бра под какой верх: от белой футболки до открытой спины. Ни один образ не сядет идеально на неправильном белье.</p>
@@ -5878,7 +6206,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="carePage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">уход за вещами · чтобы покупки жили годами</div>
     <h2 class="big">Вещь убивает <span class="holo">первая неправильная стирка</span></h2>
     <p class="lead">Шпаргалка по значкам на ярлыке, правила для кашемира, шёлка, кожи и пуховика — и SOS по пятнам: что сделать в первые десять минут с вином, тональником или жиром, пока пятно ещё выводится.</p>
@@ -5980,7 +6308,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="lookrefPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">повторить образ · с фото</div>
     <h2 class="big">Увидела на другой — <span class="holo">собери на себя</span></h2>
     <p class="lead">Скрин из Pinterest, кадр с показа, витрина, прохожая — загрузите фото, и LOOKA разберёт образ на вещи и пересоберёт его под вашу фигуру, палитру, размер и бюджет. Не копия, а «тот же характер, но сидит на вас». Каждая вещь — со ссылками на покупку.</p>
@@ -5991,7 +6319,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="framesPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">очки и серьги · по форме лица</div>
     <h2 class="big">Оправа, которую <span class="holo">не придётся возвращать</span></h2>
     <p class="lead">Очки и серьги покупают вслепую чаще всего — а правила простые и работают безотказно: круглому лицу — углы, квадратному — мягкость, сердцу — акцент вниз. Выберите форму — покажу, что искать и чего избегать.</p>
@@ -6014,7 +6342,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="shopsPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">бутики · то, чего нет на маркетплейсах</div>
     <h2 class="big">Магазины, которые <span class="holo">не найдёт поисковик</span></h2>
     <p class="lead">Маленькие бренды живут в Instagram и Telegram: их не индексирует Google и не знает ни один чат. Здесь они собраны и отсортированы — по нику, категории, сегменту и городу. Кураторские отмечены галочкой, свои находки сохраняйте себе: они будут подставляться под вашими образами.</p>
@@ -6024,7 +6352,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="glowPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">долгая красота · план на годы</div>
     <h2 class="big">Сохранить себя — <span class="holo">это навык, а не удача</span></h2>
     <p class="lead">Восемь ответов — и личный план: утро, вечер, неделя, месяц и привычки, которые влияют на внешность сильнее любого крема. Только то, что имеет доказанную эффективность, плюс честный список мифов, на которые уходят деньги. Без процедур, инъекций и пластики.</p>
@@ -6035,7 +6363,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="dnaPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="mk-hero">
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">стиль-днк · ваш вкус, а не «стиль вообще»</div>
     <h2 class="big">ИИ не знает, что вы носите. <span class="holo">Расскажите — один раз</span></h2>
     <p class="lead">Y2K или old money, оверсайз или по фигуре, каблуки или никогда, какой вы человек и что вас раздражает в одежде. Девять блоков — эстетики, посадки, характер, цвета, «никогда», калибровка на образах, досье, личность и красота — только выбор ответов, ничего писать не нужно. И каждый подбор, примерка и разбор в LOOKA начинают говорить именно с вами. Всё сохраняется по ходу.</p>
@@ -6274,34 +6602,14 @@ header nav.topnav{gap:4px;align-items:center}
 </footer>
 
 <div class="pay-ov" id="payOv" onclick="if(event.target===this) closePay()">
-  <div class="pay-box">
+  <div class="pay-box pay-wiz">
     <button class="pay-x" onclick="closePay()">✕</button>
-    <div class="pay-tabs"><button class="on" onclick="payTab(0)">Оформить доступ</button><button onclick="payTab(1)">У меня есть код</button></div>
-    <div class="pay-pane" id="payP0">
-      <div class="p-name" id="payPlanName">LOOKA · МЕСЯЦ · 990 ₽</div>
-    <div class="pay-geo"><label class="t">Откуда платите</label><div class="chips" id="payGeo">
-      <button class="chip on" onclick="payGeoPick(this,'ru')">Россия</button><button class="chip" onclick="payGeoPick(this,'kz')">Казахстан</button><button class="chip" onclick="payGeoPick(this,'by')">Беларусь</button><button class="chip" onclick="payGeoPick(this,'eu')">Европа</button><button class="chip" onclick="payGeoPick(this,'us')">США / Канада</button><button class="chip" onclick="payGeoPick(this,'ae')">ОАЭ / Залив</button><button class="chip" onclick="payGeoPick(this,'tr')">Турция</button><button class="chip" onclick="payGeoPick(this,'other')">Другая страна</button>
-    </div><div class="tip" id="payGeoNote" style="font-size:12.5px;margin-top:8px"></div></div>
-      <div id="payDetails"></div>
-      <p class="pay-lead" id="payLead">После перевода напишите нам — и получите код доступа. Обычно это занимает несколько минут в рабочее время.</p>
-      <div class="pay-row"><input id="payName" placeholder="Как к вам обращаться"></div>
-      <div class="pay-row"><input id="payPhone" placeholder="Телефон или @телеграм"></div>
-      <div class="pay-row pay-two">
-        <button class="btn primary" onclick="sendPay('tg', this)">Отправить в Telegram</button>
-        <button class="btn ghost" onclick="sendPay('mail', this)">Отправить на почту</button>
-      </div>
-      <div class="pay-steps">
-        <div><b>1</b>перевод</div><div>→</div><div><b>2</b>заявка</div><div>→</div><div><b>3</b>код доступа</div>
-      </div>
-      <div class="pay-note">Данные нужны только чтобы связаться с вами по этой заявке. Возврат — 14 дней без вопросов.</div>
+    <div class="pw-top">
+      <div class="pw-plan" id="payPlanName">LOOKA · МЕСЯЦ · 990 ₽</div>
+      <div class="pw-track"><i id="pwBar"></i></div>
     </div>
-    <div class="pay-pane" id="payP1" style="display:none">
-      <div class="p-name">АКТИВАЦИЯ ДОСТУПА</div>
-      <p class="pay-lead">Введите код, который пришёл после оплаты. Доступ сохранится на этом устройстве.</p>
-      <div class="pay-row"><input id="payCode" placeholder="LOOKA-XXXX-XXXX" style="font-family:'JetBrains Mono';letter-spacing:2px;text-transform:uppercase"></div>
-      <div class="pay-row"><button class="btn primary" onclick="checkCode()">Активировать</button></div>
-      <div class="pay-msg" id="payMsg"></div>
-    </div>
+    <div class="pw-body" id="pwBody"></div>
+    <button class="pw-code" id="pwCodeLink" onclick="payStep('code')">У меня уже есть код</button>
   </div>
 </div>
 
@@ -7662,11 +7970,11 @@ window.openPage = (id, anchor)=>{
   if(id==='devPage' && window.initWorldMap) initWorldMap();
   if(id==='passPage' && window.renderPassport) renderPassport();
   if(id==='myPage' && window.renderMy) renderMy();
-  if(id==='makeupPage' && window.renderMakeupForm){ renderMakeupForm(); if(window.renderMkRef) renderMkRef(); }
+  if(id==='makeupPage' && window.renderMakeupForm){ renderMakeupForm(); if(window.renderMkRef) renderMkRef(); if(window.renderMkTech) renderMkTech(); }
   if(window.brdAll) try{ brdAll(); }catch(e){}
   if(id==='colorPage' && window.renderColorForm) renderColorForm();
   if(id==='skinPage' && window.renderSkinForm) renderSkinForm();
-  if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderStyling) renderStyling(); if(window.hlAdopt && window.brdPhoto) hlAdopt(brdPhoto()); if(window.renderHairLab) renderHairLab(); }
+  if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderStyling) renderStyling(); if(window.renderHairFit) renderHairFit(); if(window.hlAdopt && window.brdPhoto) hlAdopt(brdPhoto()); if(window.renderHairLab) renderHairLab(); }
   if(id==='eventPage' && window.renderEventForm) renderEventForm();
   if(id==='capsulePage' && window.renderCapsuleForm) renderCapsuleForm();
   if(id==='wardrobePage' && window.renderWardrobe){ renderWardrobe(); }
@@ -8556,38 +8864,61 @@ const PAY_TG = 'looka_support', PAY_MAIL = 'hello@looka.ru';
 window.PAY_CARDS = [ ['ВТБ','2200 2480 7613 8501'], ['Сбербанк','2202 2036 4557 5152'] ];
 window.PAY_CRYPTO = { btc:'', usdt:'' };  // сюда — адреса кошельков, когда появятся
 window.copyTxt = t=>{ try{ navigator.clipboard.writeText(t.replace(/\s/g,'')); myToast('Скопировано'); }catch(e){ myToast(t); } };
-window.payDetailsDraw = ()=>{
-  const d=document.getElementById('payDetails'); if(!d) return;
-  const k=window.payGeoKey||'ru'; const P=PLANS[window.curPlan||'month'];
-  if(k==='ru'||k==='by'){
-    d.innerHTML=`<div class="pay-cards"><div class="cs-k">ПЕРЕВОД НА КАРТУ · ${P.p}</div>
-      ${PAY_CARDS.map(c=>`<div class="pay-card"><span>${c[0]}</span><b>${c[1]}</b><button class="btn ghost" onclick="copyTxt('${c[1]}')">копировать</button></div>`).join('')}
-      <div class="tip">В комментарии к переводу — ваша почта или @телеграм, чтобы мы нашли платёж. Получатель — самозанятая, чек придёт после активации.</div></div>`;
-    document.getElementById('payLead').textContent='После перевода отправьте заявку ниже — и получите код доступа. Обычно это занимает несколько минут в рабочее время.';
-  } else {
-    const has = PAY_CRYPTO.btc||PAY_CRYPTO.usdt;
-    d.innerHTML = has ? `<div class="pay-cards"><div class="cs-k">ОПЛАТА КРИПТОВАЛЮТОЙ · ЭКВИВАЛЕНТ ${P.p}</div>
-      ${PAY_CRYPTO.usdt?`<div class="pay-card"><span>USDT (TRC-20)</span><b class="mono">${PAY_CRYPTO.usdt}</b><button class="btn ghost" onclick="copyTxt('${PAY_CRYPTO.usdt}')">копировать</button></div>`:''}
-      ${PAY_CRYPTO.btc?`<div class="pay-card"><span>Bitcoin</span><b class="mono">${PAY_CRYPTO.btc}</b><button class="btn ghost" onclick="copyTxt('${PAY_CRYPTO.btc}')">копировать</button></div>`:''}
-      <div class="tip">Курс — на момент перевода. После перевода пришлите заявку ниже с хешем транзакции.</div></div>`
-      : `<div class="pay-cards"><div class="cs-k">ОПЛАТА ИЗ-ЗА РУБЕЖА</div><div class="tip">Оставьте заявку — пришлём удобный способ для вашей страны в ответ (карта другой страны, перевод или криптовалюта).</div></div>`;
-    document.getElementById('payLead').textContent='Оставьте имя и способ связи — ответим со способом оплаты и после оплаты активируем доступ.';
+window.PAY_GEO = [
+ ['ru','Россия','Перевод по номеру карты из любого российского банка.'],
+ ['kz','Казахстан','Kaspi Gold / Kaspi Pay или карта Halyk, Forte, Freedom — в тенге по курсу дня.'],
+ ['by','Беларусь','Карта Беларусбанка, Альфа-Банка, Приорбанка — через СБП или картой.'],
+ ['eu','Европа','Visa / Mastercard европейского банка (Revolut, N26, Wise) — списание в евро.'],
+ ['us','США и Канада','Visa / Mastercard / Amex, Apple Pay и Google Pay — списание в долларах.'],
+ ['ae','ОАЭ и Залив','Карты банков Залива — в дирхамах или долларах.'],
+ ['tr','Турция','Карта Ziraat, Garanti, İş Bankası — в лирах.'],
+ ['other','Другая страна','Подберём удобный способ и пришлём в ответ на заявку.']
+];
+window.payStep = st=>{ window.PW = st; payDraw(); };
+window.payGeoSet = k=>{ window.payGeoKey=k; payStep((PAY_CARDS.length&&(k==='ru'||k==='by'))?'pay':'req'); };
+window.payDraw = ()=>{
+  const b=document.getElementById('pwBody'); if(!b) return;
+  const st=window.PW||'plan', k=window.payGeoKey||'ru', P=PLANS[window.curPlan||'month'];
+  const G=(PAY_GEO.find(x=>x[0]===k)||PAY_GEO[0]);
+  const order=['plan','geo','pay','req'], idx=order.indexOf(st);
+  const bar=document.getElementById('pwBar'); if(bar) bar.style.width=(st==='code'?100:((idx+1)/4*100))+'%';
+  const nm=document.getElementById('payPlanName'); if(nm) nm.textContent = st==='code'?'АКТИВАЦИЯ КОДА':(P.n+' · '+P.p);
+  const cl=document.getElementById('pwCodeLink'); if(cl) cl.style.display = st==='code'?'none':'';
+  const back = t=>`<button class="pw-back" onclick="payStep('${t}')">←</button>`;
+  if(st==='plan'){
+    b.innerHTML=`<div class="pw-h"><b>Какой доступ?</b><span>без автопродления · возврат 14 дней</span></div>
+      <div class="pw-pls">${Object.entries(PLANS).map(([kk,v])=>`<button class="pw-p ${(window.curPlan||'month')===kk?'on':''}" onclick="pickPlan('${kk}');payStep('geo')"><small>${v.t}</small><b>${v.p}</b><span>${kk==='week'?'попробовать':kk==='month'?'≈ 33 ₽ в день':'−58 %'}</span></button>`).join('')}</div>`;
+  }
+  if(st==='geo'){
+    b.innerHTML=`${back('plan')}<div class="pw-h"><b>Откуда платите?</b><span>от страны зависит способ</span></div>
+      <div class="pw-geo">${PAY_GEO.map(g=>`<button class="pw-g ${k===g[0]?'on':''}" onclick="payGeoSet('${g[0]}')">${g[1]}</button>`).join('')}</div>`;
+  }
+  if(st==='pay'){
+    b.innerHTML=`${back('geo')}<div class="pw-h"><b>Перевод ${P.p}</b><span>${G[2]}</span></div>
+      ${PAY_CARDS.map(c=>`<button class="pw-card" onclick="copyTxt('${c[1]}');this.classList.add('copied');this.querySelector('em').textContent='скопировано ✓'"><span>${c[0]}</span><b>${c[1]}</b><em>копировать</em></button>`).join('')}
+      <div class="pw-tip">В комментарии — ваша почта или @телеграм, чтобы мы нашли платёж.</div>
+      <button class="btn primary pw-next" onclick="payStep('req')">Перевела — дальше →</button>`;
+  }
+  if(st==='req'){
+    const ru=(k==='ru'||k==='by');
+    b.innerHTML=`${back(ru?'pay':'geo')}<div class="pw-h"><b>${ru?'Куда прислать код':'Куда прислать реквизиты'}</b><span>${ru?'ответим за несколько минут в рабочее время':G[2]}</span></div>
+      <input class="pw-in" id="payName" placeholder="Как к вам обращаться">
+      <input class="pw-in" id="payPhone" placeholder="Телефон или @телеграм">
+      <div class="pw-two"><button class="btn primary" onclick="sendPay('tg',this)">В Telegram</button><button class="btn ghost" onclick="sendPay('mail',this)">На почту</button></div>
+      <div class="pw-tip">Данные — только для связи по этой заявке.</div>`;
+  }
+  if(st==='code'){
+    b.innerHTML=`${back('plan')}<div class="pw-h"><b>Активация</b><span>код из письма или Telegram</span></div>
+      <input class="pw-in mono" id="payCode" placeholder="LOOKA-XXXX-XXXX">
+      <button class="btn primary pw-next" onclick="checkCode()">Активировать</button>
+      <div class="pay-msg" id="payMsg"></div>`;
   }
 };
-window.payGeoPick=(btn,k)=>{ document.querySelectorAll('#payGeo .chip').forEach(c=>c.classList.toggle('on',c===btn));
-  const N={ru:'Перевод по номеру карты из любого российского банка — реквизиты ниже.',
-    kz:'Kaspi Gold / Kaspi Pay или карта Halyk, Forte, Freedom — в тенге по курсу дня.',
-    by:'Карта Беларусбанка, Альфа-Банка, Приорбанка — через СБП или картой.',
-    eu:'Visa / Mastercard любого европейского банка (Revolut, N26, Wise) — списание в евро.',
-    us:'Visa / Mastercard / Amex, Apple Pay и Google Pay — списание в долларах.',
-    ae:'Visa / Mastercard банков Залива (Emirates NBD, ADCB, Al Rajhi) — в дирхамах или долларах.',
-    tr:'Карта Ziraat, Garanti, İş Bankası — в лирах; при ошибке — карта другой страны.',
-    other:'Visa / Mastercard любого банка — списание в долларах. Если платёж не проходит, напишите в поддержку: подберём способ.'};
-  const n=document.getElementById('payGeoNote'); if(n) n.textContent=N[k]||N.other; window.payGeoKey=k; payDetailsDraw(); };
-window.openPay = ()=>{ document.getElementById('payOv').classList.add('on'); payTab(0); const k=window.payGeoKey||'ru'; const chips=[...document.querySelectorAll('#payGeo .chip')]; const btn=chips.find(c=>(c.getAttribute('onclick')||'').includes("'"+k+"'"))||chips[0]; payGeoPick(btn,k); };
-window.closePay = ()=>document.getElementById('payOv').classList.remove('on');
-window.payTab = i=>{ document.getElementById('payP0').style.display = i?'none':''; document.getElementById('payP1').style.display = i?'':'none';
-  document.querySelectorAll('.pay-tabs button').forEach((b,k)=>b.classList.toggle('on', k===i)); };
+window.openPay = ()=>{ const o=document.getElementById('payOv'); if(!o) return; o.classList.add('on'); window.PW='plan'; payDraw(); };
+window.closePay = ()=>{ const o=document.getElementById('payOv'); if(o) o.classList.remove('on'); };
+window.payTab = i=>payStep(i?'code':'plan');
+window.payDetailsDraw = ()=>{};
+window.payGeoPick = (btn,k)=>{ window.payGeoKey=k; };
 window.sendPay = (how, btn)=>{
   if(btn){ btn.parentElement.querySelectorAll('.btn').forEach(b=>{ b.classList.remove('primary'); b.classList.add('ghost'); }); btn.classList.add('primary'); btn.classList.remove('ghost'); }
   const n = document.getElementById('payName').value.trim(), c = document.getElementById('payPhone').value.trim();
@@ -10781,24 +11112,27 @@ const GROUPS = [
   { t:'Что надеть', d:'от анкеты до вещей в корзине — без «нечего носить»', items:[
     ['✦','Три образа за две минуты','ответили на анкету — получили готовые комплекты со ссылками', "goQuiz()", 'бесплатно'],
     ['⌘','Стиль-ДНК','35 эстетик, посадки, характер, «никогда» — чтобы ИИ знал ваш вкус', 'openDna()', 'бесплатно'],
-    ['📷','Что не так с моим образом','фото в полный рост → что портит, одна замена, которая меняет всё', 'openLookCheck()', 'доступ'],
-    ['💎','Дорого за копейки','10 приёмов под вас и 5 вещей до 3 000 ₽, которые выглядят на 30 000', 'openRich()', 'доступ'],
-    ['🤍','Тело изменилось — что носить','похудела, поправилась, после родов: гардероб на сейчас, без стыда', 'openBodyShift()', 'доступ'],
+    ['📷','Что не так с моим образом','фото в полный рост → что портит, одна замена, которая меняет всё', 'openLookCheck()', 'бесплатно'],
+    ['💎','Дорого за копейки','10 приёмов под вас и 5 вещей до 3 000 ₽, которые выглядят на 30 000', 'openRich()', 'бесплатно'],
+    ['🤍','Тело изменилось — что носить','похудела, поправилась, после родов: гардероб на сейчас, без стыда', 'openBodyShift()', 'бесплатно'],
     ['◡','Обувь, которая ваша','лоферы, слингбэки, челси — что идёт росту и ногам, с картинками', 'openShoes()', 'бесплатно'],
-    ['▣','Шкаф, который сам одевает','ваши вещи → образ на сегодня, план недели и что докупить', 'openWardrobe()', 'доступ'],
-    ['▦','14 вещей — 30 образов','капсула сезона: докупаете только недостающее', 'openCapsule()', 'доступ'],
-    ['◈','Важный день под ключ','свадьба, собеседование, свидание — план по дням', 'openEvent()', 'доступ'],
-    ['◇','Увидела — хочу так же','фото из Pinterest → тот же образ под вашу фигуру и бюджет', 'openLookRef()', 'доступ'],
-    ['▧','Примерочная без магазина','манекен с вашими пропорциями, все ракурсы, обложка', 'openStudio()', 'доступ'],
+    ['▣','Шкаф, который сам одевает','ваши вещи → образ на сегодня, план недели и что докупить', 'openWardrobe()', 'бесплатно'],
+    ['▦','14 вещей — 30 образов','капсула сезона: докупаете только недостающее', 'openCapsule()', 'бесплатно'],
+    ['◈','Важный день под ключ','свадьба, собеседование, свидание — план по дням', 'openEvent()', 'бесплатно'],
+    ['◇','Увидела — хочу так же','фото из Pinterest → тот же образ под вашу фигуру и бюджет', 'openLookRef()', 'PRO'],
+    ['▧','Примерочная без магазина','ваша фигура, все ракурсы — образ на вас, а не на модели', 'openStudio()', 'PRO'],
     ['⌗','Бутики, которых нет в поиске','маленькие бренды из Instagram и Telegram — по нику', 'openShops()', 'бесплатно']
   ]},
   { t:'Ваша внешность', d:'лицо, волосы, кожа — по вашим чертам, а не «как всем»', items:[
     ['◐','Ваши 24 цвета','цветотип за 60 секунд и палитра, с которой не ошибиться', 'openColor()', 'бесплатно'],
-    ['✧','Разбор по селфи','сильные черты, архетип и ваш вау-фактор', 'openBeauty()', 'доступ'],
-    ['◉','Макияж по вашей схеме','где тёмное, где светлое, какой кистью — 14 шагов', 'openMakeup()', 'доступ'],
-    ['✂','Волосы: стрижка и укладки','что идёт вашему лицу + шесть укладок по схемам', 'openHair()', 'доступ'],
-    ['❍','Кожа: утро и вечер','рутина под ваш тип, активы и чего не покупать никогда', 'openSkin()', 'доступ'],
-    ['✺','Долгая красота','личный план на годы: что доказано работает, а что миф', 'openGlow()', 'доступ'],
+    ['✧','Разбор по селфи','сильные черты, архетип и ваш вау-фактор', 'openBeauty()', 'бесплатно'],
+    ['◉','Макияж по вашей схеме','где тёмное, где светлое, какой кистью — 14 шагов', 'openMakeup()', 'бесплатно'],
+    ['✂','Волосы: стрижка и укладки','что идёт вашему лицу + шесть укладок по схемам', 'openHair()', 'бесплатно'],
+    ['≋','Причёски под состояние волос','ломкие, пористые, после осветления — что на них держится, а что добивает', 'openHairFit()', 'бесплатно'],
+    ['◍','Цвет и стрижка на вашем фото','14 оттенков и 12 стрижек — ИИ меняет их на вашем снимке', 'openHairLab()', 'PRO'],
+    ['▦','Доски разбора','макияж, цветотип, причёски, стиль — шесть кадров с вами и лист на сохранение', "openPage('colorPage')", 'PRO'],
+    ['❍','Кожа: утро и вечер','рутина под ваш тип, активы и чего не покупать никогда', 'openSkin()', 'бесплатно'],
+    ['✺','Долгая красота','личный план на годы: что доказано работает, а что миф', 'openGlow()', 'бесплатно'],
     ['◫','Оправа и серьги под лицо','что идёт вашей форме лица — и что не брать', 'openFrames()', 'бесплатно']
   ]},
   { t:'Чтобы всё сидело', d:'размеры, посадка и вещи, которые живут годами', items:[
@@ -10807,12 +11141,15 @@ const GROUPS = [
     ['⚙','Восемь помощников','погода, чемодан, размеры, дресс-код, SOS и ещё', "openPage('toolsPage')", 'бесплатно']
   ]},
   { t:'Всё о вас', d:'итог, которым делятся — и живые ответы экспертов', items:[
-    ['▤','Ваш стиль-паспорт','всё о вас на одной странице: PDF и карточка в сторис', "openPage('passPage')", 'доступ'],
+    ['▤','Ваш стиль-паспорт','всё о вас на одной странице: PDF и карточка в сторис', "openPage('passPage')", 'PRO'],
     ['◆','Мой LOOKA','избранное, покупки и что вам подошло', "openPage('myPage')", 'бесплатно'],
-    ['✆','Спросить эксперта','дерматолог · визажист · стилист · трихолог отвечают', "openPage('askPage')", 'доступ']
+    ['✆','Спросить стилиста','кожа, волосы, макияж, гардероб — ответ по правилам профессионалов', "openPage('askPage')", 'бесплатно']
   ]}
 ];
-const card = (h,i)=>`<button class="hub-card pop ${h[4]==='доступ'&&!(window.hasAccess&&hasAccess())?'locked':''}" style="animation-delay:${(i*0.05).toFixed(2)}s" onclick="${(h[4]==='доступ' ? 'gate('+JSON.stringify(h[3]).replace(/"/g,'&quot;')+','+JSON.stringify(h[1]).replace(/"/g,'&quot;')+')' : h[3]).replace(/"/g,'&quot;')}">${h[4]==='доступ'&&!(window.hasAccess&&hasAccess())?'<i class="lock" title="по подписке">🔒</i>':''}<i>${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span><em class="${h[4]==='бесплатно'?'free':''}">${h[4]}</em></button>`;
+const PROK = { 'openStudio()':'studio', 'openLookRef()':'lookref', 'openHairLab()':'hair', "openPage('passPage')":'pass', "openPage('colorPage')":'board' };
+const card = (h,i)=>{ const pro=h[4]==='PRO';
+  const act = pro ? 'gate('+JSON.stringify(h[3]).replace(/"/g,'&quot;')+','+JSON.stringify(h[1]).replace(/"/g,'&quot;')+','+JSON.stringify(PROK[h[3]]||'').replace(/"/g,'&quot;')+')' : h[3];
+  return `<button class="hub-card pop ${pro?'is-pro':''}" style="animation-delay:${(i*0.05).toFixed(2)}s" onclick="${act.replace(/"/g,'&quot;')}"><i>${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span><em class="${pro?'pro':'free'}">${pro?'PRO · ваше фото':'бесплатно'}</em></button>`; };
 const SEARCH_CARD = `
   <div class="hub-search">
     <div class="hs-ic">⌕</div>
@@ -11184,6 +11521,483 @@ window.openCare = ()=>{ openPage('carePage'); renderCare(); };
   const upd = ()=>{ const el = document.getElementById('pRef'); if(el) el.innerHTML = 'Ваш код от <b>@'+ref.code+'</b>: <b>−10 % на первую оплату</b> (на неделю, месяц или год) — назовите код '+ref.code.toUpperCase()+' при оплате'; };
   upd(); const orig = window.openPage; window.openPage = function(){ orig.apply(null, arguments); setTimeout(upd, 50); };
 })();
+/* ================= ВИЗУАЛЬНЫЙ ТУТОРИАЛ: зацикленная анимация движения, шаг за шагом ================= */
+(function(){
+/* --- сцены: голова в нужном ракурсе --- */
+const SC = {
+ front:`<path class="t-h" d="M52 96 C46 36 72 14 100 14 C128 14 154 36 148 96 L152 168 L130 168 L132 70 C128 46 118 38 100 38 C82 38 72 46 68 70 L70 168 L48 168Z"/><ellipse class="t-f" cx="100" cy="86" rx="43" ry="55"/><path class="t-n" d="M85 130 H115 V156 H85Z"/><path class="t-s" d="M56 168 Q100 157 144 168 L154 198 H46Z"/>
+   <ellipse class="t-e" cx="83" cy="84" rx="5" ry="3"/><ellipse class="t-e" cx="117" cy="84" rx="5" ry="3"/>
+   <path class="t-b" d="M73 72 Q83 67 93 71"/><path class="t-b" d="M107 71 Q117 67 127 72"/>
+   <path class="t-l" d="M91 108 Q100 115 109 108 Q100 112 91 108Z"/>`,
+ side:`<path class="t-h" d="M128 28 C92 24 62 50 62 90 C62 112 68 126 74 138 L58 176 L84 170 L86 132 C72 118 76 84 86 68 C98 48 126 44 138 56 C150 68 152 96 146 118 L160 170 L176 166 L160 104 C162 72 152 36 128 28Z"/><path class="t-f" d="M128 32 C96 28 66 52 66 88 C66 110 74 122 80 132 L80 148 H118 V126 C138 114 148 94 148 72 C148 50 142 36 128 32Z"/>
+   <path class="t-n" d="M82 148 H116 V158 H82Z"/><path class="t-s" d="M58 158 Q100 148 142 158 L152 198 H48Z"/>
+   <ellipse class="t-e" cx="92" cy="82" rx="5" ry="3"/><path class="t-b" d="M82 70 Q92 65 102 69"/>`,
+ back:`<path class="t-n" d="M86 104 H114 V140 H86Z"/><path class="t-s" d="M52 172 Q100 160 148 172 L158 198 H42Z"/><path class="t-h" d="M56 92 C50 30 74 10 100 10 C126 10 150 30 144 92 L146 122 Q100 112 54 122Z"/>`,
+ eye:`<path class="t-f" d="M22 100 Q100 44 178 100 Q100 152 22 100Z"/><circle class="t-i" cx="100" cy="100" r="27"/><circle class="t-p" cx="100" cy="100" r="11"/>
+   <path class="t-b" d="M26 56 Q100 28 174 54"/>
+   <g class="t-lash">${Array.from({length:9}).map((_,i)=>`<path d="M${38+i*16} ${86-Math.abs(4-i)*2} l${(i-4)*1.4} -11"/>`).join('')}</g>`,
+ lips:`<path class="t-lp" d="M28 100 Q62 70 100 90 Q138 70 172 100 Q138 134 100 134 Q62 134 28 100Z"/><path class="t-lpm" d="M28 100 Q100 112 172 100"/>`
+};
+/* --- элементы-инструменты --- */
+const hand = (c)=>`<g class="${c}"><path class="t-hand" d="M0 0 q10 -16 22 -12 q4 -14 14 -10 q6 -12 15 -6 q10 4 7 18 l-6 26 q-4 14 -19 16 q-16 2 -24 -10Z"/></g>`;
+const brush = (c)=>`<g class="${c}"><rect class="t-tool" x="-4" y="0" width="8" height="40" rx="4"/><ellipse class="t-tool2" cx="0" cy="-8" rx="13" ry="16"/><g class="t-bris">${Array.from({length:7}).map((_,i)=>`<path d="M${-11+i*3.6} -20 v-7"/>`).join('')}</g></g>`;
+const comb = (c)=>`<g class="${c}"><rect class="t-tool" x="-18" y="0" width="36" height="7" rx="3"/><g class="t-bris">${Array.from({length:10}).map((_,i)=>`<path d="M${-16+i*3.6} 7 v11"/>`).join('')}</g></g>`;
+const dryer = (c)=>`<g class="${c}"><rect class="t-tool" x="-10" y="-30" width="20" height="34" rx="6"/><rect class="t-tool2" x="-6" y="4" width="12" height="22" rx="5"/><path class="t-air" d="M-13 -34 q13 -12 26 0"/><path class="t-air d2" d="M-17 -40 q17 -16 34 0"/></g>`;
+const iron = (c)=>`<g class="${c}"><rect class="t-tool" x="-5" y="-26" width="10" height="34" rx="5"/><circle class="t-tool2" cx="0" cy="-30" r="9"/></g>`;
+const pin = (c)=>`<g class="${c}"><path class="t-tool" d="M0 0 v30 M4 0 v26 q0 5 -4 5"/></g>`;
+const strand = (d,c)=>`<path class="t-str ${c||''}" d="${d}"/>`;
+const arrow = (d,c)=>`<path class="t-arw ${c||''}" d="${d}" marker-end="url(#tArr)"/>`;
+/* --- анимации: ключ → {view, body} --- */
+const AN = {
+ part:      {v:'front', b:()=>comb('mv-part')+arrow('M100 16 V58')},
+ gather:    {v:'back',  b:()=>strand('M62 60 Q58 110 74 150')+strand('M138 60 Q142 110 126 150')+hand('mv-gl')+hand('mv-gr')+arrow('M66 70 Q72 112 86 142')+arrow('M134 70 Q128 112 114 142','d2')},
+ twist:     {v:'back',  b:()=>`<circle class="t-base" cx="100" cy="126" r="9"/><g class="mv-twist">${strand('M100 126 q-20 22 0 44 q20 22 0 44','big')}${strand('M100 126 q20 22 0 44 q-20 22 0 44','big')}</g>`+hand('mv-th')+arrow('M138 150 q14 22 -6 38')},
+ wrap:      {v:'back',  b:()=>`<circle class="t-base" cx="100" cy="138" r="9"/><g class="mv-wrap">${strand('M100 138 q42 8 40 32 q-2 24 -40 20 q-38 -4 -38 -24 q0 -20 38 -28','big')}</g>`+hand('mv-wh')+arrow('M146 150 q8 26 -28 36')},
+ pin:       {v:'back',  b:()=>`<ellipse class="t-bun" cx="100" cy="146" rx="38" ry="33"/>`+pin('mv-pin1')+pin('mv-pin2')+arrow('M50 120 L80 142')+arrow('M150 120 L120 142','d2')},
+ pull:      {v:'back',  b:()=>`<ellipse class="t-bun" cx="100" cy="146" rx="38" ry="33"/><g class="mv-pull">${strand('M74 130 q-14 -12 -20 -22','big')}${strand('M126 130 q14 -12 20 -22','big')}</g>`+hand('mv-ph')+arrow('M64 126 L44 104')},
+ brushroot: {v:'front', b:()=>brush('mv-br')+arrow('M100 44 Q100 24 100 14')+`<g class="t-lift">${strand('M74 40 q4 -16 14 -22')}${strand('M126 40 q-4 -16 -14 -22')}</g>`},
+ blowdry:   {v:'front', b:()=>dryer('mv-dry')+arrow('M64 36 Q100 18 136 36')+`<g class="t-lift">${strand('M78 42 q2 -18 12 -24')}${strand('M122 42 q-2 -18 -12 -24')}</g>`},
+ flip:      {v:'side',  b:()=>dryer('mv-flip')+arrow('M120 150 Q150 120 140 70')},
+ curl:      {v:'side',  b:()=>iron('mv-iron')+`<g class="mv-curl">${strand('M118 92 q30 16 28 44 q-2 26 -28 28')}</g>`+arrow('M140 110 q10 22 -10 36')},
+ clip:      {v:'side',  b:()=>`<g class="mv-ring">${strand('M120 96 q28 0 28 22 q0 22 -28 22 q-26 0 -26 -22 q0 -22 26 -22')}</g><g class="mv-clip"><rect class="t-tool" x="-14" y="-4" width="28" height="9" rx="4"/></g>`+arrow('M168 118 L146 118')},
+ scrunch:   {v:'side',  b:()=>`<g class="mv-scr">${strand('M126 110 q22 18 18 40 q-4 22 -26 24')}</g>`+hand('mv-sh')+arrow('M160 170 Q152 146 150 128')},
+ diffuse:   {v:'side',  b:()=>`<g class="mv-diff"><circle class="t-tool2" cx="0" cy="0" r="22"/><g class="t-bris">${Array.from({length:6}).map((_,i)=>`<path d="M${-15+i*6} -20 v-8"/>`).join('')}</g><rect class="t-tool" x="-8" y="18" width="16" height="26" rx="6"/></g>`+arrow('M168 160 Q150 140 146 116')},
+ braid:     {v:'back',  b:()=>`<g class="mv-b1">${strand('M70 120 q14 34 30 48','big')}</g><g class="mv-b2">${strand('M100 120 q0 36 0 50','big')}</g><g class="mv-b3">${strand('M130 120 q-14 34 -30 48','big')}</g>`+arrow('M60 134 q22 14 34 26')+arrow('M140 134 q-22 14 -34 26','d2')},
+ rope:      {v:'back',  b:()=>`<g class="mv-rope">${strand('M82 124 q-18 30 4 54 q20 24 0 20','big')}${strand('M118 124 q18 30 -4 54 q-20 24 0 20','big')}</g>`+arrow('M60 148 q12 28 34 38')},
+ fringe:    {v:'front', b:()=>brush('mv-fr')+`<g class="mv-fringe">${strand('M100 36 q-22 10 -28 30')}${strand('M100 36 q22 10 28 30')}</g>`+arrow('M100 44 L66 58')+arrow('M100 44 L134 58','d2')},
+ gel:       {v:'side',  b:()=>hand('mv-g1')+hand('mv-g2')+arrow('M150 150 L134 108')},
+ wet:       {v:'side',  b:()=>hand('mv-wet')+`<g class="mv-wetstr">${strand('M120 70 q26 20 22 50')}</g>`+arrow('M156 150 Q150 118 142 92')},
+ band:      {v:'front', b:()=>`<g class="mv-band"><path class="t-band" d="M54 58 Q100 34 146 58 L146 70 Q100 46 54 70Z"/></g>`+arrow('M100 20 V44')},
+ /* макияж */
+ lid:       {v:'eye',   b:()=>brush('mv-lid')+`<path class="t-zone" d="M44 92 Q100 58 156 92 Q100 108 44 92Z"/>`+arrow('M56 76 Q100 62 144 76')},
+ wing:      {v:'eye',   b:()=>`<g class="mv-wing"><path class="t-line" d="M30 102 Q96 70 150 86 L178 62"/></g>`+brush('mv-wb')+arrow('M150 88 L176 64')},
+ mascara:   {v:'eye',   b:()=>`<g class="mv-masc"><rect class="t-tool" x="-5" y="0" width="10" height="34" rx="5"/><ellipse class="t-tool2" cx="0" cy="-10" rx="7" ry="14"/></g>`+arrow('M60 58 Q100 44 140 58')},
+ blush:     {v:'front', b:()=>brush('mv-blush')+`<ellipse class="t-zone" cx="64" cy="96" rx="19" ry="13"/><ellipse class="t-zone" cx="136" cy="96" rx="19" ry="13"/>`+arrow('M50 106 Q66 92 84 84')},
+ contour:   {v:'front', b:()=>brush('mv-cont')+`<path class="t-zone" d="M58 92 Q74 104 84 112 Q70 116 58 106Z"/><path class="t-zone" d="M142 92 Q126 104 116 112 Q130 116 142 106Z"/>`+arrow('M56 90 Q72 104 86 112')},
+ lipline:   {v:'lips',  b:()=>`<g class="mv-lipp"><rect class="t-tool" x="-3" y="0" width="6" height="30" rx="3"/><path class="t-tool2" d="M-3 0 L0 -10 L3 0Z"/></g>`+arrow('M100 86 Q134 70 168 98')}
+};
+const MARK = `<defs><marker id="tArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#19C6F7"/></marker></defs>`;
+window.tutScene = (key)=>{ const a=AN[key]||AN.gather; return `<svg class="tut-svg a-${key}" viewBox="0 0 200 200">${MARK}<g class="t-head">${SC[a.v]}</g>${a.b()}</svg>`; };
+window.TUT_VIEWS = AN;
+})();
+
+/* ================= МОДАЛКА ТУТОРИАЛА ================= */
+/* зоны макияжа → разборы по шагам */
+window.MK_TUT = { 'Веко':'Растушёвка теней на веке','Тени':'Растушёвка теней на веке','Глаза':'Растушёвка теней на веке',
+ 'Стрелка':'Стрелка','Подводка':'Стрелка','Ресницы':'Ресницы','Тушь':'Ресницы',
+ 'Румяна':'Румяна и скульптура','Скульптура':'Румяна и скульптура','Контуринг':'Румяна и скульптура',
+ 'Губы':'Губы: контур и заливка','Помада':'Губы: контур и заливка' };
+window.mkTutFor = z=>{ const k=String(z||''); for(const [a,b] of Object.entries(MK_TUT)) if(k.indexOf(a)>=0) return b; return ''; };
+window.renderMkTech = ()=>{ const box=document.getElementById('mkTech'); if(!box||!window.TUT) return;
+  const L=[['Растушёвка теней на веке','◉','где лежит каждый оттенок и чем размывать границы'],
+           ['Стрелка','✦','почему начинают с хвостика, а не с линии'],
+           ['Ресницы','❋','зигзаг у корня — то, что делает объём'],
+           ['Румяна и скульптура','◐','где проходит скула и куда ведут кисть'],
+           ['Губы: контур и заливка','♥','три опорные точки вместо «на глаз»']];
+  box.innerHTML = `<div class="tech-grid">${L.map((x,i)=>`<button class="tech tut-open" style="animation-delay:${(i*.06).toFixed(2)}s" onclick="tutOpen('${x[0].replace(/'/g,"\\'")}')"><i>${x[1]}</i><b>${x[0]}</b><span>${x[2]}</span><em>▶ ${((TUT[x[0]]||{}).steps||[]).length} шагов · анимация</em></button>`).join('')}</div>`;
+};
+
+(function(){
+const V = { id:null, i:0, zoom:1, speed:1, paused:false, timer:null, left:0 };
+const ZOOMS=[1,1.6,2.3,3];
+function ov(){ let o=document.getElementById('tutOv');
+  if(!o){ o=document.createElement('div'); o.id='tutOv'; o.className='tut-ov'; o.onclick=e=>{ if(e.target===o) tutClose(); }; document.body.appendChild(o); }
+  return o; }
+window.tutOpen = (name, i)=>{
+  const t=(window.TUT||{})[name]; if(!t){ myToast('Разбор для «'+name+'» скоро добавлю'); return; }
+  V.id=name; V.i=Math.max(0,Math.min(i||0, t.steps.length-1)); V.zoom=1; V.speed=1; V.paused=false;
+  ov().classList.add('open'); document.body.style.overflow='hidden'; tutDraw();
+};
+window.tutClose = ()=>{ const o=document.getElementById('tutOv'); if(o){ o.classList.remove('open'); o.classList.remove('paused'); } document.body.style.overflow=''; clearInterval(V.timer); V.timer=null; };
+window.tutGo = d=>{ const t=TUT[V.id]; if(!t) return; const n=V.i+d; if(n<0||n>=t.steps.length) return; V.i=n; clearInterval(V.timer); V.timer=null; tutDraw(); };
+window.tutStep = i=>{ V.i=i; clearInterval(V.timer); V.timer=null; tutDraw(); };
+window.tutZoom = d=>{ const k=ZOOMS.indexOf(V.zoom); V.zoom=ZOOMS[Math.max(0,Math.min(ZOOMS.length-1,k+d))]; const z=document.querySelector('#tutOv .tut-zin'); if(z) z.style.transform='scale('+V.zoom+')'; };
+function anims(){ const sv=document.querySelector('#tutOv .tut-svg'); if(!sv||!sv.getAnimations) return [];
+  try{ return sv.getAnimations({subtree:true}); }catch(e){ return []; } }
+function applyRate(){ anims().forEach(a=>{ try{ a.playbackRate=V.speed; if(V.paused) a.pause(); else a.play(); }catch(e){} }); }
+window.tutSpeed = v=>{ V.speed=v; tutDraw(); };
+window.tutPause = ()=>{ V.paused=!V.paused; tutDraw(); };
+window.tutTimer = ()=>{ const t=TUT[V.id]; const st=t.steps[V.i]; if(!st.sec) return;
+  clearInterval(V.timer); V.left=st.sec;
+  const el=()=>document.getElementById('tutT');
+  const tick=()=>{ const e=el(); if(!e){ clearInterval(V.timer); return; } e.textContent=V.left+' с'; if(V.left<=0){ clearInterval(V.timer); V.timer=null; e.textContent='готово ✓'; if(window.myToast) myToast('Время вышло — можно дальше'); return; } V.left--; };
+  tick(); V.timer=setInterval(tick,1000); };
+window.tutDraw = ()=>{
+  const o=document.getElementById('tutOv'); const t=TUT[V.id]; if(!o||!t) return;
+  const st=t.steps[V.i], last=V.i===t.steps.length-1;
+  o.innerHTML=`<div class="tut-box"><button class="tut-x" onclick="tutClose()">✕</button>
+    <div class="tut-head">
+      <div class="cs-k">пошаговый разбор</div>
+      <h3>${V.id}</h3>
+      <div class="tut-meta"><span class="hi">${t.time}</span><span>${t.lvl}</span>${t.tools.map(x=>`<span>${x}</span>`).join('')}</div>
+    </div>
+    <div class="tut-body">
+      <div class="tut-stage">
+        <div class="tut-loop">зациклено · смотрите движение</div>
+        <div class="tut-zoom"><div class="tut-zin" style="transform:scale(${V.zoom})">${tutScene(st.a)}</div></div>
+        <div class="tut-zbtn"><button onclick="tutZoom(-1)" title="отдалить">−</button><button onclick="tutZoom(1)" title="приблизить">+</button></div>
+      </div>
+      <div class="tut-right">
+        <div class="tut-rail">${t.steps.map((_,i)=>`<i class="${i<V.i?'done':(i===V.i?'on':'')}" onclick="tutStep(${i})"></i>`).join('')}</div>
+        <div class="tut-sn">шаг ${V.i+1} из ${t.steps.length}</div>
+        <h4 class="tut-st">${st.t}</h4>
+        <p class="tut-d">${st.d}</p>
+        <div class="tut-note tut-watch"><b>на что смотреть</b>${st.w}</div>
+        <div class="tut-note tut-err"><b>частая ошибка</b>${st.e}</div>
+        <div class="tut-ctrl">
+          <button class="tut-cb ${V.paused?'on':''}" onclick="tutPause()">${V.paused?'▶ пуск':'❚❚ пауза'}</button>
+          ${[0.5,1,1.5].map(v=>`<button class="tut-cb ${V.speed===v?'on':''}" onclick="tutSpeed(${v})">${v}×</button>`).join('')}
+          ${st.sec?`<button class="tut-cb" onclick="tutTimer()">⏱ таймер</button><span class="tut-timer" id="tutT">${st.sec} с</span>`:''}
+        </div>
+        <div class="tut-nav">
+          <button class="btn ghost" ${V.i===0?'disabled':''} onclick="tutGo(-1)">← Назад</button>
+          <button class="btn primary" onclick="${last?'tutClose()':'tutGo(1)'}">${last?'Готово ✓':'Дальше →'}</button>
+        </div>
+      </div>
+    </div>
+    <div class="tut-foot">
+      ${(t.fix&&t.fix.length)?`<div class="tut-fix"><b>не получается?</b>${t.fix.map(f=>`<div class="tut-fx"><b>${f[0]}</b>${f[1]}</div>`).join('')}</div>`:''}
+      <div class="to-row" style="margin-top:12px"><a class="btn ghost" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(V.id+' пошагово')}">▶ Видео на YouTube</a><a class="btn ghost" target="_blank" rel="noopener" href="https://www.pinterest.com/search/pins/?q=${encodeURIComponent(V.id)}">◈ Примеры в Pinterest</a></div>
+    </div>
+  </div>`;
+  o.classList.toggle('paused', V.paused);
+  requestAnimationFrame(()=>applyRate());
+};
+addEventListener('keydown', e=>{ const o=document.getElementById('tutOv'); if(!o||!o.classList.contains('open')) return;
+  if(e.key==='Escape') tutClose(); if(e.key==='ArrowRight') tutGo(1); if(e.key==='ArrowLeft') tutGo(-1); if(e.key===' '){ e.preventDefault(); tutPause(); } });
+})();
+
+/* ================= ТУТОРИАЛЫ: подробный разбор каждого шага ================= */
+(function(){
+const T = {
+'Низкий пучок на мягкой резинке':{ lvl:'новичок', time:'3 мин', tools:['мягкая спиральная резинка','2 шпильки','лёгкий лак'], steps:[
+ {t:'Расчесать мягкой щёткой снизу вверх', a:'part', d:'Начинайте с концов и поднимайтесь к корням короткими участками: сначала последние 10 см, потом от середины, и только в конце от корней. Так узел распускается, а не затягивается.', w:'Щётка должна проходить без единого рывка. Если застряла — не тяните, вернитесь на 10 см ниже.', e:'Расчёсывать от корней вниз. Именно так обламывается большинство волос у тех, у кого они ломкие.'},
+ {t:'Собрать у шеи без натяжения', a:'gather', d:'Обеими ладонями соберите массу к затылку на уровне мочки уха — не выше. Наклоните голову чуть вперёд, когда собираете: когда выпрямитесь, появится нужная слабина у корней.', w:'Между кожей головы и собранными волосами должен проходить палец. Если кожа у висков натянулась — отпустите и соберите ниже.', e:'Собирать с запрокинутой головой: после выпрямления причёска стянет виски и к вечеру заболит голова.', sec:15},
+ {t:'Скрутить в нетугой жгут', a:'twist', d:'Возьмите хвост одной рукой у основания, второй закрутите длину в одну сторону — примерно три полных оборота, не больше. Жгут должен оставаться мягким и слегка пружинить.', w:'Жгут начал сам заворачиваться в петлю — значит достаточно, дальше крутить не нужно.', e:'Закрутить до упора. Тугой жгут потом невозможно красиво уложить, и он тянет корни.'},
+ {t:'Обернуть вокруг основания', a:'wrap', d:'Ведите жгут вокруг собственного основания в ту же сторону, в которую крутили. Кончик подоткните под нижний край пучка пальцем.', w:'Пучок получается круглым, а не плоским блином. Если плоский — вы вели жгут слишком свободно, перекрутите.', e:'Оборачивать в обратную сторону — жгут немедленно раскрутится.'},
+ {t:'Закрепить двумя шпильками крест-накрест', a:'pin', d:'Шпилька входит под углом 45° со стороны пучка, подхватывает прядь волос у самой головы и выходит обратно в пучок. Вторая — зеркально с другой стороны.', w:'Правильная шпилька не чувствуется и не видна. Поводите головой — пучок не должен шевелиться.', e:'Втыкать шпильку прямо в пучок, не цепляя волосы у головы. Такая вылетит через полчаса.'},
+ {t:'Вытянуть пару прядей у лица', a:'pull', d:'Придерживая пучок, вытяните две тонкие пряди у висков и слегка распушите сам пучок, потянув за петли по кругу. Пшик лака с 30 см.', w:'Пучок стал визуально крупнее, но держится так же. Пряди у лица — тонкие, по 1 см.', e:'Вытягивать толстые пряди — получится не «небрежно», а «растрепалась».'}],
+ fix:[['Пучок сползает к вечеру','Вы собрали слишком высоко для своей длины или использовали одну шпильку вместо двух. Соберите на уровне мочки уха и ставьте шпильки крест-накрест.'],
+      ['Тянет виски','Собирали с запрокинутой головой. Пересоберите, наклонив голову вперёд.'],
+      ['Торчат короткие волоски','Это отрастающие после обломов — хороший знак. Пригладьте их зубной щёткой с каплей лака, не затягивая основную массу.']]},
+
+'Низкий хвост на спиральной резинке':{ lvl:'новичок', time:'2 мин', tools:['спиральная резинка','невидимка','капля масла'], steps:[
+ {t:'Расчесать от концов', a:'part', d:'Мягкая щётка, снизу вверх, участками. На сухие волосы — капля масла на ладони, растереть и пройтись только по длине.', w:'Волосы скользят, щётка не встречает узлов.', e:'Расчёсывать мокрые волосы расчёской с частыми зубьями — мокрый волос растягивается и рвётся.'},
+ {t:'Собрать у шеи', a:'gather', d:'Ладонями соберите массу к затылку на уровне шеи. Хвост должен лежать, а не торчать: чем ниже посадка, тем меньше нагрузка на корни.', w:'Поверхность гладкая, без бугров. Наклоните голову вбок — бугор сразу станет виден.', e:'Приглаживать расчёской с силой: появятся заломы и статика.'},
+ {t:'Надеть спиральную резинку', a:'wrap', d:'Наденьте спираль в два-три оборота, не растягивая её до предела. Спираль работает как пружина — ей не нужно натяжение, чтобы держать.', w:'Резинка держит, но прокручивается пальцем. Это правильно.', e:'Накручивать четыре-пять оборотов «чтобы точно держалось» — тогда появляется залом, ради избавления от которого спираль и покупают.'},
+ {t:'Обернуть прядью и закрепить', a:'pin', d:'Отделите из хвоста тонкую прядь снизу, оберните резинку и закрепите невидимку снизу вверх, пряча её внутрь хвоста.', w:'Резинки не видно совсем. Невидимка входит волнистой стороной к голове — так она держит.', e:'Закреплять невидимку сверху: она будет блестеть и выпадать.'}],
+ fix:[['Хвост выглядит жидким','Вытяните его в стороны пальцами от резинки — объём добавляется на уровне резинки, а не на концах.'],
+      ['Резинка видна','Прядь для обёртывания нужно брать из нижнего слоя хвоста, а не из верхнего.']]},
+
+'Мягкие волны без плойки':{ lvl:'новичок', time:'5 мин вечером', tools:['две мягкие резинки','крем или спрей для укладки'], steps:[
+ {t:'Нанести средство на влажные волосы', a:'gel', d:'Волосы должны быть влажными, но не мокрыми — подсушите полотенцем из футболки 5 минут. Крем размером с грецкий орех распределите от середины к концам.', w:'Волосы влажные на ощупь, но с них не капает. Это и есть нужная точка.', e:'Делать на мокрых — к утру не высохнут, и волна не схватится.'},
+ {t:'Разделить на две части', a:'part', d:'Прямой пробор от лба до затылка, две равные половины. Если хотите волну покрупнее — делайте одну часть вместо двух.', w:'Пробор ровный, половины одинаковые по толщине.', e:'Делить на много мелких частей — получатся не волны, а мелкий барашек.'},
+ {t:'Скрутить каждую в жгут', a:'twist', d:'Каждую половину закрутите в жгут от лица назад, одинаковое число оборотов с обеих сторон. Чем туже жгут — тем мельче будет волна.', w:'Оба жгута закручены в одну сторону и одинаково — иначе причёска выйдет несимметричной.', e:'Крутить левый и правый жгут в разные стороны.'},
+ {t:'Свернуть в пучки и лечь спать', a:'wrap', d:'Каждый жгут сверните в пучок у основания и закрепите мягкой резинкой. Шёлковая наволочка — не роскошь, а то, что сохранит рисунок.', w:'Пучки лежат по бокам головы, а не на затылке — на затылке вы их сомнёте во сне.', e:'Закреплять тугой резинкой: утром будет залом ровно по её линии.'},
+ {t:'Утром распустить и разобрать', a:'scrunch', d:'Распустите, дайте волне раскрыться самой 30 секунд, затем разберите пальцами, а не расчёской. Капля масла на концы.', w:'Волна упругая и сухая у корней. Если корни влажные — в следующий раз начинайте раньше.', e:'Расчесать щёткой — волна за секунду превратится в пушистую шапку.'}],
+ fix:[['Волна распадается за час','Волосы были слишком влажными или вы их расчесали. Сушите дольше и разбирайте только пальцами.'],
+      ['Корни остались плоскими','Жгуты были слишком низко. Начинайте закручивать от уровня висков, а не от шеи.']]},
+
+'Две свободные косы':{ lvl:'новичок', time:'6 мин', tools:['две мягкие резинки','гребень'], steps:[
+ {t:'Разделить прямым пробором', a:'part', d:'Гребнем с редкими зубьями проведите пробор от лба до затылка. Ведите кончиком гребня, а не зубьями — линия выйдет ровной.', w:'Пробор видно от начала до конца, он не виляет.', e:'Делить на глаз без гребня: косы получатся разной толщины.'},
+ {t:'Начать плетение от уровня уха', a:'braid', d:'Не от макушки. Разделите половину на три пряди на уровне мочки уха и начинайте классическое плетение: боковая прядь ложится поверх средней, потом другая боковая поверх новой средней.', w:'У корней волосы лежат свободно — натяжения нет вообще.', e:'Плести от самой макушки. Для выпадающих и ломких это прямой путь к залысинам по линии плетения.'},
+ {t:'Плести не туго до конца', a:'braid', d:'Держите пряди мягко, без подтягивания после каждого перекрёста. Коса должна слегка проминаться, если нажать пальцем.', w:'Коса мягкая на ощупь и слегка пружинит.', e:'Затягивать каждый перекрёст — к вечеру голова будет болеть.'},
+ {t:'Закрепить и слегка распушить', a:'pull', d:'Мягкая резинка на конце, затем вытяните по одной петле с каждого звена, двигаясь снизу вверх. Вторую косу — зеркально.', w:'Обе косы одинаково распушены. Делайте их рядом друг с другом, сверяясь.', e:'Распушить одну сильнее другой — асимметрия заметна сразу.'}],
+ fix:[['Косы разной толщины','Виноват пробор. Переделайте его гребнем.'],
+      ['Волосы выбиваются по всей длине','Это нормально для слоистой стрижки. Пройдитесь по готовой косе лаком с 30 см и пригладьте ладонью.']]},
+
+'Объём у корней феном вниз головой':{ lvl:'новичок', time:'5 мин', tools:['фен с концентратором','мусс или спрей для прикорневого объёма'], steps:[
+ {t:'Нанести мусс только на корни', a:'gel', d:'На влажные волосы — мусс размером с мандарин, вбейте подушечками пальцев именно в корни зоны макушки. На длину не распределяйте.', w:'Длина осталась без средства — иначе она утяжелится и объём съестся.', e:'Наносить мусс на всю голову: корни поднимутся, а концы слипнутся.'},
+ {t:'Наклонить голову и сушить корни', a:'flip', d:'Наклоните голову вниз и сушите корни, подхватывая их пальцами и направляя поток воздуха к коже. 2–3 минуты, горячий режим.', w:'Корни высохли, длина ещё влажная — это правильная последовательность.', e:'Начинать с длины. Пока вы её сушите, корни успевают лечь.'},
+ {t:'Поднять голову и сушить против роста', a:'blowdry', d:'Выпрямитесь и досушите макушку, направляя поток ПРОТИВ направления, в котором волосы лежат: пряди у макушки вперёд, у висков — вверх.', w:'Прядь стоит сама, пока на неё дует воздух. Если падает сразу — воздух слишком слабый или волосы уже пересушены.', e:'Сушить по направлению роста. Это ровно то, что делает макушку плоской.'},
+ {t:'Зафиксировать холодным воздухом', a:'brushroot', d:'30 секунд холодного режима по макушке, приподнимая пряди пальцами. Кутикула закрывается именно на холоде — без этого шага объём живёт час.', w:'Волосы на ощупь прохладные. Тёплые — ещё рано.', e:'Пропустить холодный обдув. Это главный шаг, и его пропускают все.'},
+ {t:'Не трогать руками весь день', a:'pull', d:'Если нужно освежить — сухой шампунь с 20 см на корни макушки и вспушить пальцами. Руки в волосах снимают объём за секунды.', w:'К вечеру макушка всё ещё приподнята.', e:'Поправлять причёску руками каждые полчаса.'}],
+ fix:[['Объём держится полчаса','Пропустили холодный обдув или волосы тонкие и чистые. Попробуйте сухой шампунь как пудру — даже на чистые корни.'],
+      ['Волосы пушатся вместо объёма','Фен слишком близко и без концентратора. Держите насадку в 10 см и направляйте поток вдоль пряди.']]},
+
+'Диффузор и плоппинг':{ lvl:'средне', time:'15 мин', tools:['гель или крем для кудрей','хлопковая футболка','фен с диффузором'], steps:[
+ {t:'Нанести гель на мокрые волосы', a:'gel', d:'Волосы должны быть именно мокрыми. Гель наносите методом «молитвенные ладони»: прядь между ладонями, проводите сверху вниз, не растирая.', w:'Волосы блестят и собираются в чёткие локоны прямо в руках.', e:'Наносить на подсушенные волосы — завиток уже сформировался неправильно, гель его не исправит.'},
+ {t:'Отжать локоны вверх', a:'scrunch', d:'Ладонью снизу подбивайте локоны к коже головы короткими движениями. Слышите хлюпанье — значит воды достаточно.', w:'Локоны укорачиваются и становятся упругими.', e:'Тянуть волосы вниз. Так завиток вытягивается и потом не возвращается.'},
+ {t:'Завернуть в футболку на 15 минут', a:'wet', d:'Положите футболку на стул, наклонитесь и опустите волосы в центр, затем заверните и закрепите рукавами на затылке. Это и есть плоппинг.', w:'Локоны лежат собранно, а не растянуты по спине.', e:'Махровое полотенце. Оно ломает завиток и даёт тот самый пух.'},
+ {t:'Досушить диффузором без движения', a:'diffuse', d:'Соберите локоны в чашу диффузора, поднесите к голове и держите неподвижно 20–30 секунд, затем перейдите к следующему участку. Низкая скорость, средняя температура.', w:'Диффузор не елозит по голове. Любое движение = пух.', e:'Водить диффузором как феном.'},
+ {t:'Разбить корочку пальцами', a:'scrunch', d:'Когда волосы полностью высохли, они будут жёсткими на ощупь — это правильно. Капля масла на ладони, аккуратно сомните локоны снизу: корочка рассыпется, а форма останется.', w:'Локоны стали мягкими, но держат рисунок.', e:'Разбивать корочку на влажных волосах — форма развалится.'}],
+ fix:[['Волосы пушатся несмотря на всё','Не хватает геля или воды. Кудрям нужно больше средства, чем кажется — пробуйте в полтора раза больше.'],
+      ['Локоны слиплись в сосульки','Геля слишком много либо вы не разбили корочку. Разбейте пальцами с каплей масла.']]},
+
+'Полусобранная с когтем':{ lvl:'новичок', time:'1 мин', tools:['заколка-коготь'], steps:[
+ {t:'Отделить верхнюю треть', a:'part', d:'Пальцами проведите условную линию от виска до виска через макушку и отделите всё, что выше. Это примерно треть массы.', w:'Нижние две трети остались распущенными и не попали в захват.', e:'Брать половину массы — коготь не удержит и будет сползать.'},
+ {t:'Собрать назад и приподнять петлю', a:'gather', d:'Соберите отделённое назад, придержите у затылка и слегка вытяните вперёд петлю на макушке — это даёт объём без начёса.', w:'На макушке появилась мягкая выпуклость, а не плоская зализанность.', e:'Затягивать назад до упора — лицо сразу выглядит «натянутым».'},
+ {t:'Зажать когтем', a:'pin', d:'Коготь захватывает волосы вертикально: зубья входят в массу у самой головы, потом защёлкиваете. Горизонтальный захват держится хуже.', w:'Коготь не елозит, если потрясти головой.', e:'Защёлкивать только кончики пучка — вылетит через пять минут.'}],
+ fix:[['Коготь сползает','Взяли слишком много волос или захватили только концы. Берите треть и входите зубьями у головы.']]},
+
+'Гулька-жгут без шпилек':{ lvl:'новичок', time:'1 мин', tools:['ничего, по желанию — мягкая резинка'], steps:[
+ {t:'Собрать массу рукой', a:'gather', d:'Соберите все волосы в одну руку на уровне, где хотите гульку: ниже — спокойнее, выше — бодрее. Не используйте расчёску.', w:'Волосы держатся одной рукой свободно.', e:'Собирать мокрые волосы — гулька не будет держаться и волосы заломятся.'},
+ {t:'Закрутить в жгут', a:'twist', d:'Крутите всю массу в одну сторону, пока жгут не начнёт сам заворачиваться в кольцо. Обычно это 4–5 оборотов.', w:'Жгут «просится» свернуться сам. Это сигнал переходить к следующему шагу.', e:'Крутить слабо — гулька развалится, едва вы отпустите руку.'},
+ {t:'Обернуть и подоткнуть кончик', a:'wrap', d:'Оберните жгут вокруг основания в ту же сторону и протолкните кончик пальцем под нижний виток изнутри. Держится на собственном натяжении.', w:'Отпускаете руку — гулька остаётся на месте.', e:'Оставлять кончик снаружи: он вытянет за собой весь жгут.'}],
+ fix:[['Разваливается сразу','Мало оборотов или кончик не подоткнут. Крутите до момента, когда жгут сам заворачивается.'],
+      ['Нужно продержаться весь день','Наденьте сверху одну мягкую резинку — она не меняет вид, но страхует.']]},
+
+'Twist-out: раскрученные жгуты':{ lvl:'средне', time:'15 мин + ночь', tools:['крем для кудрей','масло','зажимы'], steps:[
+ {t:'Разделить на 8–12 секций', a:'part', d:'На влажные волосы — разделите голову на ровные квадраты и закрепите зажимами. Чем больше секций, тем мельче и чётче завиток.', w:'Секции примерно одинаковые. Неравные дадут разный завиток.', e:'Делать 3–4 секции: середина не просохнет и не схватится.'},
+ {t:'Нанести крем на каждую секцию', a:'gel', d:'Распределите крем по всей длине секции, прочешите пальцами, чтобы средство легло равномерно. Волосы должны быть влажными на каждом этапе.', w:'Секция скользит и блестит.', e:'Наносить крем на всю голову сразу — пока дойдёте до последней секции, первая высохнет.'},
+ {t:'Скрутить двойной жгут', a:'rope', d:'Разделите секцию на две пряди и закрутите их друг вокруг друга до самого кончика. Кончик подкрутите пальцем, чтобы не торчал.', w:'Жгут плотный и ровный по всей длине.', e:'Крутить одну прядь саму по себе — она раскрутится за ночь.'},
+ {t:'Высушить полностью', a:'diffuse', d:'Оставьте на ночь под атласным чепцом или досушите диффузором на малой скорости. Раскручивать можно только абсолютно сухие волосы.', w:'Жгут сухой насквозь, включая середину.', e:'Раскрутить влажные — волосы тут же распушатся.'},
+ {t:'Раскрутить пальцами с маслом', a:'scrunch', d:'Капля масла на пальцы, раскручивайте каждый жгут аккуратно, не разделяя завиток дальше. Корни распушите, приподняв пальцами у кожи.', w:'Завиток держит форму и блестит.', e:'Разделять локоны на мелкие — получится пух вместо рисунка.'}],
+ fix:[['Завиток не держится','Волосы были недосушены. Дайте им больше времени или досушите диффузором.'],
+      ['Корни плоские','Распушите их пальцами у кожи головы после раскручивания, двигаясь от затылка вперёд.']]},
+
+'Шторка-чёлка вместо стрижки длины':{ lvl:'средне', time:'4 мин', tools:['круглая щётка','фен','лёгкий лак'], steps:[
+ {t:'Сушить сразу после мытья', a:'blowdry', d:'Шторку укладывают только на влажные волосы. Если она успела высохнуть сама — смочите водой из пульверизатора и начните заново.', w:'Чёлка влажная, остальные волосы могут быть уже сухими.', e:'Укладывать сухую чёлку: она не примет форму и будет топорщиться.'},
+ {t:'Сушить от центра в стороны', a:'fringe', d:'Разделите чёлку по центру и сушите каждую половину брашингом от лица наружу, поворачивая щётку на себя в конце движения.', w:'Пряди ложатся дугой от лица, а не падают прямо вниз.', e:'Сушить вниз — получится прямая чёлка, а не шторка.'},
+ {t:'Не пересушить', a:'brushroot', d:'Как только чёлка высохла — остановитесь. Каждая лишняя секунда фена поднимает её вверх и делает пушистой.', w:'Чёлка сухая, но ещё прохладная.', e:'«Ещё чуть-чуть подсушу» — именно в этот момент шторка превращается в одуванчик.'},
+ {t:'Зафиксировать и оставить в покое', a:'part', d:'Пшик лёгкого лака с 30 см, пригладить ладонью. Не расчёсывать в течение дня.', w:'Чёлка лежит дугой и сохраняет форму при наклоне головы.', e:'Поправлять пальцами: кожный жир с рук склеит пряди к обеду.'}],
+ fix:[['Чёлка торчит вверх','Пересушили или сушили против роста. В следующий раз остановитесь раньше.'],
+      ['Разделяется на две сосульки','Слишком много средства или волосы жирные у корней. Сухой шампунь на корни чёлки перед укладкой.']]},
+
+'Мокрый эффект на коротких':{ lvl:'новичок', time:'4 мин', tools:['гель сильной фиксации'], steps:[
+ {t:'Намочить волосы', a:'wet', d:'Волосы должны быть мокрыми — не влажными. Намочите под краном или из пульверизатора до состояния «с них капает».', w:'Вода стекает, когда наклоняете голову.', e:'Наносить гель на подсушенные волосы — эффект будет грязным, а не мокрым.'},
+ {t:'Распределить гель', a:'gel', d:'Гель размером с грецкий орех растереть между ладонями и прочесать пальцами от корней к концам, формируя направление.', w:'Каждая прядь покрыта и блестит.', e:'Экономить гель: на коротких он и создаёт форму.'},
+ {t:'Уложить пальцами', a:'brushroot', d:'Сформируйте нужное направление пальцами: вперёд для рваной текстуры, назад для гладкой. Не расчёсывайте.', w:'Пряди лежат отдельными чёткими прядями.', e:'Использовать расчёску — рисунок станет плоским.'},
+ {t:'Высушить естественно', a:'diffuse', d:'Не трогайте волосы, пока не высохнут. Корочка, которая образуется, на коротких и держит форму — разбивать её не нужно.', w:'Форма сохранилась ровно такой, какой вы её оставили.', e:'Сушить феном: гель высохнет неравномерно, появятся белые следы.'}],
+ fix:[['Белые следы геля','Волосы были недостаточно мокрыми или геля слишком много.'],
+      ['К вечеру форма упала','Гель слабой фиксации. Для мокрого эффекта нужна максимальная.']]},
+
+'Гладкая пикси на бок':{ lvl:'новичок', time:'3 мин', tools:['гель или помадка','расчёска','фен'], steps:[
+ {t:'Нанести гель на влажные корни', a:'gel', d:'Каплю геля распределите по корням и прикорневой зоне, не трогая кончики. На кончиках гель даст эффект сосулек.', w:'Корни влажные и слегка утяжелённые.', e:'Наносить на всю длину.'},
+ {t:'Сделать глубокий боковой пробор', a:'part', d:'Расчёской проведите пробор от линии роста до макушки, сильно сбоку — примерно над внешним краем брови.', w:'Пробор чёткий, обе части явно разной величины.', e:'Делать пробор по центру — гладкая укладка требует контраста объёмов.'},
+ {t:'Высушить по направлению укладки', a:'blowdry', d:'Сушите феном строго в ту сторону, куда зачёсываете, придерживая волосы расчёской. Горячий воздух, затем холодный.', w:'Волосы лежат ровно и не поднимаются.', e:'Сушить хаотично и потом приглаживать — пряди будут выбиваться.'},
+ {t:'Пригладить контур', a:'part', d:'Каплю геля на зубную щётку — пригладьте пушок у линии роста и у висков. Это приём, который отличает «уложено» от «причесано».', w:'Линия роста волос чистая, без торчащих волосков.', e:'Приглаживать пушок ладонью с гелем — он склеит и основную массу.'}],
+ fix:[['К обеду поднимается','Мало фиксации или волосы были сухими. Укладывайте только на влажные.'],
+      ['Выглядит жирно','Слишком много продукта. Начинайте с количества размером с горошину.']]},
+
+'Повязка или лента на отросшей длине':{ lvl:'новичок', time:'1 мин', tools:['широкая повязка или лента'], steps:[
+ {t:'Надеть повязку через лоб', a:'band', d:'Наденьте повязку как ободок — сначала на лоб, потом сдвиньте назад на нужное расстояние от линии роста.', w:'Повязка сидит плотно, но не давит на виски.', e:'Натягивать сразу на место: так вы вытянете волосы у висков.'},
+ {t:'Выпустить пряди у лица', a:'pull', d:'Вытяните две тонкие пряди у висков поверх повязки — они смягчат линию и сделают образ намеренным.', w:'Пряди тонкие и лежат свободно.', e:'Убирать всё под повязку — выглядит как спортзал.'},
+ {t:'Распушить затылок', a:'brushroot', d:'Приподнимите волосы на затылке пальцами, чтобы повязка не прижала макушку к голове.', w:'Над повязкой есть лёгкий объём.', e:'Оставлять макушку прижатой — голова выглядит маленькой.'}],
+ fix:[['Повязка сползает','Нужна с силиконовой полоской изнутри или на размер меньше.'],
+      ['Давит к вечеру','Слишком узкая или тугая. Широкая тканевая распределяет давление лучше.']]},
+
+'Ночная защита: коса и шёлк':{ lvl:'новичок', time:'1 мин', tools:['мягкая резинка','шёлковая или сатиновая наволочка'], steps:[
+ {t:'Заплести мягкую косу', a:'braid', d:'Одна свободная коса от уровня шеи, без натяжения. На коротких — просто низкий пучок на спирали или атласный чепец.', w:'Коса мягкая, у корней ноль натяжения.', e:'Плести туго на ночь — восемь часов натяжения это больше, чем за весь день.'},
+ {t:'Уложить волосы поверх подушки', a:'gather', d:'Длинные волосы перекиньте выше головы, а не под плечо. Так они не вытягиваются всю ночь под весом тела.', w:'Коса лежит свободно над головой.', e:'Спать на собственных волосах — утром заломы и обломы.'},
+ {t:'Шёлковая наволочка', a:'wet', d:'Шёлк или сатин — не хлопок. Хлопок вытягивает влагу и создаёт трение, на котором ломается до трети волос.', w:'Наволочка скользкая на ощупь.', e:'Считать это необязательным шагом. Для ломких и обесцвеченных это основа.'}],
+ fix:[['Коса всё равно распускается','Используйте две косы вместо одной — они фиксируют друг друга.']]},
+
+/* ===== макияж ===== */
+'Растушёвка теней на веке':{ lvl:'средне', time:'4 мин', tools:['плоская кисть','пушистая кисть для растушёвки','база под тени'], steps:[
+ {t:'База на всё подвижное веко', a:'lid', d:'Тонкий слой базы пальцем по подвижному веку и чуть выше складки. Дайте ей 20 секунд подсохнуть.', w:'Веко матовое, без блеска.', e:'Наносить толсто — тени скатаются в складку.'},
+ {t:'Средний тон на подвижное веко', a:'lid', d:'Плоской кистью похлопывающими движениями положите основной оттенок на подвижное веко, не выходя за складку.', w:'Цвет плотный там, где вы его положили, и резко обрывается — это нормально на этом шаге.', e:'Растушёвывать сразу: цвет уйдёт слишком высоко.'},
+ {t:'Тёмный во внешний угол', a:'lid', d:'Наберите тёмный оттенок на кончик кисти, поставьте во внешний угол и рисуйте маленькую букву V по внешнему контуру.', w:'Тёмное занимает треть века, не больше.', e:'Класть тёмное на всё веко — глаз визуально закроется.'},
+ {t:'Растушевать границы', a:'lid', d:'Чистой пушистой кистью пройдитесь по границам маятниковыми движениями вдоль складки. Кисть почти пустая — она только размывает.', w:'Резких границ не видно ни одной, но цвет не уехал на бровь.', e:'Тушевать кистью с продуктом — получится грязное пятно.'},
+ {t:'Светлый под бровь и во внутренний угол', a:'lid', d:'Самый светлый оттенок пальцем во внутренний угол и под бровь. Это открывает взгляд сильнее любой стрелки.', w:'Внутренний угол светится, внешний — тёмный. Это и есть объём.', e:'Класть шиммер на всё веко — подчеркнётся каждая складка.'}],
+ fix:[['Тени скатываются к обеду','Нет базы или кожа жирная. База обязательна, сверху — припудрить веко перед тенями.'],
+      ['Выглядит грязно','Слишком много цветов или тушевали кистью с продуктом. Три оттенка максимум, тушуем чистой кистью.']]},
+
+'Стрелка':{ lvl:'сложно', time:'5 мин', tools:['гелевая подводка или фломастер','скошенная кисть','ватная палочка'], steps:[
+ {t:'Наметить хвостик', a:'wing', d:'Сначала рисуем не линию, а только хвостик: поставьте точку, продолжив линию нижнего века вверх, и соедините её с внешним углом короткой чертой.', w:'Хвостик смотрит на кончик брови. Это универсальное направление.', e:'Начинать с линии вдоль ресниц — к хвостику рука уже устанет и дрогнет.'},
+ {t:'Провести линию вдоль ресниц', a:'wing', d:'От внутренней трети века ведите тонкую линию к началу хвостика, прижимая кисть к линии роста ресниц. Ведите короткими штрихами, а не одним движением.', w:'Между линией и ресницами нет просвета.', e:'Пытаться провести одним росчерком — получится волна.'},
+ {t:'Заполнить треугольник', a:'wing', d:'Между линией и хвостиком остался незакрашенный треугольник — закрасьте его, двигаясь от внешнего края внутрь.', w:'Стрелка утолщается плавно от внутреннего угла к внешнему.', e:'Делать линию одинаковой толщины по всей длине — глаз выглядит обведённым.'},
+ {t:'Поправить ватной палочкой', a:'wing', d:'Палочку смочите мицеллярной водой и подровняйте нижнюю границу хвостика — это задаёт чёткость всей стрелке.', w:'Нижний край хвостика — идеально прямая линия.', e:'Стирать всё и начинать заново из-за мелкой неровности.'}],
+ fix:[['Стрелки получаются разными','Рисуйте обе параллельно: сначала хвостики на обоих глазах, потом линии. Сравнивайте в зеркале с открытыми глазами.'],
+      ['Линия уходит в складку','У вас нависшее веко. Рисуйте с открытым глазом, глядя прямо в зеркало, и делайте хвостик короче и выше.']]},
+
+'Румяна и скульптура':{ lvl:'средне', time:'3 мин', tools:['пушистая кисть','румяна','бронзер или скульптор'], steps:[
+ {t:'Найти скулу', a:'contour', d:'Приложите пальцы к щеке: верхняя граница скульптора — впадина под скуловой костью, она идёт от середины уха к уголку рта, но не доходит до него на три пальца.', w:'Вы чувствуете кость пальцем. Скульптор идёт строго под ней.', e:'Вести линию до самого рта — лицо будет выглядеть впалым и старше.'},
+ {t:'Нанести скульптор', a:'contour', d:'Кистью с небольшим количеством продукта проведите от уха вперёд, растушёвывая вверх-вниз. Движение всегда от уха к центру, а не наоборот.', w:'Чёткой границы нет, есть мягкая тень.', e:'Набирать много продукта сразу — убрать потом сложнее, чем добавить.'},
+ {t:'Румяна на яблочки', a:'blush', d:'Улыбнитесь, найдите выступающую часть щеки и нанесите румяна по диагонали вверх, к виску. Не кругом — диагональю.', w:'Румяна чуть выше скульптора и уходят вверх.', e:'Наносить румяна кругом на яблочко — лицо выглядит круглее.'},
+ {t:'Соединить переходы', a:'blush', d:'Чистой кистью пройдитесь по границе между румянами и скульптором маленькими кругами — они должны переходить друг в друга.', w:'Видно румянец и тень, но не видно, где одно переходит в другое.', e:'Оставить полосы: на фото со вспышкой они станут вдвое заметнее.'}],
+ fix:[['Румяна выглядят пятнами','Наносите на кисть, стряхните излишек о руку, и только потом на лицо.'],
+      ['Скульптор выглядит грязно','Оттенок слишком тёплый или рыжий. Для скульптуры нужен холодный серо-коричневый, он имитирует тень.']]},
+
+'Ресницы':{ lvl:'новичок', time:'2 мин', tools:['тушь','щипцы по желанию'], steps:[
+ {t:'Подкрутить у основания', a:'mascara', d:'Щипцы прижимают ресницы у самого основания на 10 секунд, затем ещё раз на середине. Только на чистые ресницы, до туши.', w:'Ресницы смотрят вверх от самого корня.', e:'Подкручивать после туши — ресницы сломаются.'},
+ {t:'Прокрасить основание зигзагом', a:'mascara', d:'Поставьте щёточку к самым корням и подвигайте ею влево-вправо, не продвигаясь вверх. Объём делается у корня, а не на кончиках.', w:'У основания ресницы заметно темнее.', e:'Сразу тянуть щёточку вверх — тушь ляжет на кончики и утяжелит их.'},
+ {t:'Протянуть к кончикам', a:'mascara', d:'Теперь протяните щёточку от корней к кончикам одним движением, слегка поворачивая её.', w:'Ресницы разделены, не слиплись.', e:'Делать больше двух слоёв — ресницы потяжелеют и опустятся.'},
+ {t:'Прокрасить внешний угол', a:'mascara', d:'Поверните щёточку вертикально и прокрасьте ресницы внешнего угла, направляя их к виску — это визуально вытягивает глаз.', w:'Внешний угол приподнят.', e:'Красить нижние ресницы той же плотностью — взгляд станет тяжёлым.'}],
+ fix:[['Отпечатывается на веке','Слишком много туши или жирное веко. Припудрите веко и делайте один слой.'],
+      ['Ресницы слипаются','Снимите излишки с щёточки салфеткой перед нанесением.']]},
+
+'Губы: контур и заливка':{ lvl:'средне', time:'3 мин', tools:['карандаш для губ','помада','кисть для губ'], steps:[
+ {t:'Наметить опорные точки', a:'lipline', d:'Поставьте карандашом три точки: две на пиках верхней губы и одну в центре нижней. Это каркас, по которому пойдёт линия.', w:'Точки симметричны относительно центра лица.', e:'Рисовать контур сразу — одна сторона почти всегда выходит выше другой.'},
+ {t:'Соединить контур', a:'lipline', d:'Ведите карандаш от центра верхней губы к уголку — сначала одна сторона, потом вторая. От центра к краю, не наоборот.', w:'Линия идёт точно по собственному контуру или на миллиметр за ним, не больше.', e:'Выходить за контур на 2–3 мм: это видно всегда, даже если кажется, что нет.'},
+ {t:'Заштриховать внутрь', a:'lipline', d:'Закрасьте карандашом всю губу, а не только контур. Так помада держится дольше и не оставляет ободка при стирании.', w:'Губа равномерно окрашена карандашом.', e:'Оставлять только контур — через два часа останется он один.'},
+ {t:'Нанести помаду кистью', a:'lipline', d:'Кистью от центра к уголкам, тонким слоем. Промокните салфеткой, нанесите второй слой — так цвет держится вдвое дольше.', w:'Цвет ровный, в уголках нет скоплений.', e:'Наносить прямо из тюбика поверх карандаша — слой выйдет толстым и смажется.'}],
+ fix:[['Помада растекается','Нужен карандаш по всей губе и промокание между слоями. Жирные бальзамы перед помадой — главная причина.'],
+      ['Губы выглядят сухими','Матовые формулы подчёркивают шелушения. Скраб из сахара и масла за 10 минут до макияжа решает это.']]}
+};
+window.TUT = T;
+window.tutHas = n=>!!T[n];
+})();
+
+/* ================= ПРИЧЁСКИ ПОД СОСТОЯНИЕ ВОЛОС: длина × структура × что с ними сейчас ================= */
+(function(){
+const F = HUB.ls('looka_hairfit', { len:null, str:null, cond:[] });
+const LENS = [['p','Пикси / очень коротко','до середины уха'],['b','Каре до подбородка','по линии челюсти'],['s','До плеч','лежат на плечах'],['m','До лопаток','середина спины'],['l','Ниже лопаток','длинные']];
+const STRS = [['st','Прямые','не держат завиток'],['wv','Волнистые','волна появляется сама'],['cu','Кудрявые','упругий локон'],['af','Очень кудрявые','плотная спираль, афро']];
+const CONDS = [
+ ['brittle','Ломкие','обламываются по длине, короткие «антеннки» у пробора'],
+ ['porous','Пористые, пушатся','в влажность поднимается шапкой, на ощупь шершавые'],
+ ['split','Секутся концы','последние 3–5 см выглядят светлее и сухо'],
+ ['bleach','Обесцвеченные','блонд, мелирование, осветление'],
+ ['oily','Жирные корни, сухие концы','к вечеру второго дня корни уже тяжёлые'],
+ ['fine','Тонкие и мягкие','хвост тоньше двух пальцев, укладка падает за час'],
+ ['coarse','Жёсткие и непослушные','толстый волос, торчит, тяжело уложить'],
+ ['fall','Выпадают больше обычного','заметно больше волос на расчёске и в стоке'],
+ ['thinpart','Редеет пробор','пробор стал шире, видно кожу'],
+ ['kera','После кератина / ботокса','выпрямление делали за последние полгода'],
+ ['ok','Всё в порядке','просто хочу подобрать по длине и структуре']
+];
+/* каждая укладка: где работает, кому помогает, кому вредит */
+const HS = [
+ { n:'Текстурная пикси с удлинённой макушкой', len:['p'], str:['st','wv','cu'], good:['brittle','split','fine','bleach'], bad:[], t:'5 мин',
+   why:'Срез убирает всё повреждённое разом — отращивать здоровое проще с короткой базы. Макушка длиннее боков даёт объём там, где он нужен.',
+   how:'Воск-крем размером с горошину на сухие корни макушки, взъерошить пальцами снизу вверх, не приглаживать. Бока прижать ладонью.' },
+ { n:'Французский боб с тупым срезом', len:['b'], str:['st','wv'], good:['fine','split','thinpart','porous'], bad:['coarse'], t:'7 мин',
+   why:'Тупой срез — главный приём для тонких: вся масса собрана в одной линии, концы выглядят плотными, а не «мышиным хвостиком».',
+   how:'Сушить брашингом внутрь, последние 10 секунд — холодный воздух. Никаких слоёв и филировки: они сразу съедают плотность.' },
+ { n:'Боб с мягкой градуировкой', len:['b','s'], str:['wv','cu'], good:['coarse','porous'], bad:['fine'], t:'10 мин',
+   why:'Жёстким и пушистым нужна разгрузка объёма: градуировка снимает «треугольник» и даёт волне лечь.',
+   how:'На влажные — крем для укладки по длине, сушить диффузором на малой скорости, голову набок. Не расчёсывать после сушки.' },
+ { n:'Кудрявый боб (curly cut)', len:['b','s'], str:['cu','af'], good:['porous','coarse'], bad:['fine'], t:'15 мин',
+   why:'Кудри стригут посухому локон за локоном — только так видно, где завиток ляжет. На влажных кудрях длину не угадать.',
+   how:'Гель или крем на мокрые волосы методом «молитвенные ладони», отжать скрунчем, сушить диффузором, разбить корочку пальцами.' },
+ { n:'Длинный боб (lob) с ровным срезом', len:['s','m'], str:['st','wv'], good:['fine','split','porous','bleach'], bad:[], t:'7 мин',
+   why:'Самая безопасная длина: плечи поддерживают форму, ровный срез маскирует тонкие концы, а собрать всё ещё можно.',
+   how:'Сушить, опустив голову, последние пряди — брашингом от лица. Масло только на нижнюю треть, к корням не подниматься.' },
+ { n:'Каскад с лицевыми прядями', len:['m','l'], str:['st','wv'], good:['coarse','ok'], bad:['fine','split'], t:'12 мин',
+   why:'Длину сохраняем, а лицо открываем: пряди от скул двигаются сами и убирают ощущение «тяжёлой шторы».',
+   how:'Лицевые пряди — утюжком наружу двумя движениями, остальная масса остаётся как есть. Лак только на пряди у лица.' },
+ { n:'Ровный срез по длине без слоёв', len:['m','l'], str:['st','wv'],  good:['fine','thinpart','split'], bad:[], t:'5 мин',
+   why:'Любые слои на тонких работают против вас: масса уходит, концы редеют. Одна линия визуально уплотняет хвост сразу вдвое.',
+   how:'Подравнивать каждые 8–10 недель на 1 см. Сушить вниз головой для корней, длину — естественно.' },
+ { n:'Мягкие волны без плойки', len:['s','m','l'], str:['st','wv'], good:['brittle','bleach','kera','split'], bad:[], t:'0 мин активных',
+   why:'Ломким и обесцвеченным любой горячий прибор ускоряет облом. Волна из жгутов даёт ту же форму без единого градуса.',
+   how:'На влажные волосы — два жгута по бокам, закрутить в пучки, лечь спать. Утром распустить и разобрать пальцами.' },
+ { n:'Низкий пучок на мягкой резинке', len:['s','m','l'], str:['st','wv','cu'], good:['brittle','fall','thinpart','oily','kera'], bad:[], t:'3 мин',
+   why:'Тугая резинка на одном месте — самая частая причина обломанных волос у пробора. Мягкая спираль и низкая посадка снимают натяжение с корней.',
+   how:'Собрать у шеи без натяжения, скрутить в жгут, обернуть, закрепить спиралью или двумя шпильками крест-накрест. Пара прядей у лица — наружу.' },
+ { n:'Низкий хвост на спиральной резинке', len:['s','m','l'], str:['st','wv'], good:['fall','brittle','oily','thinpart'], bad:[], t:'2 мин',
+   why:'Спиральная резинка не делает заломов и не выдёргивает волосы при снятии — для выпадающих это принципиально.',
+   how:'Расчесать мягкой щёткой, собрать у шеи, прядь из хвоста обернуть вокруг резинки и закрепить невидимкой снизу.' },
+ { n:'Полусобранная с когтем', len:['s','m','l'], str:['st','wv','cu'], good:['oily','fine','porous'], bad:[], t:'1 мин',
+   why:'Убирает жирные корни у лица и одновременно создаёт объём на затылке — два решения одним движением.',
+   how:'Верхнюю треть собрать назад, слегка вытянуть петлю для объёма, зажать когтем. Нижнюю массу не трогать.' },
+ { n:'Две свободные косы', len:['m','l'], str:['st','wv','cu','af'], good:['brittle','fall','kera','porous'], bad:[], t:'6 мин',
+   why:'Защитная укладка: волосы не путаются, не трутся об одежду и не требуют тепла. Для ломких это лучший способ «пережить» неделю.',
+   how:'Плести не туго, от уровня уха, а не от макушки — натяжение у корней вредит. На ночь — та же коса плюс шёлковая наволочка.' },
+ { n:'Объём у корней феном вниз головой', len:['b','s','m','l'], str:['st','wv'], good:['fine','thinpart','oily'], bad:['porous','af'], t:'5 мин',
+   why:'Корни, годами лежавшие в одну сторону, дают плоскую макушку. Сушка против роста поднимает их за пять минут без начёса.',
+   how:'Сушить корни, направляя воздух против роста, затем 30 секунд холодного. Руками в волосы весь день не лезть.' },
+ { n:'Диффузор и плоппинг', len:['b','s','m','l'], str:['cu','af'], good:['porous','coarse','brittle'], bad:[], t:'15 мин',
+   why:'Кудрям нужна влага и отсутствие трения. Полотенце ломает завиток, футболка и диффузор — нет.',
+   how:'На мокрые — гель, отжать, завернуть в хлопковую футболку на 15 минут, досушить диффузором без движения. Корочку разбить пальцами в самом конце.' },
+ { n:'Гулька-жгут без шпилек', len:['m','l'], str:['st','wv','cu'], good:['oily','fall','kera'], bad:[], t:'1 мин',
+   why:'Ноль металла, ноль натяжения, держится на собственном жгуте — для слабых волос самая безопасная «быстрая» причёска.',
+   how:'Скрутить всю массу в жгут, обернуть вокруг основания, кончик подоткнуть внутрь. Если падает — одна мягкая резинка поверх.' },
+ { n:'Шторка-чёлка вместо стрижки длины', len:['s','m','l'], str:['st','wv'], good:['thinpart','ok','fine'], bad:[], t:'4 мин',
+   why:'Закрывает расширившийся пробор и даёт лицу рамку, не трогая длину — то есть без потери массы.',
+   how:'Сушить брашингом от центра в стороны, пока влажная. Пересушивать нельзя: шторка начнёт топорщиться.' },
+ { n:'Короткое каре с градуированным затылком', len:['b'], str:['st','wv'], good:['fine','thinpart','oily'], bad:['coarse','af'], t:'8 мин',
+   why:'Короткий затылок поднимает всю массу и визуально уплотняет: стрижка работает как подтяжка линии челюсти.',
+   how:'Сушить затылок брашингом вверх, передние пряди — вниз к лицу. Мусс у корней затылка перед сушкой.' },
+ { n:'Гладкая пикси на бок', len:['p'], str:['st','wv'], good:['oily','fine','coarse'], bad:['porous'], t:'3 мин',
+   why:'Когда корни уже тяжёлые, гладкая укладка играет на этом: волосы лежат ровно и выглядят намеренно, а не грязно.',
+   how:'Каплю геля на влажные корни, расчесать на глубокий боковой пробор, прижать ладонью, высушить феном по направлению укладки.' },
+ { n:'Мокрый эффект на коротких', len:['p','b'], str:['wv','cu','af'], good:['porous','coarse','brittle'], bad:['fine','oily'], t:'4 мин',
+   why:'Пушистым и жёстким нужна фиксация влаги: гель запечатывает кутикулу, и волос перестаёт поднимать «шапку» к обеду.',
+   how:'Гель сильной фиксации на мокрые волосы, уложить пальцами, не сушить феном. Корочку не разбивать — на коротких она и держит форму.' },
+ { n:'Повязка или лента на отросшей длине', len:['p','b','s'], str:['st','wv','cu','af'], good:['oily','brittle','thinpart','fall'], bad:[], t:'1 мин',
+   why:'Закрывает и корни, и отросший пробор, и не требует ни одной резинки — нулевое натяжение на ослабленные волосы.',
+   how:'Широкая повязка по линии роста, волосы выпустить свободно. На отросшей пикси — сдвинуть вперёд, чтобы закрыть макушку.' },
+ { n:'Twist-out: раскрученные жгуты', len:['s','m','l'], str:['cu','af'], good:['porous','coarse','brittle','bleach'], bad:[], t:'15 мин + ночь',
+   why:'Даёт определённый завиток без единого градуса тепла — для плотных спиралей это основной способ уложиться надолго.',
+   how:'На влажные волосы — крем, разделить на 8–12 секций, каждую скрутить в двойной жгут. Высушить или оставить на ночь, утром раскрутить пальцами с каплей масла.' },
+ { n:'Ночная защита: коса и шёлк', len:['p','b','s','m','l'], str:['st','wv','cu','af'], good:['brittle','split','bleach','fall','porous','kera'], bad:[], t:'1 мин',
+   why:'Треть всех обломов происходит ночью о хлопковую наволочку. Это не причёска, а то, без чего остальные не удержатся.',
+   how:'Мягкая коса или низкий пучок на спирали, шёлковая или сатиновая наволочка. На длинных — волосы поверх подушки, не под плечом.' }
+];
+const AVOID = {
+ brittle:['тугие хвосты и пучки на одном и том же месте','плойку и утюжок без термозащиты — и вообще каждый день','начёс у корней','расчёсывание сухих волос от корней'],
+ porous:['расчесывание после сушки — пушатся именно от этого','полотенце-махру: только футболка или микрофибра','спирты в несмываемых средствах'],
+ split:['подравнивание «раз в полгода» — надо каждые 8–10 недель','горячий утюжок по кончикам','средства «склеивающие секущиеся концы» вместо стрижки'],
+ bleach:['повторное осветление раньше чем через 8 недель','бассейн без шапочки и защитного масла','температуру утюжка выше 180°'],
+ oily:['горячую воду при мытье — она усиливает работу сальных желёз','кондиционер на корни','трогать волосы руками в течение дня'],
+ fine:['слои и филировку','тяжёлые масла по всей длине','плотные маски чаще раза в неделю'],
+ coarse:['расчёсывание сухих волос без средства','ровный срез без градуировки — даст «треугольник»'],
+ fall:['тугие причёски, наращивание и плотные пучки','расчёсывание мокрых волос','резкие диеты — волос реагирует через 2–3 месяца'],
+ thinpart:['один и тот же пробор годами — меняйте сторону','начёс ровно на проборе','тугие хвосты от лица'],
+ kera:['шампуни с сульфатами — смывают состав','хвосты и заколки в первые 72 часа','мытьё чаще раза в 3 дня в первый месяц'],
+ ok:[]
+};
+const CARE = {
+ brittle:'Термозащита перед любым прибором и обрезать 1 см каждые 2 месяца — это не «потерять длину», а перестать терять её снизу.',
+ porous:'Кислая среда закрывает кутикулу: кондиционер каждое мытьё, несмываемый крем на влажные, масло на концы.',
+ split:'Стрижка — единственное, что убирает сечение. Всё остальное маскирует на одно мытьё.',
+ bleach:'Протеин и увлажнение по очереди, не вместе: неделя маски с протеином, неделя — с увлажнением.',
+ oily:'Мыть можно хоть каждый день, но мягким шампунем и тёплой водой, кондиционер — только от середины.',
+ fine:'Лёгкие текстуры: муссы и спреи вместо кремов и масел, маска — на 5 минут и только на длину.',
+ coarse:'Нужна влага и утяжеление: плотный кондиционер, несмываемый крем, масло на сухие концы.',
+ fall:'Сезонное выпадение до 100 волос в день — норма. Если дольше трёх месяцев или видно кожу — это к трихологу, а не к маскам.',
+ thinpart:'Расширение пробора — повод сдать ферритин и сходить к трихологу. Укладкой это маскируется, но не решается.',
+ kera:'Первые трое суток не собирать и не мыть, дальше — бессульфатный шампунь, иначе состав вымоется за месяц.',
+ ok:'База, которая решает больше любых новинок: мягкая щётка, шёлковая наволочка, подравнивание раз в 2–3 месяца.'
+};
+const MED = ['fall','thinpart'];
+window.hfPick = (k,v)=>{ if(k==='cond'){ const i=F.cond.indexOf(v); if(v==='ok'){ F.cond = i<0?['ok']:[]; } else { if(i<0){ F.cond.push(v); const o=F.cond.indexOf('ok'); if(o>=0) F.cond.splice(o,1); } else F.cond.splice(i,1); } }
+  else F[k]=v; HUB.save('looka_hairfit',F); renderHairFit(); };
+window.hfReset = ()=>{ F.len=null; F.str=null; F.cond=[]; HUB.save('looka_hairfit',F); renderHairFit(); };
+window.hfMatch = ()=>{
+  const cs = F.cond.filter(c=>c!=='ok');
+  const out = HS.map(h=>{
+    if(!h.len.includes(F.len)) return null;
+    if(!h.str.includes(F.str)) return null;
+    let sc = 1;
+    cs.forEach(c=>{ if(h.good.includes(c)) sc+=3; if(h.bad.includes(c)) sc-=6; });
+    if(!cs.length && h.good.includes('ok')) sc+=2;
+    const hit = cs.filter(c=>h.good.includes(c));
+    return sc>0 ? {h,sc,hit} : null;
+  }).filter(Boolean).sort((a,b)=>b.sc-a.sc);
+  return out.slice(0,5).map(x=>Object.assign({},x.h,{hit:x.hit}));
+};
+window.renderHairFit = ()=>{
+  const box=document.getElementById('hfBox'); if(!box) return;
+  const chip=(k,arr,multi)=>`<div class="hf-chips">${arr.map((a,i)=>{ const on = multi? F.cond.includes(a[0]) : F[k]===a[0];
+    return `<button class="hf-c ${on?'on':''}" style="animation-delay:${(i*.04).toFixed(2)}s" onclick="hfPick('${k}','${a[0]}')"><b>${a[1]}</b><em>${a[2]}</em>${multi?'<i class="hf-tick">✓</i>':''}</button>`; }).join('')}</div>`;
+  const ready = F.len && F.str && F.cond.length;
+  let res='';
+  if(ready){
+    const list = hfMatch();
+    const cs = F.cond.filter(c=>c!=='ok');
+    const av = [...new Set(cs.flatMap(c=>AVOID[c]||[]))].slice(0,6);
+    const care = cs.length? cs.map(c=>CARE[c]).filter(Boolean) : [CARE.ok];
+    const med = cs.some(c=>MED.includes(c));
+    const L=(LENS.find(x=>x[0]===F.len)||[])[1], S2=(STRS.find(x=>x[0]===F.str)||[])[1];
+    const cn = cs.map(c=>(CONDS.find(x=>x[0]===c)||[])[1]).filter(Boolean);
+    res = `<div class="hf-res">
+      <div class="hf-sum"><div class="cs-k">ваша вводная</div><b>${S2}, ${L.toLowerCase()}${cn.length?' · '+cn.join(', ').toLowerCase():''}</b></div>
+      ${list.length? `<div class="hf-list">${list.map((h,i)=>`<div class="hf-h pop ${(window.tutHas&&tutHas(h.n))?'tut-open':''}" style="animation-delay:${(i*.07).toFixed(2)}s" ${(window.tutHas&&tutHas(h.n))?`onclick="if(!event.target.closest('a'))tutOpen('${h.n.replace(/'/g,"\\'")}')"`:''}>
+        <div class="hf-h-top"><span class="hf-num">${i+1}</span><b>${h.n}</b><em>${h.t}</em></div>
+        ${(h.hit&&h.hit.length)?`<div class="hf-hit">${h.hit.map(c=>`<span>${(CONDS.find(x=>x[0]===c)||[])[1]}</span>`).join('')}</div>`:''}
+        <div class="hf-why"><span>почему именно вам</span>${h.why}</div>
+        <div class="hf-how"><span>как делать</span>${h.how}</div>
+        ${(window.tutHas&&tutHas(h.n))?`<button class="tut-cta">▶ Показать по шагам с анимацией</button>`:`<div class="to-row"><a class="btn ghost" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(h.n+' укладка пошагово')}">▶ Видео</a><a class="btn ghost" target="_blank" rel="noopener" href="https://www.pinterest.com/search/pins/?q=${encodeURIComponent(h.n)}">◈ Примеры</a></div>`}
+      </div>`).join('')}</div>`
+      : `<div class="mr-warn">Для такого сочетания у меня пока нет готовой схемы — напишите в «Спросить стилиста», разберу вручную.</div>`}
+      ${av.length?`<div class="hf-no"><b>Чего с такими волосами не делать</b><ul>${av.map(x=>`<li>${x}</li>`).join('')}</ul></div>`:''}
+      <div class="hf-care"><b>Минимум ухода, который решает</b><ul>${care.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      ${med?`<div class="hf-med">Выпадение и расширение пробора укладкой не лечатся. Если это длится дольше трёх месяцев — это к <b>трихологу</b>, он начнёт с анализов (ферритин, железо, витамин D, гормоны щитовидной железы). LOOKA подскажет, как носить волосы сейчас, но диагноз — не её работа.</div>`:''}
+      <div class="to-row" style="margin-top:14px"><button class="btn ghost" onclick="hfReset()">↻ Ответить заново</button><button class="btn ghost" onclick="openHairLab()">Примерить это на своём фото →</button></div>
+    </div>`;
+  }
+  box.innerHTML = `
+    <div class="hf-step"><div class="hf-q"><i>1</i>Какая длина сейчас?</div>${chip('len',LENS)}</div>
+    <div class="hf-step ${F.len?'':'dim'}"><div class="hf-q"><i>2</i>Какая структура?</div>${chip('str',STRS)}</div>
+    <div class="hf-step ${F.str?'':'dim'}"><div class="hf-q"><i>3</i>Что с волосами сейчас? <span>можно выбрать несколько</span></div>${chip('cond',CONDS,true)}</div>
+    ${res}`;
+};
+window.openHairFit = ()=>{ if(window.openPage) openPage('hairPage'); setTimeout(()=>{ renderHairFit(); const b=document.getElementById('hfBox'); if(b&&window.glide) glide(b,100,700); }, 140); };
+})();
+
 /* ================= ДОСКИ РАЗБОРА: инфографика по портрету + расшифровка ================= */
 (function(){
 const BP = { photo:null, busy:null, out:{} };
@@ -11217,7 +12031,9 @@ window.brdClear = ()=>{ BP.photo=null; BP.out={}; Object.keys(BRD).forEach(x=>re
 window.brdGo = async k=>{
   const C=BRD[k]; if(!C || !BP.photo || BP.busy) return;
   if(!LOOKA_API && !GEMINI_KEY){ myToast('Доски включатся вместе с генерацией картинок'); return; }
-  const st=q(); if(st.n>=LIM){ myToast('Лимит досок на этот месяц исчерпан ('+LIM+')'); return; }
+  if(window.hasAccess && !hasAccess()){ if(window.triesLeft && triesLeft()>0) useTry();
+    else { gate("renderBoard('"+k+"')", C.t, 'board'); return; } }
+  const st=q(); if(hasAccess() && st.n>=LIM){ myToast('Лимит досок на этот месяц исчерпан ('+LIM+')'); return; }
   BP.busy=k; renderBoard(k);
   let i=0; clearInterval(BT); BT=setInterval(()=>{ i++; const h=document.getElementById('brdStage-'+k); if(!h){ clearInterval(BT); return; } h.style.opacity=0; setTimeout(()=>{ h.textContent=BSTG[i%BSTG.length]; h.style.opacity=1; },180); }, 2700);
   let txt=null, img=null, err=null;
@@ -11430,7 +12246,7 @@ window.renderBoard = k=>{
     <div class="to-row">
       ${BP.photo?`<button class="btn primary" ${busy?'disabled':''} onclick="brdGo('${k}')">${busy?'Собираю доску… ~40 секунд':(R?'↻ Собрать заново':'✦ Собрать доску')}</button>`
         :`<label class="btn primary" style="cursor:pointer">📷 Загрузить портрет<input type="file" accept="image/*" style="display:none" onchange="brdFile('${k}',this.files[0])"></label><button class="btn ghost" onclick="brdMine('${k}')">Взять моё фото</button>`}
-      <span class="to-q">${(LOOKA_API||GEMINI_KEY)?('осталось досок в этом месяце: '+(LIM-q().n)):'включится вместе с генерацией картинок'}</span>
+      <span class="to-q">${!(LOOKA_API||GEMINI_KEY)?'включится вместе с генерацией картинок':((window.hasAccess&&hasAccess())?('осталось досок в этом месяце: '+(LIM-q().n)):((window.triesLeft&&triesLeft()>0)?'первая доска — бесплатно':'дальше — по подписке'))}</span>
     </div>
     ${busy?`<div class="brd-scan"><div class="brd-sc-img"><img src="data:image/jpeg;base64,${BP.photo}" alt=""><div class="sc-grid"></div><div class="sc-line"></div></div>
       <div><div class="cs-k">ИИ собирает доску</div><h4 id="brdStage-${k}">${BSTG[0]}</h4><div class="sc-prog"><i></i></div><div class="sc-stat">доска и расшифровка готовятся одновременно</div></div></div>`:''}
@@ -11527,7 +12343,9 @@ window.hlGo = async ()=>{
   if(!H.photo || H.busy) return;
   if(H.color===null && H.cut===null){ myToast('Выберите цвет, стрижку — или и то, и другое'); return; }
   if(!LOOKA_API && !GEMINI_KEY){ myToast('Примерочная включится вместе с генерацией картинок'); return; }
-  const st=q(); if(st.n>=LIM){ myToast('Лимит примерок волос на этот месяц исчерпан ('+LIM+')'); return; }
+  if(window.hasAccess && !hasAccess()){ if(window.triesLeft && triesLeft()>0){ useTry(); if(window.renderHairLab) setTimeout(renderHairLab,50); }
+    else { clearTimeout(HAUTO); gate('openHairLab()','Примерочная волос','hair'); return; } }
+  const st=q(); if(hasAccess() && st.n>=LIM){ myToast('Лимит примерок на этот месяц исчерпан ('+LIM+')'); return; }
   const C = H.color!==null?COLORS_H[H.color]:null, K = H.cut!==null?CUTS_H[H.cut]:null;
   H.busy=1; renderHairLab();
   const out=document.getElementById('hlOut'); if(out){ out.innerHTML = scanBox(); stageRun(); if(window.glide) glide(out,110,700); }
@@ -11621,7 +12439,7 @@ window.renderHairLab = ()=>{
   <div class="hl-tabs"><button class="hl-tb ${H.tab==='color'?'on':''}" onclick="hlTab('color')">Цвет${H.color!==null?' ✓':''}</button><button class="hl-tb ${H.tab==='cut'?'on':''}" onclick="hlTab('cut')">Стрижка${H.cut!==null?' ✓':''}</button></div>
   ${H.tab==='color'?`<div class="hl-cols">${COLORS_H.map((c,i)=>`<button class="hl-c ${H.color===i?'on':''}${tag(c[0],A&&A.yes_c,'good')}${tag(c[0],A&&A.no_c,'bad')}" onclick="hlPickColor(${i})" style="animation-delay:${(i*.04).toFixed(2)}s"><i style="background:${c[1]}"></i><b>${c[0]}</b><em>${c[3]}</em></button>`).join('')}</div>`
    :`<div class="hl-cuts" style="--hc:${H.color!==null?COLORS_H[H.color][1]:'#4A3026'}">${CUTS_H.map((c,i)=>`<button class="hl-k ${H.cut===i?'on':''}${tag(c[0],A&&A.yes_k,'good')}${tag(c[0],A&&A.no_k,'bad')}" onclick="hlPickCut(${i})" style="animation-delay:${(i*.05).toFixed(2)}s">${hcSvg(c[1],c[2])}<span class="hk-tx"><b>${c[0]}</b><em>идёт: ${c[4]}</em><u>${c[5]}</u></span></button>`).join('')}</div>`}
-  <div class="to-row" style="margin-top:16px"><button class="btn primary" ${(!H.photo||H.busy||(H.color===null&&H.cut===null))?'disabled':''} onclick="clearTimeout(HAUTO);hlGo()">${H.busy===1?'Меняю волосы… ~30 секунд':(H.photo?'↻ Переделать':'✦ Примерить на моём фото')}</button><button class="btn ghost" ${(H.busy||!H.photo)?'disabled':''} onclick="H_rand()">⚄ Удиви меня</button><span class="to-q">${(LOOKA_API||GEMINI_KEY)?('осталось примерок в этом месяце: '+(LIM-q().n)):'включится вместе с генерацией картинок'}</span></div>
+  <div class="to-row" style="margin-top:16px"><button class="btn primary" ${(!H.photo||H.busy||(H.color===null&&H.cut===null))?'disabled':''} onclick="clearTimeout(HAUTO);hlGo()">${H.busy===1?'Меняю волосы… ~30 секунд':(H.photo?'↻ Переделать':'✦ Примерить на моём фото')}</button><button class="btn ghost" ${(H.busy||!H.photo)?'disabled':''} onclick="H_rand()">⚄ Удиви меня</button><span class="to-q">${!(LOOKA_API||GEMINI_KEY)?'включится вместе с генерацией картинок':((window.hasAccess&&hasAccess())?('осталось примерок в этом месяце: '+(LIM-q().n)):((window.triesLeft&&triesLeft()>0)?'первая примерка — бесплатно':'дальше — по подписке'))}</span></div>
   <div class="b-priv">${H.photo?'Выбираете цвет или стрижку — примерка на вашем фото запускается сама. ':''}Фото уходит в ИИ только на время примерки и нигде не хранится. Результат — иллюстрация: реальный цвет зависит от вашей базы и состояния волос, это решает колорист.</div>`;
 };
 window.H_rand = ()=>{ H.color=Math.floor(Math.random()*COLORS_H.length); H.cut=Math.floor(Math.random()*CUTS_H.length); renderHairLab(); hlGo(); };
@@ -11673,7 +12491,7 @@ window.mrGo = async ()=>{
         <h3>${d.name||'Ваш макияж'}</h3><div class="tip">${d.vibe||''}</div>
         ${d.warn?'<div class="mr-warn">⚠ '+d.warn+'</div>':''}
         ${(d.pal&&d.pal.length)?'<div class="mr-pal">'+d.pal.map((c,i)=>`<div class="mr-pc" style="animation-delay:${(i*.07).toFixed(2)}s"><i style="background:${c.hex||'#888'}"></i><b>${c.n||''}</b><em>${c.w||''}</em></div>`).join('')+'</div>':''}
-        <ol class="mk-steps">${(d.steps||[]).map((st,i)=>HUB.pop(`<li><b>${st.z}</b><span class="mk-tool">${st.tool||''}${st.own?' · ваш продукт: '+st.own:''}</span><p>${st.d}</p>${st.prod?'<div class="mr-prod"><span>чем повторить</span>'+st.prod+'</div>':''}</li>`,i)).join('')}</ol>
+        <ol class="mk-steps">${(d.steps||[]).map((st,i)=>{ const tn=(window.mkTutFor&&mkTutFor(st.z))||''; return HUB.pop(`<li><b>${st.z}${tn?` <button class="mk-tut" onclick="tutOpen('${tn.replace(/'/g,"\\'")}')">▶ по шагам</button>`:''}</b><span class="mk-tool">${st.tool||''}${st.own?' · ваш продукт: '+st.own:''}</span><p>${st.d}</p>${st.prod?'<div class="mr-prod"><span>чем повторить</span>'+st.prod+'</div>':''}</li>`,i); }).join('')}</ol>
         ${d.adapt?'<div class="hp-sub" style="margin-top:14px">АДАПТИРОВАНО ПОД ВАС</div><div class="tip">'+d.adapt+'</div>':''}
         ${(d.buy&&d.buy.length)?'<div class="hp-sub" style="margin-top:14px">ЧЕГО НЕ ХВАТАЕТ</div>'+d.buy.map(b=>`<div class="item"><div class="nm">${b.n}</div>${beautyButtons(b.q||b.n)}</div>`).join(''):''}
       </div></div>`;
@@ -11710,7 +12528,7 @@ window.renderMkRef = ()=>{
         ${R.prods?`<img src="${R.prods}"><button class="mr-x" onclick="event.stopPropagation();mrClear('prods')">✕</button>`:`<i>❖</i><b>Ваша косметика <em>по желанию</em></b><span>разложите палетки и тюбики и сфотографируйте — распишу шаги вашими продуктами</span>`}
       </div>
     </div>
-    <div class="to-row" style="margin-top:14px"><button class="btn primary" ${(!R.ref||R.busy)?'disabled':''} onclick="mrGo()">${R.busy?'Разбираю референс… ~20 секунд':'✦ Разобрать и адаптировать под меня'}</button><span class="to-q">${(LOOKA_API||GEMINI_KEY)?('осталось разборов в этом месяце: '+(LIM-q().n)):'включится вместе с ИИ-мостом'}</span></div>
+    <div class="to-row" style="margin-top:14px"><button class="btn primary" ${(!R.ref||R.busy)?'disabled':''} onclick="mrGo()">${R.busy?'Разбираю референс… ~20 секунд':'✦ Разобрать и адаптировать под меня'}</button><span class="to-q">${(LOOKA_API||GEMINI_KEY)?'бесплатно · '+(LIM-q().n)+' разборов в этом месяце':'включится вместе с ИИ-мостом'}</span></div>
     ${R.busy?'<div class="st-load"><i></i><i></i><i></i></div>':''}
     <input type="file" id="mrInp1" accept="image/*" style="display:none" onchange="mrPickRef(this.files[0])">
     <div class="mr-url"><input id="mrUrl" class="acc-in" placeholder="…или вставьте ссылку на фото из интернета — Pinterest, Instagram, любой сайт" style="margin:10px 0 0"><button class="btn ghost" onclick="mrFromUrl()" style="margin-top:8px;align-self:flex-start">↓ Взять фото по ссылке</button></div>
@@ -11783,6 +12601,7 @@ const STYLES = {
   thin:'Тонкие: плойка 19–22 мм (мельче волна — визуально гуще), пряди тонкие, лак между ярусами. Волна на тонких держится даже лучше.',
   dense:'Густые: только с зажимами на остывание — без них масса развернёт волну за час. Пряди по 2–3 см, время — все 40 минут.' }
 };
+window.HS_TUT = { waves:'Мягкие волны без плойки', bun:'Низкий пучок на мягкой резинке', tail:'Низкий хвост на спиральной резинке', volume:'Объём у корней феном вниз головой', holly:'Мягкие волны без плойки' };
 window.hsPick = k=>{ Y.style = k; Y.step = 0; renderStyling(); };
 window.hsStep = i=>{ Y.step = i; renderStyling(); };
 window.hsDens = d=>{ Y.dens = d; renderStyling(); };
@@ -11795,7 +12614,7 @@ window.renderStyling = ()=>{
     <div class="look badv mk-wide hs-panel"><div class="look-in">
       <div class="hs-head"><h3>${st.n}</h3><div class="hs-meta"><span>⏱ ${st.time}</span><span>длина: ${st.len}</span></div></div>
       <div class="tip">Понадобится: ${st.tools}.</div>
-      <div class="to-row" style="margin:6px 0 12px"><a class="btn ghost" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(st.n+' укладка пошагово')}">▶ Видео-туториал на YouTube</a><a class="btn ghost" target="_blank" rel="noopener" href="https://www.pinterest.com/search/pins/?q=${encodeURIComponent(st.n+' hairstyle tutorial')}">◈ Пошаговые картинки в Pinterest</a></div>
+      <div class="to-row" style="margin:6px 0 12px">${(window.HS_TUT&&HS_TUT[Y.style]&&window.tutHas&&tutHas(HS_TUT[Y.style]))?`<button class="tut-cta" onclick="tutOpen('${String(HS_TUT[Y.style]).replace(/'/g,"\\'")}')">▶ Показать по шагам с анимацией</button>`:''}<a class="btn ghost" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(st.n+' укладка пошагово')}">▶ Видео на YouTube</a><a class="btn ghost" target="_blank" rel="noopener" href="https://www.pinterest.com/search/pins/?q=${encodeURIComponent(st.n+' hairstyle tutorial')}">◈ Примеры в Pinterest</a></div>
       <div class="hs-grid">
         <div class="hs-scheme">${head(cur.v, cur.ex||'')}</div>
         <div class="hs-steps">
@@ -13702,31 +14521,38 @@ window.curPlan = (function(){ try{ return localStorage.getItem('looka_plan')||'m
 
 /* ================= ПЕЙВОЛ: выбор подписки перед платным разделом ================= */
 window.hasAccess = ()=>{ try{ return !!localStorage.getItem('looka_access') || (JSON.parse(localStorage.getItem('looka_session')||'{}').paid===true); }catch(e){ return false; } };
-const TRIES_MAX=5;
+const TRIES_MAX=1;   /* одна бесплатная «вау»-генерация: человек видит себя — и хочет ещё */
 window.triesLeft=()=>{ try{ return Math.max(0, TRIES_MAX - (+localStorage.getItem('looka_tries')||0)); }catch(e){ return TRIES_MAX; } };
 window.useTry=()=>{ try{ localStorage.setItem('looka_tries', String((+localStorage.getItem('looka_tries')||0)+1)); }catch(e){} };
-window.gate = (action, title)=>{
+/* что именно в PRO — и чем это соблазняет */
+window.PRO_WHY = {
+ hair:['Примерочная волос','Вы увидите себя с другим цветом и другой стрижкой — на своём фото, до парикмахера.'],
+ board:['Доска разбора','Личный лист: шесть кадров с вами, ваша палитра и разбор — сохранить и носить с собой.'],
+ makeup:['Повторить макияж с фото','Любой чужой макияж разложу на шаги и пересчитаю под вашу форму глаз.'],
+ studio:['Примерочная без магазина','Образ на вашей фигуре, все ракурсы — не на модели из каталога.'],
+ lookref:['Увидела — хочу так же','Фото из Pinterest → тот же образ, собранный под вас и ваш бюджет.'],
+ pass:['Стиль-паспорт','Всё о вас одним листом: PDF и карточка в сторис.']
+};
+window.gate = (action, title, kind)=>{
   if(hasAccess()){ try{ eval(action); }catch(e){} return; }
+  const W = PRO_WHY[kind]||null;
   let ov=document.getElementById('gateOv');
   if(!ov){ ov=document.createElement('div'); ov.id='gateOv'; ov.className='au-ov'; ov.onclick=e=>{ if(e.target===ov) closeGate(); }; document.body.appendChild(ov); }
-  const P=PLANS;
-  ov.innerHTML=`<div class="au-box gate-box"><div class="au-aura"></div><button class="au-x" onclick="closeGate()">✕</button>
+  const free = triesLeft()>0;
+  ov.innerHTML=`<div class="au-box gate-box"><button class="au-x" onclick="closeGate()">✕</button>
     <div class="au-in">
-      <div class="au-mark">✦</div>
-      <div class="cs-k">раздел по подписке</div>
-      <h3>${title||'Этот раздел'} — в подписке LOOKA</h3>
-      <p>Выберите срок. Все 19 разделов, генерации и обновления включены. Отмена в один тап, возврат первой оплаты 14 дней.</p>
-      <div class="gate-plans">
-        ${Object.entries(P).map(([k,v])=>`<button class="gplan ${k==='month'?'on':''}" onclick="gatePick('${k}')"><small>${v.t}</small><b>${v.p}</b><span>${k==='week'?'попробовать всё':k==='month'?'популярный · ≈ 33 ₽ в день':'−58 % · 5 месяцев в подарок'}</span></button>`).join('')}
-      </div>
-      ${triesLeft()>0?`<button class="btn ghost au-skip" onclick="closeGate();useTry();try{${action.replace(/"/g,'&quot;')}}catch(e){}">Открыть бесплатно · осталось ${triesLeft()} из ${TRIES_MAX}</button>
-      <div class="au-note">Пять бесплатных открытий платных разделов — чтобы увидеть, за что платите. Цветотип, бельё, уход за вещами, бутики и помощники бесплатны всегда.</div>`
-      :`<div class="au-note">Бесплатные открытия закончились. Неделя за 390 ₽ — меньше чашки кофе в день, и все разделы ваши.</div>`}
+      <div class="gt-badge">PRO</div>
+      <h3>${W?W[0]:(title||'Этот раздел')}</h3>
+      <p>${W?W[1]:'Здесь нейросеть работает с вашим фото — это и есть платная часть LOOKA.'}</p>
+      ${free?`<button class="gt-try" onclick="closeGate();useTry();try{${action.replace(/"/g,'&quot;')}}catch(e){}"><b>Попробовать бесплатно</b><span>один раз — без карты и регистрации</span><i>→</i></button>
+      <div class="gt-or">а дальше — без ограничений</div>`:''}
+      <div class="gt-plans">${Object.entries(PLANS).map(([k,v])=>`<button class="gpl ${k==='month'?'on':''}" onclick="gatePick('${k}')"><small>${v.t}</small><b>${v.p}</b>${k==='month'?'<em>популярный</em>':k==='year'?'<em class="g">−58 %</em>':''}</button>`).join('')}</div>
+      <div class="gt-free"><b>Бесплатно и без лимитов остаётся всё остальное:</b> цветотип и палитра, стиль-ДНК, макияж по вашей схеме, стрижка под форму лица, кожа, размер бра, гардероб, капсула, обувь, оправы, уход за вещами, настроение дня и вопросы стилисту.</div>
     </div></div>`;
   ov.classList.add('open'); document.body.style.overflow='hidden';
 };
 window.closeGate=()=>{ const o=document.getElementById('gateOv'); if(o){ o.classList.remove('open'); document.body.style.overflow=''; } };
-window.gatePick=k=>{ pickPlan(k); closeGate(); openPay(); };
+window.gatePick=k=>{ pickPlan(k); closeGate(); openPay(); payStep('geo'); };
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeGate(); });
 window.pickPlan = k=>{ if(!PLANS[k]) return; window.curPlan=k; try{ localStorage.setItem('looka_plan',k); }catch(e){}
   document.querySelectorAll('.plan').forEach(b=>b.classList.toggle('on', b.dataset.plan===k));
@@ -13770,10 +14596,10 @@ window.dnaPhotos = async ()=>{
     c.innerHTML = pick.map((n,i)=>{ const a=AESTH.find(x=>x[0]===n); if(!a) return ''; const p=(typeof aestPal==='function'?aestPal(n):['#C79DF2','#19C6F7','#F2A6C6']);
       return `<div class="dh-card" style="animation-delay:${(i*.08).toFixed(2)}s;--p1:${p[0]};--p2:${p[1]}"><i><s style="background:${p[0]}"></s><s style="background:${p[1]}"></s><s style="background:${p[2]}"></s></i><b>${n}</b><span>${a[1]}</span></div>`; }).join('') + `<div class="dh-more" onclick="openDna()">+26 эстетик, посадки, характер, макияж →</div>`; }
   const s=document.getElementById('subCols');
-  if(s && typeof GROUPS!=='undefined'){ const free=[], paid=[]; GROUPS.forEach(g=>g.items.forEach(it=>(it[4]==='доступ'?paid:free).push(it)));
-    const li=(it,lock)=>`<li onclick="${lock?('gate('+JSON.stringify(it[3]).replace(/"/g,'&quot;')+','+JSON.stringify(it[1]).replace(/"/g,'&quot;')+')'):it[3].replace(/"/g,'&quot;')}"><i>${it[0]}</i><div><b>${it[1]}</b><span>${it[2]}</span></div>${lock?'<em>🔒</em>':'<em>✓</em>'}</li>`;
-    s.innerHTML=`<div class="sub-col free"><div class="sub-h"><b>Бесплатно всегда</b><span>${free.length} разделов, включая восемь помощников — без входа и карты</span></div><ul>${free.map(it=>li(it,false)).join('')}</ul></div>
-      <div class="sub-col paid"><div class="sub-h"><b>По подписке</b><span>${paid.length} разделов, безлимит генераций, находки в Telegram · первые 5 открытий бесплатно</span></div><ul>${paid.map(it=>li(it,!(window.hasAccess&&hasAccess()))).join('')}<li onclick="openPage('myPage')"><i>✈</i><div><b>Находки под ваш стиль</b><span>новые магазины и средства — в Telegram</span></div><em>${(window.hasAccess&&hasAccess())?'✓':'🔒'}</em></li></ul></div>`; }
+  if(s && typeof GROUPS!=='undefined'){ const free=[], paid=[]; GROUPS.forEach(g=>g.items.forEach(it=>(it[4]==='PRO'?paid:free).push(it)));
+    const li=(it,lock)=>`<li onclick="${lock?('gate('+JSON.stringify(it[3]).replace(/"/g,'&quot;')+','+JSON.stringify(it[1]).replace(/"/g,'&quot;')+')'):it[3].replace(/"/g,'&quot;')}"><i>${it[0]}</i><div><b>${it[1]}</b><span>${it[2]}</span></div>${lock?'<em class="pro">PRO</em>':'<em>✓</em>'}</li>`;
+    s.innerHTML=`<div class="sub-col free"><div class="sub-h"><b>Бесплатно и без лимитов</b><span>${free.length} разделов: всё, что можно рассказать о вас словами и схемами — без входа, без карты, сколько угодно раз</span></div><ul>${free.map(it=>li(it,false)).join('')}</ul></div>
+      <div class="sub-col paid"><div class="sub-h"><b>PRO · где ИИ работает с вашим фото</b><span>${paid.length} раздела, в которых вы видите себя: другой цвет волос, другой образ, личные доски разбора. Первая примерка — бесплатно</span></div><ul>${paid.map(it=>li(it,!(window.hasAccess&&hasAccess()))).join('')}<li onclick="openPage('myPage')"><i>✈</i><div><b>Находки под ваш стиль</b><span>новые магазины и средства — в Telegram</span></div><em class="${(window.hasAccess&&hasAccess())?'':'pro'}">${(window.hasAccess&&hasAccess())?'✓':'PRO'}</em></li></ul></div>`; }
   const pl=document.getElementById('subPlans');
   if(pl && window.PLANS){ pl.innerHTML=`<div class="plans">${Object.entries(PLANS).map(([k,v])=>`<button class="plan ${k==='month'?'on':''}" onclick="pickPlan('${k}');openPay()"><small>${v.t}</small><b>${v.p}</b><span>${k==='week'?'попробовать всё · без автопродления':k==='month'?'≈ 33 ₽ в день · все разделы и генерации':'≈ 416 ₽ в месяц · 5 месяцев в подарок'}</span><em>${k==='year'?'лучшая цена':'отменяется в один тап'}</em></button>`).join('')}</div><div class="tip" style="text-align:center;margin-top:10px">Возврат первой оплаты 14 дней одним письмом. Продление — только с вашим подтверждением.</div>`; }
 })();
