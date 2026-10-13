@@ -3496,7 +3496,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 /* ================= ПОДДЕРЖКА v3: оператор, статусы, состояние «отправлено» ================= */
 .ct-op{display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(90deg,rgba(25,198,247,.08),transparent 60%)}
 .ct-av{position:relative;width:50px;height:50px;flex:none}
-.ct-ph{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 38%;z-index:2;box-shadow:0 0 0 2px rgba(25,198,247,.5),0 10px 28px -10px rgba(0,0,0,.9);animation:popIn .6s both}
+.ct-ph{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 50%;z-index:2;box-shadow:0 0 0 2px rgba(25,198,247,.5),0 10px 28px -10px rgba(0,0,0,.9);animation:popIn .6s both}
 .ct-av.noimg .ct-ph{display:none}
 .ct-av:not(.noimg) span{opacity:0}
 .ct-av.big{width:118px;height:118px}
@@ -3540,7 +3540,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .ct-av{width:56px;height:56px}
 .ct-av span{font-size:22px;box-shadow:0 8px 24px rgba(25,198,247,.35);animation:popIn .6s both,avFloat 5s 1s ease-in-out infinite}
 @keyframes avFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-.ct-av::after{content:'';position:absolute;right:-1px;bottom:-1px;width:14px;height:14px;border-radius:50%;background:#37E08A;border:2.5px solid #0C101A;box-shadow:0 0 10px #37E08A}
+/* статус-точка убрана: её роль выполняет зелёный кружок в строке «на связи» */
 .ct-op-i b{font-size:17px;letter-spacing:-.2px}
 .ct-op-r b{font-size:17px;background:linear-gradient(90deg,#7CF0B2,#19C6F7);-webkit-background-clip:text;background-clip:text;color:transparent}
 .ct-steps{display:flex;align-items:center;gap:8px;margin-top:4px;padding-top:12px;border-top:1px dashed rgba(255,255,255,.08)}
@@ -11618,7 +11618,12 @@ function fill(box, src){
   if(box.querySelector('.ct-ph')) return;
   const big = box.classList.contains('big');
   const im = document.createElement('img');
-  im.className='ct-ph'; im.alt='Анна, основатель LOOKA'; im.src=src;
+  im.className='ct-ph'; im.alt='Анна, основатель LOOKA';
+  im.onload=()=>{ const w=im.naturalWidth, h=im.naturalHeight; if(!w||!h) return;
+    const r=h/w;
+    /* вертикальный портрет: лицо обычно в верхней трети — поднимаем окно кадра */
+    im.style.objectPosition = r>1.5 ? '50% 8%' : (r>1.12 ? '50% 16%' : (w/h>1.12 ? '50% 35%' : '50% 50%')); };
+  im.src=src;
   im.onerror=()=>{ im.remove(); box.classList.add('noimg'); FOUND=null; try{ localStorage.removeItem(KEY); }catch(e){} };
   box.insertBefore(im, box.firstChild);
   box.classList.remove('noimg');
