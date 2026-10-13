@@ -5847,7 +5847,7 @@ header nav.topnav{gap:4px;align-items:center}
     </div>
     <div class="ct-demo" id="ctDemo">
       <div class="ct-op">
-        <div class="ct-av"><img class="ct-ph" src="img/anna.jpg" alt="Анна, основатель LOOKA" loading="lazy" onerror="this.closest('.ct-av').classList.add('noimg')"><span>А</span><i></i></div>
+        <div class="ct-av" data-ava><span>А</span><i></i></div>
         <div class="ct-op-i"><b>Анна</b><span>основатель LOOKA · отвечает лично</span><em id="ctOpSt"><i></i>на связи</em></div>
         <div class="ct-op-r"><b id="ctOpT">~20 мин</b><span>среднее время ответа</span></div>
       </div>
@@ -6278,7 +6278,7 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="about-wrap">
     <div class="about-card">
       <div class="ab-hero">
-        <div class="ab-face"><div class="ct-av big"><img class="ct-ph" src="img/anna.jpg" alt="Анна, основатель LOOKA" loading="lazy" onerror="this.closest('.ct-av').classList.add('noimg')"><span>А</span><i></i></div><em>Анна · основатель</em></div>
+        <div class="ab-face"><div class="ct-av big" data-ava></div><em>Анна · основатель</em></div>
         <div>
           <div class="eyebrow">кто делает LOOKA</div>
           <h2 class="big">LOOKA — мой проект,<br><span class="holo">а не корпорация</span></h2>
@@ -8030,6 +8030,7 @@ window.openPage = (id, anchor)=>{
   if(id==='myPage' && window.renderMy) renderMy();
   if(id==='makeupPage' && window.renderMakeupForm){ renderMakeupForm(); if(window.renderMkRef) renderMkRef(); if(window.renderMkTech) renderMkTech(); }
   if(window.brdAll) try{ brdAll(); }catch(e){}
+  if(window.avaDraw) try{ avaDraw(); }catch(e){}
   if(id==='colorPage' && window.renderColorForm) renderColorForm();
   if(id==='skinPage' && window.renderSkinForm) renderSkinForm();
   if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderStyling) renderStyling(); if(window.renderHairFit) renderHairFit(); if(window.hlAdopt && window.brdPhoto) hlAdopt(brdPhoto()); if(window.renderHairLab) renderHairLab(); }
@@ -11579,6 +11580,75 @@ window.openCare = ()=>{ openPage('carePage'); renderCare(); };
   const upd = ()=>{ const el = document.getElementById('pRef'); if(el) el.innerHTML = 'Ваш код от <b>@'+ref.code+'</b>: <b>−10 % на первую оплату</b> (на неделю, месяц или год) — назовите код '+ref.code.toUpperCase()+' при оплате'; };
   upd(); const orig = window.openPage; window.openPage = function(){ orig.apply(null, arguments); setTimeout(upd, 50); };
 })();
+/* ================= АВАТАРКА ОСНОВАТЕЛЯ: ищем файл независимо от регистра папки и расширения ================= */
+(function(){
+/* сначала самые вероятные адреса — чтобы фото нашлось с первой пачки */
+const PRIO = ['img/anna.jpg','img/aest/anna.jpg','img/anna.jpeg','img/anna.png',
+              'img/aest/anna.jpeg','img/aest/anna.png','images/anna.jpg','anna.jpg',
+              'img/avatar.jpg','img/ava.jpg','photo/anna.jpg','assets/img/anna.jpg'];
+const DIRS  = ['img','img/aest','images','Img','IMG','photo','assets/img','img/avatar',''];
+const NAMES = ['anna','Anna','ANNA','avatar','ava','me','foto','photo','анна'];
+const EXTS  = ['jpg','jpeg','png','webp','JPG','JPEG','PNG','WEBP'];
+const KEY = 'looka_ava_path';
+let FOUND = null, BUSY = null, TRIED = 0;
+function paths(){ const out=[];
+  let saved=null; try{ saved=localStorage.getItem(KEY); }catch(e){}
+  if(saved) out.push(saved);
+  try{ const q=new URLSearchParams(location.search).get('ava'); if(q && out.indexOf(q)<0) out.unshift(q); }catch(e){}
+  PRIO.forEach(u=>{ if(out.indexOf(u)<0) out.push(u); });
+  DIRS.forEach(d=>NAMES.forEach(n=>EXTS.forEach(e=>{ const u=(d?d+'/':'')+n+'.'+e; if(out.indexOf(u)<0) out.push(u); })));
+  return out; }
+function test(u){ return new Promise(res=>{ const im=new Image();
+  const to=setTimeout(()=>res(null), 6000);
+  im.onload=()=>{ clearTimeout(to); res(im.naturalWidth>8?u:null); };
+  im.onerror=()=>{ clearTimeout(to); res(null); }; im.src=u; }); }
+async function find(){
+  if(FOUND) return FOUND;
+  if(BUSY) return BUSY;
+  BUSY = (async()=>{ const L=paths();
+    for(let i=0;i<L.length;i+=8){                       /* пачками по 8 — быстро, а не по одному */
+      const batch=L.slice(i,i+8); TRIED+=batch.length;
+      const hit=(await Promise.all(batch.map(test))).find(Boolean);
+      if(hit){ FOUND=hit; try{ localStorage.setItem(KEY,hit); }catch(e){} return hit; }
+    }
+    return null; })();
+  return BUSY;
+}
+function fill(box, src){
+  if(box.querySelector('.ct-ph')) return;
+  const big = box.classList.contains('big');
+  const im = document.createElement('img');
+  im.className='ct-ph'; im.alt='Анна, основатель LOOKA'; im.src=src;
+  im.onerror=()=>{ im.remove(); box.classList.add('noimg'); FOUND=null; try{ localStorage.removeItem(KEY); }catch(e){} };
+  box.insertBefore(im, box.firstChild);
+  box.classList.remove('noimg');
+  if(!box.querySelector('span')){ const sp=document.createElement('span'); sp.textContent='А'; if(big) sp.style.fontSize='42px'; box.appendChild(sp); }
+  if(!box.querySelector('i')) box.appendChild(document.createElement('i'));
+}
+window.avaDraw = async ()=>{
+  const boxes=[...document.querySelectorAll('.ct-av[data-ava]')]; if(!boxes.length) return;
+  boxes.forEach(b=>{ if(!b.querySelector('span')){ const sp=document.createElement('span'); sp.textContent='А'; if(b.classList.contains('big')) sp.style.fontSize='42px'; b.appendChild(sp); }
+    if(!b.querySelector('i')) b.appendChild(document.createElement('i')); });
+  const src = await find();
+  if(!src){ boxes.forEach(b=>b.classList.add('noimg')); return; }
+  boxes.forEach(b=>fill(b, src));
+};
+window.avaSet = u=>{ if(!u) return; FOUND=u; try{ localStorage.setItem(KEY,u); }catch(e){}
+  document.querySelectorAll('.ct-av[data-ava] .ct-ph').forEach(i=>i.remove()); avaDraw(); };
+/* самопроверка: наберите в адресной строке ?ava=проверка или нажмите Ctrl+Shift+A */
+window.avaWhere = ()=>{
+  const base = location.href.replace(/[^/]*$/,'');
+  const msg = FOUND
+    ? 'Фото найдено: '+base+FOUND
+    : 'Фото НЕ найдено. Проверено путей: '+TRIED+'.\nОткройте в браузере '+base+'img/anna.jpg — если там 404, файл лежит не в той папке или назван иначе.\nЕсли файл открывается, а аватарка всё равно буква — значит на сайте старый index.html.';
+  console.log('%cLOOKA · аватарка','color:#19C6F7;font-weight:700'); console.log(msg);
+  if(window.myToast) myToast(FOUND ? 'Аватарка: '+FOUND : 'Фото не найдено — подробности в консоли (F12)');
+  return FOUND || null;
+};
+addEventListener('keydown', e=>{ if(e.ctrlKey&&e.shiftKey&&(e.key==='A'||e.key==='Ф')) avaWhere(); });
+if(document.readyState!=='loading') setTimeout(avaDraw,80); else document.addEventListener('DOMContentLoaded',()=>setTimeout(avaDraw,80));
+})();
+
 /* ================= ВИЗУАЛЬНЫЙ ТУТОРИАЛ: зацикленная анимация движения, шаг за шагом ================= */
 (function(){
 /* --- сцены: голова в нужном ракурсе --- */
