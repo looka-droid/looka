@@ -1748,6 +1748,25 @@ header{position:relative;z-index:500}
 .pageview .moat-item:nth-child(3n+3){--mi:linear-gradient(135deg,#37E08A,#19C6F7);--mc:#37E08A}
 .pageview .moat-item b{color:#fff}
 @media(max-width:640px){.pageview .mk-hero{padding:20px 18px 18px;border-radius:20px}.pg-spark{display:none}}
+/* вопросы на странице контактов */
+.faq-wrap{display:grid;gap:10px;margin-top:4px}
+#contactsPage details.faq{--brand:#19C6F7;background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.1);border-radius:18px;margin:0;overflow:hidden;transition:border-color .25s,background .25s}
+#contactsPage details.faq:nth-child(3n+2){--brand:#C79DF2}
+#contactsPage details.faq:nth-child(3n+3){--brand:#F2A6C6}
+#contactsPage details.faq:hover{border-color:color-mix(in srgb, var(--brand) 55%, transparent)}
+#contactsPage details.faq[open]{background:rgba(255,255,255,.045);border-color:color-mix(in srgb, var(--brand) 45%, transparent)}
+#contactsPage details.faq summary{display:flex;align-items:center;gap:13px;padding:17px 22px;font-family:'Manrope';font-size:16px;font-weight:700;color:#E4E7F0;letter-spacing:-.2px}
+#contactsPage details.faq summary::-webkit-details-marker{display:none}
+#contactsPage details.faq summary::before{content:'';width:8px;height:8px;border-radius:50%;flex:0 0 auto;background:var(--brand);box-shadow:0 0 12px var(--brand);transition:transform .3s}
+#contactsPage details.faq[open] summary::before{transform:scale(1.5)}
+#contactsPage details.faq summary::after{content:'+';position:absolute;right:22px;font-family:'JetBrains Mono';font-size:20px;font-weight:400;color:var(--brand);transition:transform .3s}
+#contactsPage details.faq[open] summary::after{transform:rotate(45deg)}
+#contactsPage details.faq>div{padding:2px 22px 20px 43px;animation:faqIn .35s ease both}
+@keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+#contactsPage details.faq p{margin:0 0 11px;font-size:14.5px;line-height:1.68;color:#C2C7D6}
+#contactsPage details.faq p:last-child{margin-bottom:0}
+#contactsPage details.faq p b{color:#fff;font-weight:700}
+@media(max-width:640px){#contactsPage details.faq summary{font-size:15px;padding:15px 18px;gap:10px}#contactsPage details.faq summary::after{right:18px}#contactsPage details.faq>div{padding:2px 18px 17px 36px}}
 .tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px;margin-top:4px}
 .tech{position:relative;padding:17px 18px;border-radius:18px;border:1.4px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,var(--tg,linear-gradient(135deg,#19C6F7,#C79DF2)) border-box;box-shadow:0 0 26px -16px var(--tc,#C79DF2);cursor:pointer;text-align:left;font-family:'Manrope';animation:popIn .5s both;transition:transform .25s,box-shadow .25s}
 .tech:hover{transform:translateY(-4px);box-shadow:0 16px 38px -18px var(--tc,#C79DF2)}
@@ -3477,6 +3496,13 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 /* ================= ПОДДЕРЖКА v3: оператор, статусы, состояние «отправлено» ================= */
 .ct-op{display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(90deg,rgba(25,198,247,.08),transparent 60%)}
 .ct-av{position:relative;width:50px;height:50px;flex:none}
+.ct-ph{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 38%;z-index:2;box-shadow:0 0 0 2px rgba(25,198,247,.5),0 10px 28px -10px rgba(0,0,0,.9);animation:popIn .6s both}
+.ct-av.noimg .ct-ph{display:none}
+.ct-av:not(.noimg) span{opacity:0}
+.ct-av.big{width:118px;height:118px}
+.ct-av.big span{font-size:42px}
+.ct-av.big .ct-ph{box-shadow:0 0 0 2.5px rgba(199,157,240,.6),0 16px 40px -14px rgba(0,0,0,.95)}
+@media(max-width:640px){.ct-av.big{width:92px;height:92px}.ct-av.big span{font-size:34px}}
 .ct-av span{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;font-family:'Golos Text';font-weight:800;font-size:20px;color:#0A0B10;background:linear-gradient(135deg,#19C6F7,#5B6CFF);animation:popIn .6s both}
 .ct-av i{position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(25,198,247,.55);animation:avRing 2.6s ease-out infinite}
 @keyframes avRing{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}
@@ -5821,7 +5847,7 @@ header nav.topnav{gap:4px;align-items:center}
     </div>
     <div class="ct-demo" id="ctDemo">
       <div class="ct-op">
-        <div class="ct-av"><span>А</span><i></i></div>
+        <div class="ct-av"><img class="ct-ph" src="img/anna.jpg" alt="Анна, основатель LOOKA" loading="lazy" onerror="this.closest('.ct-av').classList.add('noimg')"><span>А</span><i></i></div>
         <div class="ct-op-i"><b>Анна</b><span>основатель LOOKA · отвечает лично</span><em id="ctOpSt"><i></i>на связи</em></div>
         <div class="ct-op-r"><b id="ctOpT">~20 мин</b><span>среднее время ответа</span></div>
       </div>
@@ -5835,9 +5861,41 @@ header nav.topnav{gap:4px;align-items:center}
       <div class="ct-raw"><span>или напрямую</span><b onclick="cpy('hello@looka.ru', this)" title="нажмите — скопируется">✉ hello@looka.ru</b><b onclick="cpy('@looka_support', this)" title="нажмите — скопируется">✈ @looka_support</b></div>
     </div>
   </div>
-  <details class="faq" style="margin-top:30px"><summary>Оплатила, но доступ не пришёл</summary><div>Напишите в Telegram или на почту слово «доступ» и время оплаты — откроем вручную в приоритетном порядке. Такое бывает крайне редко, но решается за минуты.</div></details>
-  <details class="faq"><summary>Хочу вернуть деньги</summary><div>Напишите «возврат» в любой канал — вернём в течение 14 дней с момента оплаты, без анкет и объяснения причин. Деньги возвращаются тем же способом, которым платили.</div></details>
-  <details class="faq"><summary>Нашла ошибку на сайте</summary><div>Скриншот + пара слов, где нажимали — и вы наш герой. За найденные ошибки говорим спасибо ранним доступом к новым функциям.</div></details>
+  <div class="hp-sub">ЧАСТЫЕ ВОПРОСЫ</div>
+  <div class="faq-wrap">
+  <details class="faq"><summary>Оплатила, но доступ не пришёл</summary><div>
+    <p>Код приходит не автоматически — я открываю доступ руками, поэтому ночью или в выходной это может занять несколько часов. Деньги при этом уже у меня, доступ вы получите в любом случае.</p>
+    <p><b>Напишите мне три вещи:</b> время перевода, последние 4 цифры карты, с которой платили, и какой тариф брали. Этого хватает, чтобы найти платёж за минуту.</p>
+    <p>Если прошло больше 12 часов — напишите ещё раз в тот же диалог. Это не навязчивость, это значит, что я не увидела первое сообщение.</p>
+  </div></details>
+
+  <details class="faq"><summary>Хочу вернуть деньги</summary><div>
+    <p>Напишите слово «возврат» в Telegram или на почту. Причину спрашивать не буду и отговаривать тоже — это ваше право в течение 14 дней с момента оплаты.</p>
+    <p><b>Как это происходит:</b> я отвечаю в тот же день, деньги уходят обратно тем же способом, которым вы платили. На карту приходит за 1–3 рабочих дня — срок зависит от банка, а не от меня.</p>
+    <p>Доступ при этом остаётся открытым до конца оплаченного периода. Забирать его назад я не считаю нужным.</p>
+  </div></details>
+
+  <details class="faq"><summary>Нашла ошибку на сайте</summary><div>
+    <p>Напишите, <b>что вы нажали и что произошло вместо ожидаемого</b> — одной фразы достаточно: «нажала „собрать доску“, крутилось и выдало ошибку». Скриншот помогает, но без него тоже разберусь.</p>
+    <p>Если можете — добавьте, с телефона или компьютера и в каком браузере. Половина ошибок живёт только в одном из них.</p>
+    <p><b>Что будет дальше:</b> я отвечу, что это и когда починю. Мелочи правлю в тот же день, крупное — за несколько дней. Когда починю — напишу вам в тот же диалог, чтобы вы не проверяли сами.</p>
+  </div></details>
+
+  <details class="faq"><summary>Когда вы отвечаете</summary><div>
+    <p>Обычно в течение пары часов днём по московскому времени. Вечером и в выходные — дольше, ночью не отвечаю совсем: я одна и мне тоже надо спать.</p>
+    <p>Если вопрос срочный — так и напишите в первой строке, подниму его наверх.</p>
+  </div></details>
+
+  <details class="faq"><summary>Как отменить подписку</summary><div>
+    <p>Никак — и это не формулировка из поддержки. Автопродления нет: вы платите за неделю, месяц или год, и по окончании срока списания просто не происходит. Отменять нечего.</p>
+    <p>Когда срок подойдёт к концу, я напишу — чтобы это не стало неожиданностью. Хотите продлить — платите снова, не хотите — ничего не делаете.</p>
+  </div></details>
+
+  <details class="faq"><summary>Можно написать не по делу</summary><div>
+    <p>Можно. «Мне не идёт ни один из трёх образов», «не понимаю, что такое цветотип», «посмотрите, нормально ли это платье на свадьбу» — это нормальные вопросы, а не отвлечение.</p>
+    <p>Отвечаю я, а не бот, так что имеет смысл писать как подруге: с подробностями и своими словами.</p>
+  </div></details>
+  </div>
 </section>
 
 
@@ -6220,7 +6278,7 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="about-wrap">
     <div class="about-card">
       <div class="ab-hero">
-        <div class="ab-face"><div class="ct-av" style="width:92px;height:92px"><span style="font-size:34px">А</span><i></i></div><em>Анна · основатель</em></div>
+        <div class="ab-face"><div class="ct-av big"><img class="ct-ph" src="img/anna.jpg" alt="Анна, основатель LOOKA" loading="lazy" onerror="this.closest('.ct-av').classList.add('noimg')"><span>А</span><i></i></div><em>Анна · основатель</em></div>
         <div>
           <div class="eyebrow">кто делает LOOKA</div>
           <h2 class="big">LOOKA — мой проект,<br><span class="holo">а не корпорация</span></h2>
