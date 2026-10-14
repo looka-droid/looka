@@ -1749,6 +1749,78 @@ header{position:relative;z-index:500}
 .pageview .moat-item b{color:#fff}
 @media(max-width:640px){.pageview .mk-hero{padding:20px 18px 18px;border-radius:20px}.pg-spark{display:none}}
 /* вопросы на странице контактов */
+/* ===== страница для блогеров ===== */
+.bg-hero{position:relative;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:30px;align-items:center;padding:34px 36px;margin-bottom:34px;border-radius:28px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,rgba(25,198,247,.6),rgba(199,157,240,.55),rgba(242,166,198,.5)) border-box;overflow:hidden}
+.bg-hero-bg{position:absolute;inset:0;pointer-events:none}
+.bg-hero-bg i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5}
+.bg-hero-bg i:nth-child(1){width:380px;height:380px;left:-8%;top:-40%;background:#19C6F7;animation:orbA 14s ease-in-out infinite}
+.bg-hero-bg i:nth-child(2){width:320px;height:320px;right:4%;bottom:-50%;background:#C79DF2;animation:orbB 17s ease-in-out infinite}
+.bg-hero-bg i:nth-child(3){width:240px;height:240px;right:34%;top:-30%;background:#F2A6C6;opacity:.3;animation:orbA 20s ease-in-out 2s infinite}
+.bg-hero-l,.bg-hero-r{position:relative}
+.bg-hero-l .lead{max-width:540px}
+.bg-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.bg-big{position:relative;padding:26px 24px 22px;border-radius:22px;text-align:center;border:1px solid rgba(255,255,255,.12);background:linear-gradient(160deg,rgba(25,198,247,.14),rgba(199,157,240,.1));box-shadow:0 20px 60px -28px rgba(25,198,247,.8)}
+.bg-pc{display:block;font-family:'Manrope';font-size:76px;font-weight:800;line-height:.9;letter-spacing:-3px;background:linear-gradient(120deg,#19C6F7,#C79DF2,#F2A6C6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:bgPulse 4s ease-in-out infinite}
+.bg-pc i{font-style:normal;font-size:34px;letter-spacing:-1px;vertical-align:super}
+@keyframes bgPulse{0%,100%{filter:drop-shadow(0 0 18px rgba(25,198,247,.45))}50%{filter:drop-shadow(0 0 32px rgba(199,157,240,.7))}}
+.bg-big em{display:block;font-style:normal;font-size:14px;font-weight:700;color:#E4E7F0;margin-top:10px}
+.bg-big u{display:block;text-decoration:none;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA;margin-top:6px}
+.bg-mini{display:flex;align-items:center;gap:12px;margin-top:12px;padding:14px 18px;border-radius:16px;border:1px solid rgba(55,224,138,.35);background:rgba(55,224,138,.08)}
+.bg-mini b{font-size:24px;font-weight:800;color:#7CF0B2;letter-spacing:-.5px}
+.bg-mini span{font-size:12.5px;color:#C2C7D6;line-height:1.4}
+/* калькулятор */
+.bg-calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:24px;padding:26px 28px;border-radius:24px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028);margin-bottom:34px}
+.bg-f{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:8px;margin-bottom:20px}
+.bg-f span{font-size:13.5px;color:#C2C7D6}
+.bg-f span em{display:block;font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;color:#6E7489;margin-top:3px}
+.bg-f b{font-family:'Manrope';font-size:19px;font-weight:800;color:#fff;white-space:nowrap}
+.bg-f input{grid-column:1/-1;-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:5px;background:rgba(255,255,255,.12);margin-top:10px;cursor:pointer}
+.bg-f input::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#19C6F7,#C79DF2);box-shadow:0 0 16px rgba(25,198,247,.9);cursor:pointer;border:2px solid #0B0D14}
+.bg-f input::-moz-range-thumb{width:20px;height:20px;border:2px solid #0B0D14;border-radius:50%;background:#19C6F7;cursor:pointer}
+.bg-note{font-size:12px;line-height:1.55;color:#8B92AA;padding-top:4px;border-top:1px solid rgba(255,255,255,.07)}
+.bg-calc-r{display:flex;flex-direction:column;justify-content:center;padding:22px;border-radius:18px;border:1px solid transparent;background:linear-gradient(#0C0E15,#0C0E15) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2) border-box}
+.bg-out b{display:block;font-family:'Manrope';font-size:44px;font-weight:800;letter-spacing:-1.6px;line-height:1.05;margin:6px 0 4px;background:linear-gradient(110deg,#fff,#C7E9FF,#E6D8FF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:opacity .2s}
+.bg-out em{font-style:normal;font-size:12.5px;color:#8B92AA}
+.bg-bar{height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin:16px 0}
+.bg-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#19C6F7,#C79DF2,#F2A6C6);box-shadow:0 0 16px rgba(199,157,240,.8);width:10%;transition:width .4s cubic-bezier(.2,.9,.3,1.2)}
+.bg-out2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bg-out2 span{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#8B92AA;margin-bottom:5px;line-height:1.4}
+.bg-out2 b{font-size:21px;font-weight:800;color:#fff;letter-spacing:-.5px}
+/* что получаете */
+.bg-perks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:34px}
+.bg-p{display:grid;grid-template-columns:auto minmax(0,1fr);gap:15px;padding:18px 20px;border-radius:18px;border:1.3px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,var(--pg,linear-gradient(135deg,#19C6F7,#C79DF2)) border-box;box-shadow:0 0 26px -18px var(--pc2,#C79DF2);transition:transform .25s,box-shadow .25s}
+.bg-p:hover{transform:translateY(-4px);box-shadow:0 16px 38px -18px var(--pc2,#C79DF2)}
+.bg-p.wide{grid-column:1/-1}
+.bg-p:nth-child(5n+1){--pg:linear-gradient(135deg,#19C6F7,#C79DF2);--pc2:#19C6F7}
+.bg-p:nth-child(5n+2){--pg:linear-gradient(135deg,#37E08A,#19C6F7);--pc2:#37E08A}
+.bg-p:nth-child(5n+3){--pg:linear-gradient(135deg,#FFB84C,#F2A6C6);--pc2:#FFB84C}
+.bg-p:nth-child(5n+4){--pg:linear-gradient(135deg,#C79DF2,#F2A6C6);--pc2:#C79DF2}
+.bg-p:nth-child(5n+5){--pg:linear-gradient(135deg,#F2A6C6,#19C6F7);--pc2:#F2A6C6}
+.bg-p>i{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;flex:0 0 auto;font-style:normal;font-size:18px;background:var(--pg);color:#07121A;font-weight:700}
+.bg-p b{display:block;font-size:15.5px;font-weight:800;margin-bottom:5px;letter-spacing:-.2px}
+.bg-p p{margin:0;font-size:13.5px;line-height:1.6;color:#B7BCCC}
+.bg-p.wide p{font-size:14px}
+/* шаги */
+.bg-steps{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:30px}
+.bg-steps::before{content:'';position:absolute;left:8%;right:8%;top:40px;height:2px;background:linear-gradient(90deg,transparent,#19C6F7,#C79DF2,#F2A6C6,transparent);opacity:.45}
+.bg-s{position:relative;padding:22px 20px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028)}
+.bg-n{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;font-family:'JetBrains Mono';font-size:13px;color:#07121A;background:linear-gradient(135deg,#19C6F7,#C79DF2);box-shadow:0 0 18px -2px rgba(25,198,247,.9);margin-bottom:13px}
+.bg-s b{display:block;font-size:16px;font-weight:800;margin-bottom:6px;letter-spacing:-.2px}
+.bg-s p{margin:0;font-size:13.5px;line-height:1.6;color:#B7BCCC}
+.bg-s p b{display:inline;font-size:inherit;color:#C7A6F0}
+/* ссылка */
+.bg-link{padding:22px 26px;border-radius:20px;border:1px dashed rgba(199,157,240,.4);background:rgba(199,157,240,.05);margin-bottom:30px}
+.bg-url{margin:10px 0 8px;overflow-x:auto}
+.bg-url code{font-family:'JetBrains Mono';font-size:16px;color:#8B92AA;white-space:nowrap}
+.bg-url code b{color:#19C6F7;background:rgba(25,198,247,.14);padding:2px 7px;border-radius:7px}
+.bg-link .tip{margin:0}
+/* финал */
+.bg-final{position:relative;padding:38px 30px;border-radius:26px;text-align:center;overflow:hidden;background:linear-gradient(135deg,rgba(25,198,247,.14),rgba(199,157,240,.14),rgba(242,166,198,.12));border:1px solid rgba(255,255,255,.12)}
+.bg-final::before{content:'';position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent,rgba(25,198,247,.16),transparent 40%);animation:spin 11s linear infinite}
+.bg-final-in{position:relative}
+.bg-final h3{font-size:27px;font-weight:800;letter-spacing:-.6px;margin:0 0 10px}
+.bg-final p{max-width:580px;margin:0 auto 20px;font-size:14.5px;line-height:1.65;color:#C2C7D6}
+@media(max-width:900px){.bg-hero{grid-template-columns:1fr;padding:24px 20px;gap:22px}.bg-calc{grid-template-columns:1fr;padding:20px}.bg-perks{grid-template-columns:1fr}.bg-p.wide{grid-column:auto}.bg-steps{grid-template-columns:1fr}.bg-steps::before{display:none}.bg-pc{font-size:62px}.bg-out b{font-size:36px}.bg-url code{font-size:13px}}
 .faq-wrap{display:grid;gap:10px;margin-top:4px}
 .sec.pageview details.faq.q{margin-bottom:0}
 .sec.pageview details.faq.q+details.faq.q{margin-top:10px}
@@ -6358,19 +6430,68 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="bloggersPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="eyebrow">для блогеров и стилистов</div>
-  <h2 class="big">Рассказывайте о LOOKA — <span class="holo">зарабатывайте с каждой продажи</span></h2>
-  <p class="lead">Простые условия без договоров на 40 страниц: ваш личный код даёт подписчицам скидку, а вам — процент с каждой оплаты по нему.</p>
-  <div class="moat-grid">
-    <div class="moat-item"><b>−10 % вашим подписчицам</b><p>Личный промокод от вашего имени: «по коду LIZA — скидка». Девушки любят покупать «по коду от своей».</p></div>
-    <div class="moat-item"><b>20 % с каждой оплаты</b><p>С каждой недели, месяца и года, оплаченных по вашему коду, — включая продления. Выплата раз в месяц на карту или самозанятость — как удобно.</p></div>
-    <div class="moat-item"><b>Готовый контент</b><p>Карточка цветотипа для сторис, «мой гардероб: 14 вещей → 30 образов», примерка — сервис сам генерирует то, что интересно снимать.</p></div>
-    <div class="moat-item"><b>Ранний доступ</b><p>Полный доступ бесплатно — пользуйтесь всем и показывайте честно, включая то, что не понравилось.</p></div>
+
+  <div class="bg-hero">
+    <div class="bg-hero-bg" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="bg-hero-l">
+      <div class="eyebrow">для блогеров и стилистов</div>
+      <h2 class="big">Рассказывайте о LOOKA — <span class="holo">зарабатывайте с каждой продажи</span></h2>
+      <p class="lead">Личный код даёт вашим подписчицам скидку, а вам — процент с каждой оплаты. Без договоров на сорок страниц, без минимального охвата и без «согласования креативов».</p>
+      <div class="bg-cta"><a class="btn primary" href="https://t.me/looka_support" target="_blank" rel="noopener">✈ Получить свой код</a><button class="btn ghost" onclick="document.getElementById('bgCalc').scrollIntoView({behavior:'smooth',block:'center'})">Посчитать доход ↓</button></div>
+    </div>
+    <div class="bg-hero-r">
+      <div class="bg-big"><span class="bg-pc">20<i>%</i></span><em>с каждой оплаты по вашему коду</em><u>включая все продления</u></div>
+      <div class="bg-mini"><b>−10 %</b><span>скидка вашим подписчицам</span></div>
+    </div>
   </div>
-  <div class="look badv" style="margin-top:22px"><div class="look-in"><h3>Как начать</h3>
-    <div class="tip">Напишите «хочу код» в Telegram <b>@looka_support</b> или на <b>hello@looka.ru</b> — укажите ник и площадку. Согласуем код (обычно это ваш ник) — и ссылка вида <span style="font-family:'JetBrains Mono';color:#19C6F7">looka-droid.github.io/looka/?ref=ваш_ник</span> начинает работать сразу: сайт запомнит вашу гостью и покажет ей скидку, даже если она купит через неделю.</div>
-    <a class="btn primary" style="margin-top:12px" href="https://t.me/looka_support" target="_blank" rel="noopener">✈ Написать и получить код</a>
-  </div></div>
+
+  <div class="hp-sub">КАК ЭТО СЧИТАЕТСЯ</div>
+  <div class="bg-calc" id="bgCalc">
+    <div class="bg-calc-l">
+      <label class="bg-f"><span>Подписчиц у вас</span><b id="bgSubV">5 000</b>
+        <input type="range" id="bgSub" min="300" max="200000" step="100" value="5000" oninput="bgCalc()"></label>
+      <label class="bg-f"><span>Сколько придёт по коду <em>обычно 1–3 %</em></span><b id="bgCrV">2 %</b>
+        <input type="range" id="bgCr" min="1" max="60" step="1" value="20" oninput="bgCalc()"></label>
+      <label class="bg-f"><span>Что чаще берут</span><b id="bgPlV">месяц</b>
+        <input type="range" id="bgPl" min="0" max="2" step="1" value="1" oninput="bgCalc()"></label>
+      <div class="bg-note">Это прикидка, а не обещание. Реальная конверсия зависит от того, насколько ваша аудитория — ваша.</div>
+    </div>
+    <div class="bg-calc-r">
+      <div class="bg-out"><span class="cs-k">в первый месяц</span><b id="bgOut1">—</b><em id="bgOutN">—</em></div>
+      <div class="bg-bar"><i id="bgBar"></i></div>
+      <div class="bg-out2"><div><span>за год с продлениями</span><b id="bgOut12">—</b></div><div><span>вашим подписчицам сэкономлено</span><b id="bgSave">—</b></div></div>
+    </div>
+  </div>
+
+  <div class="hp-sub">ЧТО ВЫ ПОЛУЧАЕТЕ</div>
+  <div class="bg-perks">
+    <div class="bg-p wide"><i>◈</i><div><b>Готовый контент, который снимает сам сервис</b><p>Карточка цветотипа для сторис, «мой гардероб: 14 вещей → 30 образов», примерка волос с «до/после», доска разбора на сохранение. Это не рекламные макеты, а то, что ваша аудитория смотрит сама.</p></div></div>
+    <div class="bg-p"><i>✦</i><div><b>Полный доступ бесплатно</b><p>Пользуйтесь всем и показывайте честно — включая то, что не понравилось.</p></div></div>
+    <div class="bg-p"><i>₽</i><div><b>Выплата раз в месяц</b><p>На карту или как самозанятая — как вам удобнее.</p></div></div>
+    <div class="bg-p"><i>◉</i><div><b>Код запоминается на 60 дней</b><p>Купит через неделю после сторис — всё равно засчитается вам.</p></div></div>
+    <div class="bg-p"><i>▤</i><div><b>Личный кабинет</b><p>Видно переходы, оплаты и накопленную сумму — без «напишите, я посмотрю».</p></div></div>
+  </div>
+
+  <div class="hp-sub">КАК НАЧАТЬ</div>
+  <div class="bg-steps">
+    <div class="bg-s"><span class="bg-n">01</span><b>Напишите «хочу код»</b><p>В Telegram <b>@looka_support</b> или на <b>hello@looka.ru</b>. Укажите ник и площадку — больше ничего не нужно.</p></div>
+    <div class="bg-s"><span class="bg-n">02</span><b>Получите свой код</b><p>Обычно это ваш ник. Вместе с ним — ссылка и несколько готовых идей для первого поста.</p></div>
+    <div class="bg-s"><span class="bg-n">03</span><b>Делитесь и получайте</b><p>Ссылка работает сразу. Выплата — раз в месяц, отчёт приходит вместе с ней.</p></div>
+  </div>
+
+  <div class="bg-link">
+    <div class="cs-k">ваша ссылка выглядит так</div>
+    <div class="bg-url"><code>looka-droid.github.io/looka/?ref=<b id="bgNick">ваш_ник</b></code></div>
+    <p class="tip">Сайт запомнит вашу гостью и покажет ей скидку, даже если она вернётся через неделю.</p>
+  </div>
+
+  <div class="bg-final">
+    <div class="bg-final-in">
+      <h3>Код выдаётся за пару часов</h3>
+      <p>Без собеседований и требований к охвату. Если у вас есть хотя бы несколько сотен подписчиц, которые вам верят, — этого достаточно.</p>
+      <a class="btn primary" href="https://t.me/looka_support" target="_blank" rel="noopener">✈ Написать и получить код</a>
+    </div>
+  </div>
 </section>
 
 <section class="sec pageview" id="lookrefPage">
@@ -8040,6 +8161,7 @@ window.openPage = (id, anchor)=>{
   if(id==='makeupPage' && window.renderMakeupForm){ renderMakeupForm(); if(window.renderMkRef) renderMkRef(); if(window.renderMkTech) renderMkTech(); }
   if(window.brdAll) try{ brdAll(); }catch(e){}
   if(window.avaDraw) try{ avaDraw(); }catch(e){}
+  if(id==='bloggersPage' && window.bgCalc) try{ bgCalc(); }catch(e){}
   if(id==='colorPage' && window.renderColorForm) renderColorForm();
   if(id==='skinPage' && window.renderSkinForm) renderSkinForm();
   if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderStyling) renderStyling(); if(window.renderHairFit) renderHairFit(); if(window.hlAdopt && window.brdPhoto) hlAdopt(brdPhoto()); if(window.renderHairLab) renderHairLab(); }
@@ -11589,6 +11711,35 @@ window.openCare = ()=>{ openPage('carePage'); renderCare(); };
   const upd = ()=>{ const el = document.getElementById('pRef'); if(el) el.innerHTML = 'Ваш код от <b>@'+ref.code+'</b>: <b>−10 % на первую оплату</b> (на неделю, месяц или год) — назовите код '+ref.code.toUpperCase()+' при оплате'; };
   upd(); const orig = window.openPage; window.openPage = function(){ orig.apply(null, arguments); setTimeout(upd, 50); };
 })();
+/* ================= КАЛЬКУЛЯТОР ДЛЯ БЛОГЕРОВ ================= */
+(function(){
+const PL = [['неделя',390,4.3],['месяц',990,1],['год',4990,1]];
+const KEEP = [26, 6, 1];
+const fmt = n=>Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ');
+function plural(n,a,b,c){ const m=n%100; if(m>=11&&m<=14) return c; const k=n%10; return k===1?a:(k>=2&&k<=4?b:c); }
+window.bgCalc = ()=>{
+  const g=id=>document.getElementById(id);
+  if(!g('bgSub')) return;
+  const sub=+g('bgSub').value||0, cr=+g('bgCr').value||0, pi=+g('bgPl').value||0;
+  const P=PL[pi]||PL[1];
+  const pct=cr/10, buyers=sub*pct/100, perPay=P[1]*0.9;
+  const month=buyers*perPay*0.2*P[2];
+  const year=buyers*perPay*0.2*KEEP[pi];
+  const save=buyers*P[1]*0.1*KEEP[pi];
+  const set=(id,v)=>{ const e=g(id); if(e) e.textContent=v; };
+  set('bgSubV', fmt(sub));
+  set('bgCrV', String(pct.toFixed(1)).replace('.0','').replace('.',',')+' %');
+  set('bgPlV', P[0]);
+  set('bgOut1', fmt(month)+' ₽');
+  set('bgOutN', fmt(buyers)+' '+plural(Math.round(buyers),'покупательница','покупательницы','покупательниц')+' × '+fmt(perPay)+' ₽ × 20 %'+(P[2]>1?' × 4 недели':''));
+  set('bgOut12', fmt(year)+' ₽');
+  set('bgSave', fmt(save)+' ₽');
+  const bar=g('bgBar');
+  if(bar) bar.style.width=Math.max(6,Math.min(100, Math.log10(Math.max(month,1))/Math.log10(400000)*100))+'%';
+};
+if(document.readyState!=='loading') setTimeout(bgCalc,120); else document.addEventListener('DOMContentLoaded',()=>setTimeout(bgCalc,120));
+})();
+
 /* ================= АВАТАРКА ОСНОВАТЕЛЯ: ищем файл независимо от регистра папки и расширения ================= */
 (function(){
 /* сначала самые вероятные адреса — чтобы фото нашлось с первой пачки */
