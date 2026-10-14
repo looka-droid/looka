@@ -1750,23 +1750,31 @@ header{position:relative;z-index:500}
 @media(max-width:640px){.pageview .mk-hero{padding:20px 18px 18px;border-radius:20px}.pg-spark{display:none}}
 /* вопросы на странице контактов */
 .faq-wrap{display:grid;gap:10px;margin-top:4px}
-#contactsPage details.faq{--brand:#19C6F7;background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.1);border-radius:18px;margin:0;overflow:hidden;transition:border-color .25s,background .25s}
-#contactsPage details.faq:nth-child(3n+2){--brand:#C79DF2}
-#contactsPage details.faq:nth-child(3n+3){--brand:#F2A6C6}
-#contactsPage details.faq:hover{border-color:color-mix(in srgb, var(--brand) 55%, transparent)}
-#contactsPage details.faq[open]{background:rgba(255,255,255,.045);border-color:color-mix(in srgb, var(--brand) 45%, transparent)}
-#contactsPage details.faq summary{display:flex;align-items:center;gap:13px;padding:17px 22px;font-family:'Manrope';font-size:16px;font-weight:700;color:#E4E7F0;letter-spacing:-.2px}
-#contactsPage details.faq summary::-webkit-details-marker{display:none}
-#contactsPage details.faq summary::before{content:'';width:8px;height:8px;border-radius:50%;flex:0 0 auto;background:var(--brand);box-shadow:0 0 12px var(--brand);transition:transform .3s}
-#contactsPage details.faq[open] summary::before{transform:scale(1.5)}
-#contactsPage details.faq summary::after{content:'+';position:absolute;right:22px;font-family:'JetBrains Mono';font-size:20px;font-weight:400;color:var(--brand);transition:transform .3s}
-#contactsPage details.faq[open] summary::after{transform:rotate(45deg)}
-#contactsPage details.faq>div{padding:2px 22px 20px 43px;animation:faqIn .35s ease both}
+.sec.pageview details.faq.q{margin-bottom:0}
+.sec.pageview details.faq.q+details.faq.q{margin-top:10px}
+details.faq.q{--brand:#19C6F7;background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.1);border-radius:18px;margin:0;overflow:hidden;transition:border-color .25s,background .25s}
+details.faq.q:nth-child(3n+2){--brand:#C79DF2}
+details.faq.q:nth-child(3n+3){--brand:#F2A6C6}
+details.faq.q:hover{border-color:color-mix(in srgb, var(--brand) 55%, transparent)}
+details.faq.q[open]{background:rgba(255,255,255,.045);border-color:color-mix(in srgb, var(--brand) 45%, transparent)}
+details.faq.q summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:16px;padding:19px 24px;cursor:pointer;list-style:none;transition:padding .25s}
+details.faq.q summary::-webkit-details-marker{display:none}
+details.faq.q summary::before,details.faq.q summary::after{content:none!important;display:none!important}
+details.faq.q summary .q-n{font-family:'JetBrains Mono';font-size:11px;letter-spacing:1.6px;color:var(--brand);opacity:.8;transition:opacity .25s}
+details.faq.q summary .q-t{font-family:'Manrope';font-size:18.5px;font-weight:800;letter-spacing:-.45px;line-height:1.3;color:#E9ECF4;transition:color .25s}
+details.faq.q:hover summary .q-t{color:#fff}
+details.faq.q[open] summary .q-t{background:linear-gradient(100deg,#fff,color-mix(in srgb, var(--brand) 85%, #fff));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+details.faq.q[open] summary .q-n{opacity:1}
+details.faq.q summary .q-x{align-self:center;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;border:1px solid color-mix(in srgb, var(--brand) 45%, transparent);color:var(--brand);transition:transform .35s cubic-bezier(.2,.9,.3,1.3),background .25s}
+details.faq.q summary .q-x svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+details.faq.q:hover summary .q-x{background:color-mix(in srgb, var(--brand) 16%, transparent)}
+details.faq.q[open] summary .q-x{transform:rotate(180deg);background:color-mix(in srgb, var(--brand) 20%, transparent)}
+details.faq.q>div{padding:0 24px 22px 58px;animation:faqIn .35s ease both}
 @keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-#contactsPage details.faq p{margin:0 0 11px;font-size:14.5px;line-height:1.68;color:#C2C7D6}
-#contactsPage details.faq p:last-child{margin-bottom:0}
-#contactsPage details.faq p b{color:#fff;font-weight:700}
-@media(max-width:640px){#contactsPage details.faq summary{font-size:15px;padding:15px 18px;gap:10px}#contactsPage details.faq summary::after{right:18px}#contactsPage details.faq>div{padding:2px 18px 17px 36px}}
+details.faq.q p{margin:0 0 11px;font-size:14.5px;line-height:1.68;color:#C2C7D6}
+details.faq.q p:last-child{margin-bottom:0}
+details.faq.q p b{color:#fff;font-weight:700}
+@media(max-width:640px){details.faq.q summary{padding:16px 16px;gap:11px}details.faq.q summary .q-t{font-size:16px}details.faq.q summary .q-n{font-size:10px}details.faq.q>div{padding:0 16px 18px 43px}}
 .tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px;margin-top:4px}
 .tech{position:relative;padding:17px 18px;border-radius:18px;border:1.4px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,var(--tg,linear-gradient(135deg,#19C6F7,#C79DF2)) border-box;box-shadow:0 0 26px -16px var(--tc,#C79DF2);cursor:pointer;text-align:left;font-family:'Manrope';animation:popIn .5s both;transition:transform .25s,box-shadow .25s}
 .tech:hover{transform:translateY(-4px);box-shadow:0 16px 38px -18px var(--tc,#C79DF2)}
@@ -3455,7 +3463,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .ct-copy{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.2px;text-transform:uppercase;padding:7px 11px;border:1px solid rgba(255,255,255,.16);background:transparent;color:#C2C7D6;cursor:pointer;transition:all .2s;white-space:nowrap}
 .ct-copy:hover{border-color:#19C6F7;color:#fff}
 @media(max-width:640px){.ct-dl{grid-template-columns:24px 1fr;gap:6px 10px}.ct-dl b{grid-column:2}.ct-dl .ct-copy{grid-column:2;justify-self:start}}
-#contactsPage details.faq:first-of-type{margin-top:26px!important}
+details.faq.q:first-of-type{margin-top:26px!important}
 
 .ct-raw{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 16px 16px;border-top:1px solid rgba(255,255,255,.08)}
 .ct-raw span{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#8B92AA;margin-right:4px}
@@ -5811,10 +5819,10 @@ header nav.topnav{gap:4px;align-items:center}
       <div class="moat-item"><b>Данные не продаются</b><p>Анкета и фото используются только для подбора. Никакой передачи третьим лицам, никакого спама, фото не сохраняется.</p></div>
     </div>
   </div>
-  <details class="faq" style="margin-top:34px"><summary>Почему такие цены?</summary><div>Одна консультация офлайн-стилиста стоит от 10 000 ₽ и заканчивается вместе со встречей. LOOKA — это разовый платёж за инструмент, который остаётся с вами: к каждому событию, каждому сезону, с обновлениями без доплат. По сути — цена одной вещи из вашего гардероба.</div></details>
-  <details class="faq"><summary>Что происходит сразу после оплаты?</summary><div>Доступ открывается сразу, на почту приходит электронный чек. Лимит подборов снимается — пользуйтесь без ограничений с первой минуты.</div></details>
-  <details class="faq"><summary>А если мне не понравится?</summary><div>Сначала — кнопка «Пересобрать»: образы соберутся заново в другом стиле. Если сервис в целом не ваш — возврат в течение 14 дней, без вопросов. Мы не держим тех, кому не подошло.</div></details>
-  <details class="faq" id="refundFaq"><summary>Условия возврата — полностью</summary><div>
+  <details class="faq q" style="margin-top:34px"><summary><span class="q-n">01</span><span class="q-t">Почему такие цены?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Одна консультация офлайн-стилиста стоит от 10 000 ₽ и заканчивается вместе со встречей. LOOKA остаётся с вами — к каждому событию и каждому сезону, с обновлениями без доплат. И двадцать разделов работают бесплатно вообще без оплаты: цветотип, палитра, макияж, стрижка под форму лица, кожа, гардероб, капсула. Платная часть — шесть разделов, где нейросеть работает с вашим фото. Месяц такого доступа стоит как одна вещь из вашего гардероба.</div></details>
+  <details class="faq q"><summary><span class="q-n">02</span><span class="q-t">Что происходит сразу после оплаты?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Доступ открывается сразу, на почту приходит электронный чек. Лимит подборов снимается — пользуйтесь без ограничений с первой минуты.</div></details>
+  <details class="faq q"><summary><span class="q-n">03</span><span class="q-t">А если мне не понравится?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Сначала — кнопка «Пересобрать»: образы соберутся заново в другом стиле. Если сервис в целом не ваш — возврат в течение 14 дней, без вопросов. Мы не держим тех, кому не подошло.</div></details>
+  <details class="faq q" id="refundFaq"><summary><span class="q-n">04</span><span class="q-t">Условия возврата — полностью</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>
   <div class="rf-grid">
     <div class="rf-item"><span class="rf-k">Срок</span><p>14 дней с момента оплаты</p></div>
     <div class="rf-item"><span class="rf-k">Причина</span><p>Не нужна. «Передумала» — достаточно</p></div>
@@ -5863,35 +5871,36 @@ header nav.topnav{gap:4px;align-items:center}
   </div>
   <div class="hp-sub">ЧАСТЫЕ ВОПРОСЫ</div>
   <div class="faq-wrap">
-  <details class="faq"><summary>Оплатила, но доступ не пришёл</summary><div>
+  <details class="faq q"><summary><span class="q-n">01</span><span class="q-t">Оплатила, но доступ не пришёл</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>
     <p>Код приходит не автоматически — я открываю доступ руками, поэтому ночью или в выходной это может занять несколько часов. Деньги при этом уже у меня, доступ вы получите в любом случае.</p>
     <p><b>Напишите мне три вещи:</b> время перевода, последние 4 цифры карты, с которой платили, и какой тариф брали. Этого хватает, чтобы найти платёж за минуту.</p>
     <p>Если прошло больше 12 часов — напишите ещё раз в тот же диалог. Это не навязчивость, это значит, что я не увидела первое сообщение.</p>
   </div></details>
 
-  <details class="faq"><summary>Хочу вернуть деньги</summary><div>
+  <details class="faq q"><summary><span class="q-n">02</span><span class="q-t">Хочу вернуть деньги</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>
     <p>Напишите слово «возврат» в Telegram или на почту. Причину спрашивать не буду и отговаривать тоже — это ваше право в течение 14 дней с момента оплаты.</p>
     <p><b>Как это происходит:</b> я отвечаю в тот же день, деньги уходят обратно тем же способом, которым вы платили. На карту приходит за 1–3 рабочих дня — срок зависит от банка, а не от меня.</p>
     <p>Доступ при этом остаётся открытым до конца оплаченного периода. Забирать его назад я не считаю нужным.</p>
   </div></details>
 
-  <details class="faq"><summary>Нашла ошибку на сайте</summary><div>
+  <details class="faq q"><summary><span class="q-n">03</span><span class="q-t">Нашла ошибку на сайте</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>
     <p>Напишите, <b>что вы нажали и что произошло вместо ожидаемого</b> — одной фразы достаточно: «нажала „собрать доску“, крутилось и выдало ошибку». Скриншот помогает, но без него тоже разберусь.</p>
     <p>Если можете — добавьте, с телефона или компьютера и в каком браузере. Половина ошибок живёт только в одном из них.</p>
     <p><b>Что будет дальше:</b> я отвечу, что это и когда починю. Мелочи правлю в тот же день, крупное — за несколько дней. Когда починю — напишу вам в тот же диалог, чтобы вы не проверяли сами.</p>
   </div></details>
 
-  <details class="faq"><summary>Когда вы отвечаете</summary><div>
-    <p>Обычно в течение пары часов днём по московскому времени. Вечером и в выходные — дольше, ночью не отвечаю совсем: я одна и мне тоже надо спать.</p>
-    <p>Если вопрос срочный — так и напишите в первой строке, подниму его наверх.</p>
+  <details class="faq q"><summary><span class="q-n">04</span><span class="q-t">Когда вы отвечаете</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>
+    <p>Днём по московскому времени — обычно в течение пары часов. Вечером, ночью и в выходные я тоже смотрю сообщения: если не сплю — отвечу сразу, хоть в два часа ночи. Сервис держится на мне одной, и я предпочитаю ответить поздно, чем заставить вас ждать до утра.</p>
+    <p>Единственное, чего не обещаю, — ответ ровно в минуту: иногда я в дороге или занята другой перепиской. Но без ответа никто не остаётся.</p>
+    <p><b>Если вопрос срочный</b> — так и напишите первой строкой: «срочно». Такие сообщения я поднимаю наверх и беру первыми.</p>
   </div></details>
 
-  <details class="faq"><summary>Как отменить подписку</summary><div>
+  <details class="faq q"><summary><span class="q-n">05</span><span class="q-t">Как отменить подписку</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>
     <p>Никак — и это не формулировка из поддержки. Автопродления нет: вы платите за неделю, месяц или год, и по окончании срока списания просто не происходит. Отменять нечего.</p>
     <p>Когда срок подойдёт к концу, я напишу — чтобы это не стало неожиданностью. Хотите продлить — платите снова, не хотите — ничего не делаете.</p>
   </div></details>
 
-  <details class="faq"><summary>Можно написать не по делу</summary><div>
+  <details class="faq q"><summary><span class="q-n">06</span><span class="q-t">Можно написать не по делу</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>
     <p>Можно. «Мне не идёт ни один из трёх образов», «не понимаю, что такое цветотип», «посмотрите, нормально ли это платье на свадьбу» — это нормальные вопросы, а не отвлечение.</p>
     <p>Отвечаю я, а не бот, так что имеет смысл писать как подруге: с подробностями и своими словами.</p>
   </div></details>
@@ -6604,9 +6613,9 @@ header nav.topnav{gap:4px;align-items:center}
 <section class="sec reveal" id="docs">
   <div class="eyebrow">прозрачность</div>
   <h2 class="big">Документы <span class="holo">и гарантии</span></h2>
-  <details class="faq"><summary>Публичная оферта</summary><div>Полный текст оферты публикуется здесь до старта продаж. Ключевые условия уже зафиксированы: тарифы: неделя 390 ₽, месяц 990 ₽, год 4 990 ₽; продление только с подтверждением, отмена в один тап; возврат средств в течение 14 дней без объяснения причин; доступ открывается сразу после оплаты.</div></details>
-  <details class="faq"><summary>Политика конфиденциальности</summary><div>Данные анкеты используются только для подбора и не передаются третьим лицам. Загруженное фото не сохраняется на серверах — оно участвует только в момент подбора. Мы не запрашиваем данные карт: оплату обрабатывает защищённый платёжный сервис.</div></details>
-  <details class="faq"><summary>Реквизиты продавца</summary><div>Наименование, ИНН и контактные данные продавца публикуются в этом разделе до старта продаж — как того требует закон о защите прав потребителей.</div></details>
+  <details class="faq q"><summary><span class="q-n">01</span><span class="q-t">Публичная оферта</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Полный текст оферты публикуется здесь до старта продаж. Ключевые условия уже зафиксированы: тарифы: неделя 390 ₽, месяц 990 ₽, год 4 990 ₽; продление только с подтверждением, отмена в один тап; возврат средств в течение 14 дней без объяснения причин; доступ открывается сразу после оплаты.</div></details>
+  <details class="faq q"><summary><span class="q-n">02</span><span class="q-t">Политика конфиденциальности</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Данные анкеты используются только для подбора и не передаются третьим лицам. Загруженное фото не сохраняется на серверах — оно участвует только в момент подбора. Мы не запрашиваем данные карт: оплату обрабатывает защищённый платёжный сервис.</div></details>
+  <details class="faq q"><summary><span class="q-n">03</span><span class="q-t">Реквизиты продавца</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Наименование, ИНН и контактные данные продавца публикуются в этом разделе до старта продаж — как того требует закон о защите прав потребителей.</div></details>
   <div class="contact-band" id="contacts">
     <b>Связаться с нами</b>
     <p>Вопросы, возврат, ранний доступ за отзыв — напишите, отвечаем в течение дня.</p>
@@ -6617,12 +6626,12 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec reveal">
   <h2 class="big">ЧАСТЫЕ <span class="holo">ВОПРОСЫ</span></h2>
-  <details class="faq"><summary>Сколько стоит доступ?</summary><div>Первые 5 подборов — бесплатные, чтобы вы оценили качество до оплаты. Полный доступ — тарифы: неделя 390 ₽, месяц 990 ₽, год 4 990 ₽; продление только с подтверждением, отмена в один тап: безлимитные пересборки, все сценарии, подбор по фото.</div></details>
-  <details class="faq"><summary>Как проходит оплата?</summary><div>Через защищённый платёжный сервис. Данные карты видит только платёжная система — сервис к ним доступа не имеет. Доступ открывается сразу после оплаты.</div></details>
-  <details class="faq"><summary>Можно ли вернуть деньги?</summary><div>Да. Если сервис не подошёл — возврат в течение 14 дней с момента оплаты, без объяснения причин.</div></details>
-  <details class="faq"><summary>Обязательно ли загружать фото?</summary><div>Нет. Анкеты достаточно. Фото — по желанию: с ним подбор точнее попадает в цветотип и пропорции. Фото не сохраняется и используется только в момент подбора.</div></details>
-  <details class="faq"><summary>Куда ведут кнопки WB, Ozon и Lamoda?</summary><div>На подобранную вещь в поиске маркетплейса. Финальную цену, наличие размера и отзывы проверяйте на площадке — цены в образе ориентировочные.</div></details>
-  <details class="faq"><summary>Не понравились образы — что делать?</summary><div>Нажмите «Пересобрать» — соберутся новые, в другом стиле и палитре. Пересборки не ограничены, ответы анкеты можно менять в любой момент.</div></details>
+  <details class="faq q"><summary><span class="q-n">01</span><span class="q-t">Сколько стоит доступ?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Двадцать разделов бесплатны всегда и без лимитов — всё, что LOOKA может рассказать о вас словами и схемами. Платная часть — шесть разделов, где нейросеть работает с вашим фото: примерочная волос, доски разбора, образ на вашей фигуре, стиль-паспорт. Первая такая примерка тоже бесплатная. Тарифы: неделя 390 ₽, месяц 990 ₽, год 4 990 ₽. Автопродления нет — списаний без вашего участия не будет.</div></details>
+  <details class="faq q"><summary><span class="q-n">02</span><span class="q-t">Как проходит оплата?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Через защищённый платёжный сервис. Данные карты видит только платёжная система — сервис к ним доступа не имеет. Доступ открывается сразу после оплаты.</div></details>
+  <details class="faq q"><summary><span class="q-n">03</span><span class="q-t">Можно ли вернуть деньги?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Да. Если сервис не подошёл — возврат в течение 14 дней с момента оплаты, без объяснения причин.</div></details>
+  <details class="faq q"><summary><span class="q-n">04</span><span class="q-t">Обязательно ли загружать фото?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Нет. Анкеты достаточно. Фото — по желанию: с ним подбор точнее попадает в цветотип и пропорции. Фото не сохраняется и используется только в момент подбора.</div></details>
+  <details class="faq q"><summary><span class="q-n">05</span><span class="q-t">Куда ведут кнопки WB, Ozon и Lamoda?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>На подобранную вещь в поиске маркетплейса. Финальную цену, наличие размера и отзывы проверяйте на площадке — цены в образе ориентировочные.</div></details>
+  <details class="faq q"><summary><span class="q-n">06</span><span class="q-t">Не понравились образы — что делать?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Нажмите «Пересобрать» — соберутся новые, в другом стиле и палитре. Пересборки не ограничены, ответы анкеты можно менять в любой момент.</div></details>
 </section>
 
 <section class="sec reveal">
