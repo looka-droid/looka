@@ -1837,7 +1837,7 @@ header{position:relative;z-index:500}
 .pr-c:hover .pr-pic .ps-eye{color:#19C6F7}
 .pr-cat{color:var(--a,#8B92AA);font-weight:700}
 /* --- увеличенный вид --- */
-.prz{position:fixed;inset:0;z-index:260;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(5,6,11,.82);backdrop-filter:blur(9px)}
+.prz{position:fixed;inset:0;z-index:960;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(5,6,11,.82);backdrop-filter:blur(9px)}
 .prz.on{display:flex}
 .prz-card{width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:22px;padding:22px;border:1px solid transparent;background:linear-gradient(#141826,#0C0F17) padding-box,linear-gradient(140deg,var(--a,#19C6F7),var(--b,#C79DF2)) border-box;animation:popIn .32s both}
 .prz-pic{height:230px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:radial-gradient(120% 140% at 15% 0%,color-mix(in srgb,var(--a,#19C6F7) 18%,transparent),rgba(255,255,255,.02) 70%),rgba(0,0,0,.22);padding:12px;margin-bottom:16px}
@@ -3562,6 +3562,102 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-act{display:flex;gap:6px;margin-top:6px}
 .wd-act button{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1px;padding:5px 8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#ECEDF2;cursor:pointer}
 .wd-act button:first-child{color:#7CF0B2;border-color:rgba(124,240,178,.4)}
+/* --- УТРО --- */
+.wd-it.wash{opacity:.45;border-style:dashed}
+.wd-act button.on{color:#19C6F7;border-color:rgba(25,198,247,.55)}
+.mo-top{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:26px 28px;border-radius:26px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,rgba(255,210,138,.6),rgba(199,157,240,.5),rgba(25,198,247,.5)) border-box;overflow:hidden;margin-bottom:20px}
+.mo-date{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:#8B92AA;margin-bottom:8px}
+.mo-top h2{font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px;line-height:1.14;margin:0 0 8px}
+.mo-sub{font-size:14.5px;line-height:1.6;color:#C2C7D6;max-width:60ch}
+.mo-wx{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 22px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);min-width:132px}
+.mo-wx b{font-size:34px;font-weight:800;letter-spacing:-1.5px;line-height:1}
+.mo-wx span{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:#8B92AA;text-align:center}
+.mo-wx em{font-style:normal;font-size:24px;line-height:1;color:#19C6F7}
+.mo-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;align-items:start}
+.mo-main{padding:22px 24px;border-radius:22px;border:1px solid transparent;background:linear-gradient(#12151F,#0D1017) padding-box,linear-gradient(140deg,#19C6F7,#C79DF2) border-box}
+.mo-main h3{font-size:17px;font-weight:800;margin:0 0 4px}
+.mo-k{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#19C6F7;margin-bottom:9px}
+.mo-look{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+.mo-pc{display:flex;align-items:center;gap:9px;padding:9px 13px 9px 9px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035)}
+.mo-pc i{width:28px;height:28px;border-radius:9px;flex:0 0 auto;display:block;border:1px solid rgba(255,255,255,.18)}
+.mo-pc img{width:28px;height:28px;border-radius:9px;object-fit:cover;flex:0 0 auto}
+.mo-pc b{display:block;font-size:13.5px;font-weight:700;line-height:1.25}
+.mo-pc span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#7D849A}
+.mo-why{font-size:13px;line-height:1.6;color:#AEB4C6;border-top:1px solid rgba(255,255,255,.08);padding-top:11px;margin-top:4px}
+.mo-side{display:flex;flex-direction:column;gap:12px}
+.mo-card{padding:17px 19px;border-radius:19px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028)}
+.mo-card h4{font-size:14px;font-weight:800;margin:0 0 9px}
+.mo-alt{display:block;width:100%;text-align:left;padding:11px 13px;border-radius:13px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#D6DAE6;font-family:'Manrope';font-size:13px;line-height:1.45;cursor:pointer;margin-bottom:8px;transition:border-color .2s,transform .2s}
+.mo-alt:hover{border-color:rgba(199,157,240,.55);transform:translateX(3px)}
+.mo-alt b{display:block;font-size:10px;font-family:'JetBrains Mono';letter-spacing:1.2px;text-transform:uppercase;color:#C7A6F0;margin-bottom:3px}
+.mo-fix{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.mo-ch{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Manrope';font-size:12.5px;cursor:pointer;transition:all .2s}
+.mo-ch i{width:11px;height:11px;border-radius:50%;display:block;border:1px solid rgba(255,255,255,.25)}
+.mo-ch:hover{border-color:rgba(199,157,240,.6);color:#fff}
+.mo-ch.wash{opacity:.5;text-decoration:line-through}
+.mo-ch em{font-style:normal;color:#6E7489;font-size:11px}
+.mo-tg{padding:19px 21px;border-radius:20px;border:1px solid transparent;background:linear-gradient(#11141E,#0C0F17) padding-box,linear-gradient(135deg,rgba(25,198,247,.55),rgba(124,240,178,.45)) border-box;margin-top:16px}
+.mo-tg-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.mo-tg input[type=time]{font-family:'JetBrains Mono';font-size:15px;padding:9px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#fff}
+.mo-days{display:flex;gap:6px;flex-wrap:wrap}
+.mo-d{width:34px;height:34px;border-radius:11px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:#A8AEC0;font-family:'JetBrains Mono';font-size:11px;cursor:pointer;transition:all .2s}
+.mo-d.on{border-color:transparent;background:linear-gradient(100deg,#19C6F7,#C79DF2);color:#07121A;font-weight:700}
+.mo-note{font-size:12.5px;line-height:1.6;color:#8B92AA;margin-top:11px}
+@media(max-width:900px){.mo-grid{grid-template-columns:1fr}.mo-top{grid-template-columns:1fr}.mo-wx{align-self:start}}
+/* --- КУРСЫ --- */
+.cr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:15px}
+.cr-c{position:relative;overflow:hidden;cursor:pointer;padding:24px 26px;border-radius:24px;border:1px solid transparent;background:linear-gradient(#12151F,#0D1017) padding-box,linear-gradient(140deg,var(--a),var(--b)) border-box;animation:popIn .5s both;transition:transform .25s,box-shadow .25s}
+.cr-c::before{content:'';position:absolute;inset:-45% 50% 60% -30%;background:radial-gradient(circle,var(--a),transparent 70%);opacity:.16;pointer-events:none;transition:opacity .3s}
+.cr-c:hover{transform:translateY(-5px);box-shadow:0 22px 52px -24px var(--a)}
+.cr-c:hover::before{opacity:.32}
+.cr-ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:24px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);margin-bottom:14px}
+.cr-ic.big{width:66px;height:66px;font-size:30px;flex:0 0 auto}
+.cr-c h3{font-size:20px;font-weight:800;letter-spacing:-.4px;margin:0 0 8px}
+.cr-c p{font-size:13.8px;line-height:1.6;color:#B7BCCC;margin:0 0 14px}
+.cr-meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:13px}
+.cr-meta span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;padding:4px 9px;border-radius:99px;border:1px solid rgba(255,255,255,.12);color:#8B92AA}
+.cr-meta .free{color:#7CF0B2;border-color:rgba(124,240,178,.4)}
+.cr-bar{height:5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.cr-bar.big{height:7px;margin-top:14px}
+.cr-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--b));transition:width .5s}
+.cr-prog{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#6E7489;margin-top:7px}
+.cr-view{animation:popIn .4s both}
+.cr-head{display:flex;gap:20px;align-items:flex-start;padding:26px 28px;margin:18px 0 20px;border-radius:26px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,var(--a),var(--b)) border-box}
+.cr-head h2{font-size:clamp(22px,3.2vw,30px);font-weight:800;letter-spacing:-.7px;margin:2px 0 7px}
+.cr-head p{font-size:14px;line-height:1.6;color:#B7BCCC;margin:0;max-width:62ch}
+.cr-mod.pro summary .q-t{color:#F4F5FA}
+.cr-lock,.cr-freeb{font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.3px;padding:3px 8px;border-radius:99px;margin-left:9px;vertical-align:middle}
+.cr-lock{background:linear-gradient(100deg,#FFD28A,#FF6FA8);color:#1A0D14;font-weight:700}
+.cr-freeb{border:1px solid rgba(124,240,178,.45);color:#7CF0B2}
+.cr-mb{padding-top:4px}
+.cr-md{font-size:13.5px;line-height:1.6;color:#AEB4C6;margin:0 0 13px}
+.cr-ls{display:flex;flex-direction:column;gap:8px;margin-bottom:11px}
+.cr-l{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#E6E8F0;font-family:'Manrope';cursor:pointer;transition:all .22s}
+.cr-l:hover{border-color:var(--a);transform:translateX(4px)}
+.cr-l b{flex:1;font-size:14.5px;font-weight:700}
+.cr-l em{font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.1px;text-transform:uppercase;color:#6E7489}
+.cr-lm{width:24px;height:24px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;font-size:11px;border:1px solid rgba(255,255,255,.16);color:#8B92AA}
+.cr-l.done{border-color:rgba(124,240,178,.4)}
+.cr-l.done .cr-lm{background:rgba(124,240,178,.16);border-color:rgba(124,240,178,.5);color:#7CF0B2}
+.cr-pro-note{margin-top:16px;padding:15px 18px;border-radius:16px;border:1px solid rgba(255,210,138,.3);background:rgba(255,210,138,.05);font-size:13.5px;line-height:1.6;color:#C2C7D6}
+.cr-les{width:min(620px,100%)}
+.cr-why{font-size:14.5px;line-height:1.65;color:#C7A6F0;margin:0 0 18px}
+.cr-steps{display:flex;flex-direction:column;gap:11px}
+.cr-st{display:flex;gap:12px;padding:13px 15px;border-radius:15px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.028)}
+.cr-n{width:25px;height:25px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;font-family:'JetBrains Mono';font-size:11px;background:linear-gradient(120deg,var(--a),var(--b));color:#0A0B10;font-weight:700}
+.cr-sb{flex:1;min-width:0}
+.cr-sb p{margin:2px 0 0;font-size:14px;line-height:1.6;color:#E0E3EC}
+.cr-pic{height:128px;margin-top:11px;border-radius:13px;border:1px solid rgba(255,255,255,.07);background:radial-gradient(120% 140% at 15% 0%,color-mix(in srgb,var(--a) 15%,transparent),rgba(255,255,255,.02) 70%),rgba(0,0,0,.2);padding:6px}
+.cr-err,.cr-ok,.cr-note{margin-top:16px;padding:14px 17px;border-radius:15px;font-size:13.5px;line-height:1.62}
+.cr-err{border:1px solid rgba(255,111,168,.26);background:rgba(255,111,168,.05);color:#D6DAE6}
+.cr-err span,.cr-ok span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+.cr-err span{color:#FF9FC2}
+.cr-err ul{margin:0;padding-left:17px}
+.cr-err li{margin-bottom:5px}
+.cr-ok{border:1px solid rgba(124,240,178,.26);background:rgba(124,240,178,.05);color:#D6DAE6}
+.cr-ok span{color:#7CF0B2}
+.cr-note{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#9AA1B5;font-size:12.8px}
+@media(max-width:640px){.cr-head{flex-direction:column}.cr-pic{height:108px}}
 .wd-fits{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
 .wd-fit{border:1px solid rgba(255,255,255,.12);padding:12px;display:flex;flex-direction:column;gap:8px;background:rgba(255,255,255,.02)}
 .wd-fit-h{font-family:'JetBrains Mono';font-size:10px;letter-spacing:2px;color:#19C6F7;text-transform:uppercase}
@@ -6101,7 +6197,7 @@ header nav.topnav{gap:4px;align-items:center}
     </div>
   </div>
 
-  <div class="to-row" style="margin:0 0 22px"><button class="btn ghost" onclick="openPro()">✎ Приёмы профессионалов — 42 штуки →</button></div>
+  <div class="to-row" style="margin:0 0 22px"><button class="btn ghost" onclick="openPro()">✎ Приёмы профессионалов — 70 штук, включая голливудские →</button></div>
   <div class="mt-note">Ссылки ведут на первоисточники и официальные базы, а не на пересказы. Если ссылка перестала открываться — сообщите, заменим. Последняя сверка источников: октябрь 2026.</div>
 </section>
 
@@ -6110,7 +6206,7 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
     <div class="eyebrow">приёмы профессионалов · бесплатно</div>
     <h2 class="big">То, что знают мастера — <span class="holo">и редко объясняют клиенткам</span></h2>
-    <p class="lead"><b id="prCnt">42</b> приёма, которыми пользуются визажисты, колористы, парикмахеры, стилисты и косметологи. Не «10 лайфхаков красоты», а конкретные действия с объяснением, почему они работают. У каждого приёма написано, кто так делает, и помечено, где под этим измеримый факт, а где ремесленная привычка.</p>
+    <p class="lead"><b id="prCnt">70</b> приёмов, которыми пользуются визажисты, колористы, парикмахеры, стилисты и косметологи — включая отдельный раздел «Красная дорожка» с приёмами голливудских визажистов и киногримёров. Не «10 лайфхаков красоты», а конкретные действия с мини-схемой и объяснением, почему они работают. У каждого приёма написано, кто так делает, и помечено, где под этим измеримый факт, а где ремесленная привычка.</p>
   </div>
   <div class="pr-filters" id="prFilters"></div>
   <div class="pr-grid" id="prGrid"></div>
@@ -6582,6 +6678,21 @@ header nav.topnav{gap:4px;align-items:center}
   </div>
   <div class="bt-form look mk-form"><div id="cpForm"></div></div>
   <div class="looks" id="cpOut"></div>
+</section>
+
+<section class="sec pageview" id="coursePage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
+    <div class="eyebrow">курсы · базовые модули бесплатно</div>
+    <h2 class="big">Научиться <span class="holo">делать руками</span></h2>
+    <p class="lead">Три курса — бровист, визажист и стилист по волосам. Каждый урок — короткое «зачем», пошаговый разбор со схемами, частые ошибки и признак, по которому понятно, что получилось. Базовые модули открыты всем: по ним можно научиться делать себе. Профессиональные — работа с клиентом, санитария, расчёт цены и портфолио — в подписке.</p>
+  </div>
+  <div id="crBox"></div>
+</section>
+
+<section class="sec pageview" id="morningPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div id="moBox"></div>
 </section>
 
 <section class="sec pageview" id="wardrobePage">
@@ -7070,6 +7181,8 @@ header nav.topnav{gap:4px;align-items:center}
       <a href="#about" onclick="openPage('aboutPage');return false">Кто делает LOOKA</a>
       <a href="#blog" onclick="openPage('bloggersPage');return false">Для блогеров</a>
       <a href="#pro" onclick="openPro();return false">Приёмы профессионалов</a>
+      <a href="#courses" onclick="openCourses();return false">Курсы</a>
+      <a href="#morning" onclick="openMorning();return false">Утро: что надеть</a>
       <a href="#gift" onclick="openPage('giftPage');return false">Подарить LOOKA</a></div>
     <div><b>Площадки</b>
       <a href="https://www.wildberries.ru" target="_blank" rel="noopener">Wildberries ↗</a>
@@ -8459,6 +8572,8 @@ window.openPage = (id, anchor)=>{
   if(id==='eventPage' && window.renderEventForm) renderEventForm();
   if(id==='capsulePage' && window.renderCapsuleForm) renderCapsuleForm();
   if(id==='wardrobePage' && window.renderWardrobe){ renderWardrobe(); }
+  if(id==='morningPage' && window.renderMorning){ renderMorning(); }
+  if(id==='coursePage' && window.renderCourses){ renderCourses(); }
   if(id==='studioPage' && window.renderStudio) renderStudio();
   if(id==='braPage' && window.renderBra) renderBra();
   if(id==='lookrefPage' && window.renderLookRef) renderLookRef();
@@ -11446,7 +11561,7 @@ async function weather(){
 
 function outfits(band, occ, exclude, n=3){
   const pal = PAL();
-  const I = W.items.filter(it=>warmOK(it,band) && formOK(it,occ) && !exclude.has(it.id));
+  const I = W.items.filter(it=>!it.wash && warmOK(it,band) && formOK(it,occ) && !exclude.has(it.id));
   const by = c=>I.filter(i=>i.cat===c);
   const tops = by('Верх'), bots = by('Низ'), dr = by('Платье'), out = by('Верхняя одежда'), sh = by('Обувь'), bg = by('Сумка');
   const cold = band==='холодно'||band==='прохладно';
@@ -11489,7 +11604,7 @@ function gaps(){
 
 function itemCard(it, small){
   const ph = it.photo ? `<img src="${it.photo}" alt="">` : `<i style="background:${hex(it.color)}"></i>`;
-  return `<div class="wd-it ${small?'sm':''}" data-id="${it.id}">${ph}<div class="wd-b"><b>${it.name||it.cat}</b><span>${it.cat} · ${it.color} · ${it.warm}${it.worn?' · надета '+it.worn+' раз':''}</span>${small?'':`<div class="wd-act"><button onclick="wdWear(${it.id})" title="надела сегодня">✓ надела</button><button onclick="wdSell(${it.id})" title="продать">₽</button><button onclick="wdDel(${it.id})" title="удалить">✕</button></div>`}</div></div>`;
+  return `<div class="wd-it ${small?'sm':''}${it.wash?' wash':''}" data-id="${it.id}">${ph}<div class="wd-b"><b>${it.name||it.cat}</b><span>${it.cat} · ${it.color} · ${it.warm}${it.worn?' · надета '+it.worn+' раз':''}</span>${small?'':`<div class="wd-act"><button onclick="wdWear(${it.id})" title="надела сегодня">✓ надела</button><button class="${it.wash?'on':''}" onclick="wdWash(${it.id})" title="${it.wash?'вернуть из стирки':'отправить в стирку'}">🧺</button><button onclick="wdEdit(${it.id})" title="изменить">✎</button><button onclick="wdSell(${it.id})" title="продать">₽</button><button onclick="wdDel(${it.id})" title="удалить">✕</button></div>`}</div></div>`;
 }
 
 async function renderWardrobe(){
@@ -11583,8 +11698,566 @@ function renderAdd(){
     </div></div>
     <input type="file" id="wdInp" accept="image/*" style="display:none" onchange="wdPhoto(this.files[0])">`;
 }
+window.wdWash = id=>{ const it = W.items.find(i=>i.id===id); if(!it) return; it.wash = !it.wash; save(); wdRefresh(); myToast(it.wash ? (it.name||it.cat)+' — в стирке' : (it.name||it.cat)+' снова в строю'); };
+const E = { id:null };
+window.wdEditField = (k,v)=>{ const it = W.items.find(i=>i.id===E.id); if(it){ it[k]=v; drawEdit(); } };
+window.wdEditPick = (k,v)=>{ const it = W.items.find(i=>i.id===E.id); if(it){ it[k]=v; drawEdit(); } };
+function drawEdit(){
+  const it = W.items.find(i=>i.id===E.id); const ov = document.getElementById('wdEdOv'); if(!it||!ov) return;
+  ov.innerHTML = `<div class="to-box" style="width:min(560px,100%)"><button class="to-x" onclick="wdEditClose()">✕</button>
+    <div class="eyebrow">гардероб · правка</div><h3>${it.name||it.cat}</h3>
+    ${HUB.grp('Что это', HUB.chips(it,'cat',CATS,{pick:'wdEditPick'}))}
+    ${HUB.grp('Цвет', HUB.chips(it,'color',COLORS.map(c=>c[0]),{colored:COLORS,pick:'wdEditPick'}))}
+    <div class="wd-two">${HUB.grp('Сезон', HUB.chips(it,'warm',WARM,{pick:'wdEditPick'}))}${HUB.grp('Формат', HUB.chips(it,'form',FORM,{pick:'wdEditPick'}))}</div>
+    <div class="wd-two"><input class="ev-date" placeholder="Название" value="${(it.name||'').replace(/"/g,'&quot;')}" oninput="wdEditField('name',this.value)"><input class="ev-date" type="number" placeholder="Цена, ₽" value="${it.price||''}" oninput="wdEditField('price',this.value)"></div>
+    <div class="to-row"><button class="btn primary" onclick="wdEditSave()">Сохранить</button><button class="btn ghost" onclick="wdWash(${it.id});wdEditClose()">${it.wash?'Вернуть из стирки':'В стирку'}</button><button class="btn ghost" onclick="if(confirm('Удалить вещь из гардероба?')){wdDel(${it.id});wdEditClose();}">Удалить</button></div>
+  </div>`;
+}
+window.wdEdit = id=>{
+  E.id = id;
+  let ov = document.getElementById('wdEdOv');
+  if(!ov){ ov = document.createElement('div'); ov.id='wdEdOv'; ov.className='to-ov'; ov.onclick=e=>{ if(e.target===ov) wdEditClose(); }; document.body.appendChild(ov); }
+  drawEdit(); ov.classList.add('open'); document.body.style.overflow='hidden';
+};
+window.wdEditSave = ()=>{ const it = W.items.find(i=>i.id===E.id); if(it && it.price!=='') it.price = +it.price||''; save(); wdEditClose(); wdRefresh(); myToast('Сохранено'); };
+window.wdEditClose = ()=>{ const ov=document.getElementById('wdEdOv'); if(ov) ov.classList.remove('open'); document.body.style.overflow=''; };
+function wdRefresh(){ try{ if(document.getElementById('wdBox')) renderWardrobe(); }catch(e){} try{ if(window.renderMorning) renderMorning(); }catch(e){} }
+window.wdRefresh = wdRefresh;
 window.openWardrobe = ()=>{ openPage('wardrobePage'); renderAdd(); renderWardrobe(); };
 window.renderWardrobe = renderWardrobe;
+window.WD = { items:()=>W.items, save, outfits, weather, tempBand, itemCard, hex, CATS, COLORS, WARM, FORM, gaps };
+})();
+
+/* ================= КУРСЫ: бровист, визажист, стилист по волосам ================= */
+(function(){
+const P = HUB.ls('looka_course', { done:{}, open:null });
+const saveP = ()=>HUB.save('looka_course', P);
+const S = (t,sc)=>({t, sc:sc||''});
+
+const CRS = [
+{ k:'brow', ic:'<svg viewBox="0 0 24 24" width="25" height="25"><path d="M3 16 Q12 4 21 11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>', t:'Бровист', col:['#C79DF2','#FF6FA8'],
+  lead:'Форма, коррекция и окрашивание бровей — от «как читать свою бровь» до работы с чужой.',
+  mods:[
+  { t:'Форма: как её находят, а не придумывают', lvl:'base', d:'Три точки, черты лица и собственное направление роста.', ls:[
+    { t:'Три точки: начало, изгиб, хвост', why:'Любая форма строится на трёх точках. Найдёте их — бровь перестанет быть «нарисованной».',
+      steps:[S('Поставьте карандаш вертикально от крыла носа вверх — где он пересекает бровь, там её начало.','browstroke'),
+             S('Проведите линию от крыла носа через внешний край радужки — это высшая точка изгиба.'),
+             S('Линия от крыла носа через внешний угол глаза даёт конец хвоста.'),
+             S('Отметьте все три точки белым карандашом и посмотрите на лицо целиком, а не на одну бровь.'),
+             S('Хвост должен заканчиваться не ниже уровня начала — иначе лицо читается уставшим.','jaw')],
+      err:['Начало ставят по внутреннему углу глаза, а не по крылу носа — брови получаются слишком близко.','Хвост опускают ниже начала: это главная причина «грустного» лица.'],
+      ok:'Если закрыть лицо и оставить только брови — они симметричны по высоте начала и конца, а изгиб у обеих на одном расстоянии от носа.' },
+    { t:'Форма под черты лица', why:'Одна и та же бровь на разных лицах работает по-разному — решает не мода, а пропорция.',
+      steps:[S('Круглое лицо — выраженный излом: он добавляет вертикали.'),
+             S('Квадратное — мягкий изгиб без острого угла, чтобы не удваивать углы челюсти.','jaw'),
+             S('Вытянутое — более прямая, горизонтальная бровь: она визуально укорачивает лицо.'),
+             S('Сердцевидное — округлая форма с плавным хвостом.'),
+             S('Мелкие черты — тоньше и короче; крупные — шире, иначе бровь потеряется.')],
+      err:['Копируют форму с чужого лица, не сверяя с пропорциями своего.','Делают «модную» прямую бровь на круглом лице — лицо становится шире.'],
+      ok:'Форма не притягивает внимание к себе: смотрите на фото и видите лицо, а не брови.' },
+    { t:'Читать свою бровь: рост и асимметрия', why:'Брови — сёстры, а не близнецы. Попытка сделать их одинаковыми портит обе.',
+      steps:[S('Расчешите обе брови вверх и сфотографируйте лицо анфас при ровном свете.'),
+             S('Отметьте, где волос растёт вверх, где в сторону, где есть залысины.','browstroke'),
+             S('Сравните высоту начала, а не формы целиком: выравнивают именно начала.'),
+             S('Более высокую бровь не опускают — подтягивают нижнюю, добавляя волос снизу у слабой.'),
+             S('Асимметрию больше 2–3 мм не исправляют коррекцией — только макияжем.')],
+      err:['Выщипывают снизу у «высокой» брови, чтобы сравнять — становится ещё выше.','Сравнивают брови в зеркале, а не на фото: зеркало даёт зеркальную картинку.'],
+      ok:'На фото начала брови на одной высоте, а разница в форме незаметна с расстояния вытянутой руки.' } ] },
+  { t:'Домашняя коррекция и цвет', lvl:'base', d:'Чем убирать, сколько убирать и чем красить без вреда.', ls:[
+    { t:'Чем убирать: пинцет, нить, воск', why:'Инструмент выбирают по задаче, а не по привычке.',
+      steps:[S('Пинцет — точечная работа и контроль: один волос за раз, по направлению роста.'),
+             S('Нить — быстрый съём пушка на больших зонах, но требует навыка и не для чувствительной кожи.'),
+             S('Воск дома — только на лбу и переносице, не по форме: он снимает полосой и ошибку не отменить.'),
+             S('Кожу перед коррекцией не распаривают, но протирают антисептиком — и руки тоже.'),
+             S('После — успокаивающее средство и никакого макияжа на зону два часа.')],
+      err:['Берут воск, чтобы «быстро сделать форму» — снимается лишнее, и это отрастает месяцами.','Щиплют против роста: волос ломается и врастает.'],
+      ok:'Через час после коррекции нет красных точек и припухлости, а форма видна только вам.' },
+    { t:'Коррекция без «перещипа»', why:'Главная ошибка дома — убрать на два волоса больше, чем нужно, и так пять раз подряд.',
+      steps:[S('Сначала расчешите бровь вверх и подрежьте маникюрными ножницами только то, что торчит выше контура.'),
+             S('Уберите волосы ниже нижней линии и между бровями — это 80 % результата.'),
+             S('Сверху не трогайте почти ничего: верхняя линия задаёт форму и восстанавливается хуже всего.'),
+             S('Каждые 5–6 волос отходите к зеркалу на расстояние вытянутой руки.','mirrorcam'),
+             S('Остановитесь, когда захочется «чуть-чуть подровнять» — это точка, после которой начинается перещип.')],
+      err:['Работают при увеличительном зеркале: в нём любая мелочь кажется дефектом.','Доводят форму вечером при тёплом свете — утром видно совсем другое.','Корректируют чаще раза в 2–3 недели: волос не успевает отрасти в полную длину.'],
+      ok:'Бровь выглядит гуще, чем до коррекции, — потому что убрали хаос, а не объём.' },
+    { t:'Цвет дома: хна и краска', why:'Цвет брови делает форму видимой — но он же чаще всего выдаёт домашнюю работу.',
+      steps:[S('Оттенок берут на тон темнее волос для светлых и на тон светлее для тёмных.','redlip'),
+             S('За сутки сделайте тест на аллергию на сгибе локтя — это не формальность.'),
+             S('Кожу вокруг обведите жирным кремом: он не даст краске уйти за контур.'),
+             S('Красят от хвоста к началу, у начала — самый тонкий слой: там цвет всегда темнее.'),
+             S('Время выдержки берут из инструкции к конкретному составу и ставят таймер.','prep')],
+      err:['Держат «подольше, чтобы ярче» — получают пятно на коже на неделю.','Красят сразу после коррекции: пигмент заходит в микроранки.'],
+      ok:'Через день цвет на коже сошёл, а на волосе остался — бровь выглядит гуще, но граница не видна.' } ] },
+  { t:'Работа с клиентом', lvl:'pro', d:'Консультация, разметка, архитектура и санитарные правила.', ls:[
+    { t:'Консультация и противопоказания', why:'Разговор до процедуры снимает 90 % претензий после неё.',
+      steps:[S('Спросите: что не нравится сейчас, что делали раньше, был ли татуаж, есть ли аллергия.'),
+             S('Отдельно — приём ретиноидов и кислотные пилинги: кожа после них травмируется легче.'),
+             S('Покажите в зеркале три точки на её лице и проговорите, что уберёте, а что нет.'),
+             S('Зафиксируйте договорённость фото «до» при ровном свете, анфас.','refs'),
+             S('Если клиент просит форму, которая ей не идёт, — объясните, покажите разметкой и дайте выбрать.')],
+      err:['Начинают работу без фото «до» — потом нечем показать результат.','Обещают «как на картинке»: чужую форму на другом лице повторить нельзя.'],
+      ok:'Клиент своими словами повторяет, что сейчас будет сделано.' },
+    { t:'Разметка по трём точкам', why:'Разметка — это договор на лице: после неё руки работают, а не думают.',
+      steps:[S('Усадите клиента, лицо строго анфас, свет ровный с двух сторон.'),
+             S('Нитью или линейкой найдите три точки на каждой брови и отметьте белым карандашом.'),
+             S('Соедините точки в линию, нижнюю и верхнюю, — и дайте посмотреть в зеркало.'),
+             S('Проверьте симметрию по горизонтали: расстояние от зрачка до начала у обеих одинаковое.'),
+             S('Всё, что вне разметки, — к удалению; всё, что внутри, — не трогаем.')],
+      err:['Размечают лёжа: мышцы лица в этом положении лежат иначе.','Доверяют трафарету вместо точек — трафарет не знает пропорций конкретного лица.'],
+      ok:'Клиент согласилась с разметкой до того, как убран первый волос.' },
+    { t:'Порядок: удаление, цвет, оформление', why:'Порядок шагов определяет, сколько продержится результат и как заживёт кожа.',
+      steps:[S('Обезжирить, обработать антисептиком, надеть перчатки.'),
+             S('Сначала окрашивание по разметке, потом удаление — так видно настоящую границу формы.','order'),
+             S('Удаление: сначала крупные зоны, потом точечная доводка пинцетом.'),
+             S('В конце — подрезка длины по расчёске и укладка.','soapbrow'),
+             S('Успокаивающее средство, рекомендации на двое суток: без бани, бассейна и скрабов.')],
+      err:['Удаляют до окрашивания и потом «догоняют» цветом пустые места.','Пропускают антисептик после удаления — риск воспаления.'],
+      ok:'Через 20 минут после процедуры кожа без красноты, а форма читается при взгляде издалека.' } ] },
+  { t:'Долговременная укладка и профессия', lvl:'pro', d:'Составы, тайминг, себестоимость и портфолио.', ls:[
+    { t:'Долговременная укладка: принцип и безопасность', why:'Состав меняет структуру волоса — и работает он у всех по-разному.',
+      steps:[S('Работают три состава по очереди: размягчающий, фиксирующий, питательный.'),
+             S('Точное время каждого берут только из инструкции производителя к этой конкретной линейке.','prep'),
+             S('Тонкий и осветлённый волос держит состав заметно меньше — время сокращают.'),
+             S('Тест на аллергию за 24–48 часов обязателен, даже если клиент делала это раньше.'),
+             S('Повторную процедуру — не чаще раза в 6–8 недель, иначе волос ломается у корня.')],
+      err:['Переносят время с одного бренда на другой — составы разной силы.','Делают укладку сразу после окрашивания: волос уже раскрыт.'],
+      ok:'Через неделю волос лежит в заданном направлении, не ломкий и не «ватный» на ощупь.',
+      note:'Это обзор принципа, а не замена очному обучению: работа с химическими составами на чужом лице требует подготовки, санитарных условий и ответственности мастера.' },
+    { t:'Себестоимость услуги', why:'Цена, которая не считалась, съедает прибыль незаметно.',
+      steps:[S('Посчитайте расход состава на одну процедуру: вес упаковки ÷ число процедур.'),
+             S('Добавьте одноразовое: перчатки, палочки, салфетки, валики, пелерину.'),
+             S('Добавьте долю аренды и расходников за месяц, делённую на число записей.'),
+             S('Сложите — это себестоимость. Цена услуги начинается от трёх себестоимостей.'),
+             S('Пересчитывайте раз в квартал: расходники дорожают быстрее, чем кажется.')],
+      err:['Считают только состав и забывают аренду, дорогу и время на уборку.','Держат цену годами, «чтобы не потерять клиентов».'],
+      ok:'Вы можете назвать себестоимость одной процедуры с точностью до рубля.' },
+    { t:'Фото до/после, которые продают', why:'Портфолио — ваш единственный продавец, пока вы спите.',
+      steps:[S('Один и тот же свет, фон и ракурс для «до» и «после» — иначе это не сравнение.','refs'),
+             S('Дневной свет из окна, лицо к окну, камера на уровне глаз.','window'),
+             S('Без фильтров и ретуши кожи: клиент придёт за тем, что увидел.'),
+             S('Снимайте анфас и три четверти, плюс макро брови.'),
+             S('Подписывайте, что именно сделано — форма, цвет, укладка, и сколько держится.')],
+      err:['«До» снимают в тусклом свете, «после» — при лампе: такое сравнение видно и оно отталкивает.','Выкладывают только идеальные случаи — клиент не узнаёт в них себя.'],
+      ok:'По фото «после» понятно, что изменилось, без подписи.' } ] } ] },
+
+{ k:'mk', ic:'◉', t:'Визажист', col:['#FF6FA8','#FFB84C'],
+  lead:'От подготовки кожи до макияжа под камеру и работы с клиентом.',
+  mods:[
+  { t:'База: кожа и тон', lvl:'base', d:'То, на чём держится весь макияж.', ls:[
+    { t:'Подготовка кожи', why:'Девять из десяти проблем с тоном решаются до того, как он открыт.',
+      steps:[S('Очищение, затем увлажнение по типу кожи — лёгкий гель или плотный крем.','dampcream'),
+             S('Дайте крему впитаться 15–20 минут, занимаясь бровями или причёской.','prep'),
+             S('Сухие участки — плотнее, жирные — легче: кожа редко однородна.'),
+             S('Праймер подбирают по задаче: матирующий, увлажняющий или заполняющий поры.'),
+             S('Губы — скраб и бальзам в самом начале, иначе помада ляжет на чешуйки.')],
+      err:['Наносят тон на невпитавшийся крем — он скатывается уже через час.','Берут один праймер на всё лицо при комбинированной коже.'],
+      ok:'Через 20 минут кожа матовая там, где надо, и не стянутая нигде.' },
+    { t:'Тон: подбор и нанесение', why:'Правильный тон не видно — видно ровную кожу.',
+      steps:[S('Три полоски вдоль челюсти при дневном свете, подходит исчезающая.','jaw'),
+             S('Наносите от центра лица к краям — там, где нужно больше покрытия, его и больше.'),
+             S('Влажный спонж для естественности, кисть — для плотного покрытия.'),
+             S('Доведите тон до шеи и по краю ушей.','necktone'),
+             S('Пудра только в Т-зону, остальное оставьте живым.','tzone')],
+      err:['Подбирают тон на запястье или по памяти.','Кладут тон толстым слоем вместо точечной коррекции консилером.'],
+      ok:'Границы тона не видно ни при дневном свете, ни на фото со вспышкой.' },
+    { t:'Консилер и скульптура', why:'Форму лица делают светом и тенью, а не плотностью покрытия.',
+      steps:[S('Консилер под глаз — треугольником вершиной вниз, растушёвка от краёв к центру.','tri'),
+             S('Кремовый скульптор под скулу, по линии челюсти и у висков — до пудры.','underpaint'),
+             S('Румяна кремом на яблочки, с растушёвкой вверх к виску.','blush'),
+             S('Хайлайтер — только на верхнюю точку скулы, спинку носа, галочку над губой.','hilite'),
+             S('Всё кремовое закрывают пудрой точечно, а не целиком.','order')],
+      err:['Рисуют скульптуру полосой и не растушёвывают вверх.','Кладут хайлайтер на текстуру и поры — он её подчёркивает.'],
+      ok:'На фото видно скулу, но не видно, где начинается и кончается средство.' } ] },
+  { t:'Глаза и губы', lvl:'base', d:'Растушёвка, стрелка и стойкая губа.', ls:[
+    { t:'Растушёвка теней', why:'Схема важнее палетки: одни и те же тени дают разный результат.',
+      steps:[S('База на веко, затем самый светлый оттенок по всей подвижной части.','lid'),
+             S('Средний — в складку, движения «маятник», не вдавливая.','lid'),
+             S('Тёмный — только внешний угол, по форме буквы V.'),
+             S('Чистой кистью пройдите по границам — растушёвка это отдельный шаг, а не попутный.'),
+             S('Светлая точка во внутренний угол и под бровь.','inner')],
+      err:['Берут тёмный на всё веко и потом «размазывают» — получают грязь.','Растушёвывают той же кистью, которой набирали пигмент.'],
+      ok:'Переходов не видно, но видно глубину: глаз выглядит больше, а не темнее.' },
+    { t:'Стрелка', why:'Стрелка — это не линия, а форма: её строят, а не проводят.',
+      steps:[S('Сначала хвостик: точка и короткий штрих вверх от нижнего века.','wingtail'),
+             S('Затем ведите линию от середины века к хвостику.','wing'),
+             S('Заполните внутреннюю треть, сужая к началу.'),
+             S('Межресничку прокрасьте отдельно — она убирает просветы.'),
+             S('Поправьте форму консилером на плоской кисти, а не ватной палочкой.')],
+      err:['Ведут линию от начала — к хвосту рука устаёт и портит самое заметное.','Рисуют с закрытым глазом: на открытом форма меняется.'],
+      ok:'Стрелки симметричны при взгляде прямо в зеркало с открытыми глазами.' },
+    { t:'Губы: контур и стойкость', why:'Помада стирается быстрее карандаша — отсюда ободок к вечеру.',
+      steps:[S('Карандашом заштрихуйте всю губу, а не только контур.','lipfill'),
+             S('Контур ведите короткими штрихами от центра к уголкам.','lipline'),
+             S('Помаду наносите кистью — так видно границу и расход меньше.'),
+             S('Промокните салфеткой, припудрите через неё, нанесите второй слой.','lipset'),
+             S('Уголки и внутренний край — последними, там стирается раньше всего.')],
+      err:['Выводят контур за пределы губы более тёмным цветом — видно на любом фото.','Наносят помаду на сухие губы без подготовки.'],
+      ok:'Через три часа цвет равномерный, без ободка по краю.' } ] },
+  { t:'Макияж под задачу', lvl:'pro', d:'День, вечер, вспышка, видео и возраст.', ls:[
+    { t:'День, вечер и вспышка — три разных макияжа', why:'Один и тот же макияж при разном свете выглядит по-разному, и это предсказуемо.',
+      steps:[S('День: лёгкое покрытие, акцент на коже, матовые текстуры у глаз.'),
+             S('Вечер: плотнее тон, глубже внешний угол, допустим шиммер.'),
+             S('Под вспышку: без SPF в тональном, минимум светоотражающих частиц.','flash'),
+             S('Выберите один акцент — глаза или губы, не оба.','cleaneye'),
+             S('Перед выходом сделайте селфи со вспышкой — это финальная проверка.','flashtest')],
+      err:['Переносят вечерний макияж в дневной свет без изменений.','Используют хайлайтер по всему лицу перед съёмкой.'],
+      ok:'Фото со вспышкой и фото при дневном свете выглядят как один и тот же человек.' },
+    { t:'Макияж для съёмки и видео', why:'Камера видит иначе, чем глаз: она усиливает текстуру и съедает полутона.',
+      steps:[S('Матовая Т-зона обязательна, щёки оставляют живыми.','tzone'),
+             S('Контрасты усиливают на полшага: камера их снижает.'),
+             S('Брови чуть чётче обычного, но без сплошной линии.','browstroke'),
+             S('Ресницы пучками во внешний угол вместо ленты.','lashbits'),
+             S('Шея и зона декольте тонируются так же, как лицо.','necktone')],
+      err:['Пудрят всё лицо целиком — на видео кожа становится плоской.','Забывают про уши и шею: на свету видна граница.'],
+      ok:'На стоп-кадре видно черты лица, а не слои средств.' },
+    { t:'Зрелая кожа: что меняется', why:'Те же продукты работают иначе, когда меняется плотность и рельеф кожи.',
+      steps:[S('Увлажнение дольше и плотнее, тон — легче и более влажный по финишу.','dampcream'),
+             S('Кремовые текстуры вместо пудровых почти везде.','order'),
+             S('Пудра — минимально и только в центр лица.'),
+             S('Акцент переносят на глаза и брови: они поднимают лицо.'),
+             S('Шиммер — только на верхнюю точку скулы, если кожа ровная.','hilite')],
+      err:['Плотный тон и много пудры — подчёркивают каждую складку.','Опускают хвост брови, «чтобы мягче» — лицо становится грустным.'],
+      ok:'Макияж даёт свежесть, а не маскировку: кожу видно.' } ] },
+  { t:'Профессия визажиста', lvl:'pro', d:'Чемоданчик, гигиена, клиент и деньги.', ls:[
+    { t:'Чемоданчик и гигиена', why:'Гигиена — единственная часть профессии, где ошибка видна не сразу, а потом.',
+      steps:[S('Кисти моют после каждого клиента, не после каждого дня.'),
+             S('Кремовые продукты набирают шпателем, а не кистью из банки.'),
+             S('Помаду и тушь — только одноразовыми аппликаторами.'),
+             S('Поверхности и палитру протирают антисептиком между клиентами.'),
+             S('Сроки после вскрытия отмечают маркером прямо на упаковке.','pao')],
+      err:['Красят тушью «из своего тюбика» — это прямой путь к воспалению глаз.','Хранят кисти в закрытом тубусе невысушенными.'],
+      ok:'Любой продукт в чемодане можно открыть и назвать дату вскрытия.' },
+    { t:'Клиент и тайминг', why:'Хороший макияж не вовремя — это плохая услуга.',
+      steps:[S('Разложите работу по минутам: кожа 15, тон 15, глаза 25, губы 10, запас 15.','prep'),
+             S('Референсы запрашивайте до записи, а не в кресле.','refs'),
+             S('Проговорите вслух план и спросите, есть ли «ни за что».'),
+             S('Зеркало давайте дважды: после глаз и в конце — а не после каждого шага.'),
+             S('Финальное фото при окне, без фильтров.','window')],
+      err:['Начинают с глаз без обсуждения и переделывают всё целиком.','Не закладывают запас — опаздывает следующий клиент.'],
+      ok:'Вы заканчиваете за 5–10 минут до названного времени.' },
+    { t:'Цена и продвижение', why:'Цену определяет не «сколько берут другие», а ваша загрузка и себестоимость.',
+      steps:[S('Посчитайте себестоимость: расходники, дорога, амортизация косметики, время.'),
+             S('Назначьте цену и держите её месяц, не торгуясь.'),
+             S('Поднимайте цену, когда записи закрыты на две недели вперёд.'),
+             S('Снимайте процесс, а не только результат: это то, за что платят доверием.'),
+             S('Один формат контента в неделю лучше, чем пять в один день и месяц тишины.')],
+      err:['Делают скидку «на первый раз» всем подряд — приходят только за скидкой.','Публикуют чужие работы без подписи: это узнают.'],
+      ok:'Вы знаете, сколько зарабатываете в час, и можете объяснить цену за десять секунд.' } ] } ] },
+
+{ k:'hair', ic:'✂', t:'Стилист по волосам', col:['#19C6F7','#C79DF2'],
+  lead:'Диагностика, уход, укладки, форма под лицо и вечерние причёски.',
+  mods:[
+  { t:'Диагностика и уход', lvl:'base', d:'Что у вас за волос и что ему нужно.', ls:[
+    { t:'Тип волоса: толщина, пористость, плотность', why:'Весь уход и все укладки строятся на этих трёх параметрах, а не на «сухие/жирные».',
+      steps:[S('Толщина: сравните волос с ниткой — тоньше, вровень или толще.'),
+             S('Пористость: опустите чистый волос в стакан воды. Тонет быстро — пористый, плавает — плотный.'),
+             S('Плотность: соберите хвост и измерьте его обхват пальцами.'),
+             S('Проверьте эластичность: влажный волос тянется и возвращается — норма; рвётся — повреждён.'),
+             S('Запишите результат: от него зависит и уход, и температура приборов.','temp')],
+      err:['Путают тонкий волос с редким — это разные вещи и разный уход.','Определяют пористость на волосе со средствами.'],
+      ok:'Вы можете назвать свой волос тремя словами, например «тонкий, пористый, густой».' },
+    { t:'Мытьё и уход по типу', why:'Одна и та же схема ухода даёт противоположный результат на разных волосах.',
+      steps:[S('Шампунь — только на корни и кожу головы, пена сама промоет длину.'),
+             S('Кондиционер — от середины к концам, корни не трогаем.','midlength'),
+             S('Пористому волосу — больше питания и запечатывания, плотному — больше увлажнения.'),
+             S('Маска раз в неделю, но по инструкции: «подольше» не работает.'),
+             S('Расчёсывание — снизу вверх участками, на влажных только с кондиционером.','combup')],
+      err:['Наносят кондиционер на корни и теряют объём.','Моют голову горячей водой — усиливает жирность и тусклость.'],
+      ok:'Волосы остаются свежими на день дольше, чем раньше, а концы не путаются.' },
+    { t:'Термозащита и приборы', why:'Прибор не портит волос — его портят температура и влага под пластиной.',
+      steps:[S('Термозащиту наносят на влажные волосы и дают высохнуть.','thermo'),
+             S('Фен держат по направлению роста чешуйки, сверху вниз.','cuticle'),
+             S('Для окрашенного волоса утюжок не выше 180 °C, для тонкого — ниже.','temp'),
+             S('Один проход пластиной вместо пяти: несколько проходов хуже, чем один горячий.'),
+             S('Последние секунды каждой пряди — холодный обдув.','cold')],
+      err:['Берут утюжок на влажные волосы — вода внутри вскипает и рвёт волос.','Ставят максимум «чтобы быстрее».'],
+      ok:'После укладки волос блестит и не пахнет жжёным — значит температура подобрана.' } ] },
+  { t:'Базовые укладки', lvl:'base', d:'Объём, локоны и гладкость — три вещи, которые нужны чаще всего.', ls:[
+    { t:'Объём у корней', why:'Объём делается на этапе сушки, а не начёсом в конце.',
+      steps:[S('На влажные корни — средство для объёма, не на длину.'),
+             S('Сушите, наклонив голову вниз, до 80 %.','headdown'),
+             S('Выпрямитесь и досушите корни брашингом, приподнимая прядь вверх.','brushroot'),
+             S('Дайте прядям остыть в приподнятом положении — хоть зажимами.'),
+             S('Если нужен ещё объём — лёгкий начёс только у корней.','backcomb')],
+      err:['Начёсывают по всей длине и ломают волос.','Трогают волосы, пока они горячие: форма ещё не зафиксировалась.'],
+      ok:'Через четыре часа корень всё ещё приподнят, и причёска не «села».' },
+    { t:'Локоны утюжком', why:'Утюжок даёт более живой завиток, чем плойка, — если держать правильный угол.',
+      steps:[S('Разделите волосы на четыре зоны и работайте снизу.'),
+             S('Прядь 2–3 см: уже — мельче завиток, шире — волна.'),
+             S('Утюжок держат вертикально, оборачивают прядь и ведут вниз без остановок.','curl'),
+             S('Чередуйте направление завитка — так укладка не выглядит одинаковой.'),
+             S('Дайте локонам полностью остыть, потом разберите пальцами.','scrunch')],
+      err:['Останавливаются в середине пряди — остаётся залом.','Расчёсывают локоны расчёской сразу — распадаются в пух.'],
+      ok:'Локоны держат форму к вечеру и выглядят по-разному, а не как пружинки под копирку.' },
+    { t:'Гладкая укладка', why:'Гладкость — это закрытая кутикула, а не количество средства.',
+      steps:[S('Высушите волосы брашингом, натягивая прядь, сопло — вдоль неё.','blowdry'),
+             S('Утюжок — один проход на сухую прядь, без рывков.'),
+             S('Масло — капля на сухие концы, нижняя треть.','oilends'),
+             S('Не трогайте волосы руками: кожный жир быстро собирает пряди.'),
+             S('Шёлковая наволочка сохранит укладку на второй день.','pillow')],
+      err:['Наносят масло на влажные волосы и получают сосульки.','Проходят утюжком по одной пряди несколько раз.'],
+      ok:'Волос отражает свет ровной полосой по всей длине.' } ] },
+  { t:'Форма, лицо и цвет', lvl:'pro', d:'Стрижка под черты, чёлка и грамотный разговор о цвете.', ls:[
+    { t:'Стрижка под форму лица и текстуру', why:'Стрижка работает на пересечении формы лица и поведения волоса.',
+      steps:[S('Определите форму лица по ширине лба, скул и челюсти.','jaw'),
+             S('Круглому лицу — длина ниже подбородка и вертикальные линии.'),
+             S('Квадратному — мягкие слои, обрамляющие пряди у лица.'),
+             S('Вытянутому — объём по бокам и длина не ниже ключиц.'),
+             S('Кудрявому волосу длину считают в сухом виде: он подскакивает на треть.','wetcurl')],
+      err:['Подбирают стрижку по фото, не глядя на текстуру и плотность.','Обещают кудрявому волосу ровный срез.'],
+      ok:'Через месяц стрижка всё ещё держит форму без ежедневной укладки.' },
+    { t:'Чёлка: кому и какая', why:'Чёлка меняет лицо сильнее любой другой детали — и отрастает дольше всего.',
+      steps:[S('Высокий лоб — прямая или шторка; низкий — длинная косая.'),
+             S('Крупные черты — плотная чёлка, мелкие — лёгкая и редкая.'),
+             S('Кудрявым и вьющимся — только удлинённая шторка, прямая не ляжет.'),
+             S('Жирнеющие корни — чёлка потребует мытья каждый день, предупредите об этом.'),
+             S('Сначала сделайте «пробную» длинную шторку, потом укорачивайте.','fringe')],
+      err:['Стригут чёлку на влажные волосы без запаса — после сушки она короче на 2 см.','Не спрашивают, готов ли человек укладывать её каждое утро.'],
+      ok:'Человек сам укладывает чёлку за две минуты на следующий день.' },
+    { t:'Цвет: уровень, тон и подтон', why:'Грамотный разговор о цвете избавляет и мастера, и клиента от разочарования.',
+      steps:[S('Уровень — это светлота от 1 до 10, именно о нём спорят чаще всего.'),
+             S('Тон — направление цвета: пепел, золото, медь, красный.'),
+             S('Подтон кожи решает, какой тон не сделает лицо серым.','redlip'),
+             S('Осветление тёмного волоса за один раз на 4+ уровня почти всегда означает потерю качества.'),
+             S('Приносите три референса при дневном свете и один «не хочу».','refs')],
+      err:['Называют цвет словами «русый» или «шоколад» — у каждого это свой уровень.','Обещают холодный блонд на рыжем волосе за одну процедуру.'],
+      ok:'Клиент и мастер называют желаемый результат одним и тем же уровнем и тоном.',
+      note:'Окрашивание и осветление — процедуры с химией: дома их делают на свой риск, а на клиенте — только с профильным обучением.' } ] },
+  { t:'Вечерние причёски и профессия', lvl:'pro', d:'Каркас, классика и работа на заказ.', ls:[
+    { t:'Каркас причёски', why:'Вечерняя причёска держится не на шпильках, а на подготовке.',
+      steps:[S('Волосы моют накануне, а не в день причёски: чистый волос скользит.','nowash'),
+             S('Сначала текстура — плойка или утюжок на всю длину, потом остывание.'),
+             S('Прикорневой объём и лёгкий начёс по внутренней стороне прядей.','backcomb'),
+             S('Основание фиксируют резинкой и шпильками крест-накрест.','pin'),
+             S('Объём добавляют валиком или накладной прядью, а не начёсом.','hairpiece')],
+      err:['Собирают причёску на свежевымытые волосы без текстуры — всё распадается.','Экономят на шпильках в основании: вся конструкция держится на нём.'],
+      ok:'Причёску можно потрогать и подвигать головой — форма не меняется.' },
+    { t:'Пучок, ракушка, голливудская волна', why:'Три формы, которые закрывают почти любой вечерний запрос.',
+      steps:[S('Низкий пучок: хвост, скручивание жгутом, укладка по кругу, шпильки по периметру.','twist'),
+             S('Ракушка: хвост в сторону, скрутка вверх, фиксация по вертикали.','wrap'),
+             S('Голливудская волна: зажимы на влажные, полная сушка, снятие, щётка.','hwwave'),
+             S('Вытяните несколько прядей у лица — форма станет живой.','pull'),
+             S('Лак в два слоя: первый на расстоянии, второй — точечно.','mist')],
+      err:['Расчёсывают волну до полного остывания — она распадается.','Заливают лаком сразу всё: причёска становится каской.'],
+      ok:'Причёска переживает три часа, объятия и фотосессию.' },
+    { t:'Работа на заказ: клиент, цена, портфолио', why:'Вечерние причёски продаются доверием к вашим фото и к вашему расчёту времени.',
+      steps:[S('Пробную причёску к свадьбе делают заранее и фотографируют.','refs'),
+             S('Закладывайте полтора часа на классику и два на сложную форму.','prep'),
+             S('В цену включайте выезд, расходники и время ожидания.'),
+             S('Снимайте результат со всех сторон, особенно затылок.'),
+             S('Проверяйте образ в движении: клиент должен пройтись и покружиться.','move')],
+      err:['Соглашаются «сделать как на картинке» без пробы на этом волосе.','Берут две свадьбы в одно утро.'],
+      ok:'Вы называете время работы и укладываетесь в него, а фото затылка есть у каждой работы.' } ] } ] }
+];
+
+const key = (c,m,l)=>c+':'+m+':'+l;
+const isPro = m=>m.lvl==='pro';
+const sc = k=>{ if(!k) return ''; if(window.PR_SCENES && window.PR_SCENES[k]) return prScene(k); if(window.TUT_VIEWS && window.TUT_VIEWS[k]) return tutScene(k); return ''; };
+const doneIn = (c,mi)=>{ const m=CRS.find(x=>x.k===c).mods[mi]; return m.ls.filter((_,li)=>P.done[key(c,mi,li)]).length; };
+const total = c=>CRS.find(x=>x.k===c).mods.reduce((s,m)=>s+m.ls.length,0);
+const doneAll = c=>CRS.find(x=>x.k===c).mods.reduce((s,m,mi)=>s+doneIn(c,mi),0);
+
+window.crOpen = k=>{ P.open = k; saveP(); renderCourses(); setTimeout(()=>{ const el=document.getElementById('crView'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },60); };
+window.crBack = ()=>{ P.open = null; saveP(); renderCourses(); };
+window.crDone = (c,mi,li)=>{ const k=key(c,mi,li); P.done[k]=!P.done[k]; saveP(); renderCourses(); const L=CRS.find(x=>x.k===c).mods[mi].ls[li]; myToast(P.done[k]?'Урок отмечен: '+L.t:'Отметка снята'); crLesson(c,mi,li,true); };
+window.crLessonGate = (c,mi,li)=>{
+  const m = CRS.find(x=>x.k===c).mods[mi];
+  if(isPro(m) && window.gate) return gate(`crLesson('${c}',${mi},${li})`, 'Профессиональный модуль', 'course');
+  crLesson(c,mi,li);
+};
+window.crLesson = (c,mi,li,quiet)=>{
+  const C = CRS.find(x=>x.k===c), m = C.mods[mi], L = m.ls[li];
+  let ov = document.getElementById('crOv');
+  if(!ov){ ov=document.createElement('div'); ov.id='crOv'; ov.className='prz'; ov.addEventListener('click',e=>{ if(e.target===ov) crClose(); }); document.body.appendChild(ov); }
+  const d = !!P.done[key(c,mi,li)];
+  ov.innerHTML = `<div class="prz-card cr-les" style="--a:${C.col[0]};--b:${C.col[1]};position:relative"><button class="prz-x" onclick="crClose()">✕</button>
+    <div class="mo-k">${C.t} · ${m.t}${isPro(m)?' · PRO':''}</div>
+    <h3>${L.t}</h3>
+    <p class="cr-why">${L.why}</p>
+    <div class="cr-steps">${L.steps.map((s,i)=>{ const g=sc(s.sc); return `<div class="cr-st"><span class="cr-n">${i+1}</span><div class="cr-sb"><p>${s.t}</p>${g?`<div class="cr-pic">${g}</div>`:''}</div></div>`; }).join('')}</div>
+    <div class="cr-err"><span>частые ошибки</span><ul>${L.err.map(e=>`<li>${e}</li>`).join('')}</ul></div>
+    <div class="cr-ok"><span>как понять, что получилось</span>${L.ok}</div>
+    ${L.note?`<div class="cr-note">${L.note}</div>`:''}
+    <div class="to-row" style="margin-top:16px"><button class="btn ${d?'ghost':'primary'}" onclick="crDone('${c}',${mi},${li})">${d?'✓ Пройдено — снять отметку':'Отметить пройденным'}</button>${m.ls[li+1]?`<button class="btn ghost" onclick="crLessonGate('${c}',${mi},${li+1})">Следующий урок →</button>`:''}</div>
+  </div>`;
+  if(!quiet){ ov.classList.add('on'); document.body.style.overflow='hidden'; }
+};
+window.crClose = ()=>{ const o=document.getElementById('crOv'); if(o) o.classList.remove('on'); document.body.style.overflow=''; };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') crClose(); });
+
+window.renderCourses = ()=>{
+  const box = document.getElementById('crBox'); if(!box) return;
+  if(!P.open){
+    box.innerHTML = `<div class="cr-grid">${CRS.map((C,i)=>{
+      const d=doneAll(C.k), t=total(C.k), freeN=C.mods.filter(m=>!isPro(m)).reduce((s,m)=>s+m.ls.length,0);
+      return HUB.pop(`<article class="cr-c" style="--a:${C.col[0]};--b:${C.col[1]}" onclick="crOpen('${C.k}')">
+        <div class="cr-ic">${C.ic}</div>
+        <h3>${C.t}</h3>
+        <p>${C.lead}</p>
+        <div class="cr-meta"><span>${t} уроков</span><span class="free">${freeN} бесплатно</span><span>${C.mods.length} модуля</span></div>
+        <div class="cr-bar"><i style="width:${Math.round(d/t*100)}%"></i></div>
+        <div class="cr-prog">${d?'пройдено '+d+' из '+t:'ещё не начат'}</div>
+      </article>`,i);
+    }).join('')}</div>`;
+    if(window.fxZone) fxZone(box); return;
+  }
+  const C = CRS.find(x=>x.k===P.open); const d=doneAll(C.k), t=total(C.k);
+  box.innerHTML = `<div id="crView" class="cr-view" style="--a:${C.col[0]};--b:${C.col[1]}">
+    <button class="btn ghost" onclick="crBack()">← Все курсы</button>
+    <div class="cr-head"><div class="cr-ic big">${C.ic}</div><div><div class="mo-k">курс · ${t} уроков</div><h2>${C.t}</h2><p>${C.lead}</p>
+      <div class="cr-bar big"><i style="width:${Math.round(d/t*100)}%"></i></div><div class="cr-prog">пройдено ${d} из ${t}</div></div></div>
+    ${C.mods.map((m,mi)=>{
+      const dn = doneIn(C.k,mi);
+      return `<details class="faq q cr-mod${isPro(m)?' pro':''}"${dn?'':(mi===0?' open':'')}>
+        <summary><span class="q-n">${String(mi+1).padStart(2,'0')}</span><span class="q-t">${m.t}${isPro(m)?' <em class="cr-lock">PRO</em>':' <em class="cr-freeb">бесплатно</em>'}</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary>
+        <div class="cr-mb"><p class="cr-md">${m.d}</p>
+        <div class="cr-ls">${m.ls.map((L,li)=>{
+          const done = !!P.done[key(C.k,mi,li)];
+          return `<button class="cr-l ${done?'done':''}" onclick="crLessonGate('${C.k}',${mi},${li})"><span class="cr-lm">${done?'✓':(isPro(m)?'◆':'◦')}</span><b>${L.t}</b><em>${L.steps.length} шагов</em></button>`;
+        }).join('')}</div>
+        <div class="cr-prog">пройдено ${dn} из ${m.ls.length}</div></div></details>`;
+    }).join('')}
+    ${C.mods.some(isPro)?`<div class="cr-pro-note">Первые два модуля открыты всем. Профессиональные — в подписке PRO: там работа с клиентом, санитарные правила, расчёт цены и портфолио.</div>`:''}
+  </div>`;
+  if(window.fxZone) fxZone(box);
+};
+window.openCourses = (k)=>{ if(k!==undefined) P.open=k; openPage('coursePage'); setTimeout(renderCourses,60); };
+})();
+
+/* ================= УТРО: что надеть сегодня ================= */
+(function(){
+const api = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
+const tok = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; }catch(e){ return null; } };
+const M = HUB.ls('looka_morning', { occ:'кэжуал', pick:0, tg:{ on:false, time:'07:30', days:[1,2,3,4,5] } });
+const saveM = ()=>HUB.save('looka_morning', M);
+const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const MON = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const OCC = [['кэжуал','обычный день'],['офис','работа'],['вечер','вечер и выход'],['спорт','спорт и движение']];
+const WC = c=> c===0?['ясно','☼']: c<=2?['малооблачно','◔']: c===3?['облачно','☁']: c<=48?['туман','≋']: c<=57?['морось','☂']: c<=67?['дождь','☂']: c<=77?['снег','❄']: c<=82?['ливень','☔']: c<=86?['снегопад','❄']:['гроза','⚡'];
+const ADV = (band,code)=>{
+  const a=[];
+  if(code>=51&&code<=67||code>=80&&code<=82) a.push('будет мокро — обувь, которую не жалко, и верх с капюшоном');
+  if(code>=71&&code<=77||code>=85&&code<=86) a.push('снег — подошва с протектором важнее красоты');
+  if(band==='холодно') a.push('холодно — тёплый слой под верхнюю одежду, а не вместо неё');
+  if(band==='жарко') a.push('жарко — натуральные ткани, бельё в тон кожи');
+  if(band==='прохладно') a.push('днём потеплеет — верхний слой, который можно снять');
+  return a;
+};
+const pcard = it=>{
+  const ph = it.photo ? `<img src="${it.photo}" alt="">` : `<i style="background:${WD.hex(it.color)}"></i>`;
+  return `<div class="mo-pc">${ph}<div><b>${it.name||it.cat}</b><span>${it.cat} · ${it.color}</span></div></div>`;
+};
+let LAST = null;
+
+window.moOcc = o=>{ M.occ=o; M.pick=0; saveM(); renderMorning(); };
+window.moPick = i=>{ M.pick=+i; saveM(); renderMorning(); };
+window.moWearNow = ()=>{ if(!LAST||!LAST[M.pick]) return; window.wdWearAll(LAST[M.pick].parts.map(p=>p.id).join(',')); myToast('Записала образ — хорошего дня'); };
+window.moTg = (k,v)=>{ if(k==='day'){ const i=M.tg.days.indexOf(+v); i<0?M.tg.days.push(+v):M.tg.days.splice(i,1); } else M.tg[k]=v; saveM(); renderMorning(); if(k!=='day') moSync(); };
+window.moTgSave = ()=>{ saveM(); moSync(true); };
+
+async function moSync(loud){
+  const t = tok();
+  if(!t){ if(loud) myToast('Чтобы бот писал в Telegram, нужно войти'); return; }
+  let city=null; try{ city=JSON.parse(localStorage.getItem('looka_city')||'null'); }catch(e){}
+  const plan = await buildPlan();
+  try{
+    const r = await fetch(api('/morning'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},
+      body: JSON.stringify({ on:!!M.tg.on, time:M.tg.time, days:M.tg.days, tzOffset:-new Date().getTimezoneOffset(), city:city?city.n:'', plan })});
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error||'ошибка');
+    if(loud) myToast(M.tg.on ? 'Буду писать по утрам в '+M.tg.time : 'Утренние сообщения выключены');
+    if(loud && !j.tg) myToast('Telegram ещё не подключён — нажмите «Подключить Telegram»');
+  }catch(e){ if(loud) myToast('Не сохранилось: '+e.message); }
+}
+/* план на 7 дней вперёд — его и отправляет бот по утрам */
+async function buildPlan(){
+  if(!window.WD) return [];
+  const wx = await WD.weather().catch(()=>null);
+  const used = new Set(); const out = []; const today = new Date();
+  for(let d=0; d<7; d++){
+    const dt = new Date(today); dt.setDate(today.getDate()+d);
+    const band = wx && wx.days && wx.days[d]!==undefined ? WD.tempBand(wx.days[d]) : 'тепло';
+    const occ = (dt.getDay()===0||dt.getDay()===6) ? 'кэжуал' : M.occ;
+    let f = WD.outfits(band, occ, used, 1)[0];
+    if(!f){ used.clear(); f = WD.outfits(band, occ, used, 1)[0]; }
+    if(f) f.parts.slice(0,2).forEach(p=>used.add(p.id));
+    const t = wx && wx.days && wx.days[d]!==undefined ? Math.round(wx.days[d]) : null;
+    out.push({ date: dt.toISOString().slice(0,10), band, temp:t,
+      look: f ? f.parts.map(p=>p.name||p.cat).join(' · ') : '' });
+  }
+  return out;
+}
+
+window.renderMorning = async ()=>{
+  const box = document.getElementById('moBox'); if(!box || !window.WD) return;
+  const I = WD.items();
+  const now = new Date();
+  const wx = await WD.weather().catch(()=>null);
+  const band = wx ? WD.tempBand(wx.now) : 'тепло';
+  const w = wx ? WC(wx.code) : null;
+  const fits = WD.outfits(band, M.occ, new Set(), 3);
+  LAST = fits;
+  const f = fits[Math.min(M.pick, Math.max(0,fits.length-1))];
+  const washed = I.filter(i=>i.wash);
+  const adv = ADV(band, wx?wx.code:0);
+  const hello = now.getHours()<11 ? 'Доброе утро' : now.getHours()<17 ? 'Добрый день' : 'Добрый вечер';
+  const nameA = (()=>{ try{ return (JSON.parse(localStorage.getItem('looka_acc')||'{}').name||'').split(' ')[0]; }catch(e){ return ''; } })();
+
+  box.innerHTML = `
+  <div class="mo-top">
+    <div>
+      <div class="mo-date">${DAYS[(now.getDay()+6)%7]} · ${now.getDate()} ${MON[now.getMonth()]}</div>
+      <h2>${hello}${nameA?', '+nameA:''} — <span class="holo">вот сегодняшний образ</span></h2>
+      <p class="mo-sub">${I.length<6
+        ? 'В гардеробе пока '+I.length+' вещ'+(I.length===1?'ь':I.length<5?'и':'ей')+'. Добавьте хотя бы верх, низ и обувь — и утро начнёт собираться само.'
+        : 'Собран из ваших вещей под погоду и под то, какой у вас день. Что-то в стирке — отметьте, и образ пересоберётся без этой вещи.'}</p>
+    </div>
+    ${wx?`<div class="mo-wx"><em>${w[1]}</em><b>${Math.round(wx.now)}°</b><span>${wx.city}<br>${w[0]} · ${band}</span></div>`
+        :`<div class="mo-wx"><em>◔</em><b>—</b><span>укажите город<br>в шапке сайта</span></div>`}
+  </div>
+
+  <div class="chips" style="margin-bottom:16px">${OCC.map(o=>`<button class="chip ${M.occ===o[0]?'on':''}" onclick="moOcc('${o[0]}')">${o[1]}</button>`).join('')}</div>
+
+  <div class="mo-grid">
+    <div class="mo-main">
+      <div class="mo-k">образ на сегодня${f?' · вариант '+(M.pick+1):''}</div>
+      ${f ? `<h3>${f.parts.map(p=>p.name||p.cat).slice(0,2).join(' + ')}</h3>
+        <div class="mo-look">${f.parts.map(pcard).join('')}</div>
+        ${adv.length?`<div class="mo-why">${adv.join('. ')}.</div>`:''}
+        <div class="to-row" style="margin-top:14px"><button class="btn primary" onclick="moWearNow()">✓ Надела это</button><button class="btn ghost" onclick="openWardrobe()">Весь гардероб →</button></div>`
+      : `<h3>Образ пока не складывается</h3><p class="mo-sub" style="margin-top:6px">Под «${M.occ}» и погоду «${band}» из доступных вещей комплект не собрать${washed.length?' — '+washed.length+' вещ'+(washed.length===1?'ь':'и')+' в стирке':''}. Попробуйте другой повод или добавьте вещи.</p>
+        <div class="to-row" style="margin-top:14px"><button class="btn primary" onclick="openWardrobe()">Добавить вещи →</button></div>`}
+    </div>
+
+    <div class="mo-side">
+      ${fits.length>1?`<div class="mo-card"><h4>Другие варианты</h4>
+        ${fits.map((x,i)=>i===M.pick?'':`<button class="mo-alt" onclick="moPick(${i})"><b>вариант ${i+1}</b>${x.parts.map(p=>p.name||p.cat).join(' · ')}</button>`).join('')}
+      </div>`:''}
+      <div class="mo-card"><h4>Поправить гардероб</h4>
+        <p class="mo-note" style="margin:0 0 10px">Нажмите на вещь — уйдёт в стирку и выпадет из подбора. Карандаш — изменить цвет, сезон или название.</p>
+        <div class="mo-fix">${I.slice().reverse().slice(0,40).map(it=>`<span class="mo-ch ${it.wash?'wash':''}"><i style="background:${WD.hex(it.color)}"></i><span onclick="wdWash(${it.id})">${it.name||it.cat}</span><em onclick="wdEdit(${it.id})" title="изменить">✎</em></span>`).join('') || '<span class="mo-note">Пока пусто.</span>'}</div>
+        ${washed.length?`<p class="mo-note">В стирке: ${washed.map(i=>i.name||i.cat).join(', ')}. Нажмите ещё раз, чтобы вернуть.</p>`:''}
+        <div class="to-row" style="margin-top:12px"><button class="btn ghost" onclick="openWardrobe()">+ Добавить вещь</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mo-tg">
+    <div class="mo-k">утреннее сообщение в telegram</div>
+    <h4 style="font-size:16px;font-weight:800;margin:0 0 6px">Присылать образ на день, пока вы ещё в кровати</h4>
+    <p class="mo-note" style="margin:0">Бот напишет погоду и комплект из ваших вещей — чтобы не думать у шкафа. План считается здесь, на сайте, и обновляется каждый раз, когда вы сюда заходите.</p>
+    <div class="mo-tg-row">
+      <button class="btn ${M.tg.on?'primary':'ghost'}" onclick="moTg('on',${M.tg.on?'false':'true'})">${M.tg.on?'✓ Включено':'Включить'}</button>
+      <input type="time" value="${M.tg.time}" onchange="moTg('time',this.value)">
+      <div class="mo-days">${DAYS.map((d,i)=>`<button class="mo-d ${M.tg.days.includes(i+1)?'on':''}" onclick="moTg('day',${i+1})">${d}</button>`).join('')}</div>
+    </div>
+    <div class="to-row" style="margin-top:12px"><button class="btn primary" onclick="moTgSave()">Сохранить расписание</button><button class="btn ghost" onclick="findsLinkTg()">Подключить Telegram</button></div>
+    <p class="mo-note">Сообщения приходят только если вы вошли в аккаунт и подключили бота. Отключить можно здесь же или командой /stop в чате с ботом.</p>
+  </div>`;
+  if(window.fxZone) fxZone(box);
+  if(M.tg.on) moSync();
+};
+window.openMorning = ()=>{ openPage('morningPage'); setTimeout(renderMorning, 60); };
 })();
 
 /* ================= ЭКОСИСТЕМА: сетка разделов и меню ================= */
@@ -11597,6 +12270,7 @@ const GROUPS = [
     ['💎','Дорого за копейки','10 приёмов под вас и 5 вещей до 3 000 ₽, которые выглядят на 30 000', 'openRich()', 'бесплатно'],
     ['🤍','Тело изменилось — что носить','похудела, поправилась, после родов: гардероб на сейчас, без стыда', 'openBodyShift()', 'бесплатно'],
     ['◡','Обувь, которая ваша','лоферы, слингбэки, челси — что идёт росту и ногам, с картинками', 'openShoes()', 'бесплатно'],
+    ['☼','Утро: что надеть сегодня','погода, ваш день и готовый образ из своих вещей — плюс напоминание в Telegram', 'openMorning()', 'бесплатно'],
     ['▣','Шкаф, который сам одевает','ваши вещи → образ на сегодня, план недели и что докупить', 'openWardrobe()', 'бесплатно'],
     ['▦','14 вещей — 30 образов','капсула сезона: докупаете только недостающее', 'openCapsule()', 'бесплатно'],
     ['◈','Важный день под ключ','свадьба, собеседование, свидание — план по дням', 'openEvent()', 'бесплатно'],
@@ -11620,7 +12294,8 @@ const GROUPS = [
     ['◠','Ваш настоящий размер бра','две мерки — и точный размер в RU, EU и US', 'openBra()', 'бесплатно'],
     ['❊','Спасти любимую вещь','значки на ярлыке, ткани и SOS по пятнам за 10 минут', 'openCare()', 'бесплатно'],
     ['⚙','Восемь помощников','погода, чемодан, размеры, дресс-код, SOS и ещё', "openPage('toolsPage')", 'бесплатно'],
-    ['✎','Приёмы профессионалов','42 приёма визажистов, колористов и стилистов — с объяснением, почему это работает', 'openPro()', 'бесплатно']
+    ['✎','Приёмы профессионалов','70 приёмов визажистов, колористов и стилистов — включая раздел «Красная дорожка», с мини-схемой у каждого', 'openPro()', 'бесплатно'],
+    ['▦','Курсы: бровист, визажист, стилист по волосам','36 уроков со схемами — базовые модули открыты всем, профессиональные в подписке', 'openCourses()', 'частично бесплатно']
   ]},
   { t:'Всё о вас', d:'итог, которым делятся — и живые ответы экспертов', items:[
     ['▤','Ваш стиль-паспорт','всё о вас на одной странице: PDF и карточка в сторис', "openPage('passPage')", 'PRO'],
@@ -12111,7 +12786,66 @@ const PS = {
    +fig(72,52,.9)+`<g transform="translate(104 40)"><rect class="ps-acf" x="-7" y="-10" width="14" height="20" rx="3"/></g>`
    +`<path class="ps-ac pa-mx" d="M52 34 H60"/>`+tx(32,78,'лицом к окну'),
  eyelevel: ()=>fig(34,54,1)+`<g transform="translate(60 48)"><rect class="ps-bdf" x="-6" y="-9" width="12" height="18" rx="3"/></g>`+cr(60,70,5)
-   +fig(96,54,1)+`<g transform="translate(70 28) "><rect class="ps-gdf pa-my" x="-6" y="-9" width="12" height="18" rx="3"/></g>`+tk(70,10)+tx(16,80,'телефон на уровне глаз')
+   +fig(96,54,1)+`<g transform="translate(70 28) "><rect class="ps-gdf pa-my" x="-6" y="-9" width="12" height="18" rx="3"/></g>`+tk(70,10)+tx(16,80,'телефон на уровне глаз'),
+ oldhw: ()=>fa(40,36,1.05)+`<ellipse class="ps-bdf pa-pulse" cx="40" cy="48" rx="9" ry="4"/>`
+   +tx(68,30,'матовая кожа')+tx(68,46,'один акцент:')+tx(68,60,'губы ИЛИ глаза','hi'),
+ underpaint: ()=>fa(32,32,.9)+`<path class="ps-vif pa-pulse" d="M20 36 q8 8 14 12 q-8 4 -16 -4Z"/>`+tx(12,76,'1 · крем')
+   +fa(90,32,.9)+`<ellipse class="ps-gdf pa-pulse pa-2" cx="90" cy="32" rx="18" ry="24"/>`+tx(74,76,'2 · тон'),
+ cleaneye: ()=>ey(34,28,.8)+tx(14,50,'глаз чистый')
+   +`<g transform="translate(90 30) scale(.75)"><path class="ps-bdf pa-pulse" d="M-24 0 Q-11 -12 0 -5 Q11 -12 24 0 Q11 13 0 13 Q-11 13 -24 0Z"/></g>`+tx(70,52,'красная губа','hi')
+   +tx(20,76,'один акцент из двух'),
+ hwwave: ()=>`<path class="ps-f" d="M20 26 q14 -14 28 0 q14 14 28 0 q14 -14 28 0 v26 q-14 14 -28 0 q-14 -14 -28 0 q-14 14 -28 0Z"/>`
+   +`<g class="pa-pulse"><rect class="ps-vif" x="40" y="20" width="16" height="6" rx="3"/><rect class="ps-vif" x="68" y="20" width="16" height="6" rx="3"/></g>`
+   +tx(20,74,'зажимы, полная сушка'),
+ prep: ()=>cl(30,38,15)+`<g transform="translate(92 40)"><rect class="ps-box" x="-14" y="-10" width="28" height="22" rx="5"/><rect class="ps-vif" x="-9" y="-16" width="18" height="7" rx="3"/></g>`
+   +`<path class="ps-ac pa-mx" d="M52 38 H70"/>`+tx(16,76,'сначала уход, потом тон'),
+ tzone: ()=>fa(50,34,1.05)+`<path class="ps-gdf pa-pulse" d="M39 16 h22 v12 h-7 v22 h-8 V28 h-7Z"/>`+tx(80,34,'только')+tx(80,48,'Т-зона','hi')+tx(14,78,'щёки без пудры'),
+ nose: ()=>fa(44,34,1)+`<path class="ps-vi pa-pulse" d="M39 24 v22 M49 24 v22"/>`
+   +`<path class="ps-ac pa-mx" d="M14 14 L28 24"/>`+tx(70,34,'тень как от')+tx(70,48,'живого света','hi'),
+ lashbits: ()=>ey(54,32,1)+`<g class="ps-str pa-pulse"><path d="M36 22 l-4 -8"/><path d="M50 18 l-2 -9"/><path d="M64 18 l2 -9"/><path d="M76 22 l4 -8"/></g>`
+   +tk(98,20)+`<path class="ps-bd" d="M22 58 q32 -10 64 0"/>`+cr(104,58,5)+tx(16,78,'пучками, не лентой'),
+ sunpath: ()=>fa(46,34,1.1)+`<path class="ps-acf pa-pulse" d="M32 16 q14 -6 28 0 q2 9 -5 13 q-9 5 -18 0 q-7 -4 -5 -13Z"/>`
+   +`<ellipse class="ps-acf pa-pulse pa-2" cx="31" cy="38" rx="7" ry="4"/><ellipse class="ps-acf pa-pulse pa-2" cx="61" cy="38" rx="7" ry="4"/>`
+   +`<ellipse class="ps-acf pa-pulse pa-3" cx="46" cy="56" rx="6" ry="3.5"/>`+tx(22,80,'путь солнца'),
+ inner: ()=>ey(56,34,1.1)+`<circle class="ps-gdf pa-pulse" cx="29" cy="34" r="6"/>`+tk(18,16)+tx(22,78,'светлая точка в углу'),
+ redlip: ()=>`<g transform="translate(34 30) scale(.72)"><path class="ps-f" style="fill:#C83A5E" d="M-24 0 Q-11 -12 0 -5 Q11 -12 24 0 Q11 13 0 13 Q-11 13 -24 0Z"/></g>`+tx(14,54,'холодный')+tx(22,68,'подтон','hi')
+   +`<g transform="translate(88 30) scale(.72)"><path class="ps-f" style="fill:#C4542E" d="M-24 0 Q-11 -12 0 -5 Q11 -12 24 0 Q11 13 0 13 Q-11 13 -24 0Z"/></g>`+tx(72,54,'тёплый')+tx(76,68,'подтон','hi'),
+ lipset: ()=>['пом','салф','пуд','пом'].map((s,i)=>bx(8+i*28,22,24,20,i===3?'ps-gdf':'ps-box')+tx(11+i*28,36,String(i+1))+tx(10+i*28,54,s)).join('')
+   +tx(24,78,'держится весь вечер'),
+ bodyglow: ()=>`<path class="ps-f" d="M40 22 q20 -8 40 0 l6 20 q-26 8 -52 0Z"/><circle class="ps-f" cx="60" cy="12" r="7"/>`
+   +`<ellipse class="ps-gdf pa-pulse" cx="47" cy="32" rx="9" ry="4"/><ellipse class="ps-gdf pa-pulse pa-2" cx="73" cy="32" rx="9" ry="4"/>`
+   +tx(24,74,'на плечи и ключицы'),
+ wetset: ()=>`<path class="ps-f" d="M22 24 q16 -12 32 0 q16 12 32 0 v24 q-16 12 -32 0 q-16 -12 -32 0Z"/>`
+   +`<g class="ps-hat pa-pulse" opacity=".65">${Array.from({length:7}).map((_,i)=>`<path d="M${24+i*10} 22 v28"/>`).join('')}</g>`
+   +dp(104,28,'ps-acf')+tx(10,74,'гель + сетка, полная сушка'),
+ hairpiece: ()=>`<ellipse class="ps-f" cx="44" cy="40" rx="22" ry="26"/><ellipse class="ps-vif pa-pulse" cx="70" cy="26" rx="14" ry="11"/>`
+   +tk(96,26)+tx(10,78,'объём шиньоном, не начёсом'),
+ flashtest: ()=>fig(32,50,.9)+`<g transform="translate(84 34)"><rect class="ps-acf" x="-11" y="-17" width="22" height="34" rx="4"/><circle class="ps-vi pa-pulse" cx="0" cy="-10" r="3"/></g>`
+   +`<path class="ps-vi pa-pulse" d="M102 12 l6 -6 M104 24 h8 M98 14 V6"/>`+tx(6,78,'селфи со вспышкой до выхода'),
+ necktone: ()=>fa(44,28,.9)+`<path class="ps-f" d="M36 48 h16 v10 h-16Z"/><path class="ps-f" d="M22 58 q22 -6 44 0 l5 22 H17Z"/>`
+   +`<path class="ps-bd pa-pulse" d="M28 50 q16 6 32 0"/>`+cr(86,50,6)+tx(78,74,'до шеи'),
+ soapbrow: ()=>`<path class="ps-ln" d="M22 46 Q48 28 84 38"/>`+`<g class="ps-str pa-pulse">${Array.from({length:7}).map((_,i)=>`<path d="M${26+i*9} ${46-i*2} l1 -9"/>`).join('')}</g>`
+   +`<rect class="ps-gdf pa-pulse pa-2" x="88" y="34" width="18" height="12" rx="3"/>`+tx(18,74,'волос стоит весь вечер'),
+ glue: ()=>`<g transform="translate(30 36)"><rect class="ps-box" x="-6" y="-14" width="12" height="26" rx="4"/></g>`+cl(70,36,13)
+   +`<path class="ps-ac pa-mx" d="M44 36 H56"/>`+tx(8,76,'клей подсушить до липкости'),
+ move: ()=>fig(28,50,.85)+fig(62,50,.85)+fig(96,50,.85)+`<path class="ps-ac pa-mx" d="M14 68 H100"/>`+tx(18,80,'проверьте в движении'),
+ cuticle: ()=>hk(34)+dr(88,30)+`<g class="ps-sc"><path d="M22 26 h24 M22 38 h24 M22 50 h24"/></g>`
+   +`<path class="ps-ac pa-my" d="M62 20 V46" marker-end="url(#psA)"/>`+tx(6,78,'поток воздуха — сверху вниз'),
+ headdown: ()=>`<g transform="translate(44 18)"><circle class="ps-f" cx="0" cy="34" r="12"/><path class="ps-f" d="M-10 24 h20 l4 -22 h-28Z"/></g>`
+   +`<path class="ps-vi pa-pulse" d="M28 60 q16 10 32 0"/>`+dr(98,34)+tx(20,78,'наклон головы — объём'),
+ backcomb: ()=>hk(38)+`<g class="pa-wig"><rect class="ps-vif" x="22" y="24" width="32" height="5" rx="2"/></g>`
+   +`<path class="ps-gd" d="M62 24 H82"/>`+tk(96,22)+`<path class="ps-bd" d="M62 54 H82"/>`+cr(96,54,5)
+   +tx(16,78,'начёс только у корней'),
+ blacks: ()=>bx(16,18,38,40)+bx(66,18,38,40)+`<rect x="20" y="22" width="30" height="32" rx="3" fill="#15161C"/><rect x="70" y="22" width="30" height="32" rx="3" fill="#262436"/>`
+   +cr(60,38,5)+tx(8,78,'два чёрных редко совпадают'),
+ skirtlen: ()=>fig(44,52,1.1)+`<path class="ps-gd pa-pulse" d="M26 54 H62"/>`+tk(76,52)
+   +`<path class="ps-bd" d="M26 66 H62"/>`+cr(76,66,5)+tx(6,80,'край — на узком месте ноги'),
+ warmwater: ()=>`<path class="ps-ac pa-my" d="M34 16 q6 10 0 16 M46 12 q6 12 0 20 M58 16 q6 10 0 16"/>`+bx(26,38,44,24)
+   +tx(76,42,'тёплая')+tk(80,56)+tx(14,80,'горячая сушит и краснит'),
+ dampcream: ()=>fa(36,34,.95)+dp(36,34,'ps-acf')+`<g transform="translate(86 38)"><rect class="ps-box" x="-13" y="-9" width="26" height="20" rx="5"/></g>`
+   +cl(104,16,8)+tx(20,78,'крем на влажную кожу'),
+ tags: ()=>bx(24,18,48,40)+`<path class="ps-vi" d="M48 18 v-8"/><circle class="ps-vif" cx="48" cy="8" r="4"/>`
+   +bx(80,30,26,30)+tx(14,76,'бирки и чек — 14 дней')
 };
 PS.altdays = PS.altDays;
 const DEF = `<defs><marker id="psA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#19C6F7"/></marker></defs>`;
@@ -12120,7 +12854,7 @@ window.PR_SCENES = PS;
 })();
 /* ================= ПРИЁМЫ ПРОФЕССИОНАЛОВ ================= */
 (function(){
-const CAT = [['all','Все','✦'],['mk','Макияж','◉'],['hair','Волосы','✂'],['cloth','Одежда и посадка','▤'],['care','Уход','❍'],['shop','Магазин','⌗'],['shot','Съёмка','📷']];
+const CAT = [['all','Все','✦'],['hw','Красная дорожка','★'],['mk','Макияж','◉'],['hair','Волосы','✂'],['cloth','Одежда и посадка','▤'],['care','Уход','❍'],['shop','Магазин','⌗'],['shot','Съёмка','📷']];
 /* [категория, приём, что делать, почему работает, кто так делает, уровень] */
 const TIPS = [
  ['mk','Тон подбирают на челюсти, а не на запястье','Нанесите три полоски вдоль линии челюсти и выйдите к окну. Подходит та, что исчезает на границе лица и шеи.','Кожа запястья отличается по оттенку от лица и почти никогда не попадает в кадр рядом с ним. Челюсть — единственное место, где видно и лицо, и шею сразу.','визажисты','конвенция'],
@@ -12169,7 +12903,40 @@ const TIPS = [
  ['shop','Правило отложенной покупки на сутки','Понравилось — добавьте в избранное и вернитесь завтра.','Большинство импульсивных покупок перестают быть нужными за ночь. Те, что действительно нужны, назавтра нужны так же.','стилисты','конвенция'],
 
  ['shot','Свет от окна, лицом к окну','Встаньте лицом к окну, камеру — спиной к нему. Днём, без верхнего света.','Боковой и верхний свет дают тени в носогубных складках и под глазами. Фронтальный рассеянный свет из окна — самый прощающий.','фотографы','измеримое'],
- ['shot','Камера на уровне глаз','Телефон поднимают до уровня глаз, а не держат на уровне груди.','Снизу камера искажает пропорции лица и шеи. Это оптика широкоугольного объектива, а не особенность внешности.','фотографы','измеримое']
+ ['shot','Камера на уровне глаз','Телефон поднимают до уровня глаз, а не держат на уровне груди.','Снизу камера искажает пропорции лица и шеи. Это оптика широкоугольного объектива, а не особенность внешности.','фотографы','измеримое'],
+
+ ['hair','Фен держат по направлению роста чешуйки','Сопло сверху вниз вдоль пряди — не снизу вверх и не поперёк.','Чешуйка кутикулы лежит как черепица, от корня к концу. Воздух против неё поднимает края — это и есть пух и тусклость вместо блеска.','парикмахеры','измеримое'],
+ ['hair','Объём у корней даёт наклон головы, а не начёс','Наклонитесь вперёд, просушите корни примерно на 80 %, выпрямитесь и досушите.','Волос принимает форму, пока остывает. Если он остыл в положении «вниз от головы», корень встаёт сам — без начёса и без приборов.','парикмахеры','конвенция'],
+ ['hair','Начёс делают только у корней','Короткие движения на 3–4 см от корня, по внутренней стороне пряди.','Начёс по всей длине спутывает кутикулу там, где волос уже изношен, и он рвётся при расчёсывании. У корня волос молодой и это выдерживает.','парикмахеры','измеримое'],
+
+ ['cloth','Два чёрных редко совпадают','Сложите вещи рядом и посмотрите при дневном свете перед выходом.','Чёрные красители дают разный подтон: один уходит в синий, другой в коричневый. При электрическом свете разницы не видно, при дневном она бросается в глаза.','стилисты','измеримое'],
+ ['cloth','Край юбки — на самом узком месте ноги','Найдите, где нога визуально тоньше всего: обычно под коленом или середина икры.','Взгляд останавливается на линии среза. Если она попадает на широкую часть икры, нога читается шире, чем есть.','стилисты','конвенция'],
+
+ ['care','Умываются тёплой водой, не горячей','Вода чуть теплее комнатной. Горячая — только в душе и не на лицо.','Горячая вода растворяет липидный слой кожи быстрее, чем он успевает восстановиться, и расширяет сосуды. Отсюда стянутость и краснота после умывания.','дерматологи','измеримое'],
+ ['care','Крем наносят на влажную кожу, в первую минуту','Не вытирайте лицо насухо — промокните и сразу крем.','Увлажняющие компоненты работают с водой: они её удерживают. На сухой коже удерживать нечего, и крем работает вполовину.','дерматологи, косметологи','измеримое'],
+
+ ['shop','Бирки и чек — четырнадцать дней','Не срезайте бирку, пока не надели вещь хотя бы раз дома при своём свете.','Срезанная бирка — самая частая причина отказа в возврате: закон даёт две недели на непродовольственный товар надлежащего качества, но только при сохранённом товарном виде.','стилисты','измеримое'],
+
+ ['hw','«Старый Голливуд» — это матовая кожа и один акцент','Матовый тон, мягкая скульптура и одно из двух: либо красная губа, либо графичный глаз.','Этот язык сложился под плёночную камеру: блики на коже выбивались в белое, а два акцента в кадре спорили между собой. Правило дожило до цифры, потому что оно про композицию лица, а не про плёнку.','визажисты красной дорожки','конвенция'],
+ ['hw','Скульптор — кремом под тон, а не пудрой поверх','Кремовый скульптор по скулам и челюсти, сверху лёгкий тон, пудра только в Т-зону.','Пудровая скульптура лежит отдельным слоем и на фото читается как полоса. Крем под тоном даёт тень изнутри — её видно как форму лица, а не как макияж.','визажисты красной дорожки','конвенция'],
+ ['hw','Чистый глаз плюс красная губа — комплект под вспышку','Если вечер со съёмкой, берите этот набор, а не дымчатый глаз с нюдовой губой.','Вспышка съедает тонкие переходы на веке, а насыщенный пигмент губ держит цвет. Дымка на фото превращается в серое пятно, красная губа остаётся красной.','визажисты, фотографы','измеримое'],
+ ['hw','Голливудская волна закладывается зажимами на влажные','Уложить волну зажимами, высушить полностью, снять зажимы и только потом пройти щёткой.','Форма фиксируется в момент высыхания и остывания. Снимете зажимы на тёплых или влажных волосах — волна распадётся за полчаса.','парикмахеры','измеримое'],
+ ['hw','Двадцать минут ухода до макияжа','Крем, патчи, бальзам для губ — и только потом тон. Это время не сокращают.','Тон, положенный на невпитавшийся крем, скатывается и уходит в поры. Эти двадцать минут — единственная причина, по которой кожа на красной дорожке выглядит кожей, а не покрытием.','визажисты красной дорожки','конвенция'],
+ ['hw','Пудра — только в Т-зону','Лоб, нос, подбородок. Скулы и область под глазами не трогаем.','Полностью матовая щека на фото выглядит плоской и прибавляет возраст. Блеск убирают там, где он действительно мешает, — в центре лица.','визажисты','конвенция'],
+ ['hw','Тень на носу ставят там, где её даёт настоящий свет','Посмотрите, куда падает тень при верхнем свете, и мягко повторите её.','Нарисованные параллельные полосы не совпадают с реальной светотенью и в движении выдают себя. Повторённая тень работает при любом ракурсе и на любом свете.','киногримёры','конвенция'],
+ ['hw','Ресницы ставят пучками, а не лентой','Три-четыре пучка на внешний угол, по направлению роста своих ресниц.','Лента даёт одинаковую длину по всей линии — это и читается как накладка. Пучки повторяют естественную неровность и не оставляют заметной кромки.','визажисты красной дорожки','конвенция'],
+ ['hw','Бронзер кладут по пути солнца','Лоб по линии роста волос, скулы, спинка носа, подбородок.','Это места, которые первыми ловят солнце. Бронзер в них читается как загар, а в любых других — как грязь.','визажисты','конвенция'],
+ ['hw','Светлая точка во внутреннем углу вместо второго слоя теней','Капля светлого на внутренний угол глаза и под бровь.','Глаз раскрывает не количество тени, а контраст между светлой и тёмной зоной. Точка света даёт этот контраст одним движением.','визажисты','конвенция'],
+ ['hw','Красную подбирают по подтону, а не по «красивости»','Холодный подтон — красная с синевой; тёплый — с кирпичом или кораллом.','Красная не того подтона делает зубы желтее, а кожу серее. Это не вопрос вкуса, а вопрос того, какие длины волн отражаются рядом с лицом.','визажисты','измеримое'],
+ ['hw','Губы собирают в четыре слоя','Помада → промокнуть салфеткой → пудра через салфетку → помада ещё раз.','Пигмент остаётся в ткани губы, а жирная основа уходит в салфетку. Остаётся то, что держится, а не то, что блестит час.','визажисты красной дорожки','конвенция'],
+ ['hw','Сияние — на плечи и ключицы, не на лицо','Лёгкое масло или люминайзер на плечи, ключицы и голени. Лицо — отдельно и скромнее.','В вечернем образе тело открыто и попадает в кадр рядом с лицом. Если светится только лицо, оно выглядит жирным; если светится тело — образ выглядит дорого.','визажисты красной дорожки','конвенция'],
+ ['hw','Мокрая укладка держится на геле и сетке','Гель по влажным волосам, сетка сверху, полная сушка, сетку снять.','Гель схватывается в момент высыхания. Сетка держит форму ровно до этого момента и не даёт прядям разойтись — без неё укладка «едет» ещё до выхода.','парикмахеры','конвенция'],
+ ['hw','Объём в высокой причёске даёт шиньон, а не начёс','Валик или накладная прядь в тон, спрятанные под собственными волосами.','Начёс, достаточный для вечернего объёма, травмирует волос по всей длине и всё равно садится к середине вечера. Накладка держит форму и снимается без последствий.','парикмахеры','измеримое'],
+ ['hw','Перед выходом — селфи со вспышкой','Снимите себя со вспышкой в том макияже, в котором собираетесь идти.','Это единственная проверка, которая показывает белый налёт от SPF, серость пудры и границу тона до того, как вас снимет кто-то другой.','визажисты, фотографы','измеримое'],
+ ['hw','Тон доводят до шеи и ушей','Растушевать вниз по шее и по краю ушей, а не остановиться на линии челюсти.','На фото со вспышкой разница в полтона между лицом и шеей читается как маска. При дневном свете её почти не видно — поэтому ошибку замечают уже на снимках.','визажисты','измеримое'],
+ ['hw','Брови укладывают «мыльным» способом','Чистая щёточка, немного мыла без отдушки, волос зачёсывается вверх и застывает.','Мыло даёт жёсткую плёнку, какой нет у геля. Волос стоит в заданном направлении весь вечер, и брови выглядят гуще без единого штриха карандашом.','визажисты','конвенция'],
+ ['hw','Клей для ресниц сначала подсушивают','Нанести, подождать 30–40 секунд до липкости и только потом ставить пучок.','Свежий клей скользит, и пучок уезжает. Подсохший держит с первого касания, и не приходится прижимать ресницу десять раз подряд.','визажисты','конвенция'],
+ ['hw','Образ проверяют в движении, а не стоя','Пройдитесь, сядьте, поднимите руки — и только потом посмотрите в зеркало ещё раз.','Вечерние вещи и причёски живут в движении: разрез уезжает, бретель падает, прядь выбивается. Стоя перед зеркалом ничего этого не видно.','стилисты красной дорожки','конвенция']
 ];
 /* схема к каждому приёму — в порядке списка выше */
 const SCN = ['jaw','tri','tap','order','lashroot','wingtail','lipfill','browstroke','mist','flash','hilite','light3',
@@ -12177,9 +12944,14 @@ const SCN = ['jaw','tri','tap','order','lashroot','wingtail','lipfill','browstro
  'shoulder','tailor','sit','sheer','label','accent','undertone','mirrorcam',
  'twofinger','altdays','oneatatime','inci','pao',
  'light3','tape','wait24',
- 'window','eyelevel'];
+ 'window','eyelevel',
+ 'cuticle','headdown','backcomb',
+ 'blacks','skirtlen',
+ 'warmwater','dampcream',
+ 'tags',
+ 'oldhw','underpaint','cleaneye','hwwave','prep','tzone','nose','lashbits','sunpath','inner','redlip','lipset','bodyglow','wetset','hairpiece','flashtest','necktone','soapbrow','glue','move'];
 TIPS.forEach((t,i)=>{ t[6] = SCN[i]||''; });
-const PCOL = {mk:['#FF6FA8','#FFB84C'], hair:['#C79DF2','#19C6F7'], cloth:['#19C6F7','#37E08A'], care:['#7CF0B2','#19C6F7'], shop:['#FFB84C','#C79DF2'], shot:['#19C6F7','#FF6FA8']};
+const PCOL = {mk:['#FF6FA8','#FFB84C'], hair:['#C79DF2','#19C6F7'], cloth:['#19C6F7','#37E08A'], care:['#7CF0B2','#19C6F7'], shop:['#FFB84C','#C79DF2'], shot:['#19C6F7','#FF6FA8'], hw:['#FFD28A','#FF6FA8']};
 const pcat = k=>(CAT.find(c=>c[0]===k)||[])[1]||'';
 const pbody = t=>`<div class="pr-top"><span class="pr-cat">${pcat(t[0])}</span><span class="mt-lv ${t[5]==='измеримое'?'lv1':'lv2'}">${t[5]}</span></div>
     <h3>${t[1]}</h3>
@@ -12194,9 +12966,9 @@ window.prZoom = i=>{
   o.innerHTML = `<div class="prz-card" style="--a:${c[0]};--b:${c[1]};position:relative"><button class="prz-x" onclick="prClose()">✕</button>`
     + (t[6] && window.prScene ? `<div class="prz-pic">${prScene(t[6])}</div>` : '')
     + pbody(t) + `</div>`;
-  o.classList.add('on');
+  o.classList.add('on'); document.body.style.overflow='hidden';
 };
-window.prClose = ()=>{ const o=document.getElementById('prz'); if(o) o.classList.remove('on'); };
+window.prClose = ()=>{ const o=document.getElementById('prz'); if(o) o.classList.remove('on'); document.body.style.overflow=''; };
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') prClose(); });
 let PF='all';
 window.prFilter = k=>{ PF=k; prDraw(); };
@@ -13733,6 +14505,8 @@ const IDX = [
  ['Возврат без нервов','возврат брак вернуть деньги озон wildberries','openTool(\'return\')','помощник'],
  ['Парные образы','пара вдвоём фотосессия семья','openTool(\'pair\')','помощник'],
  ['Кто делает LOOKA','о нас автор анна контакты доверие','openPage(\'aboutPage\')','страница'],
+ ['Курсы: бровист, визажист, стилист по волосам','курс обучение бровист визажист парикмахер стилист по волосам уроки профессия','openCourses()','страница'],
+ ['Утро: что надеть сегодня','утро погода образ дня гардероб стирка напоминание telegram','openMorning()','страница'],
  ['Для блогеров','блогер реферал промокод партнёрка заработок','openPage(\'bloggersPage\')','страница'],
  ['Подарить LOOKA','подарок сертификат подруге','openPage(\'giftPage\')','страница'],
  ['Развитие','план траектория что дальше карта мира','openPage(\'devPage\')','страница'],
@@ -15341,6 +16115,7 @@ window.triesLeft=()=>{ try{ return Math.max(0, TRIES_MAX - (+localStorage.getIte
 window.useTry=()=>{ try{ localStorage.setItem('looka_tries', String((+localStorage.getItem('looka_tries')||0)+1)); }catch(e){} };
 /* что именно в PRO — и чем это соблазняет */
 window.PRO_WHY = {
+  course:['Профессиональный модуль','Базовые модули курсов открыты всем — по ним вы научитесь делать себе. Профессиональные модули — это уже работа с чужим лицом: консультация и противопоказания, санитарные правила, расчёт себестоимости и портфолио. Они в подписке.'],
  hair:['Примерочная волос','Вы увидите себя с другим цветом и другой стрижкой — на своём фото, до парикмахера.'],
  board:['Доска разбора','Личный лист: шесть кадров с вами, ваша палитра и разбор — сохранить и носить с собой.'],
  makeup:['Повторить макияж с фото','Любой чужой макияж разложу на шаги и пересчитаю под вашу форму глаз.'],
