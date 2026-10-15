@@ -1749,6 +1749,76 @@ header{position:relative;z-index:500}
 .pageview .moat-item b{color:#fff}
 @media(max-width:640px){.pageview .mk-hero{padding:20px 18px 18px;border-radius:20px}.pg-spark{display:none}}
 /* вопросы на странице контактов */
+.mt-badge{display:flex;align-items:center;gap:11px;width:100%;margin-bottom:14px;padding:11px 15px;border-radius:14px;border:1px solid rgba(55,224,138,.3);background:rgba(55,224,138,.055);cursor:pointer;text-align:left;font-family:'Manrope';transition:all .22s}
+.mt-badge:hover{border-color:rgba(55,224,138,.65);background:rgba(55,224,138,.1);transform:translateX(3px)}
+.mt-badge>i{font-style:normal;font-size:14px;color:#7CF0B2;flex:0 0 auto}
+.mt-badge span{flex:1;font-size:12.5px;line-height:1.5;color:#B7BCCC}
+.mt-badge em{font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#7CF0B2;white-space:nowrap;flex:0 0 auto}
+@media(max-width:640px){.mt-badge{flex-wrap:wrap;gap:7px}.mt-badge span{flex:1 1 100%;order:2}.mt-badge em{order:1}}
+/* ===== приёмы профессионалов ===== */
+.f-ver{display:block;margin-top:6px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;color:#4F5567}
+.pr-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pr-f{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:99px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Manrope';font-size:13.5px;font-weight:600;cursor:pointer;transition:all .22s}
+.pr-f i{font-style:normal;font-size:14px}
+.pr-f em{font-style:normal;font-family:'JetBrains Mono';font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(255,255,255,.08);color:#8B92AA}
+.pr-f:hover{border-color:rgba(199,157,240,.55);color:#fff;transform:translateY(-2px)}
+.pr-f.on{border-color:transparent;color:#07121A;background:linear-gradient(100deg,#19C6F7,#C79DF2);font-weight:700}
+.pr-f.on em{background:rgba(7,18,26,.2);color:#07121A}
+.pr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:13px}
+.pr-c{padding:19px 21px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028);animation:popIn .5s both;transition:transform .25s,border-color .25s,box-shadow .25s}
+.pr-c:hover{transform:translateY(-4px);border-color:rgba(199,157,240,.45);box-shadow:0 16px 38px -20px rgba(199,157,240,.8)}
+.pr-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.pr-cat{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#8B92AA}
+.pr-c h3{font-size:16.5px;font-weight:800;letter-spacing:-.3px;line-height:1.35;margin:0 0 12px}
+.pr-do,.pr-why{font-size:13.5px;line-height:1.6;color:#D6DAE6;margin-bottom:10px}
+.pr-do span,.pr-why span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px}
+.pr-do span{color:#7CF0B2}
+.pr-why{color:#B7BCCC}
+.pr-why span{color:#C7A6F0}
+.pr-who{padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#6E7489}
+.pr-who::before{content:'так делают: ';color:#4F5567}
+@media(max-width:640px){.pr-grid{grid-template-columns:1fr}.pr-f{font-size:12.5px;padding:9px 12px}}
+/* ===== источники и методология ===== */
+.mt-tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 34px}
+.mt-t{position:relative;padding:20px 22px;border-radius:18px;border:1.4px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,var(--tg) border-box;box-shadow:0 0 28px -18px var(--tc)}
+.mt-t.lv1{--tg:linear-gradient(135deg,#37E08A,#19C6F7);--tc:#37E08A}
+.mt-t.lv2{--tg:linear-gradient(135deg,#FFB84C,#F2A6C6);--tc:#FFB84C}
+.mt-t.lv3{--tg:linear-gradient(135deg,#C79DF2,#19C6F7);--tc:#C79DF2}
+.mt-dot{display:block;width:11px;height:11px;border-radius:50%;background:var(--tg);box-shadow:0 0 14px var(--tc);margin-bottom:12px}
+.mt-t b{display:block;font-size:17px;font-weight:800;letter-spacing:-.3px;margin-bottom:3px}
+.mt-t em{display:block;font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--tc);margin-bottom:10px}
+.mt-t p{margin:0;font-size:13px;line-height:1.6;color:#B7BCCC}
+.mt-mods{display:grid;gap:14px;margin-bottom:34px}
+.mt-m{padding:22px 24px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028);transition:border-color .25s}
+.mt-m:hover{border-color:rgba(199,157,240,.4)}
+.mt-m-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:11px}
+.mt-m-h b{font-size:19px;font-weight:800;letter-spacing:-.35px}
+.mt-lv{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 10px;border-radius:99px;font-weight:700;color:#07121A}
+.mt-lv.lv1{background:linear-gradient(100deg,#37E08A,#19C6F7)}
+.mt-lv.lv2{background:linear-gradient(100deg,#FFB84C,#F2A6C6)}
+.mt-lv.lv3{background:linear-gradient(100deg,#C79DF2,#19C6F7)}
+.mt-m>p{margin:0 0 14px;font-size:14.5px;line-height:1.7;color:#C2C7D6}
+.mt-m code{font-family:'JetBrains Mono';font-size:13px;padding:3px 8px;border-radius:7px;background:rgba(25,198,247,.12);color:#7CDFFF;white-space:nowrap}
+.mt-src{margin:0;padding:14px 0 0 0;list-style:none;border-top:1px solid rgba(255,255,255,.08)}
+.mt-src li{position:relative;padding-left:20px;margin-bottom:9px;font-size:13px;line-height:1.6;color:#9BA2B5}
+.mt-src li::before{content:'▸';position:absolute;left:0;color:#C7A6F0}
+.mt-src li:last-child{margin-bottom:0}
+.mt-src a{color:#A9C9FF;text-decoration:none;border-bottom:1px solid rgba(169,201,255,.3);transition:color .2s,border-color .2s}
+.mt-src a:hover{color:#fff;border-color:#fff}
+.mt-src i{color:#C2C7D6}
+.mt-src b{color:#FFD9A8;font-weight:700}
+.mt-never{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:34px}
+.mt-n{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;gap:3px 13px;padding:17px 19px;border-radius:16px;border:1px solid rgba(255,111,168,.3);background:rgba(255,111,168,.05)}
+.mt-n i{grid-column:1;grid-row:1/3;font-style:normal;font-size:16px;line-height:1.3;align-self:start;padding-top:2px}
+.mt-n b{grid-column:2;grid-row:1;font-size:15px;font-weight:800}
+.mt-n span{grid-column:2;grid-row:2;font-size:13px;line-height:1.6;color:#B7BCCC}
+.mt-pro{position:relative;padding:32px 30px;border-radius:24px;overflow:hidden;margin-bottom:22px;background:linear-gradient(135deg,rgba(55,224,138,.1),rgba(25,198,247,.1),rgba(199,157,240,.1));border:1px solid rgba(255,255,255,.12)}
+.mt-pro::before{content:'';position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent,rgba(55,224,138,.14),transparent 40%);animation:spin 13s linear infinite}
+.mt-pro-in{position:relative;max-width:760px}
+.mt-pro h3{font-size:25px;font-weight:800;letter-spacing:-.5px;margin:6px 0 10px}
+.mt-pro p{font-size:14.5px;line-height:1.7;color:#C2C7D6;margin:0 0 18px}
+.mt-note{font-size:12.5px;line-height:1.6;color:#8B92AA;padding:14px 16px;border-radius:12px;border:1px dashed rgba(255,255,255,.14)}
+@media(max-width:900px){.mt-tiers{grid-template-columns:1fr}.mt-never{grid-template-columns:1fr}.mt-m{padding:18px}.mt-m-h b{font-size:17px}.mt-pro{padding:24px 20px}.mt-pro h3{font-size:21px}}
 /* ===== страница для блогеров ===== */
 .bg-hero{position:relative;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:30px;align-items:center;padding:34px 36px;margin-bottom:34px;border-radius:28px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,rgba(25,198,247,.6),rgba(199,157,240,.55),rgba(242,166,198,.5)) border-box;overflow:hidden}
 .bg-hero-bg{position:absolute;inset:0;pointer-events:none}
@@ -5721,7 +5791,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="howPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab on"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab on" ><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('methodPage')"><i>✎</i>Источники</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
   <div class="eyebrow">технология</div>
   <h2 class="big">Как LOOKA собирает <span class="holo">ваш образ</span></h2>
   <p class="lead">Это не случайный генератор и не «тест из интернета». LOOKA работает на правилах, которыми пользуются профессиональные стилисты — только применяет их к вашим данным за минуту, а не за консультацию от 10 000 ₽. Вот весь путь, шаг за шагом, без магии и тумана.</p>
@@ -5848,9 +5918,121 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="pg-cta"><button class="btn primary" onclick="goQuiz()">✦ Собрать мой образ — бесплатно</button></div>
 </section>
 
+<section class="sec pageview" id="methodPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab on"><i>✎</i>Источники</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
+    <div class="eyebrow">источники и методология · для профессионалов</div>
+    <h2 class="big">Мы не изобретали науку о внешности — <span class="holo">мы её прочитали</span></h2>
+    <p class="lead">Эта страница для визажистов, колористов, парикмахеров, стилистов и дерматологов. Здесь написано, на чём стоит каждый раздел LOOKA, где под этим измеримый метод, где профессиональная конвенция, а где чистый вкус — и что мы не делаем принципиально. Все источники названы поимённо, чтобы их можно было проверить, а не поверить нам на слово.</p>
+  </div>
+
+  <div class="hp-sub">ТРИ УРОВНЯ ДОВЕРИЯ</div>
+  <p class="lead" style="font-size:14.5px;max-width:820px">Главная претензия профессионала к любому «ИИ-стилисту» справедлива: сервисы подают вкусовщину как науку. Поэтому у нас каждое утверждение помечено уровнем — и мы сами говорим, где доказательств нет.</p>
+  <div class="mt-tiers">
+    <div class="mt-t lv1"><span class="mt-dot"></span><b>Измеримое</b><em>есть стандарт, формула или исследование</em>
+      <p>Подтон кожи и цветотип, фототип, SPF и UVA-защита, тип завитка волос, размеры и мерки. Это считается по методикам, у которых есть номер стандарта или рецензируемая публикация.</p></div>
+    <div class="mt-t lv2"><span class="mt-dot"></span><b>Профессиональная конвенция</b><em>индустрия согласна, но исследований нет</em>
+      <p>«Что идёт форме лица», типажи внешности, правила посадки и силуэта. Это ремесленное знание: оно работает на практике и ему учат в школах, но рандомизированных исследований под ним нет. Мы так и пишем.</p></div>
+    <div class="mt-t lv3"><span class="mt-dot"></span><b>Вкус</b><em>субъективно и спорно</em>
+      <p>Эстетики, настроение, «красиво / не красиво». Здесь нет правильного ответа, и LOOKA не делает вид, что он есть: она предлагает варианты и запоминает, что вы отвергли.</p></div>
+  </div>
+
+  <div class="hp-sub">НА ЧЁМ СТОИТ КАЖДЫЙ РАЗДЕЛ</div>
+  <div class="mt-mods">
+
+    <div class="mt-m">
+      <div class="mt-m-h"><span class="mt-lv lv1">измеримое</span><b>Цветотип и палитра</b></div>
+      <p>Подтон определяется не «на глаз по венам», а через колориметрию: цвет кожи раскладывается в пространстве CIELAB, и по светлоте и желтизне считается индивидуальный типологический угол — <code>ITA° = arctan((L*−50) / b*) × 180/π</code>. Шесть диапазонов угла дают шесть объективных групп от very light до dark. Поверх этого работает сезонная логика (температура, глубина, чистота), и вот она — уже конвенция: её ввели художники и колористы, а не лаборатории.</p>
+      <ul class="mt-src">
+        <li><a href="https://onlinelibrary.wiley.com/journal/14682494" target="_blank" rel="noopener">Chardon A., Cretois I., Hourseau C. «Skin colour typology and suntanning pathways». <i>International Journal of Cosmetic Science</i>, 1991, 13: 191–208</a> — первоисточник ITA°</li>
+        <li><a href="https://www.jidonline.org/article/S0022-202X(19)33397-4/fulltext" target="_blank" rel="noopener">«Research Techniques Made Simple: Cutaneous Colorimetry». <i>Journal of Investigative Dermatology</i></a> — разбор метода и границы шести групп</li>
+        <li>Сезонный анализ: Johannes Itten, «Kunst der Farbe» (1961); Carole Jackson, «Color Me Beautiful» (1980) — <b>это конвенция, не исследование</b></li>
+      </ul>
+    </div>
+
+    <div class="mt-m">
+      <div class="mt-m-h"><span class="mt-lv lv1">измеримое</span><b>Кожа, солнце и уход</b></div>
+      <p>Фототип — по шкале Фицпатрика, той самой, что используется в дерматологии для оценки реакции на УФ. Цифры SPF и UVA-защиты на упаковке — это не маркетинг, а результат испытаний по международным стандартам, и мы объясняем, что именно они означают. Состав средств сверяется с европейским регламентом и базой ингредиентов.</p>
+      <ul class="mt-src">
+        <li><a href="https://jamanetwork.com/journals/jamadermatology" target="_blank" rel="noopener">Fitzpatrick T. B. «The validity and practicality of sun-reactive skin types I through VI». <i>Archives of Dermatology</i>, 1988, 124(6): 869–871</a></li>
+        <li><a href="https://www.iso.org/standard/72250.html" target="_blank" rel="noopener">ISO 24444:2019 (+ Amd 1:2022) — определение SPF in vivo</a>; ISO 24443 — UVA-защита in vitro</li>
+        <li><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32009R1223" target="_blank" rel="noopener">Регламент (ЕС) № 1223/2009 о косметической продукции</a> и <a href="https://ec.europa.eu/growth/tools-databases/cosing/" target="_blank" rel="noopener">база ингредиентов CosIng</a></li>
+        <li><a href="https://www.aad.org/public" target="_blank" rel="noopener">American Academy of Dermatology</a>, <a href="https://www.bad.org.uk/patient-information-leaflets/" target="_blank" rel="noopener">British Association of Dermatologists</a> — пациентские материалы</li>
+      </ul>
+    </div>
+
+    <div class="mt-m">
+      <div class="mt-m-h"><span class="mt-lv lv1">измеримое</span><b>Волосы: тип, завиток, состояние</b></div>
+      <p>Мы не пользуемся коммерческими типологиями вида «2B / 3C» — у них нет опубликованной методики измерения. Вместо этого в основе классификация, построенная на трёх измеряемых величинах: диаметре завитка, индексе закрученности и числе волн. Она даёт восемь категорий и собрана на выборке из разных регионов мира. Поведение волоса при повреждении, пористости и окрашивании — по стандартному справочнику по химии и физике волоса.</p>
+      <ul class="mt-src">
+        <li><a href="https://digitalcommons.wayne.edu/humbiol/vol79/iss3/1/" target="_blank" rel="noopener">De La Mettrie R., Saint-Léger D., Loussouarn G., Garcel A.-L. «Shape Variability and Classification of Human Hair: A Worldwide Approach». <i>Human Biology</i>, 2007, 79(3)</a> — восемь категорий по трём измерениям</li>
+        <li><a href="https://link.springer.com/10.1007/978-3-642-25611-0" target="_blank" rel="noopener">Robbins C. R. «Chemical and Physical Behavior of Human Hair», Springer</a> — кутикула, пористость, повреждение, химия окрашивания</li>
+        <li><a href="https://www.bad.org.uk/patient-information-leaflets/" target="_blank" rel="noopener">British Association of Dermatologists</a> — выпадение волос, телогеновая алопеция, андрогенетическая алопеция</li>
+      </ul>
+    </div>
+
+    <div class="mt-m">
+      <div class="mt-m-h"><span class="mt-lv lv2">конвенция</span><b>Фигура, посадка и размер</b></div>
+      <p>Мерки и размерные сетки — стандартизованы. А вот «тип фигуры» — это инструмент швейной индустрии, а не биологическая категория: формализованная классификация женских силуэтов появилась в прикладном исследовании для подбора одежды и строится на соотношениях обхватов. Рекомендации «что подчеркнуть, что смягчить» — ремесленная конвенция стилистов, и мы это помечаем.</p>
+      <ul class="mt-src">
+        <li><a href="https://scholarsbank.uoregon.edu/xmlui/handle/1794/25863?show=full" target="_blank" rel="noopener">Simmons K., Istook C., Devarajan P. «Female Figure Identification Technique (FFIT) for Apparel», 2004</a></li>
+        <li><a href="https://www.iso.org/ics/61.020/x/" target="_blank" rel="noopener">ISO 8559 — антропометрические измерения для конструирования одежды</a></li>
+      </ul>
+    </div>
+
+    <div class="mt-m">
+      <div class="mt-m-h"><span class="mt-lv lv2">конвенция</span><b>Макияж и форма лица</b></div>
+      <p>Честно: научной базы под «какой макияж идёт вашей форме лица» нет и быть не может — это не предмет исследования. Под нашими схемами лежит оптика (свет выводит объём вперёд, тень уводит назад) и ремесленные правила визажистов. Единственное, что здесь измеримо и регулируемо, — безопасность: сроки годности, что можно наносить на слизистую, какие пигменты разрешены вокруг глаз.</p>
+      <ul class="mt-src">
+        <li><a href="https://www.fda.gov/cosmetics/cosmetic-products/eye-cosmetic-safety" target="_blank" rel="noopener">FDA — безопасность косметики для глаз</a></li>
+        <li><a href="https://ec.europa.eu/growth/tools-databases/cosing/" target="_blank" rel="noopener">CosIng</a> — разрешённые красители и ограничения по зонам нанесения</li>
+        <li>Правила светотени — ремесленная традиция визажа, восходящая к живописной светотени. <b>Это не наука, и мы так и пишем.</b></li>
+      </ul>
+    </div>
+
+    <div class="mt-m">
+      <div class="mt-m-h"><span class="mt-lv lv3">вкус</span><b>Эстетики, типажи, настроение</b></div>
+      <p>Тридцать пять эстетик, архетипы и «настроение дня» — это язык описания вкуса, а не классификация людей. Мы не утверждаем, что человек «является» романтиком или драматиком: мы предлагаем варианты и запоминаем, что вы отвергли. Чем больше отказов — тем точнее подбор, и это единственная «наука» в этом разделе.</p>
+    </div>
+  </div>
+
+  <div class="hp-sub">ЧЕГО МЫ НЕ ДЕЛАЕМ</div>
+  <div class="mt-never">
+    <div class="mt-n"><i>⛔</i><b>Не ставим диагнозы</b><span>Выпадение волос, высыпания, расширение пробора — это к трихологу и дерматологу. Мы называем, к кому идти и с чем, но не лечим и не предполагаем причину.</span></div>
+    <div class="mt-n"><i>⛔</i><b>Не оцениваем тело</b><span>Никаких «это вас полнит» и «скройте недостаток». Говорим про вещь и пропорции, а не про человека. В запросах к ИИ это прописано отдельным запретом.</span></div>
+    <div class="mt-n"><i>⛔</i><b>Не выдаём мнение за факт</b><span>Если под рекомендацией нет метода — рядом стоит пометка «конвенция». Там, где профессионалы спорят, мы показываем, что мнения расходятся.</span></div>
+    <div class="mt-n"><i>⛔</i><b>Не обещаем результат примерки</b><span>Цвет волос на сгенерированном фото — иллюстрация. Что выйдет на вашей базе, за сколько сеансов и какой ценой для волоса — решает колорист.</span></div>
+  </div>
+
+  <div class="mt-pro">
+    <div class="mt-pro-in">
+      <div class="cs-k">если вы в этом разбираетесь</div>
+      <h3>Нашли ошибку — напишите, поправим и укажем вас</h3>
+      <p>Если вы визажист, колорист, парикмахер, трихолог или дерматолог и видите на сайте неточность — напишите, что именно не так и как правильно. Я исправлю и поставлю строчку «правку внесла [имя, профессия, город]» рядом с разделом. Это не формальность: половина того, что написано в интернете про цветотипы и пористость, — пересказ пересказа, и живой специалист полезнее десяти статей.</p>
+      <div class="to-row"><a class="btn primary" href="https://t.me/looka_support" target="_blank" rel="noopener">✈ Написать о неточности</a><button class="btn ghost" onclick="openPage('contactsPage')">Другие способы связи</button></div>
+    </div>
+  </div>
+
+  <div class="to-row" style="margin:0 0 22px"><button class="btn ghost" onclick="openPro()">✎ Приёмы профессионалов — 42 штуки →</button></div>
+  <div class="mt-note">Ссылки ведут на первоисточники и официальные базы, а не на пересказы. Если ссылка перестала открываться — сообщите, заменим. Последняя сверка источников: октябрь 2026.</div>
+</section>
+
+<section class="sec pageview" id="proPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
+    <div class="eyebrow">приёмы профессионалов · бесплатно</div>
+    <h2 class="big">То, что знают мастера — <span class="holo">и редко объясняют клиенткам</span></h2>
+    <p class="lead"><b id="prCnt">42</b> приёма, которыми пользуются визажисты, колористы, парикмахеры, стилисты и косметологи. Не «10 лайфхаков красоты», а конкретные действия с объяснением, почему они работают. У каждого приёма написано, кто так делает, и помечено, где под этим измеримый факт, а где ремесленная привычка.</p>
+  </div>
+  <div class="pr-filters" id="prFilters"></div>
+  <div class="pr-grid" id="prGrid"></div>
+  <div class="mt-note" style="margin-top:22px">Если вы мастер и видите здесь неточность — <a href="#" onclick="event.preventDefault();openPage('methodPage')" style="color:#A9C9FF">напишите, поправим и укажем вас</a>. Источники, на которых стоят эти приёмы, — во вкладке «Источники».</div>
+</section>
+
 <section class="sec pageview" id="termsPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab on"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('methodPage')"><i>✎</i>Источники</button><button class="ab-tab on" ><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
   <div class="eyebrow">условия и гарантии</div>
   <h2 class="big">Честные условия — <span class="holo">без звёздочек</span></h2>
   <p class="lead">Всё важное — на одной странице, простым языком. Никакого мелкого шрифта, скрытых подписок и «акция действует до полуночи». Мы зарабатываем на хорошем сервисе, а не на невнимательности.</p>
@@ -5982,7 +6164,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="devPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab on"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('methodPage')"><i>✎</i>Источники</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab on" ><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
   <div class="eyebrow">развитие</div>
   <h2 class="big">Карта мира <span class="holo">LOOKA</span></h2>
   <p class="lead">Правила стиля общие для всех — а магазины и языки у каждого рынка свои. Наведите на материк — увидите его площадки. Или введите свой город: карта приблизится, а ниже появятся популярные онлайн-магазины вашего региона.</p>
@@ -6163,6 +6345,7 @@ header nav.topnav{gap:4px;align-items:center}
     <h2 class="big">Макияж, который <span class="holo">делают именно на вас</span></h2>
     <p class="lead">Не «урок макияжа вообще», а схема под вашу форму глаз, посадку, форму лица, цвет радужки и кожи — и под тот цвет теней, который вы хотите носить. Где положить каждый оттенок, какой кистью, в каком порядке, что испортит результат именно в вашем случае. Плюс косметичка под бюджет.</p>
   </div>
+  <button class="mt-badge" onclick="openPage('methodPage')" title="откуда это знание"><i>✎</i><span>Схемы макияжа — ремесленная конвенция визажистов, а не исследование. Измеримо здесь только требование безопасности</span><em>источники →</em></button>
   <div class="bt-form look mk-form"><div id="mkForm"></div></div>
   <div class="mk-hero" style="margin-top:34px"><div class="eyebrow">повторить макияж с фото</div>
   <h2 style="font-size:26px;font-weight:800;margin:6px 0 8px">Увидела — <span class="holo">повтори под своё лицо</span></h2>
@@ -6200,6 +6383,7 @@ header nav.topnav{gap:4px;align-items:center}
     <h2 class="big">Ваши цвета — <span class="holo">раз и навсегда</span></h2>
     <p class="lead">Семь ответов вместо консультации за 200 $: температура, глубина и чистота вашей внешности → один из 12 сезонов, 24 цвета, которые делают кожу ровнее, и шесть, которые не стоит носить у лица. Карточку палитры можно сохранить в телефон и брать с собой в магазин.</p>
   </div>
+  <button class="mt-badge" onclick="openPage('methodPage')" title="откуда это знание"><i>✎</i><span>Подтон считается по ITA° — колориметрии CIELAB, сезоны — конвенция колористов</span><em>источники →</em></button>
   <div class="bt-form look mk-form"><div id="ctForm"></div></div>
   <div class="looks" id="ctOut"></div>
   <div id="brdColor"></div>
@@ -6218,6 +6402,7 @@ header nav.topnav{gap:4px;align-items:center}
     <h2 class="big">Четыре средства, <span class="holo">которые реально работают</span></h2>
     <p class="lead">Утро и вечер под ваш тип кожи, задачи и климат: что, в каком порядке, какой актив с каким не смешивать, чего не покупать никогда — и когда это уже к врачу. Косметичка под бюджет со ссылками.</p>
   </div>
+    <button class="mt-badge" onclick="openPage('methodPage')" title="откуда это знание"><i>✎</i><span>Фототип — шкала Фицпатрика, 1988. SPF и UVA — по ISO 24444 и ISO 24443. Составы — по CosIng</span><em>источники →</em></button>
   <div class="bt-form look mk-form"><div id="skForm"></div></div>
   <div class="looks" id="skOut"></div>
 </section>
@@ -6270,6 +6455,7 @@ header nav.topnav{gap:4px;align-items:center}
     <h2 class="big">Стрижка, которую <span class="holo">не придётся отращивать</span></h2>
     <p class="lead">Форма лица задаёт, где нужен объём; структура волос — что будет держаться без укладки; цветотип — в какой температуре красить. Три стрижки под вас, три запрета и оттенки, с которыми идти к колористу.</p>
   </div>
+  <button class="mt-badge" onclick="openPage('methodPage')" title="откуда это знание"><i>✎</i><span>Тип завитка — по классификации De La Mettrie и соавт., 8 категорий по трём измерениям</span><em>источники →</em></button>
   <div class="bt-form look mk-form"><div id="hrForm"></div></div>
   <div class="looks" id="hrOut"></div>
   <div class="mk-hero" style="margin-top:34px"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
@@ -6355,7 +6541,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="aboutPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab on"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab on" ><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('methodPage')"><i>✎</i>Источники</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
   <div class="about-wrap">
     <div class="about-card">
       <div class="ab-hero">
@@ -6562,7 +6748,7 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec pageview" id="docsPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
-  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab on"><i>▤</i>Документы</button></div>
+  <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab" onclick="openPage('howPage')"><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('methodPage')"><i>✎</i>Источники</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab on" ><i>▤</i>Документы</button></div>
   <div class="eyebrow">документы</div>
   <h2 class="big">Всё по-честному — <span class="holo">и всё написано</span></h2>
   <p class="lead">Шесть документов, которые описывают наши отношения: что вы покупаете, что мы гарантируем, что делаем с вашими данными и как вернуть деньги. Перед каждым — короткое резюме простым языком, чтобы не читать юридический текст целиком.</p>
@@ -6757,9 +6943,9 @@ header nav.topnav{gap:4px;align-items:center}
 
 <section class="sec reveal">
   <div class="cta-band">
-    <h2>Оцените подбор бесплатно.<br>Решение — после.</h2>
+    <h2>Двадцать разделов бесплатно.<br>Решение — после.</h2>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <button class="btn primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">5 бесплатных подборов</button>
+      <button class="btn primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">Начать бесплатно</button>
       <button class="btn ghost" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Условия доступа</button>
     </div>
   </div>
@@ -6780,13 +6966,14 @@ header nav.topnav{gap:4px;align-items:center}
       <a href="#docs" onclick="openPage('docsPage');return false">Документы</a>
       <a href="#about" onclick="openPage('aboutPage');return false">Кто делает LOOKA</a>
       <a href="#blog" onclick="openPage('bloggersPage');return false">Для блогеров</a>
+      <a href="#pro" onclick="openPro();return false">Приёмы профессионалов</a>
       <a href="#gift" onclick="openPage('giftPage');return false">Подарить LOOKA</a></div>
     <div><b>Площадки</b>
       <a href="https://www.wildberries.ru" target="_blank" rel="noopener">Wildberries ↗</a>
       <a href="https://www.ozon.ru" target="_blank" rel="noopener">Ozon ↗</a>
       <a href="https://www.lamoda.ru" target="_blank" rel="noopener">Lamoda ↗</a></div>
   </div>
-  <div class="f-bottom">LOOKA · 2026 · подбор носит рекомендательный характер · цены и наличие — на маркетплейсах</div>
+  <div class="f-bottom">LOOKA · 2026 · подбор носит рекомендательный характер · цены и наличие — на маркетплейсах<span class="f-ver" title="какая версия сайта сейчас открыта — если число старое, обновите страницу через Ctrl+Shift+R">версия от 14.10.2026</span></div>
 </footer>
 
 <div class="pay-ov" id="payOv" onclick="if(event.target===this) closePay()">
@@ -8162,6 +8349,7 @@ window.openPage = (id, anchor)=>{
   if(window.brdAll) try{ brdAll(); }catch(e){}
   if(window.avaDraw) try{ avaDraw(); }catch(e){}
   if(id==='bloggersPage' && window.bgCalc) try{ bgCalc(); }catch(e){}
+  if(id==='proPage' && window.prDraw) try{ prDraw(); }catch(e){}
   if(id==='colorPage' && window.renderColorForm) renderColorForm();
   if(id==='skinPage' && window.renderSkinForm) renderSkinForm();
   if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderStyling) renderStyling(); if(window.renderHairFit) renderHairFit(); if(window.hlAdopt && window.brdPhoto) hlAdopt(brdPhoto()); if(window.renderHairLab) renderHairLab(); }
@@ -11328,7 +11516,8 @@ const GROUPS = [
   { t:'Чтобы всё сидело', d:'размеры, посадка и вещи, которые живут годами', items:[
     ['◠','Ваш настоящий размер бра','две мерки — и точный размер в RU, EU и US', 'openBra()', 'бесплатно'],
     ['❊','Спасти любимую вещь','значки на ярлыке, ткани и SOS по пятнам за 10 минут', 'openCare()', 'бесплатно'],
-    ['⚙','Восемь помощников','погода, чемодан, размеры, дресс-код, SOS и ещё', "openPage('toolsPage')", 'бесплатно']
+    ['⚙','Восемь помощников','погода, чемодан, размеры, дресс-код, SOS и ещё', "openPage('toolsPage')", 'бесплатно'],
+    ['✎','Приёмы профессионалов','42 приёма визажистов, колористов и стилистов — с объяснением, почему это работает', 'openPro()', 'бесплатно']
   ]},
   { t:'Всё о вас', d:'итог, которым делятся — и живые ответы экспертов', items:[
     ['▤','Ваш стиль-паспорт','всё о вас на одной странице: PDF и карточка в сторис', "openPage('passPage')", 'PRO'],
@@ -11711,6 +11900,79 @@ window.openCare = ()=>{ openPage('carePage'); renderCare(); };
   const upd = ()=>{ const el = document.getElementById('pRef'); if(el) el.innerHTML = 'Ваш код от <b>@'+ref.code+'</b>: <b>−10 % на первую оплату</b> (на неделю, месяц или год) — назовите код '+ref.code.toUpperCase()+' при оплате'; };
   upd(); const orig = window.openPage; window.openPage = function(){ orig.apply(null, arguments); setTimeout(upd, 50); };
 })();
+/* ================= ПРИЁМЫ ПРОФЕССИОНАЛОВ ================= */
+(function(){
+const CAT = [['all','Все','✦'],['mk','Макияж','◉'],['hair','Волосы','✂'],['cloth','Одежда и посадка','▤'],['care','Уход','❍'],['shop','Магазин','⌗'],['shot','Съёмка','📷']];
+/* [категория, приём, что делать, почему работает, кто так делает, уровень] */
+const TIPS = [
+ ['mk','Тон подбирают на челюсти, а не на запястье','Нанесите три полоски вдоль линии челюсти и выйдите к окну. Подходит та, что исчезает на границе лица и шеи.','Кожа запястья отличается по оттенку от лица и почти никогда не попадает в кадр рядом с ним. Челюсть — единственное место, где видно и лицо, и шею сразу.','визажисты','конвенция'],
+ ['mk','Консилер ставят треугольником, а не полумесяцем','Вершина треугольника — вниз, к середине щеки. Растушевать от краёв к центру.','Полумесяц повторяет форму тени под глазом и потому её подчёркивает. Треугольник, наоборот, уводит свет вниз и расширяет светлую зону.','визажисты','конвенция'],
+ ['mk','Румяна набирают на кисть и стряхивают о руку','Сначала кисть, потом удар о тыльную сторону ладони, и только потом лицо.','Пятна появляются не от количества продукта, а от того, что он лежит на кисти неравномерно. Стряхивание распределяет пигмент по ворсу.','визажисты','конвенция'],
+ ['mk','Кремовые текстуры — до пудры, никогда после','Тон → кремовые румяна и скульптор → пудра. Не наоборот.','Крем, положенный на пудру, скатывается: пудра уже впитала влагу и не даёт растушевать.','визажисты','измеримое'],
+ ['mk','Объём ресниц делается у корня, а не на кончиках','Поставьте щёточку к корням и подвигайте влево-вправо, не продвигаясь вверх. Только потом протяните.','Визуальная густота зависит от толщины ресницы у основания — там она создаёт линию. Тушь на кончиках только утяжеляет и опускает.','визажисты','конвенция'],
+ ['mk','Стрелку начинают с хвостика','Сначала поставьте точку и проведите короткий хвостик, потом ведите линию вдоль ресниц к нему.','К концу длинной линии рука устаёт и дрожит — и портится именно хвостик, самая заметная часть. Делая его первым, вы рисуете его твёрдой рукой.','визажисты','конвенция'],
+ ['mk','Помаду держит карандаш по всей губе, а не контур','Заштрихуйте карандашом всю губу целиком, потом помада кистью.','Помада стирается с губы быстрее, чем карандаш. Если карандаш только по контуру, через два часа останется он один — тот самый ободок.','визажисты','конвенция'],
+ ['mk','Брови заполняют штрихами по направлению роста','Расчешите вверх, заполните пустоты короткими штрихами, пригладьте гелем.','Сплошная линия читается как нарисованная, потому что у настоящего волоса есть направление и просветы. Штрихи имитируют и то, и другое.','визажисты','конвенция'],
+ ['mk','Фиксатор распыляют с 30 см крест-накрест','Два прохода: горизонтальный и вертикальный, на расстоянии вытянутой руки.','Вблизи спрей ложится каплями и растворяет макияж в местах попадания. С расстояния он долетает уже мелкой взвесью.','визажисты','конвенция'],
+ ['mk','Для съёмки со вспышкой — без SPF в тональном и без шиммера','Отдельный SPF утром, тон без него; шиммер только на верхнюю точку скулы.','Физические фильтры отражают вспышку и дают белый налёт на фото. Шиммер делает то же самое по всей площади нанесения.','визажисты, фотографы','измеримое'],
+ ['mk','Хайлайтер не наносят на поры и текстуру','Только верхняя точка скулы, спинка носа, галочка над губой.','Светоотражающие частицы подчёркивают рельеф, на который попали. На ровной поверхности это блик, на поре — подсвеченная ямка.','визажисты','измеримое'],
+ ['mk','Новую помаду проверяют при том свете, где будете её носить','Офис — холодный белый, свидание — тёплый приглушённый. В магазине свет всегда третий.','Торговый свет специально делают высоким по цветовой температуре: он даёт «чистоту» витрине, но смещает восприятие оттенка.','визажисты','измеримое'],
+
+ ['hair','Термозащиту наносят на влажные волосы и дают высохнуть','Распределить, подождать, пока перестанет быть мокрым, и только потом брать прибор.','Вода в волосе при контакте с горячей пластиной вскипает и рвёт кутикулу изнутри. Термозащита работает как барьер, только когда она уже не мокрая.','парикмахеры','измеримое'],
+ ['hair','Утюжок для окрашенных — не выше 180 °C','На приборе ставится температура, а не «максимум».','Выше 180 градусов кератин начинает необратимо менять структуру. Для осветлённого волоса порог ещё ниже — он уже потерял часть белка.','колористы','измеримое'],
+ ['hair','Холодный обдув в конце — не опция','Последние 30 секунд каждой пряди — холодный режим.','Горячий воздух раскрывает кутикулу и придаёт форму, холодный её закрывает и фиксирует. Без второго шага укладка держится около часа.','парикмахеры','измеримое'],
+ ['hair','Сухой шампунь: 20 см, минута, потом вспушить','Распылить с расстояния, подождать, пока впитает, и только потом трогать руками.','Если тереть сразу, крахмал остаётся на поверхности белым слоем. За минуту он успевает связать жир и становится невидимым.','парикмахеры','конвенция'],
+ ['hair','Кондиционер — только от середины','Корни не трогаем вообще, даже если волосы сухие.','Кондиционер утяжеляет и даёт плёнку. На корнях это убивает объём и ускоряет засаливание, а защищать там нечего — молодой волос ещё цел.','парикмахеры','конвенция'],
+ ['hair','Расчёсывают снизу вверх участками','Сначала последние 10 см, потом от середины, в конце от корней.','Расчёска, идущая от корней, собирает все узлы в один ком и тянет его по всей длине. Снизу каждый узел распускается отдельно.','парикмахеры, трихологи','измеримое'],
+ ['hair','Шёлковая наволочка вместо хлопковой','Шёлк или сатин. Длинные волосы — поверх подушки, не под плечом.','Хлопок вытягивает влагу и создаёт трение, на котором волос обламывается во сне. Для ломких и осветлённых это не косметическая, а основная мера.','трихологи, парикмахеры','измеримое'],
+ ['hair','К колористу — не со свежевымытой головой','Мыть за день-два до осветления, не в день процедуры.','Естественный кожный жир создаёт защитную плёнку на коже головы. Без неё осветляющий состав жжёт сильнее.','колористы','конвенция'],
+ ['hair','Референсы колористу: три фото при дневном свете и одно «не хочу»','Все три — одна и та же девушка при разном свете, если возможно.','Один снимок ничего не говорит: студийный свет меняет оттенок на два тона. А фото «чего не хочу» снимает половину недопониманий заранее.','колористы','конвенция'],
+ ['hair','Пробор меняют сторону','Раз в несколько недель перекладывайте на другую.','Корни, годами лежащие в одном направлении, запоминают его и дают плоскую макушку. Смена стороны поднимает их без единого прибора.','парикмахеры','конвенция'],
+ ['hair','Кудри расчёсывают только мокрыми и с кондиционером','На сухие — никогда, даже пальцами.','Сухой завиток при расчёсывании распадается на отдельные волосы — это и есть пух. Во влажном состоянии он сохраняет сцепление.','мастера по кудрям','измеримое'],
+ ['hair','Масло — на сухие концы, не на влажные','После сушки, капля, растереть в ладонях, только нижняя треть.','На влажных волосах масло запечатывает воду внутрь и мешает уложиться. На сухих оно закрывает чешуйки и даёт блеск.','парикмахеры','конвенция'],
+
+ ['cloth','Плечевой шов — единственная мерка, которую не исправить','Шов должен заканчиваться ровно там, где плечо переходит в руку.','Перекроить плечо жакета — работа дороже самого жакета: туда заходит пройма, рукав и подкладка. Всё остальное подшивается за копейки.','стилисты, портные','измеримое'],
+ ['cloth','Что подшить дёшево, а что не стоит','Дёшево: длина рукава, длина брюк, талия, боковые швы. Дорого или невозможно: плечи, пройма, посадка по бедру.','Чем ближе деталь к конструкции изделия, тем больше швов придётся распустить. Длина — это один подгиб, пройма — пересборка половины вещи.','портные','измеримое'],
+ ['cloth','Брюки примеряют сидя','Сядьте в примерочной и наклонитесь вперёд.','Посадка меняется на несколько сантиметров: стоя всё сидит, сидя — врезается или открывает поясницу. Носить вы их будете и так, и так.','стилисты','конвенция'],
+ ['cloth','Ткань проверяют на просвет в магазине','Поднесите к свету или натяните на ладонь.','Дома вы это увидите уже после покупки, на дневном свету или на фото со вспышкой. В примерочной это десять секунд.','стилисты','измеримое'],
+ ['cloth','Состав читают до цены','Вискоза мнётся и садится, полиэстер держит форму, но не дышит, 3–5 % эластана продлевают жизнь вещи.','Состав определяет, как вещь переживёт десять стирок. Цена об этом не говорит ничего: дорогая вискоза сядет так же, как дешёвая.','стилисты','измеримое'],
+ ['cloth','Одна громкая вещь, остальное тихое','Выбираете акцент — платье, пальто, обувь или макияж — и всё прочее уводите в нейтральное.','Внимание не делится: два акцента конкурируют, и образ читается как шум. Это тот же принцип, что в композиции кадра.','стилисты','конвенция'],
+ ['cloth','Под белое — бельё в тон кожи, не белое','Телесный на тон темнее своей кожи.','Белое бельё под белой тканью даёт более светлое пятно и потому заметно. Телесное сливается с кожей, которая и так просвечивает.','стилисты','измеримое'],
+ ['cloth','Образ проверяют на фото с телефона','Снимите себя в полный рост перед выходом.','Зеркало показывает зеркальное отражение, к которому вы привыкли. Камера даёт то изображение, которое видят другие, — и ошибки в нём заметны сразу.','стилисты, фотографы','измеримое'],
+
+ ['care','SPF наносят в количестве ¼ чайной ложки на лицо','Две полоски на указательный и средний палец от основания до кончика.','Заявленный на упаковке фактор получен при нанесении 2 мг на см². Обычно люди наносят вчетверо меньше — и получают примерно корень квадратный из заявленного числа.','дерматологи, косметологи','измеримое'],
+ ['care','Активы не смешивают в один вечер','Кислоты — в один день, ретиноид — в другой.','Оба меняют pH и скорость обновления. Вместе они не работают вдвое лучше, а дают раздражение, которое вы потом будете лечить неделю.','дерматологи','измеримое'],
+ ['care','Новое средство вводят изолированно 3–5 дней','Одно новое средство за раз, остальное без изменений.','Если ввести два сразу и получить реакцию, вы не узнаете, на что именно. Придётся отказаться от обоих.','дерматологи','измеримое'],
+ ['care','«Гипоаллергенно» — не юридический термин','Смотрите состав, а не надпись на лицевой стороне.','У этого слова нет регламентированного определения: производитель вправе написать его на любом продукте. А вот список ингредиентов регулируется и проверяется.','дерматологи','измеримое'],
+ ['care','Срок после вскрытия — значок открытой баночки','12M, 6M, 3M на обороте. Для туши — 3 месяца.','Это не маркетинг: после вскрытия в продукт попадают бактерии, а консервантов хватает на ограниченный срок. Для туши он короче всего из-за контакта со слизистой.','дерматологи','измеримое'],
+
+ ['shop','Мерить при том свете, при котором будете носить','Выйдите с вещью к витрине или к окну, если разрешают.','Торговый свет подбирают так, чтобы товар выглядел лучше: он теплее и ярче. Серый офисный свет покажет совсем другой оттенок.','стилисты','измеримое'],
+ ['shop','Онлайн-размер смотрят по замерам, а не по букве','Сравните таблицу замеров вещи со своими мерками, а не свой размер с буквой на сайте.','Буквенные размеры у каждого бренда свои: один и тот же M может отличаться на 6 см в обхвате. Замеры изделия — единственная сопоставимая величина.','стилисты','измеримое'],
+ ['shop','Правило отложенной покупки на сутки','Понравилось — добавьте в избранное и вернитесь завтра.','Большинство импульсивных покупок перестают быть нужными за ночь. Те, что действительно нужны, назавтра нужны так же.','стилисты','конвенция'],
+
+ ['shot','Свет от окна, лицом к окну','Встаньте лицом к окну, камеру — спиной к нему. Днём, без верхнего света.','Боковой и верхний свет дают тени в носогубных складках и под глазами. Фронтальный рассеянный свет из окна — самый прощающий.','фотографы','измеримое'],
+ ['shot','Камера на уровне глаз','Телефон поднимают до уровня глаз, а не держат на уровне груди.','Снизу камера искажает пропорции лица и шеи. Это оптика широкоугольного объектива, а не особенность внешности.','фотографы','измеримое']
+];
+let PF='all';
+window.prFilter = k=>{ PF=k; prDraw(); };
+window.prDraw = ()=>{
+  const f=document.getElementById('prFilters'), g=document.getElementById('prGrid'); if(!f||!g) return;
+  const cEl=document.getElementById('prCnt'); if(cEl) cEl.textContent=TIPS.length;
+  const n = k=>k==='all'?TIPS.length:TIPS.filter(t=>t[0]===k).length;
+  f.innerHTML = CAT.map(c=>`<button class="pr-f ${PF===c[0]?'on':''}" onclick="prFilter('${c[0]}')"><i>${c[2]}</i>${c[1]}<em>${n(c[0])}</em></button>`).join('');
+  const list = PF==='all'?TIPS:TIPS.filter(t=>t[0]===PF);
+  g.innerHTML = list.map((t,i)=>`<article class="pr-c" style="animation-delay:${(i%12*.04).toFixed(2)}s">
+    <div class="pr-top"><span class="pr-cat">${(CAT.find(c=>c[0]===t[0])||[])[1]}</span><span class="mt-lv ${t[5]==='измеримое'?'lv1':'lv2'}">${t[5]}</span></div>
+    <h3>${t[1]}</h3>
+    <div class="pr-do"><span>что делать</span>${t[2]}</div>
+    <div class="pr-why"><span>почему работает</span>${t[3]}</div>
+    <div class="pr-who">${t[4]}</div>
+  </article>`).join('');
+};
+window.openPro = ()=>{ if(window.openPage) openPage('proPage'); setTimeout(prDraw,80); };
+if(document.readyState!=='loading') setTimeout(prDraw,200); else document.addEventListener('DOMContentLoaded',()=>setTimeout(prDraw,200));
+})();
+
 /* ================= КАЛЬКУЛЯТОР ДЛЯ БЛОГЕРОВ ================= */
 (function(){
 const PL = [['неделя',390,4.3],['месяц',990,1],['год',4990,1]];
