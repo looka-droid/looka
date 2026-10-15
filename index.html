@@ -475,7 +475,7 @@ input[type=range]::-webkit-slider-thumb{background:#F4F5FA;border-color:#F4F5FA}
 .btn{border-color:rgba(255,255,255,.35);color:#F4F5FA;background:transparent}
 .btn.primary{background:#F4F5FA;color:#0A0B10;border-color:#F4F5FA}
 .btn.primary:hover{background:var(--acc);border-color:var(--acc);color:#fff;box-shadow:0 0 34px rgba(91,108,255,.5)}
-.btn.ghost:hover{background:#F4F5FA;color:#0A0B10}
+.btn.ghost:hover{background:rgba(255,255,255,.07);color:#fff;border-color:rgba(199,157,240,.75);box-shadow:0 0 26px -10px rgba(199,157,240,.8)}
 .mp a{border-color:rgba(255,255,255,.28);color:#E6E8F0}
 .mp a:hover{background:var(--acc);border-color:var(--acc);color:#fff}
 .mode-tag{background:rgba(25,198,247,.1);border-color:var(--glow);color:var(--glow);box-shadow:0 0 16px rgba(25,198,247,.25)}
@@ -1839,23 +1839,44 @@ header{position:relative;z-index:500}
 .bg-mini b{font-size:24px;font-weight:800;color:#7CF0B2;letter-spacing:-.5px}
 .bg-mini span{font-size:12.5px;color:#C2C7D6;line-height:1.4}
 /* калькулятор */
-.bg-calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:24px;padding:26px 28px;border-radius:24px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028);margin-bottom:34px}
-.bg-f{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:8px;margin-bottom:20px}
-.bg-f span{font-size:13.5px;color:#C2C7D6}
-.bg-f span em{display:block;font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;color:#6E7489;margin-top:3px}
-.bg-f b{font-family:'Manrope';font-size:19px;font-weight:800;color:#fff;white-space:nowrap}
-.bg-f input{grid-column:1/-1;-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:5px;background:rgba(255,255,255,.12);margin-top:10px;cursor:pointer}
-.bg-f input::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#19C6F7,#C79DF2);box-shadow:0 0 16px rgba(25,198,247,.9);cursor:pointer;border:2px solid #0B0D14}
-.bg-f input::-moz-range-thumb{width:20px;height:20px;border:2px solid #0B0D14;border-radius:50%;background:#19C6F7;cursor:pointer}
-.bg-note{font-size:12px;line-height:1.55;color:#8B92AA;padding-top:4px;border-top:1px solid rgba(255,255,255,.07)}
-.bg-calc-r{display:flex;flex-direction:column;justify-content:center;padding:22px;border-radius:18px;border:1px solid transparent;background:linear-gradient(#0C0E15,#0C0E15) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2) border-box}
-.bg-out b{display:block;font-family:'Manrope';font-size:44px;font-weight:800;letter-spacing:-1.6px;line-height:1.05;margin:6px 0 4px;background:linear-gradient(110deg,#fff,#C7E9FF,#E6D8FF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:opacity .2s}
-.bg-out em{font-style:normal;font-size:12.5px;color:#8B92AA}
-.bg-bar{height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin:16px 0}
-.bg-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#19C6F7,#C79DF2,#F2A6C6);box-shadow:0 0 16px rgba(199,157,240,.8);width:10%;transition:width .4s cubic-bezier(.2,.9,.3,1.2)}
-.bg-out2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.bg-out2 span{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#8B92AA;margin-bottom:5px;line-height:1.4}
-.bg-out2 b{font-size:21px;font-weight:800;color:#fff;letter-spacing:-.5px}
+.bg-calc{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);gap:26px;padding:28px 30px;border-radius:26px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,rgba(25,198,247,.45),rgba(199,157,240,.4),rgba(242,166,198,.35)) border-box;margin-bottom:34px;overflow:hidden}
+.bg-calc-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(520px 220px at 78% 30%,rgba(199,157,240,.14),transparent 65%),radial-gradient(420px 200px at 10% 90%,rgba(25,198,247,.12),transparent 60%)}
+.bg-calc-l,.bg-calc-r{position:relative}
+.bg-f{margin-bottom:22px}
+.bg-f-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:11px}
+.bg-f-h span{font-size:14px;color:#C2C7D6}
+.bg-f-h b{font-family:'Manrope';font-size:22px;font-weight:800;letter-spacing:-.6px;white-space:nowrap;background:linear-gradient(110deg,#fff,#C7E9FF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.bg-f input[hidden]{display:none!important}
+.bg-f input[type=range]{-webkit-appearance:none;appearance:none;display:block;width:100%;height:7px;border-radius:7px;cursor:pointer;background:linear-gradient(90deg,#19C6F7 0%,#C79DF2 var(--fill,20%),rgba(255,255,255,.1) var(--fill,20%),rgba(255,255,255,.1) 100%)}
+.bg-f input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#C7E9FF 45%,#19C6F7);box-shadow:0 0 0 4px rgba(11,13,20,.95),0 0 20px rgba(25,198,247,.9);cursor:grab;transition:transform .15s}
+.bg-f input[type=range]:active::-webkit-slider-thumb{transform:scale(1.15);cursor:grabbing}
+.bg-f input[type=range]::-moz-range-thumb{width:22px;height:22px;border:3px solid #0B0D14;border-radius:50%;background:#19C6F7;box-shadow:0 0 18px rgba(25,198,247,.8);cursor:grab}
+.bg-f-sc{display:flex;justify-content:space-between;margin-top:8px}
+.bg-f-sc i{font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1px;color:#5F667E}
+.bg-f-sc i:nth-child(2){color:#7CF0B2}
+.bg-pls{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.bg-pl{padding:12px 8px;border-radius:13px;border:1.4px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#B7BCCC;font-family:'Manrope';font-size:13.5px;font-weight:700;cursor:pointer;transition:all .22s}
+.bg-pl em{display:block;font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.8px;color:#6E7489;margin-top:3px}
+.bg-pl:hover{border-color:rgba(199,157,240,.6);color:#fff;transform:translateY(-2px)}
+.bg-pl.on{border-color:transparent;color:#07121A;background:linear-gradient(135deg,#19C6F7,#C79DF2);box-shadow:0 0 24px -8px rgba(25,198,247,.95)}
+.bg-pl.on em{color:rgba(7,18,26,.65)}
+.bg-note{display:grid;grid-template-columns:auto 1fr;gap:9px;font-size:12px;line-height:1.6;color:#8B92AA;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+.bg-note i{font-style:normal;color:#C7A6F0}
+.bg-calc-r{display:flex;flex-direction:column;padding:24px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(160deg,rgba(25,198,247,.1),rgba(199,157,240,.07));box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.bg-res-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.bg-live{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:#7CF0B2}
+.bg-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#37E08A;box-shadow:0 0 10px #37E08A;animation:bgBlink 1.8s ease-in-out infinite}
+@keyframes bgBlink{0%,100%{opacity:.35}50%{opacity:1}}
+.bg-out b{display:block;font-family:'Manrope';font-size:clamp(38px,4.4vw,54px);font-weight:800;letter-spacing:-2.2px;line-height:1.02;margin:10px 0 6px;background:linear-gradient(110deg,#fff,#C7E9FF 45%,#E6D8FF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 24px rgba(25,198,247,.3))}
+.bg-formula{font-size:12.5px;color:#8B92AA;line-height:1.5;min-height:34px}
+.bg-meter{position:relative;height:8px;border-radius:8px;background:rgba(255,255,255,.08);margin:16px 0 30px}
+.bg-meter i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,#19C6F7,#C79DF2,#F2A6C6);box-shadow:0 0 18px rgba(199,157,240,.85);width:10%;transition:width .5s cubic-bezier(.2,.9,.3,1.2)}
+.bg-m-l,.bg-m-r{position:absolute;top:14px;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.1px;text-transform:uppercase;color:#5F667E}
+.bg-m-l{left:0}.bg-m-r{right:0}
+.bg-out2{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1)}
+.bg-out2 span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:#8B92AA;margin-bottom:6px;line-height:1.4}
+.bg-out2 b{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.7px}
+.bg-res-cta{margin-top:18px;width:100%;text-align:center}
 /* что получаете */
 .bg-perks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:34px}
 .bg-p{display:grid;grid-template-columns:auto minmax(0,1fr);gap:15px;padding:18px 20px;border-radius:18px;border:1.3px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,var(--pg,linear-gradient(135deg,#19C6F7,#C79DF2)) border-box;box-shadow:0 0 26px -18px var(--pc2,#C79DF2);transition:transform .25s,box-shadow .25s}
@@ -6633,19 +6654,35 @@ header nav.topnav{gap:4px;align-items:center}
 
   <div class="hp-sub">КАК ЭТО СЧИТАЕТСЯ</div>
   <div class="bg-calc" id="bgCalc">
+    <div class="bg-calc-glow" aria-hidden="true"></div>
     <div class="bg-calc-l">
-      <label class="bg-f"><span>Подписчиц у вас</span><b id="bgSubV">5 000</b>
-        <input type="range" id="bgSub" min="300" max="200000" step="100" value="5000" oninput="bgCalc()"></label>
-      <label class="bg-f"><span>Сколько придёт по коду <em>обычно 1–3 %</em></span><b id="bgCrV">2 %</b>
-        <input type="range" id="bgCr" min="1" max="60" step="1" value="20" oninput="bgCalc()"></label>
-      <label class="bg-f"><span>Что чаще берут</span><b id="bgPlV">месяц</b>
-        <input type="range" id="bgPl" min="0" max="2" step="1" value="1" oninput="bgCalc()"></label>
-      <div class="bg-note">Это прикидка, а не обещание. Реальная конверсия зависит от того, насколько ваша аудитория — ваша.</div>
+      <div class="bg-f">
+        <div class="bg-f-h"><span>Подписчиц у вас</span><b id="bgSubV">5 000</b></div>
+        <input type="range" id="bgSub" min="300" max="200000" step="100" value="5000" oninput="bgCalc()">
+        <div class="bg-f-sc"><i>300</i><i>50 тыс</i><i>200 тыс</i></div>
+      </div>
+      <div class="bg-f">
+        <div class="bg-f-h"><span>Сколько придёт по коду</span><b id="bgCrV">2 %</b></div>
+        <input type="range" id="bgCr" min="1" max="60" step="1" value="20" oninput="bgCalc()">
+        <div class="bg-f-sc"><i>0,1 %</i><i>обычно 1–3 %</i><i>6 %</i></div>
+      </div>
+      <div class="bg-f">
+        <div class="bg-f-h"><span>Что чаще берут</span></div>
+        <div class="bg-pls" id="bgPls"></div>
+        <input type="range" id="bgPl" min="0" max="2" step="1" value="1" hidden>
+      </div>
+      <div class="bg-note"><i>◈</i>Это прикидка, а не обещание. Реальная конверсия зависит от того, насколько ваша аудитория — ваша.</div>
     </div>
     <div class="bg-calc-r">
-      <div class="bg-out"><span class="cs-k">в первый месяц</span><b id="bgOut1">—</b><em id="bgOutN">—</em></div>
-      <div class="bg-bar"><i id="bgBar"></i></div>
-      <div class="bg-out2"><div><span>за год с продлениями</span><b id="bgOut12">—</b></div><div><span>вашим подписчицам сэкономлено</span><b id="bgSave">—</b></div></div>
+      <div class="bg-res-top"><span class="cs-k">ваш доход в первый месяц</span><span class="bg-live">пересчитывается на лету</span></div>
+      <div class="bg-out"><b id="bgOut1">—</b></div>
+      <div class="bg-formula" id="bgOutN">—</div>
+      <div class="bg-meter"><i id="bgBar"></i><span class="bg-m-l">скромно</span><span class="bg-m-r">как у топов</span></div>
+      <div class="bg-out2">
+        <div><span>за год с продлениями</span><b id="bgOut12">—</b></div>
+        <div><span>сэкономлено подписчицам</span><b id="bgSave">—</b></div>
+      </div>
+      <a class="btn primary bg-res-cta" href="https://t.me/looka_support" target="_blank" rel="noopener">✈ Получить код и начать</a>
     </div>
   </div>
 
@@ -6973,7 +7010,7 @@ header nav.topnav{gap:4px;align-items:center}
       <a href="https://www.ozon.ru" target="_blank" rel="noopener">Ozon ↗</a>
       <a href="https://www.lamoda.ru" target="_blank" rel="noopener">Lamoda ↗</a></div>
   </div>
-  <div class="f-bottom">LOOKA · 2026 · подбор носит рекомендательный характер · цены и наличие — на маркетплейсах<span class="f-ver" title="какая версия сайта сейчас открыта — если число старое, обновите страницу через Ctrl+Shift+R">версия от 14.10.2026</span></div>
+  <div class="f-bottom">LOOKA · 2026 · подбор носит рекомендательный характер · цены и наличие — на маркетплейсах<span class="f-ver" title="какая версия сайта сейчас открыта — если число старое, обновите страницу через Ctrl+Shift+R">версия от 15.10.2026</span></div>
 </footer>
 
 <div class="pay-ov" id="payOv" onclick="if(event.target===this) closePay()">
@@ -11975,15 +12012,32 @@ if(document.readyState!=='loading') setTimeout(prDraw,200); else document.addEve
 
 /* ================= КАЛЬКУЛЯТОР ДЛЯ БЛОГЕРОВ ================= */
 (function(){
-const PL = [['неделя',390,4.3],['месяц',990,1],['год',4990,1]];
+const PL = [['неделя',390,4.3,'390 ₽'],['месяц',990,1,'990 ₽'],['год',4990,1,'4 990 ₽']];
 const KEEP = [26, 6, 1];
 const fmt = n=>Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ');
 function plural(n,a,b,c){ const m=n%100; if(m>=11&&m<=14) return c; const k=n%10; return k===1?a:(k>=2&&k<=4?b:c); }
+/* плавный счётчик, чтобы цифра не прыгала */
+const ANIM={};
+function num(id, val, suffix){
+  const e=document.getElementById(id); if(!e) return;
+  const from = ANIM[id]||0, to = val, t0=performance.now(), dur=480;
+  cancelAnimationFrame(ANIM[id+'_r']||0);
+  const step=now=>{ const k=Math.min(1,(now-t0)/dur); const ease=1-Math.pow(1-k,3);
+    const v=from+(to-from)*ease; e.textContent=fmt(v)+(suffix||'');
+    if(k<1) ANIM[id+'_r']=requestAnimationFrame(step); else ANIM[id]=to; };
+  ANIM[id+'_r']=requestAnimationFrame(step);
+}
+function fillTrack(el){ if(!el) return; const min=+el.min, max=+el.max, v=+el.value;
+  el.style.setProperty('--fill', ((v-min)/(max-min)*100).toFixed(1)+'%'); }
+window.bgPlan = i=>{ const el=document.getElementById('bgPl'); if(el) el.value=i; bgCalc(); };
 window.bgCalc = ()=>{
   const g=id=>document.getElementById(id);
   if(!g('bgSub')) return;
   const sub=+g('bgSub').value||0, cr=+g('bgCr').value||0, pi=+g('bgPl').value||0;
   const P=PL[pi]||PL[1];
+  fillTrack(g('bgSub')); fillTrack(g('bgCr'));
+  const pls=g('bgPls');
+  if(pls) pls.innerHTML = PL.map((x,i)=>`<button class="bg-pl ${i===pi?'on':''}" onclick="bgPlan(${i})">${x[0]}<em>${x[3]}</em></button>`).join('');
   const pct=cr/10, buyers=sub*pct/100, perPay=P[1]*0.9;
   const month=buyers*perPay*0.2*P[2];
   const year=buyers*perPay*0.2*KEEP[pi];
@@ -11991,11 +12045,9 @@ window.bgCalc = ()=>{
   const set=(id,v)=>{ const e=g(id); if(e) e.textContent=v; };
   set('bgSubV', fmt(sub));
   set('bgCrV', String(pct.toFixed(1)).replace('.0','').replace('.',',')+' %');
-  set('bgPlV', P[0]);
-  set('bgOut1', fmt(month)+' ₽');
-  set('bgOutN', fmt(buyers)+' '+plural(Math.round(buyers),'покупательница','покупательницы','покупательниц')+' × '+fmt(perPay)+' ₽ × 20 %'+(P[2]>1?' × 4 недели':''));
-  set('bgOut12', fmt(year)+' ₽');
-  set('bgSave', fmt(save)+' ₽');
+  num('bgOut1', month, ' ₽'); num('bgOut12', year, ' ₽'); num('bgSave', save, ' ₽');
+  set('bgOutN', fmt(buyers)+' '+plural(Math.round(buyers),'покупательница','покупательницы','покупательниц')
+    +' × '+fmt(perPay)+' ₽ со скидкой × 20 %'+(P[2]>1?' × 4 недели в месяце':''));
   const bar=g('bgBar');
   if(bar) bar.style.width=Math.max(6,Math.min(100, Math.log10(Math.max(month,1))/Math.log10(400000)*100))+'%';
 };
