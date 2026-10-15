@@ -711,6 +711,8 @@ details.faq:hover summary{color:#fff}
 .hero-cta .btn.ghost:hover{background:var(--acc);border-color:var(--acc);color:#fff;box-shadow:0 0 34px rgba(91,108,255,.5)}
 
 /* при наведении на соседнюю кнопку — «Начать подбор» гаснет до контура */
+.bg-cta:has(.btn.ghost:hover) .btn.primary,.bg-cta:has(.btn.ghost:hover) .btn.primary{background:transparent;color:#F4F5FA;border-color:rgba(255,255,255,.35);box-shadow:none}
+.bg-cta:has(.btn.ghost:hover) .btn.primary::after{display:none}
 .hero-cta:has(.btn.ghost:hover) .btn.primary{background:transparent;color:#F4F5FA;border-color:rgba(255,255,255,.35);box-shadow:none}
 .hero-cta:has(.btn.ghost:hover) .btn.primary::after{display:none}
 
@@ -1778,6 +1780,70 @@ header{position:relative;z-index:500}
 .pr-who{padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#6E7489}
 .pr-who::before{content:'так делают: ';color:#4F5567}
 @media(max-width:640px){.pr-grid{grid-template-columns:1fr}.pr-f{font-size:12.5px;padding:9px 12px}}
+/* --- мини-схемы приёмов --- */
+.ps-svg{width:100%;height:100%;display:block}
+.ps-f{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.3);stroke-width:1.5}
+.ps-e,.ps-dot{fill:#9AA1B5}
+.ps-l,.ps-ln{fill:none;stroke:rgba(255,255,255,.42);stroke-width:1.7;stroke-linecap:round}
+.ps-ac{fill:none;stroke:#19C6F7;stroke-width:2.2;stroke-linecap:round}
+.ps-acf{fill:rgba(25,198,247,.2);stroke:#19C6F7;stroke-width:1.3}
+.ps-gd{fill:none;stroke:#7CF0B2;stroke-width:2.2;stroke-linecap:round}
+.ps-gdf{fill:rgba(124,240,178,.18);stroke:#7CF0B2;stroke-width:1.4}
+.ps-bd{fill:none;stroke:#FF6FA8;stroke-width:2.2;stroke-linecap:round}
+.ps-bdf{fill:rgba(255,111,168,.16);stroke:#FF6FA8;stroke-width:1.3}
+.ps-vi{fill:none;stroke:#C79DF2;stroke-width:2.2;stroke-linecap:round}
+.ps-vif{fill:rgba(199,157,240,.2);stroke:#C79DF2;stroke-width:1.4}
+.ps-x{fill:none;stroke:#FF6FA8;stroke-width:2.4;stroke-linecap:round}
+.ps-ok{fill:none;stroke:#7CF0B2;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.ps-hat,.ps-str,.ps-sc,.ps-fr{fill:none;stroke:#19C6F7;stroke-width:1.5;stroke-linecap:round}
+.ps-str{stroke:#C79DF2;stroke-width:1.8}
+.ps-fr{stroke:#FF6FA8}
+.ps-sc{stroke:rgba(255,255,255,.4)}
+.ps-pore{fill:#FF6FA8;opacity:.75}
+.ps-box{fill:rgba(255,255,255,.045);stroke:rgba(255,255,255,.17);stroke-width:1.2}
+.ps-t{font-family:'JetBrains Mono';font-size:7.4px;fill:#8B92AA;letter-spacing:.2px}
+.ps-t.hi{fill:#19C6F7}
+/* в покое схема просто нарисована; оживает при наведении и в крупном виде */
+.pr-c:hover .pa-pulse,.prz .pa-pulse{animation:psPulse 1.9s ease-in-out infinite}
+.pr-c:hover .pa-draw,.prz .pa-draw{stroke-dasharray:140;animation:psDraw 2.4s ease-in-out infinite}
+.pr-c:hover .pa-mx,.prz .pa-mx{animation:psMoveX 2.2s ease-in-out infinite}
+.pr-c:hover .pa-my,.prz .pa-my{animation:psMoveY 2s ease-in-out infinite}
+.pr-c:hover .pa-fall,.prz .pa-fall{animation:psFall 1.9s ease-in infinite}
+.pr-c:hover .pa-spin,.prz .pa-spin{animation:psSpin 3.4s linear infinite;transform-box:fill-box;transform-origin:0% 100%}
+.pr-c:hover .pa-flip,.prz .pa-flip{animation:psFlip 2.8s ease-in-out infinite}
+.pr-c:hover .pa-tilt,.prz .pa-tilt{animation:psTilt 1.9s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0%}
+.pr-c:hover .pa-wig,.prz .pa-wig{animation:psWig 1.1s ease-in-out infinite}
+.pr-c:hover .pa-needle,.prz .pa-needle{animation:psNeedle 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:0% 100%}
+.pr-c:hover .pa-combup,.prz .pa-combup{animation:psCombUp 3.2s ease-in-out infinite}
+.pa-1{animation-delay:0s}.pa-2{animation-delay:.42s}.pa-3{animation-delay:.84s}
+@keyframes psPulse{0%,100%{opacity:1}50%{opacity:.28}}
+@keyframes psDraw{0%{stroke-dashoffset:140}50%,100%{stroke-dashoffset:0}}
+@keyframes psMoveX{0%,100%{transform:translateX(0)}50%{transform:translateX(12px)}}
+@keyframes psMoveY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes psFall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(20px);opacity:0}}
+@keyframes psSpin{to{transform:rotate(360deg)}}
+@keyframes psFlip{0%,45%{transform:translateX(0)}55%,100%{transform:translateX(28px)}}
+@keyframes psTilt{0%,100%{transform:rotate(0)}50%{transform:rotate(16deg)}}
+@keyframes psWig{0%,100%{transform:translateX(-4px)}50%{transform:translateX(4px)}}
+@keyframes psNeedle{0%,100%{transform:rotate(-34deg)}55%,85%{transform:rotate(0)}}
+@keyframes psCombUp{0%,8%{transform:translateY(0)}45%,55%{transform:translateY(-26px)}92%,100%{transform:translateY(-48px)}}
+/* --- карточка приёма: картинка и цвет --- */
+.pr-c{position:relative;overflow:hidden;cursor:pointer;border:1px solid transparent;background:linear-gradient(#12151F,#0D1017) padding-box,linear-gradient(140deg,var(--a,#19C6F7),var(--b,#C79DF2)) border-box}
+.pr-c::before{content:'';position:absolute;inset:-40% 45% 55% -25%;background:radial-gradient(circle,var(--a,#19C6F7),transparent 70%);opacity:.14;pointer-events:none;transition:opacity .3s}
+.pr-c:hover::before{opacity:.3}
+.pr-c:hover{transform:translateY(-4px);box-shadow:0 18px 44px -22px var(--a,#19C6F7)}
+.pr-pic{position:relative;height:150px;margin:-4px -6px 13px;border-radius:14px;border:1px solid rgba(255,255,255,.07);background:radial-gradient(120% 140% at 15% 0%,color-mix(in srgb,var(--a,#19C6F7) 16%,transparent),rgba(255,255,255,.02) 70%),rgba(0,0,0,.2);padding:6px}
+.pr-pic .ps-eye{position:absolute;right:10px;top:8px;font-family:'JetBrains Mono';font-size:8px;letter-spacing:1.2px;text-transform:uppercase;color:#6E7489;transition:color .25s}
+.pr-c:hover .pr-pic .ps-eye{color:#19C6F7}
+.pr-cat{color:var(--a,#8B92AA);font-weight:700}
+/* --- увеличенный вид --- */
+.prz{position:fixed;inset:0;z-index:260;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(5,6,11,.82);backdrop-filter:blur(9px)}
+.prz.on{display:flex}
+.prz-card{width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:22px;padding:22px;border:1px solid transparent;background:linear-gradient(#141826,#0C0F17) padding-box,linear-gradient(140deg,var(--a,#19C6F7),var(--b,#C79DF2)) border-box;animation:popIn .32s both}
+.prz-pic{height:230px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:radial-gradient(120% 140% at 15% 0%,color-mix(in srgb,var(--a,#19C6F7) 18%,transparent),rgba(255,255,255,.02) 70%),rgba(0,0,0,.22);padding:12px;margin-bottom:16px}
+.prz-card h3{font-size:21px;font-weight:800;letter-spacing:-.4px;line-height:1.25;margin:0 0 14px}
+.prz-x{position:absolute;top:14px;right:16px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#fff;font-size:16px;cursor:pointer}
+@media(max-width:640px){.pr-pic{height:128px}.prz-pic{height:190px}}
 /* ===== источники и методология ===== */
 .mt-tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 34px}
 .mt-t{position:relative;padding:20px 22px;border-radius:18px;border:1.4px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,var(--tg) border-box;box-shadow:0 0 28px -18px var(--tc)}
@@ -11937,6 +12003,121 @@ window.openCare = ()=>{ openPage('carePage'); renderCare(); };
   const upd = ()=>{ const el = document.getElementById('pRef'); if(el) el.innerHTML = 'Ваш код от <b>@'+ref.code+'</b>: <b>−10 % на первую оплату</b> (на неделю, месяц или год) — назовите код '+ref.code.toUpperCase()+' при оплате'; };
   upd(); const orig = window.openPage; window.openPage = function(){ orig.apply(null, arguments); setTimeout(upd, 50); };
 })();
+/* ================= МИНИ-СХЕМЫ ДЛЯ ПРИЁМОВ ================= */
+(function(){
+const fa=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><ellipse class="ps-f" cx="0" cy="0" rx="20" ry="26"/><ellipse class="ps-e" cx="-8" cy="-5" rx="2.8" ry="1.6"/><ellipse class="ps-e" cx="8" cy="-5" rx="2.8" ry="1.6"/><path class="ps-l" d="M-6 11 Q0 15 6 11"/></g>`;
+const ey=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><path class="ps-f" d="M-26 0 Q0 -15 26 0 Q0 15 -26 0Z"/><circle class="ps-e" cx="0" cy="0" r="5.5"/></g>`;
+const lp=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><path class="ps-f" d="M-24 0 Q-11 -12 0 -5 Q11 -12 24 0 Q11 13 0 13 Q-11 13 -24 0Z"/><path class="ps-l" d="M-24 0 Q0 4 24 0"/></g>`;
+const hk=(x,c)=>`<path class="${c||'ps-f'}" d="M${x-12} 12 q-4 30 3 58 h18 q7 -28 3 -58 q-12 -5 -24 0Z"/>`;
+const br=(x,y,r,c)=>`<g transform="translate(${x} ${y}) rotate(${r})"><g class="${c||''}"><rect class="ps-box" x="-2.4" y="0" width="4.8" height="20" rx="2.4"/><ellipse class="ps-vif" cx="0" cy="-5" rx="6.5" ry="8.5"/></g></g>`;
+const cr=(x,y,r)=>`<path class="ps-x" d="M${x-r} ${y-r} L${x+r} ${y+r} M${x+r} ${y-r} L${x-r} ${y+r}"/>`;
+const tk=(x,y)=>`<path class="ps-ok" d="M${x-6} ${y} l5 5 l9 -11"/>`;
+const tx=(x,y,s,c)=>`<text class="ps-t ${c||''}" x="${x}" y="${y}">${s}</text>`;
+const bx=(x,y,w,h,c)=>`<rect class="${c||'ps-box'}" x="${x}" y="${y}" width="${w}" height="${h}" rx="5"/>`;
+const cl=(x,y,r)=>`<g transform="translate(${x} ${y})"><circle class="ps-box" cx="0" cy="0" r="${r}"/><path class="ps-ac pa-spin" d="M0 0 V${-r+3}"/></g>`;
+const dr=(x,y)=>`<g transform="translate(${x} ${y})"><rect class="ps-box" x="-7" y="-20" width="14" height="24" rx="5"/><rect class="ps-box" x="-4" y="4" width="8" height="15" rx="4"/><path class="ps-ac" d="M-10 -23 q10 -8 20 0"/></g>`;
+const dp=(x,y,c)=>`<path class="${c||'ps-acf'}" d="M${x} ${y-7} q6 7 0 11 q-6 -4 0 -11Z"/>`;
+const fig=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><circle class="ps-f" cx="0" cy="-26" r="8"/><path class="ps-f" d="M-10 -16 h20 l4 24 h-28Z"/><path class="ps-ln" d="M-7 8 v16 M7 8 v16"/></g>`;
+
+const PS = {
+ jaw: ()=>fa(44,34,1)+`<path class="ps-ln" d="M30 50 Q44 64 58 50"/>`
+   +`<path class="ps-bdf pa-pulse pa-1" d="M29 46 l7 8 l5 -4 l-7 -8Z"/><path class="ps-gdf pa-pulse pa-2" d="M40 54 l7 7 l5 -4 l-7 -7Z"/><path class="ps-vif pa-pulse pa-3" d="M51 51 l7 7 l5 -4 l-7 -7Z"/>`
+   +tk(80,48)+tx(18,78,'исчезает на границе'),
+ tri: ()=>ey(32,26,.78)+`<path class="ps-bd pa-pulse" d="M20 38 q12 11 24 0"/>`+cr(32,58,7)+tx(14,76,'полумесяц')
+   +ey(88,26,.78)+`<path class="ps-gdf pa-pulse" d="M76 36 H100 L88 60 Z"/>`+tk(104,62)+tx(74,76,'треугольник'),
+ tap: ()=>br(30,24,24,'pa-tilt')+`<path class="ps-f" d="M58 48 q14 -10 26 -4 q10 5 6 16 q-4 10 -18 9 q-16 -1 -14 -21Z"/>`
+   +`<circle class="ps-dot pa-fall pa-1" cx="56" cy="40" r="2"/><circle class="ps-dot pa-fall pa-2" cx="64" cy="44" r="1.6"/><circle class="ps-dot pa-fall pa-3" cx="72" cy="42" r="2.2"/>`
+   +tx(40,76,'стряхнуть о ладонь'),
+ order: ()=>bx(20,14,56,15)+tx(26,25,'1 · тон')+bx(20,33,56,15)+tx(26,44,'2 · крем')+bx(20,52,56,15,'ps-gdf')+tx(26,63,'3 · пудра')
+   +`<path class="ps-ac pa-my" d="M92 20 V58" marker-end="url(#psA)"/>`+cr(100,40,0.1),
+ lashroot: ()=>ey(54,32,.95)+`<g class="pa-wig"><rect class="ps-vif" x="26" y="40" width="56" height="4" rx="2"/></g>`
+   +`<path class="ps-gd pa-pulse" d="M34 36 q20 -8 40 0"/>`+tx(20,74,'движение у корня'),
+ wingtail: ()=>ey(56,30,1)+`<path class="ps-gd pa-draw" d="M76 36 L96 18"/>`+tx(90,50,'1',"hi")
+   +`<path class="ps-ac pa-draw pa-2" d="M30 40 Q56 26 76 36"/>`+tx(30,56,'2',"hi")+tx(24,74,'хвостик — первым'),
+ lipfill: ()=>lp(32,30,.72)+`<path class="ps-bd" d="M14 30 Q32 44 50 30"/>`+cr(32,56,7)+tx(12,76,'только контур')
+   +lp(90,30,.72)+`<g class="ps-hat pa-pulse">${Array.from({length:6}).map((_,i)=>`<path d="M${74+i*6} 22 v16"/>`).join('')}</g>`+tk(106,58)+tx(70,76,'вся губа'),
+ browstroke: ()=>`<path class="ps-ln" d="M24 44 Q50 26 86 36"/>`
+   +`<g class="ps-str">${Array.from({length:7}).map((_,i)=>`<path class="pa-pulse pa-${(i%3)+1}" d="M${28+i*9} ${44-i*2.2} l5 -7"/>`).join('')}</g>`
+   +tx(24,70,'штрихи по росту волоса'),
+ mist: ()=>fa(44,36,.92)+`<path class="ps-ac pa-draw" d="M70 22 H106"/><path class="ps-ac pa-draw pa-2" d="M88 14 V58"/>`
+   +`<path class="ps-ln" d="M66 68 H106 M66 64 v8 M106 64 v8"/>`+tx(74,80,'30 см'),
+ flash: ()=>fa(40,34,.95)+`<path class="ps-vi pa-pulse" d="M84 14 V8 M94 20 l5 -5 M74 20 l-5 -5 M96 32 h6"/><circle class="ps-vif pa-pulse" cx="84" cy="30" r="9"/>`
+   +`<ellipse class="ps-bdf pa-pulse pa-2" cx="40" cy="34" rx="20" ry="26"/>`+cr(16,66,6)+tx(28,80,'SPF и шиммер в кадре'),
+ hilite: ()=>fa(44,36,1)+`<ellipse class="ps-gdf pa-pulse" cx="56" cy="34" rx="8" ry="4"/>`+tk(74,30)
+   +`<g class="ps-pore"><circle cx="36" cy="50" r="1.4"/><circle cx="42" cy="54" r="1.4"/><circle cx="33" cy="56" r="1.4"/></g>`+cr(42,66,5)+tx(66,52,'верх скулы'),
+ light3: ()=>[['#FFD28A','офис',22],['#FFB06A','свидание',60],['#CFE4FF','магазин',98]].map((l,i)=>`<g><path class="ps-box" d="M${l[2]-9} 16 h18 l5 14 h-28Z"/><ellipse class="pa-pulse pa-${i+1}" cx="${l[2]}" cy="40" rx="13" ry="9" fill="${l[0]}" opacity=".55"/></g>`+tx(l[2]-16,66,l[1])).join('')
+   +`<path class="ps-ok" d="M92 76 l5 5 l9 -11"/>`,
+ thermo: ()=>hk(30)+dp(30,22)+dp(30,40)+`<rect class="ps-acf" x="48" y="30" width="10" height="16" rx="4"/><path class="ps-ac pa-draw" d="M46 38 H34"/>`
+   +cl(88,34,13)+tx(30,76,'дать высохнуть'),
+ temp: ()=>`<path class="ps-ln" d="M28 56 A30 30 0 0 1 88 56"/><path class="ps-bd" d="M70 30 A30 30 0 0 1 88 56"/>`
+   +`<g transform="translate(58 56)"><g class="pa-needle"><path class="ps-ac" d="M0 0 L-16 -20"/></g></g><circle class="ps-dot" cx="58" cy="56" r="3"/>`
+   +tx(34,74,'180 °C — предел','hi')+tx(70,24,'выше — риск'),
+ cold: ()=>hk(32)+dr(92,34)+`<path class="ps-ac pa-pulse" d="M64 22 v16 M56 30 h16 M58 24 l12 12 M70 24 l-12 12"/>`
+   +`<g class="ps-sc pa-pulse pa-2"><path d="M22 30 h24 M22 42 h24 M22 54 h24"/></g>`+tx(22,78,'холодный = фиксация'),
+ dryshampoo: ()=>`<g transform="translate(96 28)"><rect class="ps-box" x="-8" y="-16" width="16" height="30" rx="5"/><path class="ps-ac pa-pulse" d="M-10 -20 q10 -7 20 0"/></g>`
+   +hk(30)+`<path class="ps-ln" d="M48 24 H82 M48 20 v8 M82 20 v8"/>`+tx(52,16,'20 см')+cl(60,52,11)+tx(16,76,'минута → потом вспушить'),
+ midlength: ()=>hk(40)+`<path class="ps-bdf" d="M28 12 q-2 10 -1 16 h26 q1 -6 -1 -16 q-12 -5 -24 0Z"/>`+cr(70,20,6)+tx(80,24,'корни')
+   +`<path class="ps-gd pa-draw" d="M70 42 V68"/>`+tk(86,54)+tx(40,80,'середина и концы'),
+ combup: ()=>hk(36)+`<g class="pa-combup"><rect class="ps-vif" x="14" y="60" width="44" height="5" rx="2"/></g>`
+   +tx(70,30,'3 · от корней')+tx(70,48,'2 · от середины')+tx(70,66,'1 · концы','hi'),
+ pillow: ()=>bx(16,30,44,26)+`<path class="ps-gd pa-mx" d="M22 44 q16 -6 32 0"/>`+tk(30,66)+tx(16,78,'шёлк')
+   +bx(72,30,40,26)+`<g class="ps-fr pa-pulse"><path d="M78 44 q6 -8 10 2 q5 -9 9 2 q5 -8 9 1"/></g>`+cr(92,66,6)+tx(74,78,'хлопок'),
+ nowash: ()=>bx(18,22,26,24)+tx(24,38,'−2')+bx(50,22,26,24)+tx(56,38,'−1')+bx(82,22,26,24,'ps-bdf')+tx(86,38,'день')
+   +tk(30,58)+tk(62,58)+cr(95,58,6)+tx(16,78,'мыть заранее, не в день'),
+ refs: ()=>[0,1,2].map(i=>bx(14+i*26,20,22,26,'ps-gdf')+`<circle class="ps-e" cx="${25+i*26}" cy="30" r="4"/>`).join('')
+   +bx(92,20,22,26,'ps-bdf')+cr(103,33,6)+tx(14,60,'три «хочу» при дневном свете')+tx(14,74,'и одно «не хочу»','hi'),
+ partswap: ()=>`<path class="ps-f" d="M24 60 q0 -40 36 -40 q36 0 36 40Z"/><g class="pa-flip"><path class="ps-ac" d="M48 22 V58"/></g>`
+   +`<path class="ps-ln" d="M76 22 V58" opacity=".3"/>`+tx(24,76,'меняйте сторону пробора'),
+ wetcurl: ()=>`<g transform="translate(34 36)"><path class="ps-gd" d="M-10 -20 q18 10 14 22 q-4 12 -14 14"/></g>`+dp(50,28)+tk(28,66)+tx(14,78,'мокрые')
+   +`<g transform="translate(90 36)"><path class="ps-bd pa-pulse" d="M-10 -20 q18 10 14 22 q-4 12 -14 14"/><g class="ps-fr pa-pulse pa-2"><path d="M4 -16 l8 -4 M8 0 l9 -2 M2 14 l9 3"/></g></g>`+cr(90,66,6)+tx(78,78,'сухие'),
+ oilends: ()=>hk(40)+`<path class="ps-gdf" d="M29 50 q-1 12 2 20 h18 q3 -8 2 -20Z"/>`+dp(70,34,'ps-gdf')+tk(84,52)
+   +`<path class="ps-bd" d="M28 14 H52"/>`+cr(68,18,5)+tx(14,78,'нижняя треть, после сушки'),
+ shoulder: ()=>`<path class="ps-f" d="M34 26 q26 -10 52 0 l6 40 h-64Z"/><path class="ps-ln" d="M48 22 V30 M72 22 V30"/>`
+   +`<circle class="ps-acf pa-pulse" cx="34" cy="28" r="6"/><circle class="ps-acf pa-pulse pa-2" cx="86" cy="28" r="6"/>`
+   +tx(26,78,'шов на краю плеча'),
+ tailor: ()=>`<path class="ps-f" d="M38 20 q22 -8 44 0 l5 44 h-54Z"/>`
+   +`<path class="ps-gd pa-pulse" d="M44 62 H76"/>`+tk(96,60)+tx(94,74,'дёшево')
+   +`<path class="ps-bd pa-pulse pa-2" d="M38 22 q10 6 10 16 M82 22 q-10 6 -10 16"/>`+cr(26,28,5)+tx(10,18,'дорого'),
+ sit: ()=>fig(30,48,.95)+tk(50,20)
+   +`<g transform="translate(86 44)"><circle class="ps-f" cx="0" cy="-24" r="7"/><path class="ps-f" d="M-9 -15 h18 l2 18 h-22Z"/><path class="ps-bd" d="M-6 3 h22 M16 3 v16"/><path class="ps-bd pa-pulse" d="M-8 -2 q8 6 16 4"/></g>`+cr(112,20,5)+tx(20,80,'сидя посадка другая'),
+ sheer: ()=>`<circle class="pa-pulse" cx="30" cy="40" r="16" fill="#FFD28A" opacity=".5"/>`+bx(50,18,44,44)
+   +`<g class="ps-hat" opacity=".5">${Array.from({length:5}).map((_,i)=>`<path d="M${54+i*9} 20 v40"/>`).join('')}</g>`
+   +tx(14,78,'на просвет — десять секунд'),
+ label: ()=>bx(30,16,60,46)+tx(36,30,'вискоза 62%')+tx(36,42,'п/э 33%')+tx(36,54,'эластан 5%','hi')
+   +`<path class="ps-gd pa-draw" d="M34 48 H86"/>`+tk(100,50),
+ accent: ()=>fig(24,52,.85)+fig(60,52,.85)+fig(96,52,.85)
+   +`<ellipse class="ps-gdf pa-pulse" cx="60" cy="40" rx="16" ry="22"/>`+tx(14,78,'один акцент, остальное тихо'),
+ undertone: ()=>`<path class="ps-f" d="M38 18 q22 -8 44 0 l5 46 h-54Z" opacity=".9"/>`
+   +`<rect class="ps-bdf pa-pulse" x="48" y="34" width="12" height="14" rx="3"/>`+cr(42,70,5)
+   +`<rect class="pa-pulse pa-2" x="64" y="34" width="12" height="14" rx="3" fill="#D9A98C" opacity=".8"/>`+tk(96,42)+tx(62,78,'в тон кожи'),
+ mirrorcam: ()=>bx(14,18,40,46)+fig(34,52,.7)+cr(34,74,5)+tx(16,14,'зеркало')
+   +bx(72,18,34,46)+`<rect class="ps-acf" x="76" y="24" width="26" height="34" rx="3"/>`+fig(89,50,.5)+tk(104,70)+tx(72,14,'камера'),
+ twofinger: ()=>`<path class="ps-f" d="M34 70 V30 q0 -8 7 -8 q7 0 7 8 v40Z"/><path class="ps-f" d="M52 70 V26 q0 -8 7 -8 q7 0 7 8 v44Z"/>`
+   +`<path class="ps-gd pa-draw" d="M34 32 H48"/><path class="ps-gd pa-draw pa-2" d="M52 28 H66"/>`
+   +tx(76,40,'¼ ч. л.','hi')+tx(76,56,'2 мг/см²'),
+ altDays: ()=>bx(16,22,40,30)+tx(22,42,'кислоты')+bx(70,22,40,30)+tx(78,42,'ретинол')
+   +`<path class="ps-ac pa-mx" d="M58 36 H68"/>`+tx(16,70,'разные вечера, не вместе','hi'),
+ oneatatime: ()=>[0,1,2].map(i=>`<g transform="translate(${28+i*32} 40)"><rect class="${i===1?'ps-gdf':'ps-box'}" x="-9" y="-18" width="18" height="34" rx="5"/><rect class="ps-box" x="-5" y="-24" width="10" height="7" rx="2"/></g>`).join('')
+   +tk(96,22)+tx(14,76,'одно новое, 3–5 дней'),
+ inci: ()=>bx(14,18,42,46)+tx(18,38,'гипо-')+tx(18,50,'аллергенно')+cr(34,74,5)
+   +bx(70,18,42,46,'ps-gdf')+`<g class="ps-hat">${Array.from({length:5}).map((_,i)=>`<path d="M74 ${26+i*8} h32"/>`).join('')}</g>`+tk(104,74)+tx(70,14,'состав'),
+ pao: ()=>`<g transform="translate(34 38)"><path class="ps-ln" d="M-13 -6 h26 v24 h-26Z"/><path class="ps-ac pa-my" d="M-13 -8 q13 -12 26 0"/></g>`
+   +tx(62,28,'12M')+tx(62,44,'6M')+tx(62,60,'3M · тушь','hi')+tk(104,56),
+ tape: ()=>`<path class="ps-ac pa-draw" d="M14 32 H106"/><g class="ps-hat">${Array.from({length:10}).map((_,i)=>`<path d="M${16+i*10} 32 v6"/>`).join('')}</g>`
+   +bx(30,46,60,24)+tx(36,62,'обхват в см, не буква','hi'),
+ wait24: ()=>cl(40,36,18)+tx(64,34,'24 часа','hi')+tx(64,50,'в избранное')
+   +`<path class="ps-vif pa-pulse" d="M96 56 q-6 -8 -12 -2 q-5 5 0 10 l12 10 l12 -10 q5 -5 0 -10 q-6 -6 -12 2Z"/>`,
+ window: ()=>bx(14,14,34,46)+`<path class="ps-ln" d="M31 14 V60 M14 37 H48"/><rect x="14" y="14" width="34" height="46" rx="4" fill="#FFD28A" opacity=".25" class="pa-pulse"/>`
+   +fig(72,52,.9)+`<g transform="translate(104 40)"><rect class="ps-acf" x="-7" y="-10" width="14" height="20" rx="3"/></g>`
+   +`<path class="ps-ac pa-mx" d="M52 34 H60"/>`+tx(32,78,'лицом к окну'),
+ eyelevel: ()=>fig(34,54,1)+`<g transform="translate(60 48)"><rect class="ps-bdf" x="-6" y="-9" width="12" height="18" rx="3"/></g>`+cr(60,70,5)
+   +fig(96,54,1)+`<g transform="translate(70 28) "><rect class="ps-gdf pa-my" x="-6" y="-9" width="12" height="18" rx="3"/></g>`+tk(70,10)+tx(16,80,'телефон на уровне глаз')
+};
+PS.altdays = PS.altDays;
+const DEF = `<defs><marker id="psA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#19C6F7"/></marker></defs>`;
+window.prScene = (k)=>{ const f = PS[k]; if(!f) return ''; return `<svg class="ps-svg" viewBox="0 0 120 84" preserveAspectRatio="xMidYMid meet">${DEF}${f()}</svg>`; };
+window.PR_SCENES = PS;
+})();
 /* ================= ПРИЁМЫ ПРОФЕССИОНАЛОВ ================= */
 (function(){
 const CAT = [['all','Все','✦'],['mk','Макияж','◉'],['hair','Волосы','✂'],['cloth','Одежда и посадка','▤'],['care','Уход','❍'],['shop','Магазин','⌗'],['shot','Съёмка','📷']];
@@ -11990,6 +12171,33 @@ const TIPS = [
  ['shot','Свет от окна, лицом к окну','Встаньте лицом к окну, камеру — спиной к нему. Днём, без верхнего света.','Боковой и верхний свет дают тени в носогубных складках и под глазами. Фронтальный рассеянный свет из окна — самый прощающий.','фотографы','измеримое'],
  ['shot','Камера на уровне глаз','Телефон поднимают до уровня глаз, а не держат на уровне груди.','Снизу камера искажает пропорции лица и шеи. Это оптика широкоугольного объектива, а не особенность внешности.','фотографы','измеримое']
 ];
+/* схема к каждому приёму — в порядке списка выше */
+const SCN = ['jaw','tri','tap','order','lashroot','wingtail','lipfill','browstroke','mist','flash','hilite','light3',
+ 'thermo','temp','cold','dryshampoo','midlength','combup','pillow','nowash','refs','partswap','wetcurl','oilends',
+ 'shoulder','tailor','sit','sheer','label','accent','undertone','mirrorcam',
+ 'twofinger','altdays','oneatatime','inci','pao',
+ 'light3','tape','wait24',
+ 'window','eyelevel'];
+TIPS.forEach((t,i)=>{ t[6] = SCN[i]||''; });
+const PCOL = {mk:['#FF6FA8','#FFB84C'], hair:['#C79DF2','#19C6F7'], cloth:['#19C6F7','#37E08A'], care:['#7CF0B2','#19C6F7'], shop:['#FFB84C','#C79DF2'], shot:['#19C6F7','#FF6FA8']};
+const pcat = k=>(CAT.find(c=>c[0]===k)||[])[1]||'';
+const pbody = t=>`<div class="pr-top"><span class="pr-cat">${pcat(t[0])}</span><span class="mt-lv ${t[5]==='измеримое'?'lv1':'lv2'}">${t[5]}</span></div>
+    <h3>${t[1]}</h3>
+    <div class="pr-do"><span>что делать</span>${t[2]}</div>
+    <div class="pr-why"><span>почему работает</span>${t[3]}</div>
+    <div class="pr-who">${t[4]}</div>`;
+window.prZoom = i=>{
+  const t = TIPS[i]; if(!t) return;
+  const c = PCOL[t[0]] || ['#19C6F7','#C79DF2'];
+  let o = document.getElementById('prz');
+  if(!o){ o=document.createElement('div'); o.id='prz'; o.className='prz'; o.addEventListener('click',e=>{ if(e.target===o) prClose(); }); document.body.appendChild(o); }
+  o.innerHTML = `<div class="prz-card" style="--a:${c[0]};--b:${c[1]};position:relative"><button class="prz-x" onclick="prClose()">✕</button>`
+    + (t[6] && window.prScene ? `<div class="prz-pic">${prScene(t[6])}</div>` : '')
+    + pbody(t) + `</div>`;
+  o.classList.add('on');
+};
+window.prClose = ()=>{ const o=document.getElementById('prz'); if(o) o.classList.remove('on'); };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') prClose(); });
 let PF='all';
 window.prFilter = k=>{ PF=k; prDraw(); };
 window.prDraw = ()=>{
@@ -11998,13 +12206,13 @@ window.prDraw = ()=>{
   const n = k=>k==='all'?TIPS.length:TIPS.filter(t=>t[0]===k).length;
   f.innerHTML = CAT.map(c=>`<button class="pr-f ${PF===c[0]?'on':''}" onclick="prFilter('${c[0]}')"><i>${c[2]}</i>${c[1]}<em>${n(c[0])}</em></button>`).join('');
   const list = PF==='all'?TIPS:TIPS.filter(t=>t[0]===PF);
-  g.innerHTML = list.map((t,i)=>`<article class="pr-c" style="animation-delay:${(i%12*.04).toFixed(2)}s">
-    <div class="pr-top"><span class="pr-cat">${(CAT.find(c=>c[0]===t[0])||[])[1]}</span><span class="mt-lv ${t[5]==='измеримое'?'lv1':'lv2'}">${t[5]}</span></div>
-    <h3>${t[1]}</h3>
-    <div class="pr-do"><span>что делать</span>${t[2]}</div>
-    <div class="pr-why"><span>почему работает</span>${t[3]}</div>
-    <div class="pr-who">${t[4]}</div>
-  </article>`).join('');
+  g.innerHTML = list.map((t,i)=>{
+    const c = PCOL[t[0]] || ['#19C6F7','#C79DF2'];
+    const sc = (t[6] && window.prScene) ? prScene(t[6]) : '';
+    return `<article class="pr-c" style="--a:${c[0]};--b:${c[1]};animation-delay:${(i%12*.04).toFixed(2)}s" onclick="prZoom(${TIPS.indexOf(t)})">`
+      + (sc ? `<div class="pr-pic">${sc}<span class="ps-eye">смотреть крупно</span></div>` : '')
+      + pbody(t) + `</article>`;
+  }).join('');
 };
 window.openPro = ()=>{ if(window.openPage) openPage('proPage'); setTimeout(prDraw,80); };
 if(document.readyState!=='loading') setTimeout(prDraw,200); else document.addEventListener('DOMContentLoaded',()=>setTimeout(prDraw,200));
