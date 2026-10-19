@@ -1986,11 +1986,11 @@ details.faq.q:nth-child(3n+2){--brand:#C79DF2}
 details.faq.q:nth-child(3n+3){--brand:#F2A6C6}
 details.faq.q:hover{border-color:color-mix(in srgb, var(--brand) 55%, transparent)}
 details.faq.q[open]{background:rgba(255,255,255,.045);border-color:color-mix(in srgb, var(--brand) 45%, transparent)}
-details.faq.q summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:16px;padding:19px 24px;cursor:pointer;list-style:none;transition:padding .25s}
+details.faq.q summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:19px 24px;cursor:pointer;list-style:none;transition:padding .25s}
 details.faq.q summary::-webkit-details-marker{display:none}
 details.faq.q summary::before,details.faq.q summary::after{content:none!important;display:none!important}
-details.faq.q summary .q-n{font-family:'JetBrains Mono';font-size:11px;letter-spacing:1.6px;color:var(--brand);opacity:.8;transition:opacity .25s}
-details.faq.q summary .q-t{font-family:'Manrope';font-size:18.5px;font-weight:800;letter-spacing:-.45px;line-height:1.3;color:#E9ECF4;transition:color .25s}
+details.faq.q summary .q-n{font-family:'JetBrains Mono';font-size:12px;line-height:1.95;align-self:start;letter-spacing:1.6px;color:var(--brand);opacity:.8;transition:opacity .25s}
+details.faq.q summary .q-t{font-family:'Manrope';font-size:18.5px;font-weight:800;letter-spacing:-.45px;line-height:1.3;align-self:center;min-width:0;color:#E9ECF4;transition:color .25s}
 details.faq.q:hover summary .q-t{color:#fff}
 details.faq.q[open] summary .q-t{background:linear-gradient(100deg,#fff,color-mix(in srgb, var(--brand) 85%, #fff));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 details.faq.q[open] summary .q-n{opacity:1}
@@ -2003,7 +2003,7 @@ details.faq.q>div{padding:0 24px 22px 58px;animation:faqIn .35s ease both}
 details.faq.q p{margin:0 0 11px;font-size:14.5px;line-height:1.68;color:#C2C7D6}
 details.faq.q p:last-child{margin-bottom:0}
 details.faq.q p b{color:#fff;font-weight:700}
-@media(max-width:640px){details.faq.q summary{padding:16px 16px;gap:11px}details.faq.q summary .q-t{font-size:16px}details.faq.q summary .q-n{font-size:10px}details.faq.q>div{padding:0 16px 18px 43px}}
+@media(max-width:640px){details.faq.q summary{padding:16px 16px;gap:11px}details.faq.q summary .q-t{font-size:16px}details.faq.q summary .q-n{font-size:11px}details.faq.q>div{padding:0 16px 18px 43px}}
 .tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px;margin-top:4px}
 .tech{position:relative;padding:17px 18px;border-radius:18px;border:1.4px solid transparent;background:linear-gradient(#11141E,#11141E) padding-box,var(--tg,linear-gradient(135deg,#19C6F7,#C79DF2)) border-box;box-shadow:0 0 26px -16px var(--tc,#C79DF2);cursor:pointer;text-align:left;font-family:'Manrope';animation:popIn .5s both;transition:transform .25s,box-shadow .25s}
 .tech:hover{transform:translateY(-4px);box-shadow:0 16px 38px -18px var(--tc,#C79DF2)}
@@ -3565,70 +3565,190 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 /* --- УТРО --- */
 .wd-it.wash{opacity:.45;border-style:dashed}
 .wd-act button.on{color:#19C6F7;border-color:rgba(25,198,247,.55)}
-.mo-top{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:26px 28px;border-radius:26px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,rgba(255,210,138,.6),rgba(199,157,240,.5),rgba(25,198,247,.5)) border-box;overflow:hidden;margin-bottom:20px}
-.mo-date{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:#8B92AA;margin-bottom:8px}
-.mo-top h2{font-size:clamp(23px,3.4vw,34px);font-weight:800;letter-spacing:-.8px;line-height:1.14;margin:0 0 8px}
-.mo-sub{font-size:14.5px;line-height:1.6;color:#C2C7D6;max-width:60ch}
-.mo-wx{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 22px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);min-width:132px}
-.mo-wx b{font-size:34px;font-weight:800;letter-spacing:-1.5px;line-height:1}
-.mo-wx span{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:#8B92AA;text-align:center}
-.mo-wx em{font-style:normal;font-size:24px;line-height:1;color:#19C6F7}
-.mo-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;align-items:start}
-.mo-main{padding:22px 24px;border-radius:22px;border:1px solid transparent;background:linear-gradient(#12151F,#0D1017) padding-box,linear-gradient(140deg,#19C6F7,#C79DF2) border-box}
-.mo-main h3{font-size:17px;font-weight:800;margin:0 0 4px}
-.mo-k{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#19C6F7;margin-bottom:9px}
-.mo-look{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
-.mo-pc{display:flex;align-items:center;gap:9px;padding:9px 13px 9px 9px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035)}
-.mo-pc i{width:28px;height:28px;border-radius:9px;flex:0 0 auto;display:block;border:1px solid rgba(255,255,255,.18)}
-.mo-pc img{width:28px;height:28px;border-radius:9px;object-fit:cover;flex:0 0 auto}
-.mo-pc b{display:block;font-size:13.5px;font-weight:700;line-height:1.25}
-.mo-pc span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#7D849A}
-.mo-why{font-size:13px;line-height:1.6;color:#AEB4C6;border-top:1px solid rgba(255,255,255,.08);padding-top:11px;margin-top:4px}
-.mo-side{display:flex;flex-direction:column;gap:12px}
-.mo-card{padding:17px 19px;border-radius:19px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028)}
-.mo-card h4{font-size:14px;font-weight:800;margin:0 0 9px}
-.mo-alt{display:block;width:100%;text-align:left;padding:11px 13px;border-radius:13px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#D6DAE6;font-family:'Manrope';font-size:13px;line-height:1.45;cursor:pointer;margin-bottom:8px;transition:border-color .2s,transform .2s}
-.mo-alt:hover{border-color:rgba(199,157,240,.55);transform:translateX(3px)}
-.mo-alt b{display:block;font-size:10px;font-family:'JetBrains Mono';letter-spacing:1.2px;text-transform:uppercase;color:#C7A6F0;margin-bottom:3px}
-.mo-fix{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
-.mo-ch{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Manrope';font-size:12.5px;cursor:pointer;transition:all .2s}
-.mo-ch i{width:11px;height:11px;border-radius:50%;display:block;border:1px solid rgba(255,255,255,.25)}
+/* --- анкета гардероба --- */
+.wd-nm{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:18px;align-items:center;padding:19px 22px;border-radius:20px;border:1px solid transparent;background:linear-gradient(#11141E,#0C0F17) padding-box,linear-gradient(120deg,rgba(199,56,86,.55),rgba(199,157,240,.45)) border-box;margin-bottom:22px}
+.wd-nm-l b{display:block;font-size:15.5px;font-weight:800;margin-bottom:5px}
+.wd-nm-l span{font-size:13px;line-height:1.55;color:#9AA1B5}
+.wd-nm-r{display:flex;gap:9px}
+.wd-nm-r input{flex:1;min-width:0}
+.wd-nm-st{grid-column:1/-1;font-size:12.5px;line-height:1.5;min-height:0}
+.wd-find-ok{color:#7CF0B2}.wd-find-no{color:#FF9FC2}.wd-find-go{color:#19C6F7}
+.wd-steps{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.wd-step{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#5C6276;transition:color .25s}
+.wd-step i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:10px;border:1px solid rgba(255,255,255,.14);transition:all .25s}
+.wd-step.on{color:#C2C7D6}
+.wd-step.on i{background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#07121A;border-color:transparent;font-weight:700}
+.wd-bigs{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:11px;margin-bottom:20px}
+.wd-big{display:block;text-align:left;padding:17px 18px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028);color:#C2C7D6;font-family:'Manrope';cursor:pointer;transition:all .22s}
+.wd-big i{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;font-size:17px;font-style:normal;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);margin-bottom:11px}
+.wd-big b{display:block;font-size:15px;font-weight:800;color:#F0F2F7;margin-bottom:4px}
+.wd-big span{display:block;font-size:12px;line-height:1.45;color:#7D849A}
+.wd-big:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.55)}
+.wd-big.on{border-color:transparent;background:linear-gradient(#141826,#0C0F17) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2) border-box}
+.wd-big.on i{background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#07121A;border-color:transparent}
+.wd-blk{margin-bottom:17px;animation:popIn .35s both}
+.wd-lb{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#6E7489;margin-bottom:9px}
+.wd-lb em{font-style:normal;color:#4F5567}
+.wd-subs{display:flex;flex-wrap:wrap;gap:8px}
+.wd-sub{padding:10px 16px;border-radius:99px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Manrope';font-size:13.5px;cursor:pointer;transition:all .2s}
+.wd-sub.sm{font-family:'JetBrains Mono';font-size:12px;padding:9px 14px}
+.wd-sub:hover{border-color:rgba(199,157,240,.6);color:#fff}
+.wd-sub.on{border-color:transparent;background:linear-gradient(100deg,#19C6F7,#C79DF2);color:#07121A;font-weight:700}
+.wd-cols{display:flex;flex-wrap:wrap;gap:8px}
+.wd-col{display:inline-flex;align-items:center;gap:9px;padding:8px 14px 8px 9px;border-radius:99px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Manrope';font-size:13px;cursor:pointer;transition:all .2s}
+.wd-col i{width:18px;height:18px;border-radius:50%;display:block;border:1px solid rgba(255,255,255,.25)}
+.wd-col:hover{border-color:rgba(199,157,240,.6);color:#fff}
+.wd-col.on{border-color:#19C6F7;color:#fff;box-shadow:0 0 0 1px rgba(25,198,247,.45) inset}
+.wd-more{background:none;border:none;color:#8B92AA;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.4px;text-transform:uppercase;cursor:pointer;padding:4px 0;margin-bottom:12px}
+.wd-more:hover{color:#C79DF2}
+.wd-auto{font-size:12.5px;color:#7D849A;margin-bottom:14px}
+.wd-auto b{color:#C2C7D6}
+.wd-go{display:flex;flex-wrap:wrap;gap:10px}
+.wd-inb{padding:18px 21px;border-radius:19px;border:1px solid rgba(25,198,247,.3);background:rgba(25,198,247,.05);margin-bottom:20px}
+.wd-inb.hint{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.028)}
+.wd-inb b{display:block;font-size:14.5px;font-weight:800;margin-bottom:5px}
+.wd-inb>span,.wd-inb.hint span{display:block;font-size:13px;line-height:1.55;color:#9AA1B5}
+.wd-inb-h{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.wd-inb-h .wd-more{margin:0}
+.wd-inb-i{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);margin-bottom:8px}
+.wd-inb-i b{font-size:13.8px;margin-bottom:3px}
+.wd-inb-i span{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#7D849A}
+.wd-inb-n{font-size:12.5px;line-height:1.55;color:#7D849A;margin-top:10px}
+@media(max-width:760px){.wd-nm{grid-template-columns:1fr;gap:12px}.wd-nm-r{flex-direction:column}}
+#moBox{display:flex;flex-direction:column;gap:22px}
+.mo-top{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:center;padding:34px 36px;border-radius:30px;border:1px solid transparent;background:linear-gradient(#0A0C13,#0A0C13) padding-box,linear-gradient(135deg,color-mix(in srgb,var(--bc,#19C6F7) 70%,transparent),rgba(199,157,240,.5),rgba(255,210,138,.4)) border-box;overflow:hidden}
+.mo-aura{position:absolute;inset:0;pointer-events:none}
+.mo-aura i{position:absolute;width:320px;height:320px;border-radius:50%;filter:blur(90px);opacity:.3}
+.mo-aura i:first-child{top:-170px;left:-90px}
+.mo-aura i:last-child{bottom:-200px;right:12%;background:#C79DF2;opacity:.22}
+.mo-head{position:relative;z-index:1}
+.mo-date{display:flex;align-items:baseline;gap:9px;margin-bottom:12px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.mo-date b{color:var(--bc,#19C6F7)}
+.mo-date span{color:#8B92AA}
+.mo-top h2{font-size:clamp(25px,3.6vw,38px);font-weight:800;letter-spacing:-1px;line-height:1.12;margin:0 0 12px}
+.mo-sub{font-size:15px;line-height:1.65;color:#C2C7D6;max-width:58ch;margin:0}
+.mo-wx{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:7px;padding:20px 22px;border-radius:24px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.045);min-width:198px}
+.mo-wx-now{display:flex;align-items:center;gap:11px}
+.mo-wx-now em{font-style:normal;font-size:30px;line-height:1}
+.mo-wx-now b{font-size:42px;font-weight:800;letter-spacing:-2px;line-height:1}
+.mo-wx-c{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:#8B92AA}
+.mo-wx-b{font-size:12.5px;padding:4px 12px;border-radius:99px;color:var(--bc,#19C6F7);border:1px solid color-mix(in srgb,var(--bc,#19C6F7) 40%,transparent);background:color-mix(in srgb,var(--bc,#19C6F7) 10%,transparent)}
+.mo-fore{display:flex;gap:4px;margin-top:9px;padding-top:11px;border-top:1px solid rgba(255,255,255,.08);width:100%}
+.mo-fd{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 4px;border-radius:12px;transition:background .2s}
+.mo-fd.on{background:rgba(255,255,255,.06)}
+.mo-fd span{font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:.8px;text-transform:uppercase;color:#6E7489}
+.mo-fd em{font-style:normal;font-size:14px;line-height:1}
+.mo-fd b{font-size:13px;font-weight:700}
+.mo-wx.empty{max-width:230px;text-align:center}
+.mo-wx.empty p{font-size:12.5px;line-height:1.55;color:#8B92AA;margin:2px 0 4px}
+.mo-occ{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.mo-occ-k{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#6E7489}
+.mo-occ-r{display:flex;flex-wrap:wrap;gap:9px}
+.mo-oc{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:99px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Manrope';font-size:14px;font-weight:600;cursor:pointer;transition:all .22s}
+.mo-oc i{font-style:normal;font-size:13px;opacity:.7}
+.mo-oc:hover{border-color:rgba(199,157,240,.6);color:#fff;transform:translateY(-2px)}
+.mo-oc.on{border-color:transparent;background:linear-gradient(100deg,#19C6F7,#C79DF2);color:#07121A;font-weight:700}
+.mo-oc.on i{opacity:1}
+.mo-grid{display:grid;grid-template-columns:minmax(0,1.48fr) minmax(0,1fr);gap:18px;align-items:start}
+.mo-main{position:relative;padding:28px 30px;border-radius:26px;border:1px solid transparent;background:linear-gradient(#12151F,#0D1017) padding-box,linear-gradient(140deg,var(--bc,#19C6F7),#C79DF2) border-box}
+.mo-main-h{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:11px}
+.mo-k{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.7px;text-transform:uppercase;color:var(--bc,#19C6F7)}
+.mo-dots{display:flex;gap:6px}
+.mo-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:transparent;cursor:pointer;padding:0;transition:all .2s}
+.mo-dot.on{background:var(--bc,#19C6F7);border-color:transparent;transform:scale(1.25)}
+.mo-main h3{font-size:21px;font-weight:800;letter-spacing:-.5px;line-height:1.25;margin:0 0 18px}
+.mo-look{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:10px;margin-bottom:18px}
+.mo-pc{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);transition:border-color .2s,transform .2s}
+.mo-pc:hover{border-color:color-mix(in srgb,var(--bc,#19C6F7) 55%,transparent);transform:translateY(-2px)}
+.mo-pc i{width:36px;height:36px;border-radius:11px;flex:0 0 auto;display:block;border:1px solid rgba(255,255,255,.2)}
+.mo-pc img{width:36px;height:36px;border-radius:11px;object-fit:cover;flex:0 0 auto}
+.mo-pt{min-width:0}
+.mo-pt b{display:block;font-size:14px;font-weight:700;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mo-pt span{display:block;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:#7D849A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mo-why{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:15px;background:rgba(25,198,247,.06);border:1px solid rgba(25,198,247,.18);font-size:13.5px;line-height:1.6;color:#C9CEDC;margin-bottom:18px}
+.mo-why i{font-style:normal;font-size:15px;color:#19C6F7}
+.mo-act{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.mo-empty{text-align:center;padding:14px 0 6px}
+.mo-empty-ic{font-size:40px;color:#3E4458;line-height:1;margin-bottom:12px}
+.mo-empty h3{margin-bottom:8px}
+.mo-empty p{font-size:14px;line-height:1.6;color:#9AA1B5;margin:0 auto;max-width:44ch}
+.mo-need{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:15px;padding:9px 14px;border-radius:99px;border:1px solid rgba(255,111,168,.3);background:rgba(255,111,168,.06)}
+.mo-need span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:#FF9FC2}
+.mo-need em{font-style:normal;font-size:13px;font-weight:700;color:#F0F2F7}
+.mo-empty .mo-act{justify-content:center}
+.mo-side{display:flex;flex-direction:column;gap:14px}
+.mo-card{padding:22px 24px;border-radius:22px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028)}
+.mo-card h4{font-size:15.5px;font-weight:800;margin:0 0 11px}
+.mo-alt{display:block;width:100%;text-align:left;padding:13px 15px;border-radius:15px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#D6DAE6;font-family:'Manrope';cursor:pointer;margin-bottom:9px;transition:border-color .2s,transform .2s}
+.mo-alt:hover{border-color:rgba(199,157,240,.6);transform:translateX(4px)}
+.mo-alt b{display:block;font-size:9.5px;font-family:'JetBrains Mono';letter-spacing:1.3px;text-transform:uppercase;color:#C7A6F0;margin-bottom:5px}
+.mo-alt span{font-size:13px;line-height:1.5}
+.mo-note{font-size:13px;line-height:1.6;color:#9AA1B5;margin:0 0 12px}
+.mo-note.sm{font-size:12px;margin:12px 0 0}
+.mo-fix{display:flex;flex-wrap:wrap;gap:8px}
+.mo-ch{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Manrope';font-size:13px;cursor:pointer;transition:all .2s}
+.mo-ch i{width:12px;height:12px;border-radius:50%;display:block;border:1px solid rgba(255,255,255,.25);flex:0 0 auto}
 .mo-ch:hover{border-color:rgba(199,157,240,.6);color:#fff}
-.mo-ch.wash{opacity:.5;text-decoration:line-through}
-.mo-ch em{font-style:normal;color:#6E7489;font-size:11px}
-.mo-tg{padding:19px 21px;border-radius:20px;border:1px solid transparent;background:linear-gradient(#11141E,#0C0F17) padding-box,linear-gradient(135deg,rgba(25,198,247,.55),rgba(124,240,178,.45)) border-box;margin-top:16px}
-.mo-tg-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
-.mo-tg input[type=time]{font-family:'JetBrains Mono';font-size:15px;padding:9px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#fff}
-.mo-days{display:flex;gap:6px;flex-wrap:wrap}
-.mo-d{width:34px;height:34px;border-radius:11px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:#A8AEC0;font-family:'JetBrains Mono';font-size:11px;cursor:pointer;transition:all .2s}
+.mo-ch.wash{opacity:.45;text-decoration:line-through}
+.mo-ch em{font-style:normal;color:#6E7489;font-size:12px;padding-left:2px}
+.mo-ch em:hover{color:#C79DF2}
+.mo-blank{padding:18px;border-radius:15px;border:1px dashed rgba(255,255,255,.14);text-align:center;font-size:13px;color:#7D849A}
+.mo-wash{margin-top:12px;padding:11px 14px;border-radius:14px;background:rgba(25,198,247,.06);border:1px solid rgba(25,198,247,.16);font-size:12.5px;line-height:1.55;color:#AEB4C6}
+.mo-wash span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.3px;text-transform:uppercase;color:#19C6F7;margin-bottom:4px}
+.mo-tg{display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:28px;align-items:center;padding:30px 32px;border-radius:28px;border:1px solid transparent;background:linear-gradient(#11141E,#0C0F17) padding-box,linear-gradient(135deg,rgba(25,198,247,.6),rgba(124,240,178,.45),rgba(199,157,240,.5)) border-box}
+.mo-tg h4{font-size:19px;font-weight:800;letter-spacing:-.4px;margin:8px 0 9px}
+.mo-tg-row{display:flex;flex-wrap:wrap;gap:11px;align-items:center;margin:16px 0 12px}
+.mo-tg input[type=time]{font-family:'JetBrains Mono';font-size:16px;padding:11px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#fff}
+.mo-days{display:flex;gap:7px;flex-wrap:wrap}
+.mo-d{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:#A8AEC0;font-family:'JetBrains Mono';font-size:11.5px;cursor:pointer;transition:all .2s}
+.mo-d:hover{border-color:rgba(199,157,240,.6);color:#fff}
 .mo-d.on{border-color:transparent;background:linear-gradient(100deg,#19C6F7,#C79DF2);color:#07121A;font-weight:700}
-.mo-note{font-size:12.5px;line-height:1.6;color:#8B92AA;margin-top:11px}
-@media(max-width:900px){.mo-grid{grid-template-columns:1fr}.mo-top{grid-template-columns:1fr}.mo-wx{align-self:start}}
+.mo-phone{width:272px;flex:0 0 auto;padding:16px 16px 12px;border-radius:26px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(170deg,#161A26,#0E111A);box-shadow:0 26px 60px -30px rgba(25,198,247,.7)}
+.mo-ph-top{display:flex;align-items:center;gap:10px;padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.mo-ph-av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:14px;color:#07121A;background:linear-gradient(120deg,#19C6F7,#C79DF2)}
+.mo-ph-top b{display:block;font-size:13.5px;font-weight:700}
+.mo-ph-top em{font-style:normal;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1.2px;text-transform:uppercase;color:#6E7489}
+.mo-ph-msg{padding:13px 15px;border-radius:16px 16px 16px 5px;background:rgba(25,198,247,.1);border:1px solid rgba(25,198,247,.2);font-size:13px;line-height:1.6;color:#DDE1EB}
+.mo-ph-t{text-align:right;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1px;color:#6E7489;padding:7px 4px 0}
+@media(max-width:980px){.mo-grid{grid-template-columns:1fr}.mo-top{grid-template-columns:1fr;padding:26px 24px}.mo-wx{align-self:start;width:100%;min-width:0}.mo-tg{grid-template-columns:1fr;padding:24px 22px}.mo-phone{width:100%;max-width:320px}}
+@media(max-width:640px){.mo-occ{flex-direction:column;align-items:flex-start;gap:9px}.mo-look{grid-template-columns:1fr}.mo-main{padding:22px 20px}}
 /* --- КУРСЫ --- */
-.cr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:15px}
-.cr-c{position:relative;overflow:hidden;cursor:pointer;padding:24px 26px;border-radius:24px;border:1px solid transparent;background:linear-gradient(#12151F,#0D1017) padding-box,linear-gradient(140deg,var(--a),var(--b)) border-box;animation:popIn .5s both;transition:transform .25s,box-shadow .25s}
+#crBox{display:flex;flex-direction:column;gap:34px}
+.cr-sec{display:flex;flex-direction:column;gap:18px}
+.cr-sec-h{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:28px;align-items:center;padding:24px 28px;border-radius:24px;border:1px solid transparent}
+.cr-sec-h.free{background:linear-gradient(#0B0E15,#0B0E15) padding-box,linear-gradient(120deg,rgba(124,240,178,.55),rgba(25,198,247,.4)) border-box}
+.cr-sec-h.pro{background:linear-gradient(#0B0E15,#0B0E15) padding-box,linear-gradient(120deg,rgba(255,210,138,.6),rgba(255,111,168,.45)) border-box}
+.cr-sec-k{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:7px}
+.cr-sec-h.free .cr-sec-k{color:#7CF0B2}
+.cr-sec-h.pro .cr-sec-k{color:#FFD28A}
+.cr-sec-h h3{font-size:clamp(19px,2.6vw,25px);font-weight:800;letter-spacing:-.6px;margin:0;white-space:nowrap}
+.cr-sec-h p{font-size:13.8px;line-height:1.65;color:#AEB4C6;margin:0}
+.cr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(296px,1fr));gap:16px;align-items:stretch}
+.cr-c{position:relative;display:flex;flex-direction:column;overflow:hidden;cursor:pointer;padding:24px 26px;border-radius:24px;border:1px solid transparent;background:linear-gradient(#12151F,#0D1017) padding-box,linear-gradient(140deg,var(--a),var(--b)) border-box;animation:popIn .5s both;transition:transform .25s,box-shadow .25s}
 .cr-c::before{content:'';position:absolute;inset:-45% 50% 60% -30%;background:radial-gradient(circle,var(--a),transparent 70%);opacity:.16;pointer-events:none;transition:opacity .3s}
 .cr-c:hover{transform:translateY(-5px);box-shadow:0 22px 52px -24px var(--a)}
-.cr-c:hover::before{opacity:.32}
-.cr-ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:24px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);margin-bottom:14px}
-.cr-ic.big{width:66px;height:66px;font-size:30px;flex:0 0 auto}
-.cr-c h3{font-size:20px;font-weight:800;letter-spacing:-.4px;margin:0 0 8px}
-.cr-c p{font-size:13.8px;line-height:1.6;color:#B7BCCC;margin:0 0 14px}
+.cr-c:hover::before{opacity:.34}
+.cr-c-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:15px;position:relative;z-index:1}
+.cr-ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:24px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);flex:0 0 auto}
+.cr-ic.big{width:66px;height:66px;font-size:30px}
+.cr-tag{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.4px;text-transform:uppercase;padding:5px 11px;border-radius:99px;white-space:nowrap}
+.cr-tag.free{border:1px solid rgba(124,240,178,.45);color:#7CF0B2}
+.cr-tag.pro{background:linear-gradient(100deg,#FFD28A,#FF6FA8);color:#1A0D14;font-weight:700}
+.cr-c h3{font-size:20px;font-weight:800;letter-spacing:-.4px;margin:0 0 9px;position:relative;z-index:1}
+.cr-c p{font-size:13.8px;line-height:1.62;color:#B7BCCC;margin:0 0 18px;position:relative;z-index:1}
+.cr-foot{margin-top:auto;position:relative;z-index:1}
 .cr-meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:13px}
-.cr-meta span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;padding:4px 9px;border-radius:99px;border:1px solid rgba(255,255,255,.12);color:#8B92AA}
-.cr-meta .free{color:#7CF0B2;border-color:rgba(124,240,178,.4)}
+.cr-meta span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.12);color:#8B92AA}
 .cr-bar{height:5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
-.cr-bar.big{height:7px;margin-top:14px}
+.cr-bar.big{height:7px;margin-top:16px}
 .cr-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--b));transition:width .5s}
-.cr-prog{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#6E7489;margin-top:7px}
+.cr-prog{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#6E7489;margin-top:8px}
 .cr-view{animation:popIn .4s both}
-.cr-head{display:flex;gap:20px;align-items:flex-start;padding:26px 28px;margin:18px 0 20px;border-radius:26px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,var(--a),var(--b)) border-box}
-.cr-head h2{font-size:clamp(22px,3.2vw,30px);font-weight:800;letter-spacing:-.7px;margin:2px 0 7px}
-.cr-head p{font-size:14px;line-height:1.6;color:#B7BCCC;margin:0;max-width:62ch}
-.cr-mod.pro summary .q-t{color:#F4F5FA}
-.cr-lock,.cr-freeb{font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.3px;padding:3px 8px;border-radius:99px;margin-left:9px;vertical-align:middle}
-.cr-lock{background:linear-gradient(100deg,#FFD28A,#FF6FA8);color:#1A0D14;font-weight:700}
-.cr-freeb{border:1px solid rgba(124,240,178,.45);color:#7CF0B2}
+.cr-head{display:flex;gap:22px;align-items:flex-start;padding:28px 30px;margin:18px 0 20px;border-radius:26px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,var(--a),var(--b)) border-box}
+.cr-head-b{min-width:0}
+.cr-head-k{display:flex;flex-wrap:wrap;align-items:center;gap:11px;margin-bottom:9px}
+.cr-head h2{font-size:clamp(22px,3.2vw,31px);font-weight:800;letter-spacing:-.8px;margin:0 0 9px}
+.cr-head p{font-size:14.5px;line-height:1.65;color:#B7BCCC;margin:0;max-width:64ch}
 .cr-mb{padding-top:4px}
 .cr-md{font-size:13.5px;line-height:1.6;color:#AEB4C6;margin:0 0 13px}
 .cr-ls{display:flex;flex-direction:column;gap:8px;margin-bottom:11px}
@@ -3639,7 +3759,11 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .cr-lm{width:24px;height:24px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;font-size:11px;border:1px solid rgba(255,255,255,.16);color:#8B92AA}
 .cr-l.done{border-color:rgba(124,240,178,.4)}
 .cr-l.done .cr-lm{background:rgba(124,240,178,.16);border-color:rgba(124,240,178,.5);color:#7CF0B2}
-.cr-pro-note{margin-top:16px;padding:15px 18px;border-radius:16px;border:1px solid rgba(255,210,138,.3);background:rgba(255,210,138,.05);font-size:13.5px;line-height:1.6;color:#C2C7D6}
+.cr-pro-note,.cr-free-note{margin-top:18px;padding:18px 21px;border-radius:18px;font-size:13.8px;line-height:1.65;color:#C2C7D6}
+.cr-pro-note{border:1px solid rgba(255,210,138,.3);background:rgba(255,210,138,.05)}
+.cr-pro-note b{color:#FFD28A}
+.cr-free-note{border:1px solid rgba(124,240,178,.28);background:rgba(124,240,178,.05)}
+.cr-free-note b{color:#7CF0B2}
 .cr-les{width:min(620px,100%)}
 .cr-why{font-size:14.5px;line-height:1.65;color:#C7A6F0;margin:0 0 18px}
 .cr-steps{display:flex;flex-direction:column;gap:11px}
@@ -3657,7 +3781,140 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .cr-ok{border:1px solid rgba(124,240,178,.26);background:rgba(124,240,178,.05);color:#D6DAE6}
 .cr-ok span{color:#7CF0B2}
 .cr-note{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#9AA1B5;font-size:12.8px}
+/* --- программа по дням --- */
+.cr-sw{display:inline-flex;gap:4px;padding:4px;border-radius:99px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);margin-bottom:18px}
+.cr-swb{padding:9px 17px;border-radius:99px;border:none;background:transparent;color:#8B92AA;font-family:'Manrope';font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.cr-swb.on{background:linear-gradient(100deg,var(--a),var(--b));color:#07121A;font-weight:700}
+.pr-prog{padding:24px 26px;border-radius:24px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+.pr-ph{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;margin-bottom:18px}
+.pr-ph h3{font-size:clamp(18px,2.4vw,23px);font-weight:800;letter-spacing:-.5px;margin:7px 0 0}
+.pr-stats{display:flex;gap:12px}
+.pr-stats div{text-align:center;padding:11px 18px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
+.pr-stats b{display:block;font-size:24px;font-weight:800;letter-spacing:-1px;line-height:1;background:linear-gradient(100deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.pr-stats span{font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1.2px;text-transform:uppercase;color:#7D849A}
+.pr-days{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px}
+.pr-d{position:relative;display:block;text-align:left;padding:14px 15px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028);color:#C2C7D6;font-family:'Manrope';cursor:pointer;transition:all .2s;min-height:94px}
+.pr-d:hover{transform:translateY(-3px);border-color:var(--a)}
+.pr-d.soft{background:rgba(255,255,255,.015);border-style:dashed}
+.pr-dn{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;font-family:'JetBrains Mono';font-size:11px;border:1px solid rgba(255,255,255,.16);color:#8B92AA;margin-bottom:9px}
+.pr-d b{display:block;font-size:13px;font-weight:700;line-height:1.35;color:#E6E8F0;margin-bottom:5px}
+.pr-d em{font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.1px;text-transform:uppercase;color:#6E7489}
+.pr-d.done{border-color:rgba(124,240,178,.45);background:rgba(124,240,178,.05)}
+.pr-d.done .pr-dn{background:rgba(124,240,178,.18);border-color:rgba(124,240,178,.5);color:#7CF0B2}
+.pr-d.today{border-color:transparent;background:linear-gradient(#141826,#0C0F17) padding-box,linear-gradient(135deg,var(--a),var(--b)) border-box;box-shadow:0 16px 40px -22px var(--a)}
+.pr-d.today .pr-dn{background:linear-gradient(120deg,var(--a),var(--b));color:#07121A;border-color:transparent;font-weight:700}
+.pr-pn{font-size:12.5px;line-height:1.6;color:#7D849A;margin-top:14px}
+/* --- чем делать, фото, голос --- */
+.cr-kit{margin-top:18px;padding:17px 20px;border-radius:17px;border:1px solid rgba(255,210,138,.26);background:rgba(255,210,138,.045)}
+.cr-kit>span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#FFD28A;margin-bottom:11px}
+.cr-kb{padding:10px 0;border-top:1px solid rgba(255,255,255,.07)}
+.cr-kb:first-of-type{border-top:none;padding-top:0}
+.cr-kb b{display:block;font-size:14px;font-weight:700;color:#F0F2F7;margin-bottom:3px}
+.cr-kb p{margin:0;font-size:13px;line-height:1.58;color:#AEB4C6}
+.cr-kt{display:flex;gap:11px;margin-top:11px;padding-top:11px;border-top:1px solid rgba(255,255,255,.07);font-size:13.2px;line-height:1.6;color:#C9CEDC}
+.cr-kt i{font-style:normal;color:#FFD28A}
+.cr-kn{font-size:11.5px;line-height:1.55;color:#7D849A;margin-top:11px}
+.cr-shot{margin:18px 0 0}
+.cr-shot img{width:100%;border-radius:16px;border:1px solid rgba(255,255,255,.1);display:block}
+.cr-shot figcaption{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.3px;text-transform:uppercase;color:#6E7489;margin-top:8px}
+.cr-voice{margin-top:16px;padding:14px 17px;border-radius:16px;border:1px solid rgba(25,198,247,.25);background:rgba(25,198,247,.05)}
+.cr-voice span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#19C6F7;margin-bottom:9px}
+.cr-voice audio{width:100%;height:36px}
+@media(max-width:640px){.pr-days{grid-template-columns:1fr 1fr}.pr-ph{flex-direction:column;align-items:flex-start}}
+@media(max-width:860px){.cr-sec-h{grid-template-columns:1fr;gap:12px}.cr-sec-h h3{white-space:normal}}
 @media(max-width:640px){.cr-head{flex-direction:column}.cr-pic{height:108px}}
+/* --- СТАТЬИ --- */
+.ar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.ar-c{position:relative;display:flex;flex-direction:column;overflow:hidden;cursor:pointer;padding:26px 28px;border-radius:24px;border:1px solid transparent;background:linear-gradient(#12151F,#0D1017) padding-box,linear-gradient(140deg,var(--a),var(--b)) border-box;animation:popIn .5s both;transition:transform .25s,box-shadow .25s}
+.ar-c::before{content:'';position:absolute;inset:-45% 50% 60% -30%;background:radial-gradient(circle,var(--a),transparent 70%);opacity:.15;pointer-events:none;transition:opacity .3s}
+.ar-c:hover{transform:translateY(-5px);box-shadow:0 22px 52px -24px var(--a)}
+.ar-c:hover::before{opacity:.32}
+.ar-c-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;position:relative;z-index:1}
+.ar-ic{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;font-size:22px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);flex:0 0 auto}
+.ar-ic.big{width:64px;height:64px;font-size:28px}
+.ar-min{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:#7D849A}
+.ar-c h3{font-size:20px;font-weight:800;letter-spacing:-.45px;line-height:1.28;margin:0 0 10px;position:relative;z-index:1}
+.ar-c p{font-size:13.8px;line-height:1.62;color:#B7BCCC;margin:0 0 18px;position:relative;z-index:1}
+.ar-go{margin-top:auto;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--a);position:relative;z-index:1}
+.ar-read{animation:popIn .4s both;max-width:860px}
+.ar-head{display:flex;gap:20px;align-items:flex-start;padding:28px 30px;margin:18px 0 24px;border-radius:26px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,var(--a),var(--b)) border-box}
+.ar-head h2{font-size:clamp(23px,3.3vw,33px);font-weight:800;letter-spacing:-.9px;line-height:1.16;margin:9px 0 11px}
+.ar-lead{font-size:15px;line-height:1.65;color:#B7BCCC;margin:0}
+.ar-body p{font-size:15.5px;line-height:1.78;color:#D2D6E2;margin:0 0 18px}
+.ar-body h3{font-size:21px;font-weight:800;letter-spacing:-.5px;line-height:1.3;margin:34px 0 14px;padding-left:15px;border-left:3px solid var(--a)}
+.ar-li{display:flex;gap:12px;margin-bottom:11px}
+.ar-li i{font-style:normal;color:var(--a);font-size:17px;line-height:1.5}
+.ar-li span{font-size:15px;line-height:1.72;color:#C9CEDC}
+.ar-rule{margin:22px 0;padding:18px 22px;border-radius:17px;border:1px solid color-mix(in srgb,var(--a) 40%,transparent);background:color-mix(in srgb,var(--a) 8%,transparent);font-size:15.5px;line-height:1.7;color:#EAEDF4;font-weight:600}
+.ar-rule span{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:var(--a);font-weight:400;margin-bottom:7px}
+.ar-note{margin:22px 0;padding:17px 20px;border-radius:16px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.03);font-size:14px;line-height:1.7;color:#9AA1B5}
+.ar-pic{margin:24px 0}
+.ar-pic-in{height:210px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:radial-gradient(120% 140% at 15% 0%,color-mix(in srgb,var(--a) 16%,transparent),rgba(255,255,255,.02) 70%),rgba(0,0,0,.22);padding:12px}
+.ar-pic-in .ps-svg,.ar-pic-in .tut-svg{width:100%;height:100%}
+.ar-pic figcaption{font-size:13px;line-height:1.6;color:#7D849A;margin-top:10px;padding-left:4px}
+.ar-tabw{overflow-x:auto;margin:22px 0;border-radius:16px;border:1px solid rgba(255,255,255,.1)}
+.ar-tab{width:100%;border-collapse:collapse;font-size:13.8px;min-width:560px}
+.ar-tab th{text-align:left;padding:13px 16px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--a);background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.1);font-weight:400}
+.ar-tab td{padding:13px 16px;line-height:1.6;color:#C9CEDC;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top}
+.ar-tab td.k{font-weight:700;color:#F0F2F7;white-space:nowrap}
+.ar-tab tr:last-child td{border-bottom:none}
+.ar-end{margin-top:30px;padding:17px 20px;border-radius:16px;border:1px dashed rgba(255,255,255,.14);font-size:13px;line-height:1.68;color:#7D849A}
+@media(max-width:640px){.ar-head{flex-direction:column;padding:22px}.ar-pic-in{height:160px}.ar-body p,.ar-li span{font-size:15px}}
+/* --- ЛЕНЬ-РЕЖИМ --- */
+#lzBox{display:flex;flex-direction:column;gap:22px}
+.lz-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:14px}
+.lz-tab{display:block;text-align:left;padding:22px 24px;border-radius:22px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028);color:#C2C7D6;font-family:'Manrope';cursor:pointer;transition:all .25s}
+.lz-tab i{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;font-size:20px;font-style:normal;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);margin-bottom:13px}
+.lz-tab b{display:block;font-size:17px;font-weight:800;letter-spacing:-.3px;color:#F0F2F7;margin-bottom:6px}
+.lz-tab span{display:block;font-size:13px;line-height:1.55;color:#8B92AA}
+.lz-tab:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.5)}
+.lz-tab.on{border-color:transparent;background:linear-gradient(#141826,#0C0F17) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2) border-box;box-shadow:0 20px 48px -26px rgba(25,198,247,.9)}
+.lz-tab.on i{background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#07121A;border-color:transparent}
+.lz-res{position:relative;padding:30px 32px;border-radius:28px;border:1px solid transparent;background:linear-gradient(#12151F,#0D1017) padding-box,linear-gradient(140deg,#19C6F7,#C79DF2,#FFD28A) border-box;animation:popIn .4s both}
+.lz-k{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.7px;text-transform:uppercase;color:#19C6F7;margin-bottom:9px}
+.lz-res h3{font-size:clamp(20px,2.8vw,26px);font-weight:800;letter-spacing:-.6px;line-height:1.2;margin:0 0 14px}
+.lz-lead{font-size:14px;line-height:1.65;color:#AEB4C6;margin:0 0 18px;max-width:64ch}
+.lz-look{display:grid;grid-template-columns:repeat(auto-fill,minmax(186px,1fr));gap:10px;margin-bottom:18px}
+.lz-look.sm{grid-template-columns:1fr;margin-bottom:14px}
+.lz-pc{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035)}
+.lz-pc i{width:36px;height:36px;border-radius:11px;flex:0 0 auto;display:block;border:1px solid rgba(255,255,255,.2)}
+.lz-pc img{width:36px;height:36px;border-radius:11px;object-fit:cover;flex:0 0 auto}
+.lz-pc b{display:block;font-size:14px;font-weight:700;line-height:1.3}
+.lz-pc span{font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:#7D849A}
+.lz-act{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.lz-res.empty{text-align:center}
+.lz-ic{font-size:44px;color:#3E4458;line-height:1;margin-bottom:12px}
+.lz-res.empty p{font-size:14px;line-height:1.6;color:#9AA1B5;margin:0 auto;max-width:48ch}
+.lz-res.empty .lz-act{justify-content:center}
+.lz-items{display:flex;flex-direction:column;gap:12px}
+.lz-it{display:flex;gap:14px;padding:17px 19px;border-radius:18px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.028)}
+.lz-it-n{width:28px;height:28px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;font-family:'JetBrains Mono';font-size:12px;font-weight:700;background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#07121A}
+.lz-it-b{flex:1;min-width:0}
+.lz-it-b b{display:block;font-size:15.5px;font-weight:800;margin-bottom:5px}
+.lz-it-b p{font-size:13.2px;line-height:1.6;color:#AEB4C6;margin:0 0 9px}
+.lz-gain{display:inline-block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:99px;border:1px solid rgba(124,240,178,.4);color:#7CF0B2;margin-bottom:10px}
+.lz-honest{margin-top:20px;padding:17px 20px;border-radius:17px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);font-size:13.2px;line-height:1.68;color:#9AA1B5}
+.lz-honest b{color:#D6DAE6}
+.lz-form{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-bottom:20px}
+.lz-chips{display:flex;flex-wrap:wrap;gap:8px}
+.lz-ch{padding:9px 15px;border-radius:99px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Manrope';font-size:13px;cursor:pointer;transition:all .2s}
+.lz-ch:hover{border-color:rgba(199,157,240,.6);color:#fff}
+.lz-ch.on{border-color:transparent;background:linear-gradient(100deg,#19C6F7,#C79DF2);color:#07121A;font-weight:700}
+.lz-time{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA}
+.lz-time input{font-family:'JetBrains Mono';font-size:15px;padding:9px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#fff}
+.lz-cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;margin-bottom:20px;align-items:start}
+.lz-col{padding:19px 21px;border-radius:19px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025)}
+.lz-col p{font-size:13.5px;line-height:1.6;color:#C2C7D6;margin:9px 0 0}
+.lz-mini{height:118px;border-radius:14px;border:1px solid rgba(255,255,255,.07);background:radial-gradient(120% 140% at 15% 0%,rgba(25,198,247,.14),rgba(255,255,255,.02) 70%),rgba(0,0,0,.2);padding:6px}
+.lz-mini .ps-svg,.lz-mini .tut-svg{width:100%;height:100%}
+.lz-blank{padding:18px;border-radius:15px;border:1px dashed rgba(255,255,255,.14);font-size:13px;line-height:1.6;color:#8B92AA}
+.lz-tl{padding:20px 22px;border-radius:20px;border:1px solid rgba(255,210,138,.25);background:rgba(255,210,138,.045)}
+.lz-tl .lz-k{color:#FFD28A}
+.lz-tr{display:flex;align-items:baseline;gap:16px;padding:9px 0;border-top:1px solid rgba(255,255,255,.07)}
+.lz-tr:first-of-type{border-top:none}
+.lz-tr b{font-family:'JetBrains Mono';font-size:15px;color:#FFD28A;min-width:54px}
+.lz-tr span{font-size:13.8px;line-height:1.55;color:#D6DAE6}
+@media(max-width:900px){.lz-cols{grid-template-columns:1fr}.lz-res{padding:24px 22px}.lz-form{flex-direction:column;align-items:flex-start}}
 .wd-fits{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
 .wd-fit{border:1px solid rgba(255,255,255,.12);padding:12px;display:flex;flex-direction:column;gap:8px;background:rgba(255,255,255,.02)}
 .wd-fit-h{font-family:'JetBrains Mono';font-size:10px;letter-spacing:2px;color:#19C6F7;text-transform:uppercase}
@@ -6680,12 +6937,32 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="looks" id="cpOut"></div>
 </section>
 
+<section class="sec pageview" id="artPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
+    <div class="eyebrow">статьи · разборы вместо советов</div>
+    <h2 class="big">Длинные разборы <span class="holo">для тех, кто хочет понять</span></h2>
+    <p class="lead">Не «10 лайфхаков», а то, как профессионалы принимают решения: по каким параметрам подбирают нюдовую помаду, изгиб ресниц и укладку под форму лица, и что из салонной полки действительно меняет волос. Со схемами, таблицами и честной пометкой там, где доказательств мало.</p>
+  </div>
+  <div id="arBox"></div>
+</section>
+
+<section class="sec pageview" id="lazyPage">
+  <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+  <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
+    <div class="eyebrow">лень-режим · решает за вас</div>
+    <h2 class="big">Дни, когда <span class="holo">ничего не хочется решать</span></h2>
+    <p class="lead">Три кнопки вместо выбора. Одеться — выдаёт один образ из ваших вещей, без вариантов и без вопросов. Собрать корзину — показывает, чего не хватает гардеробу, и открывает каждую вещь в магазине одним кликом. Собраться на событие — решает образ, макияж и причёску и говорит, во сколько начинать, чтобы не бежать.</p>
+  </div>
+  <div id="lzBox"></div>
+</section>
+
 <section class="sec pageview" id="coursePage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
   <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
-    <div class="eyebrow">курсы · базовые модули бесплатно</div>
+    <div class="eyebrow">курсы · для себя бесплатно, профессия в подписке</div>
     <h2 class="big">Научиться <span class="holo">делать руками</span></h2>
-    <p class="lead">Три курса — бровист, визажист и стилист по волосам. Каждый урок — короткое «зачем», пошаговый разбор со схемами, частые ошибки и признак, по которому понятно, что получилось. Базовые модули открыты всем: по ним можно научиться делать себе. Профессиональные — работа с клиентом, санитария, расчёт цены и портфолио — в подписке.</p>
+    <p class="lead">Шесть курсов, разделённых честно. Три — «для себя»: макияж, укладка и брови своими руками, открыты целиком и бесплатно. Три — «профессия»: визажист, стилист по волосам и бровист, для тех, кто хочет работать с другими. Каждый урок — короткое «зачем», шаги со схемами, частые ошибки и признак, по которому понятно, что получилось.</p>
   </div>
   <div id="crBox"></div>
 </section>
@@ -6702,7 +6979,7 @@ header nav.topnav{gap:4px;align-items:center}
     <h2 class="big">Полный шкаф — <span class="holo">и есть что надеть</span></h2>
     <p class="lead">Добавьте вещи один раз — дальше LOOKA собирает образ на сегодня под погоду в вашем городе, планирует неделю без повторов, считает цену каждого выхода и показывает, какой одной вещи не хватает, чтобы образов стало вдвое больше. Всё хранится в вашем телефоне.</p>
   </div>
-  <div class="bt-form look mk-form"><h3>Добавить вещь</h3><div id="wdAdd"></div></div>
+  <div class="bt-form look mk-form"><h3>Добавить вещь</h3><p class="mo-note" style="margin:-4px 0 18px">Фото не нужно. Либо вставьте артикул с Wildberries — и карточка заполнится сама, либо три касания: что это, какая вещь, цвет.</p><div id="wdInbox"></div><div id="wdAdd"></div></div>
   <div class="looks" id="wdBox" style="margin-top:22px"></div>
 </section>
 
@@ -7183,6 +7460,8 @@ header nav.topnav{gap:4px;align-items:center}
       <a href="#pro" onclick="openPro();return false">Приёмы профессионалов</a>
       <a href="#courses" onclick="openCourses();return false">Курсы</a>
       <a href="#morning" onclick="openMorning();return false">Утро: что надеть</a>
+      <a href="#lazy" onclick="openLazy();return false">Лень-режим</a>
+      <a href="#articles" onclick="openArts();return false">Статьи-разборы</a>
       <a href="#gift" onclick="openPage('giftPage');return false">Подарить LOOKA</a></div>
     <div><b>Площадки</b>
       <a href="https://www.wildberries.ru" target="_blank" rel="noopener">Wildberries ↗</a>
@@ -8571,9 +8850,11 @@ window.openPage = (id, anchor)=>{
   if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderStyling) renderStyling(); if(window.renderHairFit) renderHairFit(); if(window.hlAdopt && window.brdPhoto) hlAdopt(brdPhoto()); if(window.renderHairLab) renderHairLab(); }
   if(id==='eventPage' && window.renderEventForm) renderEventForm();
   if(id==='capsulePage' && window.renderCapsuleForm) renderCapsuleForm();
-  if(id==='wardrobePage' && window.renderWardrobe){ renderWardrobe(); }
+  if(id==='wardrobePage' && window.renderWardrobe){ renderWardrobe(); if(window.wdInboxLoad) wdInboxLoad(); }
   if(id==='morningPage' && window.renderMorning){ renderMorning(); }
   if(id==='coursePage' && window.renderCourses){ renderCourses(); }
+  if(id==='lazyPage' && window.renderLazy){ renderLazy(); }
+  if(id==='artPage' && window.renderArts){ renderArts(); }
   if(id==='studioPage' && window.renderStudio) renderStudio();
   if(id==='braPage' && window.renderBra) renderBra();
   if(id==='lookrefPage' && window.renderLookRef) renderLookRef();
@@ -11542,7 +11823,7 @@ const COLORS = [['чёрный','#111'],['белый','#F4F4F4'],['серый','
 const NEUTRAL = ['чёрный','белый','серый','бежевый','коричневый','деним','хаки'];
 const WARM = ['лето','демисезон','зима','любой'];
 const FORM = ['кэжуал','офис','вечер','спорт'];
-const N = { cat:null, color:null, warm:'любой', form:'кэжуал', name:'', price:'', photo:null };
+const N = { big:null, sub:null, color:null, size:'', warm:'любой', form:'кэжуал', name:'', price:'', brand:'', nm:'', more:false };
 const T = { temp:null, occ:'кэжуал' };
 
 const save = ()=>HUB.save('looka_wardrobe', W);
@@ -11604,7 +11885,7 @@ function gaps(){
 
 function itemCard(it, small){
   const ph = it.photo ? `<img src="${it.photo}" alt="">` : `<i style="background:${hex(it.color)}"></i>`;
-  return `<div class="wd-it ${small?'sm':''}${it.wash?' wash':''}" data-id="${it.id}">${ph}<div class="wd-b"><b>${it.name||it.cat}</b><span>${it.cat} · ${it.color} · ${it.warm}${it.worn?' · надета '+it.worn+' раз':''}</span>${small?'':`<div class="wd-act"><button onclick="wdWear(${it.id})" title="надела сегодня">✓ надела</button><button class="${it.wash?'on':''}" onclick="wdWash(${it.id})" title="${it.wash?'вернуть из стирки':'отправить в стирку'}">🧺</button><button onclick="wdEdit(${it.id})" title="изменить">✎</button><button onclick="wdSell(${it.id})" title="продать">₽</button><button onclick="wdDel(${it.id})" title="удалить">✕</button></div>`}</div></div>`;
+  return `<div class="wd-it ${small?'sm':''}${it.wash?' wash':''}" data-id="${it.id}">${ph}<div class="wd-b"><b>${it.name||it.cat}</b><span>${it.sub||it.cat} · ${it.color}${it.size?' · '+it.size:''} · ${it.warm}${it.worn?' · надета '+it.worn+' раз':''}</span>${small?'':`<div class="wd-act"><button onclick="wdWear(${it.id})" title="надела сегодня">✓ надела</button><button class="${it.wash?'on':''}" onclick="wdWash(${it.id})" title="${it.wash?'вернуть из стирки':'отправить в стирку'}">🧺</button><button onclick="wdEdit(${it.id})" title="изменить">✎</button><button onclick="wdSell(${it.id})" title="продать">₽</button><button onclick="wdDel(${it.id})" title="удалить">✕</button></div>`}</div></div>`;
 }
 
 async function renderWardrobe(){
@@ -11675,28 +11956,143 @@ window.wdSell = id=>{
   ov.classList.add('open'); document.body.style.overflow='hidden';
 };
 window.wdAddMany = arr=>{ let n=0; arr.forEach(a=>{ if(W.items.some(i=>i.name===a.name)) return; W.items.push({id:W.seq++, cat:a.cat, name:a.name, color:a.color||'бежевый', warm:a.warm||'любой', form:a.form||'кэжуал', price:a.price||'', worn:0, last:null, photo:null}); n++; }); save(); return n; };
+const BIG = [
+  ['Верхняя одежда','◰','пальто, куртка, тренч'],
+  ['Верх','▣','рубашки, джемперы, топы'],
+  ['Низ','▤','брюки, джинсы, юбки'],
+  ['Обувь','◡','от кроссовок до туфель'],
+  ['Другое','◈','платья, сумки, аксессуары']
+];
+const SUBS = {
+ 'Верхняя одежда':[['пальто','демисезон','кэжуал'],['пуховик','зима','кэжуал'],['куртка','демисезон','кэжуал'],['тренч','демисезон','кэжуал'],['жакет','любой','офис'],['жилет','демисезон','кэжуал'],['шуба','зима','вечер']],
+ 'Верх':[['футболка','лето','кэжуал'],['рубашка','любой','офис'],['блуза','любой','офис'],['джемпер','демисезон','кэжуал'],['свитер','зима','кэжуал'],['водолазка','зима','офис'],['топ','лето','вечер'],['худи','демисезон','спорт'],['пиджак','любой','офис']],
+ 'Низ':[['джинсы','демисезон','кэжуал'],['брюки','любой','офис'],['юбка','любой','офис'],['шорты','лето','кэжуал'],['легинсы','демисезон','спорт']],
+ 'Обувь':[['кроссовки','демисезон','спорт'],['ботинки','демисезон','кэжуал'],['сапоги','зима','кэжуал'],['лоферы','демисезон','офис'],['туфли','любой','офис'],['босоножки','лето','вечер'],['балетки','лето','кэжуал']],
+ 'Другое':[['платье','любой','вечер'],['сумка','любой','кэжуал'],['ремень','любой','кэжуал'],['шарф','зима','кэжуал'],['шапка','зима','кэжуал'],['украшение','любой','вечер']]
+};
+const CAT_OF = { 'платье':'Платье','сумка':'Сумка','ремень':'Аксессуар','шарф':'Аксессуар','шапка':'Аксессуар','украшение':'Аксессуар' };
+const SZ_CLOTH = ['XS','S','M','L','XL','XXL','40','42','44','46','48','50','52','54'];
+const SZ_SHOE = ['34','35','36','37','38','39','40','41','42','43'];
+const SZ_ACC = ['один размер','S','M','L'];
+const wdApi = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
+
+
+const wdTok = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; }catch(e){ return null; } };
+let INBOX = [];
+window.wdInboxLoad = async ()=>{
+  const t = wdTok(); const el = document.getElementById('wdInbox'); if(!el) return;
+  if(!t){ el.innerHTML = `<div class="wd-inb hint"><b>✈ Присылайте вещи боту в Telegram</b><span>Увидели вещь на Wildberries — переслали ссылку в чат с ботом, и она ждёт вас здесь. Нужен вход в аккаунт и подключённый Telegram.</span><div class="wd-go"><button class="btn ghost" onclick="openAuth('Гардероб из Telegram')">Войти</button></div></div>`; return; }
+  try{
+    const r = await fetch(wdApi('/wardrobe/inbox'),{headers:{'Authorization':'Bearer '+t}});
+    const j = await r.json(); INBOX = j.items||[];
+  }catch(e){ INBOX = []; }
+  drawInbox();
+};
+function drawInbox(){
+  const el = document.getElementById('wdInbox'); if(!el) return;
+  if(!INBOX.length){ el.innerHTML = `<div class="wd-inb hint"><b>✈ Присылайте вещи боту в Telegram</b><span>Увидели вещь на Wildberries — переслали ссылку в чат с ботом, и она ждёт здесь. Добавить — одно касание.</span></div>`; return; }
+  el.innerHTML = `<div class="wd-inb"><div class="wd-inb-h"><b>✈ Пришло из Telegram: ${INBOX.length}</b><button class="wd-more" onclick="wdInboxClear()">очистить всё</button></div>
+    ${INBOX.map(x=>`<div class="wd-inb-i"><div><b>${x.brand?x.brand+' · ':''}${x.name}</b><span>${x.price?x.price.toLocaleString('ru-RU')+' ₽':''}${x.colors&&x.colors.length?' · '+x.colors[0]:''}</span></div><button class="btn ghost" onclick="wdInboxTake('${x.nm}')">Заполнить форму →</button></div>`).join('')}
+    <div class="wd-inb-n">Нажмите «заполнить форму» — название, бренд и цена подставятся, останется выбрать цвет и нажать «в гардероб».</div></div>`;
+}
+window.wdInboxTake = nm=>{
+  const x = INBOX.find(i=>i.nm===nm); if(!x) return;
+  N.name = (x.brand?x.brand+' · ':'')+x.name; N.brand=x.brand||''; N.nm=x.nm;
+  if(x.price) N.price = String(x.price);
+  const c = (x.colors||[]).map(v=>COLORS.find(cc=>v.includes(cc[0]))).find(Boolean); if(c) N.color=c[0];
+  if(!N.big){ const t=(x.name||'').toLowerCase(); for(const [b,list] of Object.entries(SUBS)){ const hit=list.find(sx=>t.includes(sx[0].slice(0,5))); if(hit){ N.big=b; wdSub(hit[0]); break; } } }
+  renderAdd();
+  const t2 = wdTok(); if(t2) fetch(wdApi('/wardrobe/inbox'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t2},body:JSON.stringify({nm})}).then(r=>r.json()).then(j=>{ INBOX=j.items||[]; drawInbox(); }).catch(()=>{});
+  document.getElementById('wdAdd').scrollIntoView({behavior:'smooth',block:'center'});
+};
+window.wdInboxClear = async ()=>{
+  const t = wdTok(); if(!t) return;
+  try{ await fetch(wdApi('/wardrobe/inbox'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({clear:true})}); INBOX=[]; drawInbox(); }catch(e){}
+};
+
+window.wdBig = v=>{ N.big=v; N.sub=null; renderAdd(); };
+window.wdSub = v=>{ const d=(SUBS[N.big]||[]).find(x=>x[0]===v); N.sub=v; if(d){ N.warm=d[1]; N.form=d[2]; } renderAdd(); };
 window.wdPick = (k,v)=>{ N[k]=v; renderAdd(); };
 window.wdField = (k,v)=>{ N[k]=v; };
-window.wdPhoto = f=>{ if(!f) return; const img=new Image(); img.onload=()=>{ const c=document.createElement('canvas'); const k=Math.min(1,180/Math.max(img.width,img.height)); c.width=img.width*k; c.height=img.height*k; c.getContext('2d').drawImage(img,0,0,c.width,c.height); N.photo=c.toDataURL('image/jpeg',.7); renderAdd(); }; img.src=URL.createObjectURL(f); };
-window.wdAdd = ()=>{
-  if(!N.cat||!N.color) return;
-  if(W.items.length>=200){ myToast('Гардероб полон: 200 вещей — удалите то, что не носите'); return; }
-  W.items.push({id:W.seq++, cat:N.cat, name:N.name.trim()||N.cat, color:N.color, warm:N.warm, form:N.form, price:N.price?+N.price:'', worn:0, last:null, photo:N.photo});
-  try{ save(); }catch(e){ myToast('Память телефона для гардероба заполнена — добавляйте без фото'); W.items.pop(); return; }
-  N.name=''; N.price=''; N.photo=null; renderAdd(); renderWardrobe(); myToast('Добавлено в гардероб');
+window.wdMore = ()=>{ N.more=!N.more; renderAdd(); };
+window.wdReset = ()=>{ Object.assign(N,{ big:null, sub:null, color:null, size:'', name:'', price:'', warm:'любой', form:'кэжуал', brand:'', nm:'', more:false }); renderAdd(); };
+
+window.wdFind = async ()=>{
+  const q = (document.getElementById('wdNm')||{}).value || '';
+  if(!q.trim()){ myToast('Вставьте артикул или ссылку с Wildberries'); return; }
+  const st = document.getElementById('wdNmSt'); if(st) st.innerHTML = '<span class="wd-find-go">ищу карточку…</span>';
+  try{
+    const r = await fetch(wdApi('/wb?nm=')+encodeURIComponent(q.trim()));
+    const j = await r.json();
+    if(!r.ok || j.error || !j.name) throw new Error(j.error||'товар не найден');
+    N.name = j.brand ? (j.brand+' · '+j.name) : j.name;
+    N.brand = j.brand || ''; N.nm = j.nm || '';
+    if(j.price) N.price = String(j.price);
+    const c = (j.colors||[]).map(x=>COLORS.find(cc=>x.includes(cc[0]))).find(Boolean);
+    if(c) N.color = c[0];
+    if(j.sizes && j.sizes.length===1) N.size = j.sizes[0];
+    if(!N.big){
+      const t = (j.name||'').toLowerCase();
+      for(const [b,list] of Object.entries(SUBS)){
+        const hit = list.find(s=>t.includes(s[0].slice(0,5)));
+        if(hit){ N.big=b; wdSub(hit[0]); break; }
+      }
+    }
+    renderAdd();
+    const st2 = document.getElementById('wdNmSt');
+    if(st2) st2.innerHTML = '<span class="wd-find-ok">✓ подтянула: '+(j.brand?j.brand+' · ':'')+j.name.slice(0,60)+(j.price?' · '+j.price.toLocaleString('ru-RU')+' ₽':'')+'</span>';
+  }catch(e){
+    const st3 = document.getElementById('wdNmSt');
+    if(st3) st3.innerHTML = '<span class="wd-find-no">не вышло: '+e.message+'. Заполните вручную — это быстро.</span>';
+  }
 };
+
+window.wdAdd = ()=>{
+  if(!N.sub||!N.color) return;
+  if(W.items.length>=200){ myToast('Гардероб полон: 200 вещей — удалите то, что не носите'); return; }
+  const cat = N.big==='Другое' ? (CAT_OF[N.sub]||'Аксессуар') : N.big;
+  W.items.push({ id:W.seq++, cat, sub:N.sub, name:(N.name||'').trim()||N.sub, color:N.color, size:N.size||'',
+    warm:N.warm, form:N.form, price:N.price?+N.price:'', nm:N.nm||'', worn:0, last:null, photo:null });
+  try{ save(); }catch(e){ myToast('Память телефона заполнена — удалите что-то из гардероба'); W.items.pop(); return; }
+  const added = N.name||N.sub;
+  wdReset(); renderWardrobe(); myToast('Добавлено: '+added);
+};
+
 function renderAdd(){
   const f = document.getElementById('wdAdd'); if(!f) return;
-  f.innerHTML = `<div class="wd-add-grid">
-    <div class="wd-ph" onclick="document.getElementById('wdInp').click()">${N.photo?`<img src="${N.photo}">`:'<span>+ фото<br><small>по желанию</small></span>'}</div>
-    <div>
-      ${HUB.grp('Что это', HUB.chips(N,'cat',CATS,{pick:'wdPick'}))}
-      ${HUB.grp('Цвет', HUB.chips(N,'color',COLORS.map(c=>c[0]),{colored:COLORS,pick:'wdPick'}))}
-      <div class="wd-two">${HUB.grp('Сезон', HUB.chips(N,'warm',WARM,{pick:'wdPick'}))}${HUB.grp('Формат', HUB.chips(N,'form',FORM,{pick:'wdPick'}))}</div>
-      <div class="wd-two"><input class="ev-date" placeholder="Название: жакет из Zara" value="${N.name}" oninput="wdField('name',this.value)"><input class="ev-date" type="number" placeholder="Цена, ₽ — для цены выхода" value="${N.price}" oninput="wdField('price',this.value)"></div>
-      <button class="btn primary" ${N.cat&&N.color?'':'disabled'} onclick="wdAdd()">+ В гардероб</button>
-    </div></div>
-    <input type="file" id="wdInp" accept="image/*" style="display:none" onchange="wdPhoto(this.files[0])">`;
+  const szList = N.big==='Обувь' ? SZ_SHOE : (N.big==='Другое' && N.sub!=='платье') ? SZ_ACC : SZ_CLOTH;
+  const step = !N.big ? 1 : !N.sub ? 2 : 3;
+  f.innerHTML = `
+  <div class="wd-nm">
+    <div class="wd-nm-l"><b>Покупали на Wildberries?</b><span>Вставьте артикул или ссылку — название, бренд и цена подтянутся сами.</span></div>
+    <div class="wd-nm-r"><input id="wdNm" class="ev-date" placeholder="артикул или ссылка wildberries.ru" onkeydown="if(event.key==='Enter')wdFind()"><button class="btn ghost" onclick="wdFind()">Подтянуть</button></div>
+    <div class="wd-nm-st" id="wdNmSt"></div>
+  </div>
+
+  <div class="wd-steps">
+    <div class="wd-step ${step>=1?'on':''}"><i>1</i>что это</div>
+    <div class="wd-step ${step>=2?'on':''}"><i>2</i>какая вещь</div>
+    <div class="wd-step ${step>=3?'on':''}"><i>3</i>цвет и размер</div>
+  </div>
+
+  <div class="wd-bigs">${BIG.map(b=>`<button class="wd-big ${N.big===b[0]?'on':''}" onclick="wdBig('${b[0]}')"><i>${b[1]}</i><b>${b[0]}</b><span>${b[2]}</span></button>`).join('')}</div>
+
+  ${N.big?`<div class="wd-blk"><span class="wd-lb">какая именно</span>
+    <div class="wd-subs">${(SUBS[N.big]||[]).map(s=>`<button class="wd-sub ${N.sub===s[0]?'on':''}" onclick="wdSub('${s[0]}')">${s[0]}</button>`).join('')}</div></div>`:''}
+
+  ${N.sub?`<div class="wd-blk"><span class="wd-lb">цвет</span>
+    <div class="wd-cols">${COLORS.map(c=>`<button class="wd-col ${N.color===c[0]?'on':''}" onclick="wdPick('color','${c[0]}')" title="${c[0]}"><i style="background:${c[1]}"></i>${c[0]}</button>`).join('')}</div></div>
+   <div class="wd-blk"><span class="wd-lb">размер <em>необязательно</em></span>
+    <div class="wd-subs">${szList.map(s=>`<button class="wd-sub sm ${N.size===s?'on':''}" onclick="wdPick('size','${s}')">${s}</button>`).join('')}</div></div>
+   <div class="wd-blk"><input class="ev-date" placeholder="название — чтобы узнать вещь в списке" value="${(N.name||'').replace(/"/g,'&quot;')}" oninput="wdField('name',this.value)"></div>
+   <button class="wd-more" onclick="wdMore()">${N.more?'▴ свернуть':'▾ сезон, формат и цена'}</button>
+   ${N.more?`<div class="wd-blk wd-two">
+      ${HUB.grp('Сезон', HUB.chips(N,'warm',WARM,{pick:'wdPick'}))}
+      ${HUB.grp('Формат', HUB.chips(N,'form',FORM,{pick:'wdPick'}))}
+     </div>
+     <div class="wd-blk"><input class="ev-date" type="number" placeholder="цена, ₽ — для «цены одного выхода»" value="${N.price}" oninput="wdField('price',this.value)"></div>`
+    :`<div class="wd-auto">сезон <b>${N.warm}</b> · формат <b>${N.form}</b> — проставила по типу вещи, можно поправить</div>`}
+   <div class="wd-go"><button class="btn primary" ${N.color?'':'disabled'} onclick="wdAdd()">+ В гардероб</button><button class="btn ghost" onclick="wdReset()">Сбросить</button></div>`:''}`;
 }
 window.wdWash = id=>{ const it = W.items.find(i=>i.id===id); if(!it) return; it.wash = !it.wash; save(); wdRefresh(); myToast(it.wash ? (it.name||it.cat)+' — в стирке' : (it.name||it.cat)+' снова в строю'); };
 const E = { id:null };
@@ -11723,14 +12119,397 @@ window.wdEditSave = ()=>{ const it = W.items.find(i=>i.id===E.id); if(it && it.p
 window.wdEditClose = ()=>{ const ov=document.getElementById('wdEdOv'); if(ov) ov.classList.remove('open'); document.body.style.overflow=''; };
 function wdRefresh(){ try{ if(document.getElementById('wdBox')) renderWardrobe(); }catch(e){} try{ if(window.renderMorning) renderMorning(); }catch(e){} }
 window.wdRefresh = wdRefresh;
-window.openWardrobe = ()=>{ openPage('wardrobePage'); renderAdd(); renderWardrobe(); };
+window.openWardrobe = ()=>{ openPage('wardrobePage'); renderAdd(); renderWardrobe(); wdInboxLoad(); };
 window.renderWardrobe = renderWardrobe;
 window.WD = { items:()=>W.items, save, outfits, weather, tempBand, itemCard, hex, CATS, COLORS, WARM, FORM, gaps };
 })();
 
+/* ================= ПРОФЕССИОНАЛЬНЫЕ СТАТЬИ ================= */
+(function(){
+const A = HUB.ls('looka_arts', { open:null, read:{} });
+const saveA = ()=>HUB.save('looka_arts', A);
+const sc = k=>{ if(!k) return ''; if(window.PR_SCENES && window.PR_SCENES[k]) return prScene(k); if(window.TUT_VIEWS && window.TUT_VIEWS[k]) return tutScene(k); return ''; };
+const p = t=>({b:'p',t});
+const h = t=>({b:'h',t});
+const li = (t,a)=>({b:'li',t,a});
+const pic = (k,c)=>({b:'pic',k,c});
+const note = t=>({b:'note',t});
+const rule = t=>({b:'rule',t});
+const tab = (head,rows)=>({b:'tab',head,rows});
+
+const ARTS = [
+{ k:'nude', ic:'❍', col:['#FF6FA8','#FFB84C'], read:'8 минут',
+  t:'Нюдовая помада: как найти свою, а не чужую',
+  lead:'Почему нюд с витрины превращает лицо в уставшее — и по каким трём параметрам визажисты подбирают его за минуту.',
+  body:[
+   p('Нюд — единственный оттенок, который не прощает «взяла, потому что красиво смотрелось на ней». Красная работает почти на всех, потому что она читается как цвет. Нюд читается как кожа — и если он не совпал с вашей, лицо выглядит стёртым, больным или старше.'),
+   p('Профессионалы подбирают нюд не «на глаз», а по трём параметрам подряд: подтон, глубина, насыщенность. Если совпали все три — помада выглядит как ваши губы в лучший день. Если промахнулись хотя бы в одном — это видно сразу всем, кроме вас в зеркале магазина.'),
+   h('Шаг 1. Подтон — холодный, тёплый или нейтральный'),
+   p('Это не про «светлая или смуглая кожа», а про то, в какую сторону она уходит. Проверяется тремя способами подряд, а не одним:'),
+   li('Вены на внутренней стороне запястья при дневном свете. Синие и фиолетовые — холодный подтон. Зеленоватые — тёплый. Не поймёте какие — скорее всего нейтральный.'),
+   li('Украшения. Серебро «садится» лучше — холодный. Золото — тёплый. Одинаково хорошо — нейтральный.'),
+   li('Загар. Краснеете и сгораете — чаще холодный. Ровно темнеете — чаще тёплый.'),
+   pic('redlip','Холодному подтону — нюд с розовым и лиловым. Тёплому — с бежевым, карамелью и кирпичом.'),
+   rule('Холодному подтону идут нюды с розовым, лиловым и серым внутри. Тёплому — с бежевым, персиковым, карамельным и терракотовым. Нейтральному — почти всё, кроме крайностей.'),
+   h('Шаг 2. Глубина — главная ошибка всех'),
+   p('Девять из десяти неудачных нюдов светлее собственных губ. Помада, светлее губ на два тона, даёт эффект, который визажисты называют «стёртое лицо»: рот пропадает, а вместе с ним пропадает и всё остальное — глаза без контраста выглядят меньше.'),
+   rule('Рабочий нюд — ровно в тон ваших губ или на один-два тона темнее. Светлее — почти никогда.'),
+   p('Проверить просто: нанесите помаду на половину нижней губы и выйдите к окну. Если граница между накрашенной и ненакрашенной частью видна как «светлее — темнее», а не как «цвет — не цвет», оттенок не ваш.'),
+   h('Шаг 3. Насыщенность — зависит от ваших губ'),
+   p('У людей с пигментированными, насыщенного цвета губами плотные кремовые нюды перекрываются и выглядят мутно: собственный цвет просвечивает и смешивается в серо-коричневое. Им нужны более пигментированные и чуть более тёмные оттенки или слой карандаша под помаду.'),
+   p('У людей с бледными губами наоборот: плотный тёмный нюд выглядит нарисованным. Им работают полупрозрачные текстуры и оттенки «свои губы, но лучше».'),
+   h('Какой нюд искать: короткая таблица'),
+   tab(['подтон','светлая кожа','средняя','смуглая и тёмная'],
+       [['холодный','розово-бежевый, «милки пинк» потемнее губ','розово-коричневый, лиловый нюд','сливовый нюд, тёмный розово-коричневый'],
+        ['тёплый','персиково-бежевый, карамельный','карамель, светлая терракота','шоколадный, терракотовый, медный нюд'],
+        ['нейтральный','бежево-розовый средней глубины','мокко','глубокий мокко, тёмная карамель']]),
+   note('В таблице намеренно нет названий брендов и номеров. Один и тот же номер у разных марок — разный оттенок, а на ваших губах он всё равно будет третьим. Ищите по описанию, а не по артикулу из чужого видео.'),
+   h('Финиш: от него зависит половина впечатления'),
+   li('Матовый сушит и визуально уменьшает губы, зато держится дольше всех. Хорош для плотных губ и для съёмки.'),
+   li('Сатин — компромисс: цвет виден, губы не плоские. Самый универсальный финиш для нюда.'),
+   li('Глянец визуально увеличивает губы и освежает, но нюд в глянце часто читается как блеск, а не как помада. Для тонких губ — лучший выбор.'),
+   pic('lipfill','Карандаш по всей губе, а не по контуру: иначе к вечеру останется только он.'),
+   h('Как мерить в магазине, чтобы не ошибиться'),
+   li('Никогда не на руке. Кожа кисти другого оттенка, и вы подберёте помаду к руке.'),
+   li('На губу, не на палец, и обязательно подушечками стереть блеск бальзама — иначе оттенок уедет.'),
+   li('Выйти к витрине или к окну. Торговый свет делается тёплым и ярким специально, чтобы товар выглядел лучше, — он смещает восприятие на полтона.'),
+   li('Посмотреть на себя целиком, а не на рот крупно. Нюд оценивают по лицу.'),
+   h('Если нюд уже куплен и не идёт'),
+   p('Не выбрасывайте. Слишком светлый спасает карандаш на два тона темнее, заштрихованный по всей губе: помада ложится поверх и становится глубже. Слишком тёплый уводят в нейтральный каплей розового блеска сверху. Слишком холодный — каплей бежевого. Это ровно то, что визажисты делают в чемоданчике, смешивая оттенки на тыльной стороне руки.'),
+   h('Частые ошибки'),
+   li('Берут нюд светлее губ, потому что в тюбике он красивее.'),
+   li('Выводят контур светлым карандашом за пределы губы — на любом фото со вспышкой это видно.'),
+   li('Мерят при свете магазина и покупают, не выйдя на дневной.'),
+   li('Наносят нюд на сухие губы: любая матовая текстура подчеркнёт каждую чешуйку.')
+  ] },
+
+{ k:'lash', ic:'✦', col:['#C79DF2','#19C6F7'], read:'9 минут',
+  t:'Нарощенные ресницы: какие подойдут именно вам',
+  lead:'Изгиб, длина, толщина и объём — четыре параметра, из которых мастер собирает результат. Что выбрать под вашу форму глаза и чего избегать.',
+  body:[
+   p('«Хочу как на картинке» — самая частая и самая дорогая ошибка. Ресницы на фото собраны под форму глаза, разрез, состояние своих ресниц и вес, который они выдержат. На другом лице тот же набор даёт другой результат, иногда противоположный.'),
+   p('Параметров всего четыре, и разобраться в них стоит до записи — чтобы разговаривать с мастером на одном языке, а не кивать.'),
+   h('1. Изгиб — он решает больше всех'),
+   li('B — самый естественный, чуть подкручивает. Для тех, у кого свои ресницы растут прямо и нужен эффект «просто свои, но гуще».'),
+   li('C — самый популярный, заметный открытый взгляд. Рабочая середина.'),
+   li('CC и D — сильный подкрут, «кукольный» эффект. Визуально раскрывают глаз, но на нависшем веке часто упираются в кожу.'),
+   li('L и M — с прямым основанием и резким загибом вверх. Это решение для нависшего века и для глубоко посаженных глаз: прямое основание отводит ресницу от складки.'),
+   pic('lashbits','Изгиб меняет не длину, а то, куда смотрит ресница. Именно он открывает или закрывает взгляд.'),
+   h('2. Длина — чем меньше, тем дольше носится'),
+   p('Рабочее правило мастеров: наращённая ресница не должна быть длиннее своей более чем в полтора раза. Своя ресница держит вес у корня, и чем длиннее рычаг, тем быстрее она выпадает вместе с наращённой.'),
+   rule('Длина не бывает одна на весь глаз. Короткие во внутреннем углу, самые длинные — на внешней трети. Одинаковая длина по всей линии читается как накладка.'),
+   h('3. Толщина — то, где экономят на вашем здоровье'),
+   li('0,03–0,05 мм — для объёмных техник, где на одну свою ресницу ставят несколько тонких.'),
+   li('0,07 мм — универсальная, для лёгкого объёма.'),
+   li('0,10–0,15 мм — только классика «одна к одной» и только на крепкие свои ресницы.'),
+   p('Если мастер предлагает объём 4D толщиной 0,10 — это перегруз, и свои ресницы вы потеряете. Вес пучка должен оставаться в пределах, которые выдерживает волос, и это арифметика, а не вкусовщина.'),
+   h('4. Объём'),
+   li('Классика 1:1 — максимально естественно, подходит почти всем, кроме совсем редких своих ресниц.'),
+   li('2D–3D — закрывают просветы, выглядят как густые свои. Самый востребованный вариант.'),
+   li('4D и выше — эффектно вблизи, но на фото часто читается как сплошная чёрная полоса, а на слабых ресницах даёт выпадение.'),
+   h('Под форму глаза: что просить'),
+   tab(['ваша особенность','что просить','чего избегать'],
+       [['нависшее веко','изгиб L или M, максимум длины на внешней трети','C и D — упираются в складку и «закрывают» глаз'],
+        ['опущенные внешние уголки','«лисий» эффект: длина смещена к внешнему углу','равномерная длина и «кукольный» эффект'],
+        ['круглые глаза','«беличий» или лисий эффект, длина к внешней трети','«кукольный» — сделает глаз ещё круглее'],
+        ['близко посаженные','длина и объём только на внешней половине','объём у внутреннего угла'],
+        ['широко посаженные','акцент ближе к внутренней части, равномерно','длинный лисий эффект'],
+        ['глубоко посаженные','прямое основание — L, умеренная длина','сильный изгиб D — ресницы упрутся в бровь'],
+        ['маленькие глаза','«кукольный» эффект, средняя длина','длинные ресницы: они визуально закроют глаз']]),
+   h('Когда наращивание — плохая идея'),
+   li('Свои ресницы очень редкие и тонкие: наращивание ускорит выпадение, а результат будет жидким.'),
+   li('Вы трёте глаза, спите лицом в подушку или носите жёсткие линзы — носка будет короткой при любой работе мастера.'),
+   li('Есть раздражение, покраснение или заболевание глаз — сначала к офтальмологу, а не к мастеру.'),
+   note('Ни один материал не «питает» ресницы и не делает их гуще. Наращивание — это декор, а не уход. Любой мастер, который обещает обратное, продаёт вам не то, что есть.'),
+   h('Как выбрать мастера: красные флаги'),
+   li('Не задаёт вопросов о состоянии своих ресниц и сразу называет цену.'),
+   li('Не моет ресницы перед работой: без обезжиривания материал держится вдвое меньше.'),
+   li('В портфолио только макро внешнего угла и ни одного фото открытого глаза целиком.'),
+   li('Работает без изоляции — если ресницы склеены между собой, это боль и выпадение. Проверяется дома: аккуратно провести пальцем вдоль линии, ресницы должны двигаться по отдельности.'),
+   h('Уход, от которого зависит носка'),
+   li('Первые сутки — без воды, пара и спорта: материал полимеризуется не мгновенно.'),
+   li('Умываться специальной пенкой и расчёсывать щёточкой, а не оставлять «как лежат».'),
+   li('Никаких масел в зоне глаз — они растворяют клей.'),
+   li('Коррекция раз в 3–4 недели. Носить «до последней» — верный способ потерять свои.')
+  ] },
+
+{ k:'face', ic:'◔', col:['#19C6F7','#37E08A'], read:'10 минут',
+  t:'Укладки по длине волос и форме лица',
+  lead:'Одна матрица вместо сотни советов: что делать с короткими, средними и длинными волосами при овальном, круглом, квадратном, сердцевидном и вытянутом лице.',
+  body:[
+   p('Форма лица — не приговор и не повод стричься иначе, чем хочется. Но она объясняет, почему одна и та же укладка на двух женщинах выглядит по-разному. Принцип один и держится на композиции, а не на моде.'),
+   rule('Добавляем объём там, где лицу не хватает ширины или высоты. Убираем объём там, где её и так много. Всё остальное — детали.'),
+   h('Как определить свою форму за две минуты'),
+   li('Соберите волосы, встаньте перед зеркалом анфас.'),
+   li('Сравните три ширины: лоб, скулы, челюсть. И отдельно — длину лица от линии роста волос до подбородка.'),
+   li('Скулы шире всего, лицо примерно в полтора раза длиннее ширины — овал.'),
+   li('Ширина и длина почти равны, линии мягкие — круг.'),
+   li('Лоб, скулы и челюсть примерно равны, челюсть выражена — квадрат.'),
+   li('Лоб заметно шире челюсти, подбородок узкий — сердце.'),
+   li('Длина заметно больше ширины, лоб высокий — вытянутое.'),
+   pic('jaw','Измеряют три ширины и длину. Решает не «красиво или нет», а какая из величин выбивается.'),
+   h('Короткие волосы: до подбородка'),
+   tab(['форма лица','что работает','чего избегать'],
+       [['овал','почти всё: пикси, боб, каре любой длины','ничего критичного'],
+        ['круг','каре чуть ниже подбородка, боковой пробор, объём на макушке','ровное каре по линии щёк, прямой пробор, круглая форма'],
+        ['квадрат','мягкое каре с рваными концами, удлинённые пряди у лица','чёткий ровный срез по линии челюсти'],
+        ['сердце','удлинённый боб с объёмом внизу, боковая чёлка','очень короткая пикси с объёмом на макушке'],
+        ['вытянутое','боб с объёмом по бокам, прямая густая чёлка','пикси с высоким объёмом сверху']]),
+   pic('headdown','Объём на макушке удлиняет лицо, объём по бокам — расширяет. Это весь секрет.'),
+   h('Средняя длина: до плеч и чуть ниже'),
+   tab(['форма лица','что работает','чего избегать'],
+       [['овал','прямые, волны, каскад — всё','перегруз укладкой'],
+        ['круг','длина ниже ключиц, вертикальные волны, слои от подбородка','объём на уровне щёк, завивка от корней'],
+        ['квадрат','мягкие волны от середины длины, шторка','гладкая укладка с ровным срезом на уровне челюсти'],
+        ['сердце','объём от середины вниз, лёгкие локоны у лица','прямой пробор и гладкие волосы, стянутые назад'],
+        ['вытянутое','волны по всей длине, объём по бокам, чёлка','очень гладкая прямая укладка и высокая макушка']]),
+   h('Длинные волосы: ниже лопаток'),
+   tab(['форма лица','что работает','чего избегать'],
+       [['овал','любые: прямые, локоны, высокие причёски','—'],
+        ['круг','длинные мягкие локоны от уровня подбородка вниз','мелкая завивка по всей длине'],
+        ['квадрат','крупные локоны, растрёпанный пучок с прядями у лица','гладкий тугой хвост и зачёс назад'],
+        ['сердце','локоны от середины, объём в нижней трети','объём у макушки и гладкие виски'],
+        ['вытянутое','объёмные волны, прямая или шторка-чёлка','прямые гладкие волосы без объёма']]),
+   pic('curl','Где начинается завиток — там и читается ширина лица. Для круглого лица локон начинают ниже подбородка.'),
+   h('Три приёма, которые работают при любой форме'),
+   li('Пряди у лица. Самый быстрый способ смягчить форму, не меняя длину: две пряди, подкрученные от лица, визуально сужают и круг, и квадрат.'),
+   li('Боковой пробор. Прямой пробор подчёркивает симметрию и ширину, боковой — ломает её и всегда даёт больше объёма у корней.'),
+   li('Объём у корней, а не по всей длине. Пышная середина расширяет лицо; приподнятый корень — вытягивает.'),
+   pic('partswap','Боковой пробор добавляет объём и ломает симметрию — это работает почти на всех.'),
+   h('Чёлка: короткая шпаргалка'),
+   li('Высокий лоб — прямая или шторка. Низкий — только длинная косая.'),
+   li('Круглое лицо — косая или шторка, но не прямая короткая.'),
+   li('Вытянутое лицо — прямая густая чёлка: она укорачивает лицо лучше любой стрижки.'),
+   li('Кудрявые и вьющиеся волосы — только удлинённая шторка: прямая чёлка на них не ляжет никогда.'),
+   note('Текстура волоса важнее формы лица. Тонкому волосу не идёт длина ниже лопаток при любой форме, а кудрявому нельзя обещать ровный срез. Сначала смотрят на волос, потом на лицо.')
+  ] },
+
+{ k:'pro', ic:'◈', col:['#FFD28A','#C79DF2'], read:'11 минут',
+  t:'Чем работают премиум-парикмахеры: что в салоне делает волосы идеальными',
+  lead:'Не список брендов, а разбор категорий: что из салонной полки реально меняет волос, что работает только на фото, и что из этого есть смысл купить домой.',
+  body:[
+   p('После салона волосы выглядят лучше, чем когда-либо дома, — и через два мытья эффект уходит. Дело не в секретном средстве: дорогой салон складывает результат из четырёх вещей подряд, и три из них можно повторить дома. Разберём по категориям, потому что бренды меняются, а химия остаётся.'),
+   h('1. Бондеры — то, за что платят больше всего'),
+   p('Это средства, которые заявляют восстановление связей внутри волоса. Связей три типа: дисульфидные (самые прочные, рвутся при осветлении и химии), водородные и солевые (рвутся от воды и тепла, восстанавливаются сами).'),
+   li('Дисульфидные связи адресует семейство бис-аминопропил дигликоль дималеата — то, на чём построен самый известный профессиональный бондер. Молекула встаёт между разорванными связями и не даёт им разрушаться дальше.'),
+   li('Водородные и солевые связи адресуют гидроксипропил глюконамид и родственные вещества.'),
+   li('Кислоты — лимонная, малеиновая, молочная — работают иначе: они снижают pH, кутикула закрывается, волос перестаёт топорщиться и начинает отражать свет. Это блеск, а не восстановление.'),
+   note('Важная правда, которую в салоне обычно не говорят: ни одна из этих технологий не возвращает волосу прочность неокрашенного волоса. Это написано в профессиональных разборах прямым текстом. Бондер уменьшает ущерб и удерживает то, что осталось, — этого много, но это не «восстановление».'),
+   pic('temp','Бондер не отменяет температуру. Для осветлённого волоса 180 °C — верхняя граница, а не настройка «по умолчанию».'),
+   h('2. Протеин против увлажнения — баланс, который и даёт «салонный» волос'),
+   p('Это главный профессиональный навык, который почти не встречается в домашнем уходе. Гидролизованные белки — кератин, коллаген, шёлк — временно повышают содержание белка в волосе, по разным оценкам на 5–8 %, и вымываются уже следующим шампунем. Они дают плотность и упругость.'),
+   p('Увлажнители и эмоленты дают мягкость и эластичность. Перекос в любую сторону виден невооружённым глазом:'),
+   li('Перебор белка: волос жёсткий, соломенный, ломается на сгибе, укладка не держится.'),
+   li('Перебор увлажнения: волос ватный, тяжёлый, без формы, быстро пачкается.'),
+   rule('Мастер в салоне подбирает соотношение под конкретный волос. Дома это делается просто: чередовать протеиновую маску и увлажняющую, а не использовать что-то одно месяцами.'),
+   h('3. Кислотный финиш — вот откуда салонный блеск'),
+   p('После окрашивания хороший мастер всегда закрывает процедуру средством с низким pH. Окрашивание и осветление поднимают pH и раскрывают кутикулу; кислотный финиш её закрывает. Закрытая кутикула лежит как черепица и отражает свет единой плоскостью — это и есть тот блеск, который невозможно повторить феном.'),
+   pic('cold','Тот же эффект, только механический: горячий воздух раскрывает кутикулу, холодный закрывает. Последние секунды каждой пряди — холодный режим.'),
+   h('4. Техника, а не флакон'),
+   p('Половина «салонного» результата — это руки. Сушка по направлению роста чешуйки, натяжение пряди брашингом, полное остывание перед тем, как трогать, один проход утюжком вместо пяти. Эти вещи бесплатны и дают больше, чем любая покупка.'),
+   pic('cuticle','Поток воздуха сверху вниз, вдоль пряди. Снизу вверх — это пух и тусклость.'),
+   h('Что действительно стоит купить домой'),
+   li('Термозащита. Единственная категория, которую бессмысленно экономить: она работает каждый день и стоит дешевле любой маски.'),
+   li('Средство с низким pH или кислотный кондиционер — для блеска между окрашиваниями.'),
+   li('Одна протеиновая и одна увлажняющая маска, которые чередуют.'),
+   li('Домашняя версия бондера — имеет смысл только для осветлённого или химически обработанного волоса. На здоровом волосе вы не увидите разницы и просто потратите деньги.'),
+   h('Что переоценено'),
+   li('Шампунь премиум-класса. Он смывается за минуту и не успевает ничего сделать. Профессиональные разборы прямо отмечают, что смываемые средства работают заметно слабее несмываемых.'),
+   li('Сыворотки «для роста» без диагностики. Выпадение имеет причину — железо, щитовидная железа, стресс, — и средство её не отменяет. Это к трихологу, а не в магазин.'),
+   li('Маски «на всю ночь». Больше времени не значит больше эффекта: всё, что должно было проникнуть, проникает за отведённые инструкцией минуты.'),
+   li('Коллаген и кератин в шампуне. Молекула слишком велика и вымывается, а в шампуне контакт с волосом измеряется секундами.'),
+   note('Честно о доказательной базе: в этой категории её мало. Профессиональные обзоры отмечают, что производители редко публикуют клинические данные, а механизмы описаны общими словами. Поэтому ориентироваться стоит на состав и на то, что видно на вашем волосе через месяц, а не на обещания на флаконе.'),
+   h('Как выглядит порядок, который даёт результат'),
+   li('Мытьё: шампунь только на корни, пена сама промоет длину.'),
+   li('Кондиционер или маска — от середины к концам, по времени из инструкции.'),
+   li('Кислотный финиш или спрей с низким pH на влажные волосы.'),
+   li('Термозащита — и дать ей высохнуть до прибора.'),
+   li('Сушка по направлению роста чешуйки, холодный обдув в конце каждой пряди.'),
+   li('Капля масла на сухие концы, нижняя треть.'),
+   pic('oilends','Масло — на сухие концы и только нижняя треть. На влажные оно запечатывает воду и мешает укладке.')
+  ] }
+];
+
+window.artOpen = k=>{ A.open=k; A.read[k]=true; saveA(); renderArts(); window.scrollTo({top:0,behavior:'smooth'}); };
+window.artBack = ()=>{ A.open=null; saveA(); renderArts(); };
+
+const block = (x,C)=>{
+  if(x.b==='p') return `<p>${x.t}</p>`;
+  if(x.b==='h') return `<h3>${x.t}</h3>`;
+  if(x.b==='li') return `<div class="ar-li"><i>•</i><span>${x.t}</span></div>`;
+  if(x.b==='rule') return `<div class="ar-rule"><span>правило</span>${x.t}</div>`;
+  if(x.b==='note') return `<div class="ar-note">${x.t}</div>`;
+  if(x.b==='pic'){ const g=sc(x.k); return g?`<figure class="ar-pic"><div class="ar-pic-in">${g}</div>${x.c?`<figcaption>${x.c}</figcaption>`:''}</figure>`:''; }
+  if(x.b==='tab') return `<div class="ar-tabw"><table class="ar-tab"><thead><tr>${x.head.map(hh=>`<th>${hh}</th>`).join('')}</tr></thead><tbody>${x.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="k"':''}>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  return '';
+};
+
+window.renderArts = ()=>{
+  const box = document.getElementById('arBox'); if(!box) return;
+  if(!A.open){
+    box.innerHTML = `<div class="ar-grid">${ARTS.map((C,i)=>HUB.pop(`<article class="ar-c" style="--a:${C.col[0]};--b:${C.col[1]}" onclick="artOpen('${C.k}')">
+      <div class="ar-c-top"><div class="ar-ic">${C.ic}</div><span class="ar-min">${C.read}${A.read[C.k]?' · прочитано':''}</span></div>
+      <h3>${C.t}</h3><p>${C.lead}</p>
+      <span class="ar-go">Читать разбор →</span>
+    </article>`,i)).join('')}</div>`;
+    if(window.fxZone) fxZone(box); return;
+  }
+  const C = ARTS.find(x=>x.k===A.open); if(!C){ A.open=null; return renderArts(); }
+  box.innerHTML = `<article class="ar-read" style="--a:${C.col[0]};--b:${C.col[1]}">
+    <button class="btn ghost" onclick="artBack()">← Все статьи</button>
+    <div class="ar-head"><div class="ar-ic big">${C.ic}</div><div><span class="ar-min">${C.read} чтения</span><h2>${C.t}</h2><p class="ar-lead">${C.lead}</p></div></div>
+    <div class="ar-body">${C.body.map(x=>block(x,C)).join('')}</div>
+    <div class="ar-end">Разбор собран по профессиональным источникам и ремесленной практике. Там, где доказательная база слабая, это отмечено прямо в тексте — чтобы вы знали, где факт, а где принятая в профессии привычка.</div>
+    <div class="to-row" style="margin-top:16px"><button class="btn ghost" onclick="artBack()">← Все статьи</button><button class="btn ghost" onclick="openPro()">Приёмы профессионалов →</button></div>
+  </article>`;
+  if(window.fxZone) fxZone(box);
+};
+window.openArts = (k)=>{ if(k!==undefined) A.open=k; openPage('artPage'); setTimeout(renderArts,60); };
+})();
+
+/* ================= ЛЕНЬ-РЕЖИМ: одна кнопка вместо решений ================= */
+(function(){
+const api = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
+const tok = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; }catch(e){ return null; } };
+const L = HUB.ls('looka_lazy', { tab:'dress', seed:0, ev:'Свидание', at:'19:00' });
+const saveL = ()=>HUB.save('looka_lazy', L);
+const EVF = { 'Свидание':'вечер','Офис / работа':'офис','Вечеринка':'вечер','Прогулка / кэжуал':'кэжуал','Деловая встреча':'офис','Торжество':'вечер','Спорт-шик':'спорт','Свадьба':'вечер' };
+const EVS = Object.keys(EVF);
+const MKS = {
+ 'вечер':['Чистый глаз и насыщенная губа — один акцент из двух','cleaneye'],
+ 'офис':['Ровный тон, кремовые румяна, бровь щёточкой','blush'],
+ 'кэжуал':['Тон точечно, тушь у корня, бальзам с цветом','lashroot'],
+ 'спорт':['Только SPF, бровь гелем и бальзам','soapbrow']
+};
+const HRS = {
+ 'вечер':['Локоны утюжком, остыть, разобрать пальцами','curl'],
+ 'офис':['Гладкая сушка брашингом и масло на концы','blowdry'],
+ 'кэжуал':['Объём наклоном головы, остальное — как лежит','headdown'],
+ 'спорт':['Хвост по линии от уха до уха, прядь вокруг резинки','wrap']
+};
+let CART = [], LOOK = null;
+
+const scene = k=>{ if(!k) return ''; if(window.PR_SCENES && window.PR_SCENES[k]) return prScene(k); if(window.TUT_VIEWS && window.TUT_VIEWS[k]) return tutScene(k); return ''; };
+const pc = it=>`<div class="lz-pc">${it.photo?`<img src="${it.photo}">`:`<i style="background:${WD.hex(it.color)}"></i>`}<div><b>${it.name||it.cat}</b><span>${it.cat} · ${it.color}</span></div></div>`;
+
+window.lzTab = t=>{ L.tab=t; saveL(); renderLazy(); };
+window.lzAgain = ()=>{ L.seed=(L.seed||0)+1; saveL(); renderLazy(); };
+window.lzEv = v=>{ L.ev=v; saveL(); renderLazy(); };
+window.lzAt = v=>{ L.at=v; saveL(); renderLazy(); };
+window.lzWear = ()=>{ if(LOOK) window.wdWearAll(LOOK.parts.map(p=>p.id).join(',')); };
+
+window.lzOpenAll = ()=>{
+  const links = CART.slice(0,3).map(c=>'https://www.wildberries.ru/catalog/0/search.aspx?search='+encodeURIComponent(c.q));
+  let blocked = 0;
+  links.forEach(u=>{ const w = window.open(u,'_blank','noopener'); if(!w) blocked++; });
+  myToast(blocked ? 'Браузер заблокировал вкладки — разрешите всплывающие окна для сайта' : 'Открыла первые три в новых вкладках');
+};
+window.lzCopy = ()=>{ const t = cartText(); if(window.cpy) cpy(t, null); else { navigator.clipboard.writeText(t); myToast('Список скопирован'); } };
+function cartText(){
+  return 'Список покупок от LOOKA\n\n' + CART.map((c,i)=>`${i+1}. ${c.n}\n   зачем: ${c.why}\n   поиск: ${c.q}`).join('\n\n') + '\n\nlooka-droid.github.io/looka';
+}
+function lookText(){
+  if(!LOOK) return '';
+  return '☀ Образ на сегодня\n\n' + LOOK.parts.map(p=>'· '+(p.name||p.cat)).join('\n') + '\n\nlooka-droid.github.io/looka';
+}
+window.lzSend = async (what)=>{
+  const t = tok();
+  if(!t){ myToast('Чтобы прислать в Telegram, нужно войти'); if(window.openAuth) openAuth('Прислать себе в Telegram'); return; }
+  const text = what==='cart' ? cartText() : lookText();
+  if(!text){ myToast('Пока нечего отправлять'); return; }
+  try{
+    const r = await fetch(api('/tg/me'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({text})});
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error||'ошибка');
+    myToast('Отправила вам в Telegram');
+  }catch(e){ myToast('Не ушло: '+e.message); }
+};
+
+function timeline(at){
+  const [h,m] = String(at||'19:00').split(':').map(Number);
+  const end = (isNaN(h)?19:h)*60 + (isNaN(m)?0:m);
+  const rows = [[75,'душ и уход, крем впитывается','prep'],[55,'сушка и укладка','blowdry'],[35,'макияж','blush'],[12,'одеться и проверить в движении','move'],[5,'сумка, духи, зеркало — и выход','']];
+  const fmt = t=>{ t=((t%1440)+1440)%1440; return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0'); };
+  return rows.map(r=>({ t: fmt(end - r[0]), txt: r[1], sc: r[2] }));
+}
+
+window.renderLazy = async ()=>{
+  const box = document.getElementById('lzBox'); if(!box || !window.WD) return;
+  const I = WD.items().filter(i=>!i.wash);
+  const wx = await WD.weather().catch(()=>null);
+  const band = wx ? WD.tempBand(wx.now) : 'тепло';
+  const TAB = [['dress','Одеться','☼','Один образ. Без вариантов и без вопросов.'],
+               ['cart','Собрать корзину','⌗','Что докупить, чтобы образов стало больше.'],
+               ['event','Собраться на событие','✦','Образ, макияж, причёска и во сколько начать.']];
+  let body = '';
+
+  if(L.tab==='dress'){
+    const fits = WD.outfits(band, 'кэжуал', new Set(), 4);
+    LOOK = fits.length ? fits[(L.seed||0) % fits.length] : null;
+    body = LOOK
+      ? `<div class="lz-res">
+          <div class="lz-k">решено за вас${wx?' · '+wx.city+', '+(wx.now>0?'+':'')+Math.round(wx.now)+'°':''}</div>
+          <h3>${LOOK.parts.map(p=>p.name||p.cat).slice(0,2).join(' + ')}</h3>
+          <div class="lz-look">${LOOK.parts.map(pc).join('')}</div>
+          <div class="lz-act"><button class="btn primary" onclick="lzWear()">✓ Надела</button><button class="btn ghost" onclick="lzAgain()">Не хочу это ↻</button><button class="btn ghost" onclick="lzSend('look')">✈ Себе в Telegram</button></div>
+        </div>`
+      : `<div class="lz-res empty"><div class="lz-ic">◌</div><h3>Не из чего собрать</h3><p>В гардеробе ${I.length} вещ${I.length===1?'ь':I.length<5?'и':'ей'}. Нужны хотя бы верх, низ и обувь — это пять минут один раз в жизни.</p><div class="lz-act"><button class="btn primary" onclick="openWardrobe()">Добавить вещи →</button></div></div>`;
+  }
+
+  if(L.tab==='cart'){
+    const G = WD.gaps();
+    CART = (G.g||[]).filter(x=>x.n && x.q).slice(0,6).map(x=>({ n:x.n, q:x.q, why:x.why, gain:x.gain }));
+    body = CART.length
+      ? `<div class="lz-res">
+          <div class="lz-k">корзина собрана · ${CART.length} вещ${CART.length===1?'ь':CART.length<5?'и':'ей'}</div>
+          <h3>Это закроет дыры в вашем гардеробе</h3>
+          <p class="lz-lead">Считается от ваших вещей и вашей палитры: каждая позиция добавляет готовые образы, а не просто «ещё одну кофту».</p>
+          <div class="lz-items">${CART.map((c,i)=>`<div class="lz-it">
+            <div class="lz-it-n">${i+1}</div>
+            <div class="lz-it-b"><b>${c.n}</b><p>${c.why}</p>${c.gain?`<span class="lz-gain">+${c.gain} образов</span>`:''}${window.shopButtons?shopButtons({n:c.n,q:c.q}):''}</div>
+          </div>`).join('')}</div>
+          <div class="lz-act"><button class="btn primary" onclick="lzOpenAll()">Открыть первые три ↗</button><button class="btn ghost" onclick="lzCopy()">⧉ Скопировать список</button><button class="btn ghost" onclick="lzSend('cart')">✈ Себе в Telegram</button></div>
+          <div class="lz-honest"><b>Честно о «само положить в корзину».</b> Положить вещь прямо в корзину Wildberries или Ozon с чужого сайта нельзя — у магазинов нет для этого открытого способа, а просить ваш пароль от маркетплейса мы не будем никогда. Поэтому LOOKA собирает корзину у себя и открывает каждую вещь в один клик: думать всё равно не нужно, нажать — нужно.</div>
+        </div>`
+      : `<div class="lz-res empty"><div class="lz-ic">✓</div><h3>Дыр не видно</h3><p>${I.length<6?'Сначала добавьте вещи — пока не из чего считать.':'База собрана, цвета в палитре. Дальше — только по желанию, а не по необходимости.'}</p><div class="lz-act"><button class="btn primary" onclick="openWardrobe()">${I.length<6?'Добавить вещи →':'Открыть гардероб →'}</button></div></div>`;
+  }
+
+  if(L.tab==='event'){
+    const form = EVF[L.ev] || 'кэжуал';
+    const fits = WD.outfits(band, form, new Set(), 3);
+    LOOK = fits.length ? fits[(L.seed||0) % fits.length] : null;
+    const mk = MKS[form], hr = HRS[form], tl = timeline(L.at);
+    body = `<div class="lz-res">
+      <div class="lz-form">
+        <div class="lz-chips">${EVS.map(e=>`<button class="lz-ch ${L.ev===e?'on':''}" onclick="lzEv('${e}')">${e}</button>`).join('')}</div>
+        <label class="lz-time">во сколько выходить <input type="time" value="${L.at}" onchange="lzAt(this.value)"></label>
+      </div>
+      <div class="lz-cols">
+        <div class="lz-col"><div class="lz-k">образ</div>
+          ${LOOK?`<div class="lz-look sm">${LOOK.parts.map(pc).join('')}</div><button class="btn ghost" onclick="lzAgain()">Другой ↻</button>`
+                :`<div class="lz-blank">Из доступных вещей под «${L.ev}» комплект не собрать. Добавьте вещи — или выберите другое событие.</div>`}
+        </div>
+        <div class="lz-col"><div class="lz-k">макияж</div><div class="lz-mini">${scene(mk[1])}</div><p>${mk[0]}</p>
+          <div class="lz-k" style="margin-top:16px">причёска</div><div class="lz-mini">${scene(hr[1])}</div><p>${hr[0]}</p></div>
+      </div>
+      <div class="lz-tl"><div class="lz-k">во сколько начинать</div>
+        ${tl.map(r=>`<div class="lz-tr"><b>${r.t}</b><span>${r.txt}</span></div>`).join('')}
+      </div>
+      <div class="lz-act"><button class="btn primary" onclick="lzWear()" ${LOOK?'':'disabled'}>✓ Надела это</button><button class="btn ghost" onclick="lzSend('look')">✈ Себе в Telegram</button></div>
+    </div>`;
+  }
+
+  box.innerHTML = `
+    <div class="lz-tabs">${TAB.map(t=>`<button class="lz-tab ${L.tab===t[0]?'on':''}" onclick="lzTab('${t[0]}')"><i>${t[2]}</i><b>${t[1]}</b><span>${t[3]}</span></button>`).join('')}</div>
+    ${body}`;
+  if(window.fxZone) fxZone(box);
+};
+window.openLazy = ()=>{ openPage('lazyPage'); setTimeout(renderLazy,60); };
+})();
+
 /* ================= КУРСЫ: бровист, визажист, стилист по волосам ================= */
 (function(){
-const P = HUB.ls('looka_course', { done:{}, open:null });
+const P = HUB.ls('looka_course', { done:{}, open:null, start:{}, view:'prog' });
 const saveP = ()=>HUB.save('looka_course', P);
 const S = (t,sc)=>({t, sc:sc||''});
 
@@ -12050,32 +12829,215 @@ const CRS = [
       ok:'Вы называете время работы и укладываетесь в него, а фото затылка есть у каждой работы.' } ] } ] }
 ];
 
+/* --- третий модуль каждому курсу --- */
+const EXTRA = {
+ 'mk:base': { t:'Три сценария дня', lvl:'base', d:'Одно лицо, три скорости: работа, вечер и камера.', ls:[
+   { t:'Лицо за десять минут на работу', why:'Утренний макияж должен выдерживать день и укладываться в перерыв между кофе и выходом.',
+     steps:[S('Крем и SPF, пока чистите зубы — это и есть подготовка.','dampcream'),
+            S('Тон только туда, где неровно: крылья носа, подбородок, под глазами. Не на всё лицо.'),
+            S('Кремовые румяна пальцами на яблочки — это самый быстрый способ выглядеть выспавшейся.','blush'),
+            S('Брови: щёточка вверх и гель. Карандаш — только если есть пустоты.','soapbrow'),
+            S('Тушь в один слой у корня и бальзам с цветом на губы.','lashroot')],
+     err:['Начинают с глаз и выбиваются из времени.','Кладут тон по всему лицу «для ровности» — к обеду он уходит в поры.'],
+     ok:'Укладываетесь в десять минут и в зеркале лифта не хочется ничего поправить.' },
+   { t:'Вечер из дневного за пять минут', why:'Перекрашиваться после работы некогда — вечерний образ достраивают поверх утреннего.',
+     steps:[S('Промокните Т-зону салфеткой, не пудрите заново.','tzone'),
+            S('Тёмный оттенок теней во внешний угол и в складку — два движения.','lid'),
+            S('Светлая точка во внутренний угол: глаз сразу раскрывается.','inner'),
+            S('Второй слой туши только на внешние ресницы.','mascara'),
+            S('Насыщенная губа — и образ стал вечерним.','redlip')],
+     err:['Наносят новый слой тона поверх старого — лицо становится маской.','Делают и глаз, и губу ярче: вечером это читается тяжело.'],
+     ok:'За пять минут и без снятия макияжа образ изменился настолько, что это заметили.' },
+   { t:'Макияж под фото и видеозвонки', why:'Камера видит иначе, чем зеркало: она усиливает текстуру и съедает полутона.',
+     steps:[S('Никакого SPF в тональном, если будет вспышка.','flash'),
+            S('Матовая Т-зона, щёки живые.','tzone'),
+            S('Контрасты чуть сильнее обычного: брови чётче, ресницы гуще.','browstroke'),
+            S('Свет от окна, камера на уровне глаз.','window'),
+            S('Проверка — селфи со вспышкой до выхода или до созвона.','flashtest')],
+     err:['Хайлайтер по всему лицу — на камере это жирный блеск.','Сидят спиной к окну: лицо уходит в тень, и никакой макияж не спасает.'],
+     ok:'На стоп-кадре видно черты лица, а не слои средств.' } ] },
+
+ 'hair:base': { t:'Пять причёсок за десять минут', lvl:'base', d:'То, что реально делается утром одной рукой.', ls:[
+   { t:'Хвост, который держится и не тянет', why:'Хвост разваливается и болит голова не от резинки, а от того, где и как он собран.',
+     steps:[S('Соберите волосы на сухие, слегка текстурированные — на чистых скользящих хвост сползает.','nowash'),
+            S('Высота хвоста — по линии от уха до уха через макушку, не выше.','gather'),
+            S('Наклоните голову назад при сборе: так не будет натяжения у висков.','headdown'),
+            S('Резинку затягивайте в два приёма, подтягивая волосы у основания.','band'),
+            S('Прядь из хвоста вокруг резинки прячет её и держит форму.','wrap')],
+     err:['Собирают мокрые волосы — остаётся залом и волос ломается.','Затягивают изо всех сил: отсюда головная боль и обломы у лица.'],
+     ok:'Через четыре часа хвост на том же месте, и голова не болит.' },
+   { t:'Пучок за минуту', why:'Один жгут и две шпильки дают форму, ради которой обычно тратят двадцать минут.',
+     steps:[S('Хвост на нужной высоте, без идеальной гладкости.','gather'),
+            S('Скрутите хвост в жгут до самых концов.','twist'),
+            S('Оберните жгут вокруг основания по кругу.','wrap'),
+            S('Две шпильки крест-накрест в основание, остальные по периметру.','pin'),
+            S('Вытяните пару прядей у лица и чуть расправьте пучок.','pull')],
+     err:['Шпильки втыкают сверху вниз — они вылезают через час.','Делают пучок идеально гладким: так он выглядит строже, чем хочется.'],
+     ok:'Пучок держится без лака и переживает дорогу на работу.' },
+   { t:'Мальвинка и жгуты', why:'Когда волосы мешают, но распущенные нужны — это решение на две минуты.',
+     steps:[S('Отделите верхнюю часть от висков до макушки.','part'),
+            S('Соберите её резинкой или крабом, не затягивая у корней.','band'),
+            S('Для жгутов: две пряди у лица скрутите назад и соедините.','rope'),
+            S('Слегка вытяните верх на макушке — это даёт объём.','pull'),
+            S('Концы оставьте как есть или подкрутите утюжком.','curl')],
+     err:['Тянут верх слишком сильно — появляются заломы и «петушок».','Берут слишком много волос в верхнюю часть: распущенных почти не остаётся.'],
+     ok:'Волосы не лезут в лицо, но причёска выглядит как распущенные.' } ] },
+
+ 'brow:base': { t:'Когда что-то пошло не так', lvl:'base', d:'Перещип, редкие волоски, седина — и что с этим делать.', ls:[
+   { t:'Перещипанные брови: как отрастить', why:'Волос растёт циклами, и отрастание — это дисциплина, а не средство.',
+     steps:[S('Полный отказ от пинцета на 8–12 недель. Это главное и единственное обязательное условие.','prep'),
+            S('Убирать можно только то, что явно вне формы — переносицу и лоб.'),
+            S('Пустоты закрашивайте штрихами по направлению роста, а не линией.','browstroke'),
+            S('Масло или средство для роста на ночь — эффект есть не у всех, но вреда нет.','oilends'),
+            S('Фотографируйте раз в две недели в одном свете: иначе прогресса не видно.','refs')],
+     err:['Срываются через три недели и щиплют «один волосок».','Ждут результата за месяц: часть волос физически не успевает начать расти.'],
+     ok:'Через два-три месяца появляется волос в зонах, где его не было.' },
+   { t:'Редкие и светлые: чем заполнять', why:'Главная ошибка — заполнять чем-то одним и слишком тёмным.',
+     steps:[S('Оттенок на тон светлее волос, если вы брюнетка, и на тон темнее, если блондинка.','redlip'),
+            S('Основа — карандаш с тонким грифелем, штрихами в пустоты.','browstroke'),
+            S('Тени поверх смягчают штрихи и делают переход естественным.'),
+            S('Гель фиксирует и добавляет видимой густоты.','soapbrow'),
+            S('Хвост всегда темнее начала — начало почти не трогаем.')],
+     err:['Рисуют сплошную линию и получают «нарисованную» бровь.','Берут холодно-серый оттенок на тёплые волосы — брови выглядят чужими.'],
+     ok:'С расстояния вытянутой руки не видно, что бровь заполняли.' },
+   { t:'Седые и непослушные волоски', why:'Один торчащий седой волос заметнее, чем вся остальная бровь.',
+     steps:[S('Седые не выдёргивают: на их месте может не вырасти ничего.'),
+            S('Закрашивают окрашиванием бровей или тонируют тенями поверх.'),
+            S('Длинные и жёсткие волоски подрезают, расчесав вверх, а не удаляют.'),
+            S('Непослушное направление держит мыльная укладка или гель сильной фиксации.','soapbrow'),
+            S('Если волосков много и они жёсткие — долговременная укладка решает это на месяц.')],
+     err:['Выдёргивают седые — через год в этом месте пусто.','Подрезают, не расчесав вверх: получаются ступеньки.'],
+     ok:'Брови выглядят ухоженными, а отдельные волоски не бросаются в глаза.' } ] },
+
+ 'mk:pro': { t:'Свадьба и выезд', lvl:'pro', d:'Самая денежная и самая нервная часть профессии.', ls:[
+   { t:'Свадебный тайминг и стойкость', why:'Свадебный макияж оценивают не утром, а на фото в два часа ночи.',
+     steps:[S('Пробный макияж обязателен и оплачивается отдельно — он же ваша страховка.','refs'),
+            S('Закладывайте два часа на невесту и 40 минут на каждую подружку.','prep'),
+            S('Стойкость строится слоями: база, кремовые текстуры, пудра точечно, фиксатор.','order'),
+            S('Губы собирают в четыре слоя — это единственный способ пережить фуршет.','lipset'),
+            S('Соберите невесте мини-набор на подправку: помада, салфетки, пудра.')],
+     err:['Соглашаются без пробного: на месте выясняется аллергия или «я вижу себя иначе».','Берут две свадьбы в один день.'],
+     ok:'На вечерних фото макияж выглядит так же, как на утренних.' },
+   { t:'Выезд: что брать и как работать в чужом свете', why:'Дома у клиента не бывает ни вашего света, ни вашего стула.',
+     steps:[S('Своя лампа — не роскошь, а условие: домашний свет жёлтый и врёт на два тона.','light3'),
+            S('Чемодан собирают по списку накануне, а не по памяти утром.'),
+            S('Сажайте клиента у окна и работайте лицом к свету.','window'),
+            S('Высота стула важнее удобства клиента: вы работаете на уровне её лица, а не сверху.'),
+            S('Контрольное фото со вспышкой перед уходом — при чужом свете это обязательный шаг.','flashtest')],
+     err:['Работают при верхнем потолочном свете — тени падают так, что скульптура уходит в грязь.','Забывают удлинитель и салфетки.'],
+     ok:'Результат при вашем свете и при её свете выглядит одинаково.' },
+   { t:'Невеста и подружки: поток без паники', why:'Поток ломается не из-за скорости рук, а из-за отсутствия порядка.',
+     steps:[S('Порядок: сначала подружки, невеста последней — её макияж должен быть самым свежим.'),
+            S('Назовите каждой её время заранее и напишите список в общий чат.'),
+            S('Между клиентами — только дезинфекция и смена аппликаторов, остальное потом.'),
+            S('Один акцент на всех: единый стиль читается на общих фото лучше, чем пять разных.','accent'),
+            S('Не соглашайтесь на «ещё одну» в день свадьбы.')],
+     err:['Делают невесту первой, и к выездной церемонии макияж уже уставший.','Начинают без списка и спорят о порядке в процессе.'],
+     ok:'Все готовы к названному времени, и вы не бежите.' } ] },
+
+ 'brow:pro': { t:'Сложные брови', lvl:'pro', d:'Асимметрия, татуаж, возраст — где обычная схема не работает.', ls:[
+   { t:'Асимметрия и шрамы', why:'Сильную асимметрию не исправляют коррекцией — её компенсируют.',
+     steps:[S('Измерьте разницу по трём точкам и покажите её клиенту в зеркале: она чаще всего о ней не знает.'),
+            S('Выравнивают начала бровей, а не формы целиком.'),
+            S('Высокую бровь не опускают — подтягивают нижнюю, добавляя волос снизу.'),
+            S('Шрам и зоны без роста закрывают штрихами при окрашивании, не удалением вокруг.','browstroke'),
+            S('Честно проговорите предел: разницу больше 3 мм убирает только макияж или татуаж.')],
+     err:['Пытаются сделать симметрию удалением — обе брови становятся тоньше.','Молчат про асимметрию, а потом клиент видит её на фото.'],
+     ok:'Клиент понимает, что было сделано и почему идеальной симметрии не будет.' },
+   { t:'Брови после татуажа', why:'Старый пигмент живёт своей жизнью и спорит с любым окрашиванием.',
+     steps:[S('Выясните, когда и чем делали татуаж, и был ли он у другого мастера.'),
+            S('Посмотрите подтон остатка: ушедший в серый или рыжий пигмент меняет выбор краски.','redlip'),
+            S('Форму стройте по живому волосу, а не по контуру татуажа.'),
+            S('Окрашивание подбирают так, чтобы перекрыть остаток, а не добавить к нему третий оттенок.'),
+            S('Не обещайте, что татуажа не будет видно — предупредите заранее.')],
+     err:['Красят привычным оттенком поверх холодного остатка — получают синеву.','Повторяют форму старого татуажа, потому что «так привычно клиенту».'],
+     ok:'Клиент предупреждён, а готовая бровь читается как одна форма, а не как две.' },
+   { t:'Редкие и возрастные брови', why:'С возрастом волос истончается, меняет направление и светлеет — схема для густых бровей здесь ломается.',
+     steps:[S('Хвост не опускают ниже начала: это главное, что поднимает лицо.','jaw'),
+            S('Коррекцию делают минимальной — каждый волос на счету.'),
+            S('Цвет на тон светлее привычного: тёмная бровь на возрастном лице выглядит тяжело.'),
+            S('Долговременная укладка на редких бровях даёт больше, чем окрашивание.'),
+            S('Предложите домашний уход и честно скажите, что часть зон не восстановится.')],
+     err:['Убирают «лишнее» и оставляют клиента почти без бровей.','Красят в тёмный, чтобы «было видно».'],
+     ok:'Лицо выглядит открытее, а бровь — своей, а не нарисованной.' } ] },
+
+ 'hair:pro': { t:'Сложный волос', lvl:'pro', d:'Кудри, тонкие волосы и последствия осветления.', ls:[
+   { t:'Кудрявый волос: стрижка и уход', why:'Кудрявый волос стригут и моют по другим правилам — обычные здесь дают пух.',
+     steps:[S('Длину считают в сухом виде: завиток подскакивает на треть и больше.','wetcurl'),
+            S('Стригут по сухому и попрядно, а не ровным срезом по мокрому.'),
+            S('Расчёсывают только мокрыми и с кондиционером.','combup'),
+            S('Сушка диффузором снизу, без разбивания завитка руками.','diffuse'),
+            S('Гель или крем на мокрые волосы, разбить корочку после полного высыхания.','scrunch')],
+     err:['Обещают клиенту ровный срез на кудрях.','Сушат феном с концентратором — вся форма превращается в пух.'],
+     ok:'Завиток собран по всей длине, а не только на концах.' },
+   { t:'Тонкий и редкий волос', why:'Тонкий волос не терпит веса: всё, что утяжеляет, работает против объёма.',
+     steps:[S('Длина до ключиц максимум: ниже волос висит и выглядит реже.'),
+            S('Слои делают короткими и высокими, иначе кончики становятся прозрачными.'),
+            S('Кондиционер только на концы, масла почти исключают.','midlength'),
+            S('Объём строится сушкой и остыванием, а не начёсом.','headdown'),
+            S('Светлые тонкие пряди у лица визуально добавляют плотности.')],
+     err:['Делают длинные мягкие слои — волос становится ещё реже на вид.','Советуют питательные маски на всю длину.'],
+     ok:'Волос лежит плотной массой, а не отдельными прядками.' },
+   { t:'После осветления: что реально можно', why:'Главная работа колориста здесь — это честный разговор, а не состав.',
+     steps:[S('Оцените эластичность: влажный волос тянется и возвращается — работать можно, рвётся — нет.'),
+            S('Скажите прямо, за сколько процедур реально дойти до цели и что будет с качеством.'),
+            S('Между осветлениями — минимум 6–8 недель и восстановление.','prep'),
+            S('Температуру приборов опускают: для осветлённого волоса 180 °C — уже верх.','temp'),
+            S('Стрижка повреждённых концов даёт больше, чем любой уход.')],
+     err:['Осветляют на 4+ уровня за один раз, потому что клиент просит.','Обещают, что уход «восстановит» волос: разрушенный кератин не возвращается.'],
+     ok:'Клиент выходит с планом на три месяца, а не с разочарованием через неделю.' } ] }
+};
+Object.entries(EXTRA).forEach(([k,m])=>{ const [ck] = k.split(':'); const C = CRS.find(x=>x.k===ck); if(C) C.mods.push(m); });
+
+/* --- два отдельных курса из каждого предмета: для себя и для профессии --- */
+const SPLIT = {
+ mk:   { free:['Макияж для себя','Накраситься так, чтобы нравиться себе в зеркале и на фото. Без профессиональных кистей и без часа у зеркала.'],
+         pro:['Визажист','Работа с чужим лицом: макияж под задачу, свадьбы и выезды, гигиена, клиент, тайминг и цена.'] },
+ hair: { free:['Укладка для себя','Понять свой волос и научиться делать объём, локоны, гладкость и пять причёсок за то время, которое есть утром.'],
+         pro:['Стилист по волосам','Форма под лицо, грамотный разговор о цвете, вечерние причёски, сложный волос и работа на заказ.'] },
+ brow: { free:['Брови для себя','Найти свою форму, корректировать без перещипа, красить дома незаметно и спасать перещипанные.'],
+         pro:['Бровист','Консультация и противопоказания, разметка, архитектура, сложные брови и расчёт цены услуги.'] }
+};
+const COURSES = [];
+CRS.forEach(C=>{
+  const base = C.mods.filter(m=>m.lvl!=='pro'), pro = C.mods.filter(m=>m.lvl==='pro');
+  if(base.length) COURSES.push({ k:C.k+'_free', ic:C.ic, col:C.col, lvl:'free', t:SPLIT[C.k].free[0], lead:SPLIT[C.k].free[1], mods:base });
+  if(pro.length)  COURSES.push({ k:C.k+'_pro',  ic:C.ic, col:C.col, lvl:'pro',  t:SPLIT[C.k].pro[0],  lead:SPLIT[C.k].pro[1],  mods:pro });
+});
+
 const key = (c,m,l)=>c+':'+m+':'+l;
-const isPro = m=>m.lvl==='pro';
+const C_ = k=>COURSES.find(x=>x.k===k);
 const sc = k=>{ if(!k) return ''; if(window.PR_SCENES && window.PR_SCENES[k]) return prScene(k); if(window.TUT_VIEWS && window.TUT_VIEWS[k]) return tutScene(k); return ''; };
-const doneIn = (c,mi)=>{ const m=CRS.find(x=>x.k===c).mods[mi]; return m.ls.filter((_,li)=>P.done[key(c,mi,li)]).length; };
-const total = c=>CRS.find(x=>x.k===c).mods.reduce((s,m)=>s+m.ls.length,0);
-const doneAll = c=>CRS.find(x=>x.k===c).mods.reduce((s,m,mi)=>s+doneIn(c,mi),0);
+const doneIn = (c,mi)=>{ const C=C_(c); if(!C||!C.mods[mi]) return 0; return C.mods[mi].ls.filter((_,li)=>P.done[key(c,mi,li)]).length; };
+const total = c=>{ const C=C_(c); return C?C.mods.reduce((s,m)=>s+m.ls.length,0):0; };
+const doneAll = c=>{ const C=C_(c); return C?C.mods.reduce((s,m,mi)=>s+doneIn(c,mi),0):0; };
 
 window.crOpen = k=>{ P.open = k; saveP(); renderCourses(); setTimeout(()=>{ const el=document.getElementById('crView'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },60); };
 window.crBack = ()=>{ P.open = null; saveP(); renderCourses(); };
-window.crDone = (c,mi,li)=>{ const k=key(c,mi,li); P.done[k]=!P.done[k]; saveP(); renderCourses(); const L=CRS.find(x=>x.k===c).mods[mi].ls[li]; myToast(P.done[k]?'Урок отмечен: '+L.t:'Отметка снята'); crLesson(c,mi,li,true); };
+window.crView = v=>{ P.view=v; saveP(); renderCourses(); };
+window.crDone = (c,mi,li)=>{ const k=key(c,mi,li); P.done[k]=!P.done[k]; saveP(); renderCourses(); const L=C_(c).mods[mi].ls[li]; myToast(P.done[k]?'Урок отмечен: '+L.t:'Отметка снята'); crLesson(c,mi,li,true); };
 window.crLessonGate = (c,mi,li)=>{
-  const m = CRS.find(x=>x.k===c).mods[mi];
-  if(isPro(m) && window.gate) return gate(`crLesson('${c}',${mi},${li})`, 'Профессиональный модуль', 'course');
+  const C = C_(c);
+  if(C && C.lvl==='pro' && window.gate) return gate(`crLesson('${c}',${mi},${li})`, 'Профессиональный курс', 'course');
   crLesson(c,mi,li);
 };
 window.crLesson = (c,mi,li,quiet)=>{
-  const C = CRS.find(x=>x.k===c), m = C.mods[mi], L = m.ls[li];
+  const C = C_(c); if(!C) return; const m = C.mods[mi], L = m.ls[li];
   let ov = document.getElementById('crOv');
   if(!ov){ ov=document.createElement('div'); ov.id='crOv'; ov.className='prz'; ov.addEventListener('click',e=>{ if(e.target===ov) crClose(); }); document.body.appendChild(ov); }
   const d = !!P.done[key(c,mi,li)];
   ov.innerHTML = `<div class="prz-card cr-les" style="--a:${C.col[0]};--b:${C.col[1]};position:relative"><button class="prz-x" onclick="crClose()">✕</button>
-    <div class="mo-k">${C.t} · ${m.t}${isPro(m)?' · PRO':''}</div>
+    <div class="mo-k">${C.t} · ${m.t}</div>
     <h3>${L.t}</h3>
     <p class="cr-why">${L.why}</p>
     <div class="cr-steps">${L.steps.map((s,i)=>{ const g=sc(s.sc); return `<div class="cr-st"><span class="cr-n">${i+1}</span><div class="cr-sb"><p>${s.t}</p>${g?`<div class="cr-pic">${g}</div>`:''}</div></div>`; }).join('')}</div>
     <div class="cr-err"><span>частые ошибки</span><ul>${L.err.map(e=>`<li>${e}</li>`).join('')}</ul></div>
+    ${(()=>{ const k=KIT[key(c,mi,li)]; return k?`<div class="cr-kit"><span>чем это делать</span>
+      ${(k.buy||[]).map(x=>`<div class="cr-kb"><b>${x[0]}</b><p>${x[1]}</p></div>`).join('')}
+      ${k.tool?`<div class="cr-kt"><i>✎</i><div>${k.tool}</div></div>`:''}
+      <div class="cr-kn">Это не реклама и не партнёрские ссылки: названия приведены как ориентир по цене и качеству. Подойдёт любое средство той же категории.</div></div>`:''; })()}
+    <figure class="cr-shot"><img src="img/les/${c}-${mi}-${li}.jpg" alt="" onerror="this.closest('.cr-shot').remove()"><figcaption>как это выглядит на самом деле</figcaption></figure>
+    <div class="cr-voice"><span>голосом</span><audio controls preload="none" src="img/voice/${c}-${mi}-${li}.mp3" onerror="this.closest('.cr-voice').remove()"></audio></div>
     <div class="cr-ok"><span>как понять, что получилось</span>${L.ok}</div>
     ${L.note?`<div class="cr-note">${L.note}</div>`:''}
     <div class="to-row" style="margin-top:16px"><button class="btn ${d?'ghost':'primary'}" onclick="crDone('${c}',${mi},${li})">${d?'✓ Пройдено — снять отметку':'Отметить пройденным'}</button>${m.ls[li+1]?`<button class="btn ghost" onclick="crLessonGate('${c}',${mi},${li+1})">Следующий урок →</button>`:''}</div>
@@ -12085,39 +13047,158 @@ window.crLesson = (c,mi,li,quiet)=>{
 window.crClose = ()=>{ const o=document.getElementById('crOv'); if(o) o.classList.remove('on'); document.body.style.overflow=''; };
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') crClose(); });
 
+/* --- чем это делать: продукты и кисти под урок --- */
+const KIT = {
+ 'mk_free:0:0':{ buy:[['увлажняющий крем по типу кожи','сухой — плотный, жирной — лёгкий гель. Это база, на которой держится тон'],['праймер под задачу','матирующий для жирной Т-зоны, увлажняющий для сухой'],['бальзам для губ','наносится первым, чтобы к помаде губы были готовы']], tool:'Руки чище любой кисти: крем вбивают подушечками пальцев, а не растирают ладонью.' },
+ 'mk_free:0:1':{ buy:[['тональное средство среднего покрытия','SHIKstudio Perfect Liquid, Stellary Nude Skin, Divage — рабочие варианты до 2 000 ₽'],['консилер на тон светлее тона','под глаза и в центр лица'],['рассыпчатая пудра','Divage Skin Cult — только в Т-зону']], tool:'Влажный спонж для естественности, плотная кисть-кабуки для плотного покрытия. Спонж смачивают и отжимают — сухой впитает половину продукта.' },
+ 'mk_free:0:2':{ buy:[['кремовые румяна','Arive Makeup Soft Matte & Dewy или Climtcosmetics — тинт годится и на губы, и на веки'],['скульптор кремовый','Influence Beauty Universum 3-в-1, Estrâde Mon Secret'],['хайлайтер','только если кожа ровная — он подчёркивает рельеф']], tool:'Кремовое — пальцами или плоской синтетической кистью. Пудровое — пушистой натуральной. Синтетика для кремов, натуральный ворс для пудр: это главное правило кистей.' },
+ 'mk_free:1:0':{ buy:[['палетка нейтральных теней','Elian Russia Eyeconic, Estrâde Fiesta — хватит четырёх оттенков'],['база под тени','без неё тени скатываются в складку к обеду']], tool:'Три кисти закрывают всё: плоская для нанесения на веко, пушистая «бочонок» для складки, маленькая скошенная для уголка. Четвёртая — чистая, только для растушёвки.' },
+ 'mk_free:1:1':{ buy:[['гелевый карандаш или лайнер','Beauty Bomb Laser Blade — гелевые карандаши этой линейки хвалят отдельно'],['консилер для правки','поправлять форму стрелки им, а не ватной палочкой']], tool:'Скошенная плоская кисть даёт стрелку ровнее, чем фломастер: ею рисуют короткими касаниями, а не одной линией.' },
+ 'mk_free:1:2':{ buy:[['карандаш для губ в тон своих','основа стойкости, им штрихуют всю губу'],['помада нужного подтона','Elian Superior Matte, Estrâde, Stellary — от 380 ₽'],['масло или бальзам','Beauty Bomb Glossy Oops, LOVE GENERATION Wet Dream']], tool:'Кисть для губ экономит помаду вдвое и даёт границу, которую не повторить аппликатором.' },
+ 'mk_free:2:0':{ buy:[['тушь','SHIKstudio Extra Volume, Divage Karenina — обе из недорогих и рабочих'],['гель для бровей','ART-VISAGE Fix & Care за 229 ₽ — из тех, что берут и профессионалы']], tool:'Щёточка для бровей и чистая щёточка от старой туши — расчесать ресницы после.' },
+ 'mk_free:2:1':{ buy:[['тёмные тени из той же палетки','второй слой делают тем, что уже есть'],['насыщенная помада','для перехода в вечер хватит одной']], tool:'Та же пушистая кисть, что утром в складке. Новые инструменты вечером не нужны.' },
+ 'mk_free:2:2':{ buy:[['матирующие салфетки','дешевле пудры и не дают налёта на камеру'],['тон без SPF','для съёмки со вспышкой это обязательное условие']], tool:'Ничего нового: камера требует не других средств, а другой пропорции того же.' },
+ 'brow_free:1:2':{ buy:[['краска для бровей или хна','время выдержки — строго из инструкции к составу'],['жирный крем','обвести им кожу вокруг брови, чтобы пигмент не ушёл за контур']], tool:'Скошенная жёсткая кисть и щёточка. Пластиковая, а не металлическая мисочка.' },
+ 'brow_free:2:1':{ buy:[['карандаш с тонким грифелем','штрихи, а не линия — грифель должен быть тоньше волоска'],['тени для бровей','смягчают штрихи, Climtcosmetics или ART-VISAGE'],['гель фиксирующий','он и даёт видимую густоту']], tool:'Карандаш держат почти параллельно коже, а не перпендикулярно: так штрих выходит тонким.' },
+ 'hair_free:0:2':{ buy:[['термозащита','самая недооценённая покупка: работает каждый день'],['масло для сухих концов','капля, нижняя треть']], tool:'Фен с концентратором и брашинг подходящего диаметра: чем короче волосы, тем меньше диаметр.' },
+ 'hair_free:1:0':{ buy:[['спрей для прикорневого объёма','наносится только на корни, на влажные'],['сухой шампунь','он же работает как текстурирующее средство']], tool:'Брашинг и зажимы: пряди должны остыть в приподнятом положении, иначе объём не зафиксируется.' },
+ 'hair_free:2:0':{ buy:[['тонкие резинки в цвет волос','силиконовые держат лучше тканевых'],['шпильки двух размеров','маленькие для прядей, большие для основания']], tool:'Щётка с натуральной щетиной: она не электризует волос при сборе.' }
+};
+/* --- программа по дням --- */
+function progDays(C){
+  const out = [{ k:'intro' }];
+  C.mods.forEach((m,mi)=>{ m.ls.forEach((l,li)=>out.push({ k:'les', mi, li })); out.push({ k:'prac', mi }); });
+  out.push({ k:'final' });
+  return out;
+}
+const dayKey = (ck,i)=>ck+':d'+i;
+function dayDone(C,d,i){ return d.k==='les' ? !!P.done[key(C.k,d.mi,d.li)] : !!P.done[dayKey(C.k,i)]; }
+function dayTitle(C,d){
+  if(d.k==='intro') return 'С чего начать';
+  if(d.k==='final') return 'Итог: что изменилось';
+  if(d.k==='prac') return 'Практика: ' + C.mods[d.mi].t.toLowerCase();
+  return C.mods[d.mi].ls[d.li].t;
+}
+function dayMin(C,d){ return d.k==='les' ? (C.mods[d.mi].ls[d.li].steps.length*3+4)+' мин' : d.k==='prac' ? '15 мин' : '5 мин'; }
+function curDay(C){
+  const st = (P.start||{})[C.k]; if(!st) return 0;
+  const n = Math.floor((Date.now()-st)/864e5)+1;
+  return Math.max(1, Math.min(n, progDays(C).length));
+}
+function streak(C){
+  const ds = progDays(C); let s=0;
+  for(let i=ds.length-1;i>=0;i--){ if(dayDone(C,ds[i],i)) s++; else if(s) break; }
+  return s;
+}
+window.progStart = k=>{ P.start = P.start||{}; P.start[k]=Date.now(); saveP(); renderCourses(); myToast('Программа началась. Завтра здесь будет день 2.'); };
+window.progReset = k=>{ if(!confirm('Начать программу заново? Отметки об уроках останутся.')) return; P.start[k]=Date.now(); saveP(); renderCourses(); };
+window.progDay = (ck,i)=>{
+  const C = C_(ck); const d = progDays(C)[i]; if(!d) return;
+  if(d.k==='les') return crLessonGate(ck, d.mi, d.li);
+  if(C.lvl==='pro' && window.gate && !window.hasAccessSafe) { /* платный курс — ворота на любой день */ }
+  dayOpen(ck,i,d);
+};
+function dayOpen(ck,i,d){
+  const C = C_(ck); const done = !!P.done[dayKey(ck,i)];
+  let ov = document.getElementById('crOv');
+  if(!ov){ ov=document.createElement('div'); ov.id='crOv'; ov.className='prz'; ov.addEventListener('click',e=>{ if(e.target===ov) crClose(); }); document.body.appendChild(ov); }
+  const body = d.k==='intro'
+    ? `<p class="cr-why">Программа рассчитана на ${progDays(C).length} дней по 10–20 минут. Один день — один навык, потом день практики. Пропустили — не страшно, день просто подождёт.</p>
+       <div class="cr-steps">
+        <div class="cr-st"><span class="cr-n">1</span><div class="cr-sb"><p>Соберите то, что уже есть дома. Докупать до начала ничего не нужно — в каждом уроке написано, чем это делать, и что можно заменить.</p></div></div>
+        <div class="cr-st"><span class="cr-n">2</span><div class="cr-sb"><p>Сделайте фото «до» при дневном свете, лицом к окну. Через две недели вы сами не поверите, что это один человек.</p></div></div>
+        <div class="cr-st"><span class="cr-n">3</span><div class="cr-sb"><p>Занимайтесь в одно и то же время. Утром перед работой — лучший вариант: сразу выходите с результатом.</p></div></div>
+       </div>`
+    : d.k==='prac'
+    ? `<p class="cr-why">День без нового материала. Повторяете три приёма модуля «${C.mods[d.mi].t}» на себе, без подсказок.</p>
+       <div class="cr-steps">${C.mods[d.mi].ls.map((l,n)=>`<div class="cr-st"><span class="cr-n">${n+1}</span><div class="cr-sb"><p>${l.t}</p></div></div>`).join('')}</div>
+       <div class="cr-ok"><span>как понять, что получилось</span>Вы делаете все три без подглядывания в урок и укладываетесь в то время, которое есть утром.</div>`
+    : `<p class="cr-why">Последний день. Сравните фото «до» и «после» — и решите, что оставляете в ежедневном наборе.</p>
+       <div class="cr-steps">
+        <div class="cr-st"><span class="cr-n">1</span><div class="cr-sb"><p>Снимите «после» в том же свете и ракурсе, что и «до».</p></div></div>
+        <div class="cr-st"><span class="cr-n">2</span><div class="cr-sb"><p>Выпишите три приёма, которые реально прижились. Остальное — не ваше, и это нормально.</p></div></div>
+        <div class="cr-st"><span class="cr-n">3</span><div class="cr-sb"><p>Если хочется дальше — рядом лежит профессиональный курс по тому же предмету.</p></div></div>
+       </div>`;
+  ov.innerHTML = `<div class="prz-card cr-les" style="--a:${C.col[0]};--b:${C.col[1]};position:relative"><button class="prz-x" onclick="crClose()">✕</button>
+    <div class="mo-k">${C.t} · день ${i+1}</div><h3>${dayTitle(C,d)}</h3>${body}
+    <div class="to-row" style="margin-top:16px"><button class="btn ${done?'ghost':'primary'}" onclick="progDone('${ck}',${i})">${done?'✓ Сделано — снять отметку':'Отметить сделанным'}</button></div></div>`;
+  ov.classList.add('on'); document.body.style.overflow='hidden';
+}
+window.progDone = (ck,i)=>{ const k=dayKey(ck,i); P.done[k]=!P.done[k]; saveP(); renderCourses(); crClose(); myToast(P.done[k]?'День засчитан':'Отметка снята'); };
+
+const card = (C,i)=>{
+  const d=doneAll(C.k), t=total(C.k), pro=C.lvl==='pro';
+  return HUB.pop(`<article class="cr-c${pro?' pro':''}" style="--a:${C.col[0]};--b:${C.col[1]}" onclick="crOpen('${C.k}')">
+    <div class="cr-c-top"><div class="cr-ic">${C.ic}</div><span class="cr-tag ${pro?'pro':'free'}">${pro?'PRO':'бесплатно'}</span></div>
+    <h3>${C.t}</h3>
+    <p>${C.lead}</p>
+    <div class="cr-foot">
+      <div class="cr-meta"><span>${t} уроков</span><span>${C.mods.length} модуля</span></div>
+      <div class="cr-bar"><i style="width:${t?Math.round(d/t*100):0}%"></i></div>
+      <div class="cr-prog">${d?'пройдено '+d+' из '+t:(pro?'открывается подпиской':'начать можно сейчас')}</div>
+    </div>
+  </article>`,i);
+};
+
 window.renderCourses = ()=>{
   const box = document.getElementById('crBox'); if(!box) return;
   if(!P.open){
-    box.innerHTML = `<div class="cr-grid">${CRS.map((C,i)=>{
-      const d=doneAll(C.k), t=total(C.k), freeN=C.mods.filter(m=>!isPro(m)).reduce((s,m)=>s+m.ls.length,0);
-      return HUB.pop(`<article class="cr-c" style="--a:${C.col[0]};--b:${C.col[1]}" onclick="crOpen('${C.k}')">
-        <div class="cr-ic">${C.ic}</div>
-        <h3>${C.t}</h3>
-        <p>${C.lead}</p>
-        <div class="cr-meta"><span>${t} уроков</span><span class="free">${freeN} бесплатно</span><span>${C.mods.length} модуля</span></div>
-        <div class="cr-bar"><i style="width:${Math.round(d/t*100)}%"></i></div>
-        <div class="cr-prog">${d?'пройдено '+d+' из '+t:'ещё не начат'}</div>
-      </article>`,i);
-    }).join('')}</div>`;
+    const free = COURSES.filter(c=>c.lvl!=='pro'), pro = COURSES.filter(c=>c.lvl==='pro');
+    box.innerHTML = `
+      <section class="cr-sec">
+        <div class="cr-sec-h free"><div><span class="cr-sec-k">бесплатно · для себя</span><h3>Научиться делать себе</h3></div>
+          <p>Три курса для своих рук и своего лица. Открыты целиком, без карты и без регистрации — прогресс хранится в вашем телефоне.</p></div>
+        <div class="cr-grid">${free.map(card).join('')}</div>
+      </section>
+      <section class="cr-sec">
+        <div class="cr-sec-h pro"><div><span class="cr-sec-k">подписка · профессия</span><h3>Научиться работать с другими</h3></div>
+          <p>Те же предметы, но с чужим лицом: консультация и противопоказания, гигиена и санитария, тайминг, расчёт цены, портфолио. Это уже не «для себя» — и это платная часть.</p></div>
+        <div class="cr-grid">${pro.map(card).join('')}</div>
+      </section>`;
     if(window.fxZone) fxZone(box); return;
   }
-  const C = CRS.find(x=>x.k===P.open); const d=doneAll(C.k), t=total(C.k);
+  const C = C_(P.open); if(!C){ P.open=null; return renderCourses(); }
+  const d=doneAll(C.k), t=total(C.k), pro=C.lvl==='pro';
+  const DS = progDays(C), started = !!(P.start||{})[C.k], cd = curDay(C), st = streak(C);
+  const dnAll = DS.filter((x,i)=>dayDone(C,x,i)).length;
+  const prog = P.view!=='all';
+  const cell = (x,i)=>{
+    const done = dayDone(C,x,i), today = started && (i+1)===cd;
+    return `<button class="pr-d ${done?'done':''}${today?' today':''}${x.k!=='les'?' soft':''}" onclick="progDay('${C.k}',${i})">
+      <span class="pr-dn">${done?'✓':i+1}</span><b>${dayTitle(C,x)}</b><em>${dayMin(C,x)}</em></button>`;
+  };
   box.innerHTML = `<div id="crView" class="cr-view" style="--a:${C.col[0]};--b:${C.col[1]}">
     <button class="btn ghost" onclick="crBack()">← Все курсы</button>
-    <div class="cr-head"><div class="cr-ic big">${C.ic}</div><div><div class="mo-k">курс · ${t} уроков</div><h2>${C.t}</h2><p>${C.lead}</p>
-      <div class="cr-bar big"><i style="width:${Math.round(d/t*100)}%"></i></div><div class="cr-prog">пройдено ${d} из ${t}</div></div></div>
-    ${C.mods.map((m,mi)=>{
+    <div class="cr-head${pro?' pro':''}"><div class="cr-ic big">${C.ic}</div><div class="cr-head-b">
+      <div class="cr-head-k"><span class="cr-tag ${pro?'pro':'free'}">${pro?'PRO':'бесплатно'}</span><span class="mo-k">${t} уроков · ${C.mods.length} модуля</span></div>
+      <h2>${C.t}</h2><p>${C.lead}</p>
+      <div class="cr-bar big"><i style="width:${t?Math.round(d/t*100):0}%"></i></div><div class="cr-prog">пройдено ${d} из ${t}</div></div></div>
+    <div class="cr-sw"><button class="cr-swb ${prog?'on':''}" onclick="crView('prog')">Программа по дням</button><button class="cr-swb ${prog?'':'on'}" onclick="crView('all')">Все уроки списком</button></div>
+    ${prog?`<div class="pr-prog">
+      <div class="pr-ph">
+        <div><span class="mo-k">программа · ${DS.length} дней по 10–20 минут</span>
+          <h3>${started?'День '+cd+' из '+DS.length:'Начните — и каждый день здесь будет одно задание'}</h3></div>
+        <div class="pr-stats"><div><b>${dnAll}</b><span>дней сделано</span></div><div><b>${st}</b><span>подряд</span></div></div>
+      </div>
+      <div class="pr-days">${DS.map(cell).join('')}</div>
+      <div class="to-row" style="margin-top:16px">${started
+        ? `<button class="btn primary" onclick="progDay('${C.k}',${cd-1})">Открыть день ${cd} →</button><button class="btn ghost" onclick="progReset('${C.k}')">Начать заново</button>`
+        : `<button class="btn primary" onclick="progStart('${C.k}')">Начать программу</button>`}</div>
+      <div class="pr-pn">Пропустили день — ничего не сгорает: откройте любой и сделайте тогда, когда удобно. Счётчик «подряд» просто подождёт.</div>
+    </div>`:''}
+    ${prog?'':C.mods.map((m,mi)=>{
       const dn = doneIn(C.k,mi);
-      return `<details class="faq q cr-mod${isPro(m)?' pro':''}"${dn?'':(mi===0?' open':'')}>
-        <summary><span class="q-n">${String(mi+1).padStart(2,'0')}</span><span class="q-t">${m.t}${isPro(m)?' <em class="cr-lock">PRO</em>':' <em class="cr-freeb">бесплатно</em>'}</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary>
+      return `<details class="faq q cr-mod"${mi===0?' open':''}>
+        <summary><span class="q-n">${String(mi+1).padStart(2,'0')}</span><span class="q-t">${m.t}</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary>
         <div class="cr-mb"><p class="cr-md">${m.d}</p>
         <div class="cr-ls">${m.ls.map((L,li)=>{
           const done = !!P.done[key(C.k,mi,li)];
-          return `<button class="cr-l ${done?'done':''}" onclick="crLessonGate('${C.k}',${mi},${li})"><span class="cr-lm">${done?'✓':(isPro(m)?'◆':'◦')}</span><b>${L.t}</b><em>${L.steps.length} шагов</em></button>`;
+          return `<button class="cr-l ${done?'done':''}" onclick="crLessonGate('${C.k}',${mi},${li})"><span class="cr-lm">${done?'✓':(pro?'◆':'◦')}</span><b>${L.t}</b><em>${L.steps.length} шагов</em></button>`;
         }).join('')}</div>
         <div class="cr-prog">пройдено ${dn} из ${m.ls.length}</div></div></details>`;
     }).join('')}
-    ${C.mods.some(isPro)?`<div class="cr-pro-note">Первые два модуля открыты всем. Профессиональные — в подписке PRO: там работа с клиентом, санитарные правила, расчёт цены и портфолио.</div>`:''}
+    ${pro?`<div class="cr-pro-note"><b>Почему этот курс платный.</b> Здесь всё, что начинается там, где заканчивается «сделать себе»: противопоказания и ответственность за чужое лицо, санитарные требования, тайминг, себестоимость услуги и портфолио. Курсы «для себя» остаются бесплатными целиком.</div>`
+         :`<div class="cr-free-note"><b>Этот курс бесплатный целиком.</b> Все модули и уроки открыты. Если захочется работать на других — рядом лежит профессиональный курс по тому же предмету.</div>`}
   </div>`;
   if(window.fxZone) fxZone(box);
 };
@@ -12132,26 +13213,27 @@ const M = HUB.ls('looka_morning', { occ:'кэжуал', pick:0, tg:{ on:false, t
 const saveM = ()=>HUB.save('looka_morning', M);
 const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
 const MON = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-const OCC = [['кэжуал','обычный день'],['офис','работа'],['вечер','вечер и выход'],['спорт','спорт и движение']];
-const WC = c=> c===0?['ясно','☼']: c<=2?['малооблачно','◔']: c===3?['облачно','☁']: c<=48?['туман','≋']: c<=57?['морось','☂']: c<=67?['дождь','☂']: c<=77?['снег','❄']: c<=82?['ливень','☔']: c<=86?['снегопад','❄']:['гроза','⚡'];
+const OCC = [['кэжуал','обычный день','◦'],['офис','работа','▤'],['вечер','вечер и выход','✦'],['спорт','спорт и движение','➚']];
+const WC = c=> c===0?['ясно','☀']: c<=2?['малооблачно','⛅']: c===3?['облачно','☁']: c<=48?['туман','≋']: c<=57?['морось','☂']: c<=67?['дождь','☂']: c<=77?['снег','❄']: c<=82?['ливень','☔']: c<=86?['снегопад','❄']:['гроза','⚡'];
+const BANDC = { 'жарко':'#FF9A6C', 'тепло':'#FFD28A', 'прохладно':'#19C6F7', 'холодно':'#8FC7FF' };
 const ADV = (band,code)=>{
   const a=[];
-  if(code>=51&&code<=67||code>=80&&code<=82) a.push('будет мокро — обувь, которую не жалко, и верх с капюшоном');
-  if(code>=71&&code<=77||code>=85&&code<=86) a.push('снег — подошва с протектором важнее красоты');
-  if(band==='холодно') a.push('холодно — тёплый слой под верхнюю одежду, а не вместо неё');
-  if(band==='жарко') a.push('жарко — натуральные ткани, бельё в тон кожи');
+  if((code>=51&&code<=67)||(code>=80&&code<=82)) a.push('будет мокро: обувь, которую не жалко, и верх с капюшоном');
+  if((code>=71&&code<=77)||(code>=85&&code<=86)) a.push('снег: подошва с протектором важнее красоты');
+  if(band==='холодно') a.push('тёплый слой под верхнюю одежду, а не вместо неё');
+  if(band==='жарко') a.push('натуральные ткани и бельё в тон кожи');
   if(band==='прохладно') a.push('днём потеплеет — верхний слой, который можно снять');
   return a;
 };
 const pcard = it=>{
   const ph = it.photo ? `<img src="${it.photo}" alt="">` : `<i style="background:${WD.hex(it.color)}"></i>`;
-  return `<div class="mo-pc">${ph}<div><b>${it.name||it.cat}</b><span>${it.cat} · ${it.color}</span></div></div>`;
+  return `<div class="mo-pc">${ph}<div class="mo-pt"><b>${it.name||it.cat}</b><span>${it.cat} · ${it.color}</span></div></div>`;
 };
-let LAST = null;
+let LAST = null, WX = null;
 
 window.moOcc = o=>{ M.occ=o; M.pick=0; saveM(); renderMorning(); };
 window.moPick = i=>{ M.pick=+i; saveM(); renderMorning(); };
-window.moWearNow = ()=>{ if(!LAST||!LAST[M.pick]) return; window.wdWearAll(LAST[M.pick].parts.map(p=>p.id).join(',')); myToast('Записала образ — хорошего дня'); };
+window.moWearNow = ()=>{ if(!LAST||!LAST[M.pick]) return; window.wdWearAll(LAST[M.pick].parts.map(p=>p.id).join(',')); };
 window.moTg = (k,v)=>{ if(k==='day'){ const i=M.tg.days.indexOf(+v); i<0?M.tg.days.push(+v):M.tg.days.splice(i,1); } else M.tg[k]=v; saveM(); renderMorning(); if(k!=='day') moSync(); };
 window.moTgSave = ()=>{ saveM(); moSync(true); };
 
@@ -12169,7 +13251,6 @@ async function moSync(loud){
     if(loud && !j.tg) myToast('Telegram ещё не подключён — нажмите «Подключить Telegram»');
   }catch(e){ if(loud) myToast('Не сохранилось: '+e.message); }
 }
-/* план на 7 дней вперёд — его и отправляет бот по утрам */
 async function buildPlan(){
   if(!window.WD) return [];
   const wx = await WD.weather().catch(()=>null);
@@ -12182,8 +13263,7 @@ async function buildPlan(){
     if(!f){ used.clear(); f = WD.outfits(band, occ, used, 1)[0]; }
     if(f) f.parts.slice(0,2).forEach(p=>used.add(p.id));
     const t = wx && wx.days && wx.days[d]!==undefined ? Math.round(wx.days[d]) : null;
-    out.push({ date: dt.toISOString().slice(0,10), band, temp:t,
-      look: f ? f.parts.map(p=>p.name||p.cat).join(' · ') : '' });
+    out.push({ date: dt.toISOString().slice(0,10), band, temp:t, look: f ? f.parts.map(p=>p.name||p.cat).join(' · ') : '' });
   }
   return out;
 }
@@ -12192,67 +13272,104 @@ window.renderMorning = async ()=>{
   const box = document.getElementById('moBox'); if(!box || !window.WD) return;
   const I = WD.items();
   const now = new Date();
-  const wx = await WD.weather().catch(()=>null);
+  const wx = WX = await WD.weather().catch(()=>null);
   const band = wx ? WD.tempBand(wx.now) : 'тепло';
   const w = wx ? WC(wx.code) : null;
   const fits = WD.outfits(band, M.occ, new Set(), 3);
   LAST = fits;
   const f = fits[Math.min(M.pick, Math.max(0,fits.length-1))];
   const washed = I.filter(i=>i.wash);
+  const ready = I.filter(i=>!i.wash);
   const adv = ADV(band, wx?wx.code:0);
   const hello = now.getHours()<11 ? 'Доброе утро' : now.getHours()<17 ? 'Добрый день' : 'Добрый вечер';
-  const nameA = (()=>{ try{ return (JSON.parse(localStorage.getItem('looka_acc')||'{}').name||'').split(' ')[0]; }catch(e){ return ''; } })();
+  const bc = BANDC[band] || '#19C6F7';
+  const need = ['Верх','Низ','Обувь'].filter(c=>!ready.some(i=>i.cat===c));
+  const fore = (wx && wx.days) ? wx.days.slice(0,4).map((t,i)=>{
+    const dt=new Date(now); dt.setDate(now.getDate()+i);
+    const ww=WC(wx.codes?wx.codes[i]:0);
+    return `<div class="mo-fd${i===0?' on':''}"><span>${i===0?'сегодня':DAYS[(dt.getDay()+6)%7]}</span><em>${ww[1]}</em><b>${Math.round(t)}°</b></div>`;
+  }).join('') : '';
+
+  const tgPreview = `☀ Доброе утро!${wx?'\n'+wx.city+', '+(wx.now>0?'+':'')+Math.round(wx.now)+'°, '+band:''}\n\nСегодня:\n${f?f.parts.map(p=>'· '+(p.name||p.cat)).join('\n'):'· добавьте вещи в гардероб'}`;
 
   box.innerHTML = `
-  <div class="mo-top">
-    <div>
-      <div class="mo-date">${DAYS[(now.getDay()+6)%7]} · ${now.getDate()} ${MON[now.getMonth()]}</div>
-      <h2>${hello}${nameA?', '+nameA:''} — <span class="holo">вот сегодняшний образ</span></h2>
+  <div class="mo-top" style="--bc:${bc}">
+    <div class="mo-aura"><i style="background:${bc}"></i><i></i></div>
+    <div class="mo-head">
+      <div class="mo-date"><b>${DAYS[(now.getDay()+6)%7]}</b><span>${now.getDate()} ${MON[now.getMonth()]}</span></div>
+      <h2>${hello} — <span class="holo">вот сегодняшний образ</span></h2>
       <p class="mo-sub">${I.length<6
         ? 'В гардеробе пока '+I.length+' вещ'+(I.length===1?'ь':I.length<5?'и':'ей')+'. Добавьте хотя бы верх, низ и обувь — и утро начнёт собираться само.'
-        : 'Собран из ваших вещей под погоду и под то, какой у вас день. Что-то в стирке — отметьте, и образ пересоберётся без этой вещи.'}</p>
+        : 'Собран из ваших вещей под погоду и под то, какой у вас сегодня день. Что-то в стирке — отметьте, и образ пересоберётся без этой вещи.'}</p>
     </div>
-    ${wx?`<div class="mo-wx"><em>${w[1]}</em><b>${Math.round(wx.now)}°</b><span>${wx.city}<br>${w[0]} · ${band}</span></div>`
-        :`<div class="mo-wx"><em>◔</em><b>—</b><span>укажите город<br>в шапке сайта</span></div>`}
+    ${wx?`<div class="mo-wx">
+        <div class="mo-wx-now"><em>${w[1]}</em><b>${wx.now>0?'+':''}${Math.round(wx.now)}°</b></div>
+        <div class="mo-wx-c">${wx.city}</div>
+        <div class="mo-wx-b" style="--bc:${bc}">${w[0]} · ${band}</div>
+        ${fore?`<div class="mo-fore">${fore}</div>`:''}
+      </div>`
+      :`<div class="mo-wx empty">
+        <div class="mo-wx-now"><em>◔</em></div>
+        <div class="mo-wx-c">город не указан</div>
+        <p>Без города не видно погоду — и образ собирается без учёта тепла.</p>
+        <button class="btn ghost" onclick="openRegion()">Указать город</button>
+      </div>`}
   </div>
 
-  <div class="chips" style="margin-bottom:16px">${OCC.map(o=>`<button class="chip ${M.occ===o[0]?'on':''}" onclick="moOcc('${o[0]}')">${o[1]}</button>`).join('')}</div>
+  <div class="mo-occ"><span class="mo-occ-k">какой сегодня день</span>
+    <div class="mo-occ-r">${OCC.map(o=>`<button class="mo-oc ${M.occ===o[0]?'on':''}" onclick="moOcc('${o[0]}')"><i>${o[2]}</i>${o[1]}</button>`).join('')}</div>
+  </div>
 
   <div class="mo-grid">
-    <div class="mo-main">
-      <div class="mo-k">образ на сегодня${f?' · вариант '+(M.pick+1):''}</div>
+    <div class="mo-main" style="--bc:${bc}">
+      <div class="mo-main-h"><div class="mo-k">образ на сегодня${fits.length>1?' · вариант '+(M.pick+1)+' из '+fits.length:''}</div>
+        ${fits.length>1?`<div class="mo-dots">${fits.map((_,i)=>`<button class="mo-dot ${i===M.pick?'on':''}" onclick="moPick(${i})" title="вариант ${i+1}"></button>`).join('')}</div>`:''}</div>
       ${f ? `<h3>${f.parts.map(p=>p.name||p.cat).slice(0,2).join(' + ')}</h3>
         <div class="mo-look">${f.parts.map(pcard).join('')}</div>
-        ${adv.length?`<div class="mo-why">${adv.join('. ')}.</div>`:''}
-        <div class="to-row" style="margin-top:14px"><button class="btn primary" onclick="moWearNow()">✓ Надела это</button><button class="btn ghost" onclick="openWardrobe()">Весь гардероб →</button></div>`
-      : `<h3>Образ пока не складывается</h3><p class="mo-sub" style="margin-top:6px">Под «${M.occ}» и погоду «${band}» из доступных вещей комплект не собрать${washed.length?' — '+washed.length+' вещ'+(washed.length===1?'ь':'и')+' в стирке':''}. Попробуйте другой повод или добавьте вещи.</p>
-        <div class="to-row" style="margin-top:14px"><button class="btn primary" onclick="openWardrobe()">Добавить вещи →</button></div>`}
+        ${adv.length?`<div class="mo-why"><i>☂</i><div>${adv.join('. ')}.</div></div>`:''}
+        <div class="mo-act"><button class="btn primary" onclick="moWearNow()">✓ Надела это</button>${fits.length>1?`<button class="btn ghost" onclick="moPick(${(M.pick+1)%fits.length})">Другой вариант ↻</button>`:''}</div>`
+      : `<div class="mo-empty">
+          <div class="mo-empty-ic">◌</div>
+          <h3>Образ пока не складывается</h3>
+          <p>Под «${M.occ}» и погоду «${band}» комплект из доступных вещей не собрать${washed.length?', ещё '+washed.length+' в стирке':''}.</p>
+          ${need.length?`<div class="mo-need"><span>не хватает</span>${need.map(n=>`<em>${n}</em>`).join('')}</div>`:''}
+          <div class="mo-act"><button class="btn primary" onclick="openWardrobe()">Добавить вещи →</button>${OCC.filter(o=>o[0]!==M.occ).slice(0,1).map(o=>`<button class="btn ghost" onclick="moOcc('${o[0]}')">Попробовать «${o[1]}»</button>`).join('')}</div>
+        </div>`}
     </div>
 
     <div class="mo-side">
-      ${fits.length>1?`<div class="mo-card"><h4>Другие варианты</h4>
-        ${fits.map((x,i)=>i===M.pick?'':`<button class="mo-alt" onclick="moPick(${i})"><b>вариант ${i+1}</b>${x.parts.map(p=>p.name||p.cat).join(' · ')}</button>`).join('')}
+      ${fits.length>1?`<div class="mo-card"><h4>Ещё варианты</h4>
+        ${fits.map((x,i)=>i===M.pick?'':`<button class="mo-alt" onclick="moPick(${i})"><b>вариант ${i+1}</b><span>${x.parts.map(p=>p.name||p.cat).join(' · ')}</span></button>`).join('')}
       </div>`:''}
-      <div class="mo-card"><h4>Поправить гардероб</h4>
-        <p class="mo-note" style="margin:0 0 10px">Нажмите на вещь — уйдёт в стирку и выпадет из подбора. Карандаш — изменить цвет, сезон или название.</p>
-        <div class="mo-fix">${I.slice().reverse().slice(0,40).map(it=>`<span class="mo-ch ${it.wash?'wash':''}"><i style="background:${WD.hex(it.color)}"></i><span onclick="wdWash(${it.id})">${it.name||it.cat}</span><em onclick="wdEdit(${it.id})" title="изменить">✎</em></span>`).join('') || '<span class="mo-note">Пока пусто.</span>'}</div>
-        ${washed.length?`<p class="mo-note">В стирке: ${washed.map(i=>i.name||i.cat).join(', ')}. Нажмите ещё раз, чтобы вернуть.</p>`:''}
-        <div class="to-row" style="margin-top:12px"><button class="btn ghost" onclick="openWardrobe()">+ Добавить вещь</button></div>
+      <div class="mo-card">
+        <h4>Поправить гардероб</h4>
+        <p class="mo-note">Нажмите на вещь — уйдёт в стирку и выпадет из подбора. Карандаш открывает цвет, сезон и название.</p>
+        ${I.length?`<div class="mo-fix">${I.slice().reverse().slice(0,40).map(it=>`<span class="mo-ch ${it.wash?'wash':''}"><i style="background:${WD.hex(it.color)}"></i><span onclick="wdWash(${it.id})">${it.name||it.cat}</span><em onclick="wdEdit(${it.id})" title="изменить">✎</em></span>`).join('')}</div>`
+          :`<div class="mo-blank">Гардероб пустой. Одна вещь — минута.</div>`}
+        ${washed.length?`<div class="mo-wash"><span>🧺 в стирке</span>${washed.map(i=>i.name||i.cat).join(', ')} — нажмите ещё раз, чтобы вернуть</div>`:''}
+        <div class="mo-act"><button class="btn ghost" onclick="openWardrobe()">+ Добавить вещь</button></div>
       </div>
     </div>
   </div>
 
   <div class="mo-tg">
-    <div class="mo-k">утреннее сообщение в telegram</div>
-    <h4 style="font-size:16px;font-weight:800;margin:0 0 6px">Присылать образ на день, пока вы ещё в кровати</h4>
-    <p class="mo-note" style="margin:0">Бот напишет погоду и комплект из ваших вещей — чтобы не думать у шкафа. План считается здесь, на сайте, и обновляется каждый раз, когда вы сюда заходите.</p>
-    <div class="mo-tg-row">
-      <button class="btn ${M.tg.on?'primary':'ghost'}" onclick="moTg('on',${M.tg.on?'false':'true'})">${M.tg.on?'✓ Включено':'Включить'}</button>
-      <input type="time" value="${M.tg.time}" onchange="moTg('time',this.value)">
+    <div class="mo-tg-l">
+      <div class="mo-k">утреннее сообщение в telegram</div>
+      <h4>Образ приходит, пока вы ещё в кровати</h4>
+      <p class="mo-note">Бот напишет погоду и комплект из ваших вещей — чтобы не думать у шкафа. План считается здесь и обновляется каждый раз, когда вы заходите на эту страницу.</p>
+      <div class="mo-tg-row">
+        <button class="btn ${M.tg.on?'primary':'ghost'}" onclick="moTg('on',${M.tg.on?'false':'true'})">${M.tg.on?'✓ Включено':'Включить'}</button>
+        <input type="time" value="${M.tg.time}" onchange="moTg('time',this.value)">
+      </div>
       <div class="mo-days">${DAYS.map((d,i)=>`<button class="mo-d ${M.tg.days.includes(i+1)?'on':''}" onclick="moTg('day',${i+1})">${d}</button>`).join('')}</div>
+      <div class="mo-act"><button class="btn primary" onclick="moTgSave()">Сохранить расписание</button><button class="btn ghost" onclick="findsLinkTg()">Подключить Telegram</button></div>
+      <p class="mo-note sm">Приходит, только если вы вошли в аккаунт и подключили бота. Выключить — здесь же или командой /stop в чате.</p>
     </div>
-    <div class="to-row" style="margin-top:12px"><button class="btn primary" onclick="moTgSave()">Сохранить расписание</button><button class="btn ghost" onclick="findsLinkTg()">Подключить Telegram</button></div>
-    <p class="mo-note">Сообщения приходят только если вы вошли в аккаунт и подключили бота. Отключить можно здесь же или командой /stop в чате с ботом.</p>
+    <div class="mo-phone">
+      <div class="mo-ph-top"><span class="mo-ph-av">✦</span><div><b>LOOKA</b><em>бот</em></div></div>
+      <div class="mo-ph-msg">${tgPreview.replace(/\n/g,'<br>')}</div>
+      <div class="mo-ph-t">${M.tg.time}</div>
+    </div>
   </div>`;
   if(window.fxZone) fxZone(box);
   if(M.tg.on) moSync();
@@ -12271,6 +13388,8 @@ const GROUPS = [
     ['🤍','Тело изменилось — что носить','похудела, поправилась, после родов: гардероб на сейчас, без стыда', 'openBodyShift()', 'бесплатно'],
     ['◡','Обувь, которая ваша','лоферы, слингбэки, челси — что идёт росту и ногам, с картинками', 'openShoes()', 'бесплатно'],
     ['☼','Утро: что надеть сегодня','погода, ваш день и готовый образ из своих вещей — плюс напоминание в Telegram', 'openMorning()', 'бесплатно'],
+    ['◖','Лень-режим','решает за вас: один образ, готовая корзина, сборы на событие по минутам', 'openLazy()', 'бесплатно'],
+    ['❍','Статьи-разборы','нюдовая помада по подтону, изгиб ресниц под форму глаза, укладки по форме лица, салонный уход без мифов', 'openArts()', 'бесплатно'],
     ['▣','Шкаф, который сам одевает','ваши вещи → образ на сегодня, план недели и что докупить', 'openWardrobe()', 'бесплатно'],
     ['▦','14 вещей — 30 образов','капсула сезона: докупаете только недостающее', 'openCapsule()', 'бесплатно'],
     ['◈','Важный день под ключ','свадьба, собеседование, свидание — план по дням', 'openEvent()', 'бесплатно'],
@@ -14507,6 +15626,8 @@ const IDX = [
  ['Кто делает LOOKA','о нас автор анна контакты доверие','openPage(\'aboutPage\')','страница'],
  ['Курсы: бровист, визажист, стилист по волосам','курс обучение бровист визажист парикмахер стилист по волосам уроки профессия','openCourses()','страница'],
  ['Утро: что надеть сегодня','утро погода образ дня гардероб стирка напоминание telegram','openMorning()','страница'],
+ ['Лень-режим','лень не хочу думать решить за меня корзина покупки собраться событие','openLazy()','страница'],
+ ['Статьи-разборы','статьи нюдовая помада подтон ресницы наращивание изгиб укладка форма лица салонный уход бондер','openArts()','страница'],
  ['Для блогеров','блогер реферал промокод партнёрка заработок','openPage(\'bloggersPage\')','страница'],
  ['Подарить LOOKA','подарок сертификат подруге','openPage(\'giftPage\')','страница'],
  ['Развитие','план траектория что дальше карта мира','openPage(\'devPage\')','страница'],
