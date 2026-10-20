@@ -12185,6 +12185,7 @@ async function renderWardrobe(){
   const cats = CATS.map(c=>[c, I.filter(i=>i.cat===c).length]).filter(x=>x[1]);
   const wx = await weather();
   const band = T.temp || (wx ? tempBand(wx.now) : null);
+  const hasProfile = !!(S.hair && S.eyes && S.skin);
   const G = gaps();
   const spent = I.reduce((s,i)=>s+(+i.price||0),0), worn = I.reduce((s,i)=>s+(i.worn||0),0);
   const cpw = spent && worn ? Math.round(spent/worn) : null;
@@ -12220,10 +12221,16 @@ async function renderWardrobe(){
       ${!band?'<div class="tip">Выберите погоду (или укажите город в шапке — подтянется сама).</div>': fits.length ? `<div class="wd-fits">${fits.map((f,k)=>HUB.pop(`<div class="wd-fit"><div class="wd-fit-h">Вариант ${k+1}</div>${f.parts.map(p=>itemCard(p,true)).join('')}<button class="btn ghost" onclick="wdWearAll('${f.parts.map(p=>p.id).join(',')}')">✓ Надела это</button></div>`,k)).join('')}</div>` : '<div class="tip">Из текущих вещей под эту погоду и повод образ не складывается — смотрите «дыры» ниже.</div>'}
       <button class="btn ghost" style="margin-top:12px" onclick="wdWeek()">✦ Спланировать неделю</button><div id="wdWeek"></div>
     </div></div>
+    ${!hasProfile ? `<div class="look badv mk-wide"><div class="look-in">
+      <span class="wd-eyebrow">дыры в гардеробе · нужен профиль</span>
+      <h3>Сначала — ваша внешность</h3>
+      <p class="mo-note" style="max-width:62ch">Чего не хватает гардеробу, считается от вашей палитры: какие цвета идут именно вам, а какие делают лицо серым. Без цветотипа, фигуры и размеров это был бы список «для всех» — а такие списки вы и так видели в интернете.</p>
+      <div class="wd-go"><button class="btn primary" onclick="openProfile('wdAfterProf')">Заполнить профиль — 1 минута</button><button id="wdAfterProf" style="display:none" onclick="renderWardrobe()"></button></div>
+    </div></div>` : `
     <div class="look badv mk-wide"><div class="look-in"><h3>Дыры в гардеробе</h3>
       ${G.g.length? G.g.map((x,i)=>HUB.pop(`<div class="wd-gap"><p>${x.why}</p>${x.n?`<div class="item"><div class="nm">${x.n}</div>${x.gain?`<div class="pr">+${x.gain} образов</div>`:''}${shopButtons({n:x.n,q:x.q})}</div>`:''}</div>`,i)).join('') : '<div class="tip">Дыр не видно: база полная, цвета в палитре. Дальше — только по желанию.</div>'}
       ${G.dead.length?`<div class="hp-sub" style="margin-top:14px">НЕ НОСИЛИ 90+ ДНЕЙ</div><div class="tip">${G.dead.slice(0,8).map(i=>i.name||i.cat).join(', ')}${G.dead.length>8?' и ещё '+(G.dead.length-8):''} — если вещь пережила сезон без выхода, её пора продать или отдать. Деньги, которые лежат в шкафу — у каждой вещи есть кнопка «₽»: объявление для Авито соберётся само, с честной ценой по носке.</div>`:''}
-    </div></div>
+    </div></div>`}
     <div class="look badv mk-wide"><div class="look-in"><span class="wd-eyebrow">цифровой гардероб · ${I.length} вещ${I.length===1?'ь':I.length<5?'и':'ей'}</span><h3>Ваш шкаф</h3>
       ${I.length ? RAILS.map(r=>{
         const list = I.filter(x=>r.cats.includes(x.cat)).reverse();
@@ -12247,12 +12254,13 @@ window.wdWeek = async ()=>{
     const dt = new Date(today); dt.setDate(today.getDate()+d);
     const band = wx && wx.days[d]!==undefined ? tempBand(wx.days[d]) : (T.temp||'тепло');
     const occ = dt.getDay()===0||dt.getDay()===6 ? 'кэжуал' : T.occ;
-    let opts = outfits(band, occ, used, 4);
-    if(!opts.length){ used.clear(); opts = outfits(band, occ, used, 4); }
-    const f = opts.length ? opts[(WSEED + d) % opts.length] : null;
+    let opts = outfits(band, occ, used, 6);
+    if(!opts.length){ used.clear(); opts = outfits(band, occ, used, 6); }
+    const f = opts.length ? opts[(WSEED * 3 + d) % opts.length] : null;
     if(f){ f.parts.slice(0,2).forEach(p=>used.add(p.id)); }
     rows.push({d:days[(dt.getDay()+6)%7], band, f});
   }
+  myToast(WSEED > 1 ? 'План пересобран' : 'План на неделю готов');
   el.innerHTML = `<div class="wd-week">${rows.map((r,i)=>HUB.pop(`<div class="wd-day"><b>${r.d}</b><span>${r.band}</span>${r.f? r.f.parts.map(p=>`<em>${p.name||p.cat}</em>`).join('') : '<em class="none">нет образа</em>'}</div>`,i)).join('')}</div><div class="tip">Верх не повторяется чаще раза в три дня, низ — до двух раз в неделю. Не нравится день — нажмите ещё раз, план пересоберётся.</div>`;
 };
 window.wdWear = id=>{ const it = W.items.find(i=>i.id===id); if(!it) return; it.worn=(it.worn||0)+1; it.last=Date.now(); save(); renderWardrobe(); myToast('Записала: '+(it.name||it.cat)); };
