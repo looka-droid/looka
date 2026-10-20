@@ -3596,11 +3596,28 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-nm-r .btn{white-space:nowrap}
 .wd-nm-st{font-size:13px;line-height:1.6;margin-top:11px;position:relative;z-index:1}
 .wd-find-ok{color:#7CF0B2}.wd-find-no{color:#FF9FC2}.wd-find-go{color:#19C6F7}
-.wd-steps{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
-.wd-step{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#5C6276;transition:color .25s}
-.wd-step i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:10px;border:1px solid rgba(255,255,255,.14);transition:all .25s}
-.wd-step.on{color:#C2C7D6}
-.wd-step.on i{background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#07121A;border-color:transparent;font-weight:700}
+.wd-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:22px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.022);overflow:hidden}
+.wd-step{position:relative;display:flex;align-items:center;gap:12px;padding:15px 18px;transition:background .25s}
+.wd-step+.wd-step::before{content:'';position:absolute;left:0;top:14px;bottom:14px;width:1px;background:rgba(255,255,255,.08)}
+.wd-step i{width:30px;height:30px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;font-style:normal;font-family:'JetBrains Mono';font-size:12px;border:1px solid rgba(255,255,255,.16);color:#6E7489;transition:all .3s}
+.wd-step-b{min-width:0}
+.wd-step-b b{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#6E7489;font-weight:400;margin-bottom:3px;transition:color .25s}
+.wd-step-b em{display:block;font-style:normal;font-size:13.5px;font-weight:700;color:#4F5567;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .25s}
+.wd-step.cur{background:rgba(25,198,247,.07)}
+.wd-step.cur i{border-color:transparent;background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#07121A;font-weight:700;box-shadow:0 0 0 4px rgba(25,198,247,.14)}
+.wd-step.cur .wd-step-b b{color:#19C6F7}
+.wd-step.cur .wd-step-b em{color:#C2C7D6}
+.wd-step.done i{border-color:rgba(124,240,178,.5);background:rgba(124,240,178,.16);color:#7CF0B2}
+.wd-step.done .wd-step-b b{color:#8B92AA}
+.wd-step.done .wd-step-b em{color:#EDEFF5}
+.wd-lb-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.wd-lb-row .wd-lb{margin-bottom:0}
+.wd-q{flex:0 1 300px;min-width:180px;padding:9px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;font-family:'Manrope';font-size:13px}
+.wd-q:focus{outline:none;border-color:rgba(25,198,247,.6)}
+.wd-subs{max-height:214px;overflow-y:auto;padding-right:4px}
+.wd-subs::-webkit-scrollbar{width:5px}
+.wd-subs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px}
+.wd-none{font-size:13px;color:#7D849A;line-height:1.55}
 .wd-bigs{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:11px;margin-bottom:20px}
 .wd-big{display:block;text-align:left;padding:17px 18px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028);color:#C2C7D6;font-family:'Manrope';cursor:pointer;transition:all .22s}
 .wd-big i{display:grid;place-items:center;width:52px;height:60px;border-radius:14px;font-style:normal;border:1px solid rgba(255,255,255,.1);background:radial-gradient(120% 120% at 50% 0%,rgba(199,157,240,.2),rgba(255,255,255,.015) 72%),rgba(0,0,0,.2);margin-bottom:12px;padding:6px}
@@ -3668,6 +3685,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-inb-b span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:#7D849A}
 .wd-inb-n{font-size:12.5px;line-height:1.6;color:#7D849A;margin-top:12px;position:relative;z-index:1}
 @media(max-width:900px){.wd-inb.hint{grid-template-columns:1fr;gap:22px;padding:24px 22px}.wd-inb-ph{width:100%;max-width:320px}}
+@media(max-width:700px){.wd-steps{grid-template-columns:1fr}.wd-step+.wd-step::before{left:18px;right:18px;top:0;bottom:auto;width:auto;height:1px}}
 @media(max-width:860px){.wd-nm-top{grid-template-columns:1fr;gap:14px}.wd-shops{justify-content:flex-start;max-width:none}}
 @media(max-width:600px){.wd-nm-r{flex-direction:column}}
 #moBox{display:flex;flex-direction:column;gap:22px}
@@ -7039,7 +7057,7 @@ header nav.topnav{gap:4px;align-items:center}
     <h2 class="big">Полный шкаф — <span class="holo">и есть что надеть</span></h2>
     <p class="lead">Добавьте вещи один раз — дальше LOOKA собирает образ на сегодня под погоду в вашем городе, планирует неделю без повторов, считает цену каждого выхода и показывает, какой одной вещи не хватает, чтобы образов стало вдвое больше. Всё хранится в вашем телефоне.</p>
   </div>
-  <div class="bt-form look mk-form"><h3>Добавить вещь</h3><p class="mo-note" style="margin:-4px 0 18px">Фото не нужно. Либо вставьте артикул с Wildberries — и карточка заполнится сама, либо три касания: что это, какая вещь, цвет.</p><div id="wdInbox"></div><div id="wdAdd"></div></div>
+  <div class="bt-form look mk-form"><h3>Добавить вещь</h3><p class="mo-note" style="margin:-4px 0 18px">Фото не нужно. Либо вставьте ссылку на товар из любого магазина — и карточка заполнится сама, либо три касания: что это, какая вещь, цвет.</p><div id="wdInbox"></div><div id="wdAdd"></div></div>
   <div class="looks" id="wdBox" style="margin-top:22px"></div>
 </section>
 
@@ -11906,13 +11924,15 @@ const WIC = {
  boot:'M21 13 H35 L34 41 Q34 47 41 49 L50 53 Q54 55 54 62 H19 Q17 50 18 39 Z|M21 20 H35'
 };
 const SUB_IC = {
- 'юбка':'skirt','юбка миди':'skirt','шорты':'pants','легинсы':'pants','кюлоты':'pants','карго':'pants','палаццо':'pants',
- 'шапка':'hat','шарф':'scarf','платок':'scarf','ремень':'acc','украшение':'acc','часы':'acc','очки':'glasses','перчатки':'mitten',
- 'сумка':'bag','сумка через плечо':'bag','шопер':'bag','клатч':'bag','рюкзак':'backpack',
- 'платье':'dress','платье-рубашка':'dress','сарафан':'dress','вечернее платье':'dress','трикотажное платье':'dress',
- 'комбинезон':'jumpsuit','костюм с брюками':'suit','костюм с юбкой':'suit','костюм с шортами':'suit','спортивный костюм':'suit','двойка трикотаж':'suit','комплект топ + юбка':'suit',
- 'жакет':'suit','пиджак':'suit','кардиган':'coat','кардиган длинный':'coat','жилет':'coat','жилет трикотажный':'coat','бомбер':'coat',
- 'сапоги':'boot','угги':'boot','ботильоны':'boot','резиновые сапоги':'boot'
+ 'юбка':'skirt','юбка миди':'skirt','юбка мини':'skirt','юбка макси':'skirt','юбка-карандаш':'skirt','юбка плиссе':'skirt','джинсовая юбка':'skirt',
+ 'шорты':'pants','шорты джинсовые':'pants','велосипедки':'pants','легинсы':'pants','кюлоты':'pants','карго':'pants','палаццо':'pants','чиносы':'pants','брюки классические':'pants','джинсы прямые':'pants','джинсы клёш':'pants','джинсы скинни':'pants',
+ 'шапка':'hat','берет':'hat','кепка':'hat','панама':'hat','шарф':'scarf','палантин':'scarf','платок':'scarf','снуд':'scarf',
+ 'ремень':'acc','украшение':'acc','серьги':'acc','колье':'acc','часы':'acc','зонт':'acc','кошелёк':'bag','очки':'glasses','перчатки':'mitten','варежки':'mitten',
+ 'сумка':'bag','сумка через плечо':'bag','шопер':'bag','тоут':'bag','клатч':'bag','поясная сумка':'bag','рюкзак':'backpack',
+ 'платье':'dress','платье-рубашка':'dress','платье-футляр':'dress','платье миди':'dress','платье макси':'dress','сарафан':'dress','вечернее платье':'dress','коктейльное платье':'dress','трикотажное платье':'dress',
+ 'комбинезон':'jumpsuit','комбинезон с шортами':'jumpsuit','домашний костюм':'suit','костюм с брюками':'suit','костюм с юбкой':'suit','костюм с шортами':'suit','спортивный костюм':'suit','двойка трикотаж':'suit','комплект топ + юбка':'suit',
+ 'жакет':'suit','пиджак':'suit','кардиган':'coat','кардиган длинный':'coat','жилет':'coat','жилет утеплённый':'coat','жилет трикотажный':'coat','бомбер':'coat','косуха':'coat','джинсовая куртка':'coat','ветровка':'coat','анорак':'coat','пончо':'coat','пальто-халат':'coat',
+ 'сапоги':'boot','ботфорты':'boot','угги':'boot','дутики':'boot','ботильоны':'boot','челси':'boot','резиновые сапоги':'boot'
 };
 const CAT_IC = { 'Верхняя одежда':'coat','Верх':'top','Низ':'pants','Платье':'dress','Обувь':'shoe','Сумка':'bag','Аксессуар':'acc' };
 window.wdIconBy = (k)=>{ const d=WIC[k]||WIC.top; return `<svg class="wd-ic" viewBox="0 0 60 76" preserveAspectRatio="xMidYMid meet">${d.split('|').map((pp,i)=>`<path class="${i?'ln':'bd'}" d="${pp}"/>`).join('')}</svg>`; };
@@ -12070,14 +12090,14 @@ const BIG = [
   ['Сумки и аксессуары','bag','сумки, шарфы, украшения']
 ];
 const SUBS = {
- 'Верхняя одежда':[['пальто','демисезон','кэжуал'],['плащ','демисезон','кэжуал'],['тренч','демисезон','кэжуал'],['куртка','демисезон','кэжуал'],['пуховик','зима','кэжуал'],['парка','зима','кэжуал'],['бомбер','демисезон','кэжуал'],['жакет','любой','офис'],['пиджак','любой','офис'],['кардиган длинный','демисезон','кэжуал'],['жилет','демисезон','кэжуал'],['шуба','зима','вечер'],['дублёнка','зима','кэжуал']],
- 'Верх':[['футболка','лето','кэжуал'],['рубашка','любой','офис'],['блуза','любой','офис'],['джемпер','демисезон','кэжуал'],['свитер','зима','кэжуал'],['водолазка','зима','офис'],['топ','лето','вечер'],['боди','любой','вечер'],['корсет','любой','вечер'],['худи','демисезон','спорт'],['свитшот','демисезон','кэжуал'],['кардиган','демисезон','кэжуал'],['жилет трикотажный','демисезон','кэжуал'],['туника','лето','кэжуал']],
- 'Низ':[['джинсы','демисезон','кэжуал'],['брюки','любой','офис'],['юбка','любой','офис'],['юбка миди','любой','офис'],['шорты','лето','кэжуал'],['кюлоты','любой','офис'],['карго','демисезон','кэжуал'],['палаццо','любой','вечер'],['легинсы','демисезон','спорт']],
- 'Платья и комплекты':[['платье','любой','вечер'],['платье-рубашка','любой','кэжуал'],['трикотажное платье','демисезон','кэжуал'],['сарафан','лето','кэжуал'],['вечернее платье','любой','вечер'],['комбинезон','любой','кэжуал'],['костюм с брюками','любой','офис'],['костюм с юбкой','любой','офис'],['костюм с шортами','лето','кэжуал'],['комплект топ + юбка','любой','вечер'],['двойка трикотаж','демисезон','кэжуал'],['спортивный костюм','демисезон','спорт']],
- 'Обувь':[['кроссовки','демисезон','спорт'],['кеды','лето','кэжуал'],['ботинки','демисезон','кэжуал'],['ботильоны','демисезон','офис'],['сапоги','зима','кэжуал'],['угги','зима','кэжуал'],['лоферы','демисезон','офис'],['туфли','любой','офис'],['босоножки','лето','вечер'],['балетки','лето','кэжуал'],['мюли','лето','кэжуал'],['резиновые сапоги','демисезон','кэжуал']],
- 'Сумки и аксессуары':[['сумка','любой','кэжуал'],['сумка через плечо','любой','кэжуал'],['шопер','любой','кэжуал'],['рюкзак','любой','кэжуал'],['клатч','любой','вечер'],['ремень','любой','кэжуал'],['шарф','зима','кэжуал'],['платок','любой','офис'],['шапка','зима','кэжуал'],['перчатки','зима','кэжуал'],['очки','лето','кэжуал'],['украшение','любой','вечер'],['часы','любой','офис']]
+ 'Верхняя одежда':[['пальто','демисезон','кэжуал'],['пальто-халат','демисезон','кэжуал'],['плащ','демисезон','кэжуал'],['тренч','демисезон','кэжуал'],['куртка','демисезон','кэжуал'],['ветровка','демисезон','спорт'],['джинсовая куртка','демисезон','кэжуал'],['косуха','демисезон','кэжуал'],['бомбер','демисезон','кэжуал'],['анорак','демисезон','спорт'],['пуховик','зима','кэжуал'],['парка','зима','кэжуал'],['шуба','зима','вечер'],['дублёнка','зима','кэжуал'],['жилет утеплённый','зима','кэжуал'],['жакет','любой','офис'],['пиджак','любой','офис'],['кардиган длинный','демисезон','кэжуал'],['пончо','демисезон','кэжуал']],
+ 'Верх':[['футболка','лето','кэжуал'],['лонгслив','демисезон','кэжуал'],['поло','лето','кэжуал'],['майка','лето','кэжуал'],['топ','лето','вечер'],['кроп-топ','лето','кэжуал'],['боди','любой','вечер'],['корсет','любой','вечер'],['рубашка','любой','офис'],['рубашка оверсайз','любой','кэжуал'],['блуза','любой','офис'],['туника','лето','кэжуал'],['джемпер','демисезон','кэжуал'],['пуловер','демисезон','кэжуал'],['свитер','зима','кэжуал'],['водолазка','зима','офис'],['кардиган','демисезон','кэжуал'],['жилет трикотажный','демисезон','кэжуал'],['худи','демисезон','спорт'],['свитшот','демисезон','кэжуал'],['толстовка','демисезон','спорт']],
+ 'Низ':[['джинсы','демисезон','кэжуал'],['джинсы прямые','демисезон','кэжуал'],['джинсы клёш','демисезон','кэжуал'],['джинсы скинни','демисезон','кэжуал'],['брюки','любой','офис'],['брюки классические','любой','офис'],['палаццо','любой','вечер'],['кюлоты','любой','офис'],['карго','демисезон','кэжуал'],['чиносы','любой','офис'],['легинсы','демисезон','спорт'],['велосипедки','лето','спорт'],['юбка мини','лето','вечер'],['юбка миди','любой','офис'],['юбка макси','любой','кэжуал'],['юбка-карандаш','любой','офис'],['юбка плиссе','любой','офис'],['джинсовая юбка','демисезон','кэжуал'],['шорты','лето','кэжуал'],['шорты джинсовые','лето','кэжуал']],
+ 'Платья и комплекты':[['платье','любой','вечер'],['платье-рубашка','любой','кэжуал'],['платье-футляр','любой','офис'],['трикотажное платье','демисезон','кэжуал'],['платье миди','любой','офис'],['платье макси','любой','вечер'],['сарафан','лето','кэжуал'],['вечернее платье','любой','вечер'],['коктейльное платье','любой','вечер'],['комбинезон','любой','кэжуал'],['комбинезон с шортами','лето','кэжуал'],['костюм с брюками','любой','офис'],['костюм с юбкой','любой','офис'],['костюм с шортами','лето','кэжуал'],['комплект топ + юбка','любой','вечер'],['двойка трикотаж','демисезон','кэжуал'],['спортивный костюм','демисезон','спорт'],['домашний костюм','любой','кэжуал']],
+ 'Обувь':[['кроссовки','демисезон','спорт'],['кеды','лето','кэжуал'],['слипоны','лето','кэжуал'],['ботинки','демисезон','кэжуал'],['ботильоны','демисезон','офис'],['челси','демисезон','кэжуал'],['сапоги','зима','кэжуал'],['ботфорты','зима','вечер'],['угги','зима','кэжуал'],['дутики','зима','кэжуал'],['лоферы','демисезон','офис'],['оксфорды','демисезон','офис'],['мокасины','лето','кэжуал'],['туфли','любой','офис'],['туфли на каблуке','любой','вечер'],['босоножки','лето','вечер'],['сандалии','лето','кэжуал'],['балетки','лето','кэжуал'],['мюли','лето','кэжуал'],['сабо','лето','кэжуал'],['эспадрильи','лето','кэжуал'],['резиновые сапоги','демисезон','кэжуал']],
+ 'Сумки и аксессуары':[['сумка','любой','кэжуал'],['сумка через плечо','любой','кэжуал'],['шопер','любой','кэжуал'],['тоут','любой','офис'],['рюкзак','любой','кэжуал'],['клатч','любой','вечер'],['поясная сумка','любой','спорт'],['кошелёк','любой','кэжуал'],['ремень','любой','кэжуал'],['шарф','зима','кэжуал'],['палантин','демисезон','офис'],['платок','любой','офис'],['снуд','зима','кэжуал'],['шапка','зима','кэжуал'],['берет','демисезон','офис'],['кепка','лето','кэжуал'],['панама','лето','кэжуал'],['перчатки','зима','кэжуал'],['варежки','зима','кэжуал'],['очки','лето','кэжуал'],['украшение','любой','вечер'],['серьги','любой','вечер'],['колье','любой','вечер'],['часы','любой','офис'],['зонт','демисезон','кэжуал']]
 };
-const BAGS = ['сумка','сумка через плечо','шопер','рюкзак','клатч'];
+const BAGS = ['сумка','сумка через плечо','шопер','тоут','рюкзак','клатч','поясная сумка'];
 const CAT_OF = (big, sub)=> big==='Платья и комплекты' ? 'Платье'
   : big==='Сумки и аксессуары' ? (BAGS.includes(sub) ? 'Сумка' : 'Аксессуар') : big;
 const SZ_CLOTH = ['XS','S','M','L','XL','XXL','40','42','44','46','48','50','52','54'];
@@ -12094,9 +12114,9 @@ const inbHint = (btn)=>`<div class="wd-inb hint">
   <div class="wd-inb-l">
     <span class="wd-inb-k">✈ гардероб из telegram</span>
     <h4>Увидели вещь — переслали боту</h4>
-    <p>Не нужно ничего переписывать руками. Кидаете ссылку с Wildberries в чат — бот находит карточку и кладёт вещь сюда. Добавите, когда будет минута.</p>
+    <p>Не нужно ничего переписывать руками. Кидаете ссылку на вещь из любого магазина — бот находит карточку и кладёт её сюда. Добавите, когда будет минута.</p>
     <div class="wd-inb-steps">
-      <div class="wd-inb-s"><i>1</i><div><b>Скопировали ссылку</b><span>в приложении WB — «Поделиться»</span></div></div>
+      <div class="wd-inb-s"><i>1</i><div><b>Скопировали ссылку</b><span>в приложении магазина — «Поделиться»</span></div></div>
       <div class="wd-inb-s"><i>2</i><div><b>Отправили боту</b><span>одно сообщение, без команд</span></div></div>
       <div class="wd-inb-s"><i>3</i><div><b>Нажали здесь «добавить»</b><span>цвет и размер — два касания</span></div></div>
     </div>
@@ -12104,8 +12124,8 @@ const inbHint = (btn)=>`<div class="wd-inb hint">
   </div>
   <div class="wd-inb-ph">
     <div class="wd-inb-pt"><span class="wd-inb-av">✦</span><div><b>LOOKA</b><em>бот</em></div></div>
-    <div class="wd-inb-me">wildberries.ru/catalog/…</div>
-    <div class="wd-inb-bot">✦ Положила в гардероб-входящие:<br><b>Love Republic · Джемпер тонкий</b><br>3 990 ₽<br><br>Откройте LOOKA → Гардероб.</div>
+    <div class="wd-inb-me">lamoda.ru/p/rtlad…</div>
+    <div class="wd-inb-bot">✦ Положила в гардероб-входящие:<br><b>Love Republic · Джемпер тонкий</b><br>3 990 ₽ · Lamoda<br><br>Откройте LOOKA → Гардероб.</div>
   </div>
 </div>`;
 let INBOX = [];
@@ -12123,7 +12143,7 @@ function drawInbox(){
   if(!INBOX.length){ el.innerHTML = inbHint(`<div class="wd-inb-go"><button class="btn ghost" onclick="findsLinkTg()">Подключить Telegram</button><span>пока здесь пусто — пришлите боту первую ссылку</span></div>`); return; }
   el.innerHTML = `<div class="wd-inb live">
     <div class="wd-inb-h"><div><span class="wd-inb-k">✈ пришло из telegram</span><h4>${INBOX.length} вещ${INBOX.length===1?'ь ждёт':INBOX.length<5?'и ждут':'ей ждут'} добавления</h4></div><button class="wd-more" onclick="wdInboxClear()">очистить всё</button></div>
-    ${INBOX.map((x,i)=>`<div class="wd-inb-i"><span class="wd-inb-n2">${i+1}</span><div class="wd-inb-b"><b>${x.brand?x.brand+' · ':''}${x.name}</b><span>${[x.price?x.price.toLocaleString('ru-RU')+' ₽':'', (x.colors&&x.colors[0])||'', 'арт. '+x.nm].filter(Boolean).join(' · ')}</span></div><button class="btn ghost" onclick="wdInboxTake('${x.nm}')">Добавить →</button></div>`).join('')}
+    ${INBOX.map((x,i)=>`<div class="wd-inb-i"><span class="wd-inb-n2">${i+1}</span><div class="wd-inb-b"><b>${x.brand?x.brand+' · ':''}${x.name}</b><span>${[x.price?x.price.toLocaleString('ru-RU')+' ₽':'', (x.colors&&x.colors[0])||'', x.shop||''].filter(Boolean).join(' · ')}</span></div><button class="btn ghost" onclick="wdInboxTake('${x.nm}')">Добавить →</button></div>`).join('')}
     <div class="wd-inb-n">Нажмите «добавить» — название, бренд и цена подставятся в форму ниже, останется выбрать цвет и размер.</div></div>`;
 }
 window.wdInboxTake = nm=>{
@@ -12141,16 +12161,17 @@ window.wdInboxClear = async ()=>{
   try{ await fetch(wdApi('/wardrobe/inbox'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({clear:true})}); INBOX=[]; drawInbox(); }catch(e){}
 };
 
-window.wdBig = v=>{ N.big=v; N.sub=null; renderAdd(); };
+window.wdQuery = v=>{ N.q=v; renderAdd(); const i=document.getElementById('wdQ'); if(i){ i.focus(); i.setSelectionRange(i.value.length,i.value.length); } };
+window.wdBig = v=>{ N.big=v; N.sub=null; N.q=''; renderAdd(); };
 window.wdSub = v=>{ const d=(SUBS[N.big]||[]).find(x=>x[0]===v); N.sub=v; if(d){ N.warm=d[1]; N.form=d[2]; } renderAdd(); };
 window.wdPick = (k,v)=>{ N[k]=v; renderAdd(); };
 window.wdField = (k,v)=>{ N[k]=v; };
 window.wdMore = ()=>{ N.more=!N.more; renderAdd(); };
-window.wdReset = ()=>{ Object.assign(N,{ big:null, sub:null, color:null, size:'', name:'', price:'', warm:'любой', form:'кэжуал', brand:'', nm:'', more:false }); renderAdd(); };
+window.wdReset = ()=>{ Object.assign(N,{ big:null, sub:null, color:null, size:'', name:'', price:'', warm:'любой', form:'кэжуал', brand:'', nm:'', more:false, q:'' }); renderAdd(); };
 
 window.wdFind = async ()=>{
   const q = (document.getElementById('wdNm')||{}).value || '';
-  if(!q.trim()){ myToast('Вставьте артикул или ссылку с Wildberries'); return; }
+  if(!q.trim()){ myToast('Вставьте ссылку на товар из любого магазина'); return; }
   const st = document.getElementById('wdNmSt'); if(st) st.innerHTML = '<span class="wd-find-go">ищу карточку…</span>';
   try{
     const r = await fetch(wdApi('/link?u=')+encodeURIComponent(q.trim()));
@@ -12206,15 +12227,22 @@ function renderAdd(){
   </div>
 
   <div class="wd-steps">
-    <div class="wd-step ${step>=1?'on':''}"><i>1</i>что это</div>
-    <div class="wd-step ${step>=2?'on':''}"><i>2</i>какая вещь</div>
-    <div class="wd-step ${step>=3?'on':''}"><i>3</i>цвет и размер</div>
+    ${[['что это',N.big||''],['какая вещь',N.sub||''],['цвет и размер',N.color?(N.color+(N.size?' · '+N.size:'')):'']].map((x,i)=>{
+      const done = step>i+1 || (i===2 && N.color), cur = step===i+1 && !done;
+      return `<div class="wd-step${done?' done':cur?' cur':''}"><i>${done?'✓':i+1}</i><div class="wd-step-b"><b>${x[0]}</b><em>${x[1]||'—'}</em></div></div>`;
+    }).join('')}
   </div>
 
   <div class="wd-bigs">${BIG.map(b=>`<button class="wd-big ${N.big===b[0]?'on':''}" onclick="wdBig('${b[0]}')"><i style="--c:#C79DF2">${wdIconBy(b[1])}</i><b>${b[0]}</b><span>${b[2]}</span></button>`).join('')}</div>
 
-  ${N.big?`<div class="wd-blk"><span class="wd-lb">какая именно</span>
-    <div class="wd-subs">${(SUBS[N.big]||[]).map(s=>`<button class="wd-sub ${N.sub===s[0]?'on':''}" onclick="wdSub('${s[0]}')">${s[0]}</button>`).join('')}</div></div>`:''}
+  ${N.big?(()=>{
+    const all = SUBS[N.big]||[], q = (N.q||'').toLowerCase().trim();
+    const list = q ? all.filter(x=>x[0].toLowerCase().includes(q)) : all;
+    return `<div class="wd-blk"><div class="wd-lb-row"><span class="wd-lb">какая именно <em>${all.length} вариантов</em></span>
+      ${all.length>12?`<input class="wd-q" id="wdQ" placeholder="начните печатать: пальто, джинсы…" value="${(N.q||'').replace(/"/g,'&quot;')}" oninput="wdQuery(this.value)">`:''}</div>
+    <div class="wd-subs">${list.length?list.map(x=>`<button class="wd-sub ${N.sub===x[0]?'on':''}" onclick="wdSub('${x[0]}')">${x[0]}</button>`).join('')
+      :`<span class="wd-none">Ничего не нашлось. Выберите близкое — название потом поправите в карточке вещи.</span>`}</div></div>`;
+  })():''}
 
   ${N.sub?`<div class="wd-blk"><span class="wd-lb">цвет</span>
     <div class="wd-cols">${COLORS.map(c=>`<button class="wd-col ${N.color===c[0]?'on':''}" onclick="wdPick('color','${c[0]}')" title="${c[0]}"><i style="background:${c[1]}"></i>${c[0]}</button>`).join('')}</div></div>
