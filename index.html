@@ -74,7 +74,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
 
 .nav{display:flex;justify-content:space-between;margin-top:8px;gap:12px}
 .btn{font-family:'Unbounded';font-weight:600;font-size:15px;border:2px solid var(--ink);border-radius:99px;padding:14px 28px;cursor:pointer;transition:all .15s;background:#fff}
-.btn:hover{transform:translateY(-2px)}
+.btn:hover{transform:none}
 .btn.primary{background:var(--holo);background-size:200% 200%;animation:holoShift 5s linear infinite;color:var(--ink);box-shadow:5px 5px 0 var(--ink)}
 .btn.ghost{background:#fff}
 .btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
@@ -151,8 +151,9 @@ body{background-image:radial-gradient(rgba(20,0,31,.045) 1px,transparent 1px);ba
 .mp-card span{font-size:13.5px;line-height:1.5;color:#33253f}
 .wbc{background:linear-gradient(135deg,#F3E3FF,#E8D0FF)}.ozc{background:linear-gradient(135deg,#DCF1FF,#C8E8FF)}.lmc{background:linear-gradient(135deg,#F0FFD1,#E4FFB0)}
 footer.rich{border-top:2px solid var(--ink);padding:40px 0 22px;font-size:14px}
-.f-grid{max-width:1180px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:26px}
-@media(max-width:700px){.f-grid{grid-template-columns:1fr}}
+.f-grid{max-width:1180px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:1.6fr repeat(4,minmax(0,1fr)) .9fr;gap:26px 24px;align-items:start}
+@media(max-width:1060px){.f-grid{grid-template-columns:1.4fr repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.f-grid{grid-template-columns:1fr 1fr}.f-grid>div:first-child{grid-column:1/-1}}
 .f-grid p{margin-top:10px;line-height:1.6;color:#4a3760}
 .f-grid b{font-family:'JetBrains Mono';font-size:12px;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:12px;color:var(--vio)}
 .f-grid a{display:block;color:var(--ink);text-decoration:none;font-weight:600;margin-bottom:9px}
@@ -3551,6 +3552,29 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 @media(max-width:640px){.wd-two{grid-template-columns:1fr}}
 .wd-two .ev-date{margin-bottom:12px}
 .wd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:13px}
+/* --- цифровой шкаф: штанги и полки --- */
+.wr-sec{margin-bottom:30px}
+.wr-h{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+.wr-h i{width:34px;height:40px;flex:0 0 auto;display:grid;place-items:center;padding:4px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);--c:#C79DF2}
+.wr-h i .wd-ic{max-height:none}
+.wr-h b{font-size:15px;font-weight:800;letter-spacing:-.2px}
+.wr-h em{font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;padding:3px 9px;border-radius:99px;border:1px solid rgba(255,255,255,.14);color:#8B92AA}
+.wr-bar{position:relative;height:9px;margin-bottom:0}
+.wr-bar span{position:absolute;left:0;right:0;top:3px;height:3px;border-radius:99px;background:linear-gradient(90deg,rgba(255,255,255,.07),rgba(255,255,255,.3),rgba(255,255,255,.07))}
+.wr-bar::before,.wr-bar::after{content:'';position:absolute;top:0;width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.22)}
+.wr-bar::before{left:-2px}.wr-bar::after{right:-2px}
+.wr-sec.shelf .wr-bar{order:2}
+.wr-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:13px}
+.wr-sec.rail .wr-row{padding-top:30px}
+.wr-sec.rail .wd-it{position:relative;overflow:visible}
+.wr-sec.rail .wd-it::before{content:'';position:absolute;left:50%;top:-25px;width:2px;height:16px;border-radius:2px;background:rgba(255,255,255,.3);transform:translateX(-50%)}
+.wr-sec.rail .wd-it::before{display:none}
+.wr-sec.rail .wd-it::after{content:'';position:absolute;left:50%;top:-25px;width:52px;height:27px;transform:translateX(-50%);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 27'%3E%3Cpath d='M26 11V7a3.2 3.2 0 1 1 3.2-3.2' fill='none' stroke='%23ffffff' stroke-opacity='.5' stroke-width='1.7' stroke-linecap='round'/%3E%3Cpath d='M26 11 6 23h40z' fill='none' stroke='%23ffffff' stroke-opacity='.42' stroke-width='1.7' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;transition:transform .22s}
+.wr-sec.rail .wd-it:hover::after{transform:translateX(-50%) translateY(-2px)}
+.wr-sec.shelf{display:flex;flex-direction:column}
+.wr-sec.shelf .wr-row{order:1;margin-bottom:9px}
+.wr-sec.shelf .wr-bar span{background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.22),rgba(255,255,255,.05));height:4px}
+@media(max-width:560px){.wr-row{grid-template-columns:1fr 1fr}}
 .wd-it{display:flex;flex-direction:column;border-radius:20px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.028);overflow:hidden;transition:transform .22s,border-color .22s,box-shadow .22s}
 .wd-it:hover{transform:translateY(-4px);border-color:rgba(25,198,247,.45);box-shadow:0 18px 40px -24px rgba(25,198,247,.75)}
 .wd-ph{position:relative;aspect-ratio:4/5;max-height:236px;display:grid;place-items:center;padding:14px;border-bottom:1px solid rgba(255,255,255,.07);background:radial-gradient(120% 120% at 50% 0%,color-mix(in srgb,var(--c) 34%,transparent),rgba(255,255,255,.015) 72%),rgba(0,0,0,.22)}
@@ -3612,8 +3636,16 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-step.done .wd-step-b em{color:#EDEFF5}
 .wd-lb-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
 .wd-lb-row .wd-lb{margin-bottom:0}
-.wd-q{flex:0 1 300px;min-width:180px;padding:9px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;font-family:'Manrope';font-size:13px}
-.wd-q:focus{outline:none;border-color:rgba(25,198,247,.6)}
+.wd-find{position:relative;margin-bottom:18px}
+.wd-q{width:100%;padding:14px 44px 14px 44px;border-radius:15px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;font-family:'Manrope';font-size:14.5px}
+.wd-find::before{content:'⌕';position:absolute;left:17px;top:50%;transform:translateY(-52%);font-size:17px;color:#7D849A;pointer-events:none}
+.wd-qx{position:absolute;right:11px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#C2C7D6;cursor:pointer;font-size:12px}
+.wd-qx:hover{border-color:rgba(255,111,168,.6);color:#FF9FC2}
+.wd-sub.fnd{display:inline-flex;flex-direction:column;align-items:flex-start;gap:3px;padding:9px 15px;text-align:left}
+.wd-sub.fnd b{font-size:13.5px;font-weight:700;color:#EDEFF5}
+.wd-sub.fnd i{font-style:normal;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1.1px;text-transform:uppercase;color:#7D849A}
+.wd-sub.fnd:hover i{color:#C79DF2}
+.wd-q:focus{outline:none;border-color:rgba(25,198,247,.6);background:rgba(255,255,255,.055)}
 .wd-subs{max-height:214px;overflow-y:auto;padding-right:4px}
 .wd-subs.short{max-height:none;overflow:visible}
 .wd-subs::-webkit-scrollbar{width:5px}
@@ -3630,8 +3662,8 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-big.on i{border-color:rgba(25,198,247,.5);background:radial-gradient(120% 120% at 50% 0%,rgba(25,198,247,.3),rgba(255,255,255,.02) 72%),rgba(0,0,0,.2)}
 .wd-big.on i{--c:#19C6F7}
 .wd-blk{margin-bottom:17px;animation:popIn .35s both}
-.wd-lb{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#C2C7D6;margin-bottom:10px}
-.wd-lb em{font-style:normal;font-size:9.5px;letter-spacing:1.2px;padding:4px 9px;border-radius:99px;border:1px solid rgba(25,198,247,.4);background:rgba(25,198,247,.08);color:#19C6F7}
+.wd-lb{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono';font-size:11.5px;letter-spacing:1.7px;text-transform:uppercase;color:#F0F2F7;margin-bottom:12px}
+.wd-lb em{font-style:normal;font-size:9.5px;letter-spacing:1.2px;padding:4px 10px;border-radius:99px;border:1px solid rgba(25,198,247,.55);background:rgba(25,198,247,.14);color:#6FDCFF}
 .wd-subs{display:flex;flex-wrap:wrap;gap:8px}
 .wd-sub{padding:10px 16px;border-radius:99px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Manrope';font-size:13.5px;cursor:pointer;transition:all .2s}
 .wd-sub.sm{font-family:'JetBrains Mono';font-size:12px;padding:9px 14px}
@@ -3685,6 +3717,8 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-inb-b b{display:block;font-size:14px;font-weight:700;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wd-inb-b span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:#7D849A}
 .wd-inb-n{font-size:12.5px;line-height:1.6;color:#7D849A;margin-top:12px;position:relative;z-index:1}
+.sell-st{margin-top:11px;font-size:13px;line-height:1.55;min-height:18px}
+.sell-ok{color:#7CF0B2}.sell-no{color:#FF9FC2}.sell-go{color:#19C6F7}
 @media(max-width:900px){.wd-inb.hint{grid-template-columns:1fr;gap:22px;padding:24px 22px}.wd-inb-ph{width:100%;max-width:320px}}
 @media(max-width:700px){.wd-steps{grid-template-columns:1fr}.wd-step+.wd-step::before{left:18px;right:18px;top:0;bottom:auto;width:auto;height:1px}}
 @media(max-width:860px){.wd-nm-top{grid-template-columns:1fr;gap:14px}.wd-shops{justify-content:flex-start;max-width:none}}
@@ -4005,8 +4039,10 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-gap:hover{border-color:rgba(199,157,240,.4)}
 .wd-gap p{font-size:14px;line-height:1.6;margin-bottom:12px;color:#C9CEDC}
 .look-in .wd-gap .item,.wd-gap .item{border-radius:15px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);padding:15px 17px;margin-bottom:0}
-.wd-gap .nm{font-size:15.5px;font-weight:800;letter-spacing:-.3px;margin-bottom:5px}
-.wd-gap .pr{display:inline-block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:99px;border:1px solid rgba(124,240,178,.4);color:#7CF0B2;margin-bottom:11px}
+.wd-gap .nm{font-size:16px;font-weight:800;letter-spacing:-.3px;margin-bottom:12px;color:#F2F4F9}
+.wd-gap .pr{display:inline-block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:99px;border:1px solid rgba(124,240,178,.4);color:#7CF0B2;margin:-4px 0 14px}
+.wd-gap .item .mp{margin-top:4px}
+.wd-gap .item .mp+*{margin-top:12px}
 /* pro */
 .pro-card{margin-top:26px;border:1px solid rgba(255,255,255,.12);padding:22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;background:linear-gradient(135deg,rgba(91,108,255,.12),rgba(25,198,247,.06))}
 @media(max-width:640px){.pro-card{grid-template-columns:1fr}}
@@ -4807,17 +4843,23 @@ body::before{background:
 .mp-foot b{color:#C7A6F0}
 
 /* блок «о макияже и укладках» на странице «Кто мы» */
-.ab-two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.ab-two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px;align-items:stretch}
 @media(max-width:760px){.ab-two{grid-template-columns:1fr}}
-.ab-blk{border:1px solid rgba(255,255,255,.11);border-radius:16px;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012))}
-.ab-blk h3{font-size:18px;margin-bottom:9px}
-.ab-blk p{font-size:13.5px;line-height:1.6;color:#C2C7D6}
+.ab-blk{position:relative;display:flex;flex-direction:column;overflow:hidden;border-radius:24px;padding:28px 30px;border:1px solid transparent;background:linear-gradient(#13161F,#0C0F17) padding-box,linear-gradient(150deg,var(--ac,#C79DF2),rgba(255,255,255,.08) 62%) border-box;transition:transform .25s,box-shadow .25s}
+.ab-blk::before{content:'';position:absolute;inset:-45% 55% 62% -28%;background:radial-gradient(circle,var(--ac,#C79DF2),transparent 70%);opacity:.17;pointer-events:none;transition:opacity .3s}
+.ab-blk:hover{transform:translateY(-4px);box-shadow:0 22px 52px -26px var(--ac,#C79DF2)}
+.ab-blk:hover::before{opacity:.32}
+.ab-blk>*{position:relative;z-index:1}
+.ab-blk .btn{margin-top:auto;align-self:flex-start}
+.ab-blk h3{font-size:20.5px;font-weight:800;letter-spacing:-.45px;line-height:1.26;margin-bottom:11px}
+.ab-blk p{font-size:14px;line-height:1.68;color:#C2C7D6;margin:0}
 .ab-blk p b{color:#ECEDF2}
-.ab-ic{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;font-size:20px;margin-bottom:12px;background:rgba(199,157,240,.14);color:#C79DF2}
-.ab-blk:nth-child(2) .ab-ic{background:rgba(25,198,247,.14);color:#19C6F7}
-.ab-list{list-style:none;padding:0;margin:12px 0 16px;display:grid;gap:7px}
-.ab-list li{position:relative;padding-left:18px;font-size:13px;line-height:1.5;color:#B7BCCC}
-.ab-list li::before{content:'✦';position:absolute;left:0;font-size:10px;color:#C79DF2}
+.ab-ic{width:52px;height:52px;display:grid;place-items:center;border-radius:16px;font-size:23px;margin-bottom:16px;border:1px solid color-mix(in srgb,var(--ac,#C79DF2) 40%,transparent);background:color-mix(in srgb,var(--ac,#C79DF2) 14%,transparent);color:var(--ac,#C79DF2)}
+.ab-blk:nth-child(1){--ac:#C79DF2}
+.ab-blk:nth-child(2){--ac:#19C6F7}
+.ab-list{list-style:none;padding:17px 0 0;margin:18px 0 22px;display:grid;gap:11px;border-top:1px solid rgba(255,255,255,.08)}
+.ab-list li{position:relative;padding-left:24px;font-size:13.5px;line-height:1.6;color:#C2C7D6}
+.ab-list li::before{content:'';position:absolute;left:4px;top:8px;width:6px;height:6px;border-radius:50%;background:var(--ac,#C79DF2);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac,#C79DF2) 18%,transparent)}
 .ab-blk:nth-child(2) .ab-list li::before{color:#19C6F7}
 .ab-quote{margin-top:20px;padding:18px 22px;border-radius:14px;border:1px solid rgba(199,157,240,.28);background:linear-gradient(135deg,rgba(199,157,240,.08),rgba(25,198,247,.04));font-size:14.5px;line-height:1.65;color:#D6DAE6}
 
@@ -6036,7 +6078,7 @@ header nav.topnav{gap:4px;align-items:center}
 .life .to-row .btn.primary{background:linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6);color:#0B0C12!important;text-shadow:none;font-weight:800;border:none;box-shadow:0 10px 26px rgba(140,120,220,.3);animation:lfBtn 3.2s ease-in-out infinite}
 @keyframes lfBtn{0%,100%{box-shadow:0 10px 26px rgba(140,120,220,.28)}50%{box-shadow:0 12px 34px rgba(140,120,220,.5)}}
 .life .to-row .btn.primary::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);background-size:250% 100%;animation:sweep 3.5s ease-in-out infinite;pointer-events:none}
-.life .to-row .btn:hover{transform:translateY(-2px)}
+.life .to-row .btn:hover{transform:none}
 @media(max-width:700px){.lf-grid{grid-template-columns:1fr;gap:10px}.lf-grid>div{padding:16px!important}}
 
 /* окно эстетики */
@@ -6629,7 +6671,7 @@ header nav.topnav{gap:4px;align-items:center}
     <div class="ct-demo" id="ctDemo">
       <div class="ct-op">
         <div class="ct-av" data-ava><span>А</span><i></i></div>
-        <div class="ct-op-i"><b>Анна</b><span>основатель LOOKA · отвечает лично</span><em id="ctOpSt"><i></i>на связи</em></div>
+        <div class="ct-op-i"><b>Анна Бредихина</b><span>основатель LOOKA · отвечает лично</span><em id="ctOpSt"><i></i>на связи</em></div>
         <div class="ct-op-r"><b id="ctOpT">~20 мин</b><span>среднее время ответа</span></div>
       </div>
       <div class="ct-demo-b">
@@ -7099,7 +7141,7 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="about-wrap">
     <div class="about-card">
       <div class="ab-hero">
-        <div class="ab-face"><div class="ct-av big" data-ava></div><em>Анна · основатель</em></div>
+        <div class="ab-face"><div class="ct-av big" data-ava></div><em>Анна Бредихина · основатель</em></div>
         <div>
           <div class="eyebrow">кто делает LOOKA</div>
           <h2 class="big">LOOKA — мой проект,<br><span class="holo">а не корпорация</span></h2>
@@ -7130,7 +7172,7 @@ header nav.topnav{gap:4px;align-items:center}
       <div class="to-row" style="margin-top:22px"><button class="btn primary" onclick="openPage('contactsPage')">Написать мне</button><button class="btn ghost" onclick="openPage('devPage')">Куда растёт LOOKA →</button></div>
     </div>
 
-    <div class="about-card" style="margin-top:22px">
+    <div class="about-card" style="margin-top:46px">
       <div class="eyebrow">почему у нас есть макияж и укладки</div>
       <h2 class="big" style="font-size:30px">Образ начинается <span class="holo">выше плеч</span></h2>
       <p class="lead">Можно собрать безупречный комплект — и всё равно чувствовать, что «что-то не так». Потому что первое, что видят люди, — это лицо и волосы. Поэтому LOOKA никогда не была только про одежду: макияж и укладка у нас на равных с гардеробом, и считаются они по тем же вашим данным.</p>
@@ -7528,19 +7570,23 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="f-grid">
     <div><div class="logo" style="font-size:22px">LOO<em>KA</em>✦</div>
       <p>Стиль начинается с точных данных:<br>фигура, цветотип, повод, бюджет.</p></div>
-    <div><b>Сервис</b>
+    <div><b>Каждый день</b>
       <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">Собрать образ</a>
-      <a href="#how" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'});return false">Как это работает</a>
-      <a href="#payment" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'});return false">Оплата</a>
-      <a href="#reviews" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'});return false">Отзывы</a>
-      <a href="#docs" onclick="openPage('docsPage');return false">Документы</a>
-      <a href="#about" onclick="openPage('aboutPage');return false">Кто делает LOOKA</a>
-      <a href="#blog" onclick="openPage('bloggersPage');return false">Для блогеров</a>
-      <a href="#pro" onclick="openPro();return false">Приёмы профессионалов</a>
-      <a href="#courses" onclick="openCourses();return false">Курсы</a>
       <a href="#morning" onclick="openMorning();return false">Утро: что надеть</a>
       <a href="#lazy" onclick="openLazy();return false">Лень-режим</a>
+      <a href="#wardrobe" onclick="openWardrobe();return false">Мой гардероб</a></div>
+    <div><b>Учиться</b>
+      <a href="#courses" onclick="openCourses();return false">Курсы</a>
+      <a href="#pro" onclick="openPro();return false">Приёмы профессионалов</a>
       <a href="#articles" onclick="openArts();return false">Статьи-разборы</a>
+      <a href="#how" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'});return false">Как это работает</a></div>
+    <div><b>О сервисе</b>
+      <a href="#about" onclick="openPage('aboutPage');return false">Кто делает LOOKA</a>
+      <a href="#payment" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'});return false">Оплата</a>
+      <a href="#reviews" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'});return false">Отзывы</a>
+      <a href="#docs" onclick="openPage('docsPage');return false">Документы</a></div>
+    <div><b>Партнёрам и в подарок</b>
+      <a href="#blog" onclick="openPage('bloggersPage');return false">Для блогеров</a>
       <a href="#gift" onclick="openPage('giftPage');return false">Подарить LOOKA</a></div>
     <div><b>Площадки</b>
       <a href="https://www.wildberries.ru" target="_blank" rel="noopener">Wildberries ↗</a>
@@ -11942,6 +11988,14 @@ window.wdIcon = (it)=>{
   const d = WIC[k] || WIC.top;
   return `<svg class="wd-ic" viewBox="0 0 60 76" preserveAspectRatio="xMidYMid meet">${d.split('|').map((pp,i)=>`<path class="${i?'ln':'bd'}" d="${pp}"/>`).join('')}</svg>`;
 };
+const RAILS = [
+  { t:'Верхняя одежда', ic:'coat',  cats:['Верхняя одежда'] },
+  { t:'Верх',           ic:'top',   cats:['Верх'] },
+  { t:'Низ',            ic:'pants', cats:['Низ'] },
+  { t:'Платья и комплекты', ic:'dress', cats:['Платье'] },
+  { t:'Обувь',          ic:'shoe',  cats:['Обувь'], shelf:true },
+  { t:'Сумки и аксессуары', ic:'bag', cats:['Сумка','Аксессуар'], shelf:true }
+];
 const save = ()=>HUB.save('looka_wardrobe', W);
 const hex = c=>(COLORS.find(x=>x[0]===c)||[])[1]||'#666';
 const isN = c=>NEUTRAL.includes(c);
@@ -12040,8 +12094,16 @@ async function renderWardrobe(){
       ${G.g.length? G.g.map((x,i)=>HUB.pop(`<div class="wd-gap"><p>${x.why}</p>${x.n?`<div class="item"><div class="nm">${x.n}</div>${x.gain?`<div class="pr">+${x.gain} образов</div>`:''}${shopButtons({n:x.n,q:x.q})}</div>`:''}</div>`,i)).join('') : '<div class="tip">Дыр не видно: база полная, цвета в палитре. Дальше — только по желанию.</div>'}
       ${G.dead.length?`<div class="hp-sub" style="margin-top:14px">НЕ НОСИЛИ 90+ ДНЕЙ</div><div class="tip">${G.dead.slice(0,8).map(i=>i.name||i.cat).join(', ')}${G.dead.length>8?' и ещё '+(G.dead.length-8):''} — если вещь пережила сезон без выхода, её пора продать или отдать. Деньги, которые лежат в шкафу — у каждой вещи есть кнопка «₽»: объявление для Авито соберётся само, с честной ценой по носке.</div>`:''}
     </div></div>
-    <div class="look badv mk-wide"><div class="look-in"><h3>Вещи${cats.length?' · '+cats.map(c=>c[0]+' '+c[1]).join(' · '):''}</h3>
-      <div class="wd-grid">${I.slice().reverse().map(x=>itemCard(x)).join('')}</div>
+    <div class="look badv mk-wide"><div class="look-in"><span class="wd-eyebrow">цифровой гардероб · ${I.length} вещ${I.length===1?'ь':I.length<5?'и':'ей'}</span><h3>Ваш шкаф</h3>
+      ${I.length ? RAILS.map(r=>{
+        const list = I.filter(x=>r.cats.includes(x.cat)).reverse();
+        if(!list.length) return '';
+        return `<section class="wr-sec ${r.shelf?'shelf':'rail'}">
+          <div class="wr-h"><i>${wdIconBy(r.ic)}</i><b>${r.t}</b><em>${list.length}</em></div>
+          <div class="wr-bar"><span></span></div>
+          <div class="wr-row">${list.map(x=>itemCard(x)).join('')}</div>
+        </section>`;
+      }).join('') : '<div class="wd-blank">Шкаф пустой. Добавьте первую вещь — форма выше.</div>'}
     </div></div>`;
   if(window.fxZone) fxZone(box);
 }
@@ -12075,11 +12137,42 @@ window.wdSell = id=>{
     <div class="eyebrow">продать · ${it.name||it.cat}</div>
     <h3>Объявление готово</h3>
     <p class="to-lead">${ask?'Честная цена с учётом носки: <b>'+ask.toLocaleString('ru-RU')+' ₽</b> — за столько реально купят за неделю, а не будут смотреть месяц.':'Цены покупки нет в гардеробе — поставьте ~40–50 % от магазинной.'}</p>
-    <textarea class="st-ta" id="sellTxt" rows="8">${text}</textarea>
-    <div class="to-row"><button class="btn primary" onclick="cpy(document.getElementById('sellTxt').value, this)">⧉ Копировать объявление</button><a class="btn ghost" target="_blank" rel="noopener" href="https://www.avito.ru/additem">Открыть Авито →</a></div>
+    <textarea class="st-ta" id="sellTxt" rows="9" data-ask="${ask||''}">${text}</textarea>
+    <div class="to-row"><button class="btn primary" id="sellAi" onclick="sellAi(${it.id})">✦ Переписать нейросетью</button><button class="btn ghost" onclick="cpy(document.getElementById('sellTxt').value, this)">⧉ Копировать</button><a class="btn ghost" target="_blank" rel="noopener" href="https://www.avito.ru/additem">Открыть Авито →</a></div>
+    <div class="sell-st" id="sellSt"></div>
     <div class="b-priv">Фото для объявления: дневной свет, вещь на плечиках на нейтральном фоне + ярлык с составом крупно. Деньги от продажи — бюджет на «дыры» из вашего гардероба.</div>
   </div>`;
   ov.classList.add('open'); document.body.style.overflow='hidden';
+};
+window.sellAi = async (id)=>{
+  const it = W.items.find(i=>i.id===id); if(!it) return;
+  const btn = document.getElementById('sellAi'), st = document.getElementById('sellSt'), ta = document.getElementById('sellTxt');
+  if(!ta) return;
+  if(typeof aiFetch!=='function'){ if(st) st.innerHTML='<span class="sell-no">Нейросеть сейчас недоступна — текст выше уже готов к публикации.</span>'; return; }
+  const was = btn ? btn.textContent : '';
+  if(btn){ btn.disabled = true; btn.textContent = 'пишу…'; }
+  if(st) st.innerHTML = '<span class="sell-go">нейросеть переписывает объявление…</span>';
+  const prompt = `Ты — человек, который продаёт свою вещь на Авито. Перепиши объявление так, чтобы его захотели открыть и купить.
+Вещь: ${it.name||it.sub||it.cat}. Категория: ${it.cat}. Тип: ${it.sub||'не указан'}. Цвет: ${it.color}. Материал: ${it.mat||'не указан'}. Размер: ${it.size||'не указан'}. Сезон: ${it.warm}. Надевалась раз: ${it.worn||0}. ${it.price?('Покупалась за '+it.price+' рублей.'):''}
+Правила:
+— от первого лица, как обычный человек, без рекламных штампов и восклицательных знаков;
+— первая строка — заголовок до 50 символов: тип вещи, цвет, размер;
+— дальше 2–4 коротких абзаца: что за вещь, в каком состоянии, с чем носить, почему продаю;
+— НЕ придумывай бренд, состав, замеры и дефекты, которых нет в данных выше; чего не знаешь — не пиши;
+— не обещай доставку и не указывай цену;
+— в конце одна строка: что уточнить в сообщении;
+— только текст объявления, без заголовков и markdown.`;
+  try{
+    const r = await aiFetch({ method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:700, messages:[{role:'user',content:prompt}] }) });
+    const data = await r.json(); if(data.error) throw new Error('api');
+    const txt = (data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').replace(/```/g,'').trim();
+    if(!txt) throw new Error('пусто');
+    const ask = +ta.dataset.ask || 0;
+    ta.value = txt + (ask ? ('\n\nЦена: ' + ask.toLocaleString('ru-RU') + ' ₽') : '');
+    if(st) st.innerHTML = '<span class="sell-ok">✓ переписано. Перечитайте перед публикацией и поправьте, если что-то не так.</span>';
+  }catch(e){ if(st) st.innerHTML = '<span class="sell-no">Не вышло переписать. Текст выше уже готов к публикации.</span>'; }
+  if(btn){ btn.disabled = false; btn.textContent = was || '✦ Переписать нейросетью'; }
 };
 window.wdAddMany = arr=>{ let n=0; arr.forEach(a=>{ if(W.items.some(i=>i.name===a.name)) return; W.items.push({id:W.seq++, cat:a.cat, name:a.name, color:a.color||'бежевый', warm:a.warm||'любой', form:a.form||'кэжуал', price:a.price||'', worn:0, last:null, photo:null}); n++; }); save(); return n; };
 const BIG = [
@@ -12106,6 +12199,26 @@ const SZ_SHOE = ['34','35','36','37','38','39','40','41','42','43'];
 const SZ_ACC = ['один размер','S','M','L'];
 const MATS = ['хлопок','трикотаж','деним','кожа','экокожа','замша','шерсть','кашемир','лён','шёлк','атлас','вискоза','велюр','вельвет','твид','кружево','мех','рубчик','сетка','пух'];
 const MAT_OF = { 'хлопок':'из хлопка','трикотаж':'из трикотажа','деним':'из денима','кожа':'из кожи','экокожа':'из экокожи','замша':'из замши','шерсть':'из шерсти','кашемир':'из кашемира','лён':'изо льна','шёлк':'из шёлка','атлас':'из атласа','вискоза':'из вискозы','велюр':'из велюра','вельвет':'из вельвета','твид':'из твида','кружево':'из кружева','мех':'из меха','рубчик':'в рубчик','сетка':'из сетки','пух':'на пуху' };
+const MAT_FIND = [['экокожа',['экокож']],['кожа',['кожан','кожа','кожи']],['замша',['замшев','замш']],['деним',['деним','джинсов']],['трикотаж',['трикотаж']],['кашемир',['кашемир']],['шерсть',['шерстян','шерст']],['лён',['льнян','лён','лен']],['шёлк',['шёлков','шелков','шёлк','шелк']],['атлас',['атласн','атлас']],['вискоза',['вискоз']],['велюр',['велюр']],['вельвет',['вельвет']],['твид',['твидов','твид']],['кружево',['кружевн','кружев']],['мех',['меховая','меховой','меховые','мехов','мех']],['рубчик',['рубчик']],['сетка',['сетчат','сетк']],['хлопок',['хлопков','хлопок']],['пух',['пухов','пух']]];
+function findAll(q){
+  q = String(q||'').toLowerCase().replace(/ё/g,'ё').trim(); if(!q) return [];
+  const all = [];
+  Object.entries(SUBS).forEach(([big,list])=>list.forEach(x=>all.push({ big, sub:x[0] })));
+  /* 1. прямое совпадение с названием типа — «джинсовая куртка», «юбка плиссе» */
+  const direct = all.filter(x=>x.sub.toLowerCase().includes(q));
+  if(direct.length) return direct.slice(0,30).map(x=>({ ...x, mat:'' }));
+  /* 2. иначе вытаскиваем материал отдельным словом и ищем по остатку */
+  const words = q.split(/\s+/).filter(Boolean);
+  let mat = ''; const rest = [];
+  words.forEach(w=>{
+    const m = MAT_FIND.find(x=>x[1].some(st=>w.startsWith(st)));
+    if(m && !mat) mat = m[0]; else rest.push(w);
+  });
+  if(!rest.length) return [];
+  const hits = all.filter(x=>{ const n = x.sub.toLowerCase(); return rest.every(w=>n.includes(w) || (w.length>3 && n.includes(w.slice(0,-1)))); });
+  return hits.slice(0,30).map(x=>({ ...x, mat }));
+}
+window.wdFound = (big,sub,mat)=>{ N.big=big; N.q=''; wdSub(sub); if(mat){ N.mat=mat; if(MAT_WARM[mat]) N.warm=MAT_WARM[mat]; } renderAdd(); };
 const matName = (sub, mat)=> [sub||'', mat?(MAT_OF[mat]||('из '+mat)):''].filter(Boolean).join(' ');
 const MAT_WARM = { 'шерсть':'зима','кашемир':'зима','мех':'зима','пух':'зима','велюр':'демисезон','твид':'демисезон','вельвет':'демисезон','лён':'лето','шёлк':'лето','сетка':'лето' };
 const wdApi = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
@@ -12166,7 +12279,7 @@ window.wdInboxClear = async ()=>{
   try{ await fetch(wdApi('/wardrobe/inbox'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({clear:true})}); INBOX=[]; drawInbox(); }catch(e){}
 };
 
-window.wdQuery = v=>{ N.q=v; renderAdd(); const i=document.getElementById('wdQ'); if(i){ i.focus(); i.setSelectionRange(i.value.length,i.value.length); } };
+window.wdQuery = v=>{ N.q=v; renderAdd(); const i=document.getElementById('wdQ'); if(i && v){ i.focus(); i.setSelectionRange(i.value.length,i.value.length); } };
 window.wdBig = v=>{ N.big=v; N.sub=null; N.q=''; renderAdd(); };
 window.wdSub = v=>{ const d=(SUBS[N.big]||[]).find(x=>x[0]===v); N.sub=v; if(d){ N.warm=d[1]; N.form=d[2]; } renderAdd(); };
 window.wdPick = (k,v)=>{ N[k] = (N[k]===v && (k==='mat'||k==='size')) ? '' : v; if(k==='mat' && N[k] && MAT_WARM[v]) N.warm = MAT_WARM[v]; renderAdd(); };
@@ -12238,16 +12351,19 @@ function renderAdd(){
     }).join('')}
   </div>
 
+  <div class="wd-find">
+    <input class="wd-q" id="wdQ" placeholder="найти сразу: кожаная куртка, юбка плиссе, замшевые ботинки…" value="${(N.q||'').replace(/"/g,'&quot;')}" oninput="wdQuery(this.value)">
+    ${N.q?`<button class="wd-qx" onclick="wdQuery('')">✕</button>`:''}
+  </div>
+  ${N.q ? (()=>{ const h = findAll(N.q);
+      return `<div class="wd-blk"><span class="wd-lb">нашлось <em>${h.length}</em></span>
+      <div class="wd-subs">${h.length?h.map(x=>`<button class="wd-sub fnd" onclick="wdFound('${x.big}','${x.sub}','${x.mat}')"><b>${matName(x.sub,x.mat)}</b><i>${x.big}</i></button>`).join('')
+        :'<span class="wd-none">Ничего не нашлось. Выберите категорию ниже и близкий тип — название потом уточните своими словами.</span>'}</div></div>`;
+    })() : ''}
   <div class="wd-bigs">${BIG.map(b=>`<button class="wd-big ${N.big===b[0]?'on':''}" onclick="wdBig('${b[0]}')"><i style="--c:#C79DF2">${wdIconBy(b[1])}</i><b>${b[0]}</b><span>${b[2]}</span></button>`).join('')}</div>
 
-  ${N.big?(()=>{
-    const all = SUBS[N.big]||[], q = (N.q||'').toLowerCase().trim();
-    const list = q ? all.filter(x=>x[0].toLowerCase().includes(q)) : all;
-    return `<div class="wd-blk"><div class="wd-lb-row"><span class="wd-lb">какая именно <em>${all.length} вариантов</em></span>
-      ${all.length>12?`<input class="wd-q" id="wdQ" placeholder="начните печатать: пальто, джинсы…" value="${(N.q||'').replace(/"/g,'&quot;')}" oninput="wdQuery(this.value)">`:''}</div>
-    <div class="wd-subs">${list.length?list.map(x=>`<button class="wd-sub ${N.sub===x[0]?'on':''}" onclick="wdSub('${x[0]}')">${x[0]}</button>`).join('')
-      :`<span class="wd-none">Ничего не нашлось. Выберите близкое — название потом поправите в карточке вещи.</span>`}</div></div>`;
-  })():''}
+  ${(N.big && !N.q)?`<div class="wd-blk"><span class="wd-lb">какая именно <em>${(SUBS[N.big]||[]).length} вариантов</em></span>
+    <div class="wd-subs">${(SUBS[N.big]||[]).map(x=>`<button class="wd-sub ${N.sub===x[0]?'on':''}" onclick="wdSub('${x[0]}')">${x[0]}</button>`).join('')}</div></div>`:''}
 
   ${N.sub?`<div class="wd-blk"><span class="wd-lb">цвет</span>
     <div class="wd-cols">${COLORS.map(c=>`<button class="wd-col ${N.color===c[0]?'on':''}" onclick="wdPick('color','${c[0]}')" title="${c[0]}"><i style="background:${c[1]}"></i>${c[0]}</button>`).join('')}</div></div>
@@ -14363,7 +14479,7 @@ function fill(box, src){
   if(box.querySelector('.ct-ph')) return;
   const big = box.classList.contains('big');
   const im = document.createElement('img');
-  im.className='ct-ph'; im.alt='Анна, основатель LOOKA';
+  im.className='ct-ph'; im.alt='Анна Бредихина, основатель LOOKA';
   im.onload=()=>{ const w=im.naturalWidth, h=im.naturalHeight; if(!w||!h) return;
     const r=h/w;
     /* вертикальный портрет: лицо обычно в верхней трети — поднимаем окно кадра */
