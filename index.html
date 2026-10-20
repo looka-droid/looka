@@ -456,7 +456,14 @@ footer.rich{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.1)}
 .f-grid a::before{content:'';display:inline-block;width:0;height:1px;margin-right:0;vertical-align:middle;background:#19C6F7;transition:width .2s,margin-right .2s}
 .f-grid a:hover::before{width:10px;margin-right:7px}
 .f-grid>div>b{display:flex;align-items:flex-end;min-height:2.4em;font-family:'JetBrains Mono';font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:#7D849A;margin-bottom:16px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.08)}
-.f-grid p{font-size:14px;line-height:1.7;color:#9AA1B5;max-width:30ch}
+.f-grid p{font-size:14px;line-height:1.7;color:#9AA1B5;max-width:32ch}
+.f-slogan{position:relative;margin-top:16px;padding-left:15px;font-size:15.5px;line-height:1.62;color:#C9CEDC;font-weight:600;max-width:34ch}
+.f-slogan::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:2px;border-radius:2px;background:linear-gradient(180deg,#19C6F7,#C79DF2)}
+.f-slogan span{background:linear-gradient(100deg,#fff,#19C6F7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.f-sub{margin-top:14px;font-size:12.8px;line-height:1.65;color:#7D849A;max-width:34ch}
+.doc-num{padding-left:38px;text-indent:-38px}
+.doc-num br+.doc-i,.doc-num .doc-i{display:inline-block;min-width:34px;font-family:'JetBrains Mono';font-size:11.5px;letter-spacing:.6px;color:#19C6F7;text-indent:0}
+.doc-num br{content:'';display:block;margin-bottom:9px}
 .f-grid>div{text-align:left}
 .f-grid .logo{justify-content:flex-start}
 .grp label.t,.item .nm{color:#E6E8F0}
@@ -1649,7 +1656,7 @@ body .vs.seen .vs-right{animation:vsIn .65s .15s cubic-bezier(.2,.8,.2,1) forwar
 .tb-card{position:relative;z-index:2;width:min(300px,100%);padding:30px 26px;text-align:center;cursor:pointer;border:1px solid transparent;
   background:linear-gradient(rgba(18,20,34,.96),rgba(18,20,34,.96)) padding-box,linear-gradient(160deg,#19C6F7,rgba(255,255,255,.1) 50%,#5B6CFF) border-box;
   box-shadow:0 24px 60px rgba(0,0,0,.5), 0 0 40px rgba(25,198,247,.22);transform-style:preserve-3d;transition:transform .3s, box-shadow .3s}
-.tb-card:hover{transform:translateY(-6px) rotateX(3deg);box-shadow:0 30px 70px rgba(0,0,0,.55), 0 0 60px rgba(25,198,247,.35)}
+.tb-card:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(0,0,0,.55), 0 0 60px rgba(25,198,247,.35)}
 .tb-card.flip{animation:tbFlip .6s cubic-bezier(.2,.8,.2,1)}
 @keyframes tbFlip{0%{transform:rotateY(0)}45%{transform:rotateY(90deg);opacity:.3}55%{transform:rotateY(-90deg);opacity:.3}100%{transform:rotateY(0);opacity:1}}
 .tb-ic{font-size:46px;color:#19C6F7;filter:drop-shadow(0 0 18px rgba(25,198,247,.7));margin-bottom:12px;animation:hnGlow 3s ease-in-out infinite}
@@ -3221,7 +3228,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .ps-card:nth-child(7){animation-delay:.6s}.ps-card:nth-child(8){animation-delay:.68s}.ps-card:nth-child(9){animation-delay:.76s}.ps-card:nth-child(10){animation-delay:.84s}.ps-card:nth-child(11){animation-delay:.92s}.ps-card:nth-child(12){animation-delay:1s}.ps-card:nth-child(13){animation-delay:1.08s}.ps-card:nth-child(14){animation-delay:1.16s}.ps-card:nth-child(15){animation-delay:1.24s}.ps-card:nth-child(16){animation-delay:1.32s}
 .ps-card::before{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;pointer-events:none;background:linear-gradient(105deg,transparent,rgba(255,255,255,.12),transparent);animation:psSheen 1.2s ease .5s 1}
 @keyframes psSheen{to{left:140%}}
-.ps-card:hover,.ps-card.hsim{transform:translateY(-4px) rotateX(2deg);border-color:rgba(25,198,247,.5);box-shadow:0 18px 50px rgba(0,0,0,.5), 0 0 40px rgba(25,198,247,.2)}
+.ps-card:hover,.ps-card.hsim{transform:translateY(-4px);border-color:rgba(25,198,247,.5);box-shadow:0 18px 50px rgba(0,0,0,.5), 0 0 40px rgba(25,198,247,.2)}
 .ps-sw{opacity:0;animation:swPop .45s cubic-bezier(.2,.9,.3,1.4) forwards}
 .ps-sw:nth-child(1){animation-delay:.9s}.ps-sw:nth-child(2){animation-delay:1s}.ps-sw:nth-child(3){animation-delay:1.1s}.ps-sw:nth-child(4){animation-delay:1.2s}
 @keyframes swPop{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:scale(1)}}
@@ -3610,6 +3617,11 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .tech-flow i{font-style:normal;color:#4F5567}
 @media(max-width:980px){.tech{grid-template-columns:1fr;padding:24px 22px;gap:24px}.tech-art{min-height:0}}
 @media(prefers-reduced-motion:reduce){.tc-spin,.tc-card,.tc-fig{animation:none}}
+/* --- образ на завтра --- */
+.wd-tmr{position:relative}
+.tmr-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:6px}
+.tmr-h h3{font-size:clamp(18px,2.4vw,23px);font-weight:800;letter-spacing:-.5px;margin:0}
+.tmr-act{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
 .wr-sec{margin-bottom:30px}
 .wr-h{display:flex;align-items:center;gap:11px;margin-bottom:10px}
 .wr-h i{width:34px;height:40px;flex:0 0 auto;display:grid;place-items:center;padding:4px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);--c:#C79DF2}
@@ -4805,11 +4817,13 @@ body::before{background:
 
 /* ================= БУТИКИ + ПОИСК ================= */
 .nav-find{display:inline-flex;align-items:center;gap:10px;min-width:250px;border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:9px 12px 9px 16px;background:rgba(255,255,255,.05);color:#9BA3BC;cursor:pointer;font-family:'Manrope';font-size:13px;text-transform:none;letter-spacing:0;transition:all .22s}
-.nav-find i{font-style:normal;font-size:16px;color:#19C6F7}
+.nav-find i{display:grid;place-items:center;width:17px;height:17px;flex:0 0 auto;font-style:normal;color:#19C6F7}
+.nav-find i svg{width:17px;height:17px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round}
 .nav-find span{flex:1;text-align:left;white-space:nowrap}
 .nav-find em{font-style:normal;font-family:'JetBrains Mono';font-size:9px;letter-spacing:.5px;color:#7C8399;border:1px solid rgba(255,255,255,.16);border-radius:6px;padding:3px 6px}
 .nav-find:hover{border-color:transparent;color:#ECEDF2;background:linear-gradient(rgba(14,16,26,.9),rgba(14,16,26,.9)) padding-box,linear-gradient(120deg,#19C6F7,#C79DF2 55%,#F2A6C6) border-box;box-shadow:0 6px 20px rgba(120,100,200,.25)}
 .nav-find:hover i{color:#C79DF2}
+.nav-find:focus-visible{outline:2px solid rgba(25,198,247,.6);outline-offset:2px}
 @media(max-width:1200px){.nav-find{min-width:190px}.nav-find em{display:none}}
 @media(max-width:900px){.nav-find{min-width:0;padding:8px 14px}.nav-find span{display:none}}
 .fnd-ov{position:fixed;inset:0;z-index:120;background:rgba(6,7,12,.72);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;padding:12vh 16px 16px}
@@ -5496,7 +5510,14 @@ header nav.topnav{gap:4px;align-items:center}
 .g-fb{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:46px;border-radius:99px;background:#fff;color:#1F2430;font-family:'Manrope';font-size:14px;font-weight:700;text-transform:none;letter-spacing:0;border:1px solid rgba(0,0,0,.08)}
 .g-ico{width:18px;height:18px;border-radius:50%;background:conic-gradient(#4285F4 0 25%,#34A853 0 50%,#FBBC05 0 75%,#EA4335 0);position:relative}
 .g-ico::after{content:'';position:absolute;inset:5px;border-radius:50%;background:#fff}
-.au-box .btn.au-tg{width:100%;height:46px;border-radius:99px;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(120deg,#2AABEE,#229ED9)!important;color:#fff!important;font-family:'Manrope';font-size:14px;font-weight:700;text-transform:none;letter-spacing:0;box-shadow:0 8px 20px rgba(34,158,217,.35)}
+.au-box .btn.au-tg{position:relative;overflow:hidden;width:100%;height:50px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;gap:11px;background:linear-gradient(135deg,#32B2F0,#2AABEE 45%,#1E92CC)!important;color:#fff!important;font-family:'Manrope';font-size:15px;font-weight:700;text-transform:none;letter-spacing:-.1px;border:none;box-shadow:0 10px 26px -10px rgba(34,158,217,.85),inset 0 1px 0 rgba(255,255,255,.28);transition:box-shadow .25s,filter .25s}
+.au-box .btn.au-tg::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent);transform:skewX(-18deg);animation:auShine 4.5s ease-in-out infinite}
+@keyframes auShine{0%,62%{left:-60%}88%,100%{left:120%}}
+.au-box .btn.au-tg:hover{filter:brightness(1.06);box-shadow:0 14px 32px -10px rgba(34,158,217,.95),inset 0 1px 0 rgba(255,255,255,.34)}
+.au-tg-ic{width:21px;height:21px;flex:0 0 auto;fill:#fff;position:relative;z-index:1}
+.au-tg-ic .au-tg-f{fill:rgba(10,80,120,.3)}
+.au-box .btn.au-tg span{position:relative;z-index:1}
+@media(prefers-reduced-motion:reduce){.au-box .btn.au-tg::after{animation:none;display:none}}
 .au-or{margin:14px 0}
 .au-list{margin-bottom:18px}
 
@@ -6188,7 +6209,7 @@ header nav.topnav{gap:4px;align-items:center}
 <header>
   <div class="logo" onclick="goHome()" role="button" title="На главную">LOO<em>KA</em></div>
   <nav class="topnav">
-    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openDna()"><i>⌘</i>Стиль-ДНК<em>ваш вкус: эстетики, посадки, характер</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i>⌕</i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu(event)"><span>Войти</span></button>
+    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openDna()"><i>⌘</i>Стиль-ДНК<em>ваш вкус: эстетики, посадки, характер</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="7.8" cy="7.8" r="5.4"/><path d="M11.9 11.9 16 16"/></svg></i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu(event)"><span>Войти</span></button>
   </nav>
 </header>
 <div class="sysbar sb2">
@@ -7654,7 +7675,8 @@ header nav.topnav{gap:4px;align-items:center}
 <footer class="rich">
   <div class="f-grid">
     <div><div class="logo" style="font-size:22px">LOO<em>KA</em>✦</div>
-      <p>Стиль начинается с точных данных:<br>фигура, цветотип, повод, бюджет.</p></div>
+      <p class="f-slogan">Мы не против живых стилистов — <span>мы против того, что стиль стал роскошью.</span></p>
+      <p class="f-sub">Стиль начинается с точных данных: фигура, цветотип, повод, бюджет.</p></div>
     <div><b>Каждый день</b>
       <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">Собрать образ</a>
       <a href="#morning" onclick="openMorning();return false">Утро: что надеть</a>
@@ -8820,19 +8842,8 @@ const sbBand = document.querySelector('.stats-band'); if(sbBand) cntIO.observe(s
 /* ---- наклон карточек за курсором ---- */
 window.fxTilt = (root)=>{
   if(!matchMedia('(pointer:fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  root.querySelectorAll('.look,.how-card,.mp-card,.price-card').forEach(c=>{
-    if(c.dataset.fx) return; c.dataset.fx = 1;
-    // формы с выбором ответов не шатаем — там это мешает целиться
-    if(c.querySelector('.chips,.chip,input,textarea,select,.st-mode')) { c.classList.add('calm'); return; }
-    c.classList.add('tilt');
-    c.addEventListener('mousemove', e=>{
-      if(c.classList.contains('calm') || c.querySelector('.chips')) { c.style.transform=''; return; }
-      const r = c.getBoundingClientRect();
-      const rx = ((e.clientY-r.top)/r.height-.5)*-5, ry = ((e.clientX-r.left)/r.width-.5)*5;
-      c.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-3px)`;
-    });
-    c.addEventListener('mouseleave', ()=>{ c.style.transform=''; });
-  });
+  /* карточки больше не наклоняются за курсором: на длинных блоках это мешало читать */
+  root.querySelectorAll('.tilt').forEach(c=>{ c.classList.remove('tilt'); c.style.transform=''; });
 }
 
 
@@ -12035,6 +12046,21 @@ const WARM = ['лето','демисезон','зима','любой'];
 const FORM = ['кэжуал','офис','вечер','спорт'];
 const N = { big:null, sub:null, color:null, size:'', mat:'', warm:'любой', form:'кэжуал', name:'', price:'', brand:'', nm:'', more:false, q:'' };
 const T = { temp:null, occ:'кэжуал' };
+let TSEED = 0;
+window.wdTmrAgain = ()=>{ TSEED++; renderWardrobe(); };
+window.wdGeo = ()=>{
+  if(!navigator.geolocation){ myToast('Браузер не умеет определять местоположение — укажите город в шапке сайта'); return; }
+  myToast('Спрашиваю разрешение на геопозицию…');
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const { latitude:lat, longitude:lon } = pos.coords;
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m&timezone=auto`)
+      .then(r=>r.json()).then(j=>{
+        const n = (j.timezone||'').split('/').pop().replace(/_/g,' ') || 'ваш город';
+        try{ localStorage.setItem('looka_city', JSON.stringify({ n, lat, lon, tz:j.timezone })); }catch(e){}
+        myToast('Город определён: '+n); renderWardrobe(); if(window.renderMorning) renderMorning();
+      }).catch(()=>{ try{ localStorage.setItem('looka_city', JSON.stringify({ n:'ваш город', lat, lon })); }catch(e){} renderWardrobe(); });
+  }, ()=>myToast('Доступ к геопозиции не дан — город можно указать в шапке сайта'), { timeout:8000 });
+};
 
 /* --- силуэты вещей вместо цветных прямоугольников --- */
 const WIC = {
@@ -12061,8 +12087,8 @@ const SUB_IC = {
  'шапка':'hat','берет':'hat','кепка':'hat','панама':'hat','шарф':'scarf','палантин':'scarf','платок':'scarf','снуд':'scarf',
  'ремень':'acc','украшение':'acc','серьги':'acc','колье':'acc','часы':'acc','зонт':'acc','кошелёк':'bag','очки':'glasses','перчатки':'mitten','варежки':'mitten',
  'сумка':'bag','сумка через плечо':'bag','шопер':'bag','тоут':'bag','клатч':'bag','поясная сумка':'bag','рюкзак':'backpack',
- 'платье':'dress','платье-рубашка':'dress','платье-футляр':'dress','платье миди':'dress','платье макси':'dress','сарафан':'dress','вечернее платье':'dress','коктейльное платье':'dress','трикотажное платье':'dress',
- 'комбинезон':'jumpsuit','комбинезон с шортами':'jumpsuit','домашний костюм':'suit','костюм с брюками':'suit','костюм с юбкой':'suit','костюм с шортами':'suit','спортивный костюм':'suit','двойка трикотаж':'suit','комплект топ + юбка':'suit',
+ 'платье':'dress','платье мини':'dress','платье-рубашка':'dress','платье-футляр':'dress','платье миди':'dress','платье макси':'dress','сарафан':'dress','вечернее платье':'dress','коктейльное платье':'dress','трикотажное платье':'dress',
+ 'комбинезон':'jumpsuit','комбинезон с шортами':'jumpsuit','домашний костюм':'suit','костюм с брюками':'suit','костюм с юбкой':'suit','костюм с шортами':'suit','спортивный костюм':'suit','двойка трикотаж':'suit','комплект топ + юбка':'suit','комплект с юбкой мини':'suit','комплект с юбкой миди':'suit',
  'жакет':'suit','пиджак':'suit','кардиган':'coat','кардиган длинный':'coat','жилет':'coat','жилет утеплённый':'coat','жилет трикотажный':'coat','бомбер':'coat','косуха':'coat','джинсовая куртка':'coat','ветровка':'coat','анорак':'coat','пончо':'coat','пальто-халат':'coat',
  'сапоги':'boot','ботфорты':'boot','угги':'boot','дутики':'boot','ботильоны':'boot','челси':'boot','резиновые сапоги':'boot'
 };
@@ -12169,6 +12195,25 @@ async function renderWardrobe(){
       <div class="cp-nums"><div><b>${I.length}</b><span>вещей</span></div><div><b>${G.nowLooks}</b><span>образов из них</span></div><div><b>${cpw?cpw.toLocaleString('ru-RU')+' ₽':'—'}</b><span>цена одного выхода</span></div><div><b>${G.dead.length}</b><span>не носили 90 дней</span></div></div>
       ${I.length<6?'<div class="tip">Добавьте хотя бы 6 вещей (верх, низ, обувь) — и гардероб начнёт одевать вас по утрам.</div>':''}
     </div></div>
+    ${I.length>=4 ? (()=>{
+      const t = wx && wx.days && wx.days[1]!==undefined ? wx.days[1] : null;
+      const tb = t!==null ? tempBand(t) : (band || 'тепло');
+      const all = outfits(tb, T.occ, new Set(), 6);
+      const start = all.length ? (TSEED % all.length) : 0;
+      const three = all.length ? Array.from({length:Math.min(3,all.length)},(_,k)=>all[(start+k)%all.length]) : [];
+      const dt = new Date(); dt.setDate(dt.getDate()+1);
+      const dn = ['воскресенье','понедельник','вторник','среду','четверг','пятницу','субботу'][dt.getDay()];
+      return `<div class="look badv mk-wide wd-tmr"><div class="look-in">
+        <div class="tmr-h">
+          <div><span class="wd-eyebrow">образ на завтра · собран автоматически</span>
+            <h3>На ${dn}${wx?` · ${wx.city}`:''}${t!==null?` · ${t>0?'+':''}${Math.round(t)}°, ${tb}`:''}</h3></div>
+          ${wx?'':`<button class="btn ghost" onclick="wdGeo()">Определить город</button>`}
+        </div>
+        ${three.length ? `<div class="wd-fits">${three.map((f,k)=>HUB.pop(`<div class="wd-fit"><div class="wd-fit-h">Вариант ${k+1}</div>${f.parts.map(p=>itemCard(p,true)).join('')}<button class="btn ghost" onclick="wdWearAll('${f.parts.map(p=>p.id).join(',')}')">✓ Надела это</button></div>`,k)).join('')}</div>
+          <div class="tmr-act"><button class="btn primary" onclick="wdTmrAgain()">↻ Другие три варианта</button>${wx?`<button class="btn ghost" onclick="wdGeo()">Сменить город</button>`:''}</div>`
+          : `<div class="tip">Под завтрашнюю погоду («${tb}») из ваших вещей комплект не собирается. Добавьте верх, низ и обувь на этот сезон — и образ появится здесь сам.</div>`}
+        ${wx?'':`<div class="tip" style="margin-top:12px">Город не указан, поэтому погода не учтена. Нажмите «Определить город» — браузер спросит разрешение, и прогноз подтянется сам.</div>`}
+      </div></div>` })() : ''}
     <div class="look badv mk-wide wd-today"><div class="look-in"><span class="wd-eyebrow">образ дня · из ваших вещей</span><h3>Что надеть сегодня${wx?' <em>'+wx.city+', '+(wx.now>0?'+':'')+Math.round(wx.now)+'°</em>':''}</h3>
       <div class="chips">${['жарко','тепло','прохладно','холодно'].map(b=>`<button class="chip ${band===b?'on':''}" onclick="wdBand('${b}')">${b}</button>`).join('')}</div>
       <div class="chips" style="margin-top:8px">${FORM.map(o=>`<button class="chip ${T.occ===o?'on':''}" onclick="wdOcc('${o}')">${o}</button>`).join('')}</div>
@@ -12192,7 +12237,9 @@ async function renderWardrobe(){
     </div></div>`;
   if(window.fxZone) fxZone(box);
 }
+let WSEED = 0;
 window.wdWeek = async ()=>{
+  WSEED++;
   const wx = await weather(); const el = document.getElementById('wdWeek');
   const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс']; const today = new Date();
   const used = new Set(); const rows = [];
@@ -12200,8 +12247,9 @@ window.wdWeek = async ()=>{
     const dt = new Date(today); dt.setDate(today.getDate()+d);
     const band = wx && wx.days[d]!==undefined ? tempBand(wx.days[d]) : (T.temp||'тепло');
     const occ = dt.getDay()===0||dt.getDay()===6 ? 'кэжуал' : T.occ;
-    let f = outfits(band, occ, used, 1)[0];
-    if(!f){ used.clear(); f = outfits(band, occ, used, 1)[0]; }
+    let opts = outfits(band, occ, used, 4);
+    if(!opts.length){ used.clear(); opts = outfits(band, occ, used, 4); }
+    const f = opts.length ? opts[(WSEED + d) % opts.length] : null;
     if(f){ f.parts.slice(0,2).forEach(p=>used.add(p.id)); }
     rows.push({d:days[(dt.getDay()+6)%7], band, f});
   }
@@ -12272,7 +12320,7 @@ const SUBS = {
  'Верхняя одежда':[['пальто','демисезон','кэжуал'],['пальто-халат','демисезон','кэжуал'],['плащ','демисезон','кэжуал'],['тренч','демисезон','кэжуал'],['куртка','демисезон','кэжуал'],['ветровка','демисезон','спорт'],['джинсовая куртка','демисезон','кэжуал'],['косуха','демисезон','кэжуал'],['бомбер','демисезон','кэжуал'],['анорак','демисезон','спорт'],['пуховик','зима','кэжуал'],['парка','зима','кэжуал'],['шуба','зима','вечер'],['дублёнка','зима','кэжуал'],['жилет утеплённый','зима','кэжуал'],['жакет','любой','офис'],['пиджак','любой','офис'],['кардиган длинный','демисезон','кэжуал'],['пончо','демисезон','кэжуал']],
  'Верх':[['футболка','лето','кэжуал'],['лонгслив','демисезон','кэжуал'],['поло','лето','кэжуал'],['майка','лето','кэжуал'],['топ','лето','вечер'],['кроп-топ','лето','кэжуал'],['боди','любой','вечер'],['корсет','любой','вечер'],['рубашка','любой','офис'],['рубашка оверсайз','любой','кэжуал'],['блуза','любой','офис'],['туника','лето','кэжуал'],['джемпер','демисезон','кэжуал'],['пуловер','демисезон','кэжуал'],['свитер','зима','кэжуал'],['водолазка','зима','офис'],['кардиган','демисезон','кэжуал'],['жилет трикотажный','демисезон','кэжуал'],['худи','демисезон','спорт'],['свитшот','демисезон','кэжуал'],['толстовка','демисезон','спорт']],
  'Низ':[['джинсы','демисезон','кэжуал'],['джинсы прямые','демисезон','кэжуал'],['джинсы клёш','демисезон','кэжуал'],['джинсы скинни','демисезон','кэжуал'],['брюки','любой','офис'],['брюки классические','любой','офис'],['палаццо','любой','вечер'],['кюлоты','любой','офис'],['карго','демисезон','кэжуал'],['чиносы','любой','офис'],['легинсы','демисезон','спорт'],['велосипедки','лето','спорт'],['юбка мини','лето','вечер'],['юбка миди','любой','офис'],['юбка макси','любой','кэжуал'],['юбка-карандаш','любой','офис'],['юбка плиссе','любой','офис'],['джинсовая юбка','демисезон','кэжуал'],['шорты','лето','кэжуал'],['шорты джинсовые','лето','кэжуал']],
- 'Платья и комплекты':[['платье','любой','вечер'],['платье-рубашка','любой','кэжуал'],['платье-футляр','любой','офис'],['трикотажное платье','демисезон','кэжуал'],['платье миди','любой','офис'],['платье макси','любой','вечер'],['сарафан','лето','кэжуал'],['вечернее платье','любой','вечер'],['коктейльное платье','любой','вечер'],['комбинезон','любой','кэжуал'],['комбинезон с шортами','лето','кэжуал'],['костюм с брюками','любой','офис'],['костюм с юбкой','любой','офис'],['костюм с шортами','лето','кэжуал'],['комплект топ + юбка','любой','вечер'],['двойка трикотаж','демисезон','кэжуал'],['спортивный костюм','демисезон','спорт'],['домашний костюм','любой','кэжуал']],
+ 'Платья и комплекты':[['платье','любой','вечер'],['платье мини','лето','вечер'],['платье миди','любой','офис'],['платье макси','любой','вечер'],['платье-рубашка','любой','кэжуал'],['платье-футляр','любой','офис'],['трикотажное платье','демисезон','кэжуал'],['сарафан','лето','кэжуал'],['вечернее платье','любой','вечер'],['коктейльное платье','любой','вечер'],['комбинезон','любой','кэжуал'],['комбинезон с шортами','лето','кэжуал'],['костюм с брюками','любой','офис'],['костюм с юбкой','любой','офис'],['костюм с шортами','лето','кэжуал'],['комплект топ + юбка','любой','вечер'],['комплект с юбкой мини','лето','вечер'],['комплект с юбкой миди','любой','офис'],['двойка трикотаж','демисезон','кэжуал'],['спортивный костюм','демисезон','спорт'],['домашний костюм','любой','кэжуал']],
  'Обувь':[['кроссовки','демисезон','спорт'],['кеды','лето','кэжуал'],['слипоны','лето','кэжуал'],['ботинки','демисезон','кэжуал'],['ботильоны','демисезон','офис'],['челси','демисезон','кэжуал'],['сапоги','зима','кэжуал'],['ботфорты','зима','вечер'],['угги','зима','кэжуал'],['дутики','зима','кэжуал'],['лоферы','демисезон','офис'],['оксфорды','демисезон','офис'],['мокасины','лето','кэжуал'],['туфли','любой','офис'],['туфли на каблуке','любой','вечер'],['босоножки','лето','вечер'],['сандалии','лето','кэжуал'],['балетки','лето','кэжуал'],['мюли','лето','кэжуал'],['сабо','лето','кэжуал'],['эспадрильи','лето','кэжуал'],['резиновые сапоги','демисезон','кэжуал']],
  'Сумки и аксессуары':[['сумка','любой','кэжуал'],['сумка через плечо','любой','кэжуал'],['шопер','любой','кэжуал'],['тоут','любой','офис'],['рюкзак','любой','кэжуал'],['клатч','любой','вечер'],['поясная сумка','любой','спорт'],['кошелёк','любой','кэжуал'],['ремень','любой','кэжуал'],['шарф','зима','кэжуал'],['палантин','демисезон','офис'],['платок','любой','офис'],['снуд','зима','кэжуал'],['шапка','зима','кэжуал'],['берет','демисезон','офис'],['кепка','лето','кэжуал'],['панама','лето','кэжуал'],['перчатки','зима','кэжуал'],['варежки','зима','кэжуал'],['очки','лето','кэжуал'],['украшение','любой','вечер'],['серьги','любой','вечер'],['колье','любой','вечер'],['часы','любой','офис'],['зонт','демисезон','кэжуал']]
 };
@@ -12282,8 +12330,17 @@ const CAT_OF = (big, sub)=> big==='Платья и комплекты' ? 'Пла
 const SZ_CLOTH = ['XS','S','M','L','XL','XXL','40','42','44','46','48','50','52','54'];
 const SZ_SHOE = ['34','35','36','37','38','39','40','41','42','43'];
 const SZ_ACC = ['один размер','S','M','L'];
-const MATS = ['хлопок','трикотаж','деним','кожа','экокожа','замша','шерсть','кашемир','лён','шёлк','атлас','вискоза','велюр','вельвет','твид','кружево','мех','рубчик','сетка','пух'];
-const MAT_OF = { 'хлопок':'из хлопка','трикотаж':'из трикотажа','деним':'из денима','кожа':'из кожи','экокожа':'из экокожи','замша':'из замши','шерсть':'из шерсти','кашемир':'из кашемира','лён':'изо льна','шёлк':'из шёлка','атлас':'из атласа','вискоза':'из вискозы','велюр':'из велюра','вельвет':'из вельвета','твид':'из твида','кружево':'из кружева','мех':'из меха','рубчик':'в рубчик','сетка':'из сетки','пух':'на пуху' };
+const MAT_BY = {
+ 'Верхняя одежда':['шерсть','кашемир','пух','мех','экомех','кожа','экокожа','замша','деним','твид','хлопок','плащёвка','полиэстер','вельвет'],
+ 'Верх':['хлопок','трикотаж','деним','шерсть','кашемир','лён','шёлк','атлас','вискоза','кружево','сетка','рубчик','велюр','вельвет','кожа','экокожа','замша'],
+ 'Низ':['деним','хлопок','трикотаж','шерсть','лён','вискоза','кожа','экокожа','замша','вельвет','твид','атлас','шёлк','рубчик'],
+ 'Платья и комплекты':['трикотаж','хлопок','вискоза','шёлк','атлас','кружево','лён','шерсть','кашемир','сетка','велюр','твид','деним','кожа','экокожа','рубчик'],
+ 'Обувь':['кожа','экокожа','замша','нубук','лак','текстиль','трикотаж','резина','мех','атлас','велюр'],
+ 'Сумки и аксессуары':['кожа','экокожа','замша','нубук','текстиль','трикотаж','шерсть','кашемир','шёлк','мех','металл','дерево']
+};
+const MATS = [...new Set(Object.values(MAT_BY).flat())];
+const matsFor = big => MAT_BY[big] || MATS;
+const MAT_OF = { 'нубук':'из нубука','лак':'из лакированной кожи','текстиль':'из текстиля','резина':'из резины','плащёвка':'из плащёвки','полиэстер':'из полиэстера','экомех':'из экомеха','металл':'из металла','дерево':'из дерева','хлопок':'из хлопка','трикотаж':'из трикотажа','деним':'из денима','кожа':'из кожи','экокожа':'из экокожи','замша':'из замши','шерсть':'из шерсти','кашемир':'из кашемира','лён':'изо льна','шёлк':'из шёлка','атлас':'из атласа','вискоза':'из вискозы','велюр':'из велюра','вельвет':'из вельвета','твид':'из твида','кружево':'из кружева','мех':'из меха','рубчик':'в рубчик','сетка':'из сетки','пух':'на пуху' };
 const MAT_FIND = [['экокожа',['экокож']],['кожа',['кожан','кожа','кожи']],['замша',['замшев','замш']],['деним',['деним','джинсов']],['трикотаж',['трикотаж']],['кашемир',['кашемир']],['шерсть',['шерстян','шерст']],['лён',['льнян','лён','лен']],['шёлк',['шёлков','шелков','шёлк','шелк']],['атлас',['атласн','атлас']],['вискоза',['вискоз']],['велюр',['велюр']],['вельвет',['вельвет']],['твид',['твидов','твид']],['кружево',['кружевн','кружев']],['мех',['меховая','меховой','меховые','мехов','мех']],['рубчик',['рубчик']],['сетка',['сетчат','сетк']],['хлопок',['хлопков','хлопок']],['пух',['пухов','пух']]];
 function findAll(q){
   q = String(q||'').toLowerCase().replace(/ё/g,'ё').trim(); if(!q) return [];
@@ -12304,7 +12361,9 @@ function findAll(q){
   return hits.slice(0,30).map(x=>({ ...x, mat }));
 }
 window.wdFound = (big,sub,mat)=>{ N.big=big; N.q=''; wdSub(sub); if(mat){ N.mat=mat; if(MAT_WARM[mat]) N.warm=MAT_WARM[mat]; } renderAdd(); };
-const matName = (sub, mat)=> [sub||'', mat?(MAT_OF[mat]||('из '+mat)):''].filter(Boolean).join(' ');
+const matName = (sub, mat)=>{ const sl=String(sub||'').toLowerCase();
+  if(mat && sl.includes(String(mat).slice(0,4).toLowerCase())) mat='';   /* «пуховик на пуху» и подобное не дублируем */
+  return [sub||'', mat?(MAT_OF[mat]||('из '+mat)):''].filter(Boolean).join(' '); };
 const MAT_WARM = { 'шерсть':'зима','кашемир':'зима','мех':'зима','пух':'зима','велюр':'демисезон','твид':'демисезон','вельвет':'демисезон','лён':'лето','шёлк':'лето','сетка':'лето' };
 const wdApi = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
 const wdRegShops = ()=>{ try{ const R = REGIONS[REGION]; return (R && R.shops || []).map(x=>x[0]); }catch(e){ return ['WB','OZON','LAMODA','МАРКЕТ']; } };
@@ -12365,7 +12424,7 @@ window.wdInboxClear = async ()=>{
 };
 
 window.wdQuery = v=>{ N.q=v; renderAdd(); const i=document.getElementById('wdQ'); if(i && v){ i.focus(); i.setSelectionRange(i.value.length,i.value.length); } };
-window.wdBig = v=>{ N.big=v; N.sub=null; N.q=''; renderAdd(); };
+window.wdBig = v=>{ N.big=v; N.sub=null; N.q=''; if(N.mat && !matsFor(v).includes(N.mat)) N.mat=''; if(v==='Сумки и аксессуары') N.size=''; renderAdd(); };
 window.wdSub = v=>{ const d=(SUBS[N.big]||[]).find(x=>x[0]===v); N.sub=v; if(d){ N.warm=d[1]; N.form=d[2]; } renderAdd(); };
 window.wdPick = (k,v)=>{ N[k] = (N[k]===v && (k==='mat'||k==='size')) ? '' : v; if(k==='mat' && N[k] && MAT_WARM[v]) N.warm = MAT_WARM[v]; renderAdd(); };
 window.wdField = (k,v)=>{ N[k]=v; };
@@ -12415,7 +12474,8 @@ window.wdAdd = ()=>{
 
 function renderAdd(){
   const f = document.getElementById('wdAdd'); if(!f) return;
-  const szList = N.big==='Обувь' ? SZ_SHOE : N.big==='Сумки и аксессуары' ? SZ_ACC : SZ_CLOTH;
+  const szList = N.big==='Обувь' ? SZ_SHOE : SZ_CLOTH;
+  const noSize = N.big==='Сумки и аксессуары';   /* у сумок и украшений размера не бывает */
   const step = !N.big ? 1 : !N.sub ? 2 : 3;
   f.innerHTML = `
   <div class="wd-nm">
@@ -12430,7 +12490,7 @@ function renderAdd(){
   </div>
 
   <div class="wd-steps">
-    ${[['что это',N.big||''],['какая вещь',matName(N.sub,N.mat)],['цвет и размер',N.color?(N.color+(N.size?' · '+N.size:'')):'']].map((x,i)=>{
+    ${[['что это',N.big||''],['какая вещь',matName(N.sub,N.mat)],[N.big==='Сумки и аксессуары'?'цвет':'цвет и размер',N.color?(N.color+(N.size?' · '+N.size:'')):'']].map((x,i)=>{
       const done = step>i+1 || (i===2 && N.color), cur = step===i+1 && !done;
       return `<div class="wd-step${done?' done':cur?' cur':''}"><i>${done?'✓':i+1}</i><div class="wd-step-b"><b>${x[0]}</b><em>${x[1]||'—'}</em></div></div>`;
     }).join('')}
@@ -12453,9 +12513,9 @@ function renderAdd(){
   ${N.sub?`<div class="wd-blk"><span class="wd-lb">цвет</span>
     <div class="wd-cols">${COLORS.map(c=>`<button class="wd-col ${N.color===c[0]?'on':''}" onclick="wdPick('color','${c[0]}')" title="${c[0]}"><i style="background:${c[1]}"></i>${c[0]}</button>`).join('')}</div></div>
    <div class="wd-blk"><span class="wd-lb">из чего <em>необязательно</em></span>
-    <div class="wd-subs short">${MATS.map(m=>`<button class="wd-sub sm ${N.mat===m?'on':''}" onclick="wdPick('mat','${m}')">${m}</button>`).join('')}</div></div>
-   <div class="wd-blk"><span class="wd-lb">размер <em>необязательно</em></span>
-    <div class="wd-subs short">${szList.map(s=>`<button class="wd-sub sm ${N.size===s?'on':''}" onclick="wdPick('size','${s}')">${s}</button>`).join('')}</div></div>
+    <div class="wd-subs short">${matsFor(N.big).map(m=>`<button class="wd-sub sm ${N.mat===m?'on':''}" onclick="wdPick('mat','${m}')">${m}</button>`).join('')}</div></div>
+   ${noSize?'':`<div class="wd-blk"><span class="wd-lb">размер <em>необязательно</em></span>
+    <div class="wd-subs short">${szList.map(s=>`<button class="wd-sub sm ${N.size===s?'on':''}" onclick="wdPick('size','${s}')">${s}</button>`).join('')}</div></div>`}
    <div class="wd-blk"><input class="ev-date" placeholder="${matName(N.sub,N.mat)||'название'} — можно уточнить своими словами" value="${(N.name||'').replace(/"/g,'&quot;')}" oninput="wdField('name',this.value)"></div>
    <button class="wd-more" onclick="wdMore()">${N.more?'▴ свернуть':'▾ сезон, формат и цена'}</button>
    ${N.more?`<div class="wd-blk wd-two">
@@ -12738,6 +12798,24 @@ window.renderArts = ()=>{
   if(window.fxZone) fxZone(box);
 };
 window.openArts = (k)=>{ if(k!==undefined) A.open=k; openPage('artPage'); setTimeout(renderArts,60); };
+})();
+
+/* ================= ДОКУМЕНТЫ: каждый подпункт с новой строки ================= */
+(function(){
+  function split(){
+    document.querySelectorAll('#docsPage p, #termsPage p').forEach(p=>{
+      if(p.dataset.num) return;
+      const h = p.innerHTML;
+      if(!/\d+\.\d+\./.test(h)) return;
+      let out = h.replace(/(\S)\s+(\d+\.\d+\.)\s/g, '$1<br><span class="doc-i">$2</span> ');
+      out = out.replace(/^(\d+\.\d+\.)\s/, '<span class="doc-i">$1</span> ');
+      if(out !== h){ p.innerHTML = out; p.classList.add('doc-num'); }
+      p.dataset.num = '1';
+    });
+  }
+  if(document.readyState !== 'loading') split(); else document.addEventListener('DOMContentLoaded', split);
+  const orig = window.openPage;
+  if(typeof orig === 'function') window.openPage = function(){ orig.apply(null, arguments); setTimeout(split, 30); };
 })();
 
 /* ================= ЛЕНЬ-РЕЖИМ: одна кнопка вместо решений ================= */
@@ -17036,7 +17114,7 @@ window.openAuth = (reason)=>{
       </ul>
       <div id="gBtn" class="g-slot au-g"></div>
       <div class="au-or">или</div>
-      <button class="btn primary au-tg" onclick="authTg()">✈ Войти через Telegram</button>
+      <button class="btn primary au-tg" onclick="authTg()"><svg class="au-tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 4.2 3.3 11.3c-1 .4-1 1.8.1 2.1l4.6 1.4 1.8 5.4c.3.9 1.4 1.1 2 .4l2.5-2.7 4.6 3.4c.7.5 1.7.1 1.9-.8l3-14.3c.2-1-.7-1.8-1.6-1.4z"/><path class="au-tg-f" d="m8.1 14.9 9.8-6.6-7.6 7.9-.3 3.6z"/></svg><span>Войти через Telegram</span></button>
       <div id="tgLogin"></div>
       <div class="au-note">Google даёт нам только имя, почту и аватар; Telegram — только имя. Пароли нам не передаются. Вход по номеру телефона и почте появится, когда подключим отправку кодов.</div>
       <button class="btn ghost au-skip" onclick="closeAuth()">Продолжить без входа</button>
