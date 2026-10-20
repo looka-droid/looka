@@ -3582,12 +3582,19 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-it.wash .wd-ph{filter:grayscale(.5)}
 .wd-act button.on{color:#19C6F7;border-color:rgba(25,198,247,.55)}
 /* --- анкета гардероба --- */
-.wd-nm{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:18px;align-items:center;padding:19px 22px;border-radius:20px;border:1px solid transparent;background:linear-gradient(#11141E,#0C0F17) padding-box,linear-gradient(120deg,rgba(199,56,86,.55),rgba(199,157,240,.45)) border-box;margin-bottom:22px}
-.wd-nm-l b{display:block;font-size:15.5px;font-weight:800;margin-bottom:5px}
-.wd-nm-l span{font-size:13px;line-height:1.55;color:#9AA1B5}
-.wd-nm-r{display:flex;gap:9px}
-.wd-nm-r input{flex:1;min-width:0}
-.wd-nm-st{grid-column:1/-1;font-size:12.5px;line-height:1.5;min-height:0}
+.wd-nm{position:relative;overflow:hidden;padding:24px 26px;border-radius:24px;border:1px solid transparent;background:linear-gradient(#11141E,#0B0E15) padding-box,linear-gradient(125deg,rgba(25,198,247,.6),rgba(199,157,240,.45),rgba(255,210,138,.4)) border-box;margin-bottom:24px}
+.wd-nm::after{content:'';position:absolute;width:280px;height:280px;border-radius:50%;top:-170px;right:-60px;background:radial-gradient(circle,#C79DF2,transparent 70%);opacity:.16;pointer-events:none}
+.wd-nm-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:22px;align-items:start;margin-bottom:16px;position:relative;z-index:1}
+.wd-nm-k{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;color:#19C6F7;margin-bottom:8px}
+.wd-nm-l b{display:block;font-size:clamp(17px,2.2vw,21px);font-weight:800;letter-spacing:-.4px;margin-bottom:6px}
+.wd-nm-s{display:block;font-size:13.5px;line-height:1.6;color:#9AA1B5;max-width:56ch}
+.wd-shops{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:330px}
+.wd-shop{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;text-transform:uppercase;padding:5px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#AEB4C6}
+.wd-shop.any{border-style:dashed;color:#7D849A}
+.wd-nm-r{display:flex;gap:10px;position:relative;z-index:1}
+.wd-nm-r input{flex:1;min-width:0;padding:14px 16px;border-radius:14px;font-size:14.5px}
+.wd-nm-r .btn{white-space:nowrap}
+.wd-nm-st{font-size:13px;line-height:1.6;margin-top:11px;position:relative;z-index:1}
 .wd-find-ok{color:#7CF0B2}.wd-find-no{color:#FF9FC2}.wd-find-go{color:#19C6F7}
 .wd-steps{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
 .wd-step{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#5C6276;transition:color .25s}
@@ -3661,7 +3668,8 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-inb-b span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:#7D849A}
 .wd-inb-n{font-size:12.5px;line-height:1.6;color:#7D849A;margin-top:12px;position:relative;z-index:1}
 @media(max-width:900px){.wd-inb.hint{grid-template-columns:1fr;gap:22px;padding:24px 22px}.wd-inb-ph{width:100%;max-width:320px}}
-@media(max-width:760px){.wd-nm{grid-template-columns:1fr;gap:12px}.wd-nm-r{flex-direction:column}}
+@media(max-width:860px){.wd-nm-top{grid-template-columns:1fr;gap:14px}.wd-shops{justify-content:flex-start;max-width:none}}
+@media(max-width:600px){.wd-nm-r{flex-direction:column}}
 #moBox{display:flex;flex-direction:column;gap:22px}
 .mo-top{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:center;padding:34px 36px;border-radius:30px;border:1px solid transparent;background:linear-gradient(#0A0C13,#0A0C13) padding-box,linear-gradient(135deg,color-mix(in srgb,var(--bc,#19C6F7) 70%,transparent),rgba(199,157,240,.5),rgba(255,210,138,.4)) border-box;overflow:hidden}
 .mo-aura{position:absolute;inset:0;pointer-events:none}
@@ -3977,7 +3985,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-gap{padding:18px 20px;border-radius:20px;border:1px solid rgba(255,255,255,.1);margin-bottom:12px;background:rgba(255,255,255,.028);transition:border-color .22s}
 .wd-gap:hover{border-color:rgba(199,157,240,.4)}
 .wd-gap p{font-size:14px;line-height:1.6;margin-bottom:12px;color:#C9CEDC}
-.wd-gap .item{border-radius:15px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);padding:14px 16px}
+.look-in .wd-gap .item,.wd-gap .item{border-radius:15px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);padding:15px 17px;margin-bottom:0}
 .wd-gap .nm{font-size:15.5px;font-weight:800;letter-spacing:-.3px;margin-bottom:5px}
 .wd-gap .pr{display:inline-block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:99px;border:1px solid rgba(124,240,178,.4);color:#7CF0B2;margin-bottom:11px}
 /* pro */
@@ -11889,9 +11897,23 @@ const WIC = {
  bag:'M13 30 H47 L51 64 H9 Z|M22 30 Q22 17 30 17 Q38 17 38 30',
  hat:'M14 47 Q14 23 30 23 Q46 23 46 47 Z|M9 47 H51 V54 H9 Z',
  scarf:'M20 16 Q30 7 40 16 Q41 28 34 31 L36 67 H24 L26 31 Q19 28 20 16 Z|M24 20 Q30 25 36 20',
- acc:'M30 36 m-13,0 a13,13 0 1,0 26,0 a13,13 0 1,0 -26,0|M30 12 L38 23 L30 34 L22 23 Z'
+ acc:'M30 38 m-12,0 a12,12 0 1,0 24,0 a12,12 0 1,0 -24,0|M30 14 L38 25 L30 36 L22 25 Z',
+ jumpsuit:'M21 12 Q30 18 39 12 L50 19 L46 30 L41 27 L42 70 H33 L30 46 L27 70 H18 L19 27 L14 30 L10 19 Z|M30 18 V40',
+ suit:'M20 12 Q30 19 40 12 L52 20 L48 35 L43 32 L44 62 H16 L17 32 L12 35 L8 20 Z|M30 19 L23 36|M30 19 L37 36',
+ backpack:'M15 28 H45 L48 66 H12 Z|M22 28 V19 Q22 13 30 13 Q38 13 38 19 V28|M19 46 H41',
+ glasses:'M15 38 m-9,0 a9,9 0 1,0 18,0 a9,9 0 1,0 -18,0|M45 38 m-9,0 a9,9 0 1,0 18,0 a9,9 0 1,0 -18,0|M24 38 H36',
+ mitten:'M18 36 Q18 21 27 21 L34 21 Q42 21 42 36 L40 64 H20 Z|M18 33 Q9 33 9 41 Q9 47 18 45',
+ boot:'M21 13 H35 L34 41 Q34 47 41 49 L50 53 Q54 55 54 62 H19 Q17 50 18 39 Z|M21 20 H35'
 };
-const SUB_IC = { 'юбка':'skirt','шорты':'pants','легинсы':'pants','шапка':'hat','шарф':'scarf','ремень':'acc','украшение':'acc','сумка':'bag','платье':'dress' };
+const SUB_IC = {
+ 'юбка':'skirt','юбка миди':'skirt','шорты':'pants','легинсы':'pants','кюлоты':'pants','карго':'pants','палаццо':'pants',
+ 'шапка':'hat','шарф':'scarf','платок':'scarf','ремень':'acc','украшение':'acc','часы':'acc','очки':'glasses','перчатки':'mitten',
+ 'сумка':'bag','сумка через плечо':'bag','шопер':'bag','клатч':'bag','рюкзак':'backpack',
+ 'платье':'dress','платье-рубашка':'dress','сарафан':'dress','вечернее платье':'dress','трикотажное платье':'dress',
+ 'комбинезон':'jumpsuit','костюм с брюками':'suit','костюм с юбкой':'suit','костюм с шортами':'suit','спортивный костюм':'suit','двойка трикотаж':'suit','комплект топ + юбка':'suit',
+ 'жакет':'suit','пиджак':'suit','кардиган':'coat','кардиган длинный':'coat','жилет':'coat','жилет трикотажный':'coat','бомбер':'coat',
+ 'сапоги':'boot','угги':'boot','ботильоны':'boot','резиновые сапоги':'boot'
+};
 const CAT_IC = { 'Верхняя одежда':'coat','Верх':'top','Низ':'pants','Платье':'dress','Обувь':'shoe','Сумка':'bag','Аксессуар':'acc' };
 window.wdIconBy = (k)=>{ const d=WIC[k]||WIC.top; return `<svg class="wd-ic" viewBox="0 0 60 76" preserveAspectRatio="xMidYMid meet">${d.split('|').map((pp,i)=>`<path class="${i?'ln':'bd'}" d="${pp}"/>`).join('')}</svg>`; };
 window.wdIcon = (it)=>{
@@ -12040,24 +12062,31 @@ window.wdSell = id=>{
 };
 window.wdAddMany = arr=>{ let n=0; arr.forEach(a=>{ if(W.items.some(i=>i.name===a.name)) return; W.items.push({id:W.seq++, cat:a.cat, name:a.name, color:a.color||'бежевый', warm:a.warm||'любой', form:a.form||'кэжуал', price:a.price||'', worn:0, last:null, photo:null}); n++; }); save(); return n; };
 const BIG = [
-  ['Верхняя одежда','coat','пальто, куртка, тренч'],
+  ['Верхняя одежда','coat','пальто, куртка, жакет'],
   ['Верх','top','рубашки, джемперы, топы'],
   ['Низ','pants','брюки, джинсы, юбки'],
+  ['Платья и комплекты','dress','платья, костюмы, комбинезоны'],
   ['Обувь','shoe','от кроссовок до туфель'],
-  ['Другое','dress','платья, сумки, аксессуары']
+  ['Сумки и аксессуары','bag','сумки, шарфы, украшения']
 ];
 const SUBS = {
- 'Верхняя одежда':[['пальто','демисезон','кэжуал'],['пуховик','зима','кэжуал'],['куртка','демисезон','кэжуал'],['тренч','демисезон','кэжуал'],['жакет','любой','офис'],['жилет','демисезон','кэжуал'],['шуба','зима','вечер']],
- 'Верх':[['футболка','лето','кэжуал'],['рубашка','любой','офис'],['блуза','любой','офис'],['джемпер','демисезон','кэжуал'],['свитер','зима','кэжуал'],['водолазка','зима','офис'],['топ','лето','вечер'],['худи','демисезон','спорт'],['пиджак','любой','офис']],
- 'Низ':[['джинсы','демисезон','кэжуал'],['брюки','любой','офис'],['юбка','любой','офис'],['шорты','лето','кэжуал'],['легинсы','демисезон','спорт']],
- 'Обувь':[['кроссовки','демисезон','спорт'],['ботинки','демисезон','кэжуал'],['сапоги','зима','кэжуал'],['лоферы','демисезон','офис'],['туфли','любой','офис'],['босоножки','лето','вечер'],['балетки','лето','кэжуал']],
- 'Другое':[['платье','любой','вечер'],['сумка','любой','кэжуал'],['ремень','любой','кэжуал'],['шарф','зима','кэжуал'],['шапка','зима','кэжуал'],['украшение','любой','вечер']]
+ 'Верхняя одежда':[['пальто','демисезон','кэжуал'],['плащ','демисезон','кэжуал'],['тренч','демисезон','кэжуал'],['куртка','демисезон','кэжуал'],['пуховик','зима','кэжуал'],['парка','зима','кэжуал'],['бомбер','демисезон','кэжуал'],['жакет','любой','офис'],['пиджак','любой','офис'],['кардиган длинный','демисезон','кэжуал'],['жилет','демисезон','кэжуал'],['шуба','зима','вечер'],['дублёнка','зима','кэжуал']],
+ 'Верх':[['футболка','лето','кэжуал'],['рубашка','любой','офис'],['блуза','любой','офис'],['джемпер','демисезон','кэжуал'],['свитер','зима','кэжуал'],['водолазка','зима','офис'],['топ','лето','вечер'],['боди','любой','вечер'],['корсет','любой','вечер'],['худи','демисезон','спорт'],['свитшот','демисезон','кэжуал'],['кардиган','демисезон','кэжуал'],['жилет трикотажный','демисезон','кэжуал'],['туника','лето','кэжуал']],
+ 'Низ':[['джинсы','демисезон','кэжуал'],['брюки','любой','офис'],['юбка','любой','офис'],['юбка миди','любой','офис'],['шорты','лето','кэжуал'],['кюлоты','любой','офис'],['карго','демисезон','кэжуал'],['палаццо','любой','вечер'],['легинсы','демисезон','спорт']],
+ 'Платья и комплекты':[['платье','любой','вечер'],['платье-рубашка','любой','кэжуал'],['трикотажное платье','демисезон','кэжуал'],['сарафан','лето','кэжуал'],['вечернее платье','любой','вечер'],['комбинезон','любой','кэжуал'],['костюм с брюками','любой','офис'],['костюм с юбкой','любой','офис'],['костюм с шортами','лето','кэжуал'],['комплект топ + юбка','любой','вечер'],['двойка трикотаж','демисезон','кэжуал'],['спортивный костюм','демисезон','спорт']],
+ 'Обувь':[['кроссовки','демисезон','спорт'],['кеды','лето','кэжуал'],['ботинки','демисезон','кэжуал'],['ботильоны','демисезон','офис'],['сапоги','зима','кэжуал'],['угги','зима','кэжуал'],['лоферы','демисезон','офис'],['туфли','любой','офис'],['босоножки','лето','вечер'],['балетки','лето','кэжуал'],['мюли','лето','кэжуал'],['резиновые сапоги','демисезон','кэжуал']],
+ 'Сумки и аксессуары':[['сумка','любой','кэжуал'],['сумка через плечо','любой','кэжуал'],['шопер','любой','кэжуал'],['рюкзак','любой','кэжуал'],['клатч','любой','вечер'],['ремень','любой','кэжуал'],['шарф','зима','кэжуал'],['платок','любой','офис'],['шапка','зима','кэжуал'],['перчатки','зима','кэжуал'],['очки','лето','кэжуал'],['украшение','любой','вечер'],['часы','любой','офис']]
 };
-const CAT_OF = { 'платье':'Платье','сумка':'Сумка','ремень':'Аксессуар','шарф':'Аксессуар','шапка':'Аксессуар','украшение':'Аксессуар' };
+const BAGS = ['сумка','сумка через плечо','шопер','рюкзак','клатч'];
+const CAT_OF = (big, sub)=> big==='Платья и комплекты' ? 'Платье'
+  : big==='Сумки и аксессуары' ? (BAGS.includes(sub) ? 'Сумка' : 'Аксессуар') : big;
 const SZ_CLOTH = ['XS','S','M','L','XL','XXL','40','42','44','46','48','50','52','54'];
 const SZ_SHOE = ['34','35','36','37','38','39','40','41','42','43'];
 const SZ_ACC = ['один размер','S','M','L'];
 const wdApi = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
+const wdRegShops = ()=>{ try{ const R = REGIONS[REGION]; return (R && R.shops || []).map(x=>x[0]); }catch(e){ return ['WB','OZON','LAMODA','МАРКЕТ']; } };
+function wdShops(){ const l = wdRegShops(); return l.map(n=>`<span class="wd-shop">${n}</span>`).join('') + '<span class="wd-shop any">и любой другой</span>'; }
+function wdPh(){ const l = wdRegShops(); return 'ссылка на товар — ' + l.slice(0,3).join(', ').toLowerCase() + '…'; }
 
 
 const wdTok = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; }catch(e){ return null; } };
@@ -12076,7 +12105,7 @@ const inbHint = (btn)=>`<div class="wd-inb hint">
   <div class="wd-inb-ph">
     <div class="wd-inb-pt"><span class="wd-inb-av">✦</span><div><b>LOOKA</b><em>бот</em></div></div>
     <div class="wd-inb-me">wildberries.ru/catalog/…</div>
-    <div class="wd-inb-bot">✦ Положила в гардероб-входящие:<br><b>SHIK · Джемпер тонкий</b><br>3 990 ₽<br><br>Откройте LOOKA → Гардероб.</div>
+    <div class="wd-inb-bot">✦ Положила в гардероб-входящие:<br><b>Love Republic · Джемпер тонкий</b><br>3 990 ₽<br><br>Откройте LOOKA → Гардероб.</div>
   </div>
 </div>`;
 let INBOX = [];
@@ -12124,9 +12153,9 @@ window.wdFind = async ()=>{
   if(!q.trim()){ myToast('Вставьте артикул или ссылку с Wildberries'); return; }
   const st = document.getElementById('wdNmSt'); if(st) st.innerHTML = '<span class="wd-find-go">ищу карточку…</span>';
   try{
-    const r = await fetch(wdApi('/wb?nm=')+encodeURIComponent(q.trim()));
+    const r = await fetch(wdApi('/link?u=')+encodeURIComponent(q.trim()));
     const j = await r.json();
-    if(!r.ok || j.error || !j.name) throw new Error(j.error||'товар не найден');
+    if(!r.ok || j.error || !j.name) throw new Error(j.error||'товар не найден. Заполните вручную — это быстро.');
     N.name = j.brand ? (j.brand+' · '+j.name) : j.name;
     N.brand = j.brand || ''; N.nm = j.nm || '';
     if(j.price) N.price = String(j.price);
@@ -12142,17 +12171,17 @@ window.wdFind = async ()=>{
     }
     renderAdd();
     const st2 = document.getElementById('wdNmSt');
-    if(st2) st2.innerHTML = '<span class="wd-find-ok">✓ подтянула: '+(j.brand?j.brand+' · ':'')+j.name.slice(0,60)+(j.price?' · '+j.price.toLocaleString('ru-RU')+' ₽':'')+'</span>';
+    if(st2) st2.innerHTML = '<span class="wd-find-ok">✓ подтянула'+(j.shop?' с '+j.shop:'')+': '+(j.brand?j.brand+' · ':'')+j.name.slice(0,70)+(j.price?' · '+j.price.toLocaleString('ru-RU')+' ₽':'')+'</span>';
   }catch(e){
     const st3 = document.getElementById('wdNmSt');
-    if(st3) st3.innerHTML = '<span class="wd-find-no">не вышло: '+e.message+'. Заполните вручную — это быстро.</span>';
+    if(st3) st3.innerHTML = '<span class="wd-find-no">'+e.message+'</span>';
   }
 };
 
 window.wdAdd = ()=>{
   if(!N.sub||!N.color) return;
   if(W.items.length>=200){ myToast('Гардероб полон: 200 вещей — удалите то, что не носите'); return; }
-  const cat = N.big==='Другое' ? (CAT_OF[N.sub]||'Аксессуар') : N.big;
+  const cat = CAT_OF(N.big, N.sub);
   W.items.push({ id:W.seq++, cat, sub:N.sub, name:(N.name||'').trim()||N.sub, color:N.color, size:N.size||'',
     warm:N.warm, form:N.form, price:N.price?+N.price:'', nm:N.nm||'', worn:0, last:null, photo:null });
   try{ save(); }catch(e){ myToast('Память телефона заполнена — удалите что-то из гардероба'); W.items.pop(); return; }
@@ -12162,12 +12191,17 @@ window.wdAdd = ()=>{
 
 function renderAdd(){
   const f = document.getElementById('wdAdd'); if(!f) return;
-  const szList = N.big==='Обувь' ? SZ_SHOE : (N.big==='Другое' && N.sub!=='платье') ? SZ_ACC : SZ_CLOTH;
+  const szList = N.big==='Обувь' ? SZ_SHOE : N.big==='Сумки и аксессуары' ? SZ_ACC : SZ_CLOTH;
   const step = !N.big ? 1 : !N.sub ? 2 : 3;
   f.innerHTML = `
   <div class="wd-nm">
-    <div class="wd-nm-l"><b>Покупали на Wildberries?</b><span>Вставьте артикул или ссылку — название, бренд и цена подтянутся сами.</span></div>
-    <div class="wd-nm-r"><input id="wdNm" class="ev-date" placeholder="артикул или ссылка wildberries.ru" onkeydown="if(event.key==='Enter')wdFind()"><button class="btn ghost" onclick="wdFind()">Подтянуть</button></div>
+    <div class="wd-nm-top">
+      <div class="wd-nm-l"><span class="wd-nm-k">⌁ быстрое добавление</span>
+        <b>Покупали онлайн? Вставьте ссылку</b>
+        <span class="wd-nm-s">Название, бренд и цена подтянутся сами. Wildberries работает ещё и по одному артикулу.</span></div>
+      <div class="wd-shops">${wdShops()}</div>
+    </div>
+    <div class="wd-nm-r"><input id="wdNm" class="ev-date" placeholder="${wdPh()}" onkeydown="if(event.key==='Enter')wdFind()"><button class="btn primary" onclick="wdFind()">Подтянуть</button></div>
     <div class="wd-nm-st" id="wdNmSt"></div>
   </div>
 
