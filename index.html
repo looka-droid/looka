@@ -3523,10 +3523,11 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .ev-check label.on{background:rgba(124,240,178,.07);border-color:rgba(124,240,178,.35);text-decoration:line-through;color:#8B92AA}
 .ev-check input{accent-color:#19C6F7}
 /* капсула */
-.cp-nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:8px 0 12px}
-.cp-nums div{border:1px solid rgba(255,255,255,.1);padding:12px}
-.cp-nums b{display:block;font-size:28px;font-weight:800;line-height:1}
-.cp-nums span{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.5px;color:#8B92AA;text-transform:uppercase}
+.cp-nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:8px 0 14px}
+.cp-nums div{border-radius:18px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(165deg,rgba(255,255,255,.055),rgba(255,255,255,.015));padding:18px 20px;transition:border-color .22s,transform .22s}
+.cp-nums div:hover{border-color:rgba(25,198,247,.4);transform:translateY(-3px)}
+.cp-nums b{display:block;font-size:32px;font-weight:800;line-height:1;letter-spacing:-1.4px;margin-bottom:7px;background:linear-gradient(100deg,#fff,#19C6F7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cp-nums span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.4px;color:#8B92AA;text-transform:uppercase;line-height:1.4}
 .cp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
 .cp-item{display:grid;grid-template-columns:30px 1fr;gap:10px;padding:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);transition:opacity .3s}
 .cp-item.have{opacity:.55;border-color:rgba(124,240,178,.35)}
@@ -3549,21 +3550,36 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:640px){.wd-two{grid-template-columns:1fr}}
 .wd-two .ev-date{margin-bottom:12px}
-.wd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.wd-it{display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);overflow:hidden;transition:transform .2s,border-color .2s}
-.wd-it:hover{transform:translateY(-2px);border-color:rgba(25,198,247,.45)}
-.wd-it img,.wd-it>i{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
-.wd-it>i{border-bottom:1px solid rgba(255,255,255,.08)}
-.wd-it.sm{flex-direction:row;align-items:center;gap:10px}
-.wd-it.sm img,.wd-it.sm>i{width:46px;height:58px;aspect-ratio:auto;flex:none}
-.wd-b{padding:8px 10px;display:flex;flex-direction:column;gap:3px}
+.wd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:13px}
+.wd-it{display:flex;flex-direction:column;border-radius:20px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.028);overflow:hidden;transition:transform .22s,border-color .22s,box-shadow .22s}
+.wd-it:hover{transform:translateY(-4px);border-color:rgba(25,198,247,.45);box-shadow:0 18px 40px -24px rgba(25,198,247,.75)}
+.wd-ph{position:relative;aspect-ratio:4/5;max-height:236px;display:grid;place-items:center;padding:14px;border-bottom:1px solid rgba(255,255,255,.07);background:radial-gradient(120% 120% at 50% 0%,color-mix(in srgb,var(--c) 34%,transparent),rgba(255,255,255,.015) 72%),rgba(0,0,0,.22)}
+.wd-ph img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.wd-ic{width:100%;height:100%;max-height:150px;display:block}
+.wd-ic .bd{fill:color-mix(in srgb,var(--c) 55%,transparent);stroke:color-mix(in srgb,var(--c) 70%,#FFFFFF 30%);stroke-width:1.6;stroke-linejoin:round}
+.wd-ic .ln{fill:none;stroke:color-mix(in srgb,var(--c) 55%,#FFFFFF 45%);stroke-width:1.4;stroke-linecap:round;opacity:.75}
+.wd-wash,.wd-worn{position:absolute;top:9px;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1.1px;text-transform:uppercase;padding:4px 8px;border-radius:99px}
+.wd-wash{left:9px;background:rgba(25,198,247,.18);border:1px solid rgba(25,198,247,.45);color:#9FE4FB}
+.wd-worn{right:9px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.14);color:#AEB4C6}
+.wd-it.sm{flex-direction:row;align-items:center;gap:11px;border-radius:15px}
+.wd-it.sm .wd-ph{width:50px;height:62px;aspect-ratio:auto;flex:none;padding:7px;border-bottom:none;border-right:1px solid rgba(255,255,255,.07)}
+.wd-it.sm .wd-ic{max-height:none}
+.wd-b{padding:11px 13px 12px;display:flex;flex-direction:column;gap:5px;flex:1;min-width:0}
+.wd-m{display:flex;align-items:center;gap:7px}
+.wd-m i{width:11px;height:11px;border-radius:50%;flex:0 0 auto;border:1px solid rgba(255,255,255,.22)}
 .wd-b b{font-size:13px;line-height:1.3}
 .wd-b span{font-size:11px;color:#8B92AA;line-height:1.35}
-.wd-act{display:flex;gap:6px;margin-top:6px}
-.wd-act button{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1px;padding:5px 8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#ECEDF2;cursor:pointer}
-.wd-act button:first-child{color:#7CF0B2;border-color:rgba(124,240,178,.4)}
+.wd-act{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:9px}
+.wd-act button{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.8px;padding:6px 8px;border-radius:9px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:#C2C7D6;cursor:pointer;transition:all .18s;line-height:1}
+.wd-act button:hover{border-color:rgba(199,157,240,.6);color:#fff}
+.wd-act button.w{grid-column:1/-1;padding:8px;color:#7CF0B2;border-color:rgba(124,240,178,.35);background:rgba(124,240,178,.07)}
+.wd-act button.w:hover{background:rgba(124,240,178,.14);border-color:rgba(124,240,178,.65);color:#7CF0B2}
+.wd-act button.x:hover{color:#FF9FC2;border-color:rgba(255,111,168,.6)}
+.wd-dr{width:12px;height:12px;display:block;margin:0 auto;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+.wd-act button.on .wd-dr{fill:rgba(25,198,247,.3)}
 /* --- УТРО --- */
-.wd-it.wash{opacity:.45;border-style:dashed}
+.wd-it.wash{opacity:.55;border-style:dashed}
+.wd-it.wash .wd-ph{filter:grayscale(.5)}
 .wd-act button.on{color:#19C6F7;border-color:rgba(25,198,247,.55)}
 /* --- анкета гардероба --- */
 .wd-nm{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:18px;align-items:center;padding:19px 22px;border-radius:20px;border:1px solid transparent;background:linear-gradient(#11141E,#0C0F17) padding-box,linear-gradient(120deg,rgba(199,56,86,.55),rgba(199,157,240,.45)) border-box;margin-bottom:22px}
@@ -3580,12 +3596,14 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-step.on i{background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#07121A;border-color:transparent;font-weight:700}
 .wd-bigs{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:11px;margin-bottom:20px}
 .wd-big{display:block;text-align:left;padding:17px 18px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.028);color:#C2C7D6;font-family:'Manrope';cursor:pointer;transition:all .22s}
-.wd-big i{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;font-size:17px;font-style:normal;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);margin-bottom:11px}
+.wd-big i{display:grid;place-items:center;width:52px;height:60px;border-radius:14px;font-style:normal;border:1px solid rgba(255,255,255,.1);background:radial-gradient(120% 120% at 50% 0%,rgba(199,157,240,.2),rgba(255,255,255,.015) 72%),rgba(0,0,0,.2);margin-bottom:12px;padding:6px}
+.wd-big i .wd-ic{max-height:none}
 .wd-big b{display:block;font-size:15px;font-weight:800;color:#F0F2F7;margin-bottom:4px}
 .wd-big span{display:block;font-size:12px;line-height:1.45;color:#7D849A}
 .wd-big:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.55)}
 .wd-big.on{border-color:transparent;background:linear-gradient(#141826,#0C0F17) padding-box,linear-gradient(135deg,#19C6F7,#C79DF2) border-box}
-.wd-big.on i{background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#07121A;border-color:transparent}
+.wd-big.on i{border-color:rgba(25,198,247,.5);background:radial-gradient(120% 120% at 50% 0%,rgba(25,198,247,.3),rgba(255,255,255,.02) 72%),rgba(0,0,0,.2)}
+.wd-big.on i{--c:#19C6F7}
 .wd-blk{margin-bottom:17px;animation:popIn .35s both}
 .wd-lb{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#6E7489;margin-bottom:9px}
 .wd-lb em{font-style:normal;color:#4F5567}
@@ -3604,16 +3622,45 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-auto{font-size:12.5px;color:#7D849A;margin-bottom:14px}
 .wd-auto b{color:#C2C7D6}
 .wd-go{display:flex;flex-wrap:wrap;gap:10px}
-.wd-inb{padding:18px 21px;border-radius:19px;border:1px solid rgba(25,198,247,.3);background:rgba(25,198,247,.05);margin-bottom:20px}
-.wd-inb.hint{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.028)}
-.wd-inb b{display:block;font-size:14.5px;font-weight:800;margin-bottom:5px}
-.wd-inb>span,.wd-inb.hint span{display:block;font-size:13px;line-height:1.55;color:#9AA1B5}
-.wd-inb-h{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-.wd-inb-h .wd-more{margin:0}
-.wd-inb-i{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);margin-bottom:8px}
-.wd-inb-i b{font-size:13.8px;margin-bottom:3px}
-.wd-inb-i span{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#7D849A}
-.wd-inb-n{font-size:12.5px;line-height:1.55;color:#7D849A;margin-top:10px}
+.wd-eyebrow{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;color:#19C6F7;margin-bottom:8px}
+.wd-today .look-in>h3{font-size:clamp(19px,2.5vw,24px);font-weight:800;letter-spacing:-.6px;margin:0 0 16px}
+.wd-today .look-in>h3 em{font-style:normal;font-family:'JetBrains Mono';font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA;padding-left:10px;vertical-align:middle}
+.wd-today .chips{gap:9px}
+.wd-today .chip{padding:10px 18px;border-radius:99px;font-size:13.5px}
+.wd-inb{position:relative;overflow:hidden;margin-bottom:24px;border-radius:24px;border:1px solid transparent;background:linear-gradient(#10131C,#0B0E15) padding-box,linear-gradient(130deg,rgba(25,198,247,.65),rgba(199,157,240,.45),rgba(124,240,178,.4)) border-box}
+.wd-inb.hint{display:grid;grid-template-columns:minmax(0,1fr) 272px;gap:34px;align-items:center;padding:28px 32px}
+.wd-inb.live{padding:24px 26px}
+.wd-inb::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;top:-180px;left:-80px;background:radial-gradient(circle,#19C6F7,transparent 70%);opacity:.16;pointer-events:none}
+.wd-inb-l{position:relative;z-index:1}
+.wd-inb-k{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;color:#19C6F7;margin-bottom:9px}
+.wd-inb h4{font-size:clamp(18px,2.4vw,23px);font-weight:800;letter-spacing:-.5px;line-height:1.2;margin:0 0 9px}
+.wd-inb p{font-size:14px;line-height:1.65;color:#AEB4C6;margin:0 0 20px;max-width:60ch}
+.wd-inb-steps{display:flex;flex-direction:column;gap:11px;margin-bottom:20px}
+.wd-inb-s{display:flex;align-items:flex-start;gap:12px}
+.wd-inb-s i{width:26px;height:26px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;font-style:normal;font-family:'JetBrains Mono';font-size:11px;font-weight:700;background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#07121A}
+.wd-inb-s b{display:block;font-size:14px;font-weight:700;color:#EDEFF5;margin-bottom:2px}
+.wd-inb-s span{font-size:12.5px;line-height:1.5;color:#8B92AA}
+.wd-inb-go{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.wd-inb-go span{font-size:12.5px;line-height:1.5;color:#7D849A;max-width:26ch}
+.wd-inb-ph{position:relative;z-index:1;width:100%;flex:0 0 auto;padding:15px 15px 13px;border-radius:24px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(170deg,#161A26,#0E111A);box-shadow:0 26px 60px -32px rgba(25,198,247,.8)}
+.wd-inb-pt{display:flex;align-items:center;gap:10px;padding-bottom:11px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.wd-inb-av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:13px;color:#07121A;background:linear-gradient(120deg,#19C6F7,#C79DF2)}
+.wd-inb-pt b{display:block;font-size:13px;font-weight:700}
+.wd-inb-pt em{font-style:normal;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1.2px;text-transform:uppercase;color:#6E7489}
+.wd-inb-me{margin-left:auto;max-width:86%;padding:10px 13px;border-radius:15px 15px 5px 15px;background:rgba(199,157,240,.14);border:1px solid rgba(199,157,240,.25);font-size:12px;color:#D9DCE6;word-break:break-all;margin-bottom:9px}
+.wd-inb-bot{padding:11px 14px;border-radius:15px 15px 15px 5px;background:rgba(25,198,247,.1);border:1px solid rgba(25,198,247,.22);font-size:12.5px;line-height:1.6;color:#DDE1EB}
+.wd-inb-bot b{display:inline;font-size:12.5px}
+.wd-inb-h{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px;position:relative;z-index:1}
+.wd-inb-h .wd-more{margin:0;flex:0 0 auto}
+.wd-inb-h h4{margin:0}
+.wd-inb-i{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);margin-bottom:9px;position:relative;z-index:1;transition:border-color .2s,transform .2s}
+.wd-inb-i:hover{border-color:rgba(25,198,247,.5);transform:translateX(3px)}
+.wd-inb-n2{width:26px;height:26px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;font-family:'JetBrains Mono';font-size:11px;font-weight:700;background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#07121A}
+.wd-inb-b{flex:1;min-width:0}
+.wd-inb-b b{display:block;font-size:14px;font-weight:700;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wd-inb-b span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:#7D849A}
+.wd-inb-n{font-size:12.5px;line-height:1.6;color:#7D849A;margin-top:12px;position:relative;z-index:1}
+@media(max-width:900px){.wd-inb.hint{grid-template-columns:1fr;gap:22px;padding:24px 22px}.wd-inb-ph{width:100%;max-width:320px}}
 @media(max-width:760px){.wd-nm{grid-template-columns:1fr;gap:12px}.wd-nm-r{flex-direction:column}}
 #moBox{display:flex;flex-direction:column;gap:22px}
 .mo-top{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:center;padding:34px 36px;border-radius:30px;border:1px solid transparent;background:linear-gradient(#0A0C13,#0A0C13) padding-box,linear-gradient(135deg,color-mix(in srgb,var(--bc,#19C6F7) 70%,transparent),rgba(199,157,240,.5),rgba(255,210,138,.4)) border-box;overflow:hidden}
@@ -3915,19 +3962,24 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .lz-tr b{font-family:'JetBrains Mono';font-size:15px;color:#FFD28A;min-width:54px}
 .lz-tr span{font-size:13.8px;line-height:1.55;color:#D6DAE6}
 @media(max-width:900px){.lz-cols{grid-template-columns:1fr}.lz-res{padding:24px 22px}.lz-form{flex-direction:column;align-items:flex-start}}
-.wd-fits{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
-.wd-fit{border:1px solid rgba(255,255,255,.12);padding:12px;display:flex;flex-direction:column;gap:8px;background:rgba(255,255,255,.02)}
-.wd-fit-h{font-family:'JetBrains Mono';font-size:10px;letter-spacing:2px;color:#19C6F7;text-transform:uppercase}
+.wd-fits{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:13px;margin-top:16px}
+.wd-fit{border-radius:20px;border:1px solid rgba(255,255,255,.1);padding:17px 18px;display:flex;flex-direction:column;gap:9px;background:rgba(255,255,255,.028);transition:border-color .22s,transform .22s}
+.wd-fit:hover{border-color:rgba(25,198,247,.45);transform:translateY(-3px)}
+.wd-fit-h{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.7px;color:#19C6F7;text-transform:uppercase}
 .wd-fit .btn{margin-top:4px}
 .wd-week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:14px}
 @media(max-width:760px){.wd-week{grid-template-columns:repeat(2,1fr)}}
-.wd-day{border:1px solid rgba(255,255,255,.1);padding:10px 8px;display:flex;flex-direction:column;gap:4px;font-size:11.5px;line-height:1.3}
+.wd-day{border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);padding:12px 10px;display:flex;flex-direction:column;gap:5px;font-size:11.5px;line-height:1.35}
 .wd-day b{font-family:'JetBrains Mono';font-size:11px;letter-spacing:1px;color:#19C6F7}
 .wd-day>span{font-size:10px;color:#8B92AA}
 .wd-day em{font-style:normal;color:#D2D6E4}
 .wd-day em.none{color:#FF6B8A}
-.wd-gap{padding:12px;border:1px solid rgba(255,255,255,.1);margin-bottom:10px;background:rgba(255,255,255,.02)}
-.wd-gap p{font-size:13.5px;line-height:1.5;margin-bottom:8px}
+.wd-gap{padding:18px 20px;border-radius:20px;border:1px solid rgba(255,255,255,.1);margin-bottom:12px;background:rgba(255,255,255,.028);transition:border-color .22s}
+.wd-gap:hover{border-color:rgba(199,157,240,.4)}
+.wd-gap p{font-size:14px;line-height:1.6;margin-bottom:12px;color:#C9CEDC}
+.wd-gap .item{border-radius:15px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);padding:14px 16px}
+.wd-gap .nm{font-size:15.5px;font-weight:800;letter-spacing:-.3px;margin-bottom:5px}
+.wd-gap .pr{display:inline-block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:99px;border:1px solid rgba(124,240,178,.4);color:#7CF0B2;margin-bottom:11px}
 /* pro */
 .pro-card{margin-top:26px;border:1px solid rgba(255,255,255,.12);padding:22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;background:linear-gradient(135deg,rgba(91,108,255,.12),rgba(25,198,247,.06))}
 @media(max-width:640px){.pro-card{grid-template-columns:1fr}}
@@ -11826,6 +11878,27 @@ const FORM = ['кэжуал','офис','вечер','спорт'];
 const N = { big:null, sub:null, color:null, size:'', warm:'любой', form:'кэжуал', name:'', price:'', brand:'', nm:'', more:false };
 const T = { temp:null, occ:'кэжуал' };
 
+/* --- силуэты вещей вместо цветных прямоугольников --- */
+const WIC = {
+ coat:'M21 12 Q30 18 39 12 L53 20 L49 45 L43 42 L44 71 H16 L17 42 L11 45 L7 20 Z|M30 18 V71|M24 14 L30 29 L36 14',
+ top:'M20 14 Q30 20 40 14 L52 21 L47 33 L42 30 L43 63 Q30 67 17 63 L18 30 L13 33 L8 21 Z|M24 16 Q30 23 36 16',
+ pants:'M18 14 H42 L44 69 H33 L30 38 L27 69 H16 Z|M18 22 H42',
+ skirt:'M19 16 H41 L48 60 Q30 67 12 60 Z|M19 23 H41',
+ dress:'M21 13 Q30 19 39 13 L46 21 L41 31 L48 63 Q30 70 12 63 L19 31 L14 21 Z|M24 15 Q30 22 36 15',
+ shoe:'M11 46 Q13 30 22 30 L28 30 Q32 39 43 43 L51 47 Q55 49 55 56 H11 Z|M22 34 Q27 34 29 38',
+ bag:'M13 30 H47 L51 64 H9 Z|M22 30 Q22 17 30 17 Q38 17 38 30',
+ hat:'M14 47 Q14 23 30 23 Q46 23 46 47 Z|M9 47 H51 V54 H9 Z',
+ scarf:'M20 16 Q30 7 40 16 Q41 28 34 31 L36 67 H24 L26 31 Q19 28 20 16 Z|M24 20 Q30 25 36 20',
+ acc:'M30 36 m-13,0 a13,13 0 1,0 26,0 a13,13 0 1,0 -26,0|M30 12 L38 23 L30 34 L22 23 Z'
+};
+const SUB_IC = { 'юбка':'skirt','шорты':'pants','легинсы':'pants','шапка':'hat','шарф':'scarf','ремень':'acc','украшение':'acc','сумка':'bag','платье':'dress' };
+const CAT_IC = { 'Верхняя одежда':'coat','Верх':'top','Низ':'pants','Платье':'dress','Обувь':'shoe','Сумка':'bag','Аксессуар':'acc' };
+window.wdIconBy = (k)=>{ const d=WIC[k]||WIC.top; return `<svg class="wd-ic" viewBox="0 0 60 76" preserveAspectRatio="xMidYMid meet">${d.split('|').map((pp,i)=>`<path class="${i?'ln':'bd'}" d="${pp}"/>`).join('')}</svg>`; };
+window.wdIcon = (it)=>{
+  const k = SUB_IC[it.sub] || CAT_IC[it.cat] || 'top';
+  const d = WIC[k] || WIC.top;
+  return `<svg class="wd-ic" viewBox="0 0 60 76" preserveAspectRatio="xMidYMid meet">${d.split('|').map((pp,i)=>`<path class="${i?'ln':'bd'}" d="${pp}"/>`).join('')}</svg>`;
+};
 const save = ()=>HUB.save('looka_wardrobe', W);
 const hex = c=>(COLORS.find(x=>x[0]===c)||[])[1]||'#666';
 const isN = c=>NEUTRAL.includes(c);
@@ -11884,8 +11957,18 @@ function gaps(){
 }
 
 function itemCard(it, small){
-  const ph = it.photo ? `<img src="${it.photo}" alt="">` : `<i style="background:${hex(it.color)}"></i>`;
-  return `<div class="wd-it ${small?'sm':''}${it.wash?' wash':''}" data-id="${it.id}">${ph}<div class="wd-b"><b>${it.name||it.cat}</b><span>${it.sub||it.cat} · ${it.color}${it.size?' · '+it.size:''} · ${it.warm}${it.worn?' · надета '+it.worn+' раз':''}</span>${small?'':`<div class="wd-act"><button onclick="wdWear(${it.id})" title="надела сегодня">✓ надела</button><button class="${it.wash?'on':''}" onclick="wdWash(${it.id})" title="${it.wash?'вернуть из стирки':'отправить в стирку'}">🧺</button><button onclick="wdEdit(${it.id})" title="изменить">✎</button><button onclick="wdSell(${it.id})" title="продать">₽</button><button onclick="wdDel(${it.id})" title="удалить">✕</button></div>`}</div></div>`;
+  const c = hex(it.color);
+  const ph = it.photo ? `<img src="${it.photo}" alt="">` : wdIcon(it);
+  const meta = [it.sub||it.cat, it.size||'', it.warm].filter(Boolean).join(' · ');
+  return `<div class="wd-it ${small?'sm':''}${it.wash?' wash':''}" data-id="${it.id}">
+    <div class="wd-ph" style="--c:${c}">${ph}${it.wash?'<span class="wd-wash">в стирке</span>':''}${(!small&&it.worn)?`<span class="wd-worn">${it.worn}×</span>`:''}</div>
+    <div class="wd-b"><b>${it.name||it.sub||it.cat}</b><span class="wd-m"><i style="background:${c}"></i>${meta}</span>
+    ${small?'':`<div class="wd-act">
+      <button class="w" onclick="wdWear(${it.id})" title="надела сегодня">✓ надела</button>
+      <button class="${it.wash?'on':''}" onclick="wdWash(${it.id})" title="${it.wash?'вернуть из стирки':'в стирку'}"><svg class="wd-dr" viewBox="0 0 16 16"><path d="M8 1.6 C11.2 6 13.2 8.2 13.2 10.6 A5.2 5.2 0 0 1 2.8 10.6 C2.8 8.2 4.8 6 8 1.6Z"/></svg></button>
+      <button onclick="wdEdit(${it.id})" title="изменить">✎</button>
+      <button onclick="wdSell(${it.id})" title="продать">₽</button>
+      <button class="x" onclick="wdDel(${it.id})" title="удалить">✕</button></div>`}</div></div>`;
 }
 
 async function renderWardrobe(){
@@ -11904,7 +11987,7 @@ async function renderWardrobe(){
       <div class="cp-nums"><div><b>${I.length}</b><span>вещей</span></div><div><b>${G.nowLooks}</b><span>образов из них</span></div><div><b>${cpw?cpw.toLocaleString('ru-RU')+' ₽':'—'}</b><span>цена одного выхода</span></div><div><b>${G.dead.length}</b><span>не носили 90 дней</span></div></div>
       ${I.length<6?'<div class="tip">Добавьте хотя бы 6 вещей (верх, низ, обувь) — и гардероб начнёт одевать вас по утрам.</div>':''}
     </div></div>
-    <div class="look badv mk-wide wd-today"><div class="look-in"><h3>Что надеть сегодня${wx?' · '+wx.city+', '+Math.round(wx.now)+'°':''}</h3>
+    <div class="look badv mk-wide wd-today"><div class="look-in"><span class="wd-eyebrow">образ дня · из ваших вещей</span><h3>Что надеть сегодня${wx?' <em>'+wx.city+', '+(wx.now>0?'+':'')+Math.round(wx.now)+'°</em>':''}</h3>
       <div class="chips">${['жарко','тепло','прохладно','холодно'].map(b=>`<button class="chip ${band===b?'on':''}" onclick="wdBand('${b}')">${b}</button>`).join('')}</div>
       <div class="chips" style="margin-top:8px">${FORM.map(o=>`<button class="chip ${T.occ===o?'on':''}" onclick="wdOcc('${o}')">${o}</button>`).join('')}</div>
       ${!band?'<div class="tip">Выберите погоду (или укажите город в шапке — подтянется сама).</div>': fits.length ? `<div class="wd-fits">${fits.map((f,k)=>HUB.pop(`<div class="wd-fit"><div class="wd-fit-h">Вариант ${k+1}</div>${f.parts.map(p=>itemCard(p,true)).join('')}<button class="btn ghost" onclick="wdWearAll('${f.parts.map(p=>p.id).join(',')}')">✓ Надела это</button></div>`,k)).join('')}</div>` : '<div class="tip">Из текущих вещей под эту погоду и повод образ не складывается — смотрите «дыры» ниже.</div>'}
@@ -11915,7 +11998,7 @@ async function renderWardrobe(){
       ${G.dead.length?`<div class="hp-sub" style="margin-top:14px">НЕ НОСИЛИ 90+ ДНЕЙ</div><div class="tip">${G.dead.slice(0,8).map(i=>i.name||i.cat).join(', ')}${G.dead.length>8?' и ещё '+(G.dead.length-8):''} — если вещь пережила сезон без выхода, её пора продать или отдать. Деньги, которые лежат в шкафу — у каждой вещи есть кнопка «₽»: объявление для Авито соберётся само, с честной ценой по носке.</div>`:''}
     </div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Вещи${cats.length?' · '+cats.map(c=>c[0]+' '+c[1]).join(' · '):''}</h3>
-      <div class="wd-grid">${I.slice().reverse().map(itemCard).join('')}</div>
+      <div class="wd-grid">${I.slice().reverse().map(x=>itemCard(x)).join('')}</div>
     </div></div>`;
   if(window.fxZone) fxZone(box);
 }
@@ -11957,11 +12040,11 @@ window.wdSell = id=>{
 };
 window.wdAddMany = arr=>{ let n=0; arr.forEach(a=>{ if(W.items.some(i=>i.name===a.name)) return; W.items.push({id:W.seq++, cat:a.cat, name:a.name, color:a.color||'бежевый', warm:a.warm||'любой', form:a.form||'кэжуал', price:a.price||'', worn:0, last:null, photo:null}); n++; }); save(); return n; };
 const BIG = [
-  ['Верхняя одежда','◰','пальто, куртка, тренч'],
-  ['Верх','▣','рубашки, джемперы, топы'],
-  ['Низ','▤','брюки, джинсы, юбки'],
-  ['Обувь','◡','от кроссовок до туфель'],
-  ['Другое','◈','платья, сумки, аксессуары']
+  ['Верхняя одежда','coat','пальто, куртка, тренч'],
+  ['Верх','top','рубашки, джемперы, топы'],
+  ['Низ','pants','брюки, джинсы, юбки'],
+  ['Обувь','shoe','от кроссовок до туфель'],
+  ['Другое','dress','платья, сумки, аксессуары']
 ];
 const SUBS = {
  'Верхняя одежда':[['пальто','демисезон','кэжуал'],['пуховик','зима','кэжуал'],['куртка','демисезон','кэжуал'],['тренч','демисезон','кэжуал'],['жакет','любой','офис'],['жилет','демисезон','кэжуал'],['шуба','зима','вечер']],
@@ -11978,10 +12061,28 @@ const wdApi = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.L
 
 
 const wdTok = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; }catch(e){ return null; } };
+const inbHint = (btn)=>`<div class="wd-inb hint">
+  <div class="wd-inb-l">
+    <span class="wd-inb-k">✈ гардероб из telegram</span>
+    <h4>Увидели вещь — переслали боту</h4>
+    <p>Не нужно ничего переписывать руками. Кидаете ссылку с Wildberries в чат — бот находит карточку и кладёт вещь сюда. Добавите, когда будет минута.</p>
+    <div class="wd-inb-steps">
+      <div class="wd-inb-s"><i>1</i><div><b>Скопировали ссылку</b><span>в приложении WB — «Поделиться»</span></div></div>
+      <div class="wd-inb-s"><i>2</i><div><b>Отправили боту</b><span>одно сообщение, без команд</span></div></div>
+      <div class="wd-inb-s"><i>3</i><div><b>Нажали здесь «добавить»</b><span>цвет и размер — два касания</span></div></div>
+    </div>
+    ${btn||''}
+  </div>
+  <div class="wd-inb-ph">
+    <div class="wd-inb-pt"><span class="wd-inb-av">✦</span><div><b>LOOKA</b><em>бот</em></div></div>
+    <div class="wd-inb-me">wildberries.ru/catalog/…</div>
+    <div class="wd-inb-bot">✦ Положила в гардероб-входящие:<br><b>SHIK · Джемпер тонкий</b><br>3 990 ₽<br><br>Откройте LOOKA → Гардероб.</div>
+  </div>
+</div>`;
 let INBOX = [];
 window.wdInboxLoad = async ()=>{
   const t = wdTok(); const el = document.getElementById('wdInbox'); if(!el) return;
-  if(!t){ el.innerHTML = `<div class="wd-inb hint"><b>✈ Присылайте вещи боту в Telegram</b><span>Увидели вещь на Wildberries — переслали ссылку в чат с ботом, и она ждёт вас здесь. Нужен вход в аккаунт и подключённый Telegram.</span><div class="wd-go"><button class="btn ghost" onclick="openAuth('Гардероб из Telegram')">Войти</button></div></div>`; return; }
+  if(!t){ el.innerHTML = inbHint(`<div class="wd-inb-go"><button class="btn primary" onclick="openAuth('Гардероб из Telegram')">Войти и подключить</button><span>вход нужен, чтобы бот знал, в чей гардероб класть</span></div>`); return; }
   try{
     const r = await fetch(wdApi('/wardrobe/inbox'),{headers:{'Authorization':'Bearer '+t}});
     const j = await r.json(); INBOX = j.items||[];
@@ -11990,10 +12091,11 @@ window.wdInboxLoad = async ()=>{
 };
 function drawInbox(){
   const el = document.getElementById('wdInbox'); if(!el) return;
-  if(!INBOX.length){ el.innerHTML = `<div class="wd-inb hint"><b>✈ Присылайте вещи боту в Telegram</b><span>Увидели вещь на Wildberries — переслали ссылку в чат с ботом, и она ждёт здесь. Добавить — одно касание.</span></div>`; return; }
-  el.innerHTML = `<div class="wd-inb"><div class="wd-inb-h"><b>✈ Пришло из Telegram: ${INBOX.length}</b><button class="wd-more" onclick="wdInboxClear()">очистить всё</button></div>
-    ${INBOX.map(x=>`<div class="wd-inb-i"><div><b>${x.brand?x.brand+' · ':''}${x.name}</b><span>${x.price?x.price.toLocaleString('ru-RU')+' ₽':''}${x.colors&&x.colors.length?' · '+x.colors[0]:''}</span></div><button class="btn ghost" onclick="wdInboxTake('${x.nm}')">Заполнить форму →</button></div>`).join('')}
-    <div class="wd-inb-n">Нажмите «заполнить форму» — название, бренд и цена подставятся, останется выбрать цвет и нажать «в гардероб».</div></div>`;
+  if(!INBOX.length){ el.innerHTML = inbHint(`<div class="wd-inb-go"><button class="btn ghost" onclick="findsLinkTg()">Подключить Telegram</button><span>пока здесь пусто — пришлите боту первую ссылку</span></div>`); return; }
+  el.innerHTML = `<div class="wd-inb live">
+    <div class="wd-inb-h"><div><span class="wd-inb-k">✈ пришло из telegram</span><h4>${INBOX.length} вещ${INBOX.length===1?'ь ждёт':INBOX.length<5?'и ждут':'ей ждут'} добавления</h4></div><button class="wd-more" onclick="wdInboxClear()">очистить всё</button></div>
+    ${INBOX.map((x,i)=>`<div class="wd-inb-i"><span class="wd-inb-n2">${i+1}</span><div class="wd-inb-b"><b>${x.brand?x.brand+' · ':''}${x.name}</b><span>${[x.price?x.price.toLocaleString('ru-RU')+' ₽':'', (x.colors&&x.colors[0])||'', 'арт. '+x.nm].filter(Boolean).join(' · ')}</span></div><button class="btn ghost" onclick="wdInboxTake('${x.nm}')">Добавить →</button></div>`).join('')}
+    <div class="wd-inb-n">Нажмите «добавить» — название, бренд и цена подставятся в форму ниже, останется выбрать цвет и размер.</div></div>`;
 }
 window.wdInboxTake = nm=>{
   const x = INBOX.find(i=>i.nm===nm); if(!x) return;
@@ -12075,7 +12177,7 @@ function renderAdd(){
     <div class="wd-step ${step>=3?'on':''}"><i>3</i>цвет и размер</div>
   </div>
 
-  <div class="wd-bigs">${BIG.map(b=>`<button class="wd-big ${N.big===b[0]?'on':''}" onclick="wdBig('${b[0]}')"><i>${b[1]}</i><b>${b[0]}</b><span>${b[2]}</span></button>`).join('')}</div>
+  <div class="wd-bigs">${BIG.map(b=>`<button class="wd-big ${N.big===b[0]?'on':''}" onclick="wdBig('${b[0]}')"><i style="--c:#C79DF2">${wdIconBy(b[1])}</i><b>${b[0]}</b><span>${b[2]}</span></button>`).join('')}</div>
 
   ${N.big?`<div class="wd-blk"><span class="wd-lb">какая именно</span>
     <div class="wd-subs">${(SUBS[N.big]||[]).map(s=>`<button class="wd-sub ${N.sub===s[0]?'on':''}" onclick="wdSub('${s[0]}')">${s[0]}</button>`).join('')}</div></div>`:''}
