@@ -151,7 +151,7 @@ body{background-image:radial-gradient(rgba(20,0,31,.045) 1px,transparent 1px);ba
 .mp-card span{font-size:13.5px;line-height:1.5;color:#33253f}
 .wbc{background:linear-gradient(135deg,#F3E3FF,#E8D0FF)}.ozc{background:linear-gradient(135deg,#DCF1FF,#C8E8FF)}.lmc{background:linear-gradient(135deg,#F0FFD1,#E4FFB0)}
 footer.rich{border-top:2px solid var(--ink);padding:40px 0 22px;font-size:14px}
-.f-grid{max-width:1180px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:1.6fr repeat(4,minmax(0,1fr)) .9fr;gap:26px 24px;align-items:start}
+.f-grid{max-width:1240px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:1.7fr repeat(4,minmax(0,1fr)) .95fr;gap:38px 44px;align-items:start}
 @media(max-width:1060px){.f-grid{grid-template-columns:1.4fr repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.f-grid{grid-template-columns:1fr 1fr}.f-grid>div:first-child{grid-column:1/-1}}
 .f-grid p{margin-top:10px;line-height:1.6;color:#4a3760}
@@ -451,7 +451,14 @@ footer.rich{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.1)}
 .hero p,.sec p.lead,.how-card p,.mp-card span,details.faq div,.road-item p,.contact-band p,.look .vibe{color:#A9AEC0}
 .p-list li{color:#C6CADB;border-bottom-color:rgba(255,255,255,.1)}
 .f-grid p,.sb span,.rev-slot p{color:#8b90a3}
-.f-grid a{color:#D7DAE6}
+.f-grid a{color:#CBD0DE;font-weight:600;font-size:14px;letter-spacing:-.1px;margin-bottom:12px;padding-left:0;transition:color .2s,padding-left .2s}
+.f-grid a:hover{color:#fff;padding-left:5px}
+.f-grid a::before{content:'';display:inline-block;width:0;height:1px;margin-right:0;vertical-align:middle;background:#19C6F7;transition:width .2s,margin-right .2s}
+.f-grid a:hover::before{width:10px;margin-right:7px}
+.f-grid>div>b{font-family:'JetBrains Mono';font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:#7D849A;margin-bottom:16px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.08)}
+.f-grid p{font-size:14px;line-height:1.7;color:#9AA1B5;max-width:30ch}
+.f-grid>div{text-align:left}
+.f-grid .logo{justify-content:flex-start}
 .grp label.t,.item .nm{color:#E6E8F0}
 .val{color:#F4F5FA}
 .stat{background:rgba(91,108,255,.14);color:#C6CADB}
@@ -3553,6 +3560,56 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-two .ev-date{margin-bottom:12px}
 .wd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:13px}
 /* --- цифровой шкаф: штанги и полки --- */
+/* --- ТЕХНОЛОГИЯ --- */
+.tech{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr);gap:36px;align-items:center;margin:28px 0 34px;padding:30px 32px;border-radius:30px;border:1px solid transparent;background:linear-gradient(#090B12,#090B12) padding-box,linear-gradient(135deg,rgba(25,198,247,.55),rgba(199,157,240,.45),rgba(255,111,168,.35)) border-box;overflow:hidden;position:relative}
+.tech::after{content:'';position:absolute;width:420px;height:420px;border-radius:50%;left:-130px;top:-160px;background:radial-gradient(circle,#19C6F7,transparent 70%);opacity:.12;pointer-events:none}
+.tech-art{position:relative;min-height:420px;display:grid;place-items:center}
+.tc-svg{width:100%;max-width:420px;height:auto;display:block;position:relative;z-index:1}
+.tc-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.3;filter:blur(1px) saturate(1.1);pointer-events:none;animation:tcBg 14s ease-in-out infinite}
+@keyframes tcBg{0%,100%{transform:scale(1.02)}50%{transform:scale(1.07)}}
+.tc-ln{fill:none;stroke:#8FE6FF;stroke-width:1.5;stroke-linecap:round;opacity:.75}
+.tc-dress{fill:url(#tcDress);stroke:#9BE8FF;stroke-width:1.2;stroke-opacity:.55}
+.tc-mesh{fill:none;stroke:#DCC6FF;stroke-width:.9;opacity:.45}
+.tc-fig{animation:tcBreathe 7s ease-in-out infinite;transform-origin:210px 300px}
+@keyframes tcBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.015)}}
+.tc-orbits ellipse{fill:none;stroke:url(#tcLine);stroke-width:1.1;opacity:.5}
+.tc-pt{fill:#9BE8FF}
+.tc-spin{animation:tcSpin 18s linear infinite;transform-origin:210px 320px}
+.tc-spin.s2{animation-duration:24s;animation-direction:reverse;transform-origin:210px 300px}
+.tc-spin.s3{animation-duration:30s;transform-origin:210px 360px}
+.tc-spin.s4{animation-duration:21s;animation-direction:reverse;transform-origin:210px 400px}
+@keyframes tcSpin{to{transform:rotate(360deg)}}
+.tc-card rect{fill:rgba(255,255,255,.045);stroke:rgba(255,255,255,.22);stroke-width:1.2}
+.tc-card text{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;fill:#AEB4C6;text-anchor:middle}
+.tc-ic{fill:none;stroke:#19C6F7;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.tc-card.c1{animation:tcFloat 6s ease-in-out infinite}
+.tc-card.c2{animation:tcFloat 7.5s ease-in-out infinite .6s}
+.tc-card.c3{animation:tcFloat 6.8s ease-in-out infinite 1.2s}
+.tc-card.c2 .tc-ic{stroke:#FF6FA8}
+.tc-card.c3 .tc-ic{stroke:#C79DF2}
+@keyframes tcFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.tc-code{position:absolute;inset:0;pointer-events:none;opacity:.2;background:
+  repeating-linear-gradient(90deg,transparent 0 3px,rgba(155,232,255,.5) 3px 4px,transparent 4px 11px) 0 0/100% 1px repeat-y;
+  mask-image:linear-gradient(90deg,rgba(0,0,0,.9),transparent 26%,transparent 74%,rgba(0,0,0,.9));
+  -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.9),transparent 26%,transparent 74%,rgba(0,0,0,.9))}
+.tech-txt{position:relative;z-index:1}
+.tech-lead{font-size:15.5px;line-height:1.75;color:#C9CEDC;margin:0 0 24px;max-width:62ch}
+.tech-steps{display:flex;flex-direction:column;gap:14px}
+.tc-step{display:flex;gap:16px;padding:18px 20px;border-radius:19px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.028);transition:border-color .25s,transform .25s}
+.tc-step:hover{transform:translateX(5px)}
+.tc-step.s1:hover{border-color:rgba(25,198,247,.5)}
+.tc-step.s2:hover{border-color:rgba(255,111,168,.5)}
+.tc-step.s3:hover{border-color:rgba(199,157,240,.5)}
+.tc-n{font-family:'JetBrains Mono';font-size:12px;font-weight:700;padding-top:2px}
+.tc-step.s1 .tc-n{color:#19C6F7}.tc-step.s2 .tc-n{color:#FF6FA8}.tc-step.s3 .tc-n{color:#C79DF2}
+.tc-step h3{font-size:16.5px;font-weight:800;letter-spacing:-.3px;margin:0 0 7px}
+.tc-step p{font-size:13.8px;line-height:1.65;color:#AEB4C6;margin:0}
+.tech-flow{display:flex;flex-wrap:wrap;align-items:center;gap:11px;margin-top:22px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase}
+.tech-flow span{padding:7px 14px;border-radius:99px;border:1px solid rgba(255,255,255,.14);color:#8B92AA}
+.tech-flow span.on{border-color:transparent;background:linear-gradient(100deg,#19C6F7,#C79DF2);color:#07121A;font-weight:700}
+.tech-flow i{font-style:normal;color:#4F5567}
+@media(max-width:980px){.tech{grid-template-columns:1fr;padding:24px 22px;gap:24px}.tech-art{min-height:0}}
+@media(prefers-reduced-motion:reduce){.tc-spin,.tc-card,.tc-fig{animation:none}}
 .wr-sec{margin-bottom:30px}
 .wr-h{display:flex;align-items:center;gap:11px;margin-bottom:10px}
 .wr-h i{width:34px;height:40px;flex:0 0 auto;display:grid;place-items:center;padding:4px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);--c:#C79DF2}
@@ -4167,8 +4224,7 @@ details.faq.q:first-of-type{margin-top:26px!important}
 .ct-raw b{font-family:'JetBrains Mono';font-weight:600;font-size:13.5px;color:#19C6F7;cursor:pointer;padding:8px 12px;border:1px solid rgba(25,198,247,.35);background:rgba(25,198,247,.07);transition:all .2s}
 .ct-raw b:hover{background:rgba(25,198,247,.16);border-color:#19C6F7;color:#fff}
 
-.ct-demo-f:has(.btn.ghost:hover) .btn.primary{background:transparent;color:#ECEDF2;border:1px solid rgba(255,255,255,.22);box-shadow:none}
-.ct-demo-f:has(.btn.ghost:hover) .btn.primary::after{display:none}
+/* основная кнопка контактов не гаснет при наведении на соседнюю — иначе крупный цветной блок мигает под курсором */
 .ct-demo-f .btn.ghost:hover{background:#fff;color:#0A0B10;border-color:#fff}
 /* instagram-магазины */
 .ig-block{grid-column:1/-1;border:1px solid rgba(225,48,108,.35);background:linear-gradient(135deg,rgba(225,48,108,.08),rgba(253,29,29,.03) 50%,rgba(247,119,55,.06));padding:14px 16px;margin-top:6px}
@@ -4225,7 +4281,7 @@ details.faq.q:first-of-type{margin-top:26px!important}
 .ct-demo-f .btn.primary.ct-tg i{font-style:normal;font-size:15px;transition:transform .3s}
 .ct-demo-f .btn.primary.ct-tg:hover{background:linear-gradient(135deg,#3DB8F5,#2AABEE);color:#fff;transform:translateY(-1px)}
 .ct-demo-f .btn.primary.ct-tg:hover i{transform:translate(3px,-3px)}
-.ct-demo-f:has(.btn.ghost:hover) .btn.primary.ct-tg{background:transparent;color:#ECEDF2;border:1px solid rgba(255,255,255,.22);box-shadow:none}
+
 .ct-sent{display:none;align-items:center;gap:14px;margin:0 16px 14px;padding:12px 14px;border:1px solid rgba(124,240,178,.4);background:rgba(124,240,178,.07);animation:popIn .4s both}
 .ct-sent.on{display:flex}
 .ct-sent svg{width:40px;height:40px;flex:none}
@@ -4319,7 +4375,7 @@ details.faq.q:first-of-type{margin-top:26px!important}
 .cs-cta b{font-size:15px}
 .cs-cta span{font-size:13px;color:#B7BCCC;line-height:1.5}
 .cs-cta .btn{align-self:flex-start;margin-top:4px}
-.about-wrap{max-width:820px}
+.about-wrap{max-width:1100px}
 .about-card .lead{margin-top:14px}
 .about-vals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:22px}
 .about-vals>div{border:1px solid rgba(255,255,255,.1);padding:14px;background:rgba(255,255,255,.02)}
@@ -5183,11 +5239,12 @@ header nav.topnav{gap:4px;align-items:center}
 #accBox .tip{line-height:1.7}
 
 /* ================= «КТО МЫ»: блоки вместо простыни ================= */
-.ab-hero{display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+.ab-hero{display:grid;grid-template-columns:auto minmax(0,1fr);gap:40px;align-items:center;margin-bottom:30px;padding:30px 34px;border-radius:28px;border:1px solid transparent;background:linear-gradient(#0B0D14,#0B0D14) padding-box,linear-gradient(135deg,rgba(199,157,240,.5),rgba(25,198,247,.4)) border-box}
+@media(max-width:820px){.ab-hero{grid-template-columns:1fr;gap:22px;padding:24px 22px}}
 .ab-face{display:flex;flex-direction:column;align-items:center;gap:10px;flex:0 0 auto}
 .ab-face em{font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#8B92AA}
-.ab-hero .big{font-size:34px;line-height:1.15;margin:6px 0 10px}
-.ab-hero .lead{font-size:15px;max-width:520px}
+.ab-hero .big{font-size:clamp(28px,3.6vw,38px);line-height:1.14;margin:8px 0 0}
+.ab-hero .lead{font-size:15.5px;line-height:1.72;max-width:62ch;margin-top:14px}
 .ab-why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:22px 0}
 .ab-w{border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));animation:accCard .5s both}
 .ab-w:nth-child(2){animation-delay:.08s}.ab-w:nth-child(3){animation-delay:.16s}
@@ -6355,73 +6412,97 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="ab-tabs" data-t="разделы «О LOOKA»"><button class="ab-tab" onclick="openPage('aboutPage')"><i>◐</i>Кто мы</button><button class="ab-tab on" ><i>⚙</i>Как работает</button><button class="ab-tab" onclick="openPage('methodPage')"><i>✎</i>Источники</button><button class="ab-tab" onclick="openPage('termsPage')"><i>₽</i>Условия и оплата</button><button class="ab-tab" onclick="openPage('devPage')"><i>↗</i>Развитие</button><button class="ab-tab" onclick="openPage('docsPage')"><i>▤</i>Документы</button></div>
   <div class="eyebrow">технология</div>
   <h2 class="big">Как LOOKA собирает <span class="holo">ваш образ</span></h2>
-  <p class="lead">Это не случайный генератор и не «тест из интернета». LOOKA работает на правилах, которыми пользуются профессиональные стилисты — только применяет их к вашим данным за минуту, а не за консультацию от 10 000 ₽. Вот весь путь, шаг за шагом, без магии и тумана.</p>
-  <div class="hp-stage">
-    <svg viewBox="0 0 900 320" class="hp-svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="hpGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#5B6CFF"/><stop offset="1" stop-color="#19C6F7"/>
-        </linearGradient>
-        <filter id="hpGlow" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <path id="hpf1" class="hp-flow" d="M175,70 C280,70 300,160 400,160"/>
-      <path id="hpf2" class="hp-flow" d="M175,120 C270,120 300,160 400,160"/>
-      <path id="hpf3" class="hp-flow" d="M175,170 C270,170 320,160 400,160"/>
-      <path id="hpf4" class="hp-flow" d="M175,220 C270,220 300,160 400,160"/>
-      <path id="hpf5" class="hp-flow" d="M175,270 C280,270 300,160 400,160"/>
-      <path id="hpfo" class="hp-flow out" d="M510,160 C600,160 620,160 700,160"/>
-      <circle class="hp-dot d1" r="3.4"><animateMotion dur="4.4s" repeatCount="indefinite" path="M175,70 C280,70 300,160 400,160"/></circle>
-      <circle class="hp-dot d2" r="3.4"><animateMotion dur="5.2s" begin="0.4s" repeatCount="indefinite" path="M175,120 C270,120 300,160 400,160"/></circle>
-      <circle class="hp-dot d3" r="3.4"><animateMotion dur="4.8s" begin="0.8s" repeatCount="indefinite" path="M175,170 C270,170 320,160 400,160"/></circle>
-      <circle class="hp-dot d4" r="3.4"><animateMotion dur="5.6s" begin="1.2s" repeatCount="indefinite" path="M175,220 C270,220 300,160 400,160"/></circle>
-      <circle class="hp-dot d5" r="3.4"><animateMotion dur="5s" begin="1.6s" repeatCount="indefinite" path="M175,270 C280,270 300,160 400,160"/></circle>
-      <circle class="hp-comet" id="hpComet1" r="4.5"/>
-      <circle class="hp-comet c2" id="hpComet2" r="4.5"/>
-      <circle class="hp-dot out" r="4"><animateMotion dur="3.2s" repeatCount="indefinite" path="M510,160 C600,160 620,160 700,160"/></circle>
-      <g class="hp-tag hp-int" data-k="figure" data-p="hpf1"><rect x="30" y="50" rx="17" width="145" height="36"/><text x="102" y="73">ФИГУРА</text></g>
-      <g class="hp-tag hp-int" data-k="palette" data-p="hpf2"><rect x="30" y="100" rx="17" width="145" height="36"/><text x="102" y="123">ЦВЕТОТИП</text></g>
-      <g class="hp-tag hp-int" data-k="size" data-p="hpf3"><rect x="30" y="150" rx="17" width="145" height="36"/><text x="102" y="173">РАЗМЕРЫ</text></g>
-      <g class="hp-tag hp-int" data-k="event" data-p="hpf4"><rect x="30" y="200" rx="17" width="145" height="36"/><text x="102" y="223">ПОВОД</text></g>
-      <g class="hp-tag hp-int" data-k="budget" data-p="hpf5"><rect x="30" y="250" rx="17" width="145" height="36"/><text x="102" y="273">БЮДЖЕТ</text></g>
-      <g class="hp-core hp-int" data-k="core" filter="url(#hpGlow)">
-        <circle class="hp-ring r1" cx="455" cy="160" r="54"/>
-        <circle class="hp-ring r2" cx="455" cy="160" r="39"/>
-        <circle class="hp-heart" cx="455" cy="160" r="25"/>
-        <text class="hp-logo" x="455" y="166">✦</text>
-      </g>
-      <circle class="hp-nova" id="hpNova" cx="455" cy="160" r="26"/>
-      <g style="display:none">
-      </g>
-      <g class="hp-out o1 hp-int" data-k="o1" data-p="hpfo"><rect x="700" y="55" rx="10" width="168" height="58"/><circle class="hp-sw" cx="722" cy="84" r="7" fill="#19C6F7"/><text class="hp-ot" x="792" y="89">топ · акцент</text></g>
-      <g class="hp-out o2 hp-int" data-k="o2" data-p="hpfo"><rect x="700" y="130" rx="10" width="168" height="58"/><circle class="hp-sw" cx="722" cy="159" r="7" fill="#9AA0AF"/><text class="hp-ot" x="792" y="164">низ · нейтраль</text></g>
-      <g class="hp-out o3 hp-int" data-k="o3" data-p="hpfo"><rect x="700" y="205" rx="10" width="168" height="58"/><circle class="hp-sw" cx="722" cy="234" r="7" fill="#E8CD8E"/><text class="hp-ot" x="792" y="239">обувь + сумка</text></g>
-      <text class="hp-zone" x="102" y="308">ВАШИ ДАННЫЕ</text>
-      <text class="hp-zone" x="455" y="308">АЛГОРИТМ-СТИЛИСТ</text>
-      <text class="hp-zone" x="784" y="308">ГОТОВЫЙ ОБРАЗ</text>
-    </svg>
-    <div class="hp-vert">
-      <div class="hv-tags">
-        <button class="hp-tag hp-int hv-pill" data-k="figure">ФИГУРА</button>
-        <button class="hp-tag hp-int hv-pill" data-k="palette">ЦВЕТОТИП</button>
-        <button class="hp-tag hp-int hv-pill" data-k="size">РАЗМЕРЫ</button>
-        <button class="hp-tag hp-int hv-pill" data-k="event">ПОВОД</button>
-        <button class="hp-tag hp-int hv-pill" data-k="budget">БЮДЖЕТ</button>
+  <p class="lead">LOOKA — это не случайный генератор и не «тест из интернета». Это свод правил профессиональной стилистики, применённый к вашим данным: к вашей фигуре, вашему подтону кожи, вашему поводу и вашему бюджету.</p>
+  <div class="tech">
+    <div class="tech-art">
+      <img class="tc-bg" src="img/tech.jpg" alt="" onerror="this.remove()">
+      <svg viewBox="0 0 420 560" class="tc-svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="tcDress" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#19C6F7" stop-opacity=".55"/>
+            <stop offset=".5" stop-color="#C79DF2" stop-opacity=".45"/>
+            <stop offset="1" stop-color="#FF6FA8" stop-opacity=".35"/>
+          </linearGradient>
+          <linearGradient id="tcLine" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#19C6F7"/><stop offset="1" stop-color="#C79DF2"/>
+          </linearGradient>
+          <filter id="tcGlow" x="-70%" y="-70%" width="240%" height="240%">
+            <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <g class="tc-orbits" filter="url(#tcGlow)">
+          <g transform="rotate(-16 210 320)"><g class="tc-spin s1"><ellipse cx="210" cy="320" rx="186" ry="56"/><circle class="tc-pt" cx="396" cy="320" r="3.4"/><circle class="tc-pt" cx="24" cy="320" r="2.6"/></g></g>
+          <g transform="rotate(14 210 300)"><g class="tc-spin s2"><ellipse cx="210" cy="300" rx="162" ry="44"/><circle class="tc-pt" cx="372" cy="300" r="3"/></g></g>
+          <g transform="rotate(-34 210 360)"><g class="tc-spin s3"><ellipse cx="210" cy="360" rx="150" ry="38"/><circle class="tc-pt" cx="60" cy="360" r="3.2"/></g></g>
+          <g transform="rotate(26 210 400)"><g class="tc-spin s4"><ellipse cx="210" cy="400" rx="176" ry="48"/><circle class="tc-pt" cx="386" cy="400" r="2.8"/></g></g>
+        </g>
+
+        <g class="tc-fig">
+          <ellipse class="tc-ln" cx="210" cy="72" rx="23" ry="31"/>
+          <path class="tc-ln" d="M201 101v15M219 101v15"/>
+          <path class="tc-ln" d="M178 128q32-13 64 0"/>
+          <path class="tc-dress" d="M178 128q32-13 64 0l9 58q-11 14-41 14t-41-14z"/>
+          <path class="tc-ln" d="M210 118v68M197 131q13 10 26 0"/>
+          <path class="tc-dress" d="M179 198q31 12 62 0c38 92 56 176 34 250-44 22-114 18-152-14-6-74 24-152 56-236z"/>
+          <g class="tc-mesh">
+            <path d="M190 206c22 86 26 170 16 234M212 202c30 84 42 164 36 232M198 204c-4 84-16 162-32 224"/>
+            <path d="M174 268c42 14 82 8 112-4M166 330c48 16 94 10 130-6M160 392c54 18 104 12 142-6"/>
+          </g>
+          <path class="tc-ln" d="M179 132c-22 40-30 88-24 128 4 22 16 34 30 38M241 132c25 38 34 88 28 126-4 22-15 34-29 38"/>
+          <path class="tc-ln" d="M196 442l-5 92M228 438l8 96"/>
+          <path class="tc-ln" d="M181 536h20M227 538h20"/>
+        </g>
+
+        <g class="tc-card c1">
+          <rect x="6" y="88" rx="18" width="108" height="92"/>
+          <g class="tc-ic" transform="translate(60 134)">
+            <path d="M-16-4a9 9 0 0 1 7-13 8 8 0 0 1 9-4 8 8 0 0 1 9 4 9 9 0 0 1 7 13 9 9 0 0 1-7 13 8 8 0 0 1-9 4 8 8 0 0 1-9-4 9 9 0 0 1-7-13Z"/>
+            <path d="M0-17v34M-9-11h5M9-11h-5M-10 4h6M10 4h-6"/>
+          </g>
+          <text x="60" y="166">правила</text>
+        </g>
+        <g class="tc-card c2">
+          <rect x="306" y="150" rx="18" width="108" height="92"/>
+          <g class="tc-ic" transform="translate(360 196)">
+            <path d="M0 13c-14-9-18-15-18-22a9 9 0 0 1 18-4 9 9 0 0 1 18 4c0 7-4 13-18 22Z"/>
+          </g>
+          <text x="360" y="228">вы</text>
+        </g>
+        <g class="tc-card c3">
+          <rect x="300" y="392" rx="18" width="112" height="92"/>
+          <g class="tc-ic" transform="translate(356 436)">
+            <path d="M-4-16h20v20L-2 22l-20-20Z"/><circle cx="8" cy="-8" r="3"/>
+          </g>
+          <text x="356" y="470">вещи</text>
+        </g>
+      </svg>
+      <div class="tc-code" aria-hidden="true"></div>
+    </div>
+
+    <div class="tech-txt">
+      <p class="tech-lead">Две минуты анкеты дают LOOKA то, ради чего обычно идут к стилисту на личную встречу: пропорции фигуры, подтон кожи, размеры, повод и бюджет. Дальше включаются не вкусы, а правила — те же, по которым работают стилисты, визажисты и колористы. На выходе не «вдохновение», а конкретные вещи со ссылками, в вашем размере и в вашей цене.</p>
+      <div class="tech-steps">
+        <article class="tc-step s1">
+          <div class="tc-n">01</div>
+          <div><h3>Правила, а не вкусовщина</h3>
+          <p>Девять типов фигуры, шесть подтонов кожи, таблицы сочетаний цветов, длин и посадок. Всё, что мастер держит в голове и объясняет на пальцах, здесь записано — и проверяется на каждом образе, а не «как почувствовалось».</p></div>
+        </article>
+        <article class="tc-step s2">
+          <div class="tc-n">02</div>
+          <div><h3>Ваша внешность, а не чужая</h3>
+          <p>Контраст, подтон, пропорции и то, что вы сами про себя сказали: что любите, что никогда не наденете, чего стесняетесь. Образ строится вокруг вас — поэтому он не похож на образ из ролика, где у автора другая фигура и другое лицо.</p></div>
+        </article>
+        <article class="tc-step s3">
+          <div class="tc-n">03</div>
+          <div><h3>Вещи, которые можно купить сегодня</h3>
+          <p>Каждая позиция открывается на площадках вашей страны, в вашем размере и бюджете. Не подошло — образ пересобирается за секунды, а не за новую встречу и новые десять тысяч.</p></div>
+        </article>
       </div>
-      <div class="hv-arrow">▼</div>
-      <div class="hv-core hp-int" data-k="core"><i></i><span>✦</span></div>
-      <div class="hv-arrow a2">▼</div>
-      <div class="hv-outs"><span>топ · акцент</span><span>низ · нейтраль</span><span>обувь + сумка</span></div>
+      <div class="tech-flow"><span>ваши данные</span><i>→</i><span>правила стилистов</span><i>→</i><span class="on">готовый образ</span></div>
     </div>
-    <div class="hp-panel" id="hpPanel">
-      <div class="hp-ph" id="hpPh"></div>
-      <div class="hp-row"><span class="n">01</span><span class="rt"></span></div>
-      <div class="hp-row"><span class="n">02</span><span class="rt"></span></div>
-      <div class="hp-row"><span class="n">03</span><span class="rt"></span></div>
-    </div>
-    <div class="hp-info" id="hpInfo">✦ Наведите на любой узел схемы — покажу, что он делает в подборе</div>
   </div>
+
   <div class="hp-facts">
     <div class="hf-head">✦ ФАКТЫ СТИЛЯ</div>
     <div class="hf-text"><span id="hfTxt"></span><span class="hf-cursor"></span></div>
