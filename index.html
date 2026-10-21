@@ -7918,7 +7918,54 @@ function chips(key, arr, colored){
   }).join('') + `</div>`;
 }
 /* профиль запоминается на устройстве (без фото) */
-window.saveLS = ()=>{ try{ const o = Object.assign({}, S); delete o.photo; localStorage.setItem('looka_profile', JSON.stringify(o)); }catch(e){} };
+/* Погода и поиск городов. У части провайдеров и антивирусов api.open-meteo.com
+   и nominatim заблокированы — тогда тот же запрос уходит через наш воркер.
+   Рабочий маршрут запоминается, чтобы не ждать таймаут каждый раз. */
+const WX_ROUTE = 'looka_wx_route';
+window.wxVia = (url)=>{
+  const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
+  return base ? base + '/wx?u=' + encodeURIComponent(url) : null;
+};
+window.wxFetch = async (url, msDirect)=>{
+  const via = wxVia(url);
+  const once = async (u, ms)=>{
+    const ac = new AbortController(); const tm = setTimeout(()=>ac.abort(), ms);
+    try{
+      const r = await fetch(u, { signal: ac.signal, cache:'no-store' });
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      const j = await r.json();
+      if(j && j.error && !Array.isArray(j)) throw new Error(String(j.error));
+      return j;
+    } finally { clearTimeout(tm); }
+  };
+  let pref = null; try{ pref = localStorage.getItem(WX_ROUTE); }catch(e){}
+  const tries = (pref === 'proxy' && via)
+    ? [['proxy', via, 9000], ['direct', url, msDirect||5000]]
+    : [['direct', url, msDirect||5000]].concat(via ? [['proxy', via, 9000]] : []);
+  let last;
+  for(const [name, u, ms] of tries){
+    try{ const j = await once(u, ms); try{ localStorage.setItem(WX_ROUTE, name); }catch(e){} return j; }
+    catch(e){ last = e; }
+  }
+  throw last || new Error('нет ответа');
+};
+/* поиск городов возвращает массив — оборачиваем, чтобы код выше работал как с fetch */
+window.wxFetchCity = async (url)=>{ const j = await wxFetch(url, 6000); return { json: async ()=>j }; };
+window.wxGet = async (url)=>{
+  const key = 'looka_wx:' + String(url).replace(/^https?:\/\/[^/]+/,'');
+  try{
+    const j = await wxFetch(url);
+    try{ localStorage.setItem(key, JSON.stringify({ ts: Date.now(), j })); }catch(e){}
+    return j;
+  }catch(e){
+    try{
+      const c = JSON.parse(localStorage.getItem(key) || 'null');
+      if(c && c.j && Date.now() - c.ts < 12*3600e3){ c.j._cached = c.ts; return c.j; }
+    }catch(e2){}
+    throw e;
+  }
+};
+window.saveLS =window.saveLS = ()=>{ try{ const o = Object.assign({}, S); delete o.photo; localStorage.setItem('looka_profile', JSON.stringify(o)); }catch(e){} };
 window.loadLS = ()=>{ try{ const o = JSON.parse(localStorage.getItem('looka_profile')||'null'); if(o && typeof o==='object'){ Object.keys(o).forEach(k=>{ if(k in S && k!=='photo') S[k]=o[k]; }); return true; } }catch(e){} return false; };
 
 window.pick = (k,v)=>{ S[k]=v; if(k==='gender'){S.figure=null;S.clothSize=null;S.shoeSize=null; if(window.updateModelPhoto) updateModelPhoto();} renderStep(); drawAvatar(); saveLS(); };
@@ -9348,7 +9395,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
     if(items.length < 3 && q.length >= 3){
       t = setTimeout(async ()=>{
         try{
-          const r = await fetch('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&accept-language=ru&featuretype=settlement&q='+encodeURIComponent(inp.value.trim()));
+          const r = await wxFetchCity('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&accept-language=ru&featuretype=settlement&q='+encodeURIComponent(inp.value.trim()));
           const hits = await r.json();
           const extra = hits.map(p=>[p.display_name.split(',')[0], p.display_name.split(',').slice(1,3).join(',').trim(), +p.lat, +p.lon, 0]);
           const seen = new Set(items.map(c=>cityNorm(c[0])));
@@ -9522,7 +9569,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
   const male = ()=>S.gender==='Мужчина';
   const esc = s=>String(s).replace(/</g,'&lt;');
   const geocode = async q=>{
-    const r = await fetch('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&accept-language=ru&q='+encodeURIComponent(q));
+    const r = await wxFetchCity('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&accept-language=ru&q='+encodeURIComponent(q));
     const j = await r.json(); return j[0]||null;
   };
   /* автодополнение города: подсказки из мировой базы, выбранное место запоминается */
@@ -10186,14 +10233,15 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDayLook(); }
     setClock(null, c[0], approx);
     out.innerHTML = 'часы переключены на <b>'+c[0]+'</b> · уточняю пояс и погоду…';
     try{
-      const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c[2]}&longitude=${c[3]}&current=temperature_2m,weather_code&timezone=auto`)).json();
+      const w = await wxGet(`https://api.open-meteo.com/v1/forecast?latitude=${c[2]}&longitude=${c[3]}&current=temperature_2m,weather_code&timezone=auto`);
       const t = w.current.temperature_2m;
       setClock(w.timezone, c[0], 0, t);
-      out.innerHTML = '<b>'+c[0]+'</b> · '+w.timezone+' · сейчас '+(t>0?'+':'')+Math.round(t)+'°';
+      const old = w._cached ? ' · прогноз сохранён в '+new Date(w._cached).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}) : '';
+      out.innerHTML = '<b>'+c[0]+'</b> · '+w.timezone+' · сейчас '+(t>0?'+':'')+Math.round(t)+'°'+old;
       setTimeout(closeRegion, 900);
       try{ localStorage.setItem('looka_city', JSON.stringify({n:c[0], lat:c[2], lon:c[3], tz:w.timezone, temp:t})); }catch(e){}
     }catch(e){
-      out.innerHTML = '<b>'+c[0]+'</b> · время по долготе (сеть недоступна)';
+      out.innerHTML = '<b>'+c[0]+'</b> · время поставила по долготе. Погода не подтянулась: не отвечает сервис прогноза. Чаще всего его режет блокировщик рекламы или антивирус — добавьте api.open-meteo.com в исключения. Город сохранён, прогноз появится сам, когда связь будет.';
       try{ localStorage.setItem('looka_city', JSON.stringify({n:c[0], lat:c[2], lon:c[3]})); }catch(e2){}
     }
   });
@@ -12053,8 +12101,8 @@ window.wdGeo = ()=>{
   myToast('Спрашиваю разрешение на геопозицию…');
   navigator.geolocation.getCurrentPosition(pos=>{
     const { latitude:lat, longitude:lon } = pos.coords;
-    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m&timezone=auto`)
-      .then(r=>r.json()).then(j=>{
+    wxGet(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m&timezone=auto`)
+      .then(j=>{
         const n = (j.timezone||'').split('/').pop().replace(/_/g,' ') || 'ваш город';
         try{ localStorage.setItem('looka_city', JSON.stringify({ n, lat, lon, tz:j.timezone })); }catch(e){}
         myToast('Город определён: '+n); renderWardrobe(); if(window.renderMorning) renderMorning();
@@ -12118,7 +12166,7 @@ function tempBand(t){ return t>=23?'жарко': t>=15?'тепло': t>=6?'пр�
 async function weather(){
   let city = null; try{ city = JSON.parse(localStorage.getItem('looka_city')||'null'); }catch(e){}
   if(!city || city.lat===undefined) return null;
-  try{ const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,weather_code&timezone=auto&forecast_days=7`); const j = await r.json(); return { city:city.n, now:j.current.temperature_2m, code:j.current.weather_code, days:j.daily.temperature_2m_max, codes:j.daily.weather_code }; }catch(e){ return null; }
+  try{ const j = await wxGet(`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,weather_code&timezone=auto&forecast_days=7`); return { city:city.n, now:j.current.temperature_2m, code:j.current.weather_code, days:j.daily.temperature_2m_max, codes:j.daily.weather_code, cached:j._cached||0 }; }catch(e){ return null; }
 }
 
 function outfits(band, occ, exclude, n=3){
@@ -12213,7 +12261,8 @@ async function renderWardrobe(){
         ${three.length ? `<div class="wd-fits">${three.map((f,k)=>HUB.pop(`<div class="wd-fit"><div class="wd-fit-h">Вариант ${k+1}</div>${f.parts.map(p=>itemCard(p,true)).join('')}<button class="btn ghost" onclick="wdWearAll('${f.parts.map(p=>p.id).join(',')}')">✓ Надела это</button></div>`,k)).join('')}</div>
           <div class="tmr-act"><button class="btn primary" onclick="wdTmrAgain()">↻ Другие три варианта</button>${wx?`<button class="btn ghost" onclick="wdGeo()">Сменить город</button>`:''}</div>`
           : `<div class="tip">Под завтрашнюю погоду («${tb}») из ваших вещей комплект не собирается. Добавьте верх, низ и обувь на этот сезон — и образ появится здесь сам.</div>`}
-        ${wx?'':`<div class="tip" style="margin-top:12px">Город не указан, поэтому погода не учтена. Нажмите «Определить город» — браузер спросит разрешение, и прогноз подтянется сам.</div>`}
+        ${wx?(wx.cached?`<div class="tip" style="margin-top:12px">Сейчас нет связи с сервисом прогноза — показываю сохранённый прогноз от ${new Date(wx.cached).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}. Обновится сам, когда связь вернётся.</div>`:'')
+          :`<div class="tip" style="margin-top:12px">Город не указан, поэтому погода не учтена. Нажмите «Определить город» — браузер спросит разрешение, и прогноз подтянется сам.</div>`}
       </div></div>` })() : ''}
     <div class="look badv mk-wide wd-today"><div class="look-in"><span class="wd-eyebrow">образ дня · из ваших вещей</span><h3>Что надеть сегодня${wx?' <em>'+wx.city+', '+(wx.now>0?'+':'')+Math.round(wx.now)+'°</em>':''}</h3>
       <div class="chips">${['жарко','тепло','прохладно','холодно'].map(b=>`<button class="chip ${band===b?'on':''}" onclick="wdBand('${b}')">${b}</button>`).join('')}</div>
