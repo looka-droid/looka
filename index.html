@@ -461,9 +461,10 @@ footer.rich{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.1)}
 .f-slogan::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:2px;border-radius:2px;background:linear-gradient(180deg,#19C6F7,#C79DF2)}
 .f-slogan span{background:linear-gradient(100deg,#fff,#19C6F7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .f-sub{margin-top:14px;font-size:12.8px;line-height:1.65;color:#7D849A;max-width:34ch}
-.doc-num{padding-left:38px;text-indent:-38px}
-.doc-num br+.doc-i,.doc-num .doc-i{display:inline-block;min-width:34px;font-family:'JetBrains Mono';font-size:11.5px;letter-spacing:.6px;color:#19C6F7;text-indent:0}
-.doc-num br{content:'';display:block;margin-bottom:9px}
+.doc-num{padding-left:0;text-indent:0}
+.doc-num .doc-ln{display:block;padding-left:42px;text-indent:-42px;margin-bottom:10px}
+.doc-num .doc-ln:last-child{margin-bottom:0}
+.doc-num .doc-i{display:inline-block;min-width:38px;font-family:'JetBrains Mono';font-size:11.5px;letter-spacing:.6px;color:#19C6F7;text-indent:0}
 .f-grid>div{text-align:left}
 .f-grid .logo{justify-content:flex-start}
 .grp label.t,.item .nm{color:#E6E8F0}
@@ -6817,7 +6818,7 @@ header nav.topnav{gap:4px;align-items:center}
   </div></details>
 
   <details class="faq q"><summary><span class="q-n">05</span><span class="q-t">Как отменить подписку</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>
-    <p>Никак — и это не формулировка из поддержки. Автопродления нет: вы платите за неделю, месяц или год, и по окончании срока списания просто не происходит. Отменять нечего.</p>
+    <p>Автопродления нет: вы платите за неделю, месяц или год, и по окончании срока списания просто не происходит. Отменять нечего.</p>
     <p>Когда срок подойдёт к концу, я напишу — чтобы это не стало неожиданностью. Хотите продлить — платите снова, не хотите — ничего не делаете.</p>
   </div></details>
 
@@ -7676,13 +7677,14 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="f-grid">
     <div><div class="logo" style="font-size:22px">LOO<em>KA</em>✦</div>
       <p class="f-slogan">Мы не против живых стилистов — <span>мы против того, что стиль стал роскошью.</span></p>
-      <p class="f-sub">Стиль начинается с точных данных: фигура, цветотип, повод, бюджет.</p></div>
+      </div>
     <div><b>Каждый день</b>
       <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">Собрать образ</a>
       <a href="#morning" onclick="openMorning();return false">Утро: что надеть</a>
       <a href="#lazy" onclick="openLazy();return false">Лень-режим</a>
       <a href="#wardrobe" onclick="openWardrobe();return false">Мой гардероб</a></div>
     <div><b>Учиться</b>
+      <a href="#club" onclick="openClub();return false">Сарафан — советы девушек</a>
       <a href="#courses" onclick="openCourses();return false">Курсы</a>
       <a href="#pro" onclick="openPro();return false">Приёмы профессионалов</a>
       <a href="#articles" onclick="openArts();return false">Статьи-разборы</a>
@@ -9105,6 +9107,7 @@ window.openPage = (id, anchor)=>{
   const el = document.getElementById(id);
   el.classList.add('active-page','in');
   el.querySelectorAll('.reveal').forEach(r=>r.classList.add('in'));
+  if(window.__vizBind){ setTimeout(window.__vizBind, 40); setTimeout(()=>window.__vizShow(el), 1600); }
   if(id==='devPage' && window.initWorldMap) initWorldMap();
   if(id==='passPage' && window.renderPassport) renderPassport();
   if(id==='myPage' && window.renderMy) renderMy();
@@ -9345,12 +9348,19 @@ window.goQuiz = ()=>{
   nums.forEach(b=>io3.observe(b));
 })();
 
-/* ---- появление блоков страницы по скроллу ---- */
+/* ---- появление блоков страницы по скроллу (со страховкой) ---- */
 (function(){
+  const SEL = '.hp-nums, .vs, .pageview .how, .eco-tree, .pageview .road';
   const io = new IntersectionObserver(es=>es.forEach(x=>{
     if(x.isIntersecting){ x.target.classList.add('seen'); io.unobserve(x.target); }
-  }),{threshold:.2});
-  document.querySelectorAll('.hp-nums, .vs, .pageview .how, .eco-tree, .pageview .road').forEach(el=>io.observe(el));
+  }),{threshold:.02, rootMargin:'120px 0px 0px 0px'});
+  const bind = ()=>{ document.querySelectorAll(SEL).forEach(el=>{ if(!el.classList.contains('seen')) try{ io.observe(el); }catch(e){} }); };
+  const showIn = root=>{ try{ (root||document).querySelectorAll(SEL).forEach(el=>el.classList.add('seen')); }catch(e){} };
+  window.__vizBind = bind; window.__vizShow = showIn;
+  bind();
+  /* если по какой-то причине наблюдатель не сработал — через 2.5 с всё равно показываем */
+  setTimeout(()=>{ const a=document.querySelector('.pageview.active-page'); if(a) showIn(a); }, 2500);
+  setTimeout(()=>showIn(), 7000);
 })();
 
 window.goHome = ()=>{
@@ -12864,8 +12874,9 @@ window.openArts = (k)=>{ if(k!==undefined) A.open=k; openPage('artPage'); setTim
       if(p.dataset.num) return;
       const h = p.innerHTML;
       if(!/\d+\.\d+\./.test(h)) return;
-      let out = h.replace(/(\S)\s+(\d+\.\d+\.)\s/g, '$1<br><span class="doc-i">$2</span> ');
+      let out = h.replace(/(\S)\s+(\d+\.\d+\.)\s/g, '$1</span><span class="doc-ln"><span class="doc-i">$2</span> ');
       out = out.replace(/^(\d+\.\d+\.)\s/, '<span class="doc-i">$1</span> ');
+      out = '<span class="doc-ln">' + out + '</span>';
       if(out !== h){ p.innerHTML = out; p.classList.add('doc-num'); }
       p.dataset.num = '1';
     });
@@ -14025,7 +14036,7 @@ window.openHub = ()=>openPage('hubPage');
   const sent = document.getElementById('ctSent');
   [tg, ml].forEach(a=>a.addEventListener('click', ()=>{ sent.classList.add('on'); setTimeout(()=>sent.classList.remove('on'), 12000); }));
   const opSt = document.getElementById('ctOpSt'), opT = document.getElementById('ctOpT');
-  const st = ()=>{ const msk = new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Moscow'})); const hh = msk.getHours(); const on = hh>=10 && hh<22; opSt.classList.toggle('off', !on); opSt.lastChild.textContent = on ? 'на связи' : 'вернётся в 10:00 мск'; opT.textContent = on ? (hh<19 ? '~20 мин' : '~1 ч') : 'утром'; };
+  const st = ()=>{ const msk = new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Moscow'})); const hh = msk.getHours(); const on = hh>=6 && hh<22; opSt.classList.toggle('off', !on); opSt.lastChild.textContent = on ? 'на связи' : 'вернётся в 06:00 мск'; opT.textContent = on ? (hh<19 ? '~20 мин' : '~1 ч') : 'утром'; };
   st(); setInterval(st, 60000);
   document.querySelectorAll('#ctTopics button').forEach(b=>b.addEventListener('click', ()=>{ document.querySelectorAll('#ctTopics button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); ta.value = b.dataset.t; ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); ta.dispatchEvent(new Event('input')); }));
   upd();
@@ -18384,6 +18395,920 @@ fxTilt(document);
 
 
 
+
+
+<!-- ======== ДОБАВЛЕНИЯ 24.10.2026 ======== -->
+<style id="lkAdd">
+/* ============ 1. СТРАХОВКА ВИДИМОСТИ: ни один блок не остаётся пустым ============ */
+@media (prefers-reduced-motion: reduce){
+  .vs-card,.vs-row,.how-card,.hn,.moat-item,.rf-item,.tp-card,.tool,.ct-card,.sos-var,.sos-fx,
+  .road-item,.mp-card,.rev-slot,.hub-gr,.rv{opacity:1!important;transform:none!important;animation:none!important}
+}
+html.lk-show .vs-card,html.lk-show .vs-row,html.lk-show .how-card,html.lk-show .hn,
+html.lk-show .moat-item,html.lk-show .rf-item,html.lk-show .tp-card,html.lk-show .tool,
+html.lk-show .ct-card,html.lk-show .sos-var,html.lk-show .sos-fx,html.lk-show .road-item,
+html.lk-show .mp-card,html.lk-show .rev-slot{opacity:1!important;transform:none!important}
+
+/* ============ 2. КАРТОЧКА LOOKA PRO ============ */
+.pro-card{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.pro-card>div{flex:1 1 420px;min-width:0}
+.pro-card>div p{margin-top:6px;max-width:72ch}
+.pro-card>.btn{flex:0 0 auto;white-space:nowrap}
+@media(max-width:640px){.pro-card{gap:14px}.pro-card>.btn{width:100%;justify-content:center}}
+
+/* ============ 3. ПОПАП ЗАЯВКИ ============ */
+.lk-ov{position:fixed;inset:0;z-index:9000;background:rgba(6,7,12,.76);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.lk-ov.open{display:flex}
+.lk-win{width:100%;max-width:470px;background:#11131C;border:1px solid rgba(255,255,255,.14);
+  border-radius:18px;padding:30px 28px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.6);margin:auto}
+.lk-win h3{font-family:'Golos Text',sans-serif;font-weight:800;font-size:21px;color:#F4F5FA;margin:0 0 8px;letter-spacing:-.4px}
+.lk-win>p{font-size:14px;line-height:1.6;color:#A8AEC2;margin:0 0 18px}
+.lk-x{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.16);
+  background:transparent;color:#A8AEC2;cursor:pointer;font-size:15px;line-height:1;transition:all .2s}
+.lk-x:hover{background:rgba(255,255,255,.08);color:#fff}
+.lk-lb{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.6px;
+  text-transform:uppercase;color:#19C6F7;margin:14px 0 7px}
+.lk-in{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);border-radius:10px;
+  padding:13px 14px;color:#F4F5FA;font-family:'Golos Text',sans-serif;font-size:15px;outline:none;transition:border-color .2s}
+.lk-in:focus{border-color:#19C6F7;background:rgba(25,198,247,.06)}
+.lk-in::placeholder{color:#636A80}
+textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
+.lk-ch{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px}
+.lk-ch button{display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 8px;border-radius:10px;
+  border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.03);color:#C5CAD8;cursor:pointer;
+  font-family:'Golos Text',sans-serif;font-size:13.5px;transition:all .18s}
+.lk-ch button:hover{border-color:rgba(255,255,255,.34);color:#fff}
+.lk-ch button.on{border-color:var(--c,#19C6F7);background:color-mix(in srgb,var(--c,#19C6F7) 14%,transparent);color:#fff;
+  box-shadow:0 0 0 1px var(--c,#19C6F7) inset}
+.lk-ch button i{font-style:normal;font-size:15px}
+.lk-err{font-size:13px;color:#FF9DB0;margin-top:10px;line-height:1.5;display:none}
+.lk-err.on{display:block}
+.lk-ok{text-align:center;padding:12px 0}
+.lk-ok .tick{width:58px;height:58px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;
+  font-size:26px;background:rgba(124,240,178,.14);border:1px solid rgba(124,240,178,.5);color:#7CF0B2;
+  animation:lkPop .5s cubic-bezier(.2,1.5,.4,1)}
+@keyframes lkPop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.lk-ok b{display:block;font-family:'Golos Text';font-weight:800;font-size:18px;color:#F4F5FA;margin-bottom:8px}
+.lk-ok p{font-size:14px;line-height:1.6;color:#A8AEC2}
+.lk-tick{display:inline-block;font-family:'JetBrains Mono';font-size:12px;letter-spacing:1.4px;color:#19C6F7;
+  border:1px solid rgba(25,198,247,.4);border-radius:6px;padding:4px 10px;margin-top:12px}
+.lk-foot{font-size:12px;line-height:1.55;color:#757C92;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+.lk-win .btn{width:100%;justify-content:center;margin-top:18px}
+.lk-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lk-link{background:none;border:0;color:#19C6F7;font-family:'Golos Text';font-size:13.5px;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
+.lk-link:hover{color:#8FE0FF}
+.lk-alt{display:flex;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap}
+.lk-or{display:flex;align-items:center;gap:12px;margin:18px 0 4px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:2px;color:#636A80}
+.lk-or::before,.lk-or::after{content:'';height:1px;flex:1;background:rgba(255,255,255,.12)}
+.lk-pw{position:relative}
+.lk-pw .eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#757C92;cursor:pointer;font-size:14px;padding:6px}
+.lk-code{letter-spacing:8px;font-family:'JetBrains Mono';font-size:21px;text-align:center}
+
+/* ============ 4. ФОТО С СИЯНИЕМ В «КАК ЭТО РАБОТАЕТ» ============ */
+.tcp{position:relative;width:100%;max-width:430px;margin:0 auto;aspect-ratio:1/1;z-index:1}
+.tcp-ph{position:absolute;inset:8%;border-radius:50%;overflow:hidden;z-index:2;
+  box-shadow:0 0 0 2px rgba(255,255,255,.3),0 0 60px rgba(255,95,176,.55),0 0 130px rgba(255,214,120,.3)}
+.tcp-ph img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.06) contrast(1.03)}
+.tcp-ph::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.2),transparent 42%),
+             linear-gradient(200deg,rgba(255,138,201,.18),transparent 52%,rgba(25,198,247,.18));
+  mix-blend-mode:screen;animation:tcpSheen 7s ease-in-out infinite}
+@keyframes tcpSheen{0%,100%{opacity:.65}50%{opacity:1}}
+.tcp-glow{position:absolute;inset:-9%;border-radius:50%;z-index:0;
+  background:conic-gradient(from 0deg,#FF5FB0,#FF8AC9,#FFD678,#FFF0B8,#FF8AC9,#C79DF2,#19C6F7,#FF5FB0);
+  filter:blur(30px) saturate(1.3);opacity:.95;animation:tcpSpin 16s linear infinite}
+.tcp::before{content:'';position:absolute;inset:-18%;border-radius:50%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,95,176,.34),rgba(255,214,120,.16) 46%,transparent 68%);
+  filter:blur(18px);animation:tcpBloom 6s ease-in-out infinite}
+@keyframes tcpBloom{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+@keyframes tcpSpin{to{transform:rotate(360deg)}}
+.tcp-ring{position:absolute;inset:4%;border-radius:50%;z-index:3;pointer-events:none;
+  border:1px solid rgba(255,255,255,.3);
+  mask:linear-gradient(#000,#000);animation:tcpSpin 22s linear infinite reverse}
+.tcp-ring::before{content:'';position:absolute;top:-4px;left:50%;width:7px;height:7px;border-radius:50%;
+  background:#fff;box-shadow:0 0 14px 3px rgba(255,255,255,.9)}
+.tcp-sp{position:absolute;z-index:4;pointer-events:none;color:#fff;font-size:var(--s,13px);
+  text-shadow:0 0 10px rgba(255,214,120,.9),0 0 22px rgba(255,138,201,.7);
+  animation:tcpTw var(--d,3.4s) ease-in-out infinite;animation-delay:var(--dl,0s);opacity:0}
+@keyframes tcpTw{0%,100%{opacity:0;transform:scale(.4) rotate(0)}45%{opacity:1;transform:scale(1.15) rotate(70deg)}}
+.tcp-dust{position:absolute;inset:0;z-index:1;border-radius:50%;pointer-events:none;
+  background:radial-gradient(1.6px 1.6px at 18% 28%,rgba(255,255,255,.95),transparent),
+             radial-gradient(1.4px 1.4px at 82% 22%,rgba(255,214,120,.95),transparent),
+             radial-gradient(1.6px 1.6px at 74% 76%,rgba(255,255,255,.9),transparent),
+             radial-gradient(1.3px 1.3px at 26% 78%,rgba(255,138,201,.95),transparent),
+             radial-gradient(1.5px 1.5px at 50% 10%,rgba(255,255,255,.85),transparent),
+             radial-gradient(1.4px 1.4px at 10% 56%,rgba(25,198,247,.9),transparent),
+             radial-gradient(1.5px 1.5px at 90% 52%,rgba(255,255,255,.9),transparent);
+  animation:tcpDust 5.5s ease-in-out infinite}
+@keyframes tcpDust{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+@media(max-width:760px){.tcp{max-width:300px}}
+</style>
+<style id="lkAdd2">
+/* ============ 5. САРАФАН ============ */
+.sf-hero{position:relative;overflow:hidden;border-radius:16px;padding:30px 28px;margin-bottom:22px;
+  background:linear-gradient(135deg,rgba(255,138,201,.1),rgba(25,198,247,.08) 52%,rgba(199,157,242,.1));
+  border:1px solid rgba(255,255,255,.12)}
+.sf-hero::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(600px 180px at 80% 0%,rgba(255,138,201,.16),transparent 70%)}
+.sf-rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0}
+.sf-room{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:14px 15px;border-radius:12px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);transition:all .2s;text-align:left}
+.sf-room:hover{border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
+.sf-room.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent);box-shadow:0 0 0 1px var(--c) inset}
+.sf-room i{font-style:normal;font-size:19px;line-height:1}
+.sf-room b{font-family:'Golos Text';font-weight:700;font-size:14.5px;color:#F4F5FA}
+.sf-room span{font-size:11.5px;color:#8E95AB;line-height:1.35}
+.sf-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0 20px;
+  padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+.sf-bar .k{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;color:#19C6F7;text-transform:uppercase}
+.sf-sel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:9px;
+  padding:9px 12px;color:#F4F5FA;font-family:'Golos Text';font-size:14px;cursor:pointer;outline:none;max-width:100%}
+.sf-sel option{background:#11131C;color:#F4F5FA}
+.sf-why{flex:1 1 240px;font-size:12.5px;line-height:1.5;color:#8E95AB;min-width:0}
+.sf-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;align-items:start}
+.sf-tip{padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.035);
+  display:flex;flex-direction:column;gap:11px;transition:border-color .2s,transform .2s}
+.sf-tip:hover{border-color:rgba(255,255,255,.26);transform:translateY(-2px)}
+.sf-tip.ed{border-color:rgba(255,214,120,.42);background:rgba(255,214,120,.05)}
+.sf-who{display:flex;align-items:center;gap:10px}
+.sf-av{width:34px;height:34px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  font-family:'Golos Text';font-weight:800;font-size:14px;color:#0B0C12;background:linear-gradient(135deg,#19C6F7,#C79DF2)}
+.sf-tip.ed .sf-av{background:linear-gradient(135deg,#FFD678,#FF8AC9);font-size:15px}
+.sf-who b{font-family:'Golos Text';font-weight:700;font-size:14px;color:#F4F5FA;display:block;line-height:1.2}
+.sf-who span{font-size:11.5px;color:#8E95AB}
+.sf-txt{font-size:14px;line-height:1.6;color:#C5CAD8;white-space:pre-wrap;word-break:break-word}
+.sf-bot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.sf-tag{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;
+  color:#19C6F7;border:1px solid rgba(25,198,247,.34);border-radius:99px;padding:3px 9px}
+.sf-tip.ed .sf-tag{color:#FFD678;border-color:rgba(255,214,120,.4)}
+.sf-up{margin-left:auto;display:inline-flex;align-items:center;gap:7px;background:none;cursor:pointer;
+  border:1px solid rgba(255,255,255,.16);border-radius:99px;padding:6px 12px;color:#A8AEC2;font-family:'Golos Text';font-size:12.5px;transition:all .2s}
+.sf-up:hover{border-color:#7CF0B2;color:#7CF0B2}
+.sf-up.on{border-color:#7CF0B2;background:rgba(124,240,178,.12);color:#7CF0B2}
+.sf-empty{grid-column:1/-1;text-align:center;padding:46px 22px;border-radius:14px;
+  border:1px dashed rgba(255,255,255,.18);background:rgba(255,255,255,.02)}
+.sf-empty .ic{font-size:34px;margin-bottom:12px;opacity:.7}
+.sf-empty b{display:block;font-family:'Golos Text';font-weight:800;font-size:17px;color:#F4F5FA;margin-bottom:8px}
+.sf-empty p{font-size:14px;line-height:1.6;color:#8E95AB;max-width:440px;margin:0 auto 18px}
+.sf-add{position:sticky;bottom:18px;z-index:5;margin-top:22px;display:flex;justify-content:center}
+.sf-rules{margin-top:26px;padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+.sf-rules h4{font-family:'Golos Text';font-weight:800;font-size:15px;color:#F4F5FA;margin:0 0 10px}
+.sf-rules li{font-size:13.5px;line-height:1.65;color:#A8AEC2;margin-left:18px;margin-bottom:5px}
+.sf-load{grid-column:1/-1;text-align:center;padding:30px;color:#8E95AB;font-size:14px}
+
+/* ============ 6. КОНСИЛИУМ: видимый ход размышления ============ */
+.ask-prog{margin-top:16px;padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.ask-prog .ap-h{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.ask-prog .ap-h b{font-family:'Golos Text';font-weight:700;font-size:15px;color:#F4F5FA}
+.ask-prog .ap-h em{font-style:normal;font-family:'JetBrains Mono';font-size:11.5px;color:#19C6F7;margin-left:auto}
+.ap-spin{width:19px;height:19px;border-radius:50%;border:2px solid rgba(25,198,247,.25);border-top-color:#19C6F7;animation:apSp .8s linear infinite}
+@keyframes apSp{to{transform:rotate(360deg)}}
+.ap-step{display:flex;align-items:center;gap:11px;padding:7px 0;font-size:13.5px;color:#636A80;transition:color .3s}
+.ap-step i{font-style:normal;width:21px;height:21px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  font-size:11px;border:1px solid rgba(255,255,255,.16);color:#636A80;transition:all .3s}
+.ap-step.on{color:#F4F5FA}
+.ap-step.on i{border-color:#19C6F7;color:#19C6F7;box-shadow:0 0 12px rgba(25,198,247,.35)}
+.ap-step.done{color:#8E95AB}
+.ap-step.done i{border-color:#7CF0B2;background:rgba(124,240,178,.14);color:#7CF0B2}
+.ap-bar{height:3px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:12px}
+.ap-bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#19C6F7,#C79DF2);transition:width .5s ease}
+
+/* ---- шапка на телефоне: логотип, поиск и «Войти» всегда на виду ---- */
+@media(max-width:760px){
+  header{position:relative;display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px;padding:10px 14px 8px!important}
+  header .logo{font-size:21px;flex:0 0 auto;margin:0}
+  body.hdr-m .topnav{order:5;width:100%;display:flex!important;gap:7px;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 0 4px;mask:none!important}
+  body.hdr-m .topnav::-webkit-scrollbar{display:none}
+  body.hdr-m .topnav>a,body.hdr-m .topnav>.nav-dd{flex:0 0 auto;white-space:nowrap;font-size:14.5px}
+  @media(min-width:761px){#hdrRight{display:contents}}
+  #hdrRight{order:2;margin-left:auto;display:flex;align-items:center;gap:8px;flex:0 0 auto}
+  #hdrRight .nav-find{width:44px;height:44px;min-height:0;padding:0;justify-content:center;border-radius:50%;margin:0}
+  #hdrRight .nav-find span,#hdrRight .nav-find em{display:none}
+  #hdrRight .nav-acc{min-height:44px;padding:0 18px;white-space:nowrap;margin:0}
+}
+/* ============ 7. АДАПТИВ: телефон, планшет, десктоп ============ */
+@media(max-width:1100px){
+  .sec,.hero-in,.ft-in{padding-left:22px;padding-right:22px}
+}
+@media(max-width:900px){
+  .sf-list{grid-template-columns:1fr}
+  .pro-card{flex-direction:column;align-items:stretch}
+}
+@media(max-width:760px){
+  :root{--r:12px}
+  body{overflow-x:hidden}
+  .sec{padding-left:16px;padding-right:16px}
+  h2.big,.sec h2.big{font-size:clamp(24px,6.4vw,32px);line-height:1.18}
+  .hero h1{font-size:clamp(28px,8vw,40px);line-height:1.12}
+  .lead,p.lead{font-size:14.5px}
+  .hp-sub{font-size:9.5px;letter-spacing:2px;margin:22px 0 10px}
+  .vs{grid-template-columns:1fr;gap:12px}
+  .vs-mid{justify-self:center;margin:2px 0}
+  .vs-row{font-size:13.5px}
+  .how,.moat-grid,.mp-band,.road,.rev-grid,.hub-grid,.sf-rooms{grid-template-columns:1fr!important}
+  .how-card,.moat-item,.mp-card,.road-item,.rev-slot{padding:18px 16px}
+  .lk-win{padding:24px 20px;border-radius:14px}
+  .lk-row2{grid-template-columns:1fr}
+  .sf-hero{padding:22px 18px}
+  .sf-bar{padding:12px 14px;gap:9px}
+  .sf-add{position:static;margin-top:18px}
+  .sf-add .btn{width:100%;justify-content:center}
+  .tool-panel,.ask-form{padding:16px 14px}
+  .ask-chips .chip{font-size:12.5px;padding:7px 11px}
+  .ab-tabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .ab-tabs::-webkit-scrollbar{display:none}
+  .ab-tab{flex:0 0 auto}
+  .f-grid{grid-template-columns:1fr 1fr!important;gap:26px 20px!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .btn{min-height:46px}
+  .pg-back{width:100%;justify-content:center}
+}
+@media(max-width:480px){
+  .f-grid{grid-template-columns:1fr!important}
+  .lk-ch{grid-template-columns:1fr 1fr}
+  .sf-tip{padding:16px}
+  .lk-win{padding:22px 16px}
+  .hp-sub{white-space:normal}
+}
+/* планшет: две колонки вместо одной или четырёх */
+@media(min-width:761px) and (max-width:1024px){
+  .how,.moat-grid,.hub-grid,.sf-list{grid-template-columns:repeat(2,1fr)!important}
+  .f-grid{grid-template-columns:repeat(3,1fr)!important}
+}
+/* на телефоне ничего не наезжает за край */
+@media(max-width:760px){
+  img,svg,video,canvas{max-width:100%;height:auto}
+  .dd-mobile{left:12px!important;right:12px!important;width:auto!important;max-width:none!important}
+}
+</style>
+<script>
+/* ================================================================
+   LOOKA · добавления от 24.10.2026
+   1) страховка видимости  2) аккаунт по почте  3) попап заявки
+   4) «Сарафан»  5) фото с сиянием  6) ход мысли консилиума
+   ================================================================ */
+(function(){
+'use strict';
+const API = ()=>String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
+const tokenOf = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token || null; }catch(e){ return null; } };
+const toast = m => (window.myToast ? myToast(m) : 0);
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- 0. шапка: на телефоне поиск и «Войти» живут вне ленты меню ---------- */
+(function(){
+  const hdr = document.querySelector('header'); if(!hdr) return;
+  const nav = hdr.querySelector('.topnav'); if(!nav) return;
+  let box = null;
+  const fit = ()=>{
+    const small = window.innerWidth <= 760;
+    document.body.classList.toggle('hdr-m', small);
+    if(small){
+      if(!box){ box = document.createElement('div'); box.id = 'hdrRight'; }
+      if(box.parentElement !== hdr) hdr.appendChild(box);
+      const f = nav.querySelector('.nav-find') || box.querySelector('.nav-find');
+      const a = nav.querySelector('.nav-acc')  || box.querySelector('.nav-acc');
+      if(f && f.parentElement !== box) box.appendChild(f);
+      if(a && a.parentElement !== box) box.appendChild(a);
+    } else if(box && box.parentElement){
+      const f = box.querySelector('.nav-find'), a = box.querySelector('.nav-acc');
+      if(f) nav.appendChild(f); if(a) nav.appendChild(a);
+      box.remove();
+    }
+  };
+  fit();
+  window.addEventListener('resize', fit);
+  window.addEventListener('orientationchange', ()=>setTimeout(fit, 150));
+  /* если меню перерисовали — вернуть кнопки на место */
+  try{ new MutationObserver(()=>{ if(window.innerWidth<=760) fit(); }).observe(nav, {childList:true}); }catch(e){}
+  setInterval(()=>{ if(window.innerWidth<=760) fit(); }, 2000);
+})();
+
+/* ---------- 1. страховка: через 3 с на открытой подстранице всё видно ---------- */
+const lkShow = ()=>document.documentElement.classList.add('lk-show');
+setTimeout(lkShow, 3000);
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) setTimeout(lkShow, 600); });
+
+/* ================= 2. АККАУНТ ПО ПОЧТЕ ================= */
+const ovHTML = (inner)=>`<div class="lk-win"><button class="lk-x" onclick="lkClose()">✕</button>${inner}</div>`;
+function ov(){
+  let o = document.getElementById('lkOv');
+  if(!o){ o = document.createElement('div'); o.className='lk-ov'; o.id='lkOv';
+    o.addEventListener('click', e=>{ if(e.target===o) lkClose(); });
+    document.body.appendChild(o); }
+  return o;
+}
+window.lkClose = ()=>{ const o=document.getElementById('lkOv'); if(o){ o.classList.remove('open'); document.body.style.overflow=''; } };
+function lkOpen(inner){ const o=ov(); o.innerHTML = ovHTML(inner); o.classList.add('open'); document.body.style.overflow='hidden';
+  setTimeout(()=>{ const f=o.querySelector('input,textarea'); if(f) f.focus(); }, 60); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') lkClose(); });
+
+const errBox = m => { const e=document.getElementById('lkErr'); if(e){ e.textContent=m; e.classList.add('on'); } };
+const busy = (b, t)=>{ const x=document.getElementById('lkGo'); if(x){ x.disabled=b; x.textContent = b ? (t||'Минуту…') : x.dataset.t; } };
+
+async function post(p, body, auth){
+  const h = { 'Content-Type':'application/json' };
+  if(auth){ const t = tokenOf(); if(t) h.Authorization = 'Bearer ' + t; }
+  const r = await fetch(API()+p, { method:'POST', headers:h, body: JSON.stringify(body||{}) });
+  let j = {}; try{ j = await r.json(); }catch(e){}
+  if(!r.ok) throw new Error(j.error || ('сервер ответил ' + r.status));
+  return j;
+}
+function saveSession(j){
+  try{
+    const prev = JSON.parse(localStorage.getItem('looka_session')||'{}');
+    localStorage.setItem('looka_session', JSON.stringify(Object.assign(prev, {
+      token:j.token, email:j.email||prev.email||'', sync:true, paid: !!(j.access&&j.access.paid)
+    })));
+    if(j.access && j.access.paid && window.unlockAccess) unlockAccess();
+    const acc = JSON.parse(localStorage.getItem('looka_acc')||'{}');
+    if(j.profile && j.profile.name && !acc.name){ acc.name = j.profile.name; localStorage.setItem('looka_acc', JSON.stringify(acc)); }
+  }catch(e){}
+}
+
+const pwField = (id, ph)=>`<div class="lk-pw"><input class="lk-in" id="${id}" type="password" placeholder="${ph}" autocomplete="current-password">
+  <button class="eye" type="button" onclick="(function(i){i.type=i.type==='password'?'text':'password'})(document.getElementById('${id}'))">◉</button></div>`;
+
+window.lkAuth = (mode, reason)=>{
+  mode = mode || 'reg';
+  if(mode === 'reg') lkOpen(`
+    <h3>${esc(reason||'Создайте аккаунт LOOKA')}</h3>
+    <p>Доступ открывается сразу после регистрации — ничего ждать не нужно. Почта нужна, чтобы вы могли вернуть пароль, если забудете его.</p>
+    <label class="lk-lb">Как к вам обращаться</label>
+    <input class="lk-in" id="lkName" placeholder="Имя" autocomplete="given-name">
+    <label class="lk-lb">Электронная почта</label>
+    <input class="lk-in" id="lkMail" type="email" placeholder="you@mail.ru" autocomplete="email" inputmode="email">
+    <label class="lk-lb">Пароль — от 6 символов</label>
+    ${pwField('lkPw','Придумайте пароль')}
+    <div class="lk-err" id="lkErr"></div>
+    <button class="btn primary" id="lkGo" data-t="✦ Создать аккаунт" onclick="lkDoReg()">✦ Создать аккаунт</button>
+    <div class="lk-alt"><button class="lk-link" onclick="lkAuth('in')">Уже есть аккаунт — войти</button></div>
+    <div class="lk-or">или</div>
+    <div id="gBtn" class="g-slot"></div>
+    <div class="lk-foot">Пароль хранится у нас только в зашифрованном виде — восстановить его нельзя, можно только задать новый. Регистрируясь, вы соглашаетесь с офертой и политикой обработки данных.</div>`);
+  else if(mode === 'in') lkOpen(`
+    <h3>Вход в LOOKA</h3>
+    <p>Войдите — и анкеты, гардероб, палитра и планы откроются на любом устройстве.</p>
+    <label class="lk-lb">Электронная почта</label>
+    <input class="lk-in" id="lkMail" type="email" placeholder="you@mail.ru" autocomplete="email" inputmode="email">
+    <label class="lk-lb">Пароль</label>
+    ${pwField('lkPw','Ваш пароль')}
+    <div class="lk-err" id="lkErr"></div>
+    <button class="btn primary" id="lkGo" data-t="Войти" onclick="lkDoIn()">Войти</button>
+    <div class="lk-alt">
+      <button class="lk-link" onclick="lkAuth('reg')">Создать аккаунт</button>
+      <button class="lk-link" onclick="lkAuth('forgot')">Забыли пароль?</button>
+    </div>
+    <div class="lk-or">или</div>
+    <div id="gBtn" class="g-slot"></div>`);
+  else if(mode === 'forgot') lkOpen(`
+    <h3>Вернуть доступ</h3>
+    <p>Укажите почту, на которую регистрировались. Пришлём код — по нему зададите новый пароль.</p>
+    <label class="lk-lb">Электронная почта</label>
+    <input class="lk-in" id="lkMail" type="email" placeholder="you@mail.ru" autocomplete="email" inputmode="email">
+    <div class="lk-err" id="lkErr"></div>
+    <button class="btn primary" id="lkGo" data-t="Прислать код" onclick="lkDoForgot()">Прислать код</button>
+    <div class="lk-alt"><button class="lk-link" onclick="lkAuth('in')">← Вернуться к входу</button></div>`);
+  else if(mode === 'reset') lkOpen(`
+    <h3>Новый пароль</h3>
+    <p>Код из письма действует 30 минут. Не пришло — проверьте папку «Спам».</p>
+    <label class="lk-lb">Код из письма</label>
+    <input class="lk-in lk-code" id="lkCode" maxlength="6" inputmode="numeric" placeholder="000000">
+    <label class="lk-lb">Новый пароль</label>
+    ${pwField('lkPw','От 6 символов')}
+    <div class="lk-err" id="lkErr"></div>
+    <button class="btn primary" id="lkGo" data-t="Задать пароль" onclick="lkDoReset()">Задать пароль</button>
+    <div class="lk-alt"><button class="lk-link" onclick="lkAuth('forgot')">Прислать код заново</button></div>`);
+  setTimeout(()=>{ if(window.authMount) try{ authMount(); }catch(e){} }, 50);
+  const o = document.getElementById('lkOv');
+  if(o) o.querySelectorAll('input').forEach(i=>i.addEventListener('keydown', e=>{
+    if(e.key==='Enter'){ e.preventDefault(); const g=document.getElementById('lkGo'); if(g && !g.disabled) g.click(); } }));
+};
+
+const okScreen = (title, text, extra)=>lkOpen(`<div class="lk-ok"><div class="tick">✓</div><b>${esc(title)}</b><p>${text}</p>${extra||''}</div>
+  <button class="btn primary" onclick="lkClose();location.reload()">Продолжить</button>`);
+
+window.lkDoReg = async ()=>{
+  const name=(document.getElementById('lkName').value||'').trim();
+  const email=(document.getElementById('lkMail').value||'').trim();
+  const pw=document.getElementById('lkPw').value||'';
+  if(!name) return errBox('Напишите, как к вам обращаться');
+  if(!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) return errBox('Проверьте адрес почты — кажется, в нём опечатка');
+  if(pw.length<6) return errBox('Пароль должен быть не короче 6 символов');
+  if(!API()) return errBox('Сервер LOOKA не подключён — вход пока недоступен');
+  busy(true,'Создаю аккаунт…');
+  try{
+    const j = await post('/auth/register', {name, email, pw});
+    saveSession(j);
+    okScreen('Аккаунт создан', j.mail
+      ? 'Доступ уже открыт. На вашу почту ушло письмо с кодом подтверждения — он понадобится, если забудете пароль.'
+      : 'Доступ уже открыт. Подтверждение почты подключим позже — пароль пока храните сами.');
+  }catch(e){ busy(false); errBox(e.message); }
+};
+window.lkDoIn = async ()=>{
+  const email=(document.getElementById('lkMail').value||'').trim(), pw=document.getElementById('lkPw').value||'';
+  if(!email || !pw) return errBox('Заполните почту и пароль');
+  busy(true,'Проверяю…');
+  try{ const j = await post('/auth/login', {email, pw}); saveSession(j);
+    toast('С возвращением!'); lkClose(); setTimeout(()=>location.reload(), 500);
+  }catch(e){ busy(false); errBox(e.message); }
+};
+window.lkDoForgot = async ()=>{
+  const email=(document.getElementById('lkMail').value||'').trim();
+  if(!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) return errBox('Проверьте адрес почты');
+  busy(true,'Отправляю…');
+  try{ await post('/auth/forgot', {email});
+    try{ sessionStorage.setItem('lk_reset_mail', email); }catch(e){}
+    lkAuth('reset');
+  }catch(e){ busy(false); errBox(e.message); }
+};
+window.lkDoReset = async ()=>{
+  let email=''; try{ email = sessionStorage.getItem('lk_reset_mail')||''; }catch(e){}
+  const code=(document.getElementById('lkCode').value||'').trim(), pw=document.getElementById('lkPw').value||'';
+  if(code.length<6) return errBox('Введите шестизначный код из письма');
+  if(pw.length<6) return errBox('Пароль — минимум 6 символов');
+  busy(true,'Меняю пароль…');
+  try{ const j = await post('/auth/reset', {email, code, pw}); saveSession(j);
+    okScreen('Пароль обновлён', 'Вы вошли под новым паролем. Старый больше не действует.');
+  }catch(e){ busy(false); errBox(e.message); }
+};
+
+/* ---------- доступ подтягивается с сервера при каждом открытии ---------- */
+window.lkRefreshAccess = async ()=>{
+  const t = tokenOf(); if(!t || !API()) return;
+  try{
+    const r = await fetch(API()+'/auth/state', { headers:{ Authorization:'Bearer '+t } });
+    if(!r.ok) return;
+    const j = await r.json();
+    const paid = !!(j.access && j.access.paid);
+    const prev = JSON.parse(localStorage.getItem('looka_session')||'{}');
+    const was = !!prev.paid;
+    prev.paid = paid; localStorage.setItem('looka_session', JSON.stringify(prev));
+    if(paid){ if(window.unlockAccess) unlockAccess(); if(!was) toast('Оплата прошла — доступ открыт ✦'); }
+    else { try{ localStorage.removeItem('looka_access'); }catch(e){} }
+  }catch(e){}
+};
+setTimeout(lkRefreshAccess, 1500);
+/* если клиентка оплатила в соседней вкладке — доступ догонит сам */
+setInterval(()=>{ if(!document.hidden && tokenOf()) lkRefreshAccess(); }, 60000);
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && tokenOf()) lkRefreshAccess(); });
+
+/* окно входа теперь начинается с почты */
+const _openAuth = window.openAuth;
+window.openAuth = (reason)=>{ lkAuth('reg', reason || 'Создайте аккаунт LOOKA'); };
+})();
+</script>
+<script>
+(function(){
+'use strict';
+const API = ()=>String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
+const tokenOf = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token || null; }catch(e){ return null; } };
+const toast = m => (window.myToast ? myToast(m) : 0);
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* куда писать клиентке, если она выбрала не Telegram и не почту.
+   Заполните, когда будут аккаунты — кнопка «открыть чат» появится сама. */
+window.LOOKA_WA = window.LOOKA_WA || '';      /* например '79991234567' */
+window.LOOKA_IG = window.LOOKA_IG || '';      /* например 'looka.style' */
+const TG = (typeof PAY_TG!=='undefined' ? PAY_TG : 'looka_support');
+
+/* ================= 3. ПОПАП ЗАЯВКИ ================= */
+const CHAN = [
+  ['telegram','Telegram','✈','#2AABEE'],
+  ['whatsapp','WhatsApp','✆','#25D366'],
+  ['instagram','Instagram','◎','#E1306C'],
+  ['email','Почта','✉','#19C6F7']
+];
+const PH = { telegram:'@ваш_ник или телефон', whatsapp:'+7 999 123-45-67', instagram:'@ваш_ник', email:'you@mail.ru' };
+let LEAD = { channel:'telegram', topic:'Заявка' };
+
+window.lkLead = (topic, title, text)=>{
+  LEAD = { channel:'telegram', topic: topic || 'Заявка' };
+  if(!window.lkClose) return;
+  const inner = `
+    <h3>${esc(title||'Оставьте заявку')}</h3>
+    <p>${text||'Напишите, как к вам обращаться и где вам удобно отвечать. Заявка приходит Анне лично — отвечает она же, не бот.'}</p>
+    <label class="lk-lb">Как вас зовут</label>
+    <input class="lk-in" id="ldName" placeholder="Имя" autocomplete="given-name">
+    <label class="lk-lb">Где вам удобно отвечать</label>
+    <div class="lk-ch" id="ldCh">${CHAN.map(c=>`<button type="button" style="--c:${c[3]}" class="${c[0]==='telegram'?'on':''}" data-k="${c[0]}" onclick="lkLeadCh('${c[0]}')"><i>${c[2]}</i>${c[1]}</button>`).join('')}</div>
+    <label class="lk-lb" id="ldLb">Ваш Telegram</label>
+    <input class="lk-in" id="ldTo" placeholder="${PH.telegram}">
+    <label class="lk-lb">Коротко о себе — по желанию</label>
+    <textarea class="lk-in" id="ldNote" rows="2" placeholder="Например: веду блог о стиле, 4 000 подписчиц"></textarea>
+    <div class="lk-err" id="lkErr"></div>
+    <button class="btn primary" id="lkGo" data-t="Отправить заявку" onclick="lkLeadGo()">Отправить заявку</button>
+    <div class="lk-foot">Контакт нужен только чтобы ответить вам. Мы не передаём его третьим лицам и не делаем рассылок.</div>`;
+  const o = document.getElementById('lkOv') || (()=>{ const d=document.createElement('div'); d.className='lk-ov'; d.id='lkOv';
+      d.addEventListener('click', e=>{ if(e.target===d) lkClose(); }); document.body.appendChild(d); return d; })();
+  o.innerHTML = `<div class="lk-win"><button class="lk-x" onclick="lkClose()">✕</button>${inner}</div>`;
+  o.classList.add('open'); document.body.style.overflow='hidden';
+  setTimeout(()=>{ const f=document.getElementById('ldName'); if(f) f.focus(); }, 60);
+  /* подставим имя, если оно уже известно */
+  try{ const acc=JSON.parse(localStorage.getItem('looka_acc')||'{}'); if(acc.name) document.getElementById('ldName').value = acc.name; }catch(e){}
+};
+window.lkLeadCh = k=>{
+  LEAD.channel = k;
+  document.querySelectorAll('#ldCh button').forEach(b=>b.classList.toggle('on', b.dataset.k===k));
+  const lb = document.getElementById('ldLb'), to = document.getElementById('ldTo');
+  lb.textContent = k==='email' ? 'Ваша почта' : k==='whatsapp' ? 'Номер WhatsApp' : k==='instagram' ? 'Ваш Instagram' : 'Ваш Telegram';
+  to.placeholder = PH[k]; to.type = k==='email' ? 'email' : 'text'; to.focus();
+};
+window.lkLeadGo = async ()=>{
+  const name=(document.getElementById('ldName').value||'').trim();
+  const to=(document.getElementById('ldTo').value||'').trim();
+  const note=(document.getElementById('ldNote').value||'').trim();
+  const e = document.getElementById('lkErr'); const err = m=>{ e.textContent=m; e.classList.add('on'); };
+  if(!name) return err('Напишите, как к вам обращаться');
+  if(!to) return err('Оставьте контакт — иначе ответить будет некуда');
+  if(LEAD.channel==='email' && !/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(to)) return err('Проверьте адрес почты');
+  const g = document.getElementById('lkGo'); g.disabled=true; g.textContent='Отправляю…';
+  let id = 'L' + Date.now().toString(36).toUpperCase().slice(-6), sent=false, mail=false;
+  try{
+    if(API()){
+      const r = await fetch(API()+'/lead', { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ name, channel:LEAD.channel, contact:to, note, topic:LEAD.topic }) });
+      const j = await r.json();
+      if(!r.ok) throw new Error(j.error||'не удалось отправить');
+      id = j.id || id; sent = !!j.notified; mail = !!j.mail;
+    } else throw new Error('сервер не подключён');
+  }catch(ex){
+    /* запасной путь — открыть переписку с готовым текстом, чтобы заявка точно дошла */
+    const txt = LEAD.topic+'\nИмя: '+name+'\nСвязь ('+LEAD.channel+'): '+to+(note?'\n'+note:'');
+    window.open('https://t.me/'+TG+'?text='+encodeURIComponent(txt), '_blank');
+    g.disabled=false; g.textContent=g.dataset.t;
+    return err('Сервер не ответил — открыла переписку в Telegram, отправьте готовое сообщение оттуда.');
+  }
+  /* мгновенное подтверждение клиентке — там, где это правда возможно */
+  let now = '', later = '';
+  if(LEAD.channel==='telegram'){
+    now = `<a class="btn primary" style="margin-top:16px" href="https://t.me/${TG}?text=${encodeURIComponent('Заявка '+id+' — '+name)}" target="_blank" rel="noopener">✈ Получить подтверждение в Telegram</a>`;
+    later = 'Нажмите кнопку — переписка откроется с готовым сообщением, и подтверждение придёт сразу.';
+  } else if(LEAD.channel==='email'){
+    later = mail ? 'Подтверждение уже ушло на вашу почту. Если его нет — загляните в «Спам».'
+                 : 'Заявка у нас. Подтверждение на почту придёт, как только мы закончим настройку почтовой рассылки.';
+  } else if(LEAD.channel==='whatsapp' && window.LOOKA_WA){
+    now = `<a class="btn primary" style="margin-top:16px" href="https://wa.me/${window.LOOKA_WA}?text=${encodeURIComponent('Заявка '+id+' — '+name)}" target="_blank" rel="noopener">✆ Открыть переписку в WhatsApp</a>`;
+    later = 'Нажмите кнопку — откроется чат с готовым сообщением.';
+  } else if(LEAD.channel==='instagram' && window.LOOKA_IG){
+    now = `<a class="btn primary" style="margin-top:16px" href="https://instagram.com/${window.LOOKA_IG}" target="_blank" rel="noopener">◎ Открыть Instagram</a>`;
+    later = 'Напишите в директ — заявка уже у нас, ответим в том же диалоге.';
+  } else {
+    later = 'Заявка у нас. Ответим в указанный вами канал — обычно в течение дня.';
+  }
+  const o = document.getElementById('lkOv');
+  o.innerHTML = `<div class="lk-win"><button class="lk-x" onclick="lkClose()">✕</button>
+    <div class="lk-ok"><div class="tick">✓</div><b>Заявка принята</b>
+      <p>${esc(name)}, записала. ${later}</p>
+      <div class="lk-tick">№ ${esc(id)}</div></div>
+    ${now}
+    <div class="lk-foot">${sent ? 'Анне уже пришло уведомление — заявка не потеряется.' : 'Заявка сохранена. Если не ответим в течение дня — напишите в Telegram @'+TG+'.'}</div>
+    <button class="btn ghost" onclick="lkClose()">Закрыть</button>`;
+};
+
+/* кнопки «встать в список» и прочие заявки — теперь через попап */
+function wireLeads(){
+  document.querySelectorAll('a[href^="mailto:hello@looka.ru?subject=LOOKA%20Pro"], a[href*="LOOKA%20Pro"]').forEach(a=>{
+    if(a.dataset.lead) return; a.dataset.lead='1';
+    a.removeAttribute('href'); a.style.cursor='pointer';
+    a.addEventListener('click', e=>{ e.preventDefault();
+      lkLead('LOOKA Pro — список ожидания', 'LOOKA Pro — встать в список',
+        'Открываем доступ по очереди. Оставьте имя и удобный канал — напишем лично, когда подойдёт ваша очередь.'); });
+  });
+}
+if(document.readyState!=='loading') wireLeads(); else document.addEventListener('DOMContentLoaded', wireLeads);
+const _op = window.openPage;
+if(typeof _op === 'function') window.openPage = function(){ _op.apply(null, arguments); setTimeout(wireLeads, 60); };
+})();
+</script>
+<script>
+/* ================= 4. САРАФАН — советы девушек друг другу ================= */
+(function(){
+'use strict';
+const API = ()=>String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
+const tokenOf = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token || null; }catch(e){ return null; } };
+const toast = m => (window.myToast ? myToast(m) : 0);
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const ROOMS = [
+  ['makeup','Макияж','✶','#FF8AC9','что реально держится и кому идёт'],
+  ['hair','Волосы','❈','#C79DF2','уход, цвет, укладка без фена'],
+  ['cloth','Одежда','◈','#19C6F7','фасоны, посадка, размеры брендов'],
+  ['shops','Магазины','◉','#FFD678','где искать в вашей стране'],
+  ['care','Уход','✿','#7CF0B2','кожа, тело, руки, процедуры']
+];
+const COUNTRIES = [
+  ['RU','🇷🇺','Россия'],['KZ','🇰🇿','Казахстан'],['BY','🇧🇾','Беларусь'],['UZ','🇺🇿','Узбекистан'],
+  ['AM','🇦🇲','Армения'],['GE','🇬🇪','Грузия'],['AZ','🇦🇿','Азербайджан'],['KG','🇰🇬','Киргизия'],
+  ['DE','🇩🇪','Германия'],['PL','🇵🇱','Польша'],['RS','🇷🇸','Сербия'],['CZ','🇨🇿','Чехия'],
+  ['ES','🇪🇸','Испания'],['FR','🇫🇷','Франция'],['IT','🇮🇹','Италия'],['GB','🇬🇧','Великобритания'],
+  ['NL','🇳🇱','Нидерланды'],['PT','🇵🇹','Португалия'],['CY','🇨🇾','Кипр'],['TR','🇹🇷','Турция'],
+  ['AE','🇦🇪','ОАЭ'],['IL','🇮🇱','Израиль'],['TH','🇹🇭','Таиланд'],['VN','🇻🇳','Вьетнам'],
+  ['CN','🇨🇳','Китай'],['ID','🇮🇩','Индонезия'],['US','🇺🇸','США'],['CA','🇨🇦','Канада'],
+  ['AR','🇦🇷','Аргентина'],['BR','🇧🇷','Бразилия'],['AU','🇦🇺','Австралия'],['XX','🌍','Другая страна']
+];
+/* где искать в каждой стране — это и есть главное, что меняется от страны к стране */
+const SHOPS = {
+  RU:'Wildberries, Ozon, Lamoda, Яндекс Маркет · бренды: Love Republic, Zarina, Befree, 12Storeez, Lichi · косметика: Золотое Яблоко, Letu',
+  KZ:'Kaspi Магазин, Wildberries.kz, Lamoda.kz · ТРЦ Dostyk Plaza, Mega · косметика: Gold Apple KZ',
+  BY:'Wildberries.by, Kufar, 21vek · косметика: Mila, Kravt',
+  UZ:'Uzum Market, Wildberries.uz, Lamoda.uz · базары Чорсу и Алайский — для тканей и пошива',
+  AM:'Wildberries.am, Shoppy.am · Vernissage — для серебра и ручной работы',
+  GE:'Wildberries.ge, Extra.ge · Tbilisi Mall, East Point · рынок Lilo — сток европейских брендов',
+  AZ:'Trendyol.az, Umico · Ganjlik Mall, 28 Mall',
+  KG:'Wildberries.kg, Дордой — оптовый рынок, откуда одеваются полстраны',
+  DE:'Zalando, About You, Otto · офлайн: Zara, H&M, COS, Arket · сток: TK Maxx · винтаж: Humana, Oxfam',
+  PL:'Zalando.pl, Answear, Modivo, Vinted · офлайн: Reserved, Mohito, Sinsay · сток: TK Maxx',
+  RS:'Zara, Reserved в Delta City · Vinted доходит · местные бренды: Mona, Luna',
+  CZ:'Zalando.cz, About You · офлайн: Palladium, OC Chodov · сток: TK Maxx',
+  ES:'Zara, Mango, Massimo Dutti — здесь дешевле всего · El Corte Inglés · Vinted · ребахас в январе и июле',
+  FR:'Zalando.fr, Vinted, Sézane, Ba&sh · Galeries Lafayette · soldes — январь и июнь, даты назначает государство',
+  IT:'Zalando.it, Vinted, Yoox · аутлеты The Mall, Serravalle · saldi — январь и июль',
+  GB:'ASOS, Zalando, John Lewis, Marks & Spencer · Vinted, Depop · сток: TK Maxx',
+  NL:'Zalando.nl, Wehkamp, Vinted · офлайн: Bijenkorf, De Kleine',
+  PT:'Zalando.pt, Zara, Mango · Vinted · аутлет Freeport',
+  CY:'Zara, Bershka в Nicosia Mall · доставка Zalando и ASOS · местные бутики в Лимассоле',
+  TR:'Trendyol, Hepsiburada, LC Waikiki, Koton · Гранд-базар — для тканей и кожи · пошив на заказ дёшево',
+  AE:'Namshi, Ounass, Noon · The Dubai Mall, Mall of the Emirates · Dubai Shopping Festival в январе',
+  IL:'Terminal X, Factory 54, Renuar, Castro · ASOS с доставкой · шук Кармель — для базовых вещей',
+  TH:'Shopee, Lazada · Chatuchak и Platinum Mall в Бангкоке · пошив на заказ за пару дней',
+  VN:'Shopee, Lazada · рынки Бен Тхань и Ан Донг · пошив в Хойане — за сутки',
+  CN:'Taobao, Tmall, Xiaohongshu · Poizon для кроссовок · агенты-посредники для доставки',
+  ID:'Shopee, Tokopedia, Zalora · Pasar Baru · местный хлопок и батик',
+  US:'Nordstrom, Macy\'s, Revolve, Everlane · сток: TJ Maxx, Nordstrom Rack · ThredUp и Poshmark — ресейл',
+  CA:'Simons, Aritzia, Hudson\'s Bay · Winners — местный сток · Poshmark Canada',
+  AR:'Mercado Libre · Falabella · местные бренды: Rapsodia, Jazmín Chebar · кожа в Буэнос-Айресе дешёвая',
+  BR:'Shein BR, Renner, C&A, Riachuelo · Farm Rio — местный бренд с характером',
+  AU:'The Iconic, Myer, Country Road · Vinnies и Salvos — винтаж',
+  XX:'Расскажите, где ищете вы — ваш совет станет первым в этой комнате'
+};
+/* стартовые советы — от редакции LOOKA, честно подписаны. Никаких выдуманных клиенток. */
+const SEED = {
+  makeup:[
+    ['Тональный проверяют на шее, а не на кисти','Свет в магазине всегда тёплый и всегда врёт. Нанесите три полоски на границу щеки и шеи и выйдите к окну: нужный тон исчезает, а не «подходит».','тон'],
+    ['Стойкость даёт не пудра, а база','Если макияж плывёт к обеду, пудра не спасёт — она только подчеркнёт поры. Работает тонкий слой матирующей базы на Т-зону до тонального и один спрей-фиксатор после.','стойкость'],
+    ['Помада держится дольше, если убрать блеск с губ','Промокните губы салфеткой, нанесите первый слой, снова промокните, потом второй. Два тонких слоя живут дольше одного плотного.','губы']
+  ],
+  hair:[
+    ['Кондиционер — только на длину, никогда на корни','Корни жирнятся не от шампуня, а от того, что на них остаётся кондиционер. Отступайте ладонь от кожи головы — и мыть голову придётся реже.','уход'],
+    ['Фен сушит не жаром, а слишком близким расстоянием','Держите фен на вытянутой ладони от волос и сушите по направлению роста, сверху вниз. Волос ляжет гладко без утюжка.','укладка'],
+    ['Осветление и «холодный блонд» — разные услуги','Оттенок вымывается за 3–5 моек, и это нормально. Закладывайте тонирование в бюджет сразу, иначе через месяц блонд станет жёлтым.','цвет']
+  ],
+  cloth:[
+    ['Размер бренда важнее вашего размера','У каждой марки своя сетка. Смотрите не на букву, а на замеры в сантиметрах в описании — и сравнивайте с вещью, которая уже хорошо сидит.','размеры'],
+    ['Плечевой шов решает всё','Если шов съехал с плеча, вещь будет выглядеть чужой, как бы хорошо ни сидела в талии. Это единственное, что почти нельзя исправить у портного.','посадка'],
+    ['Ателье дешевле, чем кажется','Подшить брюки или ушить талию стоит меньше, чем вернуть вещь и искать новую. Вещь по фигуре выглядит дороже вещи по размеру.','ателье']
+  ],
+  shops:[
+    ['Отзывы читают с фильтром по вашему росту','На маркетплейсах в отзывах почти всегда пишут рост и размер. Ищите тех, у кого параметры близки к вашим — и смотрите их фото, а не студийные.','маркетплейсы'],
+    ['Распродажи в каждой стране свои','В Испании и Франции даты скидок назначает государство, в ОАЭ — фестиваль в январе, в России — ноябрь. Крупные покупки планируют под эти окна.','скидки']
+  ],
+  care:[
+    ['Новое средство вводят по одному','Если начать три новинки разом, при реакции не понять, на что именно. Одно средство — две недели — потом следующее.','правило'],
+    ['SPF работает только в нужном количестве','На лицо нужно примерно два пальца продукта. Тонкий слой «для галочки» даёт не заявленную защиту, а малую её часть.','spf']
+  ]
+};
+
+let CL = { room:'makeup', country:'RU', items:[], loading:false, up:{} };
+try{ CL.up = JSON.parse(localStorage.getItem('looka_club_up')||'{}'); }catch(e){}
+try{ const c = localStorage.getItem('looka_club_c'); if(c) CL.country = c; }catch(e){}
+
+/* страну угадываем один раз: по сохранённому городу, региону или языку браузера */
+(function guess(){
+  try{ if(localStorage.getItem('looka_club_c')) return; }catch(e){}
+  const reg = (()=>{ try{ return localStorage.getItem('looka_region')||''; }catch(e){ return ''; } })();
+  const MAP = { ru:'RU', cis:'RU', kz:'KZ', by:'BY', eu:'DE', us:'US', ae:'AE', tr:'TR' };
+  if(MAP[reg]) { CL.country = MAP[reg]; return; }
+  const loc = (navigator.languages||[navigator.language||'']).join(',');
+  const m = loc.match(/-([A-Z]{2})/);
+  if(m && COUNTRIES.some(c=>c[0]===m[1])) CL.country = m[1];
+  else if(/^ru/i.test(loc)) CL.country = 'RU';
+  if(/^ru(-RU)?\b/i.test(navigator.language||'')) CL.country = 'RU';
+})();
+
+const cName = k => (COUNTRIES.find(c=>c[0]===k)||['XX','🌍','Другая страна']);
+const seedItems = ()=>{
+  const base = (SEED[CL.room]||[]).map((t,i)=>({ id:'ed'+CL.room+i, ed:true, name:'Редакция LOOKA', text:'**'+t[0]+'**\n'+t[1], tag:t[2], up:0 }));
+  if(CL.room === 'shops'){
+    const c = cName(CL.country);
+    base.unshift({ id:'edshop_'+CL.country, ed:true, name:'Редакция LOOKA', tag:'где искать', up:0,
+      text:'**'+c[1]+' '+c[2]+' — куда смотреть в первую очередь**\n'+(SHOPS[CL.country]||SHOPS.XX) });
+  }
+  return base;
+};
+const fmt = t => esc(t).replace(/\*\*(.+?)\*\*/g, '<b style="color:#F4F5FA">$1</b>');
+
+window.clubRoom = k => { CL.room = k; clubDraw(); clubLoad(); };
+window.clubCountry = k => { CL.country = k; try{ localStorage.setItem('looka_club_c', k); }catch(e){} clubDraw(); clubLoad(); };
+
+async function clubLoad(){
+  if(!API()) { CL.items = []; clubDraw(); return; }
+  CL.loading = true; clubDraw();
+  try{
+    const r = await fetch(API()+'/club?room='+CL.room+'&country='+CL.country);
+    const j = await r.json();
+    CL.items = (j.items||[]);
+  }catch(e){ CL.items = []; }
+  CL.loading = false; clubDraw();
+}
+window.clubUp = async (id)=>{
+  if(!tokenOf()) { toast('Войдите, чтобы отмечать полезные советы'); if(window.lkAuth) lkAuth('reg','Войдите, чтобы отметить совет'); return; }
+  if(CL.up[id]) return;
+  CL.up[id] = 1; try{ localStorage.setItem('looka_club_up', JSON.stringify(CL.up)); }catch(e){}
+  const it = CL.items.find(x=>x.id===id); if(it) it.up = (it.up||0)+1;
+  clubDraw();
+  try{ await fetch(API()+'/club/up', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+tokenOf()},
+    body: JSON.stringify({ room:CL.room, country:CL.country, id }) }); }catch(e){}
+};
+window.clubAdd = ()=>{
+  if(!tokenOf()){ if(window.lkAuth) lkAuth('reg','Войдите, чтобы поделиться советом'); return; }
+  const R = ROOMS.find(r=>r[0]===CL.room), c = cName(CL.country);
+  if(window.lkClose) lkClose();
+  const o = document.getElementById('lkOv') || (()=>{ const d=document.createElement('div'); d.className='lk-ov'; d.id='lkOv';
+      d.addEventListener('click', e=>{ if(e.target===d) lkClose(); }); document.body.appendChild(d); return d; })();
+  o.innerHTML = `<div class="lk-win"><button class="lk-x" onclick="lkClose()">✕</button>
+    <h3>Совет в комнату «${esc(R[1])}»</h3>
+    <p>${esc(c[1])} ${esc(c[2])}. Пишите то, что проверили на себе: что сработало, что нет и почему. Конкретика полезнее общих слов.</p>
+    <label class="lk-lb">Ваш совет</label>
+    <textarea class="lk-in" id="clTx" rows="5" maxlength="700" placeholder="Например: тушь перестала осыпаться, когда я перестала красить нижние ресницы и начала промакивать щёточку салфеткой перед нанесением"></textarea>
+    <label class="lk-lb">Одно слово-метка — по желанию</label>
+    <input class="lk-in" id="clTag" maxlength="28" placeholder="тушь">
+    <div class="lk-err" id="lkErr"></div>
+    <button class="btn primary" id="lkGo" data-t="Отправить совет" onclick="clubSend()">Отправить совет</button>
+    <div class="lk-foot">Совет появится в комнате после короткой проверки — так раздел остаётся полезным, а не превращается в рекламную ленту. Реклама, ссылки на свои услуги и медицинские назначения не публикуются.</div>`;
+  o.classList.add('open'); document.body.style.overflow='hidden';
+  setTimeout(()=>{ const t=document.getElementById('clTx'); if(t) t.focus(); }, 60);
+};
+window.clubSend = async ()=>{
+  const text=(document.getElementById('clTx').value||'').trim(), tag=(document.getElementById('clTag').value||'').trim();
+  const e=document.getElementById('lkErr'); const err=m=>{ e.textContent=m; e.classList.add('on'); };
+  if(text.length < 25) return err('Расскажите чуть подробнее — в двух словах совет не сработает');
+  const g=document.getElementById('lkGo'); g.disabled=true; g.textContent='Отправляю…';
+  try{
+    await fetch(API()+'/club/add', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+tokenOf()},
+      body: JSON.stringify({ room:CL.room, country:CL.country, text, tag }) }).then(async r=>{
+        const j = await r.json(); if(!r.ok) throw new Error(j.error||'не отправилось'); });
+    document.getElementById('lkOv').innerHTML = `<div class="lk-win"><button class="lk-x" onclick="lkClose()">✕</button>
+      <div class="lk-ok"><div class="tick">✓</div><b>Спасибо — это правда помогает</b>
+      <p>Совет ушёл на проверку. Обычно она занимает несколько часов. Как только он появится в комнате, его увидят все девушки вашей страны.</p></div>
+      <button class="btn primary" onclick="lkClose()">Хорошо</button></div>`;
+  }catch(ex){ g.disabled=false; g.textContent=g.dataset.t; err(ex.message); }
+};
+
+function clubDraw(){
+  const box = document.getElementById('clubBox'); if(!box) return;
+  const R = ROOMS.find(r=>r[0]===CL.room), c = cName(CL.country);
+  const all = seedItems().concat(CL.items);
+  const list = CL.loading ? '<div class="sf-load">Собираю советы…</div>' : all.map(it=>`
+    <article class="sf-tip ${it.ed?'ed':''}">
+      <div class="sf-who"><div class="sf-av">${it.ed?'✦':esc((it.name||'Г')[0].toUpperCase())}</div>
+        <div><b>${esc(it.name||'Гостья')}</b><span>${it.ed?'проверено редакцией':(c[1]+' '+c[2])}</span></div></div>
+      <div class="sf-txt">${fmt(it.text)}</div>
+      <div class="sf-bot">${it.tag?`<span class="sf-tag">${esc(it.tag)}</span>`:''}
+        <button class="sf-up ${CL.up[it.id]?'on':''}" onclick="clubUp('${esc(it.id)}')">${CL.up[it.id]?'✓ помогло':'♡ помогло'}${it.up?' · '+it.up:''}</button></div>
+    </article>`).join('');
+  const empty = (!CL.loading && !CL.items.length) ? `
+    <div class="sf-empty"><div class="ic">${R[2]}</div>
+      <b>Комната «${esc(R[1])}» · ${esc(c[1])} ${esc(c[2])} только открылась</b>
+      <p>Пока здесь только советы от редакции. Напишите первой — то, что вы поняли про ${esc(R[4])}, кому-то сэкономит месяцы и деньги.</p>
+      <button class="btn primary" onclick="clubAdd()">✦ Написать первый совет</button></div>` : '';
+  box.innerHTML = `
+    <div class="sf-rooms">${ROOMS.map(r=>`<button class="sf-room ${r[0]===CL.room?'on':''}" style="--c:${r[3]}" onclick="clubRoom('${r[0]}')">
+      <i style="color:${r[3]}">${r[2]}</i><b>${r[1]}</b><span>${r[4]}</span></button>`).join('')}</div>
+    <div class="sf-bar">
+      <span class="k">ваша страна</span>
+      <select class="sf-sel" onchange="clubCountry(this.value)">${COUNTRIES.map(x=>`<option value="${x[0]}" ${x[0]===CL.country?'selected':''}>${x[1]} ${x[2]}</option>`).join('')}</select>
+      <span class="sf-why">У каждой страны своя комната: разные магазины, цены, климат и состав средств на полках. Совет «купи вот это» бесполезен, если «вот этого» у вас не продают.</span>
+    </div>
+    <div class="sf-list">${list}${empty}</div>
+    ${empty?'':'<div class="sf-add"><button class="btn primary" onclick="clubAdd()">✦ Поделиться своим советом</button></div>'}
+    <div class="sf-rules"><h4>Как здесь принято</h4><ul>
+      <li>Пишем то, что проверили на себе, — с подробностями, а не «мне помогло».</li>
+      <li>Никакой рекламы и ссылок на свои услуги: за это совет удаляется.</li>
+      <li>Диагнозы и назначения не обсуждаем — для этого есть врач, а на сайте Консилиум.</li>
+      <li>Не оцениваем чужую внешность и вес. Совсем.</li>
+      <li>Каждый совет проходит короткую проверку перед публикацией.</li>
+    </ul></div>`;
+}
+window.openClub = ()=>{ if(window.openPage) openPage('clubPage'); setTimeout(()=>{ clubDraw(); clubLoad(); }, 60); };
+
+/* страницу добавляем в разметку рядом с остальными */
+function mount(){
+  if(document.getElementById('clubPage')) return;
+  const host = document.getElementById('askPage') || document.querySelector('.pageview');
+  if(!host) return;
+  const sec = document.createElement('section');
+  sec.className = 'sec pageview'; sec.id = 'clubPage';
+  sec.innerHTML = `
+    <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+    <div class="sf-hero">
+      <div class="eyebrow">сарафанное радио · девушки — девушкам</div>
+      <h2 class="big" style="margin:8px 0 10px">Сарафан — <span class="holo">то, что передают из рук в руки</span></h2>
+      <p class="lead" style="margin:0">Лучшие приёмы приходят не из рекламы, а из разговоров: подруга рассказала подруге. Здесь то же самое, только в масштабе мира — и с поправкой на вашу страну, потому что магазины, цены и даже состав средств на полках везде разные.</p>
+    </div>
+    <div id="clubBox"></div>`;
+  host.parentNode.insertBefore(sec, host.nextSibling);
+  sec.querySelector('.lead').textContent = 'Лучшие приёмы приходят не из рекламы, а из разговоров: подруга рассказала подруге. Здесь то же самое, только в масштабе мира — и с поправкой на вашу страну, потому что магазины, цены и даже состав средств на полках везде разные.';
+  /* ссылки: в подвал и в меню «Бьюти» */
+  document.querySelectorAll('.f-col').forEach(col=>{
+    const h = col.querySelector('b,.f-h,h4');
+    if(h && /учиться/i.test(h.textContent) && !col.querySelector('[data-club]')){
+      const a = document.createElement('a'); a.href='#'; a.dataset.club='1'; a.textContent='Сарафан — советы девушек';
+      a.onclick = e=>{ e.preventDefault(); openClub(); };
+      col.appendChild(a);
+    }
+  });
+}
+if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded', mount);
+setTimeout(mount, 800);
+})();
+</script>
+<script>
+/* ================= 5. ФОТО С СИЯНИЕМ В «КАК ЭТО РАБОТАЕТ» ================= */
+(function(){
+'use strict';
+const SRC = ['img/aest/anna.jpg','img/tech.jpg','img/anna.jpg'];
+function build(){
+  const svg = document.querySelector('.tc-svg'); if(!svg) return;
+  const host = svg.parentElement; if(!host || host.dataset.ph) return;
+  host.dataset.ph = '1';
+  const sp = (x,y,s,d,dl,g)=>`<span class="tcp-sp" style="left:${x}%;top:${y}%;--s:${s}px;--d:${d}s;--dl:${dl}s">${g}</span>`;
+  const wrap = document.createElement('div');
+  wrap.className = 'tcp';
+  wrap.innerHTML = `
+    <div class="tcp-glow"></div>
+    <div class="tcp-dust"></div>
+    <div class="tcp-ph"><img alt="" id="tcpImg"></div>
+    <div class="tcp-ring"></div>
+    ${sp(8,20,15,3.2,0,'✦')}${sp(88,16,12,3.8,.5,'✧')}${sp(94,58,16,3.4,1.1,'✦')}
+    ${sp(4,66,13,4.2,.8,'✧')}${sp(50,2,14,3.6,1.6,'✦')}${sp(78,92,12,3.9,2.1,'✧')}
+    ${sp(20,92,15,3.3,1.3,'✦')}${sp(66,8,11,4.1,2.4,'✧')}`;
+  const img = wrap.querySelector('#tcpImg');
+  let i = 0;
+  const tryNext = ()=>{ if(i >= SRC.length){ wrap.remove(); svg.style.display=''; host.dataset.ph=''; return; } img.src = SRC[i++]; };
+  img.onerror = tryNext;
+  img.onload = ()=>{ svg.style.display = 'none'; const bg = host.querySelector('.tc-bg'); if(bg) bg.remove(); };
+  host.insertBefore(wrap, svg);
+  tryNext();
+}
+if(document.readyState!=='loading') build(); else document.addEventListener('DOMContentLoaded', build);
+setTimeout(build, 600);
+})();
+
+/* ================= 6. КОНСИЛИУМ: видно, что он делает ================= */
+(function(){
+'use strict';
+const STEPS = [
+  ['◉','Разбираю вопрос', 1200],
+  ['✶','Дерматолог и трихолог смотрят на причину', 4200],
+  ['❈','Визажист и стилист подбирают решение', 4200],
+  ['◈','Сверяю с вашим профилем и цветотипом', 3200],
+  ['✦','Собираю ответ по шагам', 3600]
+];
+let T = [];
+function clear(){ T.forEach(clearTimeout); T = []; const p = document.getElementById('askProg'); if(p) p.remove(); }
+function start(){
+  clear();
+  const out = document.getElementById('askOut'); if(!out) return;
+  const box = document.createElement('div');
+  box.id = 'askProg'; box.className = 'ask-prog';
+  box.innerHTML = `<div class="ap-h"><span class="ap-spin"></span><b>Консилиум совещается</b><em id="apT">0 с</em></div>
+    ${STEPS.map((s,i)=>`<div class="ap-step${i===0?' on':''}" id="apS${i}"><i>${s[0]}</i><span>${s[1]}</span></div>`).join('')}
+    <div class="ap-bar"><i id="apB"></i></div>
+    <div class="ap-step" style="padding-top:12px;color:#636A80;font-size:12.5px"><span>Обычно это занимает 15–25 секунд. Ответ появится здесь же.</span></div>`;
+  out.parentNode.insertBefore(box, out);
+  box.scrollIntoView({ behavior:'smooth', block:'center' });
+  const t0 = Date.now();
+  const tick = setInterval(()=>{ const el=document.getElementById('apT'); if(!el){ clearInterval(tick); return; }
+    el.textContent = Math.round((Date.now()-t0)/1000)+' с'; }, 500);
+  T.push(tick);
+  let acc = 0;
+  STEPS.forEach((s,i)=>{
+    acc += s[2];
+    T.push(setTimeout(()=>{
+      const cur = document.getElementById('apS'+i), nx = document.getElementById('apS'+(i+1));
+      if(cur){ cur.classList.remove('on'); cur.classList.add('done'); cur.querySelector('i').textContent='✓'; }
+      if(nx) nx.classList.add('on');
+      const b = document.getElementById('apB'); if(b) b.style.width = Math.min(96, (i+1)/STEPS.length*100)+'%';
+    }, acc));
+  });
+}
+const wrap = ()=>{
+  if(!window.askGo || window.askGo.__wrapped) return;
+  const orig = window.askGo;
+  const fn = async function(){
+    start();
+    try{ return await orig.apply(this, arguments); }
+    finally{ clear(); }
+  };
+  fn.__wrapped = true;
+  window.askGo = fn;
+};
+if(document.readyState!=='loading') wrap(); else document.addEventListener('DOMContentLoaded', wrap);
+setTimeout(wrap, 500);
+})();
+</script>
 
 </body>
 </html>
