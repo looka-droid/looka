@@ -1148,10 +1148,16 @@ body.subpage .how{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
   backdrop-filter:blur(12px)}
 .hf-head{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:3px;color:#FF6FBF;margin-bottom:12px}
 .hf-text{font-family:'Golos Text';font-weight:600;font-size:clamp(15px,2.4vw,19px);color:#F4F5FA;min-height:52px;line-height:1.5}
-.hf-cursor{display:inline-block;width:2px;height:1.05em;background:#19C6F7;margin-left:3px;vertical-align:-2px;box-shadow:0 0 8px #19C6F7;animation:blinkDot 1s steps(2) infinite}
-.hf-dots{display:flex;gap:7px;margin-top:14px}
-.hf-dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .3s}
-.hf-dots span.on{background:#19C6F7;box-shadow:0 0 10px #19C6F7;transform:scale(1.25)}
+#hfTxt{display:inline-block;opacity:1;transform:none;transition:opacity .45s ease,transform .45s cubic-bezier(.2,.8,.2,1)}
+#hfTxt.out{opacity:0;transform:translateY(-6px)}
+#hfTxt.in{opacity:0;transform:translateY(6px)}
+.hf-dots{display:flex;gap:9px;margin-top:14px}
+.hf-dots button{width:8px;height:8px;padding:0;border:0;border-radius:50%;cursor:pointer;
+  background:rgba(255,255,255,.2);transition:all .3s;position:relative}
+.hf-dots button::after{content:'';position:absolute;inset:-7px}
+.hf-dots button:hover{background:rgba(255,255,255,.45)}
+.hf-dots button.on{background:#19C6F7;box-shadow:0 0 10px #19C6F7;transform:scale(1.3)}
+@media(prefers-reduced-motion:reduce){#hfTxt{transition:none}}
 @media(max-width:760px){.hp-facts{padding:16px;backdrop-filter:none;background:rgba(21,23,34,.94)}}
 
 /* ===== цифры продукта ===== */
@@ -6535,7 +6541,7 @@ header nav.topnav{gap:4px;align-items:center}
 
   <div class="hp-facts">
     <div class="hf-head">✦ ФАКТЫ СТИЛЯ</div>
-    <div class="hf-text"><span id="hfTxt"></span><span class="hf-cursor"></span></div>
+    <div class="hf-text"><span id="hfTxt"></span></div>
     <div class="hf-dots" id="hfDots"></div>
   </div>
 
@@ -9332,20 +9338,38 @@ window.goQuiz = ()=>{
     'Посадка важнее бренда: вещь точно по размеру выглядит дороже люкса не по фигуре.',
     'Тёплой коже — тёплые металлы и оттенки: золото вместо серебра.'
   ];
-  dots.innerHTML = FACTS.map(()=> '<span></span>').join('');
-  const dEls = dots.children;
-  let fi = 0, stop = false;
-  async function loop(){
-    while(!stop){
-      const f = FACTS[fi];
-      [...dEls].forEach((d,i)=>d.classList.toggle('on', i===fi));
-      for(let i=0;i<=f.length;i++){ t.textContent = f.slice(0,i); await new Promise(r=>setTimeout(r, 26)); }
-      await new Promise(r=>setTimeout(r, 2800));
-      for(let i=f.length;i>=0;i-=3){ t.textContent = f.slice(0,i); await new Promise(r=>setTimeout(r, 11)); }
-      fi = (fi+1)%FACTS.length;
-    }
+  /* хотите, чтобы факт был один и не менялся — поставьте здесь false */
+  const ROTATE = true;
+  const PAUSE  = 7000;   /* сколько держится один факт, мс */
+
+  dots.innerHTML = FACTS.map((f,i)=>`<button type="button" aria-label="Факт ${i+1}"></button>`).join('');
+  const dEls = [...dots.children];
+  let fi = 0, timer = null, held = false;
+
+  const paint = i => { t.textContent = FACTS[i]; dEls.forEach((d,k)=>d.classList.toggle('on', k===i)); };
+
+  function show(i, instant){
+    fi = (i + FACTS.length) % FACTS.length;
+    if(instant || matchMedia('(prefers-reduced-motion: reduce)').matches){ paint(fi); return; }
+    t.classList.add('out');
+    setTimeout(()=>{
+      paint(fi);
+      t.classList.remove('out'); t.classList.add('in');
+      requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.remove('in')));
+    }, 450);
   }
-  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) loop(); else t.textContent = FACTS[0];
+  const plan = ()=>{ clearTimeout(timer); if(ROTATE && !held) timer = setTimeout(()=>{ show(fi+1); plan(); }, PAUSE); };
+
+  show(0, true); plan();
+  dEls.forEach((d,i)=>d.addEventListener('click', ()=>{ show(i); plan(); }));
+
+  /* читаете — не перелистываем */
+  const box = t.closest('.hp-facts');
+  if(box){
+    box.addEventListener('mouseenter', ()=>{ held = true;  clearTimeout(timer); });
+    box.addEventListener('mouseleave', ()=>{ held = false; plan(); });
+  }
+  document.addEventListener('visibilitychange', ()=>{ if(document.hidden) clearTimeout(timer); else plan(); });
 })();
 /* ---- автодемо конвейера + сверхновая ядра ---- */
 (function(){
@@ -18653,6 +18677,18 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 .tj-sign{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12);
   font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.4px;color:#8E95AB;text-transform:uppercase}
 .tj-final p+p{margin-top:12px}
+
+/* «Спросить» и «Академия» — короткие списки, их показываем столбиком */
+@media(min-width:901px){
+  .nav-dd #navDDa, .nav-dd #navDDl,
+  .nav-dd #navDDa.open, .nav-dd #navDDl.open{grid-template-columns:1fr;min-width:0!important;width:400px!important}
+}
+.nav-dd #navDDa, .nav-dd #navDDl{grid-template-columns:1fr}
+.nav-dd #navDDa button em, .nav-dd #navDDl button em{white-space:normal;overflow:visible;text-overflow:clip}
+#topbar .nav-dd #navDDa, #topbar .nav-dd #navDDl{left:auto;right:-18px}
+@media(max-width:760px){
+  .nav-dd #navDDa, .nav-dd #navDDl{min-width:0;width:auto;left:16px;right:16px}
+}
 
 /* ============ ШИРОКИЕ ЭКРАНЫ: контент не жмётся в узкую колонку ============ */
 @media(min-width:1280px){ .wrap{max-width:1250px} .hero-in{max-width:960px} }
