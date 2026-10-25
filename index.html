@@ -18937,6 +18937,22 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
   .nav-dd #navDDa, .nav-dd #navDDl{min-width:0;width:auto;left:16px;right:16px}
 }
 
+/* шапка образа: номер плашкой, повод — читаемой строкой */
+.wt-head{display:flex;align-items:center;gap:14px;margin-bottom:4px}
+.wt-head > div{flex:1;min-width:0}
+.wt-head h3{margin:0;line-height:1.2}
+.wt-no{flex:0 0 auto;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:#0B0D12;
+  background:linear-gradient(135deg,#FFD28A,#FF6FA8);box-shadow:0 6px 18px -8px rgba(255,111,168,.8)}
+.wt-where{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;
+  color:#E6D4FF;margin-bottom:5px;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+/* заголовок секции вещей */
+.wt-sec{display:flex;align-items:center;gap:10px;margin:16px 0 2px}
+.wt-sec span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#7CF0B2}
+.wt-sec i{flex:1;height:1px;background:linear-gradient(90deg,rgba(124,240,178,.35),transparent)}
+.wt-sec b{flex:0 0 auto;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#0B0D12;
+  padding:2px 8px;border-radius:99px;background:rgba(124,240,178,.75)}
+
 /* предупреждение: образ не по погоде */
 .wt-warn{display:flex;align-items:flex-start;gap:11px;margin-top:11px;padding:12px 14px;border-radius:12px;
   border:1px solid rgba(255,157,176,.45);background:rgba(255,157,176,.09)}
@@ -18955,14 +18971,21 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 
 /* образ из гардероба: вещи плиткой, а не полосами во всю ширину */
 .wt-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:8px;margin:12px 0 0;align-items:stretch}
-.wt-it{display:flex;align-items:center;gap:11px;padding:12px 14px;border-radius:12px;min-width:0;
-  border:1px solid rgba(124,240,178,.26);background:rgba(124,240,178,.055);transition:border-color .2s,background .2s}
-.wt-it:hover{border-color:rgba(124,240,178,.5);background:rgba(124,240,178,.09)}
-.wt-sw{flex:0 0 auto;width:17px;height:17px;border-radius:50%;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.28),0 1px 4px rgba(0,0,0,.45)}
-.wt-nm{flex:1;min-width:0;font-family:'Golos Text',sans-serif;font-weight:600;font-size:14px;line-height:1.32;
-  color:#EDEFF6;white-space:normal;overflow-wrap:anywhere}
-.wt-ok{flex:0 0 auto;font-style:normal;font-size:13px;color:#7CF0B2;opacity:.8;align-self:flex-start;margin-top:1px}
+.wt-it{display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border-radius:13px;min-width:0;position:relative;
+  border:1px solid rgba(124,240,178,.22);background:linear-gradient(180deg,rgba(124,240,178,.075),rgba(124,240,178,.03));
+  transition:border-color .2s,background .2s,transform .2s}
+.wt-it:hover{border-color:rgba(124,240,178,.5);transform:translateY(-2px);
+  background:linear-gradient(180deg,rgba(124,240,178,.12),rgba(124,240,178,.05))}
+.wt-sw{flex:0 0 auto;width:22px;height:22px;border-radius:50%;margin-top:1px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.3),inset 0 -4px 8px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.5)}
+.wt-nm{flex:1;min-width:0;font-family:'Golos Text',sans-serif;font-weight:700;font-size:14.5px;line-height:1.28;
+  color:#F4F6FC;white-space:normal;overflow-wrap:anywhere}
+.wt-nm em{display:block;font-style:normal;font-weight:500;font-size:11.5px;line-height:1.35;
+  color:#9BA2B6;margin-top:3px;letter-spacing:.1px}
+.wt-nm em:empty{display:none}
+.wt-ok{flex:0 0 auto;font-style:normal;font-size:11px;line-height:1;color:#0B0D12;margin-top:2px;
+  width:19px;height:19px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(135deg,#7CF0B2,#19C6F7);box-shadow:0 2px 8px -2px rgba(124,240,178,.7)}
 /* недостающая вещь — отдельным блоком, с покупкой */
 .wt-miss{margin-top:10px;padding:14px 15px;border-radius:13px;
   border:1px dashed rgba(255,214,120,.45);background:rgba(255,214,120,.055)}
@@ -19047,7 +19070,12 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 .wt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:99px;cursor:pointer;
   border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#D8DCE8;
   font-family:'Golos Text';font-size:13.5px;transition:all .18s}
-.wt-chip:hover{border-color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);color:#fff;transform:translateY(-2px)}
+.wt-chip:hover:not(:disabled){border-color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);color:#fff;transform:translateY(-2px)}
+.wt-chip.on{border-color:var(--c);color:#fff;background:color-mix(in srgb,var(--c) 20%,transparent);
+  box-shadow:0 0 0 1px var(--c) inset, 0 6px 18px -8px var(--c)}
+.wt-chip.on i{filter:drop-shadow(0 0 6px var(--c))}
+.wt-chip:disabled{cursor:default;opacity:.5}
+.wt-chip.on:disabled{opacity:1}
 .wt-chip i{font-style:normal;color:var(--c);font-size:15px}
 .wt-chips.soft .wt-chip{opacity:.86}
 
@@ -20735,6 +20763,16 @@ const wtDot = txt=>{
   return hit ? WT_COL[hit] : null;
 };
 const wtCap = t=>{ const x = String(t||'').trim(); return x ? x[0].toUpperCase() + x.slice(1) : x; };
+/* «Пиджак, бордовый, Верхняя одежда» → имя, цвет, категория — чтобы карточка не была строкой текста */
+const WT_CATS = ['верхняя одежда','верх','низ','обувь','платья','аксессуары','сумки','украшения','бельё','белье'];
+const wtSplit = raw=>{
+  const parts = String(raw||'').split(',').map(x=>x.trim()).filter(Boolean);
+  let cat = '';
+  if(parts.length > 1 && WT_CATS.indexOf(parts[parts.length-1].toLowerCase()) >= 0) cat = parts.pop();
+  let col = '';
+  if(parts.length > 1 && WT_COL[parts[parts.length-1].toLowerCase()]) col = parts.pop();
+  return { n: wtCap(parts.join(', ')) || wtCap(raw), col: col, cat: cat };
+};
 
 /* ответ модели иногда обрывается на середине — достаём из него всё, что успело прийти */
 function safeJson(raw){
@@ -20831,7 +20869,11 @@ window.wtPick = async key=>{
   })();
   const OUTER_RE = /пальто|тренч|куртк|пуховик|парк|шуб|дублён|дублен|плащ|анорак|бомбер|косух|ветровк|полупальто|шинел|пончо|кейп/i;
   const OPEN_RE  = /босонож|сандал|шлёпан|шлепан|мюли|вьетнам|слайд/i;
-  const wdOuter  = WD.filter(it => String(it.cat||'') === 'Верхняя одежда' || OUTER_RE.test(String(it.name||'')));
+  /* в шкафу «верхней одеждой» часто помечен пиджак или кардиган — на улицу в них не выходят */
+  const NOT_OUTER_RE = /пиджак|жакет|блейзер|кардиган|жилет|болеро|худи|свитшот|толстовк|джемпер|свитер|пуловер|водолазк|рубашк|блуз|кофт/i;
+  const isOuter = it => !NOT_OUTER_RE.test(String(it.name||''))
+                     && (String(it.cat||'') === 'Верхняя одежда' || OUTER_RE.test(String(it.name||'')));
+  const wdOuter  = WD.filter(isOuter);
   const needOuter = wxNow && typeof wxNow.t === 'number' && wxNow.t < 16;
   const needClosed = wxNow && typeof wxNow.t === 'number' && wxNow.t < 12;
 
@@ -20914,7 +20956,7 @@ window.wtPick = async key=>{
     if(needOuter){
       d.looks.forEach(L=>{
         const all = ((L.own||[]).join(' ') + ' ' + ((L.add&&L.add.n)||'') + ' ' + (L.items||[]).map(i=>i.n).join(' '));
-        L._noOuter = !OUTER_RE.test(all);
+        L._noOuter = !OUTER_RE.test(all.replace(NOT_OUTER_RE, ' '));
         L._openShoe = needClosed && OPEN_RE.test(all);
       });
     }
@@ -20926,12 +20968,14 @@ window.wtPick = async key=>{
       (d.note?`<div class="wt-care" style="margin:0 0 14px">${esc(d.note)}</div>`:'') +
       (d.looks||[]).map((L,i)=>`
         <div class="look badv mk-wide" style="margin-bottom:14px"><div class="look-in">
-          <div class="cs-k">ВАРИАНТ ${i+1}${L.where?' · '+esc(L.where).toUpperCase():''}</div>
-          <h3>${esc(L.t||'Образ')}</h3>
-          ${(L.own||[]).length?`<div class="wt-items">${(L.own||[]).map(n=>{
-            const c = wtDot(n);
-            return `<div class="wt-it"><i class="wt-sw" style="${c?('background:'+c):'background:linear-gradient(135deg,#444,#777)'}"></i>
-              <span class="wt-nm">${esc(wtCap(n))}</span><em class="wt-ok">✓</em></div>`;
+          <div class="wt-head"><span class="wt-no">${i+1}</span><div>
+            ${L.where?`<div class="wt-where">${esc(L.where)}</div>`:''}
+            <h3>${esc(L.t||'Образ')}</h3></div></div>
+          ${(L.own||[]).length?`<div class="wt-sec"><span>Из вашего гардероба</span><b>${(L.own||[]).length}</b><i></i></div>
+          <div class="wt-items">${(L.own||[]).map(n=>{
+            const c = wtDot(n), q = wtSplit(n);
+            return `<div class="wt-it"><i class="wt-sw" style="${c?('background:'+c):'background:linear-gradient(135deg,#3a3f4d,#6c7488)'}"></i>
+              <span class="wt-nm">${esc(q.n)}<em>${esc([q.col, q.cat].filter(Boolean).join(' · '))}</em></span><em class="wt-ok">✓</em></div>`;
           }).join('')}</div>`:''}
           ${L.add&&L.add.n?`<div class="wt-miss">
               <div class="wt-miss-h"><i>+</i><div><b>${esc(wtCap(L.add.n))}</b><span>этого в шкафу нет — без него образ не собрать</span></div>${L.add.p?`<em>${esc(L.add.p)}</em>`:''}</div>
@@ -20975,7 +21019,15 @@ window.wtReset = ()=>{
   const o = outEl(); if(o) o.innerHTML = '';
 };
 
+/* подсветка выбранного запроса в блоке гардероба — без перерисовки результата */
+window.wtSyncChips = ()=>{
+  document.querySelectorAll('#wtWdBox .wt-chip').forEach(b=>{
+    b.classList.toggle('on', W.key === b.dataset.k);
+    b.disabled = !!W.busy;
+  });
+};
 window.renderWant = ()=>{
+  wtSyncChips();
   const box = document.getElementById('wtBox'); if(!box) return;
   const card = m => `<button class="wt-c ${W.key===m[0]?'on':''}" style="--c:${m[4]}" ${W.busy?'disabled':''} onclick="wtPick('${m[0]}')">
       <i>${m[1]}</i><b>${esc(m[2])}</b><span>${esc(m[3])}</span></button>`;
@@ -21002,7 +21054,8 @@ window.openWant = ()=>{ if(window.openPage) openPage('wantPage'); setTimeout(ren
 window.renderWantWd = ()=>{
   const box = document.getElementById('wtWdBox'); if(!box) return;
   let n = 0; try{ n = ((JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items||[]).length; }catch(e){}
-  const chip = m => `<button class="wt-chip" style="--c:${m[4]}" onclick="wtFromWd('${m[0]}')"><i>${m[1]}</i>${esc(m[2])}</button>`;
+  const chip = m => `<button class="wt-chip ${W.key===m[0]?'on':''}" data-k="${m[0]}" style="--c:${m[4]}"
+      ${W.busy?'disabled':''} onclick="wtFromWd('${m[0]}')"><i>${m[1]}</i>${esc(m[2])}</button>`;
   box.innerHTML = `
     <div class="look badv mk-wide"><div class="look-in">
       <div class="cs-k">ОБРАЗ ПОД НАСТРОЕНИЕ · ИЗ ВАШИХ ВЕЩЕЙ</div>
