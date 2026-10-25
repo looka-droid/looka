@@ -6237,7 +6237,7 @@ header nav.topnav{gap:4px;align-items:center}
   <div class="cosmos" aria-hidden="true"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="stars" id="stars"></div><div class="ring r1"></div><div class="ring r2"></div></div>
   <div class="hero-in">
     <div class="eyebrow">LOOKA — ваш личный стилист, визажист и косметолог в одном</div>
-    <h1>Стиль, красота и уход —<br><span class="holo">подобранные под вас, а не «под всех»</span></h1>
+    <h1>Стиль, красота и уход&nbsp;—<br><span class="holo">подобранные под вас, а не «под всех»</span></h1>
     <div class="hero-mood" id="heroMood">
       <div class="hm-q" id="hmQ"></div>
       <div id="lifeBox"></div>
@@ -8644,7 +8644,7 @@ window.shopButtons = it=>{
   const R = REGIONS[REGION];
   if(REGION==='cis'){
     const L = mkLinks(it);
-    return `<div class="mp"><a class="wb" target="_blank" rel="noopener" href="${L.wb}">WB ↗</a><a class="oz" target="_blank" rel="noopener" href="${L.oz}">OZON ↗</a><a class="lm" target="_blank" rel="noopener" href="${L.lm}">LAMODA ↗</a><a class="lm alt" target="_blank" rel="noopener" title="Если точный запрос пуст — расширенный поиск похожих вещей" href="${L.lmAlt}">≈ ПОХОЖИЕ</a><a class="ym" target="_blank" rel="noopener" href="https://market.yandex.ru/search?text=${encodeURIComponent(it.q)}">МАРКЕТ ↗</a></div>`+socialRow(it.q,false);
+    return `<div class="mp"><a class="wb" target="_blank" rel="noopener" href="${L.wb}">WB ↗</a><a class="oz" target="_blank" rel="noopener" href="${L.oz}">OZON ↗</a><a class="lm" target="_blank" rel="noopener" href="${L.lm}">LAMODA ↗</a><a class="lm alt" target="_blank" rel="noopener" title="Если точный запрос пуст — расширенный поиск похожих вещей" href="${L.lmAlt}">≈ ПОХОЖИЕ</a><a class="ym" target="_blank" rel="noopener" href="https://market.yandex.ru/search?text=${encodeURIComponent(it.q)}">МАРКЕТ ↗</a><a class="ali" target="_blank" rel="noopener" href="https://aliexpress.ru/wholesale?SearchText=${encodeURIComponent(it.q)}">ALI ↗</a></div>`+socialRow(it.q,false);
   }
   const shoe = SHOE_RE.test(it.n+' '+it.q);
   const q = (R.lang==='ru' ? it.q : toEN(it.q)) + sizeToken(shoe);
@@ -18696,8 +18696,10 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 @media(min-width:1700px){ .wrap{max-width:1460px} .hero-in{max-width:1120px} }
 /* заголовок и подзаголовок героя не растягиваем на всю ширину */
 @media(min-width:1280px){
-  .hero-in h1{max-width:17ch}
   .hero-in > p.lead,.hero-in > .lead{max-width:62ch}
+  /* заголовок: строки делятся поровну, «всех» не остаётся одно на строке */
+  .hero h1{text-wrap:balance;font-size:clamp(40px,4.4vw,64px)}
+  .hero h1 .holo{display:inline-block}
   /* настроения — ровно по четыре в ряд, а не 5+3 */
   .lf-moods{grid-template-columns:repeat(4,1fr)!important}
 }
@@ -18755,7 +18757,7 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
   body{overflow-x:hidden}
   .sec{padding-left:16px;padding-right:16px}
   h2.big,.sec h2.big{font-size:clamp(24px,6.4vw,32px);line-height:1.18}
-  .hero h1{font-size:clamp(28px,8vw,40px);line-height:1.12}
+  .hero h1{font-size:clamp(28px,8vw,40px);line-height:1.12;text-wrap:balance}
   .lead,p.lead{font-size:14.5px}
   .hp-sub{font-size:9.5px;letter-spacing:2px;margin:22px 0 10px}
   .vs{grid-template-columns:1fr;gap:12px}
@@ -19995,20 +19997,51 @@ if(typeof _open !== 'function') return;
 let silent = false;   /* true, когда переход вызвала сама история — тогда не пишем в неё */
 let stack  = [];      /* наш след в истории: '' — это главная */
 
+/* ---- где человек был на каждом разделе: возвращаем его туда же ---- */
+try{ history.scrollRestoration = 'manual'; }catch(e){}
+const KEY = 'looka_scrollpos';
+let POS = {};
+try{ POS = JSON.parse(sessionStorage.getItem(KEY) || '{}') || {}; }catch(e){}
+const viewId  = ()=>curPage() || '';
+const scrollY = ()=>window.pageYOffset || document.documentElement.scrollTop || 0;
+function savePos(){
+  POS[viewId()] = scrollY();
+  try{ sessionStorage.setItem(KEY, JSON.stringify(POS)); }catch(e){}
+}
+/* вернуть прокрутку: ждём, пока раздел отрисуется, иначе прыгать будет некуда */
+function restorePos(id, tries){
+  const want = POS[id] || 0;
+  if(!want){ window.scrollTo(0, 0); return; }
+  let n = tries || 0;
+  const go = ()=>{
+    const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    if(want > max && n < 12){ n++; return setTimeout(go, 70); }   /* содержимое ещё не выросло */
+    window.scrollTo({ top: Math.min(want, max), behavior: 'auto' });
+  };
+  requestAnimationFrame(()=>requestAnimationFrame(go));
+}
+/* запоминаем и на обычной прокрутке — на случай закрытия вкладки */
+let st = null;
+window.addEventListener('scroll', ()=>{ clearTimeout(st); st = setTimeout(savePos, 260); }, { passive:true });
+window.addEventListener('beforeunload', savePos);
+
 /* первая запись: то, что открыто сейчас */
 stack = [curPage()];
 try{ history.replaceState({ looka:1, page: curPage() }, '', location.href); }catch(e){}
 
 /* кнопка «на главную» ведёт именно на главную, а не на предыдущий раздел */
 function toHome(render){
+  savePos();
   render();
   if(!history.state || !history.state.looka || history.state.page !== ''){
     try{ history.pushState({ looka:1, page:'' }, '', location.pathname + location.search); }catch(e){}
   }
+  restorePos('');
 }
 
 window.openPage = function(id, anchor){
   const was = curPage();
+  if(!silent) savePos();
   const r = _open.apply(this, arguments);
   if(silent || was === id) return r;
   try{
@@ -20020,8 +20053,8 @@ window.openPage = function(id, anchor){
 
 window.closePage = function(noScroll){
   if(silent) return _close.apply(this, arguments);
-  const args = arguments, self = this;
-  toHome(()=>_close.apply(self, args));
+  const self = this;
+  toHome(()=>_close.call(self, true));   /* true = не прыгать наверх, вернём на прежнее место */
 };
 
 if(typeof _home === 'function'){
@@ -20036,13 +20069,17 @@ window.addEventListener('popstate', function(e){
   const st = e.state || {};
   const want = st.looka ? (st.page || '') : (isPage(location.hash.slice(1)) ? location.hash.slice(1) : '');
   if(stack.length > 1) stack.pop();
+  savePos();
   silent = true;
   try{
     if(want && isPage(want)){
       if(curPage() !== want) _open.call(window, want);
     } else {
-      if(typeof _home === 'function') _home.call(window); else _close.call(window, true);
+      _close.call(window, true);
+      document.body.classList.remove('subpage','beauty-mode');
+      document.querySelectorAll('.pageview').forEach(p=>p.classList.remove('active-page'));
     }
+    restorePos(want || '');
   } finally {
     /* снимаем флаг после того, как отработают все обёртки openPage */
     setTimeout(()=>{ silent = false; }, 120);
@@ -20059,6 +20096,125 @@ function fromHash(){
 }
 if(document.readyState !== 'loading') setTimeout(fromHash, 350);
 else document.addEventListener('DOMContentLoaded', ()=>setTimeout(fromHash, 350));
+})();
+</script>
+
+
+<!-- ======== СКАНИРОВАНИЕ ФОТО ОБРАЗА ======== -->
+<style id="lkScan">
+/* ===== СКАНИРОВАНИЕ ФОТО ОБРАЗА ===== */
+.lrs{position:absolute;inset:0;z-index:5;border-radius:inherit;overflow:hidden;pointer-events:none;
+  background:rgba(6,8,14,.3);animation:lrsFade .35s ease}
+@keyframes lrsFade{from{opacity:0}to{opacity:1}}
+/* сетка */
+.lrs::before{content:'';position:absolute;inset:0;opacity:.35;
+  background-image:linear-gradient(rgba(25,198,247,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(25,198,247,.35) 1px,transparent 1px);
+  background-size:34px 34px;mask:linear-gradient(180deg,transparent,#000 18%,#000 82%,transparent)}
+/* луч */
+.lrs-beam{position:absolute;left:0;right:0;height:112px;
+  background:linear-gradient(180deg,transparent,rgba(25,198,247,.16) 42%,rgba(25,198,247,.5) 50%,rgba(25,198,247,.16) 58%,transparent);
+  box-shadow:0 0 34px rgba(25,198,247,.55);animation:lrsBeam 2.4s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes lrsBeam{0%{top:-112px}100%{top:100%}}
+/* уголки рамки */
+.lrs-c{position:absolute;width:26px;height:26px;border:2px solid #19C6F7;box-shadow:0 0 12px rgba(25,198,247,.8)}
+.lrs-c.tl{top:12px;left:12px;border-right:0;border-bottom:0}
+.lrs-c.tr{top:12px;right:12px;border-left:0;border-bottom:0}
+.lrs-c.bl{bottom:12px;left:12px;border-right:0;border-top:0}
+.lrs-c.br{bottom:12px;right:12px;border-left:0;border-top:0}
+.lrs-c{animation:lrsPulse 1.6s ease-in-out infinite}
+@keyframes lrsPulse{0%,100%{opacity:.5}50%{opacity:1}}
+/* подпись со стадиями */
+.lrs-info{position:absolute;left:14px;right:14px;bottom:14px;padding:12px 14px;border-radius:12px;text-align:left;
+  background:rgba(8,10,18,.84);border:1px solid rgba(25,198,247,.4);backdrop-filter:blur(6px)}
+.lrs-info b{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:1.6px;color:#19C6F7;text-transform:uppercase;margin-bottom:8px}
+.lrs-dot{width:7px;height:7px;border-radius:50%;background:#19C6F7;box-shadow:0 0 8px #19C6F7;animation:lrsPulse 1s infinite}
+.lrs-step{font-family:'Golos Text',sans-serif;font-size:13px;color:#E4E7F0;min-height:19px;line-height:1.4}
+.lrs-bar{height:3px;border-radius:9px;background:rgba(255,255,255,.12);margin-top:9px;overflow:hidden}
+.lrs-bar i{display:block;height:100%;width:0;border-radius:9px;
+  background:linear-gradient(90deg,#19C6F7,#C79DF2,#FF5FB0);transition:width .6s ease}
+@media(prefers-reduced-motion:reduce){.lrs-beam,.lrs-c,.lrs-dot{animation:none}}
+/* найденные вещи — чипсами поверх фото */
+.lrs-found{position:absolute;left:12px;right:12px;top:12px;display:flex;flex-wrap:wrap;gap:6px;z-index:6;pointer-events:none}
+.lrs-chip{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.6px;text-transform:uppercase;
+  color:#0B0C12;background:#19C6F7;border-radius:99px;padding:4px 9px;box-shadow:0 2px 12px rgba(25,198,247,.6);
+  opacity:0;transform:translateY(-6px);animation:lrsChip .4s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes lrsChip{to{opacity:1;transform:none}}
+.mr-drop{position:relative}
+</style>
+<script>
+/* ===== сканирование фото при разборе образа ===== */
+(function(){
+'use strict';
+const STEPS = [
+  'Смотрю силуэт и пропорции',
+  'Разбираю образ на вещи',
+  'Определяю ткани, цвета и крой',
+  'Примеряю на вашу фигуру и палитру',
+  'Ищу похожее на площадках вашей страны'
+];
+let timers = [], alive = false;
+
+function build(){
+  const drop = document.querySelector('#lrBox .mr-drop.has, #lrBox .mr-drop');
+  if(!drop || drop.querySelector('.lrs')) return false;
+  const el = document.createElement('div');
+  el.className = 'lrs';
+  el.innerHTML = `<span class="lrs-beam"></span>
+    <i class="lrs-c tl"></i><i class="lrs-c tr"></i><i class="lrs-c bl"></i><i class="lrs-c br"></i>
+    <div class="lrs-found" id="lrsFound"></div>
+    <div class="lrs-info"><b><span class="lrs-dot"></span>разбор образа</b>
+      <div class="lrs-step" id="lrsStep">${STEPS[0]}</div>
+      <div class="lrs-bar"><i id="lrsBar"></i></div></div>`;
+  drop.appendChild(el);
+  return true;
+}
+function start(){
+  alive = true;
+  if(!build()) return;
+  STEPS.forEach((s,i)=>{
+    timers.push(setTimeout(()=>{
+      const st=document.getElementById('lrsStep'), bar=document.getElementById('lrsBar');
+      if(st) st.textContent = s;
+      if(bar) bar.style.width = Math.min(94, (i+1)/STEPS.length*100) + '%';
+    }, i*3400));
+  });
+  /* если блок перерисовали — вернуть наложение */
+  timers.push(setInterval(()=>{ if(alive) build(); }, 500));
+}
+function stop(found){
+  alive = false;
+  timers.forEach(t=>{ clearTimeout(t); clearInterval(t); }); timers = [];
+  const box = document.getElementById('lrsFound');
+  if(box && found && found.length){
+    box.innerHTML = found.slice(0,6).map((n,i)=>
+      `<span class="lrs-chip" style="animation-delay:${(i*0.12).toFixed(2)}s">${String(n).replace(/[<>&]/g,'').slice(0,26)}</span>`).join('');
+    setTimeout(()=>document.querySelectorAll('#lrBox .lrs').forEach(e=>e.remove()), 1400);
+  } else {
+    document.querySelectorAll('#lrBox .lrs').forEach(e=>e.remove());
+  }
+}
+
+function wrap(){
+  if(!window.lrGo || window.lrGo.__scan) return;
+  const orig = window.lrGo;
+  const fn = async function(){
+    const p = orig.apply(this, arguments);
+    setTimeout(start, 40);
+    try{ return await p; }
+    finally{
+      let names = [];
+      try{ names = [...document.querySelectorAll('#lrOut .item .nm')].map(e=>e.textContent.trim()); }catch(e){}
+      setTimeout(()=>stop(names), 80);
+    }
+  };
+  fn.__scan = true;
+  window.lrGo = fn;
+}
+if(document.readyState!=='loading') wrap(); else document.addEventListener('DOMContentLoaded', wrap);
+setTimeout(wrap, 700);
+const _op = window.openPage;
+if(typeof _op==='function') window.openPage = function(){ _op.apply(this, arguments); setTimeout(wrap, 80); };
 })();
 </script>
 
