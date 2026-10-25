@@ -4014,7 +4014,13 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 /* --- СТАТЬИ --- */
 .ar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;
   grid-auto-rows:1fr;align-items:stretch}
-.ar-grid > *{min-width:0}
+.ar-grid > *{min-width:0;height:100%}
+/* карточка тянется на всю высоту ячейки, «читать разбор» всегда внизу */
+.ar-grid .ar-c{height:100%;align-self:stretch}
+.ar-c h3{min-height:2.56em}
+/* появление без масштаба — иначе во время анимации карточки выглядят разной высоты */
+.ar-grid .pop{animation:arIn .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes arIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .ar-c{position:relative;display:flex;flex-direction:column;overflow:hidden;cursor:pointer;padding:26px 28px;border-radius:24px;border:1px solid transparent;background:linear-gradient(#12151F,#0D1017) padding-box,linear-gradient(140deg,var(--a),var(--b)) border-box;animation:popIn .5s both;transition:transform .25s,box-shadow .25s}
 .ar-c::before{content:'';position:absolute;inset:-45% 50% 60% -30%;background:radial-gradient(circle,var(--a),transparent 70%);opacity:.15;pointer-events:none;transition:opacity .3s}
 .ar-c:hover{transform:translateY(-5px);box-shadow:0 22px 52px -24px var(--a)}
@@ -6792,7 +6798,7 @@ header nav.topnav{gap:4px;align-items:center}
       <div class="ct-op">
         <div class="ct-av" data-ava><span>А</span><i></i></div>
         <div class="ct-op-i"><b>Анна Бредихина</b><span>основатель LOOKA · отвечает лично</span><em id="ctOpSt"><i></i>на связи</em></div>
-        <div class="ct-op-r"><b id="ctOpT">~20 мин</b><span>среднее время ответа</span></div>
+        <div class="ct-op-r"><b id="ctOpT">~10–20 мин</b><span>среднее время ответа</span></div>
       </div>
       <div class="ct-demo-b">
         <div class="ct-topics" id="ctTopics"><button data-t="Не пришёл доступ после оплаты">доступ не пришёл</button><button data-t="Хочу вернуть деньги">возврат</button><button data-t="Что-то не работает: ">не работает</button><button data-t="Вопрос по подбору: ">по подбору</button></div>
@@ -7272,6 +7278,7 @@ header nav.topnav{gap:4px;align-items:center}
   </div>
   <div class="bt-form look mk-form"><h3>Добавить вещь</h3><p class="mo-note" style="margin:-4px 0 18px">Фото не нужно. Либо вставьте ссылку на товар из любого магазина — и карточка заполнится сама, либо три касания: что это, какая вещь, цвет.</p><div id="wdInbox"></div><div id="wdAdd"></div></div>
   <div class="looks" id="wdBox" style="margin-top:22px"></div>
+  <div id="wtWdBox" style="margin-top:18px"></div>
 </section>
 
 <section class="sec pageview" id="studioPage">
@@ -9184,7 +9191,7 @@ window.openPage = (id, anchor)=>{
   if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderStyling) renderStyling(); if(window.renderHairFit) renderHairFit(); if(window.hlAdopt && window.brdPhoto) hlAdopt(brdPhoto()); if(window.renderHairLab) renderHairLab(); }
   if(id==='eventPage' && window.renderEventForm) renderEventForm();
   if(id==='capsulePage' && window.renderCapsuleForm) renderCapsuleForm();
-  if(id==='wardrobePage' && window.renderWardrobe){ renderWardrobe(); if(window.wdInboxLoad) wdInboxLoad(); }
+  if(id==='wardrobePage' && window.renderWardrobe){ renderWardrobe(); if(window.wdInboxLoad) wdInboxLoad(); if(window.renderWantWd) setTimeout(renderWantWd, 60); }
   if(id==='morningPage' && window.renderMorning){ renderMorning(); }
   if(id==='coursePage' && window.renderCourses){ renderCourses(); }
   if(id==='lazyPage' && window.renderLazy){ renderLazy(); }
@@ -12356,7 +12363,7 @@ async function renderWardrobe(){
           :`<div class="tip" style="margin-top:12px">Город не указан, поэтому погода не учтена. Нажмите «Определить город» — браузер спросит разрешение, и прогноз подтянется сам.</div>`}
       </div></div>` })() : ''}
     <div class="look badv mk-wide wd-today"><div class="look-in"><span class="wd-eyebrow">образ дня · из ваших вещей</span><h3>Что надеть сегодня${wx?' <em>'+wx.city+', '+(wx.now>0?'+':'')+Math.round(wx.now)+'°</em>':''}</h3>
-      <div class="chips">${['жарко','тепло','прохладно','холодно'].map(b=>`<button class="chip ${band===b?'on':''}" onclick="wdBand('${b}')">${b}</button>`).join('')}</div>
+      ${wx ? '' : `<div class="chips">${['жарко','тепло','прохладно','холодно'].map(b=>`<button class="chip ${band===b?'on':''}" onclick="wdBand('${b}')">${b}</button>`).join('')}</div>`}
       <div class="chips" style="margin-top:8px">${FORM.map(o=>`<button class="chip ${T.occ===o?'on':''}" onclick="wdOcc('${o}')">${o}</button>`).join('')}</div>
       ${!band?'<div class="tip">Выберите погоду (или укажите город в шапке — подтянется сама).</div>': fits.length ? `<div class="wd-fits">${fits.map((f,k)=>HUB.pop(`<div class="wd-fit"><div class="wd-fit-h">Вариант ${k+1}</div>${f.parts.map(p=>itemCard(p,true)).join('')}<button class="btn ghost" onclick="wdWearAll('${f.parts.map(p=>p.id).join(',')}')">✓ Надела это</button></div>`,k)).join('')}</div>` : '<div class="tip">Из текущих вещей под эту погоду и повод образ не складывается — смотрите «дыры» ниже.</div>'}
       <button class="btn ghost" style="margin-top:12px" onclick="wdWeek()">✦ Спланировать неделю</button><div id="wdWeek"></div>
@@ -13018,6 +13025,56 @@ const ARTS = [
    li('Наборы «всё для ухода» из десяти бутылочек — обычно в деле две.'),
    li('Ультразвуковые машинки «для чистки чего угодно» — для ткани бесполезны.'),
    rule('Правильный инструмент дешевле новой вещи. И почти всегда дешевле химчистки.')
+  ] },
+
+{ k:'lingerie', ic:'◠', col:['#FF8AC9','#FFD28A'], read:'9 минут',
+  t:'Бельё: первый слой кроя, который решает всё остальное',
+  lead:'Почему «ангельский» силуэт с показов — это на девяносто процентов правильно подобранный бра, и как понять, что вы носите не свой размер.',
+  body:[
+   p('Девушки годами меняют платья, которые «почему-то плохо сидят», и почти никогда не проверяют то, что надето под ними. А это первый слой кроя: бельё задаёт линию груди, от неё считывается положение талии, а от талии — все пропорции. Одно и то же платье на правильном и неправильном белье выглядит как две разные вещи.'),
+   h('Про силуэт с показов — честно'),
+   p('То, что называют «ангельским» силуэтом, собирается из трёх вещей: свет, осанка и бельё, подобранное мастером под конкретную фигуру. На показах с каждой моделью работает человек, который подгоняет бра по месту — подшивает пояс, меняет лямки, иногда вшивает в чашу то, что нужно именно сегодня.'),
+   p('Это не про тип фигуры и не про размер. Это ремесло, и в нём ровно одна вещь действительно зависит от вас: чтобы бра был вашего размера и держал. Всё остальное — свет и постановка, которых в жизни не бывает ни у кого.'),
+   rule('Правильно подобранное бельё не делает вас другой женщиной. Оно делает видимой ту, которая и так есть.'),
+   h('Пять признаков, что размер не ваш'),
+   li('Пояс уехал вверх на спине, а спереди стоит ниже — он велик.'),
+   li('Лямки врезаются в плечи — вес ушёл на них, потому что пояс не держит.'),
+   li('Косточка лежит на мягкой ткани груди, а не под ней, в складке.'),
+   li('Из чаши выходит край — чаша мала, и под футболкой это видно.'),
+   li('Чаша морщит и остаётся пустое место — чаша велика.'),
+   note('Четыре из этих пяти признаков — про пояс и чашу, а не про тело. Размер подбирается под тело, а не наоборот.'),
+   h('Как устроен размер'),
+   p('Число — это обхват под грудью, буква — разница между обхватом груди и обхватом под грудью. Отсюда главное следствие, о котором не знает почти никто: буква не абсолютна. B у 75-го и B у 80-го — разный объём.'),
+   tab(['Проблема','Что делать','Пример'], [
+     ['пояс велик','меньше пояс, больше чаша','80B → 75C'],
+     ['пояс мал','больше пояс, меньше чаша','75C → 80B'],
+     ['чаша мала','чаша на размер больше','75B → 75C'],
+     ['чаша велика','чаша на размер меньше','75C → 75B']
+   ]),
+   p('Такие пары называют соседними размерами: объём чаши в них сохраняется, меняется только посадка пояса. Если «мой размер нигде не сидит» — почти наверняка дело в том, что соседние размеры никто не предлагал померить.'),
+   h('Проверка в примерочной, за минуту'),
+   li('Застегнуть на самый свободный крючок — запас нужен на будущее.'),
+   li('Наклониться вперёд и выпрямиться — грудь должна сама лечь в чашу.'),
+   li('Провести пальцем под поясом: проходит один палец, не два.'),
+   li('Поднять руки вверх — пояс не должен уехать.'),
+   li('Надеть сверху тонкую футболку и посмотреть в зеркало сбоку.'),
+   h('Что надевать подо что'),
+   tab(['Одежда','Бельё','Почему'], [
+     ['белое, светлое','в тон коже','белое под белым видно сильнее всего'],
+     ['тонкий трикотаж','гладкая чаша','кружево читается как рельеф'],
+     ['шёлк, вискоза','бесшовное','любой шов проступит'],
+     ['плотный жакет','любое','ткань держит форму сама'],
+     ['платье по косой','бесшовное и гладкое','косой крой показывает всё']
+   ]),
+   h('Уход, который продлевает жизнь вдвое'),
+   li('Стирать руками в тёплой воде, мягким средством.'),
+   li('Не выкручивать: отжать в полотенце.'),
+   li('Сушить разложив, не на верёвке — мокрый пояс растягивается под своим весом.'),
+   li('Не носить один и тот же два дня подряд: эластану нужны сутки.'),
+   li('Хранить застёгнутым, чаши не складывать одна в другую.'),
+   h('Раз в год — заново'),
+   p('Тело меняется от веса, спорта, гормонов, беременности и возраста, и это нормально. А размер белья большинство покупает по памяти, годами. Отсюда и ощущение, что бельё «стало неудобным»: неудобным стал размер, а не вы.'),
+   rule('Единственное, что действительно стоит менять в этой истории, — размер на бирке. Не себя.')
   ] }
 ];
 
@@ -14207,13 +14264,37 @@ window.openHub = ()=>openPage('hubPage');
       return p.length ? '\n\n— профиль LOOKA: '+p.join(', ') : '';
     }catch(e){ return ''; }
   };
+  const LONG = 1500;        /* дальше ссылку браузер уже обрезает — пойдём через буфер обмена */
+  let longMode = false, fullTxt = '';
   const upd = ()=>{
-    const txt = ta.value.slice(0,600); if(ta.value.length>600) ta.value = txt;
-    cnt.textContent = txt.length+' / 600';
-    const full = (txt.trim()||'Здравствуйте! ') + (prof.checked ? profile() : '');
-    tg.href = 'https://t.me/looka_support?text='+encodeURIComponent(full);
-    ml.href = 'mailto:hello@looka.ru?subject='+encodeURIComponent('LOOKA: '+(txt.trim().slice(0,50)||'вопрос'))+'&body='+encodeURIComponent(full);
+    const txt = ta.value;
+    fullTxt = (txt.trim()||'Здравствуйте! ') + (prof.checked ? profile() : '');
+    longMode = fullTxt.length > LONG;
+    cnt.textContent = txt.length ? (txt.length + ' символов') : '';
+    cnt.classList.toggle('long', longMode);
+    if(longMode){
+      cnt.textContent = txt.length + ' символов · длинное письмо — скопируем в буфер';
+      tg.removeAttribute('href'); ml.removeAttribute('href');
+      tg.style.cursor = 'pointer'; ml.style.cursor = 'pointer';
+    } else {
+      tg.href = 'https://t.me/looka_support?text='+encodeURIComponent(fullTxt);
+      ml.href = 'mailto:hello@looka.ru?subject='+encodeURIComponent('LOOKA: '+(txt.trim().slice(0,50)||'вопрос'))+'&body='+encodeURIComponent(fullTxt);
+    }
   };
+  /* длинный текст: кладём в буфер и открываем переписку — ничего не теряется */
+  const sendLong = (where)=>{
+    const done = ()=>{
+      if(window.myToast) myToast('Текст скопирован — вставьте его в открывшемся окне');
+      window.open(where==='tg' ? 'https://t.me/looka_support'
+                               : 'mailto:hello@looka.ru?subject='+encodeURIComponent('LOOKA: вопрос'), '_blank');
+    };
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(fullTxt).then(done).catch(done);
+      else { ta.select(); try{ document.execCommand('copy'); }catch(e){} done(); }
+    }catch(e){ done(); }
+  };
+  tg.addEventListener('click', e=>{ if(longMode){ e.preventDefault(); sendLong('tg'); } });
+  ml.addEventListener('click', e=>{ if(longMode){ e.preventDefault(); sendLong('mail'); } });
   ta.addEventListener('input', upd); prof.addEventListener('change', upd);
   /* живой плейсхолдер: печатает примеры, пока поле пустое */
   const EX = ['Оплатила, а код доступа не пришёл — почта такая-то…','Образы получились строже, чем я хожу. Можно мягче?','Цветотип показал «мягкое лето» — сомневаюсь, вот фото…','Не открывается бьюти-скан на телефоне, скрин прикреплю в чате'];
@@ -14227,7 +14308,7 @@ window.openHub = ()=>openPage('hubPage');
   const sent = document.getElementById('ctSent');
   [tg, ml].forEach(a=>a.addEventListener('click', ()=>{ sent.classList.add('on'); setTimeout(()=>sent.classList.remove('on'), 12000); }));
   const opSt = document.getElementById('ctOpSt'), opT = document.getElementById('ctOpT');
-  const st = ()=>{ const msk = new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Moscow'})); const hh = msk.getHours(); const on = hh>=6 && hh<22; opSt.classList.toggle('off', !on); opSt.lastChild.textContent = on ? 'на связи' : 'вернётся в 06:00 мск'; opT.textContent = on ? (hh<19 ? '~20 мин' : '~1 ч') : 'утром'; };
+  const st = ()=>{ const msk = new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Moscow'})); const hh = msk.getHours(); const on = hh>=6 && hh<23; opSt.classList.toggle('off', !on); opSt.lastChild.textContent = on ? 'на связи' : 'вернётся в 06:00 мск'; opT.textContent = on ? '~10–20 мин' : 'утром'; };
   st(); setInterval(st, 60000);
   document.querySelectorAll('#ctTopics button').forEach(b=>b.addEventListener('click', ()=>{ document.querySelectorAll('#ctTopics button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); ta.value = b.dataset.t; ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); ta.dispatchEvent(new Event('input')); }));
   upd();
@@ -14683,9 +14764,39 @@ window.PR_SCENES = PS;
 })();
 /* ================= ЛАЙФХАКИ ОТ ПРОФЕССИОНАЛОВ ================= */
 (function(){
-const CAT = [['all','Все','✦'],['hw','Красная дорожка','★'],['tool','Инструменты','⚒'],['mk','Макияж','◉'],['hair','Волосы','✂'],['cloth','Одежда и посадка','▤'],['care','Уход','❍'],['shop','Магазин','⌗'],['shot','Съёмка','📷']];
+const CAT = [['all','Все','✦'],['hw','Красная дорожка','★'],['world','Мировые школы','◍'],['lin','Бельё','◠'],['tool','Инструменты','⚒'],['mk','Макияж','◉'],['hair','Волосы','✂'],['cloth','Одежда и посадка','▤'],['care','Уход','❍'],['shop','Магазин','⌗'],['shot','Съёмка','📷']];
 /* [категория, приём, что делать, почему работает, кто так делает, уровень] */
 const TIPS = [
+ ['lin','Бельё меняет силуэт сильнее, чем само платье','Прежде чем менять платье, которое «плохо сидит», проверьте, что под ним.','Бельё — это первый слой кроя. Неправильный бра меняет линию груди, а значит и положение талии, и то, как ложится ткань. Одно и то же платье на правильном и неправильном белье выглядит как две разные вещи.','специалисты по подбору белья','конвенция'],
+ ['lin','Пояс держит, а бретели только поправляют','Основная поддержка идёт от пояса под грудью, а не от лямок на плечах.','Если лямки врезаются, а под поясом проходит ладонь — пояс велик. Подтягивание лямок тут не поможет: оно просто переносит вес на плечи и даёт боль в шее к вечеру.','специалисты по подбору белья','конвенция'],
+ ['lin','Пояс проверяют на самом свободном крючке','Новый бра должен садиться на крайний свободный крючок, а не на тугой.','Ткань растягивается со временем. Если новый бра застёгивается только на самый тугой крючок, запаса нет — через три месяца он перестанет держать совсем.','специалисты по подбору белья','конвенция'],
+ ['lin','Косточка обнимает грудь, а не лежит на ней','Косточка должна проходить по складке под грудью и упираться в рёбра, а не в мягкую ткань.','Если косточка стоит на груди, чаша мала — отсюда и «четыре груди» под футболкой, и натирание. Это вопрос размера чаши, а не формы тела.','специалисты по подбору белья','конвенция'],
+ ['lin','Соседние размеры работают парами','Мал пояс — берите меньше пояс и больше чашу: 75C вместо 80B. Объём чаши сохранится.','Размер чаши — это не абсолютная величина, а разница между обхватом груди и обхватом под грудью. Поэтому B у 75-го и B у 80-го — разные объёмы.','специалисты по подбору белья','конвенция'],
+ ['lin','Под белое — бельё в тон кожи, а не белое','Берите оттенок на тон светлее или темнее вашей кожи. Белое под белым виднее всего.','Белая ткань отражает свет, кожа поглощает. Бельё в тон кожи сливается с ней и не создаёт контраста, который видно через тонкий слой.','стилисты','конвенция'],
+ ['lin','Под трикотаж — гладкая чаша, под шёлк — бесшовное','Любая фактура, кружево или шов проступят на гладкой ткани.','Трикотаж и шёлк облегают и повторяют всё, что под ними. Кружево под ними читается как рельеф и визуально добавляет объём там, где его нет.','стилисты','конвенция'],
+ ['lin','У бра должен быть выходной и будни','Не носить один и тот же два дня подряд.','Эластан восстанавливается за сутки. Бра, которому дают отдых, держит форму в полтора-два раза дольше того, что носят подряд.','специалисты по подбору белья','конвенция'],
+ ['lin','Стирать руками и сушить на полотенце','Тёплая вода, мягкое средство, без выкручивания. Никакой сушилки и батареи.','Горячая вода и барабан убивают эластан — он теряет упругость необратимо. Сушка на весу растягивает пояс под собственным весом воды.','специалисты по подбору белья','конвенция'],
+ ['lin','Размер проверяют заново раз в год','Мерки меняются от веса, спорта, гормонов и возраста — это нормально.','Большинство женщин покупают один и тот же размер годами, хотя тело за это время изменилось. Отсюда ощущение, что «бельё стало неудобным» — хотя неудобным стал именно размер.','специалисты по подбору белья','конвенция'],
+ ['world','Основу кроя строят из трёх мерок, а не из двадцати','Обхват груди, обхват талии и длина спины до талии. Остальное считается по формулам, а не снимается сантиметром.','Каждая снятая вручную мерка добавляет свою ошибку. Три точные дают более предсказуемую посадку, чем двадцать приблизительных — на этом построен метод японской школы Бунка.','японская школа кроя (Бунка)','конвенция'],
+ ['world','Вытачку уводят в пройму, а не в боковой шов','В японской основе нагрудная вытачка раскрывается в пройму.','Боковая вытачка рисует на фигуре горизонтальную линию и «ломает» силуэт сбоку. В пройме она прячется в шов рукава, и перёд остаётся чистым.','японская школа кроя (Бунка)','конвенция'],
+ ['world','Манекен делают по усреднённой фигуре, а не по идеальной','В Бунке форму строят, отсканировав множество реальных женщин, и пересматривают её, когда фигура поколения меняется.','Манекен по «идеальным» пропорциям шьёт одежду на несуществующего человека. Усреднение по живым телам объясняет, почему японские выкройки чаще садятся без переделок.','японская школа кроя (Бунка)','конвенция'],
+ ['world','Сантиметровую ленту придумал портной, а не инженер','Лента должна прилегать к телу, но под неё должен проходить палец. Не натягивать и не давать провисать.','Мягкую сантиметровую ленту и кутюрный манекен изобрёл парижский портной Алексис Лавинь, основавший в 1841 году первую в мире школу моды — сегодня это ESMOD. Лента создавалась, чтобы повторять изгиб тела, а не измерять по прямой.','ESMOD, Париж','конвенция'],
+ ['world','Сначала макет из дешёвой ткани, потом дорогая','В кутюрных ателье вещь сперва шьют из грубого хлопка и правят прямо на фигуре.','Ошибку посадки видно только на объёме. Бумажная выкройка этого не показывает. Макет стоит копейки, а спасает метры ткани — и это обязательный этап в парижской школе.','кутюрные ателье','конвенция'],
+ ['world','Пиджак оценивают по воротнику сзади, а не по плечам','Встаньте боком к зеркалу: воротник должен лежать на шее без зазора и без складки.','Это первое, что смотрят портные на Сэвил-Роу. Зазор означает, что спинка коротка или баланс смещён — такой пиджак будет тянуть весь день, сколько его ни ушивай по бокам.','портные Сэвил-Роу','конвенция'],
+ ['world','Чем южнее школа кроя, тем мягче плечо','Британский пиджак — структурное плечо и плотный подборт. Миланский — мягче. Неаполитанский почти без подкладки.','Это не мода, а климат и образ жизни. Выбирать стоит не по стране, а по себе: узкие плечи выигрывают от структуры, широкие — от мягкости.','итальянская и британская школы','конвенция'],
+ ['world','Баланс изделия проверяют по подолу, а не по талии','Наденьте вещь и посмотрите, параллелен ли подол полу спереди и сзади.','Если подол задирается — вещь посажена неверно в плече или груди, и никакая утяжка по талии этого не исправит. Портные начинают примерку именно с баланса.','портновская школа','конвенция'],
+ ['world','Долевая нить решает, перекрутится вещь после стирки или нет','Проверить просто: шов должен идти параллельно кромке, а рисунок — ровно по вертикали.','Скроенная не по долевой вещь начинает «уходить» вбок после первой же стирки, и брюки разворачиваются швом вперёд. Это заводской брак, а не особенность ткани.','портновская школа','конвенция'],
+ ['world','Косой крой садится по телу без единой вытачки','Ткань, раскроенная под 45°, тянется по диагонали и облегает фигуру сама.','Приём мадлен Вионне, перевернувший крой в 1920-х. Поэтому платья по косой выглядят дорого даже из простой ткани — и поэтому же они беспощадны к неровной посадке белья.','парижская школа кроя','конвенция'],
+ ['world','Форму держит срез, а не укладка','Хорошая стрижка возвращается в форму после того, как вы просто встряхнули головой.','Главный принцип школы точного среза: геометрия закладывается ножницами, а фен только проявляет её. Если без укладки форма рассыпается — это вопрос к стрижке, а не к вашим рукам.','школа точного среза','конвенция'],
+ ['world','Стрижку проверяют в движении и с наклоном головы','Наклонитесь вперёд, выпрямитесь и встряхните волосами прямо в кресле.','Статичная проверка в зеркале показывает укладку, а не срез. Мастера международных школ смотрят, как волос ложится обратно — именно так он будет вести себя дома.','школа точного среза','конвенция'],
+ ['world','Кудри стригут сухими, а не мокрыми','Каждый локон отделяют и срезают в его естественном положении.','Мокрая кудрявая прядь вытягивается и обманывает мастера: высохнув, она подскочит и длина окажется другой. На этом построены все современные кудрявые методики.','кудрявые методики','конвенция'],
+ ['world','Корейская школа: несколько тонких слоёв вместо одного плотного','Увлажняющее средство наносят в два-три лёгких слоя, давая каждому впитаться.','Толстый слой крема не впитывается глубже — он скатывается и остаётся на поверхности. Тонкие слои ложатся ровнее, и кожа под макияжем выглядит гладкой, а не залитой.','корейская школа ухода','конвенция'],
+ ['world','Санскрин — последний шаг ухода и первый шаг защиты','Наносят после всего ухода, за 15–20 минут до выхода, отдельным плотным слоем.','В азиатской школе защита от солнца считается базой, а не сезонным дополнением. Смешанный с кремом санскрин теряет заявленную защиту, потому что меняется его количество на коже.','корейская и японская школы','конвенция'],
+ ['world','Лицо строят светом, а не контуром','Сначала решают, откуда падает свет, и ставят светлое; тень добавляют только там, где она была бы при этом свете.','Приём киношколы грима: контуринг «по схеме из интернета» рисует тени, которых не бывает в природе, и на видео они читаются как грязь. Свет первичен, тень вторична.','киногримёры','конвенция'],
+ ['world','Итальянская школа: колодка важнее размера','Мерить обувь нужно в конце дня и обязательно обе ноги, вставая на полную стопу.','Один и тот же размер на разных колодках сидит по-разному: узкая, объёмная, с высоким подъёмом. Поэтому «мой размер» у разных марок отличается — дело не в размере, а в форме колодки.','итальянские обувщики','конвенция'],
+ ['world','Коже нужны сутки отдыха между носками','Не надевать одну пару два дня подряд, ставить на распорки.','За день кожа набирает влагу и растягивается. Сутки без нагрузки возвращают форму. Пара, которую чередуют, живёт заметно дольше той, что носят каждый день.','итальянские обувщики','конвенция'],
+ ['world','Крем — на сухую и чистую кожу, не на влажную','Сначала очистить, дать высохнуть при комнатной температуре, и только потом питать.','Крем, нанесённый на влажную кожу, запечатывает воду внутри и провоцирует разводы. А сушка у батареи делает кожу ломкой — это главная ошибка после дождя.','итальянские обувщики','конвенция'],
+ ['world','Витрина устроена по правилу трёх','В любой профессиональной выкладке вещи группируют по три: три высоты, три цвета, три фактуры.','Приём визуального мерчандайзинга, которому учат в европейских школах моды. Знание его работает и в обратную сторону: понимая, как собрана витрина, легче отличить «мне идёт» от «красиво выложено».','визуальный мерчандайзинг','конвенция'],
  ['tool','Спонж работает влажным, кисть — сухой','Намочить, отжать в полотенце до «влажный, но не капает», и только потом в тон. Кисть, наоборот, должна быть сухой.','Сухой спонж — это губка: он впитывает тональный в себя, и до кожи доходит едва половина. Влажный отдаёт продукт и сажает его в кожу тонким слоем.','визажисты','конвенция'],
  ['tool','Плотная кисть кладёт, рыхлая растушёвывает','Нанесение — плоской и плотной. Переход — круглой и рыхлой. Одной кистью оба действия делаются плохо.','Чем короче и плотнее ворс, тем больше продукта остаётся на коже. Чем ворс длиннее и рыхлее, тем сильнее он уносит излишки. Это один и тот же продукт с разным покрытием.','визажисты','конвенция'],
  ['tool','Синтетика — для кремов, натуральный ворс — для пудры','Жидкое и кремовое наносят синтетическими кистями, сухие текстуры — натуральными.','Натуральный ворс пористый и впитывает крем в себя. Синтетический гладкий: продукт остаётся снаружи и доходит до кожи целиком.','визажисты','конвенция'],
@@ -14786,7 +14897,9 @@ const TIPS = [
  ['hw','Образ проверяют в движении, а не стоя','Пройдитесь, сядьте, поднимите руки — и только потом посмотрите в зеркало ещё раз.','Вечерние вещи и причёски живут в движении: разрез уезжает, бретель падает, прядь выбивается. Стоя перед зеркалом ничего этого не видно.','стилисты красной дорожки','конвенция']
 ];
 /* схема к каждому приёму — в порядке списка выше */
-const SCN = ['','tap','','','','warmwater','browstroke','lashroot','thermo','wetcurl','cuticle','label','','','','','','tape',
+const SCN = ['','','','','','sheer','sheer','','warmwater','',
+ '','','','','','shoulder','shoulder','skirtlen','','','','headdown','wetcurl','dampcream','sunpath','light3','sit','','warmwater','',
+ '','tap','','','','warmwater','browstroke','lashroot','thermo','wetcurl','cuticle','label','','','','','','tape',
  'jaw','tri','tap','order','lashroot','wingtail','lipfill','browstroke','mist','flash','hilite','light3',
  'thermo','temp','cold','dryshampoo','midlength','combup','pillow','nowash','refs','partswap','wetcurl','oilends',
  'shoulder','tailor','sit','sheer','label','accent','undertone','mirrorcam',
@@ -14799,7 +14912,7 @@ const SCN = ['','tap','','','','warmwater','browstroke','lashroot','thermo','wet
  'tags',
  'oldhw','underpaint','cleaneye','hwwave','prep','tzone','nose','lashbits','sunpath','inner','redlip','lipset','bodyglow','wetset','hairpiece','flashtest','necktone','soapbrow','glue','move'];
 TIPS.forEach((t,i)=>{ t[6] = SCN[i]||''; });
-const PCOL = {mk:['#FF6FA8','#FFB84C'], hair:['#C79DF2','#19C6F7'], cloth:['#19C6F7','#37E08A'], care:['#7CF0B2','#19C6F7'], shop:['#FFB84C','#C79DF2'], shot:['#19C6F7','#FF6FA8'], hw:['#FFD28A','#FF6FA8'], tool:['#19C6F7','#C79DF2']};
+const PCOL = {mk:['#FF6FA8','#FFB84C'], hair:['#C79DF2','#19C6F7'], cloth:['#19C6F7','#37E08A'], care:['#7CF0B2','#19C6F7'], shop:['#FFB84C','#C79DF2'], shot:['#19C6F7','#FF6FA8'], hw:['#FFD28A','#FF6FA8'], tool:['#19C6F7','#C79DF2'], world:['#8FD6FF','#FFD28A'], lin:['#FF8AC9','#FFD28A']};
 const pcat = k=>(CAT.find(c=>c[0]===k)||[])[1]||'';
 const pbody = t=>`<div class="pr-top"><span class="pr-cat">${pcat(t[0])}</span><span class="mt-lv ${t[5]==='измеримое'?'lv1':'lv2'}">${t[5]}</span></div>
     <h3>${t[1]}</h3>
@@ -18824,6 +18937,53 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
   .nav-dd #navDDa, .nav-dd #navDDl{min-width:0;width:auto;left:16px;right:16px}
 }
 
+/* контакты: ровная галочка и ровный ряд «или напрямую» */
+.ct-attach{display:flex!important;align-items:flex-start;gap:11px;line-height:1.5;cursor:pointer}
+.ct-attach input[type=checkbox]{flex:0 0 auto;width:18px;height:18px;margin:2px 0 0;cursor:pointer;accent-color:#19C6F7}
+.ct-attach span{flex:1;min-width:0}
+.ct-raw{display:flex!important;align-items:center;gap:10px;flex-wrap:wrap}
+.ct-raw > span{flex:0 0 auto;margin:0}
+.ct-raw > b{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin:0;
+  min-height:44px;padding:0 18px;border-radius:12px;white-space:nowrap}
+#ctCnt.long{color:#FFD678}
+@media(max-width:560px){
+  .ct-raw > b{flex:1 1 100%;}
+}
+
+/* кольцо загрузки с процентами */
+.wt-wait{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.wt-wait > div{min-width:0}
+.wt-wait b{display:block;font-family:'Golos Text';font-weight:700;font-size:15px;color:#F4F5FA}
+.wt-wait span{display:block;font-family:'JetBrains Mono';font-size:11.5px;color:#8E95AB;margin-top:3px}
+.wt-stage{display:block;font-style:normal;font-size:12.5px;color:#19C6F7;margin-top:6px}
+.wt-ring{position:relative;width:52px;height:52px;flex:none}
+.wt-ring svg{width:52px;height:52px;transform:rotate(-90deg)}
+.wt-ring circle{fill:none;stroke-width:3.5;stroke-linecap:round}
+.wt-ring .wr-bg{stroke:rgba(255,255,255,.1)}
+.wt-ring .wr-fg{stroke:url(#wtGrad);stroke:#19C6F7;transition:stroke-dashoffset .4s ease;
+  filter:drop-shadow(0 0 6px rgba(25,198,247,.7))}
+.wt-ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono';font-size:11.5px;color:#19C6F7;font-weight:700}
+/* источник вещей и пометки */
+.wt-src{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:8px 14px;border-radius:99px;
+  font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;
+  color:#7CF0B2;border:1px solid rgba(124,240,178,.4);background:rgba(124,240,178,.08)}
+.wt-have,.wt-need{display:inline-block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1px;
+  text-transform:uppercase;border-radius:99px;padding:3px 9px;margin-right:10px;vertical-align:1px}
+.wt-have{color:#7CF0B2;border:1px solid rgba(124,240,178,.45);background:rgba(124,240,178,.1)}
+.wt-need{color:#FFD678;border:1px solid rgba(255,214,120,.45);background:rgba(255,214,120,.1)}
+.item.wt-own{border-left:2px solid rgba(124,240,178,.5)}
+.item.wt-add{border-left:2px solid rgba(255,214,120,.5)}
+/* чипы запросов в гардеробе */
+.wt-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.wt-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:99px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#D8DCE8;
+  font-family:'Golos Text';font-size:13.5px;transition:all .18s}
+.wt-chip:hover{border-color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);color:#fff;transform:translateY(-2px)}
+.wt-chip i{font-style:normal;color:var(--c);font-size:15px}
+.wt-chips.soft .wt-chip{opacity:.86}
+
 /* карточка приёма без схемы: спокойная заглушка вместо пустоты */
 .pr-pic.pr-blank{display:grid;place-items:center;min-height:132px;position:relative;overflow:hidden;
   background:radial-gradient(120% 140% at 50% 0%, color-mix(in srgb,var(--a) 16%,transparent), transparent 70%),
@@ -20494,32 +20654,59 @@ const ALL = LOUD.concat(SOFT);
 const SOFT_KEYS = SOFT.map(x=>x[0]);
 const HEAVY = ['sad','anx','hide','tired'];
 
-const W = { key:null, busy:false };
+const W = { key:null, busy:false, outId:'wtOut' };
+/* на странице «Хочу выглядеть…» и в гардеробе разные контейнеры под результат */
+const outEl = ()=>document.getElementById(W.outId) || outEl();
 
 window.wtPick = async key=>{
   const m = ALL.find(x=>x[0]===key); if(!m || W.busy) return;
   W.key = key; renderWant();
-  const out = document.getElementById('wtOut'); if(!out) return;
+  const out = outEl(); if(!out) return;
 
   if(typeof LOOKA_API==='undefined' && !window.LOOKA_API && typeof GEMINI_KEY==='undefined'){
     out.innerHTML = '<div class="tip">Подбор включится вместе с ИИ-мостом.</div>'; return;
   }
   W.busy = true; renderWant();
-  const out2 = document.getElementById('wtOut');
-  out2.innerHTML = `<div class="wt-wait"><span class="wt-sp"></span>
+  const out2 = outEl();
+  out2.innerHTML = `<div class="wt-wait">
+      <span class="wt-ring"><svg viewBox="0 0 44 44" aria-hidden="true">
+        <circle class="wr-bg" cx="22" cy="22" r="19"/>
+        <circle class="wr-fg" id="wtRing" cx="22" cy="22" r="19"/></svg>
+        <b id="wtPct">0%</b></span>
       <div><b id="wtWaitT">Собираю образы под запрос «${esc(m[2])}»</b>
-      <span id="wtWaitS">обычно 20–40 секунд</span></div></div>`;
+      <span id="wtWaitS">обычно 20–40 секунд</span>
+      <i class="wt-stage" id="wtStage">смотрю, что уже есть в вашем шкафу</i></div></div>`;
   try{ out2.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
-  const t0 = Date.now();
+  const STAGES = ['смотрю, что уже есть в вашем шкафу','подбираю сочетания под запрос',
+                  'проверяю по фигуре и палитре','считаю, чего не хватает','собираю варианты'];
+  const t0 = Date.now(), EXP = 32000, LEN = 2 * Math.PI * 19;
   clearInterval(W.tick);
   const tick = W.tick = setInterval(()=>{
-    const el = document.getElementById('wtWaitS'); if(!el){ clearInterval(tick); return; }
-    const sec = Math.round((Date.now()-t0)/1000);
-    el.textContent = sec < 45 ? ('идёт '+sec+' секунд · обычно 20–40')
-                              : ('идёт '+sec+' секунд · дольше обычного, ещё жду');
-  }, 1000);
+    const ring = document.getElementById('wtRing'); if(!ring){ clearInterval(tick); return; }
+    const ms = Date.now() - t0, sec = Math.round(ms/1000);
+    /* до 95% идём по ожидаемому времени, последние проценты — когда ответ придёт */
+    const pct = Math.min(95, Math.round(100 * (1 - Math.exp(-ms / (EXP * 0.55)))));
+    ring.style.strokeDasharray = LEN;
+    ring.style.strokeDashoffset = LEN * (1 - pct/100);
+    const pe = document.getElementById('wtPct'); if(pe) pe.textContent = pct + '%';
+    const se = document.getElementById('wtWaitS');
+    if(se) se.textContent = sec < 45 ? ('идёт '+sec+' секунд · обычно 20–40')
+                                     : ('идёт '+sec+' секунд · дольше обычного, ещё жду');
+    const st = document.getElementById('wtStage');
+    if(st) st.textContent = STAGES[Math.min(STAGES.length-1, Math.floor(pct/20))];
+  }, 200);
+  const fill100 = ()=>{
+    const ring = document.getElementById('wtRing'), pe = document.getElementById('wtPct');
+    if(ring) ring.style.strokeDashoffset = 0;
+    if(pe) pe.textContent = '100%';
+  };
 
   const S2 = window.S || {};
+  /* что уже висит в шкафу — образ собираем в первую очередь из этого */
+  let WD = [];
+  try{ WD = (JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items || []; }catch(e){}
+  const fromWd = WD.length >= 4;
+  const wdList = WD.slice(0, 60).map(it=>'- '+[it.name, it.color, it.cat].filter(Boolean).join(', ')).join('\n');
   const me = ['Клиентка:', S2.gender||'женщина',
     S2.figure?('тип фигуры '+S2.figure):null,
     S2.height?('рост '+S2.height):null,
@@ -20535,14 +20722,24 @@ window.wtPick = async key=>{
     ? 'ВАЖНО: это запрос из состояния усталости или подавленности. Не бодри, не воспитывай, не предлагай «выйти из зоны комфорта», не обещай, что одежда улучшит настроение. Цель — меньше решений и физический комфорт. Никаких комментариев о весе, теле и внешности.'
     : 'Никаких комментариев о весе, теле и фигуре как о недостатке — только про крой и пропорции. Не обещай чужих реакций, говори о том, как вещь работает.';
 
-  const prompt =
-    'Ты — опытный стилист. '+me+'.\n'+
-    'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
-    'Подход: '+m[5]+'\n'+rules+'\n'+
-    'Собери ТРИ разных варианта образа под этот запрос. Вещи должны реально продаваться на маркетплейсах.\n'+
-    'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
-    '{"intro":"одна фраза о том, как этот образ работает","looks":[{"t":"короткое название образа","where":"куда это надеть","items":[{"n":"вещь с цветом и кроем","q":"поисковый запрос","p":"цена ₽"}],"why":"почему именно так — одно-два предложения"}]}\n'+
-    'В каждом образе 4-5 вещей включая обувь. Цены под её бюджет. По-русски, на «вы».';
+  const prompt = fromWd
+    ? ('Ты — опытный стилист. '+me+'.\n'+
+       'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
+       'Подход: '+m[5]+'\n'+rules+'\n'+
+       'ВОТ ЧТО УЖЕ ЕСТЬ В ЕЁ ШКАФУ:\n'+wdList+'\n\n'+
+       'Собери ТРИ образа ПРЕИМУЩЕСТВЕННО ИЗ ЭТИХ ВЕЩЕЙ. Названия вещей из шкафа переписывай ТОЧНО так, как они указаны выше. '+
+       'Если для запроса в шкафу чего-то не хватает — добавь не больше одной недостающей вещи на образ и объясни, что именно она меняет. '+
+       'Если из её вещей этот запрос не собрать совсем — честно скажи об этом в поле note.\n'+
+       'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
+       '{"intro":"одна фраза о том, как этот образ работает","note":"пустая строка или честное замечание","looks":[{"t":"короткое название","where":"куда надеть","own":["точное название вещи из шкафа"],"add":{"n":"чего не хватает","q":"поисковый запрос","p":"цена ₽"},"why":"почему именно так"}]}\n'+
+       'Поле add можно опустить, если всё собралось из своих вещей. По-русски, на «вы».')
+    : ('Ты — опытный стилист. '+me+'.\n'+
+       'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
+       'Подход: '+m[5]+'\n'+rules+'\n'+
+       'Собери ТРИ разных варианта образа под этот запрос. Вещи должны реально продаваться на маркетплейсах.\n'+
+       'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
+       '{"intro":"одна фраза о том, как этот образ работает","looks":[{"t":"короткое название образа","where":"куда это надеть","items":[{"n":"вещь с цветом и кроем","q":"поисковый запрос","p":"цена ₽"}],"why":"почему именно так — одно-два предложения"}]}\n'+
+       'В каждом образе 4-5 вещей включая обувь. Цены под её бюджет. По-русски, на «вы».');
 
   const ac = (typeof AbortController!=='undefined') ? new AbortController() : null;
   W.ac = ac;
@@ -20555,32 +20752,36 @@ window.wtPick = async key=>{
     const d = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}')+1));
     W.busy = false; renderWant();
     const sb = it => (window.shopButtons ? shopButtons({ n: it.n, q: it.q || it.n }) : '');
-    document.getElementById('wtOut').innerHTML =
+    outEl().innerHTML =
       (d.intro?`<p class="lead" style="margin:4px 0 16px;max-width:72ch">${esc(d.intro)}</p>`:'') +
+      (fromWd?`<div class="wt-src">◍ Собрано из вашего гардероба · ${WD.length} ${WD.length%10===1&&WD.length%100!==11?'вещь':'вещей'} в шкафу</div>`:'') +
+      (d.note?`<div class="wt-care" style="margin:0 0 14px">${esc(d.note)}</div>`:'') +
       (d.looks||[]).map((L,i)=>`
         <div class="look badv mk-wide" style="margin-bottom:14px"><div class="look-in">
           <div class="cs-k">ВАРИАНТ ${i+1}${L.where?' · '+esc(L.where).toUpperCase():''}</div>
           <h3>${esc(L.t||'Образ')}</h3>
+          ${(L.own||[]).map(n=>`<div class="item wt-own"><div class="nm"><span class="wt-have">✓ ваша вещь</span>${esc(n)}</div></div>`).join('')}
+          ${L.add&&L.add.n?`<div class="item wt-add"><div class="nm"><span class="wt-need">+ не хватает</span>${esc(L.add.n)}</div>${L.add.p?`<div class="pr">${esc(L.add.p)}</div>`:''}${sb(L.add)}</div>`:''}
           ${(L.items||[]).map(it=>`<div class="item"><div class="nm">${esc(it.n)}</div>${it.p?`<div class="pr">${esc(it.p)}</div>`:''}${sb(it)}</div>`).join('')}
           ${L.why?`<div class="tip" style="margin-top:10px">${esc(L.why)}</div>`:''}
         </div></div>`).join('') +
       (HEAVY.includes(key)
         ? `<div class="wt-care" id="wtCare"><b>И ещё одно.</b> Одежда не лечит настроение — она просто может перестать мешать. Если тяжело не первый день и не первую неделю, об этом стоит сказать тому, кому вы доверяете, или специалисту. Это не слабость и не повод стесняться.</div>`
         : '');
-    clearInterval(tick); clearTimeout(bell); W.ac = null;
-    try{ document.getElementById('wtOut').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+    fill100(); clearInterval(tick); clearTimeout(bell); W.ac = null;
+    try{ outEl().scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
   }catch(e){
     clearInterval(tick); clearTimeout(bell);
     W.busy = false; W.ac = null; renderWant();
     if(e && (e.name==='AbortError' || /abort/i.test(e.message||''))){
-      const o1 = document.getElementById('wtOut');
+      const o1 = outEl();
       if(o1) o1.innerHTML = `<div class="wt-err"><b>Сервер не ответил за минуту</b>
         <p>Так бывает, когда воркер просыпается после простоя или запрос режет сеть.</p>
         <p class="sm">Нажмите ещё раз — со второй попытки обычно собирается.</p>
         <button class="btn primary" style="margin-top:12px" onclick="wtPick('${key}')">↻ Попробовать ещё раз</button></div>`;
       return;
     }
-    document.getElementById('wtOut').innerHTML =
+    outEl().innerHTML =
       `<div class="wt-err"><b>Не получилось собрать образ</b>
         <p>${esc(e.message)}.</p>
         <p class="sm">Чаще всего это сеть: провайдер или антивирус не пропускают запрос к серверу. Попробуйте ещё раз, а если повторяется — откройте сайт с мобильного интернета.</p>
@@ -20592,7 +20793,7 @@ window.wtReset = ()=>{
   clearInterval(W.tick); W.tick = null;
   W.key = null; W.busy = false;          /* без этого карточки оставались заблокированными */
   renderWant();
-  const o = document.getElementById('wtOut'); if(o) o.innerHTML = '';
+  const o = outEl(); if(o) o.innerHTML = '';
 };
 
 window.renderWant = ()=>{
@@ -20617,6 +20818,32 @@ window.renderWant = ()=>{
 };
 
 window.openWant = ()=>{ if(window.openPage) openPage('wantPage'); setTimeout(renderWant, 60); };
+
+/* короткий блок в «Моём гардеробе»: выбрала запрос — образ собрался тут же, из своих вещей */
+window.renderWantWd = ()=>{
+  const box = document.getElementById('wtWdBox'); if(!box) return;
+  let n = 0; try{ n = ((JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items||[]).length; }catch(e){}
+  const chip = m => `<button class="wt-chip" style="--c:${m[4]}" onclick="wtFromWd('${m[0]}')"><i>${m[1]}</i>${esc(m[2])}</button>`;
+  box.innerHTML = `
+    <div class="look badv mk-wide"><div class="look-in">
+      <div class="cs-k">ОБРАЗ ПОД НАСТРОЕНИЕ · ИЗ ВАШИХ ВЕЩЕЙ</div>
+      <h3>Какой вы хотите быть сегодня?</h3>
+      <p class="tip" style="margin:4px 0 12px">${n>=4
+        ? 'Нажмите — и LOOKA соберёт образ из того, что уже висит в шкафу. Если чего-то не хватает, скажет, какой одной вещи.'
+        : 'Добавьте в гардероб хотя бы четыре вещи — и образы начнут собираться из них, а не из магазина.'}</p>
+      <div class="wt-chips">${LOUD.map(chip).join('')}</div>
+      <div class="wt-chips soft">${SOFT.map(chip).join('')}</div>
+      <div id="wtWdOut" style="margin-top:14px"></div>
+    </div></div>`;
+};
+window.wtFromWd = key=>{
+  W.outId = 'wtWdOut';                       /* пишем результат в блок гардероба */
+  const host = document.getElementById('wtWdOut');
+  if(host) host.innerHTML = '';
+  wtPick(key);
+};
+const _openWant0 = window.openWant;
+window.openWant = ()=>{ W.outId = 'wtOut'; _openWant0(); };
 
 function mount(){
   if(document.getElementById('wantPage')) return;
