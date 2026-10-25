@@ -7842,8 +7842,8 @@ header nav.topnav{gap:4px;align-items:center}
    работает только со страниц вашего сайта. Вставить сюда между кавычками:
    ===================================================================== */
 const GEMINI_KEY = '';
-const GEMINI_TEXT = ['gemini-3.7-flash','gemini-2.5-flash'];          /* текст: первый доступный */
-const GEMINI_IMAGE = ['gemini-3.1-flash-image','gemini-2.5-flash-image']; /* примерка */
+const GEMINI_TEXT = ['gemini-3.8-flash','gemini-3.6-flash','gemini-3.5-flash-lite'];  /* текст: первый доступный */
+const GEMINI_IMAGE = ['gemini-3.1-flash-image','gemini-nano-banana-2.1','gemini-3.1-flash-lite-image']; /* примерка */
 /* ДЛЯ КЛИЕНТОК ИЗ РОССИИ: Google не принимает запросы с российских IP, поэтому сайт ходит к нему
    через мост — Cloudflare Worker (файл looka-worker.js, ставится из браузера за 10 минут).
    Сюда — адрес моста вида https://looka-api.ИМЯ.workers.dev . Если он задан, GEMINI_KEY выше не нужен. */
