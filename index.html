@@ -19973,5 +19973,94 @@ document.addEventListener('click', e=>{
 })();
 </script>
 
+
+<!-- ======== ИСТОРИЯ БРАУЗЕРА ======== -->
+<script>
+/* ================= КНОПКА «НАЗАД» В БРАУЗЕРЕ =================
+   Сайт одностраничный: разделы переключаются скриптом, а не загрузкой новой страницы.
+   Поэтому историю браузера ведём сами — иначе «назад» уносит сразу на главную
+   (или вообще с сайта), что и происходило. */
+(function(){
+'use strict';
+if(window.__histOn) return; window.__histOn = true;
+
+const isPage = id => { const e = id && document.getElementById(id); return !!(e && e.classList.contains('pageview')); };
+const curPage = ()=>{ const a = document.querySelector('.pageview.active-page'); return a ? a.id : ''; };
+
+const _open  = window.openPage;
+const _close = window.closePage;
+const _home  = window.goHome;
+if(typeof _open !== 'function') return;
+
+let silent = false;   /* true, когда переход вызвала сама история — тогда не пишем в неё */
+let stack  = [];      /* наш след в истории: '' — это главная */
+
+/* первая запись: то, что открыто сейчас */
+stack = [curPage()];
+try{ history.replaceState({ looka:1, page: curPage() }, '', location.href); }catch(e){}
+
+/* кнопка «на главную» ведёт именно на главную, а не на предыдущий раздел */
+function toHome(render){
+  render();
+  if(!history.state || !history.state.looka || history.state.page !== ''){
+    try{ history.pushState({ looka:1, page:'' }, '', location.pathname + location.search); }catch(e){}
+  }
+}
+
+window.openPage = function(id, anchor){
+  const was = curPage();
+  const r = _open.apply(this, arguments);
+  if(silent || was === id) return r;
+  try{
+    history.pushState({ looka:1, page:id }, '', '#' + id);
+    stack.push(id);
+  }catch(e){}
+  return r;
+};
+
+window.closePage = function(noScroll){
+  if(silent) return _close.apply(this, arguments);
+  const args = arguments, self = this;
+  toHome(()=>_close.apply(self, args));
+};
+
+if(typeof _home === 'function'){
+  window.goHome = function(){
+    if(silent) return _home.apply(this, arguments);
+    const args = arguments, self = this;
+    toHome(()=>_home.apply(self, args));
+  };
+}
+
+window.addEventListener('popstate', function(e){
+  const st = e.state || {};
+  const want = st.looka ? (st.page || '') : (isPage(location.hash.slice(1)) ? location.hash.slice(1) : '');
+  if(stack.length > 1) stack.pop();
+  silent = true;
+  try{
+    if(want && isPage(want)){
+      if(curPage() !== want) _open.call(window, want);
+    } else {
+      if(typeof _home === 'function') _home.call(window); else _close.call(window, true);
+    }
+  } finally {
+    /* снимаем флаг после того, как отработают все обёртки openPage */
+    setTimeout(()=>{ silent = false; }, 120);
+  }
+});
+
+/* прямая ссылка вида looka.ru/#methodPage открывает нужный раздел */
+function fromHash(){
+  const id = location.hash.slice(1);
+  if(isPage(id) && curPage() !== id){
+    silent = true;
+    try{ _open.call(window, id); } finally { setTimeout(()=>{ silent = false; }, 120); }
+  }
+}
+if(document.readyState !== 'loading') setTimeout(fromHash, 350);
+else document.addEventListener('DOMContentLoaded', ()=>setTimeout(fromHash, 350));
+})();
+</script>
+
 </body>
 </html>
