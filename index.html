@@ -14318,9 +14318,9 @@ window.openHub = ()=>openPage('hubPage');
   const el = document.getElementById('ctStatus'); if(!el) return;
   const tick = ()=>{
     const msk = new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Moscow'}));
-    const hh = msk.getHours(), on = hh>=10 && hh<22;
+    const hh = msk.getHours(), on = hh>=6 && hh<23;
     el.classList.toggle('off', !on);
-    el.querySelector('span').textContent = on ? 'сейчас на связи · ' + String(hh).padStart(2,'0')+':'+String(msk.getMinutes()).padStart(2,'0')+' мск · ответим в течение пары часов' : 'ответим с 10:00 мск · напишите — письмо не потеряется';
+    el.querySelector('span').textContent = on ? 'сейчас на связи · ' + String(hh).padStart(2,'0')+':'+String(msk.getMinutes()).padStart(2,'0')+' мск · отвечаем за 10–20 минут' : 'ответим с 06:00 мск · напишите — письмо не потеряется';
   };
   tick(); setInterval(tick, 60000);
 })();
@@ -18982,8 +18982,9 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 .wt-ring .wr-bg{stroke:rgba(255,255,255,.1)}
 .wt-ring .wr-fg{stroke:url(#wtGrad);stroke:#19C6F7;transition:stroke-dashoffset .4s ease;
   filter:drop-shadow(0 0 6px rgba(25,198,247,.7))}
-.wt-ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:'JetBrains Mono';font-size:11.5px;color:#19C6F7;font-weight:700}
+.wt-wait .wt-ring b{position:absolute;inset:0;display:flex!important;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1;color:#19C6F7;font-weight:700;
+  letter-spacing:0;text-align:center;margin:0}
 /* источник вещей и пометки */
 .wt-src{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:8px 14px;border-radius:99px;
   font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;
@@ -20765,8 +20766,16 @@ window.wtPick = async key=>{
   const bell = setTimeout(()=>{ if(ac) try{ ac.abort(); }catch(e){} }, 75000);
   try{
     const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:2000, messages:[{role:'user', content:prompt}] }), signal: ac ? ac.signal : undefined });
-    const j = await r.json();
-    if(j.error) throw new Error('мост не ответил');
+    let j;
+    try{ j = await r.json(); }
+    catch(e){ throw new Error('сервер вернул не ответ, а страницу (код '+r.status+')'); }
+    if(j.error){
+      const E = j.error;
+      const txt = typeof E === 'string' ? E : (E.message || E.type || JSON.stringify(E).slice(0,200));
+      throw new Error('сервер ответил: ' + txt);
+    }
+    if(!r.ok) throw new Error('сервер ответил кодом ' + r.status);
+    if(!(j.content||[]).length) throw new Error('ответ пришёл пустым');
     const t = (j.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').replace(/```json|```/g,'').trim();
     const d = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}')+1));
     W.busy = false; renderWant();
@@ -20803,7 +20812,7 @@ window.wtPick = async key=>{
     outEl().innerHTML =
       `<div class="wt-err"><b>Не получилось собрать образ</b>
         <p>${esc(e.message)}.</p>
-        <p class="sm">Чаще всего это сеть: провайдер или антивирус не пропускают запрос к серверу. Попробуйте ещё раз, а если повторяется — откройте сайт с мобильного интернета.</p>
+        <p class="sm">Если написано «сервер ответил: …» — отвечает воркер, и дело в нём: чаще всего не задан или исчерпан ключ ИИ в настройках Cloudflare. Если ошибка про сеть — запрос режет провайдер или антивирус, попробуйте с мобильного интернета.</p>
         <button class="btn primary" onclick="wtPick('${esc(key)}')">↻ Попробовать ещё раз</button></div>`;
   }
 };
