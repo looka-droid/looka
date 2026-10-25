@@ -7276,8 +7276,8 @@ header nav.topnav{gap:4px;align-items:center}
     <h2 class="big">Полный шкаф — <span class="holo">и есть что надеть</span></h2>
     <p class="lead">Добавьте вещи один раз — дальше LOOKA собирает образ на сегодня под погоду в вашем городе, планирует неделю без повторов, считает цену каждого выхода и показывает, какой одной вещи не хватает, чтобы образов стало вдвое больше. Всё хранится в вашем телефоне.</p>
   </div>
-  <div class="bt-form look mk-form"><h3>Добавить вещь</h3><p class="mo-note" style="margin:-4px 0 18px">Фото не нужно. Либо вставьте ссылку на товар из любого магазина — и карточка заполнится сама, либо три касания: что это, какая вещь, цвет.</p><div id="wdInbox"></div><div id="wdAdd"></div></div>
   <div id="wtWdBox" style="margin-top:22px"></div>
+  <div class="bt-form look mk-form"><h3>Добавить вещь</h3><p class="mo-note" style="margin:-4px 0 18px">Фото не нужно. Либо вставьте ссылку на товар из любого магазина — и карточка заполнится сама, либо три касания: что это, какая вещь, цвет.</p><div id="wdInbox"></div><div id="wdAdd"></div></div>
   <div class="looks" id="wdBox" style="margin-top:18px"></div>
 </section>
 
@@ -12267,7 +12267,7 @@ async function weather(){
   try{ const j = await wxGet(`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,weather_code&timezone=auto&forecast_days=7`); return { city:city.n, now:j.current.temperature_2m, code:j.current.weather_code, days:j.daily.temperature_2m_max, codes:j.daily.weather_code, cached:j._cached||0 }; }catch(e){ return null; }
 }
 
-function outfits(band, occ, exclude, n=3){
+function outfits(band, occ, exclude, n=3, rot=0){
   const pal = PAL();
   const I = W.items.filter(it=>!it.wash && warmOK(it,band) && formOK(it,occ) && !exclude.has(it.id));
   const by = c=>I.filter(i=>i.cat===c);
@@ -12279,15 +12279,31 @@ function outfits(band, occ, exclude, n=3){
   const cands = [];
   tops.forEach(t=>bots.forEach(b=>{ if(!accentsOK(t.color,b.color)) return; cands.push({parts:[t,b], score: fresh(t)+fresh(b)+palBonus(t)+(isN(b.color)?.3:0)}); }));
   dr.forEach(d=>cands.push({parts:[d], score: fresh(d)*1.6+palBonus(d)+.2}));
-  cands.forEach(c=>{
-    const main = c.parts[0].color;
-    if(cold && out.length){ const o = out.filter(x=>accentsOK(x.color,main)).sort((a,b)=>fresh(b)-fresh(a))[0]; if(o) c.parts.push(o); else c.score-=.5; }
-    if(sh.length){ const s = sh.filter(x=>isN(x.color)||accentsOK(x.color,main)).sort((a,b)=>fresh(b)-fresh(a))[0]||sh[0]; c.parts.push(s); if(bg.length){ const g = bg.find(x=>x.color===s.color)||bg.find(x=>isN(x.color))||bg[0]; c.parts.push(g); } }
-    else c.score -= 1;
-  });
   cands.sort((a,b)=>b.score-a.score);
+  /* обувь, верхний слой и сумка подбираются ПОСЛЕ отбора и не повторяются между вариантами,
+     пока в шкафу есть из чего выбирать: иначе во всех трёх образах одни и те же ботинки и одно пальто */
+  const seenSh = new Set(), seenOut = new Set(), seenBg = new Set();
+  const pickOne = (list, seen, ok)=>{
+    const fit = list.filter(ok); const pool = fit.length ? fit : list;
+    const free = pool.filter(x=>!seen.has(x.id));
+    const arr = (free.length ? free : pool).slice().sort((a,b)=>fresh(b)-fresh(a));
+    const x = arr[rot % arr.length];
+    if(x) seen.add(x.id);
+    return x;
+  };
   const res = []; const used = new Set();
-  for(const c of cands){ if(c.parts.slice(0,2).some(p=>used.has(p.id))) continue; res.push(c); c.parts.slice(0,2).forEach(p=>used.add(p.id)); if(res.length>=n) break; }
+  for(const c of cands){
+    if(c.parts.slice(0,2).some(p=>used.has(p.id))) continue;
+    const main = c.parts[0].color;
+    if(cold && out.length){ const o = pickOne(out, seenOut, x=>accentsOK(x.color,main)); if(o) c.parts.push(o); }
+    if(sh.length){
+      const sx = pickOne(sh, seenSh, x=>isN(x.color)||accentsOK(x.color,main));
+      if(sx){ c.parts.push(sx);
+        if(bg.length){ const g = pickOne(bg, seenBg, x=>x.color===sx.color||isN(x.color)); if(g) c.parts.push(g); } }
+    }
+    res.push(c); c.parts.slice(0,2).forEach(p=>used.add(p.id));
+    if(res.length>=n) break;
+  }
   return res;
 }
 
@@ -12335,39 +12351,14 @@ async function renderWardrobe(){
   const G = gaps();
   const spent = I.reduce((s,i)=>s+(+i.price||0),0), worn = I.reduce((s,i)=>s+(i.worn||0),0);
   const cpw = spent && worn ? Math.round(spent/worn) : null;
-  const fits = band ? outfits(band, T.occ, new Set()) : [];
   window.wdBand = b=>{ T.temp=b; renderWardrobe(); }; window.wdOcc = o=>{ T.occ=o; renderWardrobe(); };
   box.innerHTML = `
     <div class="look badv mk-wide"><div class="look-in">
       <div class="cp-nums"><div><b>${I.length}</b><span>вещей</span></div><div><b>${G.nowLooks}</b><span>образов из них</span></div><div><b>${cpw?cpw.toLocaleString('ru-RU')+' ₽':'—'}</b><span>цена одного выхода</span></div><div><b>${G.dead.length}</b><span>не носили 90 дней</span></div></div>
       ${I.length<6?'<div class="tip">Добавьте хотя бы 6 вещей (верх, низ, обувь) — и гардероб начнёт одевать вас по утрам.</div>':''}
+      ${I.length>=4?`<button class="btn ghost" style="margin-top:14px" onclick="wdWeek()">✦ Спланировать неделю без повторов</button><div id="wdWeek"></div>`:''}
     </div></div>
-    ${I.length>=4 ? (()=>{
-      const t = wx && wx.days && wx.days[1]!==undefined ? wx.days[1] : null;
-      const tb = t!==null ? tempBand(t) : (band || 'тепло');
-      const all = outfits(tb, T.occ, new Set(), 6);
-      const start = all.length ? (TSEED % all.length) : 0;
-      const three = all.length ? Array.from({length:Math.min(3,all.length)},(_,k)=>all[(start+k)%all.length]) : [];
-      const dt = new Date(); dt.setDate(dt.getDate()+1);
-      const dn = ['воскресенье','понедельник','вторник','среду','четверг','пятницу','субботу'][dt.getDay()];
-      return `<div class="look badv mk-wide wd-tmr"><div class="look-in">
-        <div class="tmr-h">
-          <div><span class="wd-eyebrow">образ на завтра · собран автоматически</span>
-            <h3>На ${dn}${wx?` · ${wx.city}`:''}${t!==null?` · ${t>0?'+':''}${Math.round(t)}°, ${tb}`:''}</h3></div>
-          ${wx?'':`<button class="btn ghost" onclick="wdGeo()">Определить город</button>`}
-        </div>
-        ${three.length ? `<div class="wd-fits">${three.map((f,k)=>HUB.pop(`<div class="wd-fit"><div class="wd-fit-h">Вариант ${k+1}</div>${f.parts.map(p=>itemCard(p,true)).join('')}<button class="btn ghost" onclick="wdWearAll('${f.parts.map(p=>p.id).join(',')}')">✓ Надела это</button></div>`,k)).join('')}</div>
-          <div class="tmr-act"><button class="btn primary" onclick="wdTmrAgain()">↻ Другие три варианта</button>${wx?`<button class="btn ghost" onclick="wdGeo()">Сменить город</button>`:''}</div>`
-          : `<div class="tip">Под завтрашнюю погоду («${tb}») из ваших вещей комплект не собирается. Добавьте верх, низ и обувь на этот сезон — и образ появится здесь сам.</div>`}
-        ${wx?(wx.cached?`<div class="tip" style="margin-top:12px">Сейчас нет связи с сервисом прогноза — показываю сохранённый прогноз от ${new Date(wx.cached).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}. Обновится сам, когда связь вернётся.</div>`:'')
-          :`<div class="tip" style="margin-top:12px">Город не указан, поэтому погода не учтена. Нажмите «Определить город» — браузер спросит разрешение, и прогноз подтянется сам.</div>`}
-      </div></div>` })() : ''}
-    <div class="look badv mk-wide wd-today"><div class="look-in"><span class="wd-eyebrow">образ дня · из ваших вещей</span><h3>Что надеть сегодня${wx?' <em>'+wx.city+', '+(wx.now>0?'+':'')+Math.round(wx.now)+'°</em>':''}</h3>
-      ${wx ? '' : `<div class="chips">${['жарко','тепло','прохладно','холодно'].map(b=>`<button class="chip ${band===b?'on':''}" onclick="wdBand('${b}')">${b}</button>`).join('')}</div>`}
-      <div class="chips" style="margin-top:8px">${FORM.map(o=>`<button class="chip ${T.occ===o?'on':''}" onclick="wdOcc('${o}')">${o}</button>`).join('')}</div>
-      ${!band?'<div class="tip">Выберите погоду (или укажите город в шапке — подтянется сама).</div>': fits.length ? `<div class="wd-fits">${fits.map((f,k)=>HUB.pop(`<div class="wd-fit"><div class="wd-fit-h">Вариант ${k+1}</div>${f.parts.map(p=>itemCard(p,true)).join('')}<button class="btn ghost" onclick="wdWearAll('${f.parts.map(p=>p.id).join(',')}')">✓ Надела это</button></div>`,k)).join('')}</div>` : '<div class="tip">Из текущих вещей под эту погоду и повод образ не складывается — смотрите «дыры» ниже.</div>'}
-      <button class="btn ghost" style="margin-top:12px" onclick="wdWeek()">✦ Спланировать неделю</button><div id="wdWeek"></div>
-    </div></div>
+
     ${!hasProfile ? `<div class="look badv mk-wide"><div class="look-in">
       <span class="wd-eyebrow">дыры в гардеробе · нужен профиль</span>
       <h3>Сначала — ваша внешность</h3>
@@ -12401,9 +12392,14 @@ window.wdWeek = async ()=>{
     const dt = new Date(today); dt.setDate(today.getDate()+d);
     const band = wx && wx.days[d]!==undefined ? tempBand(wx.days[d]) : (T.temp||'тепло');
     const occ = dt.getDay()===0||dt.getDay()===6 ? 'кэжуал' : T.occ;
-    let opts = outfits(band, occ, used, 6);
-    if(!opts.length){ used.clear(); opts = outfits(band, occ, used, 6); }
-    const f = opts.length ? opts[(WSEED * 3 + d) % opts.length] : null;
+    let opts = outfits(band, occ, used, 6, d);
+    if(!opts.length){ used.clear(); opts = outfits(band, occ, used, 6, d); }
+    /* обувь не должна идти два-три дня подряд, если в шкафу есть другая */
+    const shoeOf = o => ((o.parts||[]).find(x=>x.cat==='Обувь')||{}).id;
+    const recent = rows.slice(-2).map(r=>r.f?shoeOf(r.f):null).filter(Boolean);
+    const free = opts.filter(o=>recent.indexOf(shoeOf(o)) < 0);
+    const pool = free.length ? free : opts;
+    const f = pool.length ? pool[(WSEED * 3 + d) % pool.length] : null;
     if(f){ f.parts.slice(0,2).forEach(p=>used.add(p.id)); }
     rows.push({d:days[(dt.getDay()+6)%7], band, f});
   }
@@ -18944,8 +18940,13 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 .wt-no{flex:0 0 auto;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
   font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:#0B0D12;
   background:linear-gradient(135deg,#FFD28A,#FF6FA8);box-shadow:0 6px 18px -8px rgba(255,111,168,.8)}
-.wt-where{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;
+.wt-where{display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;
   color:#E6D4FF;margin-bottom:5px;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.wt-dir{font-weight:700;font-size:9.5px;letter-spacing:1.3px;padding:3px 9px;border-radius:99px;color:#0B0D12}
+.wt-dir.d0{background:#C9CEDC}
+.wt-dir.d1{background:linear-gradient(135deg,#FF8AC9,#FFD28A)}
+.wt-dir.d2{background:linear-gradient(135deg,#7CF0B2,#19C6F7)}
 /* заголовок секции вещей */
 .wt-sec{display:flex;align-items:center;gap:10px;margin:16px 0 2px}
 .wt-sec span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#7CF0B2}
@@ -20716,6 +20717,8 @@ const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'
 
 /* [ключ, иконка, заголовок, подпись, цвет, бриф для стилиста] */
 const LOUD = [
+  ['day','☀','Просто на сегодня','обычный день, по погоде','#8FD6FF',
+   'Обычный день: удобно, уместно и собранно, без образа «на выход». Вещи, в которых комфортно несколько часов подряд. Отдавай предпочтение тому, что давно не надевали, и учитывай погоду в первую очередь.'],
   ['bright','✦','Яркой','чтобы оборачивались','#FF5FB0',
    'Яркость через цвет и контраст: один насыщенный оттенок из её палитры на верх, остальное спокойное. Не «всё разом», а один громкий цвет и чистый силуэт.'],
   ['queen','♛','Королевой','осанка и достоинство','#FFD678',
@@ -20915,11 +20918,17 @@ window.wtPick = async key=>{
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
        'Подход: '+m[5]+'\n'+wxRule+rules+'\n'+
        'ВОТ ЧТО УЖЕ ЕСТЬ В ЕЁ ШКАФУ:\n'+wdList+'\n\n'+
-       'Собери ТРИ образа ПРЕИМУЩЕСТВЕННО ИЗ ЭТИХ ВЕЩЕЙ. Названия вещей из шкафа переписывай ТОЧНО так, как они указаны выше. '+
+       'Собери ТРИ образа ПРЕИМУЩЕСТВЕННО ИЗ ЭТИХ ВЕЩЕЙ. Названия вещей из шкафа переписывай ТОЧНО так, как они указаны выше.\n'+
+       'ЭТО ДОЛЖНЫ БЫТЬ ТРИ РАЗНЫХ ХАРАКТЕРА, А НЕ ТРИ ПЕРЕСТАНОВКИ ОДНОГО И ТОГО ЖЕ. Строго по одному образу каждого направления, в этом порядке:\n'+
+       '1) dir="строгий" — безошибочный, классический вариант запроса.\n'+
+       '2) dir="характерный" — с её характером: фактура, неочевидное сочетание, вещь с настроением (кожа, деним, ботинки, цветной низ). НЕ офисный по умолчанию.\n'+
+       '3) dir="неожиданный" — вещь, которую она давно не надевала или носит иначе, в новой роли.\n'+
+       'ОБУВЬ И ВЕРХНИЙ СЛОЙ В ТРЁХ ОБРАЗАХ ДОЛЖНЫ БЫТЬ РАЗНЫМИ, если в шкафу есть из чего выбрать. '+
+       'В поле why объясни выбор ОДНОЙ фразой и, если уместно, скажи, чем этот вариант отличается от предыдущего. '+
        'Если для запроса в шкафу чего-то не хватает — добавь не больше одной недостающей вещи на образ и объясни, что именно она меняет. '+
        'Если из её вещей этот запрос не собрать совсем — честно скажи об этом в поле note.\n'+
        'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
-       '{"intro":"одна фраза о том, как этот образ работает","note":"пустая строка или честное замечание","looks":[{"t":"короткое название","where":"куда надеть","own":["точное название вещи из шкафа"],"add":{"n":"чего не хватает","q":"поисковый запрос","p":"цена ₽"},"why":"почему именно так"}]}\n'+
+       '{"intro":"одна фраза о том, как этот образ работает","note":"пустая строка или честное замечание","looks":[{"t":"короткое название","dir":"строгий","where":"куда надеть","own":["точное название вещи из шкафа"],"add":{"n":"чего не хватает","q":"поисковый запрос","p":"цена ₽"},"why":"почему именно так"}]}\n'+
        'Поле add можно опустить, если всё собралось из своих вещей. По-русски, на «вы».')
     : ('Ты — опытный стилист. '+me+'.\n'+
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
@@ -20969,7 +20978,7 @@ window.wtPick = async key=>{
       (d.looks||[]).map((L,i)=>`
         <div class="look badv mk-wide" style="margin-bottom:14px"><div class="look-in">
           <div class="wt-head"><span class="wt-no">${i+1}</span><div>
-            ${L.where?`<div class="wt-where">${esc(L.where)}</div>`:''}
+            ${(L.dir||L.where)?`<div class="wt-where">${L.dir?`<b class="wt-dir d${i%3}">${esc(L.dir)}</b>`:''}${L.where?esc(L.where):''}</div>`:''}
             <h3>${esc(L.t||'Образ')}</h3></div></div>
           ${(L.own||[]).length?`<div class="wt-sec"><span>Из вашего гардероба</span><b>${(L.own||[]).length}</b><i></i></div>
           <div class="wt-items">${(L.own||[]).map(n=>{
@@ -21054,12 +21063,17 @@ window.openWant = ()=>{ if(window.openPage) openPage('wantPage'); setTimeout(ren
 window.renderWantWd = ()=>{
   const box = document.getElementById('wtWdBox'); if(!box) return;
   let n = 0; try{ n = ((JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items||[]).length; }catch(e){}
+  /* погода больше не отдельная функция — просто строка под заголовком */
+  let wxl = ''; try{ const o = window.WX_LAST_OBJ;
+    if(o && typeof o.t === 'number') wxl = (o.city?o.city+', ':'') + (o.t>0?'+':'') + Math.round(o.t) + '°' + (o.w?', '+o.w:'');
+  }catch(e){}
   const chip = m => `<button class="wt-chip ${W.key===m[0]?'on':''}" data-k="${m[0]}" style="--c:${m[4]}"
       ${W.busy?'disabled':''} onclick="wtFromWd('${m[0]}')"><i>${m[1]}</i>${esc(m[2])}</button>`;
   box.innerHTML = `
     <div class="look badv mk-wide"><div class="look-in">
       <div class="cs-k">ОБРАЗ ПОД НАСТРОЕНИЕ · ИЗ ВАШИХ ВЕЩЕЙ</div>
       <h3>Какой вы хотите быть сегодня?</h3>
+      ${wxl?`<div class="wt-tags" style="margin:8px 0 2px"><span class="wt-wx">☀ ${esc(wxl)} · учитываю сама</span></div>`:''}
       <p class="tip" style="margin:4px 0 12px">${n>=4
         ? 'Нажмите — и LOOKA соберёт образ из того, что уже висит в шкафу, с поправкой на погоду за окном. Если чего-то не хватает, скажет, какой одной вещи.'
         : 'Добавьте в гардероб хотя бы четыре вещи — и образы начнут собираться из них, а не из магазина.'}</p>
