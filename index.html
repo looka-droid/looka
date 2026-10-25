@@ -18690,6 +18690,20 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
   .nav-dd #navDDa, .nav-dd #navDDl{min-width:0;width:auto;left:16px;right:16px}
 }
 
+/* ---- липкая шапка при прокрутке: та же, что наверху, просто закреплённая ---- */
+#topbar{background:rgba(10,11,16,.66)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(1.25);backdrop-filter:blur(20px) saturate(1.25);
+  border-bottom:1px solid rgba(255,255,255,.07)!important;
+  box-shadow:0 10px 30px rgba(0,0,0,.3)!important}
+#topbar .tb-in{padding:13px 22px}
+#topbar .tb-in .logo{font-size:26px;letter-spacing:-.5px}
+#topbar .topnav{gap:inherit}
+#topbar .nav-acc{min-height:40px}
+@media(max-width:760px){
+  #topbar .tb-in{padding:9px 16px}
+  #topbar .tb-in .logo{font-size:21px}
+}
+
 /* ============ ШИРОКИЕ ЭКРАНЫ: контент не жмётся в узкую колонку ============ */
 @media(min-width:1280px){ .wrap{max-width:1250px} .hero-in{max-width:960px} }
 @media(min-width:1460px){ .wrap{max-width:1380px} .hero-in{max-width:1060px} }
@@ -20215,6 +20229,217 @@ if(document.readyState!=='loading') wrap(); else document.addEventListener('DOMC
 setTimeout(wrap, 700);
 const _op = window.openPage;
 if(typeof _op==='function') window.openPage = function(){ _op.apply(this, arguments); setTimeout(wrap, 80); };
+})();
+</script>
+
+
+<!-- ======== ХОЧУ ВЫГЛЯДЕТЬ… ======== -->
+<style id="lkWant">
+/* ===== ХОЧУ ВЫГЛЯДЕТЬ… ===== */
+.wt-group{margin-top:26px}
+.wt-ttl{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  letter-spacing:2.4px;text-transform:uppercase;color:#19C6F7;margin-bottom:6px}
+.wt-ttl::after{content:'';height:1px;flex:1;background:linear-gradient(90deg,rgba(25,198,247,.45),transparent)}
+.wt-ttl.soft{color:#C79DF2}
+.wt-ttl.soft::after{background:linear-gradient(90deg,rgba(199,157,242,.45),transparent)}
+.wt-note{font-size:13.5px;line-height:1.6;color:#8E95AB;margin:0 0 14px;max-width:70ch}
+.wt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.wt-c{position:relative;overflow:hidden;text-align:left;cursor:pointer;padding:18px 18px 16px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);
+  transition:transform .22s cubic-bezier(.2,.9,.3,1.2),border-color .22s,box-shadow .22s,background .22s}
+.wt-c:hover{transform:translateY(-3px);border-color:var(--c);background:color-mix(in srgb,var(--c) 9%,transparent);
+  box-shadow:0 14px 34px -16px var(--c)}
+.wt-c.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);box-shadow:0 0 0 1px var(--c) inset}
+.wt-c i{font-style:normal;display:grid;place-items:center;width:40px;height:40px;border-radius:13px;font-size:18px;
+  color:var(--c);border:1px solid color-mix(in srgb,var(--c) 45%,transparent);
+  background:color-mix(in srgb,var(--c) 13%,transparent);box-shadow:0 0 18px -5px var(--c);margin-bottom:11px}
+.wt-c b{display:block;font-family:'Golos Text',sans-serif;font-weight:700;font-size:15.5px;color:#F4F5FA;margin-bottom:4px;letter-spacing:-.2px}
+.wt-c span{display:block;font-size:12.5px;line-height:1.45;color:#8E95AB}
+.wt-c::after{content:'';position:absolute;left:-60%;top:0;width:40%;height:100%;opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.09),transparent);transform:skewX(-18deg)}
+.wt-c:hover::after{opacity:1;animation:wtSweep .9s ease-out}
+@keyframes wtSweep{to{left:120%}}
+.wt-care{margin-top:16px;padding:15px 17px;border-radius:14px;border:1px solid rgba(199,157,242,.35);
+  background:rgba(199,157,242,.07);font-size:13.5px;line-height:1.65;color:#C9CEDC}
+.wt-care b{color:#F4F5FA;font-family:'Golos Text';font-weight:700}
+.wt-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 4px;padding:14px 16px;border-radius:13px;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+.wt-bar .k{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;color:#19C6F7;text-transform:uppercase}
+.wt-bar b{font-family:'Golos Text';font-weight:700;font-size:15px;color:#F4F5FA}
+.wt-bar .x{margin-left:auto;background:none;border:1px solid rgba(255,255,255,.18);border-radius:99px;
+  padding:7px 14px;color:#A8AEC2;font-family:'Golos Text';font-size:12.5px;cursor:pointer;transition:all .2s}
+.wt-bar .x:hover{border-color:rgba(255,255,255,.4);color:#fff}
+@media(max-width:760px){.wt-grid{grid-template-columns:1fr}}
+</style>
+<script>
+/* ================= ХОЧУ ВЫГЛЯДЕТЬ… — образ под намерение и настроение ================= */
+(function(){
+'use strict';
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* [ключ, иконка, заголовок, подпись, цвет, бриф для стилиста] */
+const LOUD = [
+  ['bright','✦','Яркой','чтобы оборачивались','#FF5FB0',
+   'Яркость через цвет и контраст: один насыщенный оттенок из её палитры на верх, остальное спокойное. Не «всё разом», а один громкий цвет и чистый силуэт.'],
+  ['queen','♛','Королевой','осанка и достоинство','#FFD678',
+   'Монархическая подача: монохром или два близких тона, плотные благородные ткани, чёткая линия плеча, длина ниже колена или строгие брюки, минимум деталей, один дорогой акцент. Ничего облегающего и ничего случайного.'],
+  ['star','◉','Центром внимания','одна вещь говорит за всё','#19C6F7',
+   'Одна громкая вещь — остальное молчит. Яркий или фактурный элемент (жакет, юбка, пальто, обувь), всё прочее нейтральное и простое, чтобы акцент читался с другого конца зала.'],
+  ['quiet','◈','Дорого и тихо','без единого логотипа','#C9CEDC',
+   'Тихая роскошь: нейтральная гамма, качество ткани вместо декора, безупречная посадка, длины и пропорции выверены. Ни логотипов, ни блеска. Дороговизна считывается кроем.'],
+  ['strong','▲','Уверенной','переговоры, собеседование','#7CF0B2',
+   'Структура: жакет с ясной линией плеча, прямые брюки или юбка-карандаш, закрытый верх, устойчивый каблук или плоская подошва. Палитра сдержанная, один контрастный акцент у лица.'],
+  ['soft','❋','Женственной','свидание, вечер','#FF8AC9',
+   'Мягкая линия: ткани в движении, открытая шея и ключицы, пояс или запáх, тёплый оттенок у лица. Без вульгарности — акцент один, либо верх, либо низ.'],
+  ['own','◍','Своей','встреча, тусовка, город','#C79DF2',
+   'Расслабленный силуэт без небрежности: любимые джинсы или прямые брюки, интересная деталь (обувь, сумка, фактура), в чём удобно сидеть и ходить несколько часов.']
+];
+const SOFT = [
+  ['tired','◐','Нет сил','три вещи, ноль решений','#8E95AB',
+   'Экономия сил: максимум три вещи плюс обувь, всё сочетается между собой без раздумий, ничего тесного, ничего требующего глажки. Задача — выйти из дома и выглядеть собранно, а не впечатлить.'],
+  ['sad','☁','Грустно','мягко и без требований','#9BB7E8',
+   'Поддерживающий, а не бодрящий образ: мягкие ткани у кожи, тёплые приглушённые оттенки, свободная посадка. Никаких «встряхнись» и ярких пятен через силу. Одна вещь, в которой ей хорошо физически.'],
+  ['anx','◌','Тревожно','привычное и закрытое','#A9A2E8',
+   'Безопасность: закрытый силуэт, привычные вещи, плотный трикотаж, ничего нового и ничего, что надо поправлять. Руки заняты сумкой с длинной ручкой, карманы есть.'],
+  ['hide','◼','Хочу спрятаться','объём и слои','#6E7690',
+   'Укрытие без неряшливости: объём, слои, длина, высокий ворот или капюшон, тёмная или глухая гамма. Никакой открытости. Образ должен выглядеть осознанным, а не «что попало».'],
+  ['after','❍','После тяжёлого дня','домашнее, но не халат','#B7A6D8',
+   'Домашний образ с достоинством: мягкий трикотаж, который не стыдно открыть курьеру, тёплые носки, свободные брюки. Уют как решение, а не как сдача позиций.'],
+  ['auto','↻','Не думать вообще','вчерашнее плюс одна замена','#7FA8C9',
+   'Минимум решений: базовый комплект, который работает почти везде, и одна сменная деталь. Объясни коротко, почему это сочетается, чтобы в следующий раз не думать.']
+];
+const ALL = LOUD.concat(SOFT);
+const SOFT_KEYS = SOFT.map(x=>x[0]);
+const HEAVY = ['sad','anx','hide','tired'];
+
+const W = { key:null, busy:false };
+
+window.wtPick = async key=>{
+  const m = ALL.find(x=>x[0]===key); if(!m || W.busy) return;
+  W.key = key; renderWant();
+  const out = document.getElementById('wtOut'); if(!out) return;
+
+  if(typeof LOOKA_API==='undefined' && !window.LOOKA_API && typeof GEMINI_KEY==='undefined'){
+    out.innerHTML = '<div class="tip">Подбор включится вместе с ИИ-мостом.</div>'; return;
+  }
+  W.busy = true; renderWant();
+  const out2 = document.getElementById('wtOut');
+  out2.innerHTML = '<div class="st-load"><i></i><i></i><i></i></div>';
+  try{ out2.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
+
+  const S2 = window.S || {};
+  const me = ['Клиентка:', S2.gender||'женщина',
+    S2.figure?('тип фигуры '+S2.figure):null,
+    S2.height?('рост '+S2.height):null,
+    S2.clothSize?('размер одежды RU '+S2.clothSize):null,
+    S2.shoeSize?('размер обуви '+S2.shoeSize):null,
+    S2.hair?('волосы '+S2.hair):null, S2.eyes?('глаза '+S2.eyes):null, S2.skin?('кожа '+S2.skin):null,
+    S2.budget?('бюджет '+S2.budget):null,
+    (window.currentSeason&&currentSeason())?('сезон '+currentSeason()):null
+  ].filter(Boolean).join(', ');
+
+  const gentle = SOFT_KEYS.includes(key);
+  const rules = gentle
+    ? 'ВАЖНО: это запрос из состояния усталости или подавленности. Не бодри, не воспитывай, не предлагай «выйти из зоны комфорта», не обещай, что одежда улучшит настроение. Цель — меньше решений и физический комфорт. Никаких комментариев о весе, теле и внешности.'
+    : 'Никаких комментариев о весе, теле и фигуре как о недостатке — только про крой и пропорции. Не обещай чужих реакций, говори о том, как вещь работает.';
+
+  const prompt =
+    'Ты — опытный стилист. '+me+'.\n'+
+    'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
+    'Подход: '+m[5]+'\n'+rules+'\n'+
+    'Собери ТРИ разных варианта образа под этот запрос. Вещи должны реально продаваться на маркетплейсах.\n'+
+    'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
+    '{"intro":"одна фраза о том, как этот образ работает","looks":[{"t":"короткое название образа","where":"куда это надеть","items":[{"n":"вещь с цветом и кроем","q":"поисковый запрос","p":"цена ₽"}],"why":"почему именно так — одно-два предложения"}]}\n'+
+    'В каждом образе 4-5 вещей включая обувь. Цены под её бюджет. По-русски, на «вы».';
+
+  try{
+    const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:2000, messages:[{role:'user', content:prompt}] }) });
+    const j = await r.json();
+    if(j.error) throw new Error('мост не ответил');
+    const t = (j.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').replace(/```json|```/g,'').trim();
+    const d = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}')+1));
+    W.busy = false; renderWant();
+    const sb = it => (window.shopButtons ? shopButtons({ n: it.n, q: it.q || it.n }) : '');
+    document.getElementById('wtOut').innerHTML =
+      (d.intro?`<p class="lead" style="margin:4px 0 16px;max-width:72ch">${esc(d.intro)}</p>`:'') +
+      (d.looks||[]).map((L,i)=>`
+        <div class="look badv mk-wide" style="margin-bottom:14px"><div class="look-in">
+          <div class="cs-k">ВАРИАНТ ${i+1}${L.where?' · '+esc(L.where).toUpperCase():''}</div>
+          <h3>${esc(L.t||'Образ')}</h3>
+          ${(L.items||[]).map(it=>`<div class="item"><div class="nm">${esc(it.n)}</div>${it.p?`<div class="pr">${esc(it.p)}</div>`:''}${sb(it)}</div>`).join('')}
+          ${L.why?`<div class="tip" style="margin-top:10px">${esc(L.why)}</div>`:''}
+        </div></div>`).join('') +
+      (HEAVY.includes(key)
+        ? `<div class="wt-care" id="wtCare"><b>И ещё одно.</b> Одежда не лечит настроение — она просто может перестать мешать. Если тяжело не первый день и не первую неделю, об этом стоит сказать тому, кому вы доверяете, или специалисту. Это не слабость и не повод стесняться.</div>`
+        : '');
+    try{ document.getElementById('wtOut').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+  }catch(e){
+    W.busy = false; renderWant();
+    document.getElementById('wtOut').innerHTML = '<div class="tip">Не получилось собрать: '+esc(e.message)+'. Попробуйте ещё раз.</div>';
+  }
+};
+window.wtReset = ()=>{ W.key = null; renderWant(); const o=document.getElementById('wtOut'); if(o) o.innerHTML=''; };
+
+window.renderWant = ()=>{
+  const box = document.getElementById('wtBox'); if(!box) return;
+  const card = m => `<button class="wt-c ${W.key===m[0]?'on':''}" style="--c:${m[4]}" ${W.busy?'disabled':''} onclick="wtPick('${m[0]}')">
+      <i>${m[1]}</i><b>${esc(m[2])}</b><span>${esc(m[3])}</span></button>`;
+  const picked = ALL.find(x=>x[0]===W.key);
+  box.innerHTML = `
+    ${picked?`<div class="wt-bar"><span class="k">собираю под запрос</span><b>${esc(picked[2])}</b>
+      <button class="x" onclick="wtReset()">выбрать другое</button></div>`:''}
+    <div class="wt-group">
+      <div class="wt-ttl">Хочу, чтобы увидели</div>
+      <p class="wt-note">Здесь образ работает на впечатление: цвет, силуэт и один точный акцент.</p>
+      <div class="wt-grid">${LOUD.map(card).join('')}</div>
+    </div>
+    <div class="wt-group">
+      <div class="wt-ttl soft">Хочу, чтобы было легче</div>
+      <p class="wt-note">Бывают дни, когда сил нет совсем. Тогда задача другая — не впечатлить, а выйти из дома без борьбы с собой. Эти образы собираются по принципу «меньше решений, мягче ткани, ничего тесного».</p>
+      <div class="wt-grid">${SOFT.map(card).join('')}</div>
+    </div>
+    ${W.busy?'<div class="st-load" style="margin-top:18px"><i></i><i></i><i></i></div>':''}`;
+};
+
+window.openWant = ()=>{ if(window.openPage) openPage('wantPage'); setTimeout(renderWant, 60); };
+
+function mount(){
+  if(document.getElementById('wantPage')) return;
+  const host = document.getElementById('clubPage') || document.getElementById('askPage') || document.querySelector('.pageview');
+  if(!host) return;
+  const sec = document.createElement('section');
+  sec.className = 'sec pageview'; sec.id = 'wantPage';
+  sec.innerHTML = `
+    <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+    <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
+      <div class="eyebrow">образ под настроение · от «королевой» до «нет сил»</div>
+      <h2 class="big">Хочу выглядеть <span class="holo">сегодня вот так</span></h2>
+      <p class="lead">Не «что надеть», а <b>зачем</b>. Скажите, какой вы хотите быть сегодня — остальное соберётся под вашу фигуру, цветотип и бюджет. И да, «никакой» — это тоже ответ, под него здесь есть отдельные образы.</p>
+    </div>
+    <div id="wtBox"></div>
+    <div id="wtOut" style="margin-top:18px"></div>`;
+  host.parentNode.insertBefore(sec, host.nextSibling);
+  /* ссылка в меню «Гардероб» */
+  const dd = document.querySelector('header #navDDw');
+  if(dd && !dd.querySelector('[data-want]')){
+    const b = document.createElement('button');
+    b.dataset.want = '1';
+    b.innerHTML = '<i>☼</i>Хочу выглядеть…<em>образ под настроение</em>';
+    b.onclick = ()=>openWant();
+    dd.insertBefore(b, dd.firstChild);
+  }
+  /* и в подвал */
+  document.querySelectorAll('footer .f-grid > div').forEach(col=>{
+    const h = col.querySelector('b');
+    if(h && /каждый день/i.test(h.textContent) && !col.querySelector('[data-want]')){
+      const a = document.createElement('a'); a.href='#want'; a.dataset.want='1'; a.textContent='Хочу выглядеть…';
+      a.onclick = e=>{ e.preventDefault(); openWant(); };
+      col.appendChild(a);
+    }
+  });
+}
+if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded', mount);
+setTimeout(mount, 900);
 })();
 </script>
 
