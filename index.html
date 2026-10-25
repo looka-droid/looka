@@ -8274,6 +8274,27 @@ const PAL = ()=>{
   const cold = (h==='Блонд'||h==='Пепельный'||e==='Голубые'||e==='Серые'||s==='Фарфоровый');
   return {note, accents, neutrals, shoes, metal: cold?'серебристый':'золотистый'};
 };
+/* Цвет сравнивается по СЕМЕЙСТВУ, а не по названию: «алый», «бордовый» и «вишнёвый» — один и тот же
+   красный, просто разной глубины. Раньше сравнение шло по строке, и гардероб получал вердикт
+   «бордовый вам не идёт» при том, что алый стоял в рекомендованных акцентах. */
+const COL_FAM = {
+  'красный':   ['красн','алы','ало','бордов','винн','марсал','вишн','рубин','гранат','кирпич','коралл','терракот'],
+  'розовый':   ['розов','пудров','фуксия','малинов','сухая роза','нюдов','телесн'],
+  'оранжевый': ['оранжев','морковн','персиков','абрикос','медн','рыж','тыквенн'],
+  'жёлтый':    ['жёлт','желт','горчичн','золот','песочн','шафран','ванильн','лимонн'],
+  'зелёный':   ['зелён','зелен','изумрудн','оливков','мятн','фисташков','хаки','болотн','бутылочн','травян'],
+  'синий':     ['син','голуб','кобальт','денимов','джинсов','индиго','небесн','бирюз','лазурн','васильк','морск'],
+  'фиолетовый':['фиолет','сирен','лавандов','баклажан','слив','аметист','лилов'],
+  'коричневый':['коричнев','шоколадн','кофейн','беж','карамел','табачн','верблюж','капучино','какао','мокко'],
+  'нейтральный':['чёрн','черн','бел','молочн','кремов','сер','графит','антрацит','серебр','жемчуж','слонов','дымчат']
+};
+const famOf = c=>{
+  /* по НАЧАЛУ слова, а не по подстроке: иначе «кобАЛьтовый» ловится стемом «ал» и уезжает в красные */
+  const w = String(c||'').toLowerCase().split(/[^а-яёa-z]+/).filter(Boolean);
+  if(!w.length) return null;
+  for(const k in COL_FAM) if(w.some(t=>COL_FAM[k].some(pre=>t.indexOf(pre)===0))) return k;
+  return null; };
+
 const FIGN = {
  'Песочные часы':'подчёркиваем талию — приталенные силуэты и пояса',
  'Груша':'акцент на верх, низ — А-силуэт и прямые линии',
@@ -8420,9 +8441,38 @@ const RARE2COMMON = [['лавандовый','сиреневый'],['дымча�
 const LM_PAIRS = [['кремовый','бежевый'],['молочный','белый'],['карамельный','бежевый'],['изумрудный','зелёный'],['фисташковый','зелёный'],['оливковый','хаки'],['горчичный','жёлтый'],['терракотовый','коричневый'],['шоколадный','коричневый'],['пудровый','розовый'],['пыльно-розовый','розовый'],['тёмно-серый','серый'],['сиреневый','фиолетовый'],['голубой','голубой'],['бордовый','бордовый']];
 /* цвет-сосед для кнопки «похожие» */
 const NEIGHBOR_PAIRS = [['кремовый','бежевый'],['молочный','белый'],['пудровый','розовый'],['пыльно-розовый','розовый'],['фисташковый','зелёный'],['изумрудный','зелёный'],['горчичный','жёлтый'],['терракотовый','коричневый'],['карамельный','бежевый'],['шоколадный','коричневый'],['бордовый','красный'],['тёмно-серый','серый'],['сиреневый','фиолетовый'],['оливковый','зелёный'],['голубой','синий'],['бежевый','кремовый'],['белый','молочный'],['зелёный','изумрудный'],['синий','голубой'],['розовый','пудровый']];
+/* поиск на маркетплейсе: не фраза «купить чёрную водолазку», а ключевые слова в именительном:
+   «черная водолазка шерсть шелк». Длинные фразы и винительный падеж ломают выдачу WB и Ozon. */
+const SHOP_MAT = /^(шерст|шелк|хлопк?|хлопо|кашемир|вискоз|лен|льнян|кожа|кожан|экокож|деним|джинс|трикотаж|твид|атлас|сатин|замш|бархат|кружев|флис|кашкорсе|рибан|лайкр|полиэстер|мохер|альпак)/i;
+const SHOP_COL = /^(черн|бел|сер|беж|коричн|син|голуб|бирюз|зелен|олив|желт|оранж|красн|бордов|розов|пудров|сирен|фиолет|золот|серебр|молочн|кремов|хаки|джинсов|графит|шоколадн|мятн|лилов|терракот|песочн|изумрудн|винн|марсал|нюдов|телесн)/i;
+const SHOP_ADJ = /(ая|яя|ый|ий|ой|ое|ее|ые|ие)$/i;
+window.shopQ = raw=>{
+  let w = String(raw||'').replace(/ё/g,'е').replace(/Ё/g,'Е')
+    .split(/[\s,]+/).filter(Boolean)
+    .filter(x=>!/^(купить|заказать|приобрести|найти|искать|поиск|ищу|нужна|нужен|нужно|хочу|женск\w*|для)$/i.test(x));
+  /* винительный → именительный: «чёрную водолазку» → «черная водолазка» */
+  w = w.map(x=>{
+    if(/^\d+$/.test(x)) return x;
+    if(x.length>4 && /ую$/i.test(x)) return x.replace(/ую$/i,'ая');
+    if(x.length>4 && /юю$/i.test(x)) return x.replace(/юю$/i,'яя');
+    if(x.length>3 && /[бвгджзклмнпрстфхцчшщ]у$/i.test(x)) return x.replace(/у$/i,'а');
+    if(x.length>3 && /[бвгджзклмнпрстфхцчшщ]ю$/i.test(x)) return x.replace(/ю$/i,'я');
+    return x;
+  });
+  const seen = new Set();
+  w = w.filter(x=>{ const k=x.toLowerCase(); if(seen.has(k)) return false; seen.add(k); return true; });
+  /* длинный запрос сужает выдачу до нуля: лишние описательные прилагательные убираем,
+     цвет и материал остаются всегда */
+  if(w.length > 4){
+    const keep = w.filter(x=>!(SHOP_ADJ.test(x) && !SHOP_COL.test(x) && !SHOP_MAT.test(x)));
+    if(keep.length >= 3) w = keep;
+  }
+  return w.slice(0,7).join(' ').trim();
+};
+
 function mkLinks(it){
   const shoe = SHOE_RE.test(it.n+' '+it.q);
-  let q = it.q;
+  let q = shopQ(it.q);
   for(const [f,t] of RARE2COMMON) q = swapColor(q, f, t);
   if(shoe && S.shoeSize) q += ' ' + S.shoeSize + ' размер';
   else if(!shoe && S.clothSize) q += ' размер ' + S.clothSize;
@@ -8654,17 +8704,17 @@ window.shopButtons = it=>{
   const R = REGIONS[REGION];
   if(REGION==='cis'){
     const L = mkLinks(it);
-    return `<div class="mp"><a class="wb" target="_blank" rel="noopener" href="${L.wb}">WB ↗</a><a class="oz" target="_blank" rel="noopener" href="${L.oz}">OZON ↗</a><a class="lm" target="_blank" rel="noopener" href="${L.lm}">LAMODA ↗</a><a class="lm alt" target="_blank" rel="noopener" title="Если точный запрос пуст — расширенный поиск похожих вещей" href="${L.lmAlt}">≈ ПОХОЖИЕ</a><a class="ym" target="_blank" rel="noopener" href="https://market.yandex.ru/search?text=${encodeURIComponent(it.q)}">МАРКЕТ ↗</a><a class="ali" target="_blank" rel="noopener" href="https://aliexpress.ru/wholesale?SearchText=${encodeURIComponent(it.q)}">ALI ↗</a></div>`+socialRow(it.q,false);
+    return `<div class="mp"><a class="wb" target="_blank" rel="noopener" href="${L.wb}">WB ↗</a><a class="oz" target="_blank" rel="noopener" href="${L.oz}">OZON ↗</a><a class="lm" target="_blank" rel="noopener" href="${L.lm}">LAMODA ↗</a><a class="lm alt" target="_blank" rel="noopener" title="Если точный запрос пуст — расширенный поиск похожих вещей" href="${L.lmAlt}">≈ ПОХОЖИЕ</a><a class="ym" target="_blank" rel="noopener" href="https://market.yandex.ru/search?text=${encodeURIComponent(shopQ(it.q))}">МАРКЕТ ↗</a><a class="ali" target="_blank" rel="noopener" href="https://aliexpress.ru/wholesale?SearchText=${encodeURIComponent(shopQ(it.q))}">ALI ↗</a></div>`+socialRow(it.q,false);
   }
   const shoe = SHOE_RE.test(it.n+' '+it.q);
-  const q = (R.lang==='ru' ? it.q : toEN(it.q)) + sizeToken(shoe);
+  const q = (R.lang==='ru' ? shopQ(it.q) : toEN(it.q)) + sizeToken(shoe);
   const enc = encodeURIComponent(q.trim());
   return '<div class="mp">'+R.shops.map(s=>'<a class="'+s[1]+'" target="_blank" rel="noopener" href="'+s[2].replace('{q}',enc)+'">'+s[0]+' ↗</a>').join('')+'</div>'+socialRow(it.q,false);
 };
 /* магазины в Telegram и Instagram — через поиск по площадке */
 window.socialRow = (q, beauty)=>{
   const R = REGIONS[REGION], ru = R.lang==='ru';
-  const qq = (ru ? q : toEN(q)).trim();
+  const qq = (ru ? shopQ(q) : toEN(q)).trim();
   const tg = ru ? 'https://yandex.ru/search/?text='+encodeURIComponent('site:t.me '+qq+' купить') : 'https://www.google.com/search?q='+encodeURIComponent('site:t.me '+qq+' shop');
   const ig = 'https://www.instagram.com/explore/search/keyword/?q='+encodeURIComponent(qq);
   return '<div class="mp social"><span>'+(beauty?'бьюти-магазины в соцсетях:':'магазины в соцсетях:')+'</span><a class="tg" target="_blank" rel="noopener" href="'+tg+'">TELEGRAM ↗</a>'+(ig?'<a class="ig" target="_blank" rel="noopener" href="'+ig+'">INSTAGRAM ↗</a>':'')+'</div>';
@@ -12320,8 +12370,25 @@ function gaps(){
   if(!c('Обувь').some(i=>isN(i.color))) add('Нет нейтральной обуви — образ каждый раз «собирается» вокруг ботинок', formOf(pal.shoes[0],3)+' лоферы', 'лоферы '+formOf(pal.shoes[0],3), nowLooks);
   if(!out) add('Нет верхнего слоя — жакет превращает любой верх+низ в «собранный» образ', formOf(pal.neutrals[0],0)+' жакет', 'жакет '+formOf(pal.neutrals[0],0), nowLooks);
   if(!bg) add('Нет сумки в базе — сумка в цвет обуви замыкает образ', formOf(pal.shoes[0],1)+' сумка', 'сумка '+formOf(pal.shoes[0],1), nowLooks);
-  const acc = W.items.filter(i=>!isN(i.color)).map(i=>i.color); const off = acc.filter(a=>!pal.accents.some(x=>x.includes(a)));
-  if(acc.length && off.length/acc.length > .6) g.push({why:`Большинство цветных вещей (${[...new Set(off)].join(', ')}) вне вашей палитры — не покупайте больше в этих цветах; акценты для вас: ${pal.accents.slice(0,3).join(', ')}`, n:null});
+  /* Сравниваем по семействам. Школа сезонного анализа (Йоханнес Иттен, затем Кэрол Джексон,
+     «Color Me Beautiful») запрещает не цвет, а его неподходящую версию: вопрос в подтоне,
+     глубине и чистоте, а не в самом оттенке. Поэтому никаких «не покупайте красное». */
+  const accFam = new Set(pal.accents.map(famOf).filter(Boolean));
+  const mine = W.items.filter(i=>!isN(i.color)).map(i=>i.color);
+  const myFam = [...new Set(mine.map(famOf).filter(Boolean))];
+  const good = myFam.filter(f=>accFam.has(f));
+  const offF = myFam.filter(f=>!accFam.has(f));
+  if(mine.length && offF.length){
+    const near = offF.map(f=>{
+      const ex = pal.accents.find(a=>famOf(a)===f);
+      return ex ? `${f} — ваш, но в версии «${ex}»` : `${f} — пока вне палитры, проверьте его приглушённую версию не у лица`;
+    });
+    g.push({n:null, why:`Цвет оценивается по семейству, а не по названию: алый, бордовый и вишнёвый — один красный разной глубины. `
+      + (good.length ? `В вашей палитре уже работают: ${good.join(', ')}. ` : '')
+      + `Под вопросом другое: ${near.join('; ')}. `
+      + `Профессиональная школа сезонного анализа (Йоханнес Иттен, затем Кэрол Джексон, «Color Me Beautiful») не запрещает цвета — она подбирает их версию по подтону, глубине и чистоте. `
+      + `Ваши ориентиры: ${pal.accents.slice(0,3).join(', ')} — ${pal.note}. Если цвет нравится, берите его в этой глубине, и ставьте ближе к лицу только то, что вас подсвечивает.`});
+  }
   const dead = W.items.filter(i=>!i.last || (Date.now()-i.last)/864e5>90);
   return { g, nowLooks, dead };
 }
@@ -18933,6 +19000,31 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
   .nav-dd #navDDa, .nav-dd #navDDl{min-width:0;width:auto;left:16px;right:16px}
 }
 
+/* «Какой вы хотите быть сегодня» — главный блок гардероба: розовый, с блёстками */
+.wt-glam{position:relative;overflow:hidden;
+  border:1px solid rgba(255,138,201,.5)!important;
+  box-shadow:0 0 0 1px rgba(255,138,201,.14) inset, 0 24px 70px -28px rgba(255,95,176,.85)!important}
+.wt-glam > .look-in{position:relative;z-index:2}
+.wt-glit{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;border-radius:inherit}
+.wt-glit::before{content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(90% 120% at 8% 0%,rgba(255,79,168,.62),transparent 62%),
+    radial-gradient(80% 120% at 98% 100%,rgba(255,138,201,.5),transparent 60%),
+    linear-gradient(135deg,rgba(255,95,176,.5) 0%,rgba(226,120,200,.42) 50%,rgba(255,196,214,.36) 100%)}
+.wt-glit::after{content:'';position:absolute;inset:-40% -10% auto -10%;height:70%;
+  background:radial-gradient(60% 100% at 30% 0%,rgba(255,255,255,.22),transparent 70%)}
+.wt-glit i{position:absolute;display:block;border-radius:50%;background:#fff;opacity:0;
+  animation:msSpark var(--d,5s) ease-in-out infinite;animation-delay:var(--dl,0s);
+  box-shadow:0 0 12px 3px rgba(255,255,255,.95),0 0 22px 6px rgba(255,120,190,.75)}
+.wt-glam .cs-k{color:#FFD9EC}
+.wt-glam h3{text-shadow:0 2px 14px rgba(255,95,176,.55)}
+.wt-glam > .look-in > .tip{color:#FBE8F2}
+.wt-glam .wt-chip{border-color:rgba(255,255,255,.26);background:rgba(10,11,16,.32);backdrop-filter:blur(3px)}
+.wt-glam .wt-wx{color:#FFF4FA;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.14)}
+.wt-wx.nocity{color:#FFD3DC;border-color:rgba(255,157,176,.5);background:rgba(255,157,176,.12)}
+.wt-geo{padding:6px 14px!important;min-height:0!important;font-size:11px!important;border-radius:99px!important}
+@media(prefers-reduced-motion:reduce){ .wt-glit i{animation:none;opacity:.55} }
+
 /* шапка образа: номер плашкой, повод — читаемой строкой */
 .wt-head{display:flex;align-items:center;gap:14px;margin-bottom:4px}
 .wt-head > div{flex:1;min-width:0}
@@ -20862,6 +20954,7 @@ window.wtPick = async key=>{
   const fromWd = WD.length >= 4;
   const wdList = WD.slice(0, 60).map(it=>'- '+[it.name, it.color, it.cat].filter(Boolean).join(', ')).join('\n');
   /* погода за окном: без неё образ может оказаться не по сезону */
+  try{ if(window.wtWx) await wtWx(); }catch(e){}
   const wxNow = (()=>{
     const o = window.WX_LAST_OBJ;
     if(o && typeof o.t === 'number') return { city:o.city||'', t:o.t, w:o.w||'', txt:(o.city?o.city+', ':'')+(o.t>0?'+':'')+o.t+'°'+(o.w?', '+o.w:'') };
@@ -21059,9 +21152,29 @@ window.renderWant = ()=>{
 
 window.openWant = ()=>{ if(window.openPage) openPage('wantPage'); setTimeout(renderWant, 60); };
 
+/* погода нужна здесь, а не только в попапе «образ дня»: тянем сами и кладём в общий WX_LAST_OBJ */
+window.wtWx = async ()=>{
+  const o = window.WX_LAST_OBJ;
+  if(o && typeof o.t === 'number') return o;
+  let c = null; try{ c = JSON.parse(localStorage.getItem('looka_city')||'null'); }catch(e){}
+  if(!c || c.lat === undefined) return null;
+  try{
+    const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+c.lat+'&longitude='+c.lon+'&current=temperature_2m,weather_code&timezone=auto');
+    const j = await r.json();
+    const t = Math.round(j.current.temperature_2m), k = j.current.weather_code;
+    const w = k<=1?'ясно': k<=3?'облачно': k<=48?'туман': k<=57?'морось': k<=67?'дождь': k<=77?'снег': k<=82?'ливень': k<=86?'снегопад':'гроза';
+    window.WX_LAST_OBJ = { t, w, city:c.n };
+    window.WX_LAST = (t>0?'+':'') + t + '° ' + w;
+    return window.WX_LAST_OBJ;
+  }catch(e){ return null; }
+};
+
 /* короткий блок в «Моём гардеробе»: выбрала запрос — образ собрался тут же, из своих вещей */
 window.renderWantWd = ()=>{
   const box = document.getElementById('wtWdBox'); if(!box) return;
+  if(!(window.WX_LAST_OBJ && typeof window.WX_LAST_OBJ.t === 'number') && window.wtWx && !W.busy){
+    wtWx().then(o=>{ if(o && !W.busy) renderWantWd(); });
+  }
   let n = 0; try{ n = ((JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items||[]).length; }catch(e){}
   /* погода больше не отдельная функция — просто строка под заголовком */
   let wxl = ''; try{ const o = window.WX_LAST_OBJ;
@@ -21069,11 +21182,19 @@ window.renderWantWd = ()=>{
   }catch(e){}
   const chip = m => `<button class="wt-chip ${W.key===m[0]?'on':''}" data-k="${m[0]}" style="--c:${m[4]}"
       ${W.busy?'disabled':''} onclick="wtFromWd('${m[0]}')"><i>${m[1]}</i>${esc(m[2])}</button>`;
+  /* блёстки как в темах переписки: 30 искр по сетке, без случайных прыжков при перерисовке */
+  let spk = '';
+  for(let i=0;i<30;i++){
+    const x=(i*37%97)+1, y=(i*53%93)+2, sz=2+(i%4);
+    spk += `<i style="left:${x}%;top:${y}%;width:${sz+1}px;height:${sz+1}px;--d:${(3.2+(i%5)*.7).toFixed(1)}s;--dl:${(i*.19).toFixed(2)}s"></i>`;
+  }
   box.innerHTML = `
-    <div class="look badv mk-wide"><div class="look-in">
+    <div class="look badv mk-wide wt-glam"><div class="wt-glit">${spk}</div><div class="look-in">
       <div class="cs-k">ОБРАЗ ПОД НАСТРОЕНИЕ · ИЗ ВАШИХ ВЕЩЕЙ</div>
       <h3>Какой вы хотите быть сегодня?</h3>
-      ${wxl?`<div class="wt-tags" style="margin:8px 0 2px"><span class="wt-wx">☀ ${esc(wxl)} · учитываю сама</span></div>`:''}
+      <div class="wt-tags" style="margin:8px 0 2px">${wxl
+        ? `<span class="wt-wx">☀ ${esc(wxl)} · учитываю сама</span>`
+        : `<span class="wt-wx nocity">☀ город не указан — образ собирается без погоды</span><button class="btn ghost wt-geo" onclick="wdGeo()">Определить город</button>`}</div>
       <p class="tip" style="margin:4px 0 12px">${n>=4
         ? 'Нажмите — и LOOKA соберёт образ из того, что уже висит в шкафу, с поправкой на погоду за окном. Если чего-то не хватает, скажет, какой одной вещи.'
         : 'Добавьте в гардероб хотя бы четыре вещи — и образы начнут собираться из них, а не из магазина.'}</p>
