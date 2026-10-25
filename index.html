@@ -6898,7 +6898,7 @@ header nav.topnav{gap:4px;align-items:center}
       <div class="tj-card">
         <div class="tj-top"><span class="tj-tag run">⟳ запускается</span><h3>Знание, которое накапливается</h3></div>
         <div class="tj-items">
-          <div><i>◇</i><span><b>«Сарафан»</b> — женщины всего мира передают друг другу то, что проверили на себе. С поправкой на страну: магазины, цены и составы везде разные</span></div>
+          <div><i>◇</i><span><b>«Секретики»</b> — женщины всего мира передают друг другу то, что проверили на себе. С поправкой на страну: магазины, цены и составы везде разные</span></div>
           <div><i>◇</i><span><b>Таблица посадки брендов</b> — «маломерит / большемерит» не от маркетологов, а от тех, кто носил. Для каждого типа фигуры отдельно</span></div>
           <div><i>◇</i><span>Это то, чего нет ни у одного маркетплейса и ни у одного чата: <b>живая память о том, как вещи садятся на реальных людей</b></span></div>
         </div>
@@ -7718,7 +7718,7 @@ header nav.topnav{gap:4px;align-items:center}
       <a href="#lazy" onclick="openLazy();return false">Лень-режим</a>
       <a href="#wardrobe" onclick="openWardrobe();return false">Мой гардероб</a></div>
     <div><b>Учиться</b>
-      <a href="#club" onclick="openClub();return false">Сарафан — советы девушек</a>
+      <a href="#club" onclick="openClub();return false">Секретики — советы девушек</a>
       <a href="#courses" onclick="openCourses();return false">Курсы</a>
       <a href="#pro" onclick="openPro();return false">Приёмы профессионалов</a>
       <a href="#articles" onclick="openArts();return false">Статьи-разборы</a>
@@ -18716,7 +18716,7 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 /* ================================================================
    LOOKA · добавления от 24.10.2026
    1) страховка видимости  2) аккаунт по почте  3) попап заявки
-   4) «Сарафан»  5) фото с сиянием  6) ход мысли консилиума
+   4) «Секретики»  5) фото с сиянием  6) ход мысли консилиума
    ================================================================ */
 (function(){
 'use strict';
@@ -19315,18 +19315,17 @@ function mount(){
   sec.innerHTML = `
     <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
     <div class="sf-hero">
-      <div class="eyebrow">сарафанное радио · девушки — девушкам</div>
-      <h2 class="big" style="margin:8px 0 10px">Сарафан — <span class="holo">то, что передают из рук в руки</span></h2>
-      <p class="lead" style="margin:0">Лучшие приёмы приходят не из рекламы, а из разговоров: подруга рассказала подруге. Здесь то же самое, только в масштабе мира — и с поправкой на вашу страну, потому что магазины, цены и даже состав средств на полках везде разные.</p>
+      <div class="eyebrow">секретики · девушки — девушкам</div>
+      <h2 class="big" style="margin:8px 0 10px">Секретики — <span class="holo">то, что передают по секрету</span></h2>
+      <p class="lead" style="margin:0">Помните секретики под стёклышком? Здесь так же: каждая прячет свою находку, а другая её откапывает — и экономит месяцы и деньги. Только в масштабе мира и с поправкой на вашу страну, потому что магазины, цены и даже состав средств на полках везде разные.</p>
     </div>
     <div id="clubBox"></div>`;
   host.parentNode.insertBefore(sec, host.nextSibling);
-  sec.querySelector('.lead').textContent = 'Лучшие приёмы приходят не из рекламы, а из разговоров: подруга рассказала подруге. Здесь то же самое, только в масштабе мира — и с поправкой на вашу страну, потому что магазины, цены и даже состав средств на полках везде разные.';
   /* ссылки: в подвал и в меню «Бьюти» */
   document.querySelectorAll('.f-col').forEach(col=>{
     const h = col.querySelector('b,.f-h,h4');
     if(h && /учиться/i.test(h.textContent) && !col.querySelector('[data-club]')){
-      const a = document.createElement('a'); a.href='#'; a.dataset.club='1'; a.textContent='Сарафан — советы девушек';
+      const a = document.createElement('a'); a.href='#'; a.dataset.club='1'; a.textContent='Секретики — советы девушек';
       a.onclick = e=>{ e.preventDefault(); openClub(); };
       col.appendChild(a);
     }
@@ -19649,7 +19648,7 @@ function msgDraw(){
           <div class="ms-tx"><b>${esc(t.card.name)}${t.card.founder?' · основатель':''}</b><span>${esc(t.last||'')}</span></div>
           ${t.unread?`<span class="ms-un">${t.unread}</span>`:''}
         </button>`).join('')
-        : `<div class="ms-empty"><div class="ic">${M.tab==='req'?'✉':'◍'}</div><b>${M.tab==='req'?'Запросов нет':'Пока тихо'}</b><p>${M.tab==='req'?'Сюда попадают первые сообщения от незнакомых людей — вы сами решаете, отвечать или нет.':'Загляните в «Сарафан», нажмите на имя автора совета — и напишите ей.'}</p></div>`);
+        : `<div class="ms-empty"><div class="ic">${M.tab==='req'?'✉':'◍'}</div><b>${M.tab==='req'?'Запросов нет':'Пока тихо'}</b><p>${M.tab==='req'?'Сюда попадают первые сообщения от незнакомых людей — вы сами решаете, отвечать или нет.':'Загляните в «Секретики», нажмите на имя автора совета — и напишите ей.'}</p></div>`);
 
   box.innerHTML = `
     <div class="ms-wrap ${M.open?'open':''}">
@@ -19869,7 +19868,7 @@ function mountMsg(){
     <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
     <div class="eyebrow">сообщения · подписки · запросы</div>
     <h2 class="big" style="margin:8px 0 10px">Ваша переписка</h2>
-    <p class="lead" style="max-width:760px">Нашли дельный совет в «Сарафане» — напишите автору. Первое сообщение от незнакомого человека всегда попадает в «Запросы»: вы сами решаете, отвечать или нет. И диалог со мной есть у вас с первого дня.</p>
+    <p class="lead" style="max-width:760px">Нашли дельный совет в «Секретиках» — напишите автору. Первое сообщение от незнакомого человека всегда попадает в «Запросы»: вы сами решаете, отвечать или нет. И диалог со мной есть у вас с первого дня.</p>
     <div id="msgBox" style="margin-top:22px"></div>`;
   host.parentNode.insertBefore(sec, host.nextSibling);
   /* ссылка в подвал */
@@ -19885,7 +19884,7 @@ function mountMsg(){
 if(document.readyState!=='loading') mountMsg(); else document.addEventListener('DOMContentLoaded', mountMsg);
 setTimeout(mountMsg, 900);
 
-/* ---------- в «Сарафане» имя автора открывает профиль ---------- */
+/* ---------- в «Секретиках» имя автора открывает профиль ---------- */
 document.addEventListener('click', e=>{
   const who = e.target.closest('.sf-tip .sf-who'); if(!who) return;
   const tip = who.closest('.sf-tip');
