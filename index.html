@@ -451,10 +451,14 @@ footer.rich{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.1)}
 .hero p,.sec p.lead,.how-card p,.mp-card span,details.faq div,.road-item p,.contact-band p,.look .vibe{color:#A9AEC0}
 .p-list li{color:#C6CADB;border-bottom-color:rgba(255,255,255,.1)}
 .f-grid p,.sb span,.rev-slot p{color:#8b90a3}
-.f-grid a{color:#CBD0DE;font-weight:600;font-size:14px;letter-spacing:-.1px;margin-bottom:12px;padding-left:0;transition:color .2s,padding-left .2s}
-.f-grid a:hover{color:#fff;padding-left:5px}
-.f-grid a::before{content:'';display:inline-block;width:0;height:1px;margin-right:0;vertical-align:middle;background:#19C6F7;transition:width .2s,margin-right .2s}
-.f-grid a:hover::before{width:10px;margin-right:7px}
+.f-grid a{position:relative;color:#CBD0DE;font-weight:600;font-size:14px;letter-spacing:-.1px;
+  margin-bottom:12px;padding-left:0;line-height:1.35;
+  transition:color .2s cubic-bezier(.2,.8,.2,1),transform .2s cubic-bezier(.2,.8,.2,1)}
+.f-grid a:hover{color:#fff;transform:translateX(5px)}
+/* тире — отдельным слоем слева: не участвует в потоке, поэтому строка не перескакивает */
+.f-grid a::before{content:'';position:absolute;left:-15px;top:.62em;width:0;height:1px;
+  background:#19C6F7;box-shadow:0 0 6px rgba(25,198,247,.7);transition:width .2s;pointer-events:none}
+.f-grid a:hover::before{width:10px}
 .f-grid>div>b{display:flex;align-items:flex-end;min-height:2.4em;font-family:'JetBrains Mono';font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:#7D849A;margin-bottom:16px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.08)}
 .f-grid p{font-size:14px;line-height:1.7;color:#9AA1B5;max-width:32ch}
 .f-slogan{position:relative;margin-top:16px;padding-left:15px;font-size:15.5px;line-height:1.62;color:#C9CEDC;font-weight:600;max-width:34ch}
@@ -1773,7 +1777,7 @@ header{position:relative;z-index:500}
 .mt-badge span{flex:1;font-size:12.5px;line-height:1.5;color:#B7BCCC}
 .mt-badge em{font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#7CF0B2;white-space:nowrap;flex:0 0 auto}
 @media(max-width:640px){.mt-badge{flex-wrap:wrap;gap:7px}.mt-badge span{flex:1 1 100%;order:2}.mt-badge em{order:1}}
-/* ===== приёмы профессионалов ===== */
+/* ===== лайфхаки от профессионалов ===== */
 .f-ver{display:block;margin-top:6px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.3px;color:#4F5567}
 .pr-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
 .pr-f{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:99px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#C2C7D6;font-family:'Manrope';font-size:13.5px;font-weight:600;cursor:pointer;transition:all .22s}
@@ -6210,7 +6214,7 @@ header nav.topnav{gap:4px;align-items:center}
 <header>
   <div class="logo" onclick="goHome()" role="button" title="На главную">LOO<em>KA</em></div>
   <nav class="topnav">
-    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openDna()"><i>⌘</i>Стиль-ДНК<em>ваш вкус: эстетики, посадки, характер</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><a href="#ask" onclick="openPage('askPage');return false">Консилиум</a><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="7.8" cy="7.8" r="5.4"/><path d="M11.9 11.9 16 16"/></svg></i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu(event)"><span>Войти</span></button>
+    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openDna()"><i>⌘</i>Стиль-ДНК<em>ваш вкус: эстетики, посадки, характер</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><span class="nav-dd"><a href="#ask" onclick="return navDD2(this,'askPage')">Спросить<i class="dd-arr">▾</i></a><div class="dd" id="navDDa"><button onclick="openPage('askPage')"><i>◉</i>Консилиум<em>дерматолог, визажист, стилист</em></button><button onclick="openClub()"><i>✦</i>Секретики<em>советы девушек вашей страны</em></button></div></span><span class="nav-dd"><a href="#learn" onclick="return navDD2(this,'coursePage')">Академия<i class="dd-arr">▾</i></a><div class="dd" id="navDDl"><button onclick="openCourses()"><i>▤</i>Курсы<em>бровист, визажист, колорист</em></button><button onclick="openPro()"><i>✎</i>Лайфхаки от профессионалов<em>70 штук, включая голливудские</em></button><button onclick="openArts()"><i>❏</i>Статьи-разборы<em>длинные тексты без воды</em></button></div></span><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="7.8" cy="7.8" r="5.4"/><path d="M11.9 11.9 16 16"/></svg></i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu(event)"><span>Войти</span></button>
   </nav>
 </header>
 <div class="sysbar sb2">
@@ -6683,14 +6687,14 @@ header nav.topnav{gap:4px;align-items:center}
     </div>
   </div>
 
-  <div class="to-row" style="margin:0 0 22px"><button class="btn ghost" onclick="openPro()">✎ Приёмы профессионалов — 70 штук, включая голливудские →</button></div>
+  <div class="to-row" style="margin:0 0 22px"><button class="btn ghost" onclick="openPro()">✎ Лайфхаки от профессионалов — 70 штук, включая голливудские →</button></div>
   <div class="mt-note">Ссылки ведут на первоисточники и официальные базы, а не на пересказы. Если ссылка перестала открываться — сообщите, заменим. Последняя сверка источников: октябрь 2026.</div>
 </section>
 
 <section class="sec pageview" id="proPage">
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
   <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
-    <div class="eyebrow">приёмы профессионалов · бесплатно</div>
+    <div class="eyebrow">лайфхаки от профессионалов · бесплатно</div>
     <h2 class="big">То, что знают мастера — <span class="holo">и редко объясняют клиенткам</span></h2>
     <p class="lead"><b id="prCnt">70</b> приёмов, которыми пользуются визажисты, колористы, парикмахеры, стилисты и косметологи — включая отдельный раздел «Красная дорожка» с приёмами голливудских визажистов и киногримёров. Не «10 лайфхаков красоты», а конкретные действия с мини-схемой и объяснением, почему они работают. У каждого приёма написано, кто так делает, и помечено, где под этим измеримый факт, а где ремесленная привычка.</p>
   </div>
@@ -6922,6 +6926,7 @@ header nav.topnav{gap:4px;align-items:center}
       <div class="tj-card">
         <div class="tj-top"><span class="tj-tag plan">◇ горизонт</span><h3>Шкаф, который ведёт себя сам</h3></div>
         <div class="tj-items">
+          <div><i>◇</i><span><b>Корзина, собранная за вас — но нажимаете вы</b>. LOOKA смотрит, что уже висит в шкафу, и складывает список недостающего: три вещи, которые дают восемь новых образов. Сумма посчитана, размеры подставлены, остаётся подтвердить</span></div>
           <div><i>◇</i><span><b>Конец «полный шкаф — надеть нечего»</b>: LOOKA помнит каждую вашу вещь и показывает, сколько раз вы её надели и во сколько обошёлся один выход</span></div>
           <div><i>◇</i><span><b>Утро без мыслей</b> — в 7:30 в Telegram образ дня из ваших вещей под погоду за окном</span></div>
           <div><i>◇</i><span><b>Один план красоты</b> — гардероб, косметичка и уход в одном бюджете, с годовым отчётом, куда ушли деньги</span></div>
@@ -6937,6 +6942,21 @@ header nav.topnav{gap:4px;align-items:center}
           <div><i>◇</i><span>Когда посадки накопится достаточно, LOOKA назовёт ваш размер <b>в бренде, у которого вы никогда ничего не покупали</b> — по тому, как на вас сели десятки других</span></div>
           <div><i>◇</i><span>Мы считаем свой успех не просмотрами, а тем, <b>сколько вещей вы оставили себе</b>. Возврат — это не сервис, это ошибка, которой можно было не быть</span></div>
           <div><i>◇</i><span>Одежда, которую не вернули и не повесили пылиться, — это меньше перевозок, меньше упаковки и меньше выброшенного. <b>Хороший подбор экологичнее любой эко-коллекции</b></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tj-ph ph-never">
+      <div class="tj-node"><i>✕</i></div>
+      <div class="tj-card tj-never">
+        <div class="tj-top"><span class="tj-tag no">● чего не будет никогда</span><h3>Границы, которые мы не сдвинем</h3></div>
+        <p class="tj-lead">Дорожная карта честна, только если в ней написано и то, чего в ней не будет. Это не осторожность — это условия, на которых к нам вообще стоит заходить.</p>
+        <div class="tj-items">
+          <div><i>✕</i><span><b>LOOKA никогда не купит ничего за вас.</b> Мы можем собрать список и посчитать сумму — нажимаете всегда вы. Сервис, который тратит ваши деньги сам, — это уже не стилист</span></div>
+          <div><i>✕</i><span><b>Мы никогда не попросим пароль от маркетплейса.</b> Ни «для удобства», ни «только один раз». Если кто-то просит такой пароль — закрывайте вкладку, кем бы он ни представился</span></div>
+          <div><i>✕</i><span><b>Ни один бренд не купит место в вашем образе.</b> Вещь попадает в подборку потому, что подходит вам, — и никак иначе</span></div>
+          <div><i>✕</i><span><b>Ваши мерки и фотографии не продаются.</b> Ни рекламным сетям, ни маркетплейсам, ни «партнёрам». Это ваши данные, мы ими только считаем</span></div>
+          <div><i>✕</i><span><b>Никаких отзывов, которых не было.</b> Пустой раздел честнее выдуманного</span></div>
         </div>
       </div>
     </div>
@@ -7720,7 +7740,7 @@ header nav.topnav{gap:4px;align-items:center}
     <div><b>Учиться</b>
       <a href="#club" onclick="openClub();return false">Секретики — советы девушек</a>
       <a href="#courses" onclick="openCourses();return false">Курсы</a>
-      <a href="#pro" onclick="openPro();return false">Приёмы профессионалов</a>
+      <a href="#pro" onclick="openPro();return false">Лайфхаки от профессионалов</a>
       <a href="#articles" onclick="openArts();return false">Статьи-разборы</a>
       <a href="#how" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'});return false">Как это работает</a></div>
     <div><b>О сервисе</b>
@@ -12894,7 +12914,7 @@ window.renderArts = ()=>{
     <div class="ar-head"><div class="ar-ic big">${C.ic}</div><div><span class="ar-min">${C.read} чтения</span><h2>${C.t}</h2><p class="ar-lead">${C.lead}</p></div></div>
     <div class="ar-body">${C.body.map(x=>block(x,C)).join('')}</div>
     <div class="ar-end">Разбор собран по профессиональным источникам и ремесленной практике. Там, где доказательная база слабая, это отмечено прямо в тексте — чтобы вы знали, где факт, а где принятая в профессии привычка.</div>
-    <div class="to-row" style="margin-top:16px"><button class="btn ghost" onclick="artBack()">← Все статьи</button><button class="btn ghost" onclick="openPro()">Приёмы профессионалов →</button></div>
+    <div class="to-row" style="margin-top:16px"><button class="btn ghost" onclick="artBack()">← Все статьи</button><button class="btn ghost" onclick="openPro()">Лайфхаки от профессионалов →</button></div>
   </article>`;
   if(window.fxZone) fxZone(box);
 };
@@ -13966,7 +13986,7 @@ const GROUPS = [
     ['◠','Ваш настоящий размер бра','две мерки — и точный размер в RU, EU и US', 'openBra()', 'бесплатно'],
     ['❊','Спасти любимую вещь','значки на ярлыке, ткани и SOS по пятнам за 10 минут', 'openCare()', 'бесплатно'],
     ['⚙','Восемь помощников','погода, чемодан, размеры, дресс-код, SOS и ещё', "openPage('toolsPage')", 'бесплатно'],
-    ['✎','Приёмы профессионалов','70 приёмов визажистов, колористов и стилистов — включая раздел «Красная дорожка», с мини-схемой у каждого', 'openPro()', 'бесплатно'],
+    ['✎','Лайфхаки от профессионалов','70 приёмов визажистов, колористов и стилистов — включая раздел «Красная дорожка», с мини-схемой у каждого', 'openPro()', 'бесплатно'],
     ['▦','Курсы: бровист, визажист, стилист по волосам','36 уроков со схемами — базовые модули открыты всем, профессиональные в подписке', 'openCourses()', 'частично бесплатно']
   ]},
   { t:'Всё о вас', d:'итог, которым делятся — и живые ответы экспертов', items:[
@@ -14524,7 +14544,7 @@ const DEF = `<defs><marker id="psA" viewBox="0 0 10 10" refX="8" refY="5" marker
 window.prScene = (k)=>{ const f = PS[k]; if(!f) return ''; return `<svg class="ps-svg" viewBox="0 0 120 84" preserveAspectRatio="xMidYMid meet">${DEF}${f()}</svg>`; };
 window.PR_SCENES = PS;
 })();
-/* ================= ПРИЁМЫ ПРОФЕССИОНАЛОВ ================= */
+/* ================= ЛАЙФХАКИ ОТ ПРОФЕССИОНАЛОВ ================= */
 (function(){
 const CAT = [['all','Все','✦'],['hw','Красная дорожка','★'],['mk','Макияж','◉'],['hair','Волосы','✂'],['cloth','Одежда и посадка','▤'],['care','Уход','❍'],['shop','Магазин','⌗'],['shot','Съёмка','📷']];
 /* [категория, приём, что делать, почему работает, кто так делает, уровень] */
@@ -18622,10 +18642,39 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
   #hdrRight .nav-find span,#hdrRight .nav-find em{display:none}
   #hdrRight .nav-acc{min-height:44px;padding:0 18px;white-space:nowrap;margin:0}
 }
+/* карточка «чего не будет никогда» */
+.tj-tag.no{border-color:rgba(255,157,176,.45)!important;color:#FF9DB0!important}
+.tj-never{border-color:rgba(255,157,176,.28)!important}
+.tj-never .tj-items i{color:#FF9DB0}
+.tj-lead{font-size:14px;line-height:1.6;color:#A8AEC2;margin:0 0 14px}
+#devPage .ph-never .tj-node{border-color:rgba(255,157,176,.5);color:#FF9DB0}
+
 /* подпись под финальной карточкой траектории */
 .tj-sign{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12);
   font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.4px;color:#8E95AB;text-transform:uppercase}
 .tj-final p+p{margin-top:12px}
+
+/* ============ ШИРОКИЕ ЭКРАНЫ: контент не жмётся в узкую колонку ============ */
+@media(min-width:1280px){ .wrap{max-width:1250px} .hero-in{max-width:960px} }
+@media(min-width:1460px){ .wrap{max-width:1380px} .hero-in{max-width:1060px} }
+@media(min-width:1700px){ .wrap{max-width:1460px} .hero-in{max-width:1120px} }
+/* заголовок и подзаголовок героя не растягиваем на всю ширину */
+@media(min-width:1280px){
+  .hero-in h1{max-width:17ch}
+  .hero-in > p.lead,.hero-in > .lead{max-width:62ch}
+  /* настроения — ровно по четыре в ряд, а не 5+3 */
+  .lf-moods{grid-template-columns:repeat(4,1fr)!important}
+}
+/* но строки текста не растягиваем — длинную строку тяжело читать */
+@media(min-width:1280px){
+  .sec > p.lead, .hero p.lead, .hp-line, .mk-hero > .lead, .sf-hero > .lead,
+  .tj-lead, .moat + p, .sec > .lead{max-width:92ch}
+  /* сетки не распадаются на слишком узкие колонки */
+  .how{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .moat-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .sf-list{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+  .hub-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+}
 
 /* ============ ПЕЧАТЬ И СОХРАНЕНИЕ В PDF ============ */
 @media print{
@@ -19871,15 +19920,8 @@ function mountMsg(){
     <p class="lead" style="max-width:760px">Нашли дельный совет в «Секретиках» — напишите автору. Первое сообщение от незнакомого человека всегда попадает в «Запросы»: вы сами решаете, отвечать или нет. И диалог со мной есть у вас с первого дня.</p>
     <div id="msgBox" style="margin-top:22px"></div>`;
   host.parentNode.insertBefore(sec, host.nextSibling);
-  /* ссылка в подвал */
-  document.querySelectorAll('footer div').forEach(col=>{
-    const h = col.querySelector('b');
-    if(h && /о сервисе/i.test(h.textContent) && !col.querySelector('[data-msg]')){
-      const a = document.createElement('a'); a.href='#msg'; a.dataset.msg='1'; a.textContent='Сообщения';
-      a.onclick = e=>{ e.preventDefault(); openMsg(); };
-      col.appendChild(a);
-    }
-  });
+  /* в подвал ссылку не ставим — сообщения живут значком в шапке */
+  document.querySelectorAll('footer a[data-msg]').forEach(a=>a.remove());
 }
 if(document.readyState!=='loading') mountMsg(); else document.addEventListener('DOMContentLoaded', mountMsg);
 setTimeout(mountMsg, 900);
