@@ -7277,8 +7277,8 @@ header nav.topnav{gap:4px;align-items:center}
     <p class="lead">Добавьте вещи один раз — дальше LOOKA собирает образ на сегодня под погоду в вашем городе, планирует неделю без повторов, считает цену каждого выхода и показывает, какой одной вещи не хватает, чтобы образов стало вдвое больше. Всё хранится в вашем телефоне.</p>
   </div>
   <div class="bt-form look mk-form"><h3>Добавить вещь</h3><p class="mo-note" style="margin:-4px 0 18px">Фото не нужно. Либо вставьте ссылку на товар из любого магазина — и карточка заполнится сама, либо три касания: что это, какая вещь, цвет.</p><div id="wdInbox"></div><div id="wdAdd"></div></div>
-  <div class="looks" id="wdBox" style="margin-top:22px"></div>
-  <div id="wtWdBox" style="margin-top:18px"></div>
+  <div id="wtWdBox" style="margin-top:22px"></div>
+  <div class="looks" id="wdBox" style="margin-top:18px"></div>
 </section>
 
 <section class="sec pageview" id="studioPage">
@@ -18937,6 +18937,44 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
   .nav-dd #navDDa, .nav-dd #navDDl{min-width:0;width:auto;left:16px;right:16px}
 }
 
+/* плашки «из гардероба» и «по погоде» */
+.wt-tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.wt-tags:empty{display:none}
+.wt-wx{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:99px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1.1px;text-transform:uppercase;
+  color:#8FD6FF;border:1px solid rgba(143,214,255,.4);background:rgba(143,214,255,.08)}
+
+/* образ из гардероба: вещи плиткой, а не полосами во всю ширину */
+.wt-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:8px;margin:12px 0 0;align-items:stretch}
+.wt-it{display:flex;align-items:center;gap:11px;padding:12px 14px;border-radius:12px;min-width:0;
+  border:1px solid rgba(124,240,178,.26);background:rgba(124,240,178,.055);transition:border-color .2s,background .2s}
+.wt-it:hover{border-color:rgba(124,240,178,.5);background:rgba(124,240,178,.09)}
+.wt-sw{flex:0 0 auto;width:17px;height:17px;border-radius:50%;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.28),0 1px 4px rgba(0,0,0,.45)}
+.wt-nm{flex:1;min-width:0;font-family:'Golos Text',sans-serif;font-weight:600;font-size:14px;line-height:1.32;
+  color:#EDEFF6;white-space:normal;overflow-wrap:anywhere}
+.wt-ok{flex:0 0 auto;font-style:normal;font-size:13px;color:#7CF0B2;opacity:.8;align-self:flex-start;margin-top:1px}
+/* недостающая вещь — отдельным блоком, с покупкой */
+.wt-miss{margin-top:10px;padding:14px 15px;border-radius:13px;
+  border:1px dashed rgba(255,214,120,.45);background:rgba(255,214,120,.055)}
+.wt-miss-h{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.wt-miss-h i{flex:0 0 auto;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-style:normal;
+  font-size:17px;color:#FFD678;border:1px solid rgba(255,214,120,.45);background:rgba(255,214,120,.1)}
+.wt-miss-h > div{flex:1;min-width:0}
+.wt-miss-h b{display:block;font-family:'Golos Text';font-weight:700;font-size:14.5px;color:#F4F5FA;line-height:1.25}
+.wt-miss-h span{display:block;font-size:11.5px;color:#9BA2B6;margin-top:2px}
+.wt-miss-h em{flex:0 0 auto;font-style:normal;font-family:'Golos Text';font-weight:700;font-size:14px;color:#FFD678}
+.wt-miss .mp{margin:0;gap:6px}
+.wt-miss .mp a{font-size:10px;padding:6px 11px;min-height:0;border-radius:8px}
+.wt-miss .mp.social{margin-top:7px}
+.wt-miss .mp.social a{border-color:rgba(255,255,255,.26)!important;color:#C5CAD8!important;background:rgba(0,0,0,.14)!important}
+.wt-miss .mp.social a:hover{color:#fff!important;border-color:rgba(255,255,255,.5)!important}
+.wt-miss .mp.social > span{font-size:9.5px;color:#B0B6C6;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+@media(max-width:560px){
+  .wt-items{grid-template-columns:1fr}
+  .wt-miss-h em{display:none}
+}
+
 /* контакты: галочка по первой строке, ровные кнопки, понятная иерархия */
 .ct-attach{display:flex!important;align-items:flex-start;gap:10px;line-height:1.5;cursor:pointer;margin-top:12px}
 .ct-attach input[type=checkbox]{flex:0 0 auto;width:16px;height:16px;margin:3px 0 0;cursor:pointer;
@@ -18986,7 +19024,7 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
   font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1;color:#19C6F7;font-weight:700;
   letter-spacing:0;text-align:center;margin:0}
 /* источник вещей и пометки */
-.wt-src{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:8px 14px;border-radius:99px;
+.wt-src{display:inline-flex;align-items:center;gap:8px;margin:0;padding:8px 14px;border-radius:99px;
   font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;
   color:#7CF0B2;border:1px solid rgba(124,240,178,.4);background:rgba(124,240,178,.08)}
 .wt-have,.wt-need{display:inline-block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1px;
@@ -20675,6 +20713,20 @@ const SOFT_KEYS = SOFT.map(x=>x[0]);
 const HEAVY = ['sad','anx','hide','tired'];
 
 const W = { key:null, busy:false, outId:'wtOut' };
+/* цвет вещи — точкой, как на полке */
+const WT_COL = {'чёрный':'#15151a','черный':'#15151a','белый':'#F2F2F0','серый':'#8C8C8C','бежевый':'#D8C3A5',
+ 'коричневый':'#6B4B33','синий':'#2B4C8C','голубой':'#7FB5E6','бирюзовый':'#2FB9AE','зелёный':'#3E7D54','зеленый':'#3E7D54',
+ 'оливковый':'#6B7042','жёлтый':'#E8C35A','желтый':'#E8C35A','оранжевый':'#E08A3C','красный':'#B5323C','бордовый':'#6E1F2B',
+ 'розовый':'#E6A0B8','пудровый':'#E8C9C9','сиреневый':'#A78BC4','фиолетовый':'#6E4C9E','золотой':'#C9A227','серебряный':'#B9BDC4',
+ 'молочный':'#F0E9DC','кремовый':'#EFE3CE','хаки':'#7A7A52','джинсовый':'#3C5A80'};
+const wtDot = txt=>{
+  const t = String(txt||'').toLowerCase();
+  let hit = null;
+  Object.keys(WT_COL).forEach(k=>{ if(t.indexOf(k) >= 0 && (!hit || k.length > hit.length)) hit = k; });
+  return hit ? WT_COL[hit] : null;
+};
+const wtCap = t=>{ const x = String(t||'').trim(); return x ? x[0].toUpperCase() + x.slice(1) : x; };
+
 /* ответ модели иногда обрывается на середине — достаём из него всё, что успело прийти */
 function safeJson(raw){
   const t = String(raw||'');
@@ -20754,6 +20806,24 @@ window.wtPick = async key=>{
   };
 
   const S2 = window.S || {};
+  /* погода за окном: без неё образ может оказаться не по сезону */
+  const wxNow = (()=>{
+    const o = window.WX_LAST_OBJ;
+    if(o && typeof o.t === 'number') return { city:o.city||'', t:o.t, w:o.w||'', txt:(o.city?o.city+', ':'')+(o.t>0?'+':'')+o.t+'°'+(o.w?', '+o.w:'') };
+    let city = null; try{ city = JSON.parse(localStorage.getItem('looka_city')||'null'); }catch(e){}
+    if(window.WX_LAST && city) return { city:city.n, t:null, w:'', txt: city.n+', '+window.WX_LAST };
+    if(city) return { city:city.n, t:null, w:'', txt: city.n };
+    return null;
+  })();
+  const wxRule = wxNow && typeof wxNow.t === 'number'
+    ? ('ПОГОДА СЕЙЧАС: '+wxNow.txt+'. Образ должен быть пригоден для этой температуры: '+
+       (wxNow.t >= 23 ? 'жарко — лёгкие ткани, открытые модели, без слоёв.'
+        : wxNow.t >= 15 ? 'тепло — один лёгкий слой сверху максимум.'
+        : wxNow.t >= 6  ? 'прохладно — нужен верхний слой: жакет, тренч или кардиган.'
+        : wxNow.t >= -5 ? 'холодно — тёплая верхняя одежда, закрытая обувь, плотные ткани.'
+        : 'мороз — зимняя верхняя одежда, тёплая обувь, никаких тонких тканей.')+
+       ' Обязательно назови верхний слой и обувь по погоде.\n')
+    : (wxNow ? ('ГОРОД КЛИЕНТКИ: '+wxNow.txt+'. Учитывай типичную погоду этого места и текущий сезон.\n') : '');
   /* что уже висит в шкафу — образ собираем в первую очередь из этого */
   let WD = [];
   try{ WD = (JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items || []; }catch(e){}
@@ -20777,7 +20847,7 @@ window.wtPick = async key=>{
   const prompt = fromWd
     ? ('Ты — опытный стилист. '+me+'.\n'+
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
-       'Подход: '+m[5]+'\n'+rules+'\n'+
+       'Подход: '+m[5]+'\n'+wxRule+rules+'\n'+
        'ВОТ ЧТО УЖЕ ЕСТЬ В ЕЁ ШКАФУ:\n'+wdList+'\n\n'+
        'Собери ТРИ образа ПРЕИМУЩЕСТВЕННО ИЗ ЭТИХ ВЕЩЕЙ. Названия вещей из шкафа переписывай ТОЧНО так, как они указаны выше. '+
        'Если для запроса в шкафу чего-то не хватает — добавь не больше одной недостающей вещи на образ и объясни, что именно она меняет. '+
@@ -20787,7 +20857,7 @@ window.wtPick = async key=>{
        'Поле add можно опустить, если всё собралось из своих вещей. По-русски, на «вы».')
     : ('Ты — опытный стилист. '+me+'.\n'+
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
-       'Подход: '+m[5]+'\n'+rules+'\n'+
+       'Подход: '+m[5]+'\n'+wxRule+rules+'\n'+
        'Собери ТРИ разных варианта образа под этот запрос. Вещи должны реально продаваться на маркетплейсах.\n'+
        'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
        '{"intro":"одна фраза о том, как этот образ работает","looks":[{"t":"короткое название образа","where":"куда это надеть","items":[{"n":"вещь с цветом и кроем","q":"поисковый запрос","p":"цена ₽"}],"why":"почему именно так — одно-два предложения"}]}\n'+
@@ -20820,14 +20890,20 @@ window.wtPick = async key=>{
     const sb = it => (window.shopButtons ? shopButtons({ n: it.n, q: it.q || it.n }) : '');
     outEl().innerHTML =
       (d.intro?`<p class="lead" style="margin:4px 0 16px;max-width:72ch">${esc(d.intro)}</p>`:'') +
-      (fromWd?`<div class="wt-src">◍ Собрано из вашего гардероба · ${WD.length} ${WD.length%10===1&&WD.length%100!==11?'вещь':'вещей'} в шкафу</div>`:'') +
+      `<div class="wt-tags">${fromWd?`<span class="wt-src">◍ из вашего гардероба · ${WD.length} ${WD.length%10===1&&WD.length%100!==11?'вещь':'вещей'}</span>`:''}${wxNow?`<span class="wt-wx">☀ по погоде · ${esc(wxNow.txt)}</span>`:''}</div>` +
       (d.note?`<div class="wt-care" style="margin:0 0 14px">${esc(d.note)}</div>`:'') +
       (d.looks||[]).map((L,i)=>`
         <div class="look badv mk-wide" style="margin-bottom:14px"><div class="look-in">
           <div class="cs-k">ВАРИАНТ ${i+1}${L.where?' · '+esc(L.where).toUpperCase():''}</div>
           <h3>${esc(L.t||'Образ')}</h3>
-          ${(L.own||[]).map(n=>`<div class="item wt-own"><div class="nm"><span class="wt-have">✓ ваша вещь</span>${esc(n)}</div></div>`).join('')}
-          ${L.add&&L.add.n?`<div class="item wt-add"><div class="nm"><span class="wt-need">+ не хватает</span>${esc(L.add.n)}</div>${L.add.p?`<div class="pr">${esc(L.add.p)}</div>`:''}${sb(L.add)}</div>`:''}
+          ${(L.own||[]).length?`<div class="wt-items">${(L.own||[]).map(n=>{
+            const c = wtDot(n);
+            return `<div class="wt-it"><i class="wt-sw" style="${c?('background:'+c):'background:linear-gradient(135deg,#444,#777)'}"></i>
+              <span class="wt-nm">${esc(wtCap(n))}</span><em class="wt-ok">✓</em></div>`;
+          }).join('')}</div>`:''}
+          ${L.add&&L.add.n?`<div class="wt-miss">
+              <div class="wt-miss-h"><i>+</i><div><b>${esc(wtCap(L.add.n))}</b><span>этого в шкафу нет — без него образ не собрать</span></div>${L.add.p?`<em>${esc(L.add.p)}</em>`:''}</div>
+              ${sb(L.add)}</div>`:''}
           ${(L.items||[]).map(it=>`<div class="item"><div class="nm">${esc(it.n)}</div>${it.p?`<div class="pr">${esc(it.p)}</div>`:''}${sb(it)}</div>`).join('')}
           ${L.why?`<div class="tip" style="margin-top:10px">${esc(L.why)}</div>`:''}
         </div></div>`).join('') +
@@ -20895,7 +20971,7 @@ window.renderWantWd = ()=>{
       <div class="cs-k">ОБРАЗ ПОД НАСТРОЕНИЕ · ИЗ ВАШИХ ВЕЩЕЙ</div>
       <h3>Какой вы хотите быть сегодня?</h3>
       <p class="tip" style="margin:4px 0 12px">${n>=4
-        ? 'Нажмите — и LOOKA соберёт образ из того, что уже висит в шкафу. Если чего-то не хватает, скажет, какой одной вещи.'
+        ? 'Нажмите — и LOOKA соберёт образ из того, что уже висит в шкафу, с поправкой на погоду за окном. Если чего-то не хватает, скажет, какой одной вещи.'
         : 'Добавьте в гардероб хотя бы четыре вещи — и образы начнут собираться из них, а не из магазина.'}</p>
       <div class="wt-chips">${LOUD.map(chip).join('')}</div>
       <div class="wt-chips soft">${SOFT.map(chip).join('')}</div>
