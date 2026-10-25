@@ -6932,7 +6932,6 @@ header nav.topnav{gap:4px;align-items:center}
       <div class="tj-card">
         <div class="tj-top"><span class="tj-tag plan">◇ горизонт</span><h3>Шкаф, который ведёт себя сам</h3></div>
         <div class="tj-items">
-          <div><i>◇</i><span><b>Корзина, собранная за вас — но нажимаете вы</b>. LOOKA смотрит, что уже висит в шкафу, и складывает список недостающего: три вещи, которые дают восемь новых образов. Сумма посчитана, размеры подставлены, остаётся подтвердить</span></div>
           <div><i>◇</i><span><b>Конец «полный шкаф — надеть нечего»</b>: LOOKA помнит каждую вашу вещь и показывает, сколько раз вы её надели и во сколько обошёлся один выход</span></div>
           <div><i>◇</i><span><b>Утро без мыслей</b> — в 7:30 в Telegram образ дня из ваших вещей под погоду за окном</span></div>
           <div><i>◇</i><span><b>Один план красоты</b> — гардероб, косметичка и уход в одном бюджете, с годовым отчётом, куда ушли деньги</span></div>
@@ -6945,7 +6944,8 @@ header nav.topnav{gap:4px;align-items:center}
       <div class="tj-card">
         <div class="tj-top"><span class="tj-tag plan">◇ дальний горизонт</span><h3>Ноль покупок вслепую</h3></div>
         <div class="tj-items">
-          <div><i>◇</i><span>Когда посадки накопится достаточно, LOOKA назовёт ваш размер <b>в бренде, у которого вы никогда ничего не покупали</b> — по тому, как на вас сели десятки других</span></div>
+          <div><i>◇</i><span><b>Бренды под ваш почерк.</b> Когда станет видно, как вы одеваетесь на самом деле — что оставляете себе, что носите каждую неделю, в чём вам хорошо, — LOOKA начнёт называть марки, попадающие в ваш стиль. Не самые рекламируемые, а те, чей крой, посадка и палитра совпадают с вашими</span></div>
+          <div><i>◇</i><span>И наоборот: честно скажет, у каких брендов вам обычно не садится — чтобы вы больше не тратили на них время</span></div>
           <div><i>◇</i><span>Мы считаем свой успех не просмотрами, а тем, <b>сколько вещей вы оставили себе</b>. Возврат — это не сервис, это ошибка, которой можно было не быть</span></div>
           <div><i>◇</i><span>Одежда, которую не вернули и не повесили пылиться, — это меньше перевозок, меньше упаковки и меньше выброшенного. <b>Хороший подбор экологичнее любой эко-коллекции</b></span></div>
         </div>
@@ -20270,8 +20270,44 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
   padding:7px 14px;color:#A8AEC2;font-family:'Golos Text';font-size:12.5px;cursor:pointer;transition:all .2s}
 .wt-bar .x:hover{border-color:rgba(255,255,255,.4);color:#fff}
 @media(max-width:760px){.wt-grid{grid-template-columns:1fr}}
+.wt-wait{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:14px;
+  border:1px solid rgba(25,198,247,.3);background:rgba(25,198,247,.06)}
+.wt-wait b{display:block;font-family:'Golos Text',sans-serif;font-weight:700;font-size:15px;color:#F4F5FA;margin-bottom:3px}
+.wt-wait span#wtWaitS{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#8E95AB}
+.wt-sp{width:22px;height:22px;flex:none;border-radius:50%;border:2px solid rgba(25,198,247,.25);
+  border-top-color:#19C6F7;animation:wtSp .8s linear infinite}
+@keyframes wtSp{to{transform:rotate(360deg)}}
+.wt-err{padding:20px;border-radius:14px;border:1px solid rgba(255,157,176,.35);background:rgba(255,157,176,.06)}
+.wt-err b{display:block;font-family:'Golos Text',sans-serif;font-weight:800;font-size:16px;color:#F4F5FA;margin-bottom:8px}
+.wt-err p{font-size:14px;line-height:1.6;color:#C9CEDC;margin:0 0 8px}
+.wt-err p.sm{font-size:13px;color:#8E95AB}
+.wt-err .btn{margin-top:8px}
 </style>
 <script>
+/* ===== запрос к ИИ не должен висеть вечно: ставим предел ожидания ===== */
+(function(){
+  if(!window.aiFetch || window.aiFetch.__tmo) return;
+  const orig = window.aiFetch;
+  const LIMIT = 95000;   /* ждём не дольше полутора минут */
+  const fn = function(opts){
+    opts = opts || {};
+    const ac = new AbortController();
+    const tm = setTimeout(()=>ac.abort(), LIMIT);
+    const o = Object.assign({}, opts, { signal: ac.signal });
+    return orig.call(this, o)
+      .then(r=>{ clearTimeout(tm); return r; })
+      .catch(e=>{
+        clearTimeout(tm);
+        if(e && (e.name==='AbortError' || /abort/i.test(String(e.message||''))))
+          throw new Error('сервер не ответил за полторы минуты — похоже, сеть не пропускает запрос');
+        throw e;
+      });
+  };
+  fn.__tmo = true;
+  window.aiFetch = fn;
+  try{ aiFetch = fn; }catch(e){}
+})();
+
 /* ================= ХОЧУ ВЫГЛЯДЕТЬ… — образ под намерение и настроение ================= */
 (function(){
 'use strict';
@@ -20324,8 +20360,18 @@ window.wtPick = async key=>{
   }
   W.busy = true; renderWant();
   const out2 = document.getElementById('wtOut');
-  out2.innerHTML = '<div class="st-load"><i></i><i></i><i></i></div>';
+  out2.innerHTML = `<div class="wt-wait"><span class="wt-sp"></span>
+      <div><b id="wtWaitT">Собираю образы под запрос «${esc(m[2])}»</b>
+      <span id="wtWaitS">обычно 20–40 секунд</span></div></div>`;
   try{ out2.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
+  const t0 = Date.now();
+  clearInterval(W.tick);
+  const tick = W.tick = setInterval(()=>{
+    const el = document.getElementById('wtWaitS'); if(!el){ clearInterval(tick); return; }
+    const sec = Math.round((Date.now()-t0)/1000);
+    el.textContent = sec < 45 ? ('идёт '+sec+' секунд · обычно 20–40')
+                              : ('идёт '+sec+' секунд · дольше обычного, ещё жду');
+  }, 1000);
 
   const S2 = window.S || {};
   const me = ['Клиентка:', S2.gender||'женщина',
@@ -20352,8 +20398,11 @@ window.wtPick = async key=>{
     '{"intro":"одна фраза о том, как этот образ работает","looks":[{"t":"короткое название образа","where":"куда это надеть","items":[{"n":"вещь с цветом и кроем","q":"поисковый запрос","p":"цена ₽"}],"why":"почему именно так — одно-два предложения"}]}\n'+
     'В каждом образе 4-5 вещей включая обувь. Цены под её бюджет. По-русски, на «вы».';
 
+  const ac = (typeof AbortController!=='undefined') ? new AbortController() : null;
+  W.ac = ac;
+  const bell = setTimeout(()=>{ if(ac) try{ ac.abort(); }catch(e){} }, 75000);
   try{
-    const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:2000, messages:[{role:'user', content:prompt}] }) });
+    const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:2000, messages:[{role:'user', content:prompt}] }), signal: ac ? ac.signal : undefined });
     const j = await r.json();
     if(j.error) throw new Error('мост не ответил');
     const t = (j.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').replace(/```json|```/g,'').trim();
@@ -20372,13 +20421,33 @@ window.wtPick = async key=>{
       (HEAVY.includes(key)
         ? `<div class="wt-care" id="wtCare"><b>И ещё одно.</b> Одежда не лечит настроение — она просто может перестать мешать. Если тяжело не первый день и не первую неделю, об этом стоит сказать тому, кому вы доверяете, или специалисту. Это не слабость и не повод стесняться.</div>`
         : '');
+    clearInterval(tick); clearTimeout(bell); W.ac = null;
     try{ document.getElementById('wtOut').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
   }catch(e){
-    W.busy = false; renderWant();
-    document.getElementById('wtOut').innerHTML = '<div class="tip">Не получилось собрать: '+esc(e.message)+'. Попробуйте ещё раз.</div>';
+    clearInterval(tick); clearTimeout(bell);
+    W.busy = false; W.ac = null; renderWant();
+    if(e && (e.name==='AbortError' || /abort/i.test(e.message||''))){
+      const o1 = document.getElementById('wtOut');
+      if(o1) o1.innerHTML = `<div class="wt-err"><b>Сервер не ответил за минуту</b>
+        <p>Так бывает, когда воркер просыпается после простоя или запрос режет сеть.</p>
+        <p class="sm">Нажмите ещё раз — со второй попытки обычно собирается.</p>
+        <button class="btn primary" style="margin-top:12px" onclick="wtPick('${key}')">↻ Попробовать ещё раз</button></div>`;
+      return;
+    }
+    document.getElementById('wtOut').innerHTML =
+      `<div class="wt-err"><b>Не получилось собрать образ</b>
+        <p>${esc(e.message)}.</p>
+        <p class="sm">Чаще всего это сеть: провайдер или антивирус не пропускают запрос к серверу. Попробуйте ещё раз, а если повторяется — откройте сайт с мобильного интернета.</p>
+        <button class="btn primary" onclick="wtPick('${esc(key)}')">↻ Попробовать ещё раз</button></div>`;
   }
 };
-window.wtReset = ()=>{ W.key = null; renderWant(); const o=document.getElementById('wtOut'); if(o) o.innerHTML=''; };
+window.wtReset = ()=>{
+  if(W.ac){ try{ W.ac.abort(); }catch(e){} W.ac = null; }
+  clearInterval(W.tick); W.tick = null;
+  W.key = null; W.busy = false;          /* без этого карточки оставались заблокированными */
+  renderWant();
+  const o = document.getElementById('wtOut'); if(o) o.innerHTML = '';
+};
 
 window.renderWant = ()=>{
   const box = document.getElementById('wtBox'); if(!box) return;
