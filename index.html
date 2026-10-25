@@ -18772,8 +18772,11 @@ window.lkAuth = (mode, reason)=>{
     <div class="lk-alt"><button class="lk-link" onclick="lkAuth('in')">← Вернуться к входу</button></div>`);
   else if(mode === 'reset') lkOpen(`
     <h3>Новый пароль</h3>
-    <p>Код из письма действует 30 минут. Не пришло — проверьте папку «Спам».</p>
-    <label class="lk-lb">Код из письма</label>
+    <p>${(()=>{ let v=''; try{ v=sessionStorage.getItem('lk_reset_via')||''; }catch(e){}
+      return v==='telegram' ? 'Код отправлен вам в Telegram. Действует 30 минут.'
+           : v==='email'    ? 'Код отправлен на вашу почту. Действует 30 минут — если письма нет, загляните в «Спам».'
+           : 'Если аккаунт с такой почтой есть, код уже отправлен — в Telegram, если он привязан, иначе на почту. Код действует 30 минут. Ничего не пришло — напишите в поддержку, вернём доступ вручную.'; })()}</p>
+    <label class="lk-lb">Код восстановления</label>
     <input class="lk-in lk-code" id="lkCode" maxlength="6" inputmode="numeric" placeholder="000000">
     <label class="lk-lb">Новый пароль</label>
     ${pwField('lkPw','От 6 символов')}
@@ -18786,8 +18789,8 @@ window.lkAuth = (mode, reason)=>{
     if(e.key==='Enter'){ e.preventDefault(); const g=document.getElementById('lkGo'); if(g && !g.disabled) g.click(); } }));
 };
 
-const okScreen = (title, text, extra)=>lkOpen(`<div class="lk-ok"><div class="tick">✓</div><b>${esc(title)}</b><p>${text}</p>${extra||''}</div>
-  <button class="btn primary" onclick="lkClose();location.reload()">Продолжить</button>`);
+const okScreen = (title, text, extra)=>lkOpen(`<div class="lk-ok"><div class="tick">✓</div><b>${esc(title)}</b><p>${text}</p></div>${extra||''}
+  <button class="btn ${extra?'ghost':'primary'}" onclick="lkClose();location.reload()">${extra?'Потом':'Продолжить'}</button>`);
 
 window.lkDoReg = async ()=>{
   const name=(document.getElementById('lkName').value||'').trim();
@@ -18801,9 +18804,11 @@ window.lkDoReg = async ()=>{
   try{
     const j = await post('/auth/register', {name, email, pw});
     saveSession(j);
+    const tgBtn = `<button class="btn primary" style="margin-top:16px" onclick="lkBindTg()">✈ Привязать Telegram — чтобы вернуть пароль</button>`;
     okScreen('Аккаунт создан', j.mail
-      ? 'Доступ уже открыт. На вашу почту ушло письмо с кодом подтверждения — он понадобится, если забудете пароль.'
-      : 'Доступ уже открыт. Подтверждение почты подключим позже — пароль пока храните сами.');
+      ? 'Доступ уже открыт. На почту ушло письмо с кодом подтверждения — он понадобится, если забудете пароль.'
+      : 'Доступ уже открыт. Чтобы не потерять пароль, привяжите Telegram — код восстановления будет приходить туда. Это занимает одно нажатие.',
+      j.mail ? '' : tgBtn);
   }catch(e){ busy(false); errBox(e.message); }
 };
 window.lkDoIn = async ()=>{
@@ -18818,8 +18823,9 @@ window.lkDoForgot = async ()=>{
   const email=(document.getElementById('lkMail').value||'').trim();
   if(!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) return errBox('Проверьте адрес почты');
   busy(true,'Отправляю…');
-  try{ await post('/auth/forgot', {email});
+  try{ const j = await post('/auth/forgot', {email});
     try{ sessionStorage.setItem('lk_reset_mail', email); }catch(e){}
+    try{ sessionStorage.setItem('lk_reset_via', j.via||''); }catch(e){}
     lkAuth('reset');
   }catch(e){ busy(false); errBox(e.message); }
 };
@@ -18832,6 +18838,41 @@ window.lkDoReset = async ()=>{
   try{ const j = await post('/auth/reset', {email, code, pw}); saveSession(j);
     okScreen('Пароль обновлён', 'Вы вошли под новым паролем. Старый больше не действует.');
   }catch(e){ busy(false); errBox(e.message); }
+};
+
+/* ---------- привязка Telegram: восстановление пароля без почты ---------- */
+window.lkBindTg = async ()=>{
+  const t = tokenOf();
+  if(!t){ lkAuth('in'); return; }
+  const o = document.getElementById('lkOv');
+  try{
+    const j = await post('/auth/tg/bind', {}, true);
+    window.open('https://t.me/'+j.bot+'?start='+j.code, '_blank');
+    if(o) o.innerHTML = `<div class="lk-win"><button class="lk-x" onclick="lkClose()">✕</button>
+      <h3>Откройте бота и нажмите Start</h3>
+      <p>Мы открыли переписку с ботом LOOKA в новой вкладке. Нажмите там <b>Start</b> — привязка произойдёт сама, возвращаться сюда не нужно.</p>
+      <div class="lk-tick">код ${esc(j.code)}</div>
+      <div class="lk-err" id="lkErr"></div>
+      <div id="lkTgSt" class="lk-foot">Жду подтверждения…</div>
+      <button class="btn ghost" onclick="lkClose()">Закрыть</button></div>`;
+    let n = 0;
+    const poll = setInterval(async ()=>{
+      n++;
+      if(n > 60){ clearInterval(poll); const st=document.getElementById('lkTgSt'); if(st) st.textContent = 'Не дождалась. Нажмите «Привязать Telegram» ещё раз.'; return; }
+      try{
+        const r = await fetch(API()+'/auth/tg/bound', { headers:{ Authorization:'Bearer '+tokenOf() } });
+        const q = await r.json();
+        if(q.bound){
+          clearInterval(poll);
+          const w = document.getElementById('lkOv');
+          if(w) w.innerHTML = `<div class="lk-win"><button class="lk-x" onclick="lkClose()">✕</button>
+            <div class="lk-ok"><div class="tick">✓</div><b>Telegram привязан</b>
+            <p>Теперь, если забудете пароль, код восстановления придёт вам в Telegram — почта для этого не нужна.</p></div>
+            <button class="btn primary" onclick="lkClose();location.reload()">Готово</button></div>`;
+        }
+      }catch(e){}
+    }, 2000);
+  }catch(e){ const el=document.getElementById('lkErr'); if(el){ el.textContent = e.message; el.classList.add('on'); } else toast('Не получилось: '+e.message); }
 };
 
 /* ---------- доступ подтягивается с сервера при каждом открытии ---------- */
