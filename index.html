@@ -20675,6 +20675,38 @@ const SOFT_KEYS = SOFT.map(x=>x[0]);
 const HEAVY = ['sad','anx','hide','tired'];
 
 const W = { key:null, busy:false, outId:'wtOut' };
+/* ответ модели иногда обрывается на середине — достаём из него всё, что успело прийти */
+function safeJson(raw){
+  const t = String(raw||'');
+  const i = t.indexOf('{');
+  if(i < 0) throw new Error('ответ не похож на JSON');
+  const body = t.slice(i);
+  try{ return JSON.parse(body); }catch(e){}
+  /* 1) обрезать до последней полностью закрытой скобки */
+  let depth = 0, inStr = false, esc = false, lastGood = -1;
+  for(let k = 0; k < body.length; k++){
+    const c = body[k];
+    if(inStr){ if(esc) esc = false; else if(c === '\\') esc = true; else if(c === '"') inStr = false; continue; }
+    if(c === '"') inStr = true;
+    else if(c === '{' || c === '[') depth++;
+    else if(c === '}' || c === ']'){ depth--; if(depth === 0) lastGood = k; }
+  }
+  if(lastGood > 0){ try{ return JSON.parse(body.slice(0, lastGood + 1)); }catch(e){} }
+  /* 2) достроить недостающие закрывающие скобки */
+  const open = []; inStr = false; esc = false;
+  for(let k = 0; k < body.length; k++){
+    const c = body[k];
+    if(inStr){ if(esc) esc = false; else if(c === '\\') esc = true; else if(c === '"') inStr = false; continue; }
+    if(c === '"') inStr = true;
+    else if(c === '{') open.push('}');
+    else if(c === '[') open.push(']');
+    else if(c === '}' || c === ']') open.pop();
+  }
+  let fix = body.replace(/,\s*$/, '');
+  if(inStr) fix += '"';
+  while(open.length) fix += open.pop();
+  return JSON.parse(fix);
+}
 /* на странице «Хочу выглядеть…» и в гардеробе разные контейнеры под результат */
 const outEl = ()=>document.getElementById(W.outId) || outEl();
 
@@ -20777,7 +20809,13 @@ window.wtPick = async key=>{
     if(!r.ok) throw new Error('сервер ответил кодом ' + r.status);
     if(!(j.content||[]).length) throw new Error('ответ пришёл пустым');
     const t = (j.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').replace(/```json|```/g,'').trim();
-    const d = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}')+1));
+    let d;
+    try{ d = safeJson(t); }
+    catch(e2){ throw new Error('ответ пришёл обрезанным — нажмите «попробовать ещё раз»'); }
+    /* выбрасываем образ, который не успел дописаться */
+    d.looks = (d.looks||[]).filter(L => L && L.t && ((L.own||[]).length || (L.items||[]).length));
+    if(!d.looks.length) throw new Error('ответ пришёл обрезанным — нажмите «попробовать ещё раз»');
+    if(j.truncated) d.note = (d.note ? d.note + ' ' : '') + 'Показываю то, что успело прийти: ответ оказался длиннее лимита.';
     W.busy = false; renderWant();
     const sb = it => (window.shopButtons ? shopButtons({ n: it.n, q: it.q || it.n }) : '');
     outEl().innerHTML =
