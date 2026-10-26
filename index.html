@@ -8441,6 +8441,23 @@ const RARE2COMMON = [['лавандовый','сиреневый'],['дымча�
 const LM_PAIRS = [['кремовый','бежевый'],['молочный','белый'],['карамельный','бежевый'],['изумрудный','зелёный'],['фисташковый','зелёный'],['оливковый','хаки'],['горчичный','жёлтый'],['терракотовый','коричневый'],['шоколадный','коричневый'],['пудровый','розовый'],['пыльно-розовый','розовый'],['тёмно-серый','серый'],['сиреневый','фиолетовый'],['голубой','голубой'],['бордовый','бордовый']];
 /* цвет-сосед для кнопки «похожие» */
 const NEIGHBOR_PAIRS = [['кремовый','бежевый'],['молочный','белый'],['пудровый','розовый'],['пыльно-розовый','розовый'],['фисташковый','зелёный'],['изумрудный','зелёный'],['горчичный','жёлтый'],['терракотовый','коричневый'],['карамельный','бежевый'],['шоколадный','коричневый'],['бордовый','красный'],['тёмно-серый','серый'],['сиреневый','фиолетовый'],['оливковый','зелёный'],['голубой','синий'],['бежевый','кремовый'],['белый','молочный'],['зелёный','изумрудный'],['синий','голубой'],['розовый','пудровый']];
+/* В looka_event планировщик событий хранит ОБЪЕКТ ({kind, date, budget...}), а помощник «что надеть
+   сегодня» раньше писал туда же простую строку. Попап «Образ дня» читал ключ как строку — и на экран
+   попадал сырой JSON. Теперь ярлык достаётся здесь, в одном месте, в обоих форматах. */
+window.evLabel = ()=>{
+  const DEF = 'Офис / работа';
+  let td = null; try{ td = localStorage.getItem('looka_event_td'); }catch(e){}
+  if(td && td.trim() && td.trim()[0] !== '{') return td.trim();
+  let raw = null; try{ raw = localStorage.getItem('looka_event'); }catch(e){}
+  if(!raw || !String(raw).trim()) return DEF;
+  raw = String(raw).trim();
+  if(raw[0] === '{'){
+    try{ const o = JSON.parse(raw); const k = o && (o.kind || o.ev || o.t); return (k && String(k).trim()) || DEF; }
+    catch(e){ return DEF; }
+  }
+  return raw;
+};
+
 /* поиск на маркетплейсе: не фраза «купить чёрную водолазку», а ключевые слова в именительном:
    «черная водолазка шерсть шелк». Длинные фразы и винительный падеж ломают выдачу WB и Ozon. */
 const SHOP_MAT = /^(шерст|шелк|хлопк?|хлопо|кашемир|вискоз|лен|льнян|кожа|кожан|экокож|деним|джинс|трикотаж|твид|атлас|сатин|замш|бархат|кружев|флис|кашкорсе|рибан|лайкр|полиэстер|мохер|альпак)/i;
@@ -9741,7 +9758,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
       <div class="tp-out" id="tdOut"></div>`, init(){
         attachCityAC('tdCity', c=>cityInRegion(REGION, c));
         let hasSaved = false;
-        try{ const sc = JSON.parse(localStorage.getItem('looka_city')||'null'), se = localStorage.getItem('looka_event');
+        try{ const sc = JSON.parse(localStorage.getItem('looka_city')||'null'), se = (window.evLabel?evLabel():null);
           const inp = document.getElementById('tdCity');
           if(sc){ inp.value = sc.n; inp.dataset.q = sc.n; inp.dataset.lat = sc.lat; inp.dataset.lon = sc.lon; hasSaved = true;
             const wrap = inp.closest('.ac-wrap'); wrap.style.display='none';
@@ -9759,7 +9776,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
             const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${g.lat}&longitude=${g.lon}&current=temperature_2m,precipitation,wind_speed_10m,weather_code&timezone=auto`)).json();
             const c = w.current, t = Math.round(c.temperature_2m), b = band(t), wet = c.precipitation>0 || c.weather_code>=51, windy = c.wind_speed_10m>25;
             const ev = document.getElementById('tdEv').value;
-            try{ localStorage.setItem('looka_event', ev); }catch(e){}
+            try{ localStorage.setItem('looka_event_td', ev); }catch(e){}
             const tips = BAND_TXT[b].slice();
             if(wet) tips.push('осадки: плащ или водоотталкивающая верхняя одежда, обувь без замши');
             if(windy) tips.push('ветер: без широких юбок, волосы — собрать, шарф зафиксировать');
@@ -10323,7 +10340,8 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDayLook(); }
   const had = loadLS();
   if(had){ try{ renderStep(); drawAvatar(); if(window.updateModelPhoto) updateModelPhoto(); }catch(e){} }
   let city = null, ev = 'Офис / работа', shown = '';
-  try{ city = JSON.parse(localStorage.getItem('looka_city')||'null'); ev = localStorage.getItem('looka_event') || ev; shown = localStorage.getItem('looka_day_shown')||''; }catch(e){}
+  try{ city = JSON.parse(localStorage.getItem('looka_city')||'null'); shown = localStorage.getItem('looka_day_shown')||''; }catch(e){}
+  try{ if(window.evLabel) ev = evLabel(); }catch(e){}
   const complete = S.gender && S.figure && S.hair && S.eyes && S.skin && S.clothSize && S.shoeSize;
   if(!complete) return;
   const wcode = c=> c<=1?'ясно': c<=3?'облачно': c<=48?'туман': c<=57?'морось': c<=67?'дождь': c<=77?'снег': c<=82?'ливень': c<=86?'снегопад':'гроза';
@@ -10349,10 +10367,20 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDayLook(); }
       document.getElementById('dlWx').innerHTML = '<div class="t">'+(t>0?'+':'')+t+'°</div><div class="w"><b>'+city.n+'</b>'+wcode(c.weather_code)+' · ветер '+Math.round(c.wind_speed_10m)+' км/ч</div><div class="ev">'+ev+'</div>';
       document.getElementById('dlLead').textContent = 'Образ под ваш профиль и '+(t>0?'+':'')+t+'° в городе '+city.n+' уже собран — с вещами, ссылками и советами стилиста.';
       maybeOpen();
-    }).catch(()=>{
-      document.getElementById('dlTitle').textContent = greet+'!'; document.getElementById('dlSub').textContent = 'Образ на сегодня готов';
-      document.getElementById('dlWx').innerHTML = '<div class="w"><b>'+city.n+'</b>погода недоступна</div><div class="ev">'+ev+'</div>';
-      document.getElementById('dlLead').textContent = 'Погода сейчас недоступна, но образ под ваш профиль в городе '+city.n+' собирается.';
+    }).catch(async ()=>{
+      /* сеть могла моргнуть: пробуем ещё раз через общий механизм и берём то, что уже знаем */
+      let o = window.WX_LAST_OBJ;
+      if(!(o && typeof o.t === 'number') && window.wtWx){ try{ o = await wtWx(); }catch(e){} }
+      document.getElementById('dlTitle').textContent = greet+'!';
+      if(o && typeof o.t === 'number'){
+        document.getElementById('dlSub').textContent = 'Образ на сегодня — под погоду и ваш профиль';
+        document.getElementById('dlWx').innerHTML = '<div class="t">'+(o.t>0?'+':'')+o.t+'°</div><div class="w"><b>'+city.n+'</b>'+(o.w||'')+'</div><div class="ev">'+ev+'</div>';
+        document.getElementById('dlLead').textContent = 'Образ под ваш профиль и '+(o.t>0?'+':'')+o.t+'° в городе '+city.n+' уже собран — с вещами, ссылками и советами стилиста.';
+      } else {
+        document.getElementById('dlSub').textContent = 'Образ на сегодня готов';
+        document.getElementById('dlWx').innerHTML = '<div class="w"><b>'+city.n+'</b>прогноз не отвечает</div><div class="ev">'+ev+'</div>';
+        document.getElementById('dlLead').textContent = 'Сервис прогноза сейчас не отвечает — образ собран под ваш профиль, а погоду добавлю, как только связь вернётся.';
+      }
       maybeOpen();
     });
 })();
@@ -19025,6 +19053,29 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 .wt-geo{padding:6px 14px!important;min-height:0!important;font-size:11px!important;border-radius:99px!important}
 @media(prefers-reduced-motion:reduce){ .wt-glit i{animation:none;opacity:.55} }
 
+/* «не моё»: отказ с причиной, который запоминается */
+.wt-fb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;
+  padding-top:11px;border-top:1px solid rgba(255,255,255,.08)}
+.wt-fb b{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;
+  color:#9BA2B6;font-weight:400;margin-right:2px}
+.wt-nope,.wt-why{font-family:'Golos Text',sans-serif;font-size:12px;padding:7px 13px;border-radius:99px;cursor:pointer;
+  color:#9BA2B6;border:1px solid rgba(255,255,255,.16);background:transparent;transition:all .18s}
+.wt-nope:hover{color:#FF9DB0;border-color:rgba(255,157,176,.6)}
+.wt-why:hover{color:#fff;border-color:rgba(255,157,176,.7);background:rgba(255,157,176,.12)}
+.wt-why.x{color:#757C92;border-color:transparent}
+.wt-done{font-size:12.5px;color:#7CF0B2}
+.look.nope{opacity:.45;transition:opacity .3s}
+.look.nope:hover{opacity:.75}
+.wt-mem{margin-top:12px;font-size:12px;color:#CFE9DA}
+.wt-mem a{color:#7CF0B2;text-decoration:underline;text-underline-offset:2px}
+/* результат рендерится внутри розового блока — возвращаем карточкам тёмный непрозрачный фон,
+   иначе текст вещей тонет в блёстках */
+.wt-glam #wtWdOut .look{background:rgba(11,13,19,.9)!important;backdrop-filter:blur(8px);
+  border-color:rgba(255,255,255,.14)!important}
+.wt-glam #wtWdOut{position:relative;z-index:2}
+.wt-glam .wt-mem{color:#FFF4FA}
+.wt-glam .wt-mem a{color:#fff}
+
 /* шапка образа: номер плашкой, повод — читаемой строкой */
 .wt-head{display:flex;align-items:center;gap:14px;margin-bottom:4px}
 .wt-head > div{flex:1;min-width:0}
@@ -21009,7 +21060,7 @@ window.wtPick = async key=>{
   const prompt = fromWd
     ? ('Ты — опытный стилист. '+me+'.\n'+
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
-       'Подход: '+m[5]+'\n'+wxRule+rules+'\n'+
+       'Подход: '+m[5]+'\n'+wxRule+rules+'\n'+(window.nopeRule?nopeRule():'')+
        'ВОТ ЧТО УЖЕ ЕСТЬ В ЕЁ ШКАФУ:\n'+wdList+'\n\n'+
        'Собери ТРИ образа ПРЕИМУЩЕСТВЕННО ИЗ ЭТИХ ВЕЩЕЙ. Названия вещей из шкафа переписывай ТОЧНО так, как они указаны выше.\n'+
        'ЭТО ДОЛЖНЫ БЫТЬ ТРИ РАЗНЫХ ХАРАКТЕРА, А НЕ ТРИ ПЕРЕСТАНОВКИ ОДНОГО И ТОГО ЖЕ. Строго по одному образу каждого направления, в этом порядке:\n'+
@@ -21025,7 +21076,7 @@ window.wtPick = async key=>{
        'Поле add можно опустить, если всё собралось из своих вещей. По-русски, на «вы».')
     : ('Ты — опытный стилист. '+me+'.\n'+
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
-       'Подход: '+m[5]+'\n'+wxRule+rules+'\n'+
+       'Подход: '+m[5]+'\n'+wxRule+rules+'\n'+(window.nopeRule?nopeRule():'')+
        'Собери ТРИ разных варианта образа под этот запрос. Вещи должны реально продаваться на маркетплейсах.\n'+
        'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
        '{"intro":"одна фраза о том, как этот образ работает","looks":[{"t":"короткое название образа","where":"куда это надеть","items":[{"n":"вещь с цветом и кроем","q":"поисковый запрос","p":"цена ₽"}],"why":"почему именно так — одно-два предложения"}]}\n'+
@@ -21062,7 +21113,7 @@ window.wtPick = async key=>{
         L._openShoe = needClosed && OPEN_RE.test(all);
       });
     }
-    W.busy = false; renderWant();
+    W.busy = false; W.last = d.looks || []; renderWant();
     const sb = it => (window.shopButtons ? shopButtons({ n: it.n, q: it.q || it.n }) : '');
     outEl().innerHTML =
       (d.intro?`<p class="lead" style="margin:4px 0 16px;max-width:72ch">${esc(d.intro)}</p>`:'') +
@@ -21089,6 +21140,7 @@ window.wtPick = async key=>{
             ${L._openShoe?`<span>Обувь в этом образе открытая — для такой температуры замените на закрытую.</span>`:''}
           </div></div>`:''}
           ${L.why?`<div class="tip" style="margin-top:10px">${esc(L.why)}</div>`:''}
+          <div class="wt-fb" id="wtFb${i}"><button class="wt-nope" onclick="nopeOpen(${i})">✕ Не моё</button></div>
         </div></div>`).join('') +
       (HEAVY.includes(key)
         ? `<div class="wt-care" id="wtCare"><b>И ещё одно.</b> Одежда не лечит настроение — она просто может перестать мешать. Если тяжело не первый день и не первую неделю, об этом стоит сказать тому, кому вы доверяете, или специалисту. Это не слабость и не повод стесняться.</div>`
@@ -21152,6 +21204,67 @@ window.renderWant = ()=>{
 
 window.openWant = ()=>{ if(window.openPage) openPage('wantPage'); setTimeout(renderWant, 60); };
 
+/* ================= «НЕ МОЁ»: образы, которые ей не подошли =================
+   Отказ без причины бесполезен — модель просто переставит вещи местами. Поэтому каждый отказ
+   сохраняется вместе с причиной и составом, и уходит в следующий запрос как явный запрет. */
+const plObraz = n=>{ const a=n%10, b=n%100;
+  return (a===1&&b!==11) ? 'образ' : (a>=2&&a<=4&&(b<12||b>14)) ? 'образа' : 'образов'; };
+const NOPE_KEY = 'looka_nope';
+const NOPE_WHY = [
+  ['strict','слишком строго'], ['fem','не женственно'], ['plain','слишком просто'],
+  ['color','не мой цвет'], ['item','эту вещь не ношу'], ['mix','вещи не сочетаются']
+];
+const nopeLoad = ()=>{ try{ const a = JSON.parse(localStorage.getItem(NOPE_KEY)||'[]'); return Array.isArray(a)?a:[]; }catch(e){ return []; } };
+const nopeSave = a=>{ try{ localStorage.setItem(NOPE_KEY, JSON.stringify(a.slice(-40))); }catch(e){} };
+window.nopeCount = ()=>nopeLoad().length;
+window.nopeRule = ()=>{
+  const a = nopeLoad(); if(!a.length) return '';
+  return '\nЧТО ЕЙ УЖЕ НЕ ПОДОШЛО — НЕ ПОВТОРЯЙ НИ ЭТИ СОЧЕТАНИЯ, НИ ИХ ЛОГИКУ:\n'
+    + a.slice(-8).map(x=>'— «'+x.t+'»'+(x.own&&x.own.length?' ('+x.own.join(' + ')+')':'')+' — причина: '+x.r).join('\n')
+    + '\nЭто её прямая обратная связь. Меняй подход по существу, а не переставляй те же вещи местами.'
+    + (a.filter(x=>x.r==='не женственно').length>=2 ? ' Ей не хватает женственности: мягкая линия, ткань в движении, открытая шея или щиколотка, пояс или запáх, один тёплый акцент у лица.' : '')
+    + (a.filter(x=>x.r==='слишком строго').length>=2 ? ' Ей не нужен офисный вид: меньше жакетов и прямых костюмов, больше фактуры и расслабленного силуэта.' : '')
+    + '\n';
+};
+window.nopeOpen = i=>{
+  const row = document.getElementById('wtFb'+i); if(!row) return;
+  row.innerHTML = '<b>Что именно не так?</b>'
+    + NOPE_WHY.map(w=>`<button class="wt-why" onclick="nopeAdd(${i},'${w[1]}')">${w[1]}</button>`).join('')
+    + `<button class="wt-why x" onclick="nopeCancel(${i})">отмена</button>`;
+};
+window.nopeCancel = i=>{
+  const row = document.getElementById('wtFb'+i); if(!row) return;
+  row.innerHTML = `<button class="wt-nope" onclick="nopeOpen(${i})">✕ Не моё</button>`;
+};
+window.nopeAdd = (i, why)=>{
+  const L = (W.last||[])[i]; if(!L) return;
+  const a = nopeLoad();
+  a.push({ t:L.t||'образ', own:(L.own||[]).slice(0,5), dir:L.dir||'', r:why, ts:Date.now() });
+  nopeSave(a);
+  const row = document.getElementById('wtFb'+i);
+  if(row) row.innerHTML = '<span class="wt-done">✓ Запомнила: больше так собирать не буду</span>';
+  const card = row && row.closest('.look'); if(card) card.classList.add('nope');
+  if(window.myToast) myToast('Учту при следующем подборе');
+  nopeMem();            /* только счётчик: renderWantWd() стёр бы показанный результат */
+};
+window.nopeMem = ()=>{
+  const el = document.querySelector('#wtWdBox .wt-mem'); const n = nopeCount();
+  if(el){
+    if(!n) el.remove();
+    else el.innerHTML = `✓ Учитываю ${n} ${plObraz(n)}, которые вы отметили как «не моё» · <a href="#" onclick="event.preventDefault();nopeClear()">сбросить</a>`;
+  } else if(n && window.renderWantWd && !document.getElementById('wtWdOut').innerHTML.trim()){ renderWantWd(); }
+};
+window.nopeClear = ()=>{
+  try{ localStorage.removeItem(NOPE_KEY); }catch(e){}
+  if(window.myToast) myToast('Список «не моё» очищен');
+  nopeMem();
+  document.querySelectorAll('#wtWdOut .look.nope').forEach(c=>{
+    c.classList.remove('nope');
+    const row = c.querySelector('.wt-fb'); const i = row ? row.id.replace('wtFb','') : null;
+    if(row && i!==null) row.innerHTML = `<button class="wt-nope" onclick="nopeOpen(${i})">✕ Не моё</button>`;
+  });
+};
+
 /* погода нужна здесь, а не только в попапе «образ дня»: тянем сами и кладём в общий WX_LAST_OBJ */
 window.wtWx = async ()=>{
   const o = window.WX_LAST_OBJ;
@@ -21177,6 +21290,7 @@ window.renderWantWd = ()=>{
   }
   let n = 0; try{ n = ((JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items||[]).length; }catch(e){}
   /* погода больше не отдельная функция — просто строка под заголовком */
+  const nope = window.nopeCount ? nopeCount() : 0;
   let wxl = ''; try{ const o = window.WX_LAST_OBJ;
     if(o && typeof o.t === 'number') wxl = (o.city?o.city+', ':'') + (o.t>0?'+':'') + Math.round(o.t) + '°' + (o.w?', '+o.w:'');
   }catch(e){}
@@ -21200,6 +21314,7 @@ window.renderWantWd = ()=>{
         : 'Добавьте в гардероб хотя бы четыре вещи — и образы начнут собираться из них, а не из магазина.'}</p>
       <div class="wt-chips">${LOUD.map(chip).join('')}</div>
       <div class="wt-chips soft">${SOFT.map(chip).join('')}</div>
+      ${nope?`<div class="wt-mem">✓ Учитываю ${nope} ${plObraz(nope)}, которые вы отметили как «не моё» · <a href="#" onclick="event.preventDefault();nopeClear()">сбросить</a></div>`:''}
       <div id="wtWdOut" style="margin-top:14px"></div>
     </div></div>`;
 };
