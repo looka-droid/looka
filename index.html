@@ -2517,6 +2517,39 @@ header::before{display:none}
 .tb-in .logo{font-size:22px}
 #topbar .topnav{margin:0}
 #topbar .nav-dd .dd{top:calc(100% + 12px)}
+/* ================= ШАПКА: один ровный ряд, ничего не срезается =================
+   При входе в меню добавляются «Мой LOOKA» и «Паспорт» — строка переставала помещаться,
+   логотип обрезался слева, а кнопка аккаунта уезжала за экран. */
+header{min-width:0}
+header > .logo{flex:0 0 auto}
+header .topnav{flex:1 1 auto;flex-wrap:nowrap;min-width:0;gap:0;align-items:center}
+header .topnav > .nav-dd,
+header .topnav > a{flex:0 0 auto;margin-right:26px;white-space:nowrap}
+/* личные разделы — отдельной группой, спокойным акцентом, а не кричащим фиолетовым */
+header .topnav > a.only-in{color:#C9B6F2;margin-right:22px}
+header .topnav > a.only-in:hover{color:#F4F6FC}
+/* поиск и аккаунт прижаты к правому краю и сжимаются первыми */
+header .topnav > .nav-find{flex:0 1 auto;min-width:0;margin-left:auto;margin-right:10px}
+header .topnav > .nav-find span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header .topnav > .nav-acc{flex:0 0 auto;margin-left:0;max-width:210px;overflow:hidden;white-space:nowrap}
+/* значок NEW мельче и не утяжеляет строку */
+.nav-new span{font-size:7.5px;padding:2px 5px;margin-left:5px;letter-spacing:.8px;animation:none;opacity:.9}
+/* по мере сужения убираем наименее важное */
+@media(max-width:1600px){header .topnav > .nav-find{min-width:170px}}
+@media(max-width:1600px){header .topnav > .nav-find em{display:none}}
+@media(max-width:1500px){body.authed header .topnav > .nav-find span{display:none}
+  body.authed header .topnav > .nav-find{min-width:0;padding:0 14px}}
+@media(max-width:1260px){header .topnav > .nav-find span{display:none}
+  header .topnav > .nav-find{min-width:0;padding:0 14px}}
+/* вошла — в меню на два пункта больше, поэтому убираем раньше */
+@media(max-width:1560px){body.authed header .topnav > a:not(.only-in){display:none}}
+@media(max-width:1340px){header .topnav > a:not(.only-in){display:none}}
+header .topnav > a.only-in + a:not(.only-in){border-left:0;padding-left:0}
+@media(min-width:1561px){body.authed header .topnav > a.only-in + a:not(.only-in){
+  padding-left:26px;border-left:1px solid rgba(255,255,255,.12)}}
+@media(max-width:1180px){body.authed header .topnav > .nav-dd:nth-of-type(4){display:none}}
+@media(max-width:1060px){header .topnav > .nav-dd:nth-of-type(4){display:none}}
+
 /* поиск и аккаунт не должны срезаться: раньше их съедала маска справа */
 #topbar .topnav{flex:1;min-width:0;flex-wrap:nowrap;-webkit-mask-image:none;mask-image:none}
 #topbar .topnav > .nav-find{flex:1 1 120px;min-width:80px;overflow:hidden}
@@ -2524,8 +2557,11 @@ header::before{display:none}
 #topbar .topnav > .nav-acc{flex:0 0 auto;max-width:200px;overflow:hidden;white-space:nowrap}
 #topbar .topnav > .nav-dd,#topbar .topnav > a{flex:0 0 auto}
 /* после входа в панели на две ссылки больше — лишнее убираем по убыванию важности */
-@media(max-width:1600px){#topbar .topnav > a:not(.only-in){display:none}}
-@media(max-width:1500px){#topbar .topnav > .nav-find .kbd{display:none}}
+@media(max-width:1600px){body.authed #topbar .topnav > a:not(.only-in){display:none}}
+@media(max-width:1340px){#topbar .topnav > a:not(.only-in){display:none}}
+@media(max-width:1500px){#topbar .topnav > .nav-find em{display:none}}
+@media(max-width:1200px){#topbar .topnav > .nav-find span{display:none}
+  #topbar .topnav > .nav-find{min-width:0;padding:0 14px}}
 @media(max-width:1240px){#topbar .topnav > .nav-dd:nth-of-type(4){display:none}}
 @media(max-width:1100px){#topbar .topnav > .nav-dd:nth-of-type(3){display:none}}
 @media(max-width:760px){
