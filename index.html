@@ -868,6 +868,27 @@ details.faq:hover summary{color:#fff}
   border:1px solid rgba(255,255,255,.2);background:rgba(10,12,18,.65);color:#F4F6FC;outline:none}
 .reg-first input:focus{border-color:rgba(25,198,247,.65);box-shadow:0 0 0 3px rgba(25,198,247,.15)}
 
+/* ===== карточка средства и кнопки магазинов: читаемость и порядок ===== */
+.subpage .item,.pageview .item{padding:16px 18px;margin-bottom:14px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.1);
+  background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
+  transition:border-color .2s,transform .2s}
+.subpage .item:hover,.pageview .item:hover{border-color:rgba(25,198,247,.35);transform:translateY(-2px)}
+.subpage .item .nm,.pageview .item .nm{font-size:15.5px;line-height:1.3;color:#F4F6FC}
+.subpage .item .pr,.pageview .item .pr{font-size:12.5px;color:#9BE3FF;margin:4px 0 12px}
+/* ряд магазинов: одинаковые плашки, ровные промежутки */
+.subpage .mp,.pageview .mp{gap:8px}
+.subpage .mp a,.pageview .mp a{padding:8px 13px;font-size:10.5px;letter-spacing:1.1px;border-width:1px;
+  border-radius:11px;line-height:1;display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.04);transition:transform .16s,background .16s,box-shadow .16s}
+.subpage .mp a:hover,.pageview .mp a:hover{transform:translateY(-2px);background:rgba(255,255,255,.1);
+  box-shadow:0 8px 18px -10px rgba(0,0,0,.9)}
+/* подпись к соцсетям была почти не видна на цветном фоне */
+.subpage .mp.social,.pageview .mp.social{margin-top:14px;padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.12);row-gap:8px}
+.subpage .mp.social span,.pageview .mp.social span{font-size:10px;letter-spacing:1.2px;
+  color:#D4D9E6;opacity:1;text-shadow:0 1px 3px rgba(0,0,0,.6);margin-right:8px}
+
 /* карточки «Ваш профиль» и «Профиль по ссылке» */
 .my-grid .tp-card{border-radius:18px;padding:20px 22px;
   border:1px solid rgba(255,255,255,.1);
