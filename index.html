@@ -834,14 +834,18 @@ details.faq:hover summary{color:#fff}
 .pg-in{display:flex;align-items:center;gap:14px;padding:8px 0;flex-wrap:wrap}
 .pg-n{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:#F4F6FC;flex:0 0 auto}
 .pg-n em{font-style:normal;font-size:11px;color:#7F869C}
-.pg-track{flex:1;min-width:90px;max-width:220px;height:4px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.pg-track{flex:0 0 auto;width:min(220px,22vw);height:4px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
 .pg-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#5B6CFF,#19C6F7,#7CF0B2);transition:width .5s}
 .pg-dots{display:flex;gap:5px;flex:0 0 auto}
 .pg-d{width:9px;height:9px;padding:0;border-radius:50%;cursor:pointer;
   border:1px solid rgba(255,255,255,.22);background:transparent;transition:transform .18s,background .18s}
 .pg-d:hover{transform:scale(1.5)}
 .pg-d.ok{border-color:transparent;background:linear-gradient(135deg,#7CF0B2,#19C6F7)}
-.pg-txt{font-size:12.5px;color:#9BA2B6;flex:1;min-width:120px}
+.pg-txt{font-size:12.5px;color:#9BA2B6;flex:0 1 auto;min-width:0;margin-right:auto}
+.pg-acc{flex:0 0 auto;padding:6px 13px;border-radius:99px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;
+  color:#9BA2B6;border:1px solid rgba(255,255,255,.14)}
+.pg-acc.pro{color:#0B0D12;border-color:transparent;background:linear-gradient(135deg,#FFD28A,#FF8AC9);font-weight:700}
 .pg-txt b{color:#F4F6FC;cursor:pointer;border-bottom:1px dashed rgba(255,255,255,.35)}
 .pg-save{flex:0 0 auto;padding:7px 14px;border-radius:10px;cursor:pointer;
   font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;
@@ -6489,7 +6493,9 @@ window.pgDraw = ()=>{
     <span class="pg-txt">${ done===st.length
         ? 'всё пройдено — подбор работает на полную'
         : 'дальше: <b onclick="'+next.go+'">'+next.name+'</b>' }</span>
-    ${ signed() ? '' : '<button class="pg-save" onclick="openAuth(\'Сохранить прогресс\')">Сохранить прогресс</button>' }
+    ${ signed()
+        ? `<span class="pg-acc${(window.hasAccess&&hasAccess())?' pro':''}">${(window.hasAccess&&hasAccess())?'✦ Премиум-доступ':'Бесплатный доступ'}</span>`
+        : '<button class="pg-save" onclick="openAuth(\'Сохранить прогресс\')">Сохранить прогресс</button>' }
   </div>`;
 };
 addEventListener('storage', ()=>pgDraw());
@@ -18920,6 +18926,25 @@ window.curPlan = (function(){ try{ return localStorage.getItem('looka_plan')||'m
 
 /* ================= ПЕЙВОЛ: выбор подписки перед платным разделом ================= */
 window.hasAccess = ()=>{ try{ return !!localStorage.getItem('looka_access') || (JSON.parse(localStorage.getItem('looka_session')||'{}').paid===true); }catch(e){ return false; } };
+/* ===== доступ владелицы на своём устройстве =====
+   ВАЖНО: это метка только в браузере, в котором открыли ссылку. Она не делает аккаунт платным
+   на сервере и её видно всем, кто откроет исходный код страницы. Перед продажами настоящую
+   проверку оплаты должен делать воркер — поле paid у сессии. Ключ ниже можно поменять на любой. */
+window.OWNER_PRO_KEY = 'anna-looka-2026';
+(function(){
+  let v = null;
+  try{ v = new URLSearchParams(location.search).get('pro'); }catch(e){}
+  if(!v) return;
+  try{
+    if(v === 'off'){ localStorage.removeItem('looka_access'); }
+    else if(v === window.OWNER_PRO_KEY){ localStorage.setItem('looka_access','owner'); }
+    else return;
+  }catch(e){ return; }
+  try{ const u = new URL(location.href); u.searchParams.delete('pro'); history.replaceState(null,'',u.toString()); }catch(e){}
+  const say = ()=>{ if(window.myToast) myToast(v==='off' ? 'Премиум-доступ на этом устройстве выключен' : 'Премиум-доступ включён на этом устройстве');
+    if(window.pgDraw) pgDraw(); if(window.updFree) updFree(); };
+  if(document.readyState!=='loading') setTimeout(say,600); else document.addEventListener('DOMContentLoaded',()=>setTimeout(say,600));
+})();
 const TRIES_MAX=1;   /* одна бесплатная «вау»-генерация: человек видит себя — и хочет ещё */
 window.triesLeft=()=>{ try{ return Math.max(0, TRIES_MAX - (+localStorage.getItem('looka_tries')||0)); }catch(e){ return TRIES_MAX; } };
 window.useTry=()=>{ try{ localStorage.setItem('looka_tries', String((+localStorage.getItem('looka_tries')||0)+1)); }catch(e){} };
