@@ -159,9 +159,10 @@ footer.rich{border-top:2px solid var(--ink);padding:40px 0 22px;font-size:14px}
 .f-grid p{margin-top:10px;line-height:1.6;color:#4a3760}
 .f-grid b{font-family:'JetBrains Mono';font-size:12px;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:12px;color:var(--vio)}
 .f-grid a{display:block;color:var(--ink);text-decoration:none;font-weight:600;margin-bottom:9px}
-/* стрелка не должна отрываться от названия на новую строку */
-footer .f-grid a{white-space:nowrap}
-@media(max-width:400px){ footer .f-grid a{white-space:normal} }
+/* Переносить ссылку можно, нельзя только отрывать стрелку от последнего слова.
+   Запрет переноса на всей ссылке ломал колонки: длинные названия лезли на соседние. */
+footer .f-grid a{white-space:normal;overflow-wrap:break-word;min-width:0}
+footer .f-grid > div{min-width:0}
 .f-grid a:hover{color:var(--mag)}
 .f-bottom{text-align:center;font-family:'JetBrains Mono';font-size:11px;color:#8a7a9c;margin-top:32px;padding-top:18px;border-top:1.5px dashed #d9c9ea}
 
@@ -7778,11 +7779,11 @@ header nav.topnav{gap:4px;align-items:center}
       <a href="#blog" onclick="openPage('bloggersPage');return false">Для блогеров</a>
       <a href="#gift" onclick="openPage('giftPage');return false">Подарить LOOKA</a></div>
     <div><b>Площадки</b>
-      <a href="https://www.wildberries.ru" target="_blank" rel="noopener">Wildberries ↗</a>
-      <a href="https://www.ozon.ru" target="_blank" rel="noopener">Ozon ↗</a>
-      <a href="https://www.lamoda.ru" target="_blank" rel="noopener">Lamoda ↗</a>
-      <a href="https://market.yandex.ru" target="_blank" rel="noopener">Яндекс Маркет ↗</a>
-      <a href="https://aliexpress.ru" target="_blank" rel="noopener">AliExpress ↗</a></div>
+      <a href="https://www.wildberries.ru" target="_blank" rel="noopener">Wildberries&nbsp;↗</a>
+      <a href="https://www.ozon.ru" target="_blank" rel="noopener">Ozon&nbsp;↗</a>
+      <a href="https://www.lamoda.ru" target="_blank" rel="noopener">Lamoda&nbsp;↗</a>
+      <a href="https://market.yandex.ru" target="_blank" rel="noopener">Яндекс Маркет&nbsp;↗</a>
+      <a href="https://aliexpress.ru" target="_blank" rel="noopener">AliExpress&nbsp;↗</a></div>
   </div>
   <div class="f-bottom">LOOKA · 2026 · подбор носит рекомендательный характер · цены и наличие — на маркетплейсах<span class="f-ver" title="какая версия сайта сейчас открыта — если число старое, обновите страницу через Ctrl+Shift+R">версия от 15.10.2026</span></div>
 </footer>
