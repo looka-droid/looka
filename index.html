@@ -7989,7 +7989,7 @@ async function aiFetch(opts){
 }
 /* ================= ДАННЫЕ АНКЕТЫ ================= */
 const S = {
-  gender:null, age:null, height:167, weight:60,
+  gender:'Женщина', age:null, height:167, weight:60,   /* сервис женский — пол не спрашиваем */
   figure:null, hair:null, eyes:null, event:null, budget:null,
   clothSize:null, shoeSize:null, skin:null, focus:[], style:null
 };
@@ -8082,7 +8082,6 @@ const runway = document.getElementById('runway');
 /* ================= РЕНДЕР ШАГОВ ================= */
 const STEPS = [
   {label:'Шаг 1 из 5 / Кто вы', title:'Начнём с главного', render(){return `
-    ${grp('Для кого образ', chips('gender', ['Женщина','Мужчина']))}
     ${grp('Возраст', chips('age', AGES))}`}},
   {label:'Шаг 2 из 5 / Параметры', title:'Ваши параметры', render(){return `
     ${grp('Рост', `<div class="slider-row"><button class="mini" onclick="bump('height',-1)">−</button><input id="r-height" type="range" min="145" max="205" value="${S.height}" oninput="setVal('height',this.value)"><button class="mini" onclick="bump('height',1)">+</button><span class="val" id="v-height">${S.height} см</span></div>`)}
@@ -8162,7 +8161,7 @@ window.wxGet = async (url)=>{
   }
 };
 window.saveLS =window.saveLS = ()=>{ try{ const o = Object.assign({}, S); delete o.photo; localStorage.setItem('looka_profile', JSON.stringify(o)); }catch(e){} };
-window.loadLS = ()=>{ try{ const o = JSON.parse(localStorage.getItem('looka_profile')||'null'); if(o && typeof o==='object'){ Object.keys(o).forEach(k=>{ if(k in S && k!=='photo') S[k]=o[k]; }); return true; } }catch(e){} return false; };
+window.loadLS = ()=>{ try{ const o = JSON.parse(localStorage.getItem('looka_profile')||'null'); if(o && typeof o==='object'){ delete o.gender; Object.keys(o).forEach(k=>{ if(k in S && k!=='photo') S[k]=o[k]; }); return true; } }catch(e){} return false; };
 
 window.pick = (k,v)=>{ S[k]=v; if(k==='gender'){S.figure=null;S.clothSize=null;S.shoeSize=null; if(window.updateModelPhoto) updateModelPhoto();} renderStep(); drawAvatar(); saveLS(); };
 window.bump = (k,d)=>{ const lim = k==='height'?[145,205]:[40,140];
@@ -10003,12 +10002,11 @@ window.cityAC = (inp, sug, onPick, filter)=>{
         };
       }},
     size:{cases:['Заказ на иностранном сайте','Подарок близкому по его размеру','Бренд, который маломерит','Обувь: вы между двумя размерами'], check:['Пол выбран верно — сетки разные','Замеры ОГ/ОТ/ОБ важнее цифры на бирке','Стопу измерить линейкой — стелька в см','Смотреть таблицу конкретного бренда','Сомнение — больший размер: ушить проще'], c:'#5B6CFF', n:'03', tag:'Ваш российский размер в европейских, американских и британских сетках. Плюс обувь по стельке — в сантиметрах.', why:['Формулы конвертации проверены на стандартных сетках — без «примерно»','Обувь считается по стельке: цифра врёт, сантиметры — нет','Поправки на бренды, которые маломерят или большемерят'], h:'Мой размер в любом магазине', d:'Российский размер → европейский, американский, британский и международный. Обувь — со стелькой в сантиметрах.', ui:`
-      <div class="tp-row"><select id="szG"><option>Женщина</option><option>Мужчина</option></select><input id="szC" type="number" placeholder="одежда RU" style="min-width:120px"><input id="szS" type="number" placeholder="обувь RU" style="min-width:120px"><button class="btn primary" id="szGo">Перевести</button></div>
+      <div class="tp-row"><input id="szC" type="number" placeholder="одежда RU" style="min-width:120px"><input id="szS" type="number" placeholder="обувь RU" style="min-width:120px"><button class="btn primary" id="szGo">Перевести</button></div>
       <div class="tp-out" id="szOut"></div>`, init(){
-        const g = document.getElementById('szG'); if(S.gender) g.value = S.gender;
         if(S.clothSize) document.getElementById('szC').value = S.clothSize; if(S.shoeSize) document.getElementById('szS').value = S.shoeSize;
         document.getElementById('szGo').onclick = ()=>{
-          const m = g.value==='Мужчина', c = +document.getElementById('szC').value, s = +document.getElementById('szS').value, out = document.getElementById('szOut');
+          const m = false, c = +document.getElementById('szC').value, s = +document.getElementById('szS').value, out = document.getElementById('szOut');
           let h = '';
           if(c){
             const INT = m? {44:'XS',46:'S',48:'M',50:'L',52:'XL',54:'XXL',56:'3XL',58:'4XL',60:'5XL'} : {40:'XS',42:'S',44:'M',46:'L',48:'XL',50:'XXL',52:'3XL',54:'4XL',56:'5XL',58:'6XL'};
@@ -10419,8 +10417,8 @@ window.renderProfile = ()=>{
   const row = (k, title, arr, colored)=>'<div class="prof-grp"><label>'+title+'</label><div class="chips">'+arr.map(x=>{
     const v = colored? x[0] : x, dot = colored? '<i style="background:'+x[1]+'"></i>' : '';
     return '<button class="chip'+(S[k]===v?' on':'')+'" onclick="profPick(\''+k+'\',\''+v+'\')">'+dot+v+'</button>'; }).join('')+'</div></div>';
-  let h = row('gender','Пол',['Женщина','Мужчина']);
-  if(S.gender){
+  let h = '';
+  {
     h += row('figure','Тип фигуры', male?FIG_M:FIG_F);
     h += row('hair','Цвет волос', HAIR, true) + row('eyes','Цвет глаз', EYES, true) + row('skin','Тон кожи', SKIN, true);
     h += row('clothSize','Размер одежды (RU)', male?SIZES_M:SIZES_F) + row('shoeSize','Размер обуви', male?SHOES_M:SHOES_F);
