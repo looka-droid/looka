@@ -7218,6 +7218,7 @@ header nav.topnav{gap:4px;align-items:center}
     <p class="lead" style="font-size:14.5px">Загрузите фото — и посмотрите на себе любой цвет и любую стрижку, пока это ещё можно отменить. Рядом покажу, что подходит вашему цветотипу и форме лица, а что лучше не трогать.</p></div>
   <div class="bt-form look mk-form"><div id="hlBox"></div></div>
   <div class="looks" id="hlOut"></div>
+  <div class="looks" id="hgOut"></div>
   <div id="brdHair"></div>
 </section>
 
@@ -9266,7 +9267,7 @@ window.openPage = (id, anchor)=>{
   if(id==='proPage' && window.prDraw) try{ prDraw(); }catch(e){}
   if(id==='colorPage' && window.renderColorForm) renderColorForm();
   if(id==='skinPage' && window.renderSkinForm) renderSkinForm();
-  if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderStyling) renderStyling(); if(window.renderHairFit) renderHairFit(); if(window.hlAdopt && window.brdPhoto) hlAdopt(brdPhoto()); if(window.renderHairLab) renderHairLab(); }
+  if(id==='hairPage' && window.renderHairForm){ renderHairForm(); if(window.renderHairGrid) setTimeout(renderHairGrid,80); if(window.renderStyling) renderStyling(); if(window.renderHairFit) renderHairFit(); if(window.hlAdopt && window.brdPhoto) hlAdopt(brdPhoto()); if(window.renderHairLab) renderHairLab(); }
   if(id==='eventPage' && window.renderEventForm) renderEventForm();
   if(id==='capsulePage' && window.renderCapsuleForm) renderCapsuleForm();
   if(id==='wardrobePage' && window.renderWardrobe){ renderWardrobe(); if(window.wdInboxLoad) wdInboxLoad(); if(window.renderWantWd) setTimeout(renderWantWd, 60); }
@@ -11945,10 +11946,15 @@ window.openSkin = ()=>{ openPage('skinPage'); renderSkinForm(); };
 
 /* ================= ВОЛОСЫ: стрижка и цвет под форму лица, тип волос и цветотип ================= */
 (function(){
-const Hh = HUB.ls('looka_hair', { face:null, type:null, dens:null, len:null, time:null });
+const Hh = HUB.ls('looka_hair', { face:null, type:null, dens:null, len:null, time:null, cond:[] });
+if(!Array.isArray(Hh.cond)) Hh.cond = [];
 const FACES = ['Овал','Круг','Квадрат','Сердце','Ромб','Вытянутое'];
 const TYPES = ['Прямые','Волнистые','Кудрявые'];
 const DENS = ['Тонкие','Средние','Густые'];
+/* Состояние — ОТДЕЛЬНАЯ ось и многовыборная: волосы бывают пористыми, ломкими и
+   окрашенными одновременно, одним переключателем это не описать. */
+const COND = ['Пористые','Ломкие, секутся','Окрашенные','Осветлённые','Сухие по длине',
+              'Жирные у корней','Выпадают сильнее обычного','После кератина или ботокса','Всё в порядке'];
 const LEN = ['Короткие','До плеч','Длинные'];
 const TIME = ['5 минут — расчесала и пошла','15 минут — фен или утюжок','Готова укладывать'];
 
@@ -12065,6 +12071,68 @@ function faceHairSVG(face, cutIdx){
   </svg>`;
 }
 
+/* ===== РАЗБОР ПО КОМБИНАЦИИ =====
+   Отдельные советы «для густых» и «для пористых» клиентка уже читала в интернете.
+   Ценность — в пересечениях: густые + кудрявые + длинные ведут себя иначе, чем
+   каждый признак по отдельности. Здесь собраны именно парные и тройные правила. */
+function hairCombo(H){
+  const has = x => (H.cond||[]).includes(x);
+  const F=H.face, T=H.type, D=H.dens, L=H.len, Q=H.time;
+  const R = [];
+  const add = (t, d) => R.push({t, d});
+
+  /* толщина × длина */
+  if(D==='Тонкие' && L==='Длинные') add('Тонкие + длинные — главный конфликт вашей комбинации',
+    'Длина тянет волос вниз и забирает объём у корня: чем длиннее, тем площе выглядит голова. Ниже лопаток тонкие волосы почти всегда смотрятся реже, чем есть. Если расставаться с длиной не хотите — срез держите тупым, без филировки, а объём стройте только у корней.');
+  if(D==='Густые' && L==='Длинные') add('Густые + длинные — вес работает на вас',
+    'Это единственная комбинация, где длина не вредит: вес распрямляет и дисциплинирует форму. Но без внутренних слоёв получится «шапка» — просите филировку изнутри, не по контуру.');
+  if(D==='Тонкие' && L==='Короткие') add('Тонкие + короткие — ваша сильная сторона',
+    'На короткой длине тонкие волосы выглядят гуще всего: вес не тянет, корень стоит сам. Тупой срез и минимум слоёв.');
+
+  /* структура × толщина */
+  if(T==='Кудрявые' && D==='Густые') add('Кудрявые + густые — стричь только сухими',
+    'Мокрая стрижка на такой комбинации даёт ошибку в длине до 8 см после высыхания, и объём уходит в ширину. Нужен curly cut: каждый локон срезается в естественном положении.');
+  if(T==='Кудрявые' && D==='Тонкие') add('Кудрявые + тонкие — объём есть, плотности нет',
+    'Кудри дают видимый объём, но просвечивают. Не утяжеляйте маслами по всей длине — только кончики, и несмываемый крем на влажные волосы снизу вверх.');
+  if(T==='Волнистые' && D==='Густые') add('Волнистые + густые — волна ломается под весом',
+    'На густых волосах волна распрямляется под собственным весом к середине дня. Работает слоистость внутри и сушка диффузором с наклоном головы вниз.');
+  if(T==='Прямые' && D==='Тонкие') add('Прямые + тонкие — объём живёт только у корня',
+    'По длине его создать нечем. Прикорневой объём брашингом и холодный обдув на каждой пряди — форма закрепляется именно при остывании.');
+
+  /* форма лица × длина и структура */
+  if(F==='Вытянутое' && L==='Длинные' && T==='Прямые') add('Вытянутое лицо + длинные прямые — вытягивает ещё сильнее',
+    'Вертикальная линия волос продолжает овал вниз. Нужна горизонталь: чёлка, волна от уровня скул или длина не ниже ключиц.');
+  if(F==='Круг' && L==='Короткие') add('Круглое лицо + короткая длина — осторожно',
+    'Короткая длина, заканчивающаяся на уровне щёк, подчёркивает ширину. Если коротко — то с удлинёнными передними прядями ниже подбородка.');
+  if(F==='Круг' && (T==='Волнистые'||T==='Кудрявые') && L==='Длинные') add('Круглое лицо + волна + длина — удачное сочетание',
+    'Волна от уровня скул вниз создаёт вертикаль и визуально вытягивает овал. Объём держите выше макушки, а не по бокам.');
+  if(F==='Квадрат' && (T==='Волнистые'||T==='Кудрявые')) add('Квадратное лицо + волна — смягчает углы',
+    'Мягкая линия волос рядом с челюстью снимает жёсткость контура. Прямой тупой срез ровно по линии челюсти, наоборот, её подчеркнёт.');
+  if(F==='Сердце' && L==='Короткие') add('Сердце + короткая длина — баланс нарушается',
+    'Узкий подбородок остаётся без объёма рядом, лоб доминирует. Нужна длина хотя бы до челюсти с объёмом в нижней трети.');
+
+  /* состояние × всё остальное */
+  if(has('Пористые') && (has('Окрашенные')||has('Осветлённые'))) add('Пористые + окрашенные — цвет будет вымываться быстрее',
+    'Поднятая кутикула не держит пигмент. Мойте прохладной водой, шампунь без сульфатов, кислотный кондиционер (pH 3,5–4,5) — он закрывает чешуйку и запирает цвет. Тонирующая маска раз в 2–3 мытья вместо полного обновления цвета.');
+  if(has('Пористые') && (T==='Кудрявые'||T==='Волнистые')) add('Пористые + '+(T==='Кудрявые'?'кудри':'волна')+' — порядок нанесения решает всё',
+    'На мокрые волосы: сначала вода, затем несмываемый крем, сверху масло или гель. Каждый слой «запирает» предыдущий. На сухие пористые волосы любое средство ложится пятнами.');
+  if(has('Ломкие, секутся') && (Q==='15 минут — фен или утюжок'||Q==='Готова укладывать')) add('Ломкие + ежедневная укладка — здесь придётся выбирать',
+    'Сечение не лечится ничем, кроме ножниц, а горячая укладка его ускоряет. Либо температура не выше 160 °C и один проход, либо два дня в неделю без приборов. Термозащита на влажные волосы до сушки, а не перед утюжком.');
+  if(has('Жирные у корней') && has('Сухие по длине')) add('Жирные корни + сухие концы — это два разных средства',
+    'Шампунь только на кожу головы, кондиционер и маска — только от середины длины. Самая частая ошибка: маска на корни, из-за неё голова жирнится быстрее, а концы так и остаются сухими.');
+  if(has('После кератина или ботокса')) add('После кератина — ограничения на ближайшие недели',
+    'Сульфаты и солевые шампуни снимают состав за несколько мытьё. Окрашивание — не раньше двух недель. И учтите: кератин распрямляет, поэтому стрижку, рассчитанную на вашу естественную волну, будет не узнать.');
+  if(has('Осветлённые') && D==='Тонкие') add('Осветлённые + тонкие — предел нагрузки',
+    'Осветление делает тонкий волос ещё тоньше и тянучим во влажном состоянии. Не расчёсывайте мокрыми, только гребень, и не собирайте тугой хвост на влажные.');
+  if(has('Выпадают сильнее обычного')) add('Выпадение — это к врачу, а не к стрижке',
+    'Более 100 волос в день дольше двух-трёх месяцев — повод сдать ферритин, витамин D и ТТГ. Ни одна стрижка, маска и ампула этого не заменят. Стрижка только уберёт нагрузку: короче длина — меньше вес на корень.');
+
+  /* если пересечений не нашлось */
+  if(!R.length) add('Комбинация без конфликтов',
+    'Форма лица, структура и длина не спорят между собой — можно идти от желания, а не от компенсации. Ниже — конкретные стрижки и уход под эти данные.');
+  return R;
+}
+
 function renderHair(){
   const c = CUTS[Hh.face], tc = TYPE_CARE[Hh.type];
   const season = window.currentSeason && currentSeason(); const Z = season && SEASONS[season];
@@ -12083,6 +12151,13 @@ function renderHair(){
     <div class="look badv mk-wide"><div class="look-in"><div class="hr-sum">
       ${[['◔','форма лица',Hh.face],['〰','структура',Hh.type],['☰','густота',Hh.dens],['↕','длина сейчас',Hh.len],['⏱','на укладку',Hh.time.split(' — ')[0]]].map((s,i)=>`<div class="pop" style="animation-delay:${(i*0.05).toFixed(2)}s"><i>${s[0]}</i><span>${s[1]}</span><b>${s[2]}</b></div>`).join('')}
     </div></div></div>
+    ${(()=>{ const R = hairCombo(Hh); const cnd = (Hh.cond||[]).filter(x=>x!=='Всё в порядке');
+      return `<div class="look badv mk-wide"><div class="look-in">
+        <div class="cs-k">РАЗБОР ИМЕННО ВАШЕЙ КОМБИНАЦИИ</div>
+        <h3>${[Hh.face, Hh.type.toLowerCase(), Hh.dens.toLowerCase(), Hh.len.toLowerCase()].concat(cnd.map(x=>x.toLowerCase())).join(' · ')}</h3>
+        <p class="tip" style="margin:2px 0 14px;max-width:76ch">Отдельные советы «для густых» или «для пористых» вы уже читали. Здесь — что происходит там, где ваши признаки пересекаются: именно это обычно и решает, получится результат или нет.</p>
+        <div class="hcb">${R.map((x,i)=>HUB.pop(`<div class="hcb-it"><b>${x.t}</b><span>${x.d}</span></div>`, i)).join('')}</div>
+      </div></div>`; })()}
     <div class="look badv"><div class="look-in"><h3>Форма — ${Hh.face.toLowerCase()}</h3>${faceHairSVG(Hh.face)}<div class="tip">Пробор: ${c.part}.</div></div></div>
     <div class="look badv"><div class="look-in"><h3>Стрижки, которые работают на вас</h3>
       <ol class="mk-steps">${cuts.map((x,i)=>HUB.pop(`<li><b>${x.split(' — ')[0]}</b><p>${x.split(' — ')[1]||''}</p></li>`,i)).join('')}</ol>
@@ -12108,10 +12183,18 @@ function renderHair(){
   HUB.done(out);
 }
 window.hrPick = (k,v)=>{ HUB.pick(Hh,k,v); HUB.save('looka_hair',Hh); renderHairForm(); };
+window.hrPickC = (k,v)=>{
+  let a = Hh.cond || [];
+  if(v === 'Всё в порядке') a = a.includes(v) ? [] : ['Всё в порядке'];
+  else { a = a.filter(x=>x!=='Всё в порядке'); const i=a.indexOf(v); i<0 ? a.push(v) : a.splice(i,1); }
+  Hh.cond = a; HUB.save('looka_hair',Hh); renderHairForm();
+};
 window.renderHairForm = ()=>{
   const f = document.getElementById('hrForm'); if(!f) return;
   try{ const m = JSON.parse(localStorage.getItem('looka_makeup')||'{}'); if(!Hh.face && m.face) Hh.face = m.face; }catch(e){}
-  f.innerHTML = HUB.grp('Форма лица', HUB.chips(Hh,'face',FACES,{pick:'hrPick'})) + HUB.grp('Структура волос', HUB.chips(Hh,'type',TYPES,{pick:'hrPick'})) + HUB.grp('Густота', HUB.chips(Hh,'dens',DENS,{pick:'hrPick'})) + HUB.grp('Длина сейчас', HUB.chips(Hh,'len',LEN,{pick:'hrPick'})) + HUB.grp('Сколько времени на укладку утром', HUB.chips(Hh,'time',TIME,{pick:'hrPick'})) +
+  f.innerHTML = HUB.grp('Форма лица', HUB.chips(Hh,'face',FACES,{pick:'hrPick'})) + HUB.grp('Структура волос', HUB.chips(Hh,'type',TYPES,{pick:'hrPick'})) + HUB.grp('Густота — сколько волос на голове', HUB.chips(Hh,'dens',DENS,{pick:'hrPick'})) +
+    HUB.grp('Состояние волос — отметьте всё, что про вас', HUB.chips(Hh,'cond',COND,{pick:'hrPickC',multi:true})) +
+    HUB.grp('Длина сейчас', HUB.chips(Hh,'len',LEN,{pick:'hrPick'})) + HUB.grp('Сколько времени на укладку утром', HUB.chips(Hh,'time',TIME,{pick:'hrPick'})) +
     `<button class="btn primary" ${Object.values(Hh).every(Boolean)?'':'disabled'} onclick="renderHair()">✦ Подобрать стрижку и цвет</button>`;
 };
 window.renderHair = renderHair;
@@ -16094,6 +16177,92 @@ window.hlGo = async ()=>{
     renderHairLab(); hlDrawRes();
   }catch(e){ clearInterval(HT); H.busy=0; renderHairLab(); const o=document.getElementById('hlOut'); if(o) o.innerHTML=`<div class="mr-warn">Не вышло: ${e.message}. Попробуйте фото, где лицо и волосы видно целиком и крупно.</div>`; }
 };
+/* ================= АНАЛИЗ ПРИЧЁСОК: сетка на её собственном лице =================
+   Никакой библиотеки стоковых фотографий: все двенадцать плиток — это ОНА,
+   с разными стрижками. Поэтому ничего не нужно генерировать заранее,
+   и ни одна картинка не будет «не про неё». */
+const HG_KEY = 'looka_hgrid';
+const hgState = ()=>{ try{ return JSON.parse(localStorage.getItem(HG_KEY)||'{}'); }catch(e){ return {}; } };
+const hgSave = o=>{ try{ localStorage.setItem(HG_KEY, JSON.stringify(o)); }catch(e){} };
+const HG_LEN = {
+  'Овал':'любая — форма не ограничивает',
+  'Круг':'ниже ключиц, с объёмом выше скул',
+  'Квадрат':'ниже линии челюсти, слои от скул',
+  'Сердце':'до плеч и ниже, объём в нижней трети',
+  'Ромб':'до плеч, с объёмом на лбу и у челюсти',
+  'Вытянутое':'не длиннее ключиц, с горизонталью'
+};
+function hgPick(face){
+  const fit = c => String(c[4]||'').toLowerCase();
+  const f = String(face||'').toLowerCase();
+  const used = new Set();            /* одна стрижка не может быть и лучшей, и неподходящей */
+  const take = (arr, n) => { const out=[]; for(const c of arr){ if(used.has(c[0])) continue; used.add(c[0]); out.push(c); if(out.length>=n) break; } return out; };
+  const best = take(CUTS_H.filter(c=>fit(c).includes(f)), 4);
+  const alt  = take(CUTS_H.filter(c=>fit(c).includes('любая')).concat(CUTS_H), 4);
+  const no   = take(CUTS_H.filter(c=>!fit(c).includes(f) && !fit(c).includes('любая')).reverse(), 4);
+  return { best, alt, no };
+}
+window.hgRow = async (row)=>{
+  if(!H.photo){ myToast('Сначала загрузите селфи в примерочной выше'); return; }
+  if(!LOOKA_API && !GEMINI_KEY){ myToast('Анализ включится вместе с генерацией картинок'); return; }
+  let hh={}; try{ hh=JSON.parse(localStorage.getItem('looka_hair')||'{}'); }catch(e){}
+  const sets = hgPick(hh.face);
+  const list = sets[row]||[];
+  const st = hgState(); st[row] = st[row]||{};
+  const base = [hh.type,hh.dens,hh.len].filter(Boolean).join(', ');
+  const btn = document.getElementById('hgBtn-'+row); if(btn){ btn.disabled=true; btn.textContent='Примеряю… это 30–60 секунд'; }
+  await Promise.all(list.map(async (c,i)=>{
+    const cell = document.getElementById('hg-'+row+'-'+i); if(cell) cell.classList.add('busy');
+    const prompt = 'This is an unretouched photograph of a real woman. Perform a precise, photorealistic HAIR-ONLY edit. '
+      + (base?('Her natural hair is: '+base+'. '):'')
+      + 'CUT: restyle the hair into '+c[3]+'. Follow her actual hairline, parting, crown whorl, ear position and skull shape. '
+      + 'Keep her own hair texture and curl pattern. Cut ends must look cut: visible individual ends, no wig, no helmet. '
+      + 'If the hair becomes shorter, reconstruct the background and shoulders behind the removed hair believably. '
+      + 'LIGHT: match the original photograph exactly — same direction, temperature, contrast, grain and depth of field. '
+      + 'UNCHANGED: face, features, expression, eyes, brows, lashes, makeup, skin texture, neck, clothes, pose, framing and background must stay IDENTICAL. '
+      + 'Avoid wig look, plastic hair, glowing halo, smudged hairline, illustration style.';
+    try{
+      let img=null, mime='image/png';
+      if(LOOKA_API){
+        const r = await fetch(LOOKA_API.replace(/\/$/,'')+'/tryon', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ face:H.photo, prompt }) });
+        const j = await r.json();
+        if(!r.ok || !j.image) throw new Error(j.error||'ошибка');
+        img=j.image; mime=j.mime||mime;
+      } else {
+        const rr = await geminiCall(GEMINI_IMAGE,[{inline_data:{mime_type:'image/jpeg',data:H.photo}},{text:prompt}],{responseModalities:['IMAGE','TEXT']});
+        const parts=((((rr||{}).candidates||[])[0]||{}).content||{}).parts||[];
+        const o=parts.find(x=>x.inlineData||x.inline_data); if(!o) throw new Error('пусто');
+        const d=o.inlineData||o.inline_data; img=d.data; mime=d.mimeType||d.mime_type||mime;
+      }
+      st[row][i] = 'data:'+mime+';base64,'+img; hgSave(st);
+      if(cell){ cell.classList.remove('busy'); cell.querySelector('.hg-ph').innerHTML = '<img src="'+st[row][i]+'" alt="">'; }
+    }catch(e){ if(cell){ cell.classList.remove('busy'); cell.classList.add('fail'); cell.querySelector('.hg-ph').innerHTML = '<span>не вышло</span>'; } }
+  }));
+  if(btn){ btn.disabled=false; btn.textContent='↻ Переснять ряд'; }
+};
+window.renderHairGrid = ()=>{
+  const out = document.getElementById('hgOut'); if(!out) return;
+  let hh={}; try{ hh=JSON.parse(localStorage.getItem('looka_hair')||'{}'); }catch(e){}
+  if(!hh.face || !hh.type){ out.innerHTML=''; return; }
+  const sets = hgPick(hh.face), st = hgState();
+  const SUM = [['◔','Форма лица',hh.face],['〰','Тип волос',hh.type],['☰','Густота',hh.dens||'—'],
+               ['↕','Оптимальная длина', HG_LEN[hh.face] || hh.len || '—']];
+  const ROWS = [['best','Лучшие для вашей формы','#7CF0B2'],['alt','Рекомендуемые альтернативы','#C79DF2'],['no','Что потребует компенсации','#FF9DB0']];
+  out.innerHTML = `<div class="look badv mk-wide"><div class="look-in">
+    <div class="cs-k">АНАЛИЗ ПРИЧЁСОК · НА ВАШЕМ ЛИЦЕ</div>
+    <h3>Как это выглядит именно на вас</h3>
+    <div class="hg-sum">${SUM.map(x=>`<div><i>${x[0]}</i><div><b>${x[1]}</b><span>${String(x[2]).toLowerCase()}</span></div></div>`).join('')}</div>
+    ${!H.photo?`<div class="tip" style="margin-top:14px">Загрузите селфи в примерочной выше — и каждая стрижка появится здесь на вашем лице, а не на чужой модели.</div>`:''}
+    ${ROWS.map(([k,t,col])=>`
+      <div class="hg-row" style="--c:${col}">
+        <div class="hg-h"><b>${t}</b><button class="btn ghost" id="hgBtn-${k}" ${H.photo?'':'disabled'} onclick="hgRow('${k}')">${(st[k]&&Object.keys(st[k]).length)?'↻ Переснять ряд':'✦ Примерить на мне'}</button></div>
+        <div class="hg-set">${(sets[k]||[]).map((c,i)=>`
+          <div class="hg-it" id="hg-${k}-${i}"><div class="hg-ph">${(st[k]&&st[k][i])?`<img src="${st[k][i]}" alt="">`:'<span>·</span>'}</div><em>${c[0]}</em></div>`).join('')}</div>
+      </div>`).join('')}
+    <div class="tip" style="margin-top:12px">Это иллюстрация, а не обещание: покажите картинку мастеру и обсудите, что реально получится на вашей густоте и структуре. Каждый ряд — четыре примерки из вашего месячного лимита.</div>
+  </div></div>`;
+};
+
 window.hlDrawRes = ()=>{
   const out=document.getElementById('hlOut'); if(!out) return;
   if(!H.res.length){ out.innerHTML=''; return; }
@@ -19183,6 +19352,43 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 footer .f-grid{gap:38px 64px}
 footer .f-grid > div:first-child{padding-right:30px;border-right:1px solid rgba(255,255,255,.08)}
 @media(max-width:1060px){ footer .f-grid > div:first-child{padding-right:0;border-right:0} }
+
+/* анализ причёсок: сводка и три ряда примерок */
+.hg-sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:14px 0 6px}
+.hg-sum > div{display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.hg-sum i{flex:0 0 auto;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-style:normal;
+  font-size:17px;color:#C79DF2;border:1px solid rgba(199,157,242,.4);background:rgba(199,157,242,.1)}
+.hg-sum b{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.4px;
+  text-transform:uppercase;color:#8B92AA;margin-bottom:3px}
+.hg-sum span{display:block;font-family:'Golos Text',sans-serif;font-weight:700;font-size:14.5px;color:#F4F6FC;line-height:1.25}
+.hg-row{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}
+.hg-h{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.hg-h b{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--c,#C79DF2)}
+.hg-h .btn{padding:7px 15px!important;min-height:0!important;font-size:11.5px!important}
+.hg-set{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px}
+.hg-it{min-width:0}
+.hg-ph{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;display:grid;place-items:center;
+  border:1px solid color-mix(in srgb,var(--c,#C79DF2) 32%,transparent);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--c,#C79DF2) 9%,transparent),rgba(255,255,255,.02))}
+.hg-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.hg-ph span{font-size:12px;color:#757C92}
+.hg-it em{display:block;font-style:normal;font-size:12.5px;line-height:1.3;color:#C2C7D6;text-align:center;margin-top:7px}
+.hg-it.busy .hg-ph::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.14) 50%,transparent 80%);
+  background-size:220% 100%;animation:hgSh 1.2s linear infinite}
+@keyframes hgSh{0%{background-position:120% 0}100%{background-position:-120% 0}}
+.hg-it.fail .hg-ph{border-color:rgba(255,157,176,.45)}
+@media(prefers-reduced-motion:reduce){ .hg-it.busy .hg-ph::after{animation:none} }
+
+/* разбор комбинации в разделе волос */
+.hcb{display:grid;gap:10px}
+.hcb-it{padding:14px 16px;border-radius:14px;border:1px solid rgba(199,157,242,.26);
+  background:linear-gradient(180deg,rgba(199,157,242,.08),rgba(199,157,242,.03))}
+.hcb-it b{display:block;font-family:'Golos Text',sans-serif;font-weight:700;font-size:14.5px;
+  line-height:1.3;color:#F4F6FC;margin-bottom:5px}
+.hcb-it span{display:block;font-size:13.5px;line-height:1.6;color:#C2C7D6}
+@media(min-width:900px){ .hcb{grid-template-columns:repeat(2,minmax(0,1fr))} }
 
 /* «не моё»: отказ с причиной, который запоминается */
 .wt-fb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;
