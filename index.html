@@ -868,6 +868,38 @@ details.faq:hover summary{color:#fff}
   border:1px solid rgba(255,255,255,.2);background:rgba(10,12,18,.65);color:#F4F6FC;outline:none}
 .reg-first input:focus{border-color:rgba(25,198,247,.65);box-shadow:0 0 0 3px rgba(25,198,247,.15)}
 
+/* карточки «Ваш профиль» и «Профиль по ссылке» */
+.my-grid .tp-card{border-radius:18px;padding:20px 22px;
+  border:1px solid rgba(255,255,255,.1);
+  background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.02))}
+.my-grid .tp-card .k{letter-spacing:1.8px;margin-bottom:12px}
+.my-prof .td-prof{gap:8px;margin-bottom:16px}
+.my-prof .td-prof span{font-size:10.5px;padding:6px 12px;color:#CFE9FF;
+  border-color:rgba(25,198,247,.3);background:rgba(25,198,247,.07)}
+.my-prof .tp-row{gap:10px;flex-wrap:wrap}
+.my-prof .tp-row .btn{padding:12px 20px;font-size:12px}
+/* блок переноса: главная кнопка крупнее, вторая тише, подпись мельче */
+.my-link{display:flex;flex-direction:column}
+.my-link .tp-d{font-size:13.5px;line-height:1.55;color:#C2C7D6;margin-bottom:auto}
+.my-link .tp-row,.my-link .to-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.my-link .btn{padding:12px 20px;font-size:12px}
+.my-link .tp-note,.my-link .b-priv{margin-top:12px;font-size:11.5px;line-height:1.5;color:#7F869C}
+
+/* плашка «уже проходили» */
+.done-bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 26px;
+  padding:16px 20px;border-radius:16px;
+  border:1px solid rgba(124,240,178,.28);
+  background:linear-gradient(135deg,rgba(124,240,178,.1),rgba(25,198,247,.05))}
+.done-bar > i{flex:0 0 auto;width:36px;height:36px;border-radius:11px;display:grid;place-items:center;
+  font-style:normal;font-size:16px;color:#0B0D12;
+  background:linear-gradient(135deg,#7CF0B2,#19C6F7);box-shadow:0 6px 18px -8px rgba(124,240,178,.9)}
+.done-bar > div{flex:1;min-width:190px}
+.done-bar b{display:block;font-family:'Golos Text',sans-serif;font-weight:800;font-size:15.5px;color:#F4F6FC}
+.done-bar span{display:block;font-size:12.5px;color:#9BA2B6;margin-top:3px;line-height:1.45}
+.done-act{display:flex;gap:10px;flex-wrap:wrap}
+.done-act .btn{padding:11px 17px;font-size:11.5px}
+@media(max-width:640px){.done-act{width:100%}.done-act .btn{flex:1}}
+
 /* блоки на страницах разделов не слипаются */
 .sp-in > .look + .look,
 .my-pane > * + *,
@@ -5752,10 +5784,14 @@ header nav.topnav{gap:4px;align-items:center}
 .lk-tg:hover{filter:brightness(1.08)}
 .lk-tgn{font-size:11.5px;line-height:1.5;color:#8B92AA;margin:9px 0 2px;text-align:center}
 
-.ap-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 8px 8px}
-.ap-stats>div{padding:9px 8px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:center}
+.ap-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 8px 10px;align-items:stretch}
+.ap-stats>div{display:flex;flex-direction:column;justify-content:center;gap:3px;min-height:62px;
+  padding:10px 8px;border-radius:13px;text-align:center;
+  background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.09)}
 .ap-stats b{display:block;font-size:15px;background:linear-gradient(90deg,#19C6F7,#C79DF2);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ap-stats span{font-size:10px;color:#8B92AA}
+.ap-stats span{font-size:9.5px;line-height:1.25;color:#8B92AA;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .ap-tags{margin:0 12px 8px;font-size:11.5px;color:#C7A6F0}
 
 .hub-card{position:relative}
@@ -5769,13 +5805,27 @@ header nav.topnav{gap:4px;align-items:center}
 .dash-ring{position:relative;width:72px;height:72px;flex:0 0 auto}
 .dash-ring svg{width:100%;height:100%}
 .dash-ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:14px}
-.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
-.dash-it{text-align:left;padding:14px 15px;border-radius:14px;cursor:pointer;color:#ECEDF2;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);transition:transform .2s,border-color .2s}
-.dash-it:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.5)}
-.dash-it.ok{border-color:rgba(55,224,138,.35);background:linear-gradient(135deg,rgba(55,224,138,.08),rgba(25,198,247,.04))}
-.dash-it small{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA}
-.dash-it b{display:block;font-size:15px;margin:6px 0 4px;line-height:1.3}
-.dash-it span{display:block;font-size:11.5px;color:#C7A6F0}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(186px,1fr));gap:12px;align-items:stretch;justify-items:stretch}
+.dash-grid > *,.dash-grid .dash-it{width:100%;min-width:0;box-sizing:border-box}
+.dash-grid > .pop{display:block}
+.dash-it{position:relative;display:flex;flex-direction:column;text-align:left;padding:15px 16px 13px;border-radius:16px;cursor:pointer;
+  color:#ECEDF2;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);
+  transition:transform .2s,border-color .2s,box-shadow .2s,background .2s}
+.dash-it:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.5);box-shadow:0 14px 30px -16px rgba(199,157,240,.8)}
+/* пройдено */
+.dash-it.ok{border-color:rgba(124,240,178,.34);
+  background:linear-gradient(145deg,rgba(124,240,178,.1),rgba(25,198,247,.045))}
+.dash-it.ok::after{content:'✓';position:absolute;top:12px;right:12px;width:19px;height:19px;border-radius:50%;
+  display:grid;place-items:center;font-size:10px;line-height:1;color:#0B0D12;
+  background:linear-gradient(135deg,#7CF0B2,#19C6F7)}
+.dash-it.ok:hover{border-color:rgba(124,240,178,.7);box-shadow:0 14px 30px -16px rgba(124,240,178,.9)}
+/* ещё не пройдено — пунктир, чтобы отличалось с одного взгляда */
+.dash-it:not(.ok){border-style:dashed;border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.015)}
+.dash-it:not(.ok) b{color:#6E7488;font-weight:600}
+.dash-it small{display:block;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:#8B92AA;padding-right:24px}
+.dash-it b{display:block;font-size:15.5px;margin:7px 0 10px;line-height:1.3;flex:1}
+.dash-it span{display:block;font-size:11.5px;color:#C7A6F0;font-weight:600}
+.dash-it.ok span{color:#9CF3C6}
 .my-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
 .my-tab{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:99px;cursor:pointer;color:#B7BCCC;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.03);font-family:'Manrope';font-size:13.5px;font-weight:600;transition:all .2s}
 .my-tab i{font-style:normal;color:#C79DF2}
@@ -6607,15 +6657,20 @@ header nav.topnav{gap:4px;align-items:center}
 /* ===== прогресс видно без регистрации: он живёт на устройстве ===== */
 (function(){
 const PARTS = [
-  ['looka_profile', 'анкета',    'goQuiz()',        o=>o && o.figure && o.event],
-  ['looka_dna',     'стиль-ДНК', 'openDna()',       o=>o && o.done],
-  ['looka_color',   'цветотип',  'openColor()',     o=>!!o],
-  ['looka_hair',    'волосы',    'openHair()',      o=>!!o],
-  ['looka_makeup',  'макияж',    'openMakeup()',    o=>!!o],
-  ['looka_skin',    'кожа',      'openSkin()',      o=>!!o],
-  ['looka_wardrobe','гардероб',  'openWardrobe()',  o=>o && (o.items||[]).length >= 3],
-  ['looka_bra',     'бельё',     'openBra()',       o=>!!o]
+  ['looka_profile', 'анкета',    'goQuiz()',                            o=>o && o.figure && o.event],
+  ['looka_dna',     'стиль-ДНК', 'pgGo("dnaPage","openDna")',           o=>o && o.done],
+  ['looka_color',   'цветотип',  'pgGo("colorPage","openColor")',       o=>!!o],
+  ['looka_hair',    'волосы',    'pgGo("hairPage","openHair")',         o=>!!o],
+  ['looka_makeup',  'макияж',    'pgGo("makeupPage","openMakeup")',     o=>!!o],
+  ['looka_skin',    'кожа',      'pgGo("skinPage","openSkin")',         o=>!!o],
+  ['looka_wardrobe','гардероб',  'openWardrobe()',                      o=>o && (o.items||[]).length >= 3],
+  ['looka_bra',     'бельё',     'pgGo("braPage","openBra")',           o=>!!o]
 ];
+/* по горящему кружку открываем раздел и сразу ведём к сохранённому результату */
+window.pgGo = (page, fn)=>{
+  if(typeof window[fn]==='function') window[fn](); else openPage(page);
+  setTimeout(()=>{ try{ if(window.doneJump) doneJump(page); }catch(e){} }, 700);
+};
 const rd = k=>{ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } };
 const signed = ()=>{ try{ return !!(JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; }catch(e){ return false; } };
 window.pgDraw = ()=>{
@@ -18543,6 +18598,60 @@ window.accMenu = (ev)=>{
   }
   setTimeout(()=>document.addEventListener('click', closeAccPop, {once:true}), 30);
 };
+/* ===== «вы это уже проходили»: плашка поверх анкеты, чтобы не заполнять заново =====
+   Раньше по горящему кружку открывалась пустая анкета, и казалось, что результат потерян. */
+window.DONE_MAP = {
+  colorPage:  { key:'looka_color',  name:'цветотип',   res:'#ctOut',     again:'dnaRetakeColor()' },
+  hairPage:   { key:'looka_hair',   name:'волосы',     res:'#hairOut,#hcOut,#hgOut', again:'sectionRetake("looka_hair","hairPage")' },
+  makeupPage: { key:'looka_makeup', name:'макияж',     res:'#mkOut',     again:'sectionRetake("looka_makeup","makeupPage")' },
+  skinPage:   { key:'looka_skin',   name:'уход',       res:'#skOut',     again:'sectionRetake("looka_skin","skinPage")' },
+  braPage:    { key:'looka_bra',    name:'бельё',      res:'#braOut',    again:'sectionRetake("looka_bra","braPage")' },
+  dnaPage:    { key:'looka_dna',    name:'стиль-ДНК',  res:'#dnaOut',    again:'dnaRetake()' }
+};
+window.sectionRetake = (key, page)=>{
+  const n = (window.DONE_MAP[page]||{}).name || 'раздел';
+  if(!confirm('Пройти «'+n+'» заново? Прошлые ответы сотрутся.')) return;
+  try{ localStorage.removeItem(key); }catch(e){}
+  const b=document.getElementById('doneBar'); if(b) b.remove();
+  openPage(page);
+  if(window.myToast) myToast('Начинаем заново');
+};
+window.dnaRetakeColor = ()=>{
+  if(!confirm('Пройти цветотип заново? Прошлые ответы сотрутся.')) return;
+  try{ localStorage.removeItem('looka_color'); localStorage.removeItem('looka_cs'); }catch(e){}
+  const o=document.getElementById('ctOut'); if(o) o.innerHTML='';
+  const b=document.getElementById('doneBar'); if(b) b.remove();
+  if(window.renderColorForm) renderColorForm();
+  if(window.myToast) myToast('Начинаем заново');
+};
+window.doneBar = (id)=>{
+  const cfg = (window.DONE_MAP||{})[id]; const page = document.getElementById(id);
+  const old = document.getElementById('doneBar'); if(old) old.remove();
+  if(!cfg || !page) return;
+  let has=false; try{ has = !!localStorage.getItem(cfg.key); }catch(e){}
+  if(!has) return;
+  const host = page.querySelector('.wrap') || page;
+  const bar = document.createElement('div');
+  bar.id='doneBar'; bar.className='done-bar';
+  bar.innerHTML = `<i>✓</i><div><b>Вы это уже проходили</b><span>Ответы сохранены — результат ниже. Заполнять заново не нужно.</span></div>
+    <div class="done-act">
+      <button class="btn primary" onclick="doneJump('${id}')">Показать результат</button>
+      <button class="btn ghost" onclick="${cfg.again}">↻ Пройти заново</button>
+    </div>`;
+  host.insertBefore(bar, host.firstChild);
+};
+window.doneJump = (id)=>{
+  const cfg=(window.DONE_MAP||{})[id]; if(!cfg) return;
+  const page=document.getElementById(id);
+  const el = cfg.res.split(',').map(sel=>page.querySelector(sel.trim())).find(x=>x && x.innerHTML.trim());
+  if(el){ if(window.glide) glide(el,120,700); else el.scrollIntoView({behavior:'smooth',block:'start'}); }
+  else if(window.myToast) myToast('Результат пересобирается — прокрутите чуть ниже');
+};
+
+(function(){ const o=window.openPage;
+  if(typeof o==='function') window.openPage=function(id){ const r=o.apply(this,arguments); setTimeout(()=>{ try{ doneBar(id); }catch(e){} }, 220); return r; };
+})();
+
 window.closeAccPop = ()=>{ const m = document.getElementById('accPop'); if(m) m.classList.remove('open'); };
 /* «Скачать мои данные» ведёт туда, где данные и лежат — в стиль-паспорт, прямо к кнопке PDF */
 window.dataDownload = ()=>{
