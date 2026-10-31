@@ -788,15 +788,20 @@ details.faq:hover summary{color:#fff}
 .quiz{height:fit-content}
 
 /* ================= ЛОАДЕР: орбита ================= */
-/* орбита лоадера: имена с префиксом — .orb, .r1, .r2 уже заняты другими блоками */
-.ldo{position:relative;width:104px;height:104px;margin:0 auto 24px}
+/* кольцо лоадера: заполняется по проценту — видно движение даже когда анимации в системе выключены.
+   Имена с префиксом: .orb, .r1, .r2 уже заняты другими блоками */
+.ldo{position:relative;width:112px;height:112px;margin:0 auto 24px;border-radius:50%;
+  background:conic-gradient(#5B6CFF 0deg,#19C6F7 var(--p,8deg),rgba(255,255,255,.08) var(--p,8deg));
+  box-shadow:0 0 40px -10px rgba(91,108,255,.7)}
+.ldo::after{content:'';position:absolute;inset:9px;border-radius:50%;background:#0F1118}
 .ldo-r{position:absolute;border-radius:50%;border:2px solid transparent;display:block}
-.ldo-r1{inset:0;border-top-color:#5B6CFF;border-right-color:#5B6CFF;animation:spin 1.15s linear infinite;filter:drop-shadow(0 0 10px rgba(91,108,255,.75))}
-.ldo-r2{inset:14px;border-bottom-color:#19C6F7;border-left-color:#19C6F7;animation:spin 1.9s linear infinite reverse;filter:drop-shadow(0 0 10px rgba(25,198,247,.65))}
-.ldo-c{position:absolute;inset:36px;border-radius:50%;display:block;
-  background:radial-gradient(circle at 38% 34%,#fff,#5B6CFF 70%);animation:corePulse 1.6s ease-in-out infinite;box-shadow:0 0 34px rgba(91,108,255,.85)}
-.ldo-s{position:absolute;top:50%;left:50%;width:9px;height:9px;margin:-4.5px;border-radius:50%;display:block;
-  background:#19C6F7;box-shadow:0 0 14px #19C6F7;animation:orbit 2.5s linear infinite}
+.ldo-r1{inset:-7px;border-top-color:rgba(124,240,178,.9);animation:spin 1.15s linear infinite}
+.ldo-c{position:absolute;inset:26px;border-radius:50%;display:block;
+  background:radial-gradient(circle at 38% 34%,rgba(255,255,255,.14),rgba(91,108,255,.12));
+  animation:corePulse 1.6s ease-in-out infinite}
+#ldPct{position:absolute;inset:0;display:flex;align-items:baseline;justify-content:center;z-index:2;
+  font-family:'JetBrains Mono',monospace;font-size:23px;font-weight:700;color:#F4F6FC;letter-spacing:-.5px}
+#ldPct em{font-style:normal;font-size:12px;color:#8F96AC;margin-left:1px}
 @keyframes orbit{from{transform:rotate(0deg) translateX(52px)}to{transform:rotate(360deg) translateX(52px)}}
 @keyframes corePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
 .load-title{font-family:'Golos Text';font-weight:800;font-size:20px;letter-spacing:.5px;
@@ -804,6 +809,7 @@ details.faq:hover summary{color:#fff}
   -webkit-background-clip:text;background-clip:text;color:transparent;animation:titleSweep 2.2s linear infinite}
 @keyframes titleSweep{from{background-position:200% 0}to{background-position:-200% 0}}
 #loadStep{transition:opacity .35s;min-height:20px}
+#loadStep:empty{min-height:0;margin:0;display:none}
 #loadStep.sw{opacity:0}
 
 /* ожидание: видно, что процесс идёт, и сколько примерно ждать */
@@ -822,20 +828,51 @@ details.faq:hover summary{color:#fff}
 @keyframes ldSheen{from{background-position:-60% 0}to{background-position:160% 0}}
 .ld-meta{display:flex;justify-content:space-between;max-width:380px;margin:0 auto;
   font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.8px;color:#7F869C}
-.ld-sk{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px;text-align:left}
-.sk{padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025)}
-.sk b,.sk u{display:block;border-radius:6px;text-decoration:none;
-  background:linear-gradient(90deg,rgba(255,255,255,.06),rgba(255,255,255,.13),rgba(255,255,255,.06));
-  background-size:200% 100%;animation:skSh 1.7s linear infinite}
-.sk b{height:11px;width:58%;margin-bottom:12px;
-  background:linear-gradient(90deg,rgba(91,108,255,.3),rgba(25,198,247,.45),rgba(91,108,255,.3));
-  background-size:200% 100%}
-.sk u{height:8px;margin-top:8px}
-.sk:nth-child(2) b,.sk:nth-child(2) u{animation-delay:.25s}
-.sk:nth-child(3) b,.sk:nth-child(3) u{animation-delay:.5s}
-@keyframes skSh{from{background-position:200% 0}to{background-position:-200% 0}}
-@media(max-width:640px){.ld-sk{grid-template-columns:1fr}.ld-sk .sk:nth-child(3){display:none}.ld{padding:26px 16px 22px}}
-@media(prefers-reduced-motion:reduce){.ld-bar i::after,.sk b,.sk u{animation:none}}
+/* плашка прогресса: видна всем, в том числе без аккаунта */
+#pgBar{display:none}
+#pgBar.on{display:block;border-top:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.028)}
+.pg-in{display:flex;align-items:center;gap:14px;padding:8px 0;flex-wrap:wrap}
+.pg-n{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:#F4F6FC;flex:0 0 auto}
+.pg-n em{font-style:normal;font-size:11px;color:#7F869C}
+.pg-track{flex:1;min-width:90px;max-width:220px;height:4px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.pg-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#5B6CFF,#19C6F7,#7CF0B2);transition:width .5s}
+.pg-dots{display:flex;gap:5px;flex:0 0 auto}
+.pg-d{width:9px;height:9px;padding:0;border-radius:50%;cursor:pointer;
+  border:1px solid rgba(255,255,255,.22);background:transparent;transition:transform .18s,background .18s}
+.pg-d:hover{transform:scale(1.5)}
+.pg-d.ok{border-color:transparent;background:linear-gradient(135deg,#7CF0B2,#19C6F7)}
+.pg-txt{font-size:12.5px;color:#9BA2B6;flex:1;min-width:120px}
+.pg-txt b{color:#F4F6FC;cursor:pointer;border-bottom:1px dashed rgba(255,255,255,.35)}
+.pg-save{flex:0 0 auto;padding:7px 14px;border-radius:10px;cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;
+  color:#0B0D12;border:0;background:linear-gradient(135deg,#F4F6FC,#C9D2F0)}
+.pg-save:hover{box-shadow:0 8px 20px -10px rgba(255,255,255,.7)}
+@media(max-width:640px){.pg-txt{order:9;width:100%;min-width:0;flex:none}.pg-track{max-width:none}}
+
+/* цветотип: пояснение под значением и подсказка про шарф */
+.cs-row span em{display:block;font-style:normal;font-size:12px;line-height:1.45;color:#7F869C;margin-top:4px}
+.cs-fix{margin-top:14px;padding:11px 13px;border-radius:12px;font-size:13px;line-height:1.5;
+  color:#CFE9FF;border:1px solid rgba(25,198,247,.22);background:rgba(25,198,247,.07)}
+
+/* отмена появляется, только если ждём уже долго */
+.ld-stop{display:none;margin:18px auto 0;padding:9px 16px;border-radius:11px;cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1.1px;text-transform:uppercase;
+  color:#9BA2B6;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04)}
+.ld-stop:hover{color:#F4F6FC;border-color:rgba(255,255,255,.3)}
+.ld-stop.on{display:block}
+
+/* что именно сейчас делается — вместо непонятных серых заглушек */
+.ld-steps{list-style:none;margin:24px auto 0;padding:0;max-width:330px;text-align:left;display:grid;gap:9px}
+.ld-steps li{display:flex;align-items:center;gap:11px;font-size:13.5px;line-height:1.35;color:#5E6479;transition:color .3s}
+.ld-steps li i{flex:0 0 auto;width:19px;height:19px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);
+  font-style:normal;font-size:10px;line-height:1;color:#0B0D12}
+.ld-steps li.now{color:#F4F6FC;font-weight:600}
+.ld-steps li.now i{border-color:#19C6F7;box-shadow:0 0 0 3px rgba(25,198,247,.16)}
+.ld-steps li.done{color:#9BA2B6}
+.ld-steps li.done i{border:0;background:linear-gradient(135deg,#7CF0B2,#19C6F7)}
+.ld-steps li.done i::before{content:'✓'}
+@media(max-width:640px){.ld{padding:26px 16px 22px}}
 
 /* анкета и модель держатся рядом и на узких экранах */
 .stage{grid-template-columns:1fr clamp(230px,30%,320px)}
@@ -2476,10 +2513,21 @@ header::before{display:none}
 .tb-in .logo{font-size:22px}
 #topbar .topnav{margin:0}
 #topbar .nav-dd .dd{top:calc(100% + 12px)}
+/* поиск и аккаунт не должны срезаться: раньше их съедала маска справа */
+#topbar .topnav{flex:1;min-width:0;flex-wrap:nowrap;-webkit-mask-image:none;mask-image:none}
+#topbar .topnav > .nav-find{flex:1 1 120px;min-width:80px;overflow:hidden}
+#topbar .topnav > .nav-find > span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+#topbar .topnav > .nav-acc{flex:0 0 auto;max-width:200px;overflow:hidden;white-space:nowrap}
+#topbar .topnav > .nav-dd,#topbar .topnav > a{flex:0 0 auto}
+/* после входа в панели на две ссылки больше — лишнее убираем по убыванию важности */
+@media(max-width:1600px){#topbar .topnav > a:not(.only-in){display:none}}
+@media(max-width:1500px){#topbar .topnav > .nav-find .kbd{display:none}}
+@media(max-width:1240px){#topbar .topnav > .nav-dd:nth-of-type(4){display:none}}
+@media(max-width:1100px){#topbar .topnav > .nav-dd:nth-of-type(3){display:none}}
 @media(max-width:760px){
   .tb-in{padding:8px 0;gap:12px}
   .tb-in .logo{font-size:19px;flex:none}
-  #topbar .topnav{flex:1;margin:0;padding:0 0 0 4px;-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 34px),transparent 100%);mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 34px),transparent 100%)}
+  #topbar .topnav{flex:1;margin:0;padding:0 0 0 4px;-webkit-mask-image:none;mask-image:none}
 }
 
 /* ================= СТАТУС-БАР v2 ================= */
@@ -6307,7 +6355,7 @@ header nav.topnav{gap:4px;align-items:center}
 </style>
 </head>
 <body>
-<div id="topbar"><div class="wrap tb-in"><div class="logo" onclick="goHome()" role="button">LOO<em>KA</em></div><nav class="topnav" id="topbarNav"></nav></div></div>
+<div id="topbar"><div class="wrap tb-in"><div class="logo" onclick="goHome()" role="button">LOO<em>KA</em></div><nav class="topnav" id="topbarNav"></nav></div><div id="pgBar"></div></div>
 
 <div id="scrollbar"></div>
 <div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div>
@@ -6412,19 +6460,59 @@ header nav.topnav{gap:4px;align-items:center}
   </div>
 </div>
 
+<script>
+/* ===== прогресс видно без регистрации: он живёт на устройстве ===== */
+(function(){
+const PARTS = [
+  ['looka_profile', 'анкета',    'goQuiz()',        o=>o && o.figure && o.event],
+  ['looka_dna',     'стиль-ДНК', 'openDna()',       o=>o && o.done],
+  ['looka_color',   'цветотип',  'openColor()',     o=>!!o],
+  ['looka_hair',    'волосы',    'openHair()',      o=>!!o],
+  ['looka_makeup',  'макияж',    'openMakeup()',    o=>!!o],
+  ['looka_skin',    'кожа',      'openSkin()',      o=>!!o],
+  ['looka_wardrobe','гардероб',  'openWardrobe()',  o=>o && (o.items||[]).length >= 3],
+  ['looka_bra',     'бельё',     'openBra()',       o=>!!o]
+];
+const rd = k=>{ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } };
+const signed = ()=>{ try{ return !!(JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; }catch(e){ return false; } };
+window.pgDraw = ()=>{
+  const box = document.getElementById('pgBar'); if(!box) return;
+  const st = PARTS.map(p=>({ name:p[1], go:p[2], ok: !!p[3](rd(p[0])) }));
+  const done = st.filter(x=>x.ok).length;
+  if(!done){ box.className=''; box.innerHTML=''; return; }   /* новичку плашка не нужна */
+  const next = st.find(x=>!x.ok);
+  box.className = 'on';
+  box.innerHTML = `<div class="wrap pg-in">
+    <span class="pg-n">${done}<em>/${st.length}</em></span>
+    <span class="pg-track"><i style="width:${Math.round(done/st.length*100)}%"></i></span>
+    <span class="pg-dots">${st.map(x=>`<button class="pg-d${x.ok?' ok':''}" onclick="${x.go}" title="${x.name}" aria-label="${x.name}"></button>`).join('')}</span>
+    <span class="pg-txt">${ done===st.length
+        ? 'всё пройдено — подбор работает на полную'
+        : 'дальше: <b onclick="'+next.go+'">'+next.name+'</b>' }</span>
+    ${ signed() ? '' : '<button class="pg-save" onclick="openAuth(\'Сохранить прогресс\')">Сохранить прогресс</button>' }
+  </div>`;
+};
+addEventListener('storage', ()=>pgDraw());
+if(document.readyState!=='loading') setTimeout(pgDraw,300); else document.addEventListener('DOMContentLoaded',()=>setTimeout(pgDraw,300));
+setInterval(pgDraw, 4000);
+})();
+</script>
+
 <!-- ======== ЗАГРУЗКА ======== -->
 <div id="loading">
   <div class="ld">
-    <div class="ldo"><i class="ldo-r ldo-r1"></i><i class="ldo-r ldo-r2"></i><i class="ldo-c"></i><i class="ldo-s"></i></div>
+    <div class="ldo" id="ldOrb"><i class="ldo-r ldo-r1"></i><i class="ldo-c"></i><b id="ldPct">0<em>%</em></b></div>
     <p class="load-title">Собираем образы</p>
     <div class="sub" id="loadStep">анализируем параметры…</div>
     <div class="ld-bar"><i id="loadBar"></i></div>
     <div class="ld-meta"><span id="loadEta">обычно 20–40 секунд</span><span id="loadSec">0 с</span></div>
-    <div class="ld-sk">
-      <div class="sk"><b></b><u></u><u></u><u style="width:62%"></u></div>
-      <div class="sk"><b></b><u></u><u style="width:78%"></u><u style="width:54%"></u></div>
-      <div class="sk"><b></b><u></u><u style="width:70%"></u><u style="width:46%"></u></div>
-    </div>
+    <button class="ld-stop" id="ldStop" onclick="loadCancel()">Отменить и вернуться к анкете</button>
+    <ol class="ld-steps" id="ldSteps">
+      <li><i></i>Читаю ваши параметры и вкус</li>
+      <li><i></i>Подбираю палитру под внешность</li>
+      <li><i></i>Собираю три образа целиком</li>
+      <li><i></i>Проверяю сочетания и бюджет</li>
+    </ol>
   </div>
 </div>
 
@@ -8038,29 +8126,52 @@ let loadTimer = null;
 const LOAD_STEPS = ['анализируем фигуру и цветотип…','подбираем палитру под внешность…','листаем Wildberries, Ozon и Lamoda…','сверяем фасоны с типом фигуры…','складываем законченные образы…','проверяем сочетания и бюджет…'];
 let loadTick = null;
 function startLoader(){
-  const el = document.getElementById('loadStep'); let i = 0;
-  el.textContent = LOAD_STEPS[0];
-  clearInterval(loadTimer);
-  loadTimer = setInterval(()=>{
-    el.classList.add('sw');
-    setTimeout(()=>{ i = (i+1)%LOAD_STEPS.length; el.textContent = LOAD_STEPS[i]; el.classList.remove('sw'); }, 350);
-  }, 1800);
+  const el = document.getElementById('loadStep');
+  el.textContent = '';   /* этапы показывает список ниже; сюда пишем только сообщения о повторе */
+  clearInterval(loadTimer); loadTimer = null;
   /* полоса идёт к 92% за ~35 секунд и там честно ждёт ответ, а не врёт про 100% */
-  const bar = document.getElementById('loadBar'), sec = document.getElementById('loadSec'), eta = document.getElementById('loadEta');
+  const bar = document.getElementById('loadBar'), sec = document.getElementById('loadSec'),
+        eta = document.getElementById('loadEta'), orb = document.getElementById('ldOrb'),
+        pct = document.getElementById('ldPct'), steps = document.getElementById('ldSteps');
   const t0 = Date.now();
   clearInterval(loadTick);
-  if(bar) bar.style.width = '3%';
+  const paint = p=>{
+    if(bar) bar.style.width = p.toFixed(1) + '%';
+    if(orb) orb.style.setProperty('--p', (p*3.6).toFixed(1) + 'deg');
+    if(pct) pct.innerHTML = Math.round(p) + '<em>%</em>';
+    if(steps){
+      const li = steps.children, n = li.length;
+      const at = Math.min(n-1, Math.floor(p / (92/n)));
+      for(let i=0;i<n;i++){ li[i].className = i<at ? 'done' : (i===at ? 'now' : ''); }
+    }
+  };
+  paint(3);
   loadTick = setInterval(()=>{
     const s = (Date.now()-t0)/1000;
-    if(bar) bar.style.width = Math.min(92, 3 + 89*(1 - Math.exp(-s/14))).toFixed(1) + '%';
+    paint(Math.min(92, 3 + 89*(1 - Math.exp(-s/14))));
     if(sec) sec.textContent = Math.round(s) + ' с';
-    if(eta && s > 45) eta.textContent = 'ответ идёт дольше обычного — ещё ждём';
-  }, 700);
+    if(eta && s > 45 && eta.textContent.indexOf('попытка') < 0) eta.textContent = 'дольше обычного — ещё ждём';
+    const stop = document.getElementById('ldStop');
+    if(stop && s > 20) stop.classList.add('on');
+  }, 450);
 }
+window.loadCancel = ()=>{
+  stopLoader();
+  document.getElementById('loading').style.display='none';
+  document.querySelector('.stage').style.display='grid';
+  if(window.quizHideDone) quizHideDone();
+  if(window.myToast) myToast('Остановила. Ответы сохранены — можно попробовать ещё раз');
+  document.querySelector('.stage').scrollIntoView({behavior:'smooth', block:'start'});
+};
 function stopLoader(){
+  const stop = document.getElementById('ldStop'); if(stop) stop.classList.remove('on');
   clearInterval(loadTimer); loadTimer = null;
   clearInterval(loadTick); loadTick = null;
   const bar = document.getElementById('loadBar'); if(bar) bar.style.width = '100%';
+  const orb = document.getElementById('ldOrb'); if(orb) orb.style.setProperty('--p','360deg');
+  const pct = document.getElementById('ldPct'); if(pct) pct.innerHTML = '100<em>%</em>';
+  const steps = document.getElementById('ldSteps');
+  if(steps) [...steps.children].forEach(li=>li.className='done');
 }
 function updFree(){ const el = document.getElementById('freeCnt'); if(!el) return; if(freeLeft>100){ el.innerHTML = 'ДОСТУП: БЕЗЛИМИТ ✓'; return; } el.innerHTML = (freeLeft>0 ? 'БЕСПЛАТНЫХ ПОДБОРОВ ОСТАЛОСЬ: '+freeLeft+' ИЗ 5' : 'БЕСПЛАТНЫЙ ЛИМИТ ИСЧЕРПАН') + '<span class="has-code" onclick="openPay();payTab(1)">есть код?</span>'; }
 function showPaywall(){
@@ -8526,11 +8637,18 @@ ${regen && lastTitles.length ? 'Пользователю НЕ понравили
     try{
     const r = await aiFetch({
       method:"POST", headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,
+      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:900,
         messages:[{role:"user",content: S.photo ? [{type:"image",source:{type:"base64",media_type:"image/jpeg",data:S.photo}},{type:"text",text:prompt+"\nНа фото — клиент(ка). Определи по фото цветотип, оттенок кожи, волос и пропорции фигуры и учти это при подборе вещей и цветов. Само фото не описывай, внешность не комментируй — просто подбери то, что человеку с такой внешностью идёт."}] : prompt}]})
     });
     data = await r.json(); lastErr = null; break;
-    }catch(fe){ lastErr = fe; await new Promise(s=>setTimeout(s,1400)); }
+    }catch(fe){
+      lastErr = fe;
+      const st = document.getElementById('loadStep');
+      if(st && att === 0) st.textContent = 'сервер не ответил с первого раза — пробую ещё раз…';
+      const et = document.getElementById('loadEta');
+      if(et && att === 0) et.textContent = 'вторая попытка';
+      await new Promise(s=>setTimeout(s,1000));
+    }
     }
     if(lastErr) throw lastErr;
     if(data.error) throw new Error(data.error.message||'ошибка API');
@@ -10655,7 +10773,7 @@ async function askGo(text){
   try{
     const prof = [S.gender, S.figure, S.hair&&('волосы '+S.hair), S.eyes&&('глаза '+S.eyes), S.skin&&('кожа '+S.skin), B.skin&&('тип кожи '+B.skin)].filter(Boolean).join(', ') || 'не указан';
     const prompt = 'Ты — консилиум экспертов: дерматолог-косметолог, трихолог, визажист и стилист. Отвечай по актуальным профессиональным правилам, честно, без маркетинга, по-русски, на «вы». Профиль: '+prof+'. Вопрос: «'+q+'». Ответь ТОЛЬКО JSON: {"t":"заголовок темы","a":"суть ответа 2-4 предложения","s":["шаг 1","шаг 2","шаг 3"],"pro":"одно правило профессионалов","p":[{"n":"продукт или вещь","q":"поисковый запрос"}],"med":"когда нужно к врачу, или пустая строка","shop":false}. shop=true если речь об одежде. Без текста вне JSON.';
-    const r = await aiFetch({method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
+    const r = await aiFetch({method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:900,messages:[{role:"user",content:prompt}]})});
     const data = await r.json(); if(data.error) throw new Error('api');
     let txt = (data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').replace(/```json|```/g,'').trim();
     const j = JSON.parse(txt.slice(txt.indexOf('{'), txt.lastIndexOf('}')+1));
@@ -11447,8 +11565,8 @@ window.runTryOn = async ()=>{
     const refs = T.refs.map(d=>d.split(',')[1]);
     let img = null, mime = 'image/png';
     if(api){
-      const r = await fetch(api.replace(/\/$/,'')+'/tryon', { method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ face: S.photo, refs, desc: lookDesc(T.look) }) });
+      const r = await (window.imgFetch||fetch)(api.replace(/\/$/,'')+'/tryon', { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ face: S.photo, refs, desc: lookDesc(T.look) }) }, 110000);
       const j = await r.json();
       if(!r.ok || !j.image) throw new Error((j.error||'ошибка генерации') + (j.detail ? ' · ' + j.detail : ''));
       img = j.image; mime = j.mime||mime;
@@ -11661,11 +11779,15 @@ function renderColor(){
       <div class="cs-cta"><b>Палитра — это 5 % того, что LOOKA соберёт о вас.</b><span>Анкета за 2 минуты — и три готовых образа в этих цветах, под вашу фигуру и бюджет, со ссылками на покупку.</span><button class="btn primary" onclick="goQuiz()">✦ Три образа в моих цветах →</button></div>
     </div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Ваши 24 цвета</h3><div class="tip">Любой из них у лица делает кожу ровнее, а глаза — ярче. Проверка дома: приложите вещь к лицу при дневном свете — «ваш» цвет убирает тени под глазами, «не ваш» — подчёркивает.</div><div class="cs-grid">${sw(Z.pal)}</div></div></div>
-    <div class="look badv"><div class="look-in"><h3>Табу у лица</h3><div class="tip">Не «никогда» — а не рядом с лицом. Внизу образа, в сумке или обуви они безопасны.</div><div class="cs-grid cs-no">${sw(Z.no,'no')}</div></div></div>
-    <div class="look badv"><div class="look-in"><h3>База и металл</h3>
-      <div class="cs-row"><b>Нейтральные</b><span>${Z.neutrals.join(' · ')}</span></div>
-      <div class="cs-row"><b>Металл</b><span>${Z.metal}</span></div>
+    <div class="look badv"><div class="look-in"><h3>Эти цвета одежды — не к лицу</h3><div class="tip">Речь про вещи у лица: водолазку, рубашку, шарф, пальто с воротником. Не про тон кожи — он у вас свой и менять его не нужно. В этих оттенках кожа рядом с ними выглядит тусклее, а тени под глазами заметнее. Ниже пояса, в сумке и обуви те же цвета совершенно безопасны.</div><div class="cs-grid cs-no">${sw(Z.no, 'no')}</div><div class="cs-fix">Если вещь любимая, но из этого списка — наденьте поверх шарф или топ из своей палитры: у лица работает только верхний слой.</div></div></div></div>
+    <div class="look badv"><div class="look-in"><h3>На чём строить гардероб</h3>
+      <div class="cs-row"><b>Базовые цвета</b><span>${Z.neutrals.join(' · ')}<em>то, из чего собирается большая часть шкафа: пальто, брюки, джинсы, базовый верх. Сочетаются друг с другом и с любым цветом из вашей палитры</em></span></div>
+      <div class="cs-row"><b>Украшения</b><span>${Z.metal}<em>серьги и цепочка у лица дают свой отсвет — в «своём» металле кожа выглядит ровнее</em></span></div>
+      <div class="cs-row"><b>Оправа очков</b><span>${Z.metal.split(/[,;]/)[0].trim()} или ${Z.neutrals[0]}<em>оправа — самая близкая к лицу вещь, её цвет важнее остальных</em></span></div>
+      <div class="cs-row"><b>Джинсы</b><span>${Z.t.includes('тёпл')?'тёплый голубой, выбеленный, светлый индиго — без иссиня-чёрных':'плотный индиго, графитовый, чёрный — без рыжих потёртостей'}</span></div>
       <div class="cs-row"><b>Помада</b><span>${Z.lips.join(' · ')}</span></div>
+      <div class="cs-row"><b>Румяна</b><span>${Z.t.includes('тёпл')?'персиковый, абрикосовый, тёплый розовый':'холодный розовый, малиновый, сливовый'}${Z.d==='светлый'?' — в половину силы, иначе будет пятно':''}</span></div>
+      <div class="cs-row"><b>Тушь и карандаш</b><span>${(Z.d==='тёмный'||Z.c==='яркий')?'чёрный':'тёмно-коричневый или графитовый — чёрный будет тяжеловат'}</span></div>
       <div class="cs-row"><b>Волосы — да</b><span>${Z.hairOk.join(' · ')}</span></div>
       <div class="cs-row"><b>Волосы — нет</b><span>${Z.hairNo.join(' · ')}</span></div>
       <div class="cs-row"><b>Белый</b><span>${Z.t.includes('тёпл')?'кремовый и слоновая кость вместо белоснежного':'чистый белый — ваш, кремовый желтит'}</span></div>
@@ -11706,6 +11828,7 @@ window.ctPick = (k,v)=>{ HUB.pick(C,k,v); HUB.save('looka_color', C); renderColo
 window.renderColorForm = ()=>{
   const f = document.getElementById('ctForm'); if(!f) return;
   ['hair','eyes','skin'].forEach(k=>{ if(!C[k] && S[k]) C[k]=S[k]; });
+  const done = ['hair','eyes','skin','veins','metal','sun','contrast'].every(k=>C[k]);
   f.innerHTML =
     HUB.grp('Ваш природный цвет волос — тот, что у корней, без окрашивания', HUB.chips(C,'hair',HAIR.map(h=>h[0]),{colored:HAIR,pick:'ctPick'})) +
     HUB.grp('Цвет глаз', HUB.chips(C,'eyes',EYES.map(e=>e[0]),{colored:EYES,pick:'ctPick'})) +
@@ -11714,7 +11837,11 @@ window.renderColorForm = ()=>{
     HUB.grp('Приложите к лицу золотое и серебряное: с каким кожа свежее?', HUB.chips(C,'metal',METAL,{pick:'ctPick'}) + '<div class="q-hint">Подойдут любые украшения, даже фольга и ложка. «Не тот» металл делает лицо сероватым или желтит.</div>') +
     HUB.grp('Что происходит с кожей на солнце — вспомните отпуск', HUB.chips(C,'sun',SUN,{pick:'ctPick'})) +
     HUB.grp('Насколько ваша внешность контрастная?', HUB.chips(C,'contrast',CONTR,{pick:'ctPick'}) + '<div class="q-hint">Контраст — разница между волосами, кожей и глазами без макияжа: тёмные волосы + светлая кожа = высокий, русые + светлая = низкий, между — средний.</div>') +
-    `<button class="btn primary" id="ctGo" ${['hair','eyes','skin','veins','metal','sun','contrast'].every(k=>C[k])?'':'disabled'} onclick="renderColor()">✦ Определить мой цветотип</button>`;
+    `<button class="btn primary" id="ctGo" ${done?'':'disabled'} onclick="renderColor()">${done?'↻ Пересчитать цветотип':'✦ Определить мой цветотип'}</button>`
+    + (done?'<div class="q-hint" style="margin-top:8px">Ответы сохранены — результат ниже обновляется сам. Пересчёт нужен, только если вы что-то поменяли.</div>':'');
+  /* анкета уже пройдена — показываем результат сразу, без лишнего клика */
+  const out = document.getElementById('ctOut');
+  if(done && out && !out.innerHTML.trim()) renderColor();
 };
 window.renderColor = renderColor;
 
@@ -14785,7 +14912,7 @@ window.stGen = async ()=>{
     if((M.face || M.faceOpt) && S.photo) body.face = S.photo;
     let img=null, mime='image/png';
     if(LOOKA_API){
-      const r = await fetch(LOOKA_API.replace(/\/$/,'')+'/tryon', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+      const r = await (window.imgFetch||fetch)(LOOKA_API.replace(/\/$/,'')+'/tryon', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}, 110000);
       const j = await r.json();
       if(!r.ok || !j.image) throw new Error((j.error||'ошибка генерации')+(j.detail?' · '+j.detail:''));
       img=j.image; mime=j.mime||mime;
@@ -16016,11 +16143,30 @@ const BRD = {
    img:(d)=>'A vertical grid of six full-body fashion photographs of this same woman on the dark backdrop, each in a different complete outfit, same pose and same light in every frame. '+(d?('The six outfits are: '+d+'. Build each outfit from real garments in those colours, head to toe, including shoes and a bag. '):'Six distinct complete outfits in muted editorial colours. '),
    txt:'Разбери стиль по этому портрету как стилист LOOKA, опираясь на внешность, а не на моду. Ответь ТОЛЬКО валидным JSON без markdown: {"v":"формула её стиля одной строкой","pal":[{"hex":"#RRGGBB","n":"название цвета"}],"frames":["short English description of full outfit 1"],"sec":[{"h":"заголовок","i":["пункт"]}],"no":["эстетики, которые с ней спорят"],"first":"что надеть завтра"}. Разделы: Ваши 3-5 эстетик; Силуэты, которые работают; Базовые вещи; Палитра одежды; Аксессуары; Капсула на неделю. В pal — 6 цветов одежды с реальными hex. В frames — ровно 6 коротких описаний полных образов ПО-АНГЛИЙСКИ. Остальное по-русски, без оценок фигуры и веса.' }
 };
+/* генерация картинок может не ответить никогда — ограничиваем ожидание и даём отменить */
+window.imgFetch = (url, opts, ms)=>{
+  const ac = new AbortController();
+  const tm = setTimeout(()=>ac.abort(), ms || 90000);
+  if(window.__brdAbort) window.__brdAbort.push(ac);
+  return fetch(url, Object.assign({}, opts, {signal: ac.signal}))
+    .then(r=>{ clearTimeout(tm); return r; })
+    .catch(e=>{ clearTimeout(tm);
+      if(e && (e.name==='AbortError' || /abort/i.test(String(e.message||''))))
+        throw new Error('генератор не ответил — попробуйте ещё раз');
+      throw e; });
+};
 const BSTG = ['Считываю портрет…','Определяю подтон и контраст…','Подбираю варианты…','Собираю доску…','Свожу свет и цвет…','Пишу расшифровку по-русски…'];
 let BT=null;
 window.brdSeed = d=>{ if(d && !BP.photo){ BP.photo = d; Object.keys(BRD).forEach(k=>renderBoard(k)); } };
 window.brdFile = async (k,f)=>{ if(!f) return; try{ const d=await shrinkImage(f,1100); BP.photo=(d&&d.data)?d.data:String(d).split(',').pop(); Object.keys(BRD).forEach(x=>renderBoard(x)); if(window.hlAdopt) hlAdopt(BP.photo); myToast('Портрет загружен — можно собирать доску'); }catch(e){ myToast('Фото не принято: '+(e.message||e)); } };
 window.brdMine = k=>{ const src = BP.photo || (window.hlPhoto&&hlPhoto()) || S.photo; if(src){ BP.photo=src; Object.keys(BRD).forEach(x=>renderBoard(x)); myToast('Взяла ваше фото'); } else myToast('Фото пока нет — загрузите портрет'); };
+window.brdStop = ()=>{
+  BP.abort=true; clearInterval(BT);
+  (window.__brdAbort||[]).forEach(a=>{ try{ a.abort(); }catch(e){} });
+  window.__brdAbort=[];
+  BP.busy=null; Object.keys(BRD).forEach(x=>renderBoard(x));
+  myToast('Остановила. Фото осталось — можно попробовать ещё раз');
+};
 window.brdClear = ()=>{ BP.photo=null; BP.out={}; Object.keys(BRD).forEach(x=>renderBoard(x)); };
 window.brdGo = async k=>{
   const C=BRD[k]; if(!C || !BP.photo || BP.busy) return;
@@ -16029,7 +16175,15 @@ window.brdGo = async k=>{
     else { gate("renderBoard('"+k+"')", C.t, 'board'); return; } }
   const st=q(); if(hasAccess() && st.n>=LIM){ myToast('Лимит досок на этот месяц исчерпан ('+LIM+')'); return; }
   BP.busy=k; renderBoard(k);
-  let i=0; clearInterval(BT); BT=setInterval(()=>{ i++; const h=document.getElementById('brdStage-'+k); if(!h){ clearInterval(BT); return; } h.style.opacity=0; setTimeout(()=>{ h.textContent=BSTG[i%BSTG.length]; h.style.opacity=1; },180); }, 2700);
+  BP.abort=false; window.__brdAbort=[];
+  const t0=Date.now();
+  let i=0; clearInterval(BT); BT=setInterval(()=>{
+    const h=document.getElementById('brdStage-'+k); if(!h){ clearInterval(BT); return; }
+    const sec=Math.round((Date.now()-t0)/1000);
+    const c=document.getElementById('brdSec-'+k); if(c) c.textContent=sec+' с';
+    const b=document.getElementById('brdStop-'+k); if(b && sec>20) b.classList.add('on');
+    if(sec >= (i+1)*2.7){ i++; h.style.opacity=0; setTimeout(()=>{ h.textContent=BSTG[i%BSTG.length]; h.style.opacity=1; },180); }
+  }, 600);
   let txt=null, img=null, err=null;
   try{
     /* 1. разбор текстом — он же задаёт, что будет на кадрах */
@@ -16039,12 +16193,15 @@ window.brdGo = async k=>{
     const t=(j.content&&j.content[0]&&j.content[0].text||'').replace(/```json|```/g,'').trim();
     txt=JSON.parse(t.match(/\{[\s\S]*\}/)[0]);
   }catch(e){ err=e.message; }
+  if(BP.abort){ BP.abort=false; BP.busy=null; clearInterval(BT); renderBoard(k); return; }
+  /* разбор готов — показываем его сразу, кадры догонят */
+  if(txt){ BP.out[k]={ img:null, txt, err:null, board:null }; renderBoard(k); }
   try{
     /* 2. кадры — ровно по её разбору, без единой буквы в картинке */
     const fr=(txt&&txt.frames||[]).slice(0,6).filter(Boolean);
     const prompt = BASE + (typeof C.img==='function'? C.img(fr.join('; ')) : C.img);
     if(LOOKA_API){
-      const r=await fetch(LOOKA_API.replace(/\/$/,'')+'/tryon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({face:BP.photo,prompt})});
+      const r=await imgFetch(LOOKA_API.replace(/\/$/,'')+'/tryon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({face:BP.photo,prompt})}, 110000);
       const j=await r.json(); if(!r.ok||!j.image) throw new Error(j.error||'ошибка генерации');
       img='data:'+(j.mime||'image/png')+';base64,'+j.image;
     } else {
@@ -16056,7 +16213,10 @@ window.brdGo = async k=>{
     }
   }catch(e){ if(!err) err=e.message; }
   clearInterval(BT); BP.busy=null;
-  if(!img && !txt){ renderBoard(k); myToast('Не получилось: '+(err||'попробуйте другое фото')); return; }
+  if(!img && !txt){
+    BP.out[k]={ img:null, txt:null, err: err||'попробуйте другое фото', board:null };
+    renderBoard(k); myToast('Не получилось: '+(err||'попробуйте другое фото')); return;
+  }
   st.n++; try{ localStorage.setItem('looka_boards', JSON.stringify(st)); }catch(e){}
   BP.out[k]={ img, txt, err, board:null }; renderBoard(k);
   /* 3. доску собираем сами — своя вёрстка, свой шрифт, живая кириллица */
@@ -16243,11 +16403,12 @@ window.renderBoard = k=>{
       <span class="to-q">${!(LOOKA_API||GEMINI_KEY)?'включится вместе с генерацией картинок':((window.hasAccess&&hasAccess())?('осталось досок в этом месяце: '+(LIM-q().n)):((window.triesLeft&&triesLeft()>0)?'первая доска — бесплатно':'дальше — по подписке'))}</span>
     </div>
     ${busy?`<div class="brd-scan"><div class="brd-sc-img"><img src="data:image/jpeg;base64,${BP.photo}" alt=""><div class="sc-grid"></div><div class="sc-line"></div></div>
-      <div><div class="cs-k">ИИ собирает доску</div><h4 id="brdStage-${k}">${BSTG[0]}</h4><div class="sc-prog"><i></i></div><div class="sc-stat">доска и расшифровка готовятся одновременно</div></div></div>`:''}
+      <div><div class="cs-k">ИИ собирает доску · <span id="brdSec-${k}">0 с</span></div><h4 id="brdStage-${k}">${BSTG[0]}</h4><div class="sc-prog"><i></i></div><button class="ld-stop" id="brdStop-${k}" onclick="brdStop()">Отменить</button><div class="sc-stat">доска и расшифровка готовятся одновременно</div></div></div>`:''}
     ${R?`<div class="brd-res">
       ${R.board?`<a class="brd-img done" href="${R.board}" download="looka-${k}-${Date.now()}.png"><img src="${R.board}" alt="${C.t}"><span>↓ сохранить доску</span></a>`
         :(R.img?`<a class="brd-img" href="${R.img}" download="looka-${k}.png"><img src="${R.img}" alt="${C.t}"><span>↓ сохранить</span></a><div class="brd-wait">Собираю лист…</div>`
-               :`<div class="mr-warn">Кадры не собрались${R.err?': '+R.err:''} — разбор ниже всё равно ваш.</div>`)}
+               :(R.txt?`<div class="mr-warn">Кадры не собрались${R.err?': '+R.err:''} — разбор ниже всё равно ваш.</div>`
+                       :`<div class="wt-err"><b>Не получилось собрать доску</b><p>${R.err||''}</p><button class="btn ghost" onclick="brdGo('${k}')">↻ Попробовать ещё раз</button></div>`))}
       ${R.txt?`<div class="brd-tx">
         ${R.txt.v?`<div class="brd-v">${R.txt.v}</div>`:''}
         <div class="brd-grid">${(R.txt.sec||[]).map((x,i)=>`<div class="brd-s pop" style="animation-delay:${(i*.06).toFixed(2)}s"><b>${x.h}</b><ul>${(x.i||[]).map(y=>`<li>${y}</li>`).join('')}</ul></div>`).join('')}</div>
@@ -16360,7 +16521,7 @@ window.hlGo = async ()=>{
   try{
     let img=null, mime='image/png';
     if(LOOKA_API){
-      const r = await fetch(LOOKA_API.replace(/\/$/,'')+'/tryon', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ face:H.photo, prompt }) });
+      const r = await (window.imgFetch||fetch)(LOOKA_API.replace(/\/$/,'')+'/tryon', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ face:H.photo, prompt }) }, 110000);
       const j = await r.json();
       if(!r.ok || !j.image) throw new Error((j.error||'ошибка генерации')+(j.detail?' · '+j.detail:''));
       img=j.image; mime=j.mime||mime;
@@ -16537,7 +16698,7 @@ window.hgRow = async (row)=>{
     try{
       let img=null, mime='image/png';
       if(LOOKA_API){
-        const r = await fetch(LOOKA_API.replace(/\/$/,'')+'/tryon', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ face:H.photo, prompt }) });
+        const r = await (window.imgFetch||fetch)(LOOKA_API.replace(/\/$/,'')+'/tryon', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ face:H.photo, prompt }) }, 110000);
         const j = await r.json();
         if(!r.ok || !j.image) throw new Error(j.error||'ошибка');
         img=j.image; mime=j.mime||mime;
@@ -21685,7 +21846,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 (function(){
   if(!window.aiFetch || window.aiFetch.__tmo) return;
   const orig = window.aiFetch;
-  const LIMIT = 95000;   /* ждём не дольше полутора минут */
+  const LIMIT = 55000;   /* одна попытка — не дольше 55 секунд: две по 95 давали больше трёх минут тишины */
   const fn = function(opts){
     opts = opts || {};
     const ac = new AbortController();
@@ -21696,7 +21857,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
       .catch(e=>{
         clearTimeout(tm);
         if(e && (e.name==='AbortError' || /abort/i.test(String(e.message||''))))
-          throw new Error('сервер не ответил за полторы минуты — похоже, сеть не пропускает запрос');
+          throw new Error('сервер не ответил за 55 секунд');
         throw e;
       });
   };
