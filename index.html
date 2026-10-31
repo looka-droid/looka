@@ -831,7 +831,7 @@ details.faq:hover summary{color:#fff}
 /* плашка прогресса: видна всем, в том числе без аккаунта */
 #pgBar{display:none}
 #pgBar.on{display:block;border-top:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.028)}
-.pg-in{display:flex;align-items:center;gap:14px;padding:8px 0;flex-wrap:wrap}
+.pg-in{display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 0;flex-wrap:wrap}
 .pg-n{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:#F4F6FC;flex:0 0 auto}
 .pg-n em{font-style:normal;font-size:11px;color:#7F869C}
 .pg-track{flex:0 0 auto;width:min(220px,22vw);height:4px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
@@ -841,7 +841,7 @@ details.faq:hover summary{color:#fff}
   border:1px solid rgba(255,255,255,.22);background:transparent;transition:transform .18s,background .18s}
 .pg-d:hover{transform:scale(1.5)}
 .pg-d.ok{border-color:transparent;background:linear-gradient(135deg,#7CF0B2,#19C6F7)}
-.pg-txt{font-size:12.5px;color:#9BA2B6;flex:0 1 auto;min-width:0;margin-right:auto}
+.pg-txt{font-size:12.5px;color:#9BA2B6;flex:0 1 auto;min-width:0}
 .pg-acc{flex:0 0 auto;padding:6px 13px;border-radius:99px;
   font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;
   color:#9BA2B6;border:1px solid rgba(255,255,255,.14)}
@@ -851,7 +851,20 @@ details.faq:hover summary{color:#fff}
   font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;
   color:#0B0D12;border:0;background:linear-gradient(135deg,#F4F6FC,#C9D2F0)}
 .pg-save:hover{box-shadow:0 8px 20px -10px rgba(255,255,255,.7)}
-@media(max-width:640px){.pg-txt{order:9;width:100%;min-width:0;flex:none}.pg-track{max-width:none}}
+/* в телефоне плашка — одна строка: точки и статус лишние */
+@media(max-width:900px){.pg-dots{display:none}}
+/* в телефоне плашка — одна короткая строка */
+@media(max-width:760px){.pg-acc,.pg-txt{display:none}
+  .pg-in{gap:11px;flex-wrap:nowrap;justify-content:center}
+  .pg-track{width:min(170px,40vw)}
+  .pg-save{padding:6px 12px;font-size:9px}}
+
+/* кнопка сохранения в профиле */
+.acc-save{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
+.acc-save .btn{padding:11px 20px;font-size:12px}
+.acc-hint{font-size:12px;color:#7F869C;line-height:1.4}
+.acc-hint.warn{color:#FFD9A6}
+.acc-hint.ok{color:#9CF3C6}
 
 /* цветотип: пояснение под значением и подсказка про шарф */
 .cs-row span em{display:block;font-style:normal;font-size:12px;line-height:1.45;color:#7F869C;margin-top:4px}
@@ -2522,32 +2535,37 @@ header::before{display:none}
    логотип обрезался слева, а кнопка аккаунта уезжала за экран. */
 header{min-width:0}
 header > .logo{flex:0 0 auto}
-header .topnav{flex:1 1 auto;flex-wrap:nowrap;min-width:0;gap:0;align-items:center}
+header .topnav{flex:1 1 auto;flex-wrap:nowrap;min-width:0;gap:0;align-items:center;padding-left:40px}
+@media(max-width:1200px){header .topnav{padding-left:20px}}
 header .topnav > .nav-dd,
 header .topnav > a{flex:0 0 auto;margin-right:26px;white-space:nowrap}
 /* личные разделы — отдельной группой, спокойным акцентом, а не кричащим фиолетовым */
 header .topnav > a.only-in{color:#C9B6F2;margin-right:22px}
 header .topnav > a.only-in:hover{color:#F4F6FC}
 /* поиск и аккаунт прижаты к правому краю и сжимаются первыми */
-header .topnav > .nav-find{flex:0 1 auto;min-width:0;margin-left:auto;margin-right:10px}
+header .topnav > .nav-find{flex:0 1 auto;min-width:0;margin-left:auto;margin-right:8px}
+header .topnav > .nav-msg{margin:0 8px 0 0}
 header .topnav > .nav-find span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-header .topnav > .nav-acc{flex:0 0 auto;margin-left:0;max-width:210px;overflow:hidden;white-space:nowrap}
+header .topnav > .nav-acc{flex:0 1 auto;margin-left:0;max-width:200px;min-width:0;overflow:hidden;white-space:nowrap}
+header .topnav > .nav-acc span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 /* значок NEW мельче и не утяжеляет строку */
 .nav-new span{font-size:7.5px;padding:2px 5px;margin-left:5px;letter-spacing:.8px;animation:none;opacity:.9}
 /* по мере сужения убираем наименее важное */
 @media(max-width:1600px){header .topnav > .nav-find{min-width:170px}}
 @media(max-width:1600px){header .topnav > .nav-find em{display:none}}
-@media(max-width:1500px){body.authed header .topnav > .nav-find span{display:none}
+@media(max-width:1700px){body.authed header .topnav > .nav-find span{display:none}
   body.authed header .topnav > .nav-find{min-width:0;padding:0 14px}}
 @media(max-width:1260px){header .topnav > .nav-find span{display:none}
   header .topnav > .nav-find{min-width:0;padding:0 14px}}
 /* вошла — в меню на два пункта больше, поэтому убираем раньше */
-@media(max-width:1560px){body.authed header .topnav > a:not(.only-in){display:none}}
+@media(max-width:1700px){body.authed header .topnav > a:not(.only-in){display:none}}
 @media(max-width:1340px){header .topnav > a:not(.only-in){display:none}}
 header .topnav > a.only-in + a:not(.only-in){border-left:0;padding-left:0}
-@media(min-width:1561px){body.authed header .topnav > a.only-in + a:not(.only-in){
+@media(min-width:1701px){body.authed header .topnav > a.only-in + a:not(.only-in){
   padding-left:26px;border-left:1px solid rgba(255,255,255,.12)}}
 @media(max-width:1180px){body.authed header .topnav > .nav-dd:nth-of-type(4){display:none}}
+@media(max-width:1120px){body.authed header .topnav > .nav-dd:nth-of-type(3){display:none}}
+@media(max-width:1020px){body.authed header .topnav > a.only-in:nth-of-type(2){display:none}}
 @media(max-width:1060px){header .topnav > .nav-dd:nth-of-type(4){display:none}}
 
 /* поиск и аккаунт не должны срезаться: раньше их съедала маска справа */
@@ -5369,12 +5387,26 @@ header nav.topnav{gap:4px;align-items:center}
 @media(max-width:560px){.bb-tab{height:34px;padding:0 14px;font-size:12.5px}}
 
 /* меню аккаунта */
-.acc-pop{position:fixed;z-index:150;width:min(304px,calc(100vw - 24px));padding:6px;border-radius:18px;
-  border:1px solid rgba(255,255,255,.14);background:#11131D;box-shadow:0 26px 70px rgba(0,0,0,.6);
-  display:none;transform-origin:top right}
-.acc-pop.open{display:block;animation:apIn .26s cubic-bezier(.2,.8,.2,1) both}
+.acc-pop{position:fixed;z-index:1200;width:min(330px,calc(100vw - 24px));padding:0;border-radius:20px;
+  border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(180deg,#171A26,#11131D);box-shadow:0 30px 80px rgba(0,0,0,.65);
+  display:none;transform-origin:top right;overflow:hidden}
+/* меню выше экрана — листаем его, а не теряем нижние пункты под кнопкой «Образ дня» */
+.acc-pop.open{display:flex;flex-direction:column;max-height:calc(100vh - 90px);
+  animation:apIn .26s cubic-bezier(.2,.8,.2,1) both}
+.ap-top{flex:0 0 auto;padding:6px 6px 0}
+.ap-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:0 6px;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.22) transparent}
+.ap-scroll::-webkit-scrollbar{width:8px}
+.ap-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:99px;border:2px solid transparent;background-clip:content-box}
+.ap-foot{flex:0 0 auto;padding:6px;border-top:1px solid rgba(255,255,255,.08);background:rgba(10,11,16,.6)}
+/* подсказка, что ниже ещё есть пункты */
+.acc-pop::after{content:'';position:absolute;left:0;right:0;bottom:56px;height:34px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(17,19,29,.95));opacity:0;transition:opacity .2s}
+.acc-pop.more::after{opacity:1}
 @keyframes apIn{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1;transform:none}}
-.ap-head{display:flex;align-items:center;gap:12px;padding:14px 12px 12px}
+.ap-head{display:flex;align-items:center;gap:12px;padding:14px 12px 12px;
+  border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:10px}
 .ap-ava{width:42px;height:42px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;overflow:hidden;font-size:14px;font-weight:800;color:#0B0C12;background:linear-gradient(135deg,#19C6F7,#C79DF2)}
 .ap-ava img{width:100%;height:100%;object-fit:cover}
 .ap-head b{display:block;font-size:15px;line-height:1.2}
@@ -5393,7 +5425,10 @@ header nav.topnav{gap:4px;align-items:center}
 .ap-it.out i,.ap-it.out span{color:#FF9DB0}
 .ap-it.out i{background:rgba(255,157,176,.12)}
 .ap-it.out:hover{background:rgba(255,157,176,.1)}
-.ap-sep{height:1px;margin:6px 10px;background:rgba(255,255,255,.08)}
+.ap-sep{height:1px;margin:8px 10px;background:rgba(255,255,255,.08)}
+/* заголовки групп, чтобы длинный список читался */
+.ap-grp{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.6px;text-transform:uppercase;
+  color:#6E7488;padding:12px 12px 6px}
 
 /* ================= «МОЙ LOOKA»: воздух и мягкое появление ================= */
 #accBox{display:grid;gap:18px;margin-top:20px}
@@ -17665,7 +17700,22 @@ const KEYS = ['looka_acc','looka_dna','looka_makeup','looka_color','looka_skin',
 const save = ()=>HUB.save('looka_acc', A);
 const initials = n=>String(n||'').trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase() || '✦';
 
-window.accEdit = (k,v)=>{ A[k] = v; save(); if(window.authSync) authSync(true); const d=document.getElementById('accDob'); if(k==='dob'&&d) renderAcc(); };
+window.accEdit = (k,v)=>{ A[k] = v; save(); if(window.authSync) authSync(true); const d=document.getElementById('accDob'); if(k==='dob'&&d) renderAcc();
+  const h=document.getElementById('accHint'); if(h){ h.textContent='есть несохранённые правки'; h.classList.add('warn'); } };
+/* видимая кнопка сохранения: поля и так пишутся сразу, но без подтверждения это не очевидно */
+window.accSave = ()=>{
+  const box=document.querySelector('.acc-fields'); if(box){
+    const inp=box.querySelectorAll('.acc-in');
+    if(inp[0]) A.name=inp[0].value; if(inp[1]) A.dob=inp[1].value; if(inp[2]) A.city=inp[2].value;
+  }
+  save();
+  const h=document.getElementById('accHint');
+  if(h){ h.textContent='Сохранено'+((window.authState&&authState().in)?' и отправлено в облако':' на этом устройстве'); h.classList.remove('warn'); h.classList.add('ok'); }
+  if(window.authSync && window.authState && authState().in) authSync(true);
+  if(window.myToast) myToast('Профиль сохранён');
+  if(window.drawAvatar) drawAvatar();
+  if(window.accDraw) accDraw();
+};
 window.accAva = f=>{
   if(!f) return;
   const img = new Image();
@@ -18111,7 +18161,11 @@ window.renderAcc = ()=>{
           <div><label class="t">Город</label><input class="acc-in" value="${(A.city||'').replace(/"/g,'&quot;')}" placeholder="для погоды и магазинов" oninput="accEdit('city',this.value)"></div>
         </div>
         ${A.dob?`<div class="acc-age">${ageLine()}</div>`:''}
-        ${A.ava?'<button class="chip" style="margin-top:10px" onclick="accAvaDel()">убрать фото</button>':''}
+        <div class="acc-save">
+          <button class="btn primary" onclick="accSave()">✓ Сохранить</button>
+          ${A.ava?'<button class="btn ghost" onclick="accAvaDel()">Убрать фото</button>':''}
+          <span class="acc-hint" id="accHint">изменения сохраняются сразу — кнопка на случай, если хочется убедиться</span>
+        </div>
       </div>
     </div>
     <div class="acc-stats">${stats().map((s,i)=>`<div class="pop" style="animation-delay:${(i*0.05).toFixed(2)}s"><b>${s[1]}</b><span>${s[0]}</span></div>`).join('')}</div>
@@ -18303,20 +18357,31 @@ window.accMenu = (ev)=>{
   const a = acc(), s = st();
   const rit = (()=>{ try{ return (JSON.parse(localStorage.getItem('looka_ritual')||'{}').n)||0; }catch(e){ return 0; } })();
   m.innerHTML = `
+    <div class="ap-top">
     <div class="ap-head">
       <div class="ap-ava">${a.ava?`<img src="${a.ava}">`:(initials(a.name)||'✦')}</div>
       <div><b>${a.name||'Ваш профиль'}</b><span>${s.email||''}</span></div>
     </div>
     ${(()=>{ let W=0,C='',T=''; try{ W=(JSON.parse(localStorage.getItem('looka_wardrobe')||'{}').items||[]).length; }catch(e){} try{ C=(JSON.parse(localStorage.getItem('looka_cs')||'{}').season)||''; }catch(e){} try{ const D2=JSON.parse(localStorage.getItem('looka_dna')||'{}'); T=(D2.styles||[]).slice(0,2).join(' · '); }catch(e){}
-      return `<div class="ap-stats"><div><b>${rit}</b><span>${rit===1?'день':rit<5?'дня':'дней'} ритуала</span></div><div><b>${W}</b><span>вещей в шкафу</span></div><div><b>${C||'—'}</b><span>цветотип</span></div></div>${T?`<div class="ap-tags">✦ ${T}</div>`:''}`; })()}
-    <button class="ap-it" onclick="closeAccPop();openPage('myPage');setTimeout(()=>myTab('profile'),350)"><i>◆</i><span>Редактировать профиль</span><em>имя, фото, дата рождения</em></button>
+      return `<div class="ap-stats"><div><b>${rit}</b><span>${(n=>{const a=Math.abs(n)%100,b=a%10;return (a>10&&a<20)||b===0||b>4?'дней':b===1?'день':'дня';})(rit)} ритуала</span></div><div><b>${W}</b><span>вещей в шкафу</span></div><div><b>${C||'—'}</b><span>цветотип</span></div></div>${T?`<div class="ap-tags">✦ ${T}</div>`:''}`; })()}
+    </div><div class="ap-scroll">
+    <div class="ap-grp">Профиль</div>
+    <button class="ap-it" onclick="closeAccPop();openPage('myPage');setTimeout(()=>myTab('profile'),350)"><i>◆</i><span>Редактировать профиль</span><em>имя, фото, дата рождения, город</em></button>
     <button class="ap-it" onclick="closeAccPop();openPage('passPage')"><i>▤</i><span>Стиль-паспорт</span><em>всё о вас на одной странице</em></button>
+    <button class="ap-it" onclick="closeAccPop();openPage('myPage');setTimeout(()=>myTab('results'),350)"><i>✧</i><span>Мои результаты</span><em>все пройденные анкеты и разборы</em></button>
+    <div class="ap-grp">Гардероб и покупки</div>
     <button class="ap-it" onclick="closeAccPop();openWardrobe()"><i>▣</i><span>Мой гардероб</span><em>вещи, образ дня, план недели</em></button>
+    <button class="ap-it" onclick="closeAccPop();openPage('myPage');setTimeout(()=>myTab('shops'),350)"><i>▦</i><span>Магазины и заказы</span><em>что уже куплено</em></button>
     <button class="ap-it" onclick="closeAccPop();openPage('myPage');setTimeout(()=>myTab('finds'),350)"><i>✦</i><span>Находки для вас</span><em>новые магазины и средства — в Telegram</em></button>
+    <div class="ap-grp">Данные и доступ</div>
     <button class="ap-it" onclick="closeAccPop();authSync()"><i>↻</i><span>Сохранить в облако</span><em>синхронизировать сейчас</em></button>
-    <div class="ap-sep"></div>
-    <button class="ap-it" onclick="closeAccPop();openPage('contactsPage')"><i>✉</i><span>Написать в поддержку</span></button>
-    <button class="ap-it out" onclick="closeAccPop();authOut()"><i>⇥</i><span>Выйти</span></button>`;
+    <button class="ap-it" onclick="closeAccPop();openPage('myPage');setTimeout(()=>myTab('profile'),350)"><i>⤓</i><span>Скачать мои данные</span><em>всё, что LOOKA о вас знает — файлом</em></button>
+    <button class="ap-it" onclick="closeAccPop();document.getElementById('pricing')&&document.getElementById('pricing').scrollIntoView({behavior:'smooth'})"><i>✦</i><span>Доступ и оплата</span><em>${(window.hasAccess&&hasAccess())?'премиум активен':'бесплатный доступ'}</em></button>
+    <button class="ap-it" onclick="closeAccPop();openPage('contactsPage')"><i>✉</i><span>Написать в поддержку</span><em>отвечаю лично, обычно за пару часов</em></button>
+    <div class="ap-grp">Опасная зона</div>
+    <button class="ap-it out" onclick="closeAccPop();accWipe()"><i>⌫</i><span>Удалить данные на устройстве</span><em>профиль, гардероб, анкеты — без отмены</em></button>
+    </div>
+    <div class="ap-foot"><button class="ap-it out" onclick="closeAccPop();authOut()"><i>⇥</i><span>Выйти из аккаунта</span></button></div>`;
   let btn = (ev && ev.currentTarget && ev.currentTarget.closest) ? ev.currentTarget.closest('.nav-acc') : null;
   if(!btn){ // берём ту кнопку, что реально видна на экране
     btn = [...document.querySelectorAll('.nav-acc')].find(b=>{ const q=b.getBoundingClientRect(); return q.bottom > 0 && q.top < window.innerHeight; })
@@ -18326,6 +18391,11 @@ window.accMenu = (ev)=>{
   m.style.top = (r.bottom + 10) + 'px';
   m.style.right = Math.max(12, window.innerWidth - r.right) + 'px';
   m.classList.add('open');
+  const sc = m.querySelector('.ap-scroll');
+  if(sc){
+    const upd = ()=>m.classList.toggle('more', sc.scrollHeight - sc.scrollTop - sc.clientHeight > 12);
+    sc.onscroll = upd; setTimeout(upd, 40);
+  }
   setTimeout(()=>document.addEventListener('click', closeAccPop, {once:true}), 30);
 };
 window.closeAccPop = ()=>{ const m = document.getElementById('accPop'); if(m) m.classList.remove('open'); };
