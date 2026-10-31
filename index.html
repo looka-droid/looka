@@ -868,6 +868,39 @@ details.faq:hover summary{color:#fff}
   border:1px solid rgba(255,255,255,.2);background:rgba(10,12,18,.65);color:#F4F6FC;outline:none}
 .reg-first input:focus{border-color:rgba(25,198,247,.65);box-shadow:0 0 0 3px rgba(25,198,247,.15)}
 
+/* блоки на страницах разделов не слипаются */
+.sp-in > .look + .look,
+.my-pane > * + *,
+.pageview .sp-in > * + *{margin-top:28px}
+.my-pane > *:empty,.sp-in > *:empty{margin-top:0}
+.my-pane .look + .look,.pageview > .wrap > .look + .look{margin-top:28px}
+@media(max-width:760px){.sp-in > .look + .look,.my-pane > * + *,
+  .pageview .sp-in > * + *{margin-top:20px}}
+
+/* список подсказок не должен вылезать за карточку и прятаться под кнопкой «Образ дня» */
+.ac-wrap{position:relative;display:block;min-width:0;width:100%}
+.ac-wrap > input{width:100%;box-sizing:border-box}
+.wm-sug.ac-sug{left:0;right:0;width:auto;max-height:min(268px,42vh);overflow:auto;
+  z-index:800;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.7)}
+.wm-sug.ac-sug button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* если места снизу мало — открываем вверх */
+.ac-wrap.up .wm-sug.ac-sug{top:auto;bottom:calc(100% + 4px)}
+
+/* прикреплённое фото вещи видно сразу */
+#buyThumb:empty{display:none}
+.buy-th{display:flex;align-items:center;gap:13px;margin:14px 0 4px;padding:10px 12px;border-radius:14px;
+  border:1px solid rgba(124,240,178,.26);background:rgba(124,240,178,.06)}
+.buy-th img{width:56px;height:70px;object-fit:cover;border-radius:10px;flex:0 0 auto;
+  box-shadow:0 6px 16px -6px rgba(0,0,0,.7)}
+.buy-th b{display:block;font-size:14px;color:#F4F6FC}
+.buy-th span{display:block;font-size:12px;color:#9BA2B6;margin-top:2px}
+.buy-x{margin-left:auto;width:30px;height:30px;border-radius:50%;cursor:pointer;flex:0 0 auto;
+  border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#C2C7D6;font-size:13px}
+.buy-x:hover{color:#fff;border-color:rgba(255,107,129,.6);background:rgba(255,107,129,.18)}
+/* результат любого блока не слипается со следующим */
+.blk-out{margin-top:14px;margin-bottom:8px}
+.blk-out:empty{margin:0}
+
 /* ожидание сборки образов из покупок: видно, что идёт, и блок не слипается со следующим */
 .ml-wait{margin:14px 0 4px}
 .ml-wait .sc-stat b{font-family:'JetBrains Mono',monospace;font-size:11px;color:#19C6F7}
@@ -9947,7 +9980,11 @@ const cityNorm = s=>s.toLowerCase().replace(/ё/g,'е').replace(/\s+/g,' ').trim
 window.cityAC = (inp, sug, onPick, filter)=>{
   let items = [], act = -1, t = null;
   const render = ()=>{
-    if(!items.length){ sug.classList.remove('on'); return; }
+    if(!items.length){ sug.classList.remove('on'); const w0=inp.closest('.ac-wrap'); if(w0) w0.classList.remove('up'); return; }
+    /* снизу мало места — показываем список над полем */
+    const w = inp.closest('.ac-wrap');
+    if(w){ const r = inp.getBoundingClientRect();
+      w.classList.toggle('up', (window.innerHeight - r.bottom) < 300 && r.top > 320); }
     const q = cityNorm(inp.value);
     sug.innerHTML = items.map((c,i)=>{
       const nm = c[0], k = cityNorm(nm).indexOf(q);
@@ -12097,7 +12134,7 @@ window.skCheck = async ()=>{
       <p><b>Почему:</b> ${d.why}</p><p><b>Результат:</b> ${d.result}</p>${d.warn?`<p style="color:#FFB84C"><b>Осторожно:</b> ${d.warn}</p>`:''}
       <div class="cs-k" style="margin:14px 0 8px">ЧТО ПОДОЙДЁТ ЛУЧШЕ ИЛИ ДЕШЕВЛЕ</div>${(d.better||[]).map((b,i)=>HUB.pop(`<div class="item"><div class="nm">${b.n}</div><div class="tip" style="margin:2px 0 6px">${b.why}</div>${beautyButtons(b.q||b.n)}</div>`,i)).join('')}
       <div class="b-priv">Оценка по составу и вашим ответам, не медицинская рекомендация. При реакции — прекратить и к дерматологу.</div></div>`;
-  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; }
+  }catch(e){ clearInterval(window.__buyT); out.innerHTML='<div class="wt-err"><b>Не получилось</b><p>'+String(e.message||e)+'</p></div>'; }
 };
 function renderSkin(){
   const R = build(); const out = document.getElementById('skOut');
@@ -12307,7 +12344,7 @@ window.richGo=async ()=>{ const out=document.getElementById('rcOut'); out.innerH
       <div class="hp-sub" style="margin-top:14px">5 ВЕЩЕЙ ДО ${RC.budget||'БЮДЖЕТА'}</div>${(R.items||[]).map(item).join('')}
       <div class="next-row"><span>дальше →</span><button onclick="openLookCheck()">📷 Разобрать мой образ</button><button onclick="goQuiz()">▤ Три образа</button></div>
     </div></div>`; HUB.done(out);
-  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
+  }catch(e){ clearInterval(window.__buyT); out.innerHTML='<div class="wt-err"><b>Не получилось</b><p>'+String(e.message||e)+'</p></div>'; } };
 window.openRich=()=>{ openPage('richPage'); renderRich(); };
 
 /* --- тело изменилось --- */
@@ -12335,7 +12372,7 @@ window.bodyShiftGo=async ()=>{ const out=document.getElementById('bsOut'); out.i
       ${R.lingerie?`<div class="tip" style="margin-top:10px">${R.lingerie}</div>`:''}
       <div class="next-row"><span>дальше →</span><button onclick="openBra()">◠ Размер бра сейчас</button><button onclick="openWardrobe()">▣ В гардероб</button></div>
     </div></div>`; HUB.done(out);
-  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
+  }catch(e){ clearInterval(window.__buyT); out.innerHTML='<div class="wt-err"><b>Не получилось</b><p>'+String(e.message||e)+'</p></div>'; } };
 window.openBodyShift=()=>{ openPage('bodyShiftPage'); renderBodyShift(); };
 })();
 window.renderSkinForm = ()=>{
@@ -17939,7 +17976,7 @@ window.cartComplete = async ()=>{
       ${(R.keep||[]).length?`<div class="cs-row"><b>Оставить</b><span>${R.keep.join(' · ')}</span></div>`:''}${(R.drop||[]).length?`<div class="cs-row" style="color:#FF9DB0"><b>Убрать</b><span>${R.drop.join(' · ')}</span></div>`:''}
       ${(R.looks||[]).map(L=>`<div class="lc-one"><b>${L.t}</b><span>из корзины: ${(L.from||[]).join(', ')}</span>${(L.add||[]).map(a=>`<div class="item"><div class="nm">+ ${a.n}</div><div class="tip">${a.why||''}${a.price?' · '+a.price:''}</div>${shopButtons({n:a.n,q:a.q||a.n})}</div>`).join('')}</div>`).join('')}
       ${R.total?`<div class="tip" style="margin-top:10px">Итого: ${R.total}</div>`:''}</div>`;
-  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
+  }catch(e){ clearInterval(window.__buyT); out.innerHTML='<div class="wt-err"><b>Не получилось</b><p>'+String(e.message||e)+'</p></div>'; } };
 window.renderCart = ()=>{ const box=document.getElementById('cartBox'); if(!box) return;
   box.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">КОРЗИНА → ОБРАЗ</div><h3>Что в корзине — и что докупить, чтобы получился образ</h3>
     <div class="tip">LOOKA смотрит на вещи из вашей корзины или последних заказов, убирает дубли и то, что не сочетается, и предлагает 1–2 докупки под ваш бюджет — чтобы из «вещей» получились образы.</div>
@@ -17950,26 +17987,40 @@ window.renderCart = ()=>{ const box=document.getElementById('cartBox'); if(!box)
 (function(){
 /* --- купить или нет --- */
 let buyImg=null;
-window.buyPhoto = async f=>{ if(!f) return; buyImg=await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res({data:String(r.result).split(',')[1],type:f.type||'image/jpeg'}); r.readAsDataURL(f); }); myToast('Фото вещи прикреплено'); };
+window.buyDrawPhoto = ()=>{
+  const box=document.getElementById('buyThumb'); if(!box) return;
+  box.innerHTML = buyImg
+    ? `<div class="buy-th"><img src="data:${buyImg.type};base64,${buyImg.data}" alt="фото вещи"><div><b>Фото прикреплено</b><span>ИИ посмотрит на него вместе с названием</span></div><button class="buy-x" onclick="buyPhotoDel()" title="Убрать фото">✕</button></div>`
+    : '';
+};
+window.buyPhotoDel = ()=>{ buyImg=null; const i=document.getElementById('buyInp'); if(i) i.value=''; buyDrawPhoto(); myToast('Фото убрано'); };
+window.buyPhoto = async f=>{ if(!f) return; buyImg=await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res({data:String(r.result).split(',')[1],type:f.type||'image/jpeg'}); r.readAsDataURL(f); }); buyDrawPhoto(); myToast('Фото вещи прикреплено'); };
 window.renderBuy = ()=>{ const box=document.getElementById('buyBox'); if(!box) return;
   box.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">КУПИТЬ ИЛИ НЕТ?</div><h3>Стоит ли брать эту вещь — честно, до оплаты</h3>
     <div class="tip">Сфотографируйте вещь в магазине или вставьте название — LOOKA сверит с вашим цветотипом, посадками, «никогда», гардеробом и бюджетом и скажет: брать, брать с оговоркой или мимо. И с чем это будет носиться.</div>
-    <div class="acc-two" style="margin-top:12px"><div><label class="t">Что за вещь</label><input class="acc-in" id="buyName" placeholder="например: бежевый тренч Lime, 7 990 ₽"></div><div><label class="t">Или фото</label><label class="btn ghost" style="cursor:pointer;display:inline-block">📷 Фото вещи<input type="file" accept="image/*" style="display:none" onchange="buyPhoto(this.files[0])"></label></div></div>
+    <div class="acc-two" style="margin-top:12px"><div><label class="t">Что за вещь</label><input class="acc-in" id="buyName" placeholder="например: бежевый тренч Lime, 7 990 ₽"></div><div><label class="t">Или фото</label><label class="btn ghost" style="cursor:pointer;display:inline-block">📷 Фото вещи<input type="file" id="buyInp" accept="image/*" style="display:none" onchange="buyPhoto(this.files[0])"></label></div></div>
     <div class="grp"><label class="t">Цена</label><div class="chips">${['до 2 000 ₽','2 000–5 000 ₽','5 000–12 000 ₽','12 000 ₽ +'].map(v=>`<button class="chip" onclick="document.querySelectorAll('#buyBox .chip').forEach(c=>c.classList.remove('on'));this.classList.add('on');window._buyPrice='${v}'">${v}</button>`).join('')}</div></div>
-    <div class="to-row"><button class="btn primary" onclick="buyCheck()">Сказать честно →</button></div><div id="buyOut" style="margin-top:12px"></div></div></div>`; };
+    <div id="buyThumb"></div>
+    <div class="to-row"><button class="btn primary" onclick="buyCheck()">Сказать честно →</button></div><div id="buyOut" class="blk-out"></div></div></div>`;
+  buyDrawPhoto(); };
 window.buyCheck = async ()=>{ const name=(document.getElementById('buyName')||{}).value||''; if(!name && !buyImg){ myToast('Название или фото'); return; }
-  const out=document.getElementById('buyOut'); out.innerHTML='<div class="tip">Сверяю с вашим гардеробом и вкусом…</div>';
+  const out=document.getElementById('buyOut');
+  out.innerHTML='<div class="ml-wait"><div class="sc-prog"><i></i></div><div class="sc-stat">Сверяю с вашим гардеробом и вкусом… <b id="buySec">0 с</b></div></div>';
+  const t0=Date.now(); clearInterval(window.__buyT);
+  window.__buyT=setInterval(()=>{ const e=document.getElementById('buySec'); if(!e){ clearInterval(window.__buyT); return; }
+    e.textContent=Math.round((Date.now()-t0)/1000)+' с'; }, 500);
   let W=[]; try{ W=(JSON.parse(localStorage.getItem('looka_wardrobe')||'{}').items||[]).map(i=>i.color+' '+i.name).slice(0,40); }catch(e){}
   const cs=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_cs')||'{}').season||'-'; }catch(e){ return '-'; } })();
   const prompt=`Ты — стилист-подруга, которая бережёт деньги клиентки. Вещь: ${name||'на фото'}${window._buyPrice?', цена '+window._buyPrice:''}. Цветотип: ${cs}. ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} В гардеробе уже есть: ${W.join('; ')||'нет данных'}. Ответь ТОЛЬКО JSON: {"verdict":"брать|брать с оговоркой|мимо","score":"1-10","why":"2-3 предложения: цвет, посадка, её «никогда», дубли в гардеробе","wears_with":["3 вещи из её гардероба, с которыми это носится, если есть"],"dupes":["что похожее уже есть, если есть"],"cost_per_wear":"прикидка: сколько раз наденет за сезон и во что выходит один выход","better":{"n":"альтернатива, если мимо или с оговоркой","q":"поисковый запрос","why":"почему лучше"},"line":"одна фраза как от подруги"} Если вещь не по её цветотипу или в списке «никогда» — говори прямо.`;
   try{ const content=buyImg?[{type:'image',source:{type:'base64',media_type:buyImg.type,data:buyImg.data}},{type:'text',text:prompt}]:prompt;
     const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1200, messages:[{role:'user',content}] }) }); const j=await r.json(); const txt=(j.content||[]).map(c=>c.text||'').join(''); const m=txt.match(/\{[\s\S]*\}/); const R=JSON.parse(m?m[0]:txt);
+    clearInterval(window.__buyT);
     const col=/^брать$/i.test(R.verdict)?'#37E08A':/оговор/i.test(R.verdict)?'#FFB84C':'#FF9DB0';
     out.innerHTML=`<div class="chk-res"><div class="chk-v" style="color:${col}">${R.verdict} · ${R.score}/10</div><div class="lf-say" style="text-align:left;font-size:15px">${R.line||''}</div><p style="margin-top:10px">${R.why||''}</p>
       ${(R.wears_with||[]).length?`<div class="cs-row"><b>С чем носить</b><span>${R.wears_with.join(' · ')}</span></div>`:''}${(R.dupes||[]).length?`<div class="cs-row" style="color:#FFB84C"><b>Уже есть похожее</b><span>${R.dupes.join(' · ')}</span></div>`:''}
       ${R.cost_per_wear?`<div class="cs-row"><b>Цена одного выхода</b><span>${R.cost_per_wear}</span></div>`:''}
       ${R.better&&R.better.n?`<div class="hp-sub" style="margin-top:12px">ЛУЧШЕ ВЗЯТЬ</div><div class="item"><div class="nm">${R.better.n}</div><div class="tip">${R.better.why||''}</div>${shopButtons({n:R.better.n,q:R.better.q||R.better.n})}</div>`:''}</div>`; buyImg=null;
-  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; } };
+  }catch(e){ clearInterval(window.__buyT); out.innerHTML='<div class="wt-err"><b>Не получилось</b><p>'+String(e.message||e)+'</p><button class="btn ghost" onclick="buyCheck()">↻ Попробовать ещё раз</button></div>'; } };
 
 /* --- скоро: события --- */
 const EV = HUB.ls('looka_events', { list:[] });
@@ -18187,7 +18238,7 @@ window.chkProduct = async ()=>{
       ${(R.better||[]).length?`<div class="cs-k" style="margin:12px 0 8px">ЛУЧШЕ ИЛИ ДЕШЕВЛЕ</div>${R.better.map(b=>`<div class="item"><div class="nm">${b.n}</div><div class="tip">${b.why||''}</div>${beautyButtons(b.q||b.n)}</div>`).join('')}`:''}
       <div class="b-priv">Оценка по составу и вашему профилю, не медицинское заключение. При заболеваниях кожи — дерматолог.</div></div>`;
     chkImg=null;
-  }catch(e){ out.innerHTML='<div class="tip">Не получилось: '+e.message+'</div>'; }
+  }catch(e){ clearInterval(window.__buyT); out.innerHTML='<div class="wt-err"><b>Не получилось</b><p>'+String(e.message||e)+'</p></div>'; }
 };
 })();
 
