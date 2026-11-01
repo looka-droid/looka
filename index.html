@@ -768,15 +768,17 @@ details.faq:hover summary{color:#fff}
 .dna-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 .dna-row .btn{padding:10px 16px;font-size:11.5px}
 
-/* карточка «анкета пройдена» — на месте скрытой анкеты */
+/* карточка «анкета пройдена» — на месте скрытой анкеты.
+   На внутренних страницах её быть не должно: там своя плашка раздела */
 #quizDone{margin:0 0 56px}
+body.subpage #quizDone,body.subpage .stage{display:none!important}
 .qd{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between;
-  padding:20px 24px;border-radius:18px;border:1px solid rgba(124,240,178,.26);
-  background:linear-gradient(135deg,rgba(124,240,178,.09),rgba(25,198,247,.05))}
+  padding:20px 24px;border-radius:18px;border:1px solid rgba(199,157,240,.3);
+  background:linear-gradient(135deg,rgba(199,157,240,.11),rgba(91,108,255,.05))}
 .qd-l{display:flex;align-items:center;gap:15px;min-width:0;flex:1}
 .qd-l i{flex:0 0 auto;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
   font-style:normal;font-size:17px;color:#0B0D12;
-  background:linear-gradient(135deg,#7CF0B2,#19C6F7);box-shadow:0 6px 18px -8px rgba(124,240,178,.9)}
+  background:linear-gradient(135deg,#C79DF2,#5B6CFF);box-shadow:0 6px 18px -8px rgba(199,157,240,.9)}
 .qd-l b{display:block;font-family:'Golos Text',sans-serif;font-weight:800;font-size:16px;color:#F4F6FC}
 .qd-l span{display:block;font-size:12.5px;color:#9BA2B6;margin-top:3px;line-height:1.45}
 .qd-b{display:flex;gap:10px;flex-wrap:wrap}
@@ -939,6 +941,50 @@ details.faq:hover summary{color:#fff}
 .my-link .tp-row,.my-link .to-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .my-link .btn{padding:12px 20px;font-size:12px}
 .my-link .tp-note,.my-link .b-priv{margin-top:12px;font-size:11.5px;line-height:1.5;color:#7F869C}
+
+/* незаполненный раздел паспорта — честная карточка, а не пустота под заголовком */
+.ps-card.ps-gap{border-style:dashed;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.02)}
+.ps-card.ps-gap .ps-k{color:#8B92AA}
+.ps-card.ps-gap .ps-note{color:#9BA2B6}
+.ps-gap-b{margin-top:12px;padding:10px 16px;font-size:11px}
+@media print{.ps-card.ps-gap{display:none}}
+
+/* ===== макияж и укладка под образ дня ===== */
+.nt-beauty{width:100%;margin-top:9px;padding:11px 14px;border-radius:12px;cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1.1px;text-transform:uppercase;
+  color:#FFD9F2;border:1px dashed rgba(255,138,201,.4);background:rgba(255,138,201,.07);
+  transition:background .18s,border-color .18s,transform .18s}
+.nt-beauty:hover{transform:translateY(-2px);border-style:solid;border-color:rgba(255,138,201,.75);
+  background:rgba(255,138,201,.16)}
+.nt-bo:empty{display:none}
+.bt-wait{margin-top:10px;padding:11px 13px;border-radius:12px;font-size:12.5px;color:#C2C7D6;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
+.bt-wait b{font-family:'JetBrains Mono',monospace;font-size:11px;color:#19C6F7}
+.bt-box{margin-top:12px;padding:14px 15px;border-radius:14px;
+  border:1px solid rgba(255,138,201,.26);
+  background:linear-gradient(160deg,rgba(255,138,201,.1),rgba(199,157,240,.05))}
+.bt-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.bt-h b{font-family:'Golos Text',sans-serif;font-weight:800;font-size:14px;color:#F4F6FC}
+.bt-h em{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;
+  color:#0B0D12;background:linear-gradient(135deg,#FFD28A,#FF8AC9);padding:3px 9px;border-radius:99px}
+.bt-sec{margin-top:10px}
+.bt-k{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.6px;
+  text-transform:uppercase;color:#FF9DD2;margin-bottom:6px}
+.bt-sec ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.bt-sec li{font-size:13px;line-height:1.5;color:#E3E6F0}
+.bt-sec li b{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.2px;
+  text-transform:uppercase;color:#9BA2B6;margin-bottom:2px;font-weight:400}
+.bt-sec li.bt-n{padding:8px 10px;border-radius:9px;background:rgba(255,184,76,.1);
+  border:1px solid rgba(255,184,76,.26);color:#FFE2B8}
+.bt-sec li.bt-n b{color:#FFB84C}
+.bt-why{margin-top:11px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1);
+  font-size:12.5px;line-height:1.5;color:#C7A6F0}
+.bt-more{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.bt-more .btn{padding:8px 13px;font-size:10px}
+
+/* короткая подсветка того, к чему подвели */
+.res-flash{animation:resFlash 1.6s ease-out 1}
+@keyframes resFlash{0%{box-shadow:0 0 0 0 rgba(25,198,247,.45)}60%{box-shadow:0 0 0 10px rgba(25,198,247,0)}100%{box-shadow:0 0 0 0 rgba(25,198,247,0)}}
 
 /* плашка «уже проходили» */
 .done-bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 26px;
@@ -11153,7 +11199,18 @@ function passportHTML(){
   return `<div class="ps">
     <div class="ps-head"><div><div class="ps-k">LOOKA · СТИЛЬ-ПАСПОРТ</div><h3>${S.gender==='Мужчина'?'Мой стиль':'Мой стиль'} — по данным, а не по вкусу</h3><div class="ps-date">выдан ${date} · обновляется вместе с анкетой</div></div><div class="ps-seal"><b>LOO<em>KA</em></div><span>персональный подбор</span></div></div>
     ${(()=>{ const X = passportExtra(p, male);
-      const G = (name, ic, col, cards)=>'<div class="ps-sec" style="--pc:'+col+'"><i>'+ic+'</i>'+name+'</div><div class="ps-grid" style="--pc:'+col+'">'+cards.join('')+'</div>';
+      /* пустых разделов быть не должно: либо данные, либо честное «ещё не заполнено» с кнопкой */
+      const G = (name, ic, col, cards, gap)=>{
+        const real = (cards||[]).filter(c => c && String(c).trim());
+        const body = real.length
+          ? real.join('')
+          : (gap ? '<div class="ps-card ps-gap"><div class="ps-k">ЕЩЁ НЕ ЗАПОЛНЕНО</div><p class="ps-note">'+gap.t+'</p>'
+                   + '<button class="btn ghost ps-gap-b" onclick="'+gap.go+'">'+gap.b+'</button></div>'
+                 : '');
+        if(!body) return '';
+        return '<div class="ps-sec" style="--pc:'+col+'"><i>'+ic+'</i>'+name+'</div>'
+             + '<div class="ps-grid" style="--pc:'+col+'">'+body+'</div>';
+      };
       const C = {
         color: `<div class="ps-card"><div class="ps-k">ЦВЕТОТИП</div><div class="ps-prof">${S.hair} · ${S.eyes.toLowerCase()} глаза · ${S.skin.toLowerCase()} тон</div><p class="ps-note">${p.note}</p><div class="ps-k2">Акценты — у лица</div><div class="ps-sws">${p.accents.slice(0,4).map(swatch).join('')}</div><div class="ps-k2">База — низ и верхняя одежда</div><div class="ps-sws">${p.neutrals.map(swatch).join('')}</div><div class="ps-k2">Обувь и сумка — одна гамма</div><div class="ps-sws">${p.shoes.map(swatch).join('')}</div><div class="ps-k2">Металл украшений</div><div class="ps-metal ${p.metal==='серебристый'?'silver':'gold'}">${p.metal}</div></div>`,
         figure: `<div class="ps-card"><div class="ps-k">ФИГУРА · ${S.figure.toUpperCase()}</div><ul class="tp-list">${fig.map(x=>'<li>'+x+'</li>').join('')}${focus.map(f=>'<li>'+f.tip+'</li>').join('')}<li>${FIGN[S.figure]||'силуэт по фигуре'}</li></ul></div>`,
@@ -11162,13 +11219,20 @@ function passportHTML(){
         base: `<div class="ps-card"><div class="ps-k">КАПСУЛЬНАЯ БАЗА — 12 ВЕЩЕЙ, КОТОРЫЕ СОЧЕТАЮТСЯ ВСЕ СО ВСЕМИ</div><ol class="ps-ol">${base.map(x=>'<li>'+x+'</li>').join('')}</ol></div>`,
         nobuy: `<div class="ps-card ps-no"><div class="ps-k">ЧЕГО НЕ ПОКУПАТЬ</div><ul class="tp-list">${avoid.map(x=>'<li>'+x+'</li>').join('')}</ul></div>`
       };
-      return G('ЦВЕТ','◐','#19C6F7',[C.color, X.temp, X.avoid])
-        + G('ФИГУРА И ФОРМЫ','◈','#FF6FBF',[C.figure, X.fab, X.prints, X.lengths])
-        + G('РАЗМЕРЫ','⌀','#5B6CFF',[C.sizes])
-        + G('ЛИЦО И ВОЛОСЫ','✦','#B44CFF',[C.makeup, X.hair].filter(Boolean))
-        + G('АРОМАТ','❋','#FFC46B',[X.perfume])
-        + G('ГАРДЕРОБ','▣','#8FE352',[C.base, X.acc, X.events])
-        + G('ПРАВИЛА','✕','#FF5C8A',[X.rules, C.nobuy]); })()}
+      return G('ЦВЕТ','◐','#19C6F7',[C.color, X.temp, X.avoid],
+                {t:'Пройдите цветотип — и сюда встанут ваши 24 цвета, база и список «не к лицу».', b:'Пройти цветотип', go:"closePage();setTimeout(()=>openColor(),250)"})
+        + G('ФИГУРА И ФОРМЫ','◈','#FF6FBF',[C.figure, X.fab, X.prints, X.lengths],
+                {t:'Укажите тип фигуры в анкете — появятся силуэты, длины и принты под вас.', b:'Заполнить анкету', go:"closePage();setTimeout(()=>goQuiz(),250)"})
+        + G('РАЗМЕРЫ','⌀','#5B6CFF',[C.sizes],
+                {t:'Добавьте размеры одежды и обуви — переведу их во все мировые сетки.', b:'Указать размеры', go:"closePage();setTimeout(()=>openProfile(),250)"})
+        + G('ЛИЦО И ВОЛОСЫ','✦','#B44CFF',[C.makeup, X.hair],
+                {t:'Пройдите макияж-гид и разбор волос — здесь будет ваша формула и стрижки.', b:'Разобрать лицо и волосы', go:"closePage();setTimeout(()=>openMakeup(),250)"})
+        + G('АРОМАТ','❋','#FFC46B',[X.perfume],
+                {t:'Аромат подбирается по цветотипу и характеру: нужен пройденный цветотип и Стиль-ДНК.', b:'Заполнить Стиль-ДНК', go:"closePage();setTimeout(()=>openDna(),250)"})
+        + G('ГАРДЕРОБ','▣','#8FE352',[C.base, X.acc, X.events],
+                {t:'Добавьте вещи в гардероб — соберу капсулу и список того, чего не хватает.', b:'Открыть гардероб', go:"closePage();setTimeout(()=>openWardrobe(),250)"})
+        + G('ПРАВИЛА','✕','#FF5C8A',[X.rules, C.nobuy],
+                {t:'Правила собираются из ваших ответов: чем больше анкет пройдено, тем точнее.', b:'Мои результаты', go:"closePage();setTimeout(()=>{openPage('myPage');setTimeout(()=>myTab('results'),300)},250)"}); })()}
     <div class="ps-foot">✦ LOOKA — персональный подбор по данным, а не по вкусу · покажите этот паспорт консультанту в магазине: цвета, размеры и фасоны уже здесь</div>
   </div>`;
 }
@@ -18681,11 +18745,11 @@ window.accMenu = (ev)=>{
    Раньше по горящему кружку открывалась пустая анкета, и казалось, что результат потерян. */
 window.DONE_MAP = {
   colorPage:  { key:'looka_color',  name:'цветотип',   res:'#ctOut',     again:'dnaRetakeColor()' },
-  hairPage:   { key:'looka_hair',   name:'волосы',     res:'#hairOut,#hcOut,#hgOut', again:'sectionRetake("looka_hair","hairPage")' },
+  hairPage:   { key:'looka_hair',   name:'волосы',     res:'#hrOut,#hgOut,#hlOut', again:'sectionRetake("looka_hair","hairPage")' },
   makeupPage: { key:'looka_makeup', name:'макияж',     res:'#mkOut',     again:'sectionRetake("looka_makeup","makeupPage")' },
   skinPage:   { key:'looka_skin',   name:'уход',       res:'#skOut',     again:'sectionRetake("looka_skin","skinPage")' },
-  braPage:    { key:'looka_bra',    name:'бельё',      res:'#braOut',    again:'sectionRetake("looka_bra","braPage")' },
-  dnaPage:    { key:'looka_dna',    name:'стиль-ДНК',  res:'#dnaOut',    again:'dnaRetake()' }
+  braPage:    { key:'looka_bra',    name:'бельё',      res:'#brOut',     again:'sectionRetake("looka_bra","braPage")' },
+  dnaPage:    { key:'looka_dna',    name:'стиль-ДНК',  res:'#dnaBody,#spOut', again:'dnaRetake()' }
 };
 window.sectionRetake = (key, page)=>{
   const n = (window.DONE_MAP[page]||{}).name || 'раздел';
@@ -18721,10 +18785,24 @@ window.doneBar = (id)=>{
 };
 window.doneJump = (id)=>{
   const cfg=(window.DONE_MAP||{})[id]; if(!cfg) return;
-  const page=document.getElementById(id);
-  const el = cfg.res.split(',').map(sel=>page.querySelector(sel.trim())).find(x=>x && x.innerHTML.trim());
-  if(el){ if(window.glide) glide(el,120,700); else el.scrollIntoView({behavior:'smooth',block:'start'}); }
-  else if(window.myToast) myToast('Результат пересобирается — прокрутите чуть ниже');
+  const page=document.getElementById(id); if(!page) return;
+  const go = el=>{ if(!el) return false;
+    if(window.glide) glide(el,110,750); else el.scrollIntoView({behavior:'smooth',block:'start'});
+    el.classList.add('res-flash'); setTimeout(()=>el.classList.remove('res-flash'), 1800); return true; };
+  /* сначала — заданный контейнер результата */
+  let el = cfg.res.split(',').map(sel=>page.querySelector(sel.trim())).find(x=>x && x.innerHTML.trim());
+  if(go(el)) return;
+  /* иначе — первая содержательная карточка после плашки «уже проходили» */
+  const bar = document.getElementById('doneBar');
+  const cards = [...page.querySelectorAll('.look')].filter(c=>{
+    if(bar && bar.contains(c)) return false;
+    const r=c.getBoundingClientRect(); return r.height > 60 && (c.innerText||'').trim().length > 40;
+  });
+  if(go(cards[0])) return;
+  /* совсем ничего — ведём к форме, чтобы было видно сохранённые ответы */
+  const form = page.querySelector('.grp, form, .chips');
+  if(go(form)) return;
+  if(window.myToast) myToast('Результат ещё собирается — он появится ниже');
 };
 
 (function(){ const o=window.openPage;
@@ -19750,6 +19828,84 @@ function build(items, wx){
   });
   return out;
 }
+/* ===== макияж и укладка под конкретный образ дня ===== */
+const esc0 = t => String(t||'').replace(/[^A-Za-zА-Яа-яЁё0-9]/g,'');
+const beautyCache = m=>{
+  try{
+    const N = JSON.parse(localStorage.getItem('looka_night')||'null');
+    const B = N && N.beauty && N.beauty[m];
+    if(B && N.day === new Date().toDateString()) return beautyHtml(B);
+  }catch(e){}
+  return '';
+};
+function beautyHtml(B){
+  const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  if(!B || (!B.makeup && !B.hair)) return '';
+  return `<div class="bt-box">
+    <div class="bt-h"><b>Лицо и волосы под этот образ</b>${B.time?`<em>${esc(B.time)}</em>`:''}</div>
+    ${B.makeup?`<div class="bt-sec"><span class="bt-k">Макияж</span><ul>
+      ${B.makeup.base?`<li><b>База</b>${esc(B.makeup.base)}</li>`:''}
+      ${B.makeup.eyes?`<li><b>Глаза</b>${esc(B.makeup.eyes)}</li>`:''}
+      ${B.makeup.lips?`<li><b>Губы</b>${esc(B.makeup.lips)}</li>`:''}
+      ${B.makeup.note?`<li class="bt-n"><b>Важно</b>${esc(B.makeup.note)}</li>`:''}
+    </ul></div>`:''}
+    ${B.hair?`<div class="bt-sec"><span class="bt-k">Укладка</span><ul>
+      ${B.hair.style?`<li><b>Что делаем</b>${esc(B.hair.style)}</li>`:''}
+      ${B.hair.how?`<li><b>Как</b>${esc(B.hair.how)}</li>`:''}
+      ${B.hair.note?`<li class="bt-n"><b>Важно</b>${esc(B.hair.note)}</li>`:''}
+    </ul></div>`:''}
+    ${B.why?`<div class="bt-why">${esc(B.why)}</div>`:''}
+    <div class="bt-more"><button class="btn ghost" onclick="openMakeup()">Схемы макияжа</button><button class="btn ghost" onclick="openHair()">Разбор волос</button></div>
+  </div>`;
+}
+window.lookBeauty = async (m)=>{
+  const out = document.getElementById('ntB-' + esc0(m)); if(!out) return;
+  let N=null; try{ N = JSON.parse(localStorage.getItem('looka_night')||'null'); }catch(e){}
+  const L = N && N.looks && N.looks[m]; if(!L){ myToast('Сначала соберите образ'); return; }
+  out.innerHTML = '<div class="bt-wait">Подбираю макияж и укладку под образ… <b id="btSec">0 с</b></div>';
+  const t0=Date.now(); clearInterval(window.__btT);
+  window.__btT=setInterval(()=>{ const e=document.getElementById('btSec'); if(!e){ clearInterval(window.__btT); return; }
+    e.textContent=Math.round((Date.now()-t0)/1000)+' с'; }, 500);
+  const g = k=>{ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } };
+  const cs=g('looka_cs')||{}, mk=g('looka_makeup')||{}, hr=g('looka_hair')||{}, wx=window.WX_LAST_OBJ||(N&&N.wx)||null;
+  const items = (L.items||[]).map(i=>(i.color?i.color+' ':'')+i.name).join(', ');
+  const know = [
+    cs.season ? 'цветотип: '+cs.season : '',
+    mk.eye ? 'форма глаз: '+mk.eye : '',
+    mk.skin ? 'тон кожи: '+mk.skin : '',
+    hr.face ? 'форма лица: '+hr.face : '',
+    hr.type ? 'волосы: '+hr.type+(hr.len?', '+hr.len:'')+(hr.dens?', '+hr.dens:'') : '',
+    (hr.cond||[]).length ? 'состояние волос: '+hr.cond.join(', ') : '',
+    hr.time ? 'времени на укладку: '+hr.time : ''
+  ].filter(Boolean).join('; ');
+  const prompt = 'Ты — визажист и стилист по волосам. Подбери макияж и укладку ПОД КОНКРЕТНЫЙ ОБРАЗ ОДЕЖДЫ, а не вообще.\n'
+    + 'Образ: ' + items + '. Настроение: ' + m + '.\n'
+    + (know ? 'Что известно о внешности: ' + know + '.\n' : '')
+    + (wx && typeof wx.f === 'number' ? 'На улице ощущается как ' + wx.f + '°' + (wx.w?', '+wx.w:'') + ' — учти стойкость и то, что под шапкой укладка сминается.\n' : '')
+    + 'Правила: это будний день, а не съёмка. Всё должно делаться максимум за 15 минут обычными средствами. '
+    + 'Никаких «выделите внутренний уголок кистью 217» — пиши так, как объясняют подруге. '
+    + 'Макияж должен перекликаться с цветами образа и подходить цветотипу. Укладка — под форму лица и реальное состояние волос. '
+    + 'Если волосы грязные или нет времени — предложи честный вариант со сборкой.\n'
+    + 'Ответь ТОЛЬКО валидным JSON без markdown:\n'
+    + '{"time":"сколько займёт, например 10 минут","makeup":{"base":"","eyes":"","lips":"","note":""},"hair":{"style":"","how":"","note":""},"why":"одна фраза: почему именно так под этот образ"}\n'
+    + 'Каждое поле — не длиннее 140 знаков. Поле note можно оставить пустым.';
+  try{
+    const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:700, messages:[{role:'user',content:prompt}] }) });
+    const j = await r.json();
+    if(j.error) throw new Error(j.error.message||'сервер вернул ошибку');
+    const txt = (j.content||[]).map(c=>c.text||'').join('').replace(/```json|```/g,'');
+    const B = JSON.parse(txt.slice(txt.indexOf('{'), txt.lastIndexOf('}')+1));
+    clearInterval(window.__btT);
+    try{ N.beauty = N.beauty || {}; N.beauty[m] = B; localStorage.setItem('looka_night', JSON.stringify(N)); }catch(e){}
+    out.innerHTML = beautyHtml(B);
+    if(window.authSync) authSync(true);
+  }catch(e){
+    clearInterval(window.__btT);
+    out.innerHTML = '<div class="wt-err"><b>Не получилось подобрать</b><p>'+String(e.message||e)+'</p>'
+      + '<button class="btn ghost" onclick="lookBeauty(\''+m+'\')">↻ Попробовать ещё раз</button></div>';
+  }
+};
+
 window.nightPlan = (force)=>{
   let W={items:[]}; try{ W=JSON.parse(localStorage.getItem('looka_wardrobe')||'{"items":[]}'); }catch(e){}
   if(!W.items || W.items.length<3) return null;
@@ -19777,7 +19933,9 @@ window.nightDraw = ()=>{
   if(!N){ box.innerHTML=`<div class="night"><div class="nt-h"><div class="cs-k">УТРОМ НЕ ДУМАТЬ, ЧТО НАДЕТЬ</div><h3>Ночью LOOKA соберёт образы из ваших вещей</h3><p>Добавьте хотя бы 5 вещей в гардероб (можно скриншотом заказов) — и каждое утро вас будут ждать три готовых образа под настроение и погоду.</p><div class="to-row"><button class="btn primary" onclick="openWardrobe()">▣ Добавить вещи</button><button class="btn ghost" onclick="openPage('myPage');setTimeout(()=>myTab('shops'),350)">⤒ Скриншот заказов</button></div></div></div>`; return; }
   const order = mood && N.looks[mood] ? [mood].concat(Object.keys(N.looks).filter(k=>k!==mood)) : Object.keys(N.looks);
   box.innerHTML=`<div class="night"><div class="nt-h"><div class="cs-k">СОБРАНО НОЧЬЮ · ИЗ ВАШЕГО ГАРДЕРОБА${N.wx&&N.wx.t!=null?' · '+(N.wx.t>0?'+':'')+N.wx.t+'°'+(typeof N.wx.f==='number'&&N.wx.f!==N.wx.t?', ОЩУЩАЕТСЯ КАК '+(N.wx.f>0?'+':'')+N.wx.f+'°':'')+' '+(N.wx.w||''):''}</div><h3>${mood?'Вы сегодня — '+mood.toLowerCase()+'. Вот ваш образ':'Три образа на сегодня — выберите настроение'}</h3></div>
-    <div class="nt-grid">${order.map((m,i)=>{ const L=N.looks[m]; const M=(window.MOODS||[]).find(x=>x[1]===m)||['✦']; return HUB.pop(`<div class="nt-look ${m===mood?'on':''}"><div class="nt-m"><i>${M[0]}</i><b>${m}</b>${m===mood?'<em>ваше сегодня</em>':''}</div><ul>${L.items.map(it=>`<li><span class="sw" style="background:${(window.WD_COLORS&&WD_COLORS[it.color])||'#8B92AA'}"></span>${it.name}<em>${it.cat}</em></li>`).join('')}</ul>${L.noOuter?`<div class="nt-warn">В гардеробе нет верхней одежды на такую погоду — образ без неё будет холодным. <button class="lnk" onclick="openWardrobe()">Добавить</button></div>`:''}<div class="nt-tip">${L.tip}</div><div class="nt-act"><button class="nt-go" onclick="nightWear('${m}')">Надену это</button><button class="nt-ask" onclick="voteNight('${m}')"><i>♥</i>Оценит подруга</button><button class="nt-re" onclick="nightPlan(true);nightDraw()" title="Собрать другой вариант" aria-label="Собрать другой вариант">↻</button></div></div>`,i); }).join('')}</div>
+    <div class="nt-grid">${order.map((m,i)=>{ const L=N.looks[m]; const M=(window.MOODS||[]).find(x=>x[1]===m)||['✦']; return HUB.pop(`<div class="nt-look ${m===mood?'on':''}"><div class="nt-m"><i>${M[0]}</i><b>${m}</b>${m===mood?'<em>ваше сегодня</em>':''}</div><ul>${L.items.map(it=>`<li><span class="sw" style="background:${(window.WD_COLORS&&WD_COLORS[it.color])||'#8B92AA'}"></span>${it.name}<em>${it.cat}</em></li>`).join('')}</ul>${L.noOuter?`<div class="nt-warn">В гардеробе нет верхней одежды на такую погоду — образ без неё будет холодным. <button class="lnk" onclick="openWardrobe()">Добавить</button></div>`:''}<div class="nt-tip">${L.tip}</div><div class="nt-act"><button class="nt-go" onclick="nightWear('${m}')">Надену это</button><button class="nt-ask" onclick="voteNight('${m}')"><i>♥</i>Оценит подруга</button><button class="nt-re" onclick="nightPlan(true);nightDraw()" title="Собрать другой вариант" aria-label="Собрать другой вариант">↻</button></div>
+          <button class="nt-beauty" onclick="lookBeauty('${m}')">✦ Макияж и укладка под этот образ</button>
+          <div class="nt-bo" id="ntB-${esc0(m)}">${beautyCache(m)}</div></div>`,i); }).join('')}</div>
     <div class="tip" style="margin-top:12px">Образы обновляются каждую ночь и приходят утром в Telegram, если он подключён. Чем больше вещей в гардеробе и полнее Стиль-ДНК — тем точнее.</div></div>`;
 };
 window.nightWear = m=>{ try{ const W=JSON.parse(localStorage.getItem('looka_wardrobe')||'{"items":[]}'); const N=JSON.parse(localStorage.getItem('looka_night')||'null'); const ids=new Set((N&&N.looks[m]||{items:[]}).items.map(i=>i.id)); W.items.forEach(i=>{ if(ids.has(i.id)){ i.worn=(i.worn||0)+1; i.last=Date.now(); } }); localStorage.setItem('looka_wardrobe', JSON.stringify(W)); }catch(e){} const rule=((window.MOODS||[]).find(x=>x[1]===m)||[])[2]||''; try{ localStorage.setItem('looka_mood', JSON.stringify({m,rule,day:new Date().toDateString()})); }catch(e){} if(window.heroMoodDraw) heroMoodDraw(); myToast('Записала: сегодня — '+m+'. Вещи отмечены как надетые'); nightDraw(); };
