@@ -7082,7 +7082,7 @@ setInterval(pgDraw, 4000);
       <button class="bz-chip" onclick="blike('волосы')">волосы</button>
       <button class="bz-chip" onclick="blike('форма лица')">форма лица</button></div></div>
 
-        <button class="bz-go" id="bGo" disabled>Разобрать мою внешность ✦</button>
+        <button class="bz-go" id="bGo" onclick="genBeauty()" disabled>Разобрать мою внешность ✦</button>
         <div class="bz-note">Нужны селфи, образ и бюджет. Остальное — по желанию, но с ним точнее.</div>
       </div>
     </div>
@@ -10061,6 +10061,7 @@ function renderBeauty(r, mode){
   if(window.fxZone) fxZone(wrap);
   wrap.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
+window.genBeauty = genBeauty;
 async function genBeauty(){
   if(!(B.style && B.budget)) return;
   const btn = document.getElementById('bGo');
