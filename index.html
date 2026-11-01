@@ -837,9 +837,12 @@ details.faq:hover summary{color:#fff}
 .pg-track{flex:0 0 auto;width:min(220px,22vw);height:4px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
 .pg-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#5B6CFF,#19C6F7,#7CF0B2);transition:width .5s}
 .pg-dots{display:flex;gap:5px;flex:0 0 auto}
-.pg-d{width:9px;height:9px;padding:0;border-radius:50%;cursor:pointer;
+.pg-d{position:relative;width:10px;height:10px;padding:0;border-radius:50%;cursor:pointer;
   border:1px solid rgba(255,255,255,.22);background:transparent;transition:transform .18s,background .18s}
-.pg-d:hover{transform:scale(1.5)}
+/* по крошечной точке сложно попасть — расширяем область нажатия невидимой рамкой */
+.pg-d::after{content:'';position:absolute;inset:-7px;border-radius:50%}
+.pg-d:hover{transform:scale(1.45)}
+.pg-d:focus-visible{outline:2px solid #19C6F7;outline-offset:3px}
 .pg-d.ok{border-color:transparent;background:linear-gradient(135deg,#7CF0B2,#19C6F7)}
 .pg-txt{font-size:12.5px;color:#9BA2B6;flex:0 1 auto;min-width:0}
 .pg-acc{flex:0 0 auto;padding:6px 13px;border-radius:99px;
@@ -867,6 +870,37 @@ details.faq:hover summary{color:#fff}
 .reg-first input{width:100%;padding:13px 15px;border-radius:12px;font-size:15px;
   border:1px solid rgba(255,255,255,.2);background:rgba(10,12,18,.65);color:#F4F6FC;outline:none}
 .reg-first input:focus{border-color:rgba(25,198,247,.65);box-shadow:0 0 0 3px rgba(25,198,247,.15)}
+
+/* ===== шаги рутины: карточки читаются и не сливаются ===== */
+.subpage .rt,.pageview .rt{gap:12px;margin-top:14px}
+.subpage .rt li,.pageview .rt li{grid-template-columns:34px 1fr;gap:13px;padding:15px 16px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  transition:border-color .2s,transform .2s}
+.subpage .rt li:hover,.pageview .rt li:hover{border-color:rgba(199,157,240,.4);transform:translateY(-2px)}
+.subpage .rt-n,.pageview .rt-n{width:28px;height:28px;border-radius:9px;font-size:12px;font-weight:700;
+  background:linear-gradient(135deg,#8B5CF6,#19C6F7);color:#fff;box-shadow:0 5px 14px -7px rgba(139,92,246,.95)}
+.subpage .rt li b,.pageview .rt li b{font-size:15px;color:#F4F6FC;line-height:1.3}
+.subpage .rt li p,.pageview .rt li p{margin:6px 0 0;font-size:13.5px;line-height:1.55;color:#C2C7D6}
+.subpage .rt li .mk-tool,.pageview .rt li .mk-tool{display:inline-block;margin-top:4px;
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.1px;text-transform:uppercase;color:#9BA2B6}
+/* заголовки «Утро» и «Вечер» не должны обрезаться */
+.subpage .look-in > h3,.pageview .look-in > h3{line-height:1.25;padding-bottom:2px;overflow:visible}
+
+/* «Не покупайте» — предупреждение, а не обычный список */
+.look-in:has(> h3:first-child) .mk-mist{margin-top:14px}
+.sk-no,.look.badv:has(h3) .mk-mist li{position:relative}
+.mk-mist{padding-left:0;list-style:none;gap:10px}
+.mk-mist li{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;
+  padding:12px 14px;border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#D2D6E4}
+.mk-mist li::before{content:'•';display:block;text-align:center;line-height:1.5;color:#19C6F7;font-size:17px}
+/* блок с запретами подсвечиваем красным */
+.look-in.warn-box{border-radius:0}
+.warn-box .mk-mist li{border-color:rgba(255,107,129,.25);background:rgba(255,107,129,.07)}
+.warn-box .mk-mist li::before{content:'✕';color:#FF8DA1;font-size:12px;line-height:1.7}
+.warn-box > h3{display:flex;align-items:center;gap:10px}
+.warn-box > h3::before{content:'⚠';font-size:18px;color:#FFB84C}
 
 /* ===== карточка средства и кнопки магазинов: читаемость и порядок ===== */
 .subpage .item,.pageview .item{padding:16px 18px;margin-bottom:14px;border-radius:16px;
@@ -2650,7 +2684,11 @@ header::before{display:none}
 .tb-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0}
 .tb-in .logo{font-size:22px}
 #topbar .topnav{margin:0}
-#topbar .nav-dd .dd{top:calc(100% + 12px)}
+#topbar .nav-dd .dd{top:calc(100% + 12px + var(--pgh,0px));z-index:900}
+/* плашка не должна перехватывать клики по раскрытому списку из шапки:
+   кликабельны только сами её кнопки */
+#pgBar{position:relative;z-index:1;pointer-events:none}
+#pgBar .pg-d,#pgBar .pg-save,#pgBar .pg-txt b{pointer-events:auto}
 /* ================= ШАПКА: один ровный ряд, ничего не срезается =================
    При входе в меню добавляются «Мой LOOKA» и «Паспорт» — строка переставала помещаться,
    логотип обрезался слева, а кнопка аккаунта уезжала за экран. */
@@ -3060,7 +3098,7 @@ header .topnav > a.only-in + a:not(.only-in){border-left:0;padding-left:0}
 @media(max-width:1024px){
   .wrap{padding:0 22px}
   .nav-dd .dd{position:fixed;left:16px;right:16px;top:64px;min-width:0;width:auto;max-height:calc(100vh - 90px);overflow:auto}
-  #topbar .nav-dd .dd{left:16px;right:16px;top:64px}
+  #topbar .nav-dd .dd{left:16px;right:16px;top:calc(64px + var(--pgh,0px))}
   .dd-grid{grid-template-columns:1fr 1fr}
   .dd-soon{grid-template-columns:1fr 1fr 1fr}
   .tool-grid{grid-template-columns:repeat(3,1fr)}
@@ -6679,13 +6717,13 @@ header nav.topnav{gap:4px;align-items:center}
 (function(){
 const PARTS = [
   ['looka_profile', 'анкета',    'goQuiz()',                            o=>o && o.figure && o.event],
-  ['looka_dna',     'стиль-ДНК', 'pgGo("dnaPage","openDna")',           o=>o && o.done],
-  ['looka_color',   'цветотип',  'pgGo("colorPage","openColor")',       o=>!!o],
-  ['looka_hair',    'волосы',    'pgGo("hairPage","openHair")',         o=>!!o],
-  ['looka_makeup',  'макияж',    'pgGo("makeupPage","openMakeup")',     o=>!!o],
-  ['looka_skin',    'кожа',      'pgGo("skinPage","openSkin")',         o=>!!o],
+  ['looka_dna',     'стиль-ДНК', 'pgGo(&quot;dnaPage&quot;,&quot;openDna&quot;)',           o=>o && o.done],
+  ['looka_color',   'цветотип',  'pgGo(&quot;colorPage&quot;,&quot;openColor&quot;)',       o=>!!o],
+  ['looka_hair',    'волосы',    'pgGo(&quot;hairPage&quot;,&quot;openHair&quot;)',         o=>!!o],
+  ['looka_makeup',  'макияж',    'pgGo(&quot;makeupPage&quot;,&quot;openMakeup&quot;)',     o=>!!o],
+  ['looka_skin',    'кожа',      'pgGo(&quot;skinPage&quot;,&quot;openSkin&quot;)',         o=>!!o],
   ['looka_wardrobe','гардероб',  'openWardrobe()',                      o=>o && (o.items||[]).length >= 3],
-  ['looka_bra',     'бельё',     'pgGo("braPage","openBra")',           o=>!!o]
+  ['looka_bra',     'бельё',     'pgGo(&quot;braPage&quot;,&quot;openBra&quot;)',           o=>!!o]
 ];
 /* по горящему кружку открываем раздел и сразу ведём к сохранённому результату */
 window.pgGo = (page, fn)=>{
@@ -6698,6 +6736,13 @@ window.pgDraw = ()=>{
   const box = document.getElementById('pgBar'); if(!box) return;
   const st = PARTS.map(p=>({ name:p[1], go:p[2], ok: !!p[3](rd(p[0])) }));
   const done = st.filter(x=>x.ok).length;
+  /* перерисовывать нечего — иначе кнопка исчезает прямо под курсором и клик теряется */
+  const sign = st.map(x=>x.ok?1:0).join('') + '|' + (signed()?1:0) + '|' + ((window.hasAccess&&hasAccess())?1:0);
+  if(box.dataset.sign === sign) return;
+  box.dataset.sign = sign;
+  /* выпадающие списки в шапке должны открываться ниже плашки, иначе она перехватывает клики */
+  setTimeout(()=>{ const tb=document.getElementById('topbar');
+    if(tb) tb.style.setProperty('--pgh', (box.offsetHeight||0)+'px'); }, 30);
   if(!done){ box.className=''; box.innerHTML=''; return; }   /* новичку плашка не нужна */
   const next = st.find(x=>!x.ok);
   box.className = 'on';
@@ -9402,12 +9447,25 @@ window.quizDoneCard = ()=>{
       <b>Анкета пройдена</b>
       <span>${bits.length?bits.join(' · '):'ответы сохранены'}</span></div></div>
     <div class="qd-b">
+      <button class="btn primary" onclick="generate(true)">✦ Подобрать образы</button>
       <button class="btn ghost" onclick="quizReopen(false)">✎ Изменить ответы</button>
       <button class="btn ghost" onclick="quizReopen(true)">↻ Пройти заново</button>
     </div></div>`;
   box.style.display='';
 };
 window.quizHideDone = ()=>{ const b=document.getElementById('quizDone'); if(b) b.style.display='none'; };
+/* при загрузке страницы: анкета уже заполнена — показываем карточку, а не пустые поля */
+window.quizRestore = ()=>{
+  const st = document.querySelector('.stage'); if(!st) return;
+  const full = S.figure && S.event && S.clothSize && S.age;
+  if(!full) return;
+  const res = document.getElementById('results');
+  if(res && res.style.display === 'block') return;   /* результаты уже на экране */
+  st.style.display = 'none';
+  quizDoneCard();
+};
+if(document.readyState!=='loading') setTimeout(()=>{ try{ quizRestore(); }catch(e){} }, 700);
+else document.addEventListener('DOMContentLoaded', ()=>setTimeout(()=>{ try{ quizRestore(); }catch(e){} }, 700));
 window.quizReopen = (fresh)=>{
   const r=document.getElementById('results'); if(r) r.style.display='none';
   quizHideDone();
@@ -12223,7 +12281,7 @@ function renderSkin(){
     <div class="look badv"><div class="look-in"><h3>☀ Утро</h3>${routine(R.am,'am')}</div></div>
     <div class="look badv"><div class="look-in"><h3>☾ Вечер</h3>${routine(R.pm,'pm')}</div></div>
     <div class="look badv"><div class="look-in"><h3>Раз в неделю</h3><ul class="mk-mist sk-week">${R.week.map(w=>'<li><b>'+w[0]+'.</b> '+w[1]+'</li>').join('')}</ul></div></div>
-    <div class="look badv"><div class="look-in"><h3>Не покупайте</h3><ul class="mk-mist">${R.no.map(n=>'<li>'+n+'</li>').join('')}</ul></div></div>
+    <div class="look badv"><div class="look-in warn-box"><h3>Не покупайте</h3><ul class="mk-mist">${R.no.map(n=>'<li>'+n+'</li>').join('')}</ul></div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Когда это уже к врачу</h3><div class="tip">${R.doc.join('<br><br>')}</div></div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Косметичка ухода</h3>
       <div class="sk-kit">${R.kit.map(k=>`<div class="item"><div class="nm">${k[0]}</div><div class="pr">${R.P(k[2])}</div>${beautyButtons(k[1])}</div>`).join('')}</div>
@@ -22766,6 +22824,13 @@ window.renderWantWd = ()=>{
   let wxl = ''; try{ const o = window.WX_LAST_OBJ;
     if(o && typeof o.t === 'number') wxl = (o.city?o.city+', ':'') + (o.t>0?'+':'') + Math.round(o.t) + '°' + (o.w?', '+o.w:'');
   }catch(e){}
+  /* город уже выбран (его показывают часы в шапке) — не писать «город не указан» */
+  if(!wxl){ try{ const c = JSON.parse(localStorage.getItem('looka_city')||'null');
+    if(c && c.n){
+      wxl = c.n + (typeof c.temp === 'number' ? ', ' + (c.temp>0?'+':'') + Math.round(c.temp) + '°' : '');
+      if(window.wtWx) setTimeout(()=>{ wtWx().then(()=>{ if(window.renderWardrobe) renderWardrobe(); }).catch(()=>{}); }, 50);
+    }
+  }catch(e){} }
   const chip = m => `<button class="wt-chip ${W.key===m[0]?'on':''}" data-k="${m[0]}" style="--c:${m[4]}"
       ${W.busy?'disabled':''} onclick="wtFromWd('${m[0]}')"><i>${m[1]}</i>${esc(m[2])}</button>`;
   /* блёстки как в темах переписки: 30 искр по сетке, без случайных прыжков при перерисовке */
@@ -22779,7 +22844,7 @@ window.renderWantWd = ()=>{
       <div class="cs-k">ОБРАЗ ПОД НАСТРОЕНИЕ · ИЗ ВАШИХ ВЕЩЕЙ</div>
       <h3>Какой вы хотите быть сегодня?</h3>
       <div class="wt-tags" style="margin:8px 0 2px">${wxl
-        ? `<span class="wt-wx">☀ ${esc(wxl)} · учитываю сама</span>`
+        ? `<span class="wt-wx">☀ ${esc(wxl)} · учитываю сама</span><button class="btn ghost wt-geo" onclick="openRegion()">Сменить город</button>`
         : `<span class="wt-wx nocity">☀ город не указан — образ собирается без погоды</span><button class="btn ghost wt-geo" onclick="wdGeo()">Определить город</button>`}</div>
       <p class="tip" style="margin:4px 0 12px">${n>=4
         ? 'Нажмите — и LOOKA соберёт образ из того, что уже висит в шкафу, с поправкой на погоду за окном. Если чего-то не хватает, скажет, какой одной вещи.'
