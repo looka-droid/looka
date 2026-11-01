@@ -10226,7 +10226,7 @@ window.openPage = (id, anchor)=>{
   if(id==='shopsPage' && window.renderShops) renderShops();
   if(id==='glowPage' && window.renderGlowForm) renderGlowForm();
   if(id==='dnaPage' && window.renderDna) renderDna();
-  if(id==='myPage'){ if(window.renderDash) renderDash(); if(window.renderAcc) renderAcc(); if(window.renderMyLooks) renderMyLooks(); if(window.renderNet) renderNet(); if(window.renderCart) renderCart(); if(window.renderBuy) renderBuy(); if(window.renderEvents) renderEvents(); if(window.renderGift) renderGift(); if(window.renderVotes) renderVotes(); if(window.renderFavShops) renderFavShops(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); myTab('results'); }
+  if(id==='myPage'){ if(window.renderDash) renderDash(); if(window.renderAcc) renderAcc(); if(window.renderMyLooks) renderMyLooks(); if(window.renderNet) renderNet(); if(window.renderCart) renderCart(); if(window.renderBuy) renderBuy(); if(window.renderEvents) renderEvents(); if(window.renderGift) renderGift(); if(window.renderVotes) renderVotes(); if(window.renderFavShops) renderFavShops(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); myTab(window.myTabWanted ? myTabWanted() : 'results'); }
   if(id==='carePage' && window.renderCare) renderCare();
   if(anchor){
     setTimeout(()=>{
@@ -18966,7 +18966,27 @@ window.chkProduct = async ()=>{
 })();
 
 /* ================= КАБИНЕТ: сводка результатов + вкладки ================= */
-window.myTab = t=>{ document.querySelectorAll('#myPage .my-tab').forEach(b=>b.classList.toggle('on', b.dataset.tab===t)); document.querySelectorAll('#myPage .my-pane').forEach(p=>{ p.hidden = p.dataset.pane!==t; }); const pane=document.querySelector('#myPage .my-pane[data-pane="'+t+'"] > div'); if(pane && window.sparkleReveal) sparkleReveal(pane); };
+window.MY_TABS = ['results','profile','shops','check','soon','share','finds'];
+window.myTab = t=>{
+  if(!window.MY_TABS.includes(t)) t = 'results';
+  document.querySelectorAll('#myPage .my-tab').forEach(b=>b.classList.toggle('on', b.dataset.tab===t));
+  document.querySelectorAll('#myPage .my-pane').forEach(p=>{ p.hidden = p.dataset.pane!==t; });
+  const pane=document.querySelector('#myPage .my-pane[data-pane="'+t+'"] > div');
+  if(pane && window.sparkleReveal) sparkleReveal(pane);
+  /* чтобы перезагрузка возвращала на ту же вкладку, а не на «Результаты» */
+  try{ localStorage.setItem('looka_mytab', t); }catch(e){}
+  setTimeout(()=>{ try{
+    if(document.getElementById('myPage') && document.getElementById('myPage').classList.contains('active-page'))
+      history.replaceState(Object.assign({}, history.state||{}, {looka:1, page:'myPage', tab:t}), '', '#myPage/'+t);
+  }catch(e){} }, 0);
+};
+/* какая вкладка должна открыться: из адреса, иначе последняя, иначе результаты */
+window.myTabWanted = ()=>{
+  const m = /^#myPage\/([a-z]+)/.exec(location.hash||'');
+  if(m && window.MY_TABS.includes(m[1])) return m[1];
+  try{ const t = localStorage.getItem('looka_mytab'); if(t && window.MY_TABS.includes(t)) return t; }catch(e){}
+  return 'results';
+};
 window.renderDash = ()=>{
   const box=document.getElementById('dashBox'); if(!box) return;
   const g=k=>{ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } };
@@ -22919,7 +22939,8 @@ if(typeof _home === 'function'){
 
 window.addEventListener('popstate', function(e){
   const st = e.state || {};
-  const want = st.looka ? (st.page || '') : (isPage(location.hash.slice(1)) ? location.hash.slice(1) : '');
+  const hashId = (location.hash.slice(1).split('/')[0] || '');
+  const want = st.looka ? (st.page || '') : (isPage(hashId) ? hashId : '');
   if(stack.length > 1) stack.pop();
   savePos();
   silent = true;
@@ -22940,7 +22961,9 @@ window.addEventListener('popstate', function(e){
 
 /* прямая ссылка вида looka.ru/#methodPage открывает нужный раздел */
 function fromHash(){
-  const id = location.hash.slice(1);
+  let id = location.hash.slice(1);
+  const slash = id.indexOf('/');
+  if(slash > 0) id = id.slice(0, slash);   /* #myPage/share — вкладку восстановит сама страница */
   if(isPage(id) && curPage() !== id){
     silent = true;
     try{ _open.call(window, id); } finally { setTimeout(()=>{ silent = false; }, 120); }
