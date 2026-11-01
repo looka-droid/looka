@@ -8835,9 +8835,13 @@ window.wxFetch = async (url, msDirect)=>{
     } finally { clearTimeout(tm); }
   };
   let pref = null; try{ pref = localStorage.getItem(WX_ROUTE); }catch(e){}
-  const tries = (pref === 'proxy' && via)
-    ? [['proxy', via, 14000], ['direct', url, msDirect||6000]]
-    : [['direct', url, msDirect||6000]].concat(via ? [['proxy', via, 14000]] : []);
+  /* В России провайдеры часто режут api.open-meteo.com напрямую, а через воркер он доступен.
+     Поэтому когда воркер настроен — идём сразу через него, а прямой запрос оставляем запасным. */
+  const tries = via
+    ? (pref === 'direct'
+        ? [['direct', url, msDirect||5000], ['proxy', via, 14000]]
+        : [['proxy', via, 14000], ['direct', url, msDirect||5000]])
+    : [['direct', url, msDirect||6000]];
   let last;
   for(const [name, u, ms] of tries){
     try{ const j = await once(u, ms); try{ localStorage.setItem(WX_ROUTE, name); }catch(e){} return j; }
@@ -11296,8 +11300,10 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDayLook(); }
     document.querySelector('#dayBox .btn.primary').textContent = 'Указать город →';
     maybeOpen(); return;
   }
-  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,apparent_temperature,precipitation,wind_speed_10m,weather_code&timezone=auto`)
-    .then(r=>r.json()).then(w=>{
+  const _dlUrl = 'https://api.open-meteo.com/v1/forecast?latitude='+city.lat+'&longitude='+city.lon+'&current=temperature_2m,apparent_temperature,precipitation,wind_speed_10m,weather_code&timezone=auto';
+  (window.wxGet ? wxGet(_dlUrl) : fetch(_dlUrl).then(r=>r.json()))
+    .then(w=>{
+      if(!w || !w.current) throw new Error('нет данных');
       const c = w.current, t = Math.round(c.temperature_2m);
       const f = (typeof c.apparent_temperature === 'number') ? Math.round(c.apparent_temperature) : t;
       window.WX_LAST_OBJ={t, f, wind:Math.round(c.wind_speed_10m||0), w:wcode(c.weather_code), city:city.n}; window.WX_LAST=(t>0?'+':'')+t+'° '+wcode(c.weather_code); if(window.nightDraw) setTimeout(nightDraw,50);
@@ -23210,6 +23216,9 @@ window.wtPick = async key=>{
           : '')+
        '\n')
     : (wxNow ? ('ГОРОД КЛИЕНТКИ: '+wxNow.txt+'. Учитывай типичную погоду этого места и текущий сезон.\n') : '');
+  /* если анкету проходили в прошлый раз, window.S мог ещё не загрузиться — берём из профиля */
+  const PR = (()=>{ try{ return JSON.parse(localStorage.getItem('looka_profile')||'{}')||{}; }catch(e){ return {}; } })();
+  ['figure','height','clothSize','shoeSize','hair','eyes','skin','budget','gender'].forEach(k=>{ if(!S2[k] && PR[k]) S2[k]=PR[k]; });
   const me = ['Клиентка:', S2.gender||'женщина',
     S2.figure?('тип фигуры '+S2.figure):null,
     S2.height?('рост '+S2.height):null,
@@ -23225,8 +23234,10 @@ window.wtPick = async key=>{
   const dna = (window.dnaSummary && dnaSummary()) ? ('ЕЁ СТИЛЬ-ДНК (это её вкус, опирайся на него): ' + dnaSummary() + '\n') : '';
   const colr = (()=>{
     try{
-      const C = JSON.parse(localStorage.getItem('looka_color')||'null');
-      const seas = C && C.season;
+      const C  = JSON.parse(localStorage.getItem('looka_color')||'null');
+      const CS = JSON.parse(localStorage.getItem('looka_cs')||'null');
+      /* результат цветотипа сохраняется в looka_cs; looka_color — это ответы анкеты */
+      const seas = (CS && CS.season) || (C && C.season) || null;
       const P = (window.PAL && PAL()) || null;
       const bits = [];
       if(seas) bits.push('цветотип «'+seas+'»');
@@ -23238,7 +23249,8 @@ window.wtPick = async key=>{
   const life = (window.lifeText && lifeText()) ? (lifeText() + '\n') : '';
   /* честно считаем, чего не хватает — чтобы сказать об этом ей, а не выдумывать за неё */
   const gaps = [];
-  if(!S2.figure) gaps.push(['тип фигуры','openProfile()']);
+  const figure = S2.figure || (()=>{ try{ return (JSON.parse(localStorage.getItem('looka_profile')||'{}')||{}).figure||null; }catch(e){ return null; } })();
+  if(!figure) gaps.push(['тип фигуры','openProfile()']);
   if(!dna) gaps.push(['Стиль-ДНК','openDna()']);
   if(!colr) gaps.push(['цветотип','openColor()']);
   W.gaps = gaps;
@@ -23268,7 +23280,7 @@ window.wtPick = async key=>{
        '{"intro":"одна фраза о том, как этот образ работает","note":"пустая строка или честное замечание","looks":[{"t":"короткое название","dir":"строгий","where":"куда надеть","own":["точное название вещи из шкафа"],"add":{"n":"чего не хватает","q":"поисковый запрос","p":"цена ₽"},"why":"почему именно так"}]}\n'+
        'Поле add можно опустить, если всё собралось из своих вещей. По-русски, на «вы».\n'+
        'ПИШИ КОРОТКО, это важнее красоты: intro — до 90 знаков, t — до 40, where — до 30, why — до 100, note — до 90. '+
-       'Никаких вступлений, повторов и пояснений вне JSON.')
+       'В каждом образе не больше 5 вещей. Никаких вступлений, повторов и пояснений вне JSON.')
     : ('Ты — опытный стилист. '+me+'.\n'+
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
        'Подход: '+m[5]+'\n'+dna+colr+life+wxRule+rules+'\n'+(window.nopeRule?nopeRule():'')+
@@ -23283,7 +23295,7 @@ window.wtPick = async key=>{
   W.ac = ac;
   const bell = setTimeout(()=>{ if(ac) try{ ac.abort(); }catch(e){} }, 75000);
   try{
-    const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1100, messages:[{role:'user', content:prompt}] }), signal: ac ? ac.signal : undefined });
+    const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1600, messages:[{role:'user', content:prompt}] }), signal: ac ? ac.signal : undefined });
     let j;
     try{ j = await r.json(); }
     catch(e){ throw new Error('сервер вернул не ответ, а страницу (код '+r.status+')'); }
@@ -23474,8 +23486,9 @@ window.wtWx = async ()=>{
   let c = null; try{ c = JSON.parse(localStorage.getItem('looka_city')||'null'); }catch(e){}
   if(!c || c.lat === undefined) return null;
   try{
-    const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+c.lat+'&longitude='+c.lon+'&current=temperature_2m,apparent_temperature,wind_speed_10m,weather_code&timezone=auto');
-    const j = await r.json();
+    /* через wxGet: он сам выберет путь — напрямую или через воркер, если провайдер режет сервис */
+    const _u = 'https://api.open-meteo.com/v1/forecast?latitude='+c.lat+'&longitude='+c.lon+'&current=temperature_2m,apparent_temperature,wind_speed_10m,weather_code&timezone=auto';
+    const j = window.wxGet ? await wxGet(_u) : await (await fetch(_u)).json();
     const t = Math.round(j.current.temperature_2m), k = j.current.weather_code;
     /* одеваются по ОЩУЩАЕМОЙ температуре: +11 при ветре ощущается как +4, и в кожанке холодно */
     const f = (typeof j.current.apparent_temperature === 'number') ? Math.round(j.current.apparent_temperature) : t;
