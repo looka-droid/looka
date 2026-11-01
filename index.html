@@ -3841,6 +3841,17 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .ps-grid .ps-sizes b{color:var(--pc);text-shadow:0 0 14px color-mix(in srgb, var(--pc) 55%, transparent)}
 .ps-grid .ps-dna div{border-color:color-mix(in srgb, var(--pc) 45%, transparent);background:linear-gradient(180deg, color-mix(in srgb, var(--pc) 14%, transparent), color-mix(in srgb, var(--pc) 4%, transparent))}
 .ps-grid .ps-dna b{color:var(--pc)}
+/* карточка «что подарить» — читает мужчина, которому нужно быстро и без промаха */
+.gf-rule{margin:10px 0 14px;padding:11px 14px;border-radius:12px;font-size:13.5px;line-height:1.55;
+  color:#E6EAF5;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05)}
+.gf-bud{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px;padding:12px 16px;border-radius:14px;
+  border:1px solid rgba(124,240,178,.35);background:linear-gradient(135deg,rgba(124,240,178,.14),rgba(25,198,247,.06))}
+.gf-bud small{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#9CF3C6}
+.gf-bud b{font-family:'Golos Text',sans-serif;font-weight:800;font-size:19px;color:#F4F5FA}
+.cs-k.gf-yes{margin-top:14px;color:#9CF3C6}
+.cs-k.gf-no{margin-top:16px;color:#FF9DB0}
+.gf-nochips .chip{border-color:rgba(255,157,176,.4);color:#FFC2CF;background:rgba(255,157,176,.07);
+  text-decoration:line-through;text-decoration-color:rgba(255,157,176,.55)}
 .ps-pf{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .ps-pf span{font-family:'Golos Text';font-weight:700;font-size:13px;color:#0A0B10;background:#FFC46B;padding:6px 12px;border-radius:99px;box-shadow:0 0 14px rgba(255,196,107,.4)}
 .ps-pfq .b-links{margin-top:6px}
@@ -11541,6 +11552,63 @@ window.showDoc = (id, btn)=>{
 /* ================= СТИЛЬ-ПАСПОРТ ================= */
 const COLOR_HEX = {'лавандовый':'#B9A7E8','серо-голубой':'#9FB3C8','пудровый':'#E8C9C0','дымчато-розовый':'#C9A9A6','изумрудный':'#1E8F63','горчичный':'#D4A017','терракотовый':'#C1553B','кремовый':'#F1E3C8','алый':'#E0342C','кобальтовый':'#2245B5','белоснежный':'#FFFFFF','чёрный':'#141414','белый':'#FAFAFA','графитовый':'#3A3D46','серебристый':'#C0C4CC','фисташковый':'#A6C48A','оливковый':'#6B7A3A','небесно-голубой':'#8CC4F0','денимовый':'#3F5E8C','молочный':'#F5F0E6','карамельный':'#C58B4B','бежевый':'#D9C6A5','коричневый':'#6B4A2F','шоколадный':'#4A2C1A','серый':'#8A8F9A','бордовый':'#6E1A2B','пыльно-розовый':'#C9A0A0','тёплый белый':'#F7F2E8'};
 const swatch = c=>'<div class="ps-sw"><i style="background:'+(COLOR_HEX[c]||'#777')+'"></i><span>'+c+'</span></div>';
+/* обложка паспорта: то, что нужно в примерочной, на одном экране */
+function passportCover(p, male, X, sizes){
+  let name=''; try{ name=(JSON.parse(localStorage.getItem('looka_acc')||'{}').name||'').split(' ')[0]; }catch(e){}
+  let season=''; try{ const cs=JSON.parse(localStorage.getItem('looka_cs')||'null'); season=(cs&&cs.season)||''; }catch(e){}
+  const M = X.meta || {};
+  const fact = (k,v)=> v ? '<div><span>'+k+'</span><b>'+v+'</b></div>' : '';
+  const facts = fact('цветотип', season)
+    + fact('фигура', S.figure)
+    + fact('рост', S.height ? S.height+' см' : '')
+    + fact('контраст', M.contrast)
+    + fact('температура', M.cold ? 'холодная' : 'тёплая')
+    + fact('металл', p.metal);
+  const hexOf = c => (typeof COLOR_HEX!=='undefined' && COLOR_HEX[c]) || ({'оранжевый':'#F0741E','тёплый жёлтый':'#F2C94C','терракотовый':'#C1553B','хаки':'#6B7A3A','фуксия':'#E0218A','ледяной голубой':'#BFE6F5','белоснежный':'#FFFFFF','холодный лиловый':'#9C7BD1'})[c] || '#777';
+  const sw  = c => '<div class="ps-sw"><i style="background:'+hexOf(c)+'"></i><span>'+c+'</span></div>';
+  const swX = c => '<div class="ps-sw off"><i style="background:'+hexOf(c)+'"></i><span>'+c+'</span></div>';
+  const fitting = [
+    (FIG_TIPS[S.figure]||[])[0] || 'силуэт — по фигуре, а не по моде',
+    'размер по плечам и бёдрам: талию и длину ушьют, плечи — нет',
+    M.lenFirst || 'длина проверяется стоя, а не перед зеркалом сидя',
+    'сомневаетесь — не берёте: сомнение и есть ответ'
+  ].filter(Boolean);
+  return '<div class="ps-cover">'
+    + '<div class="ps-cv-k">ГЛАВНОЕ · ЭТОГО ХВАТИТ В ПРИМЕРОЧНОЙ</div>'
+    + (name ? '<h4 class="ps-cv-name">'+name+'</h4>' : '')
+    + '<div class="ps-cv-facts">'+facts+'</div>'
+    + '<div class="ps-cv-split">'
+      + '<div class="ps-cv-col">'
+        + '<div class="ps-k2">Акценты — у лица</div><div class="ps-sws">'+p.accents.slice(0,4).map(sw).join('')+'</div>'
+        + '<div class="ps-k2">База — низ и верхняя одежда</div><div class="ps-sws">'+p.neutrals.map(sw).join('')+'</div>'
+        + '<div class="ps-k2">Не у лица — можно только на низ</div><div class="ps-sws">'+(M.avoid||[]).map(swX).join('')+'</div>'
+      + '</div>'
+      + '<div class="ps-cv-col">'
+        + '<div class="ps-k2">Одежда</div><div class="ps-sizes ps-cv-sz">'+sizes.cloth+'</div>'
+        + '<div class="ps-k2">Обувь</div><div class="ps-sizes ps-cv-sz">'+sizes.shoe+'</div>'
+        + '<div class="ps-k2">Металл украшений</div><div class="ps-metal '+(p.metal==='серебристый'?'silver':'gold')+'">'+p.metal+'</div>'
+      + '</div>'
+    + '</div>'
+    + '<div class="ps-cv-fit"><b>В примерочной</b><ul class="tp-list">'+fitting.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'
+  + '</div>';
+}
+/* раздел паспорта сворачивается — чтобы не было стены на 4000 пикселей */
+window.psToggle = id=>{
+  const el = document.getElementById(id); if(!el) return;
+  el.classList.toggle('open');
+  const b = el.querySelector('.ps-sec');
+  if(b) b.setAttribute('aria-expanded', el.classList.contains('open') ? 'true' : 'false');
+};
+window.psAll = open=>{
+  document.querySelectorAll('#passBox .ps-acc').forEach(el=>{
+    el.classList.toggle('open', !!open);
+    const b = el.querySelector('.ps-sec'); if(b) b.setAttribute('aria-expanded', open?'true':'false');
+  });
+  const t = document.getElementById('psAllBtn');
+  if(t) t.textContent = open ? '▴ Свернуть все разделы' : '▾ Развернуть все разделы';
+  if(t) t.dataset.open = open ? '1' : '';
+};
+
 function passportHTML(){
   const male = S.gender==='Мужчина', p = PAL();
   const INT = male? {44:'XS',46:'S',48:'M',50:'L',52:'XL',54:'XXL',56:'3XL',58:'4XL',60:'5XL'} : {40:'XS',42:'S',44:'M',46:'L',48:'XL',50:'XXL',52:'3XL',54:'4XL',56:'5XL',58:'6XL'};
@@ -11642,7 +11710,8 @@ function passportExtra(p, male){
     hair: card('ПРИЧЁСКА И ЦВЕТ ВОЛОС', ul(hair)),
     perfume: card('АРОМАТ ПО ЦВЕТОТИПУ', '<div class="ps-pf">'+PF.fam.map(f=>'<span>'+f+'</span>').join('')+'</div>'+ul(perfume)+'<div class="ps-k2">Как выбирать</div>'+ul(perfumeTest)+'<div class="ps-k2">Подобрать по семействам</div><div class="ps-pfq">'+PF.q.map((q,i)=>'<div class="ps-pfrow"><div class="ps-pfl">'+PF.fam[i]+'</div>'+beautyButtons(q).replace('class="mp"','class="mp b-links"')+'</div>').join('')+'</div>'),
     events: card('ФОРМУЛЫ ПОД СОБЫТИЯ', ul(evs)),
-    rules: card('ВАШИ ПРАВИЛА ШОПИНГА', ul(rules))
+    rules: card('ВАШИ ПРАВИЛА ШОПИНГА', ul(rules)),
+    meta: { cold, contrast, avoid, fabFirst:(fab[0]||''), lenFirst:(lengths[0]||'') }
   };
 }
 
@@ -18676,26 +18745,38 @@ window.eventsSoonText=()=>{ const today=new Date(); today.setHours(0,0,0,0); ret
 (function(){
 const api=p=>String(typeof LOOKA_API!=='undefined'?LOOKA_API:'').replace(/\/$/,'')+p;
 const siteUrl=()=>location.origin+location.pathname;
-const G = HUB.ls('looka_gift', { id:'', wish:[], no:[], shops:[], note:'' });
-const WISH=['сумка','серьги','тренч','кашемировый свитер','духи — мой аромат','сертификат LOOKA','уход для лица','книга','цветы','свечи','поход в спа','билеты'];
-const NO=['духи наугад','сладкое','цветы в горшках','бельё','вещи не моего размера','сувениры','мягкие игрушки','косметика наугад'];
+const G = HUB.ls('looka_gift', { id:'', wish:[], no:[], shops:[], budget:'', note:'' });
+if(G.budget === undefined) G.budget = '';
+/* подсказки рассчитаны на мужчину: он не угадывает металл, оттенок и фасон — ему нужно «что и где» */
+const WISH=[
+  'сертификат в мой магазин','мои духи — точное название','серьги в моём металле','тонкая цепочка',
+  'сумка из моего списка','кашемировый свитер','шёлковая пижама','тренч',
+  'уход для лица — по моему списку','оплатить мастера: ногти, брови, волосы','спа или массаж',
+  'ужин, который он забронирует','поездка на выходные','билеты','букет без целлофана','сертификат LOOKA'];
+const NO=[
+  'духи наугад','косметика наугад','бельё без моего размера','вещи не моего размера',
+  'украшения с крупными камнями','подарочные наборы из супермаркета','техника для дома',
+  'кружки, статуэтки, сувениры','мягкие игрушки','цветы в целлофане','цветы в горшках','сладкое'];
+const BUDGET=['до 3 000 ₽','3–7 тысяч','7–15 тысяч','15–30 тысяч','лучше вскладчину','сумма не важна'];
 const sizes=()=>{ const S3=window.S||{}; let bra=''; try{ bra=(JSON.parse(localStorage.getItem('looka_bra')||'{}').result)||''; }catch(e){} return { clothes:S3.clothSize||'', shoes:S3.shoeSize||'', height:S3.height||'', bra: typeof bra==='string'?bra:(bra.ru||'') }; };
 const colors=()=>{ try{ const s=JSON.parse(localStorage.getItem('looka_cs')||'{}').season; if(!s||!window.SEASONS||!SEASONS[s]) return []; const Z=SEASONS[s]; return (Z.best||Z.pal||Z.colors||[]).slice(0,8).map(c=>Array.isArray(c)?c[1]:c); }catch(e){ return []; } };
 window.giftTog=(k,v)=>{ const a=G[k]; const i=a.indexOf(v); i<0?a.push(v):a.splice(i,1); HUB.save('looka_gift',G); renderGift(); };
 window.giftNote=v=>{ G.note=v; HUB.save('looka_gift',G); };
+window.giftBud=v=>{ G.budget = (G.budget===v ? '' : v); HUB.save('looka_gift',G); renderGift(); };
 window.renderGift=()=>{ const box=document.getElementById('giftBox'); if(!box) return; const sz=sizes(); const A=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_acc')||'{}'); }catch(e){ return {}; } })();
   box.innerHTML=`<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">ТЕМ, КТО ДАРИТ · ОДНА ССЫЛКА</div><h3>Чтобы вам дарили то, что подходит</h3>
-    <div class="tip">Отправьте ссылку маме, подруге, мужу — они увидят ваши размеры, ваши цвета, что вы хотите и чего дарить не надо. Без вашего профиля и анкет: только то, что нужно дарящему.</div>
+    <div class="tip">Отправьте ссылку мужу, парню, папе — и ему не придётся гадать. Он увидит ваши размеры, ваш металл, ваши цвета, точные названия и сумму, на которую стоит ориентироваться. Маме и подруге она тоже подойдёт, но собрана так, чтобы не промахнулся тот, кто в этом не разбирается.</div>
     <div class="gift-sizes"><div><small>одежда</small><b>${sz.clothes||'—'}</b></div><div><small>обувь</small><b>${sz.shoes||'—'}</b></div><div><small>бра</small><b>${sz.bra||'—'}</b></div><div><small>цветотип</small><b>${(()=>{ try{ return JSON.parse(localStorage.getItem('looka_cs')||'{}').season||'—'; }catch(e){ return '—'; } })()}</b></div></div>
     <div class="grp"><label class="t">Что хочу <span class="to-opt">несколько</span></label><div class="chips">${WISH.map(v=>`<button class="chip ${G.wish.includes(v)?'on':''}" onclick="giftTog('wish','${v}')">${v}</button>`).join('')}</div></div>
     <div class="grp"><label class="t">Чего дарить не надо <span class="to-opt">несколько</span></label><div class="chips">${NO.map(v=>`<button class="chip ${G.no.includes(v)?'on':''}" onclick="giftTog('no','${v}')">${v}</button>`).join('')}</div></div>
+    <div class="grp"><label class="t">На какую сумму ориентироваться <span class="to-opt">один вариант</span></label><div class="chips">${BUDGET.map(v=>`<button class="chip ${G.budget===v?'on':''}" onclick="giftBud('${v}')">${v}</button>`).join('')}</div></div>
     <div class="grp"><label class="t">Где я люблю покупать</label><div class="chips">${['Lime','12storeez','Zara / Massimo Dutti','Wildberries','Золотое Яблоко','Лэтуаль','маленькие бренды','секонд и винтаж'].map(v=>`<button class="chip ${G.shops.includes(v)?'on':''}" onclick="giftTog('shops','${v}')">${v}</button>`).join('')}</div></div>
-    <div class="grp"><label class="t">Одна строка от вас</label><input class="acc-in" value="${(G.note||'').replace(/"/g,'&quot;')}" placeholder="например: лучше сертификат, чем угадывать" onchange="giftNote(this.value)"></div>
+    <div class="grp"><label class="t">Одна строка от вас</label><input class="acc-in" value="${(G.note||'').replace(/"/g,'&quot;')}" placeholder="например: если сомневаешься — сертификат, я сама выберу" onchange="giftNote(this.value)"></div>
     <div class="to-row"><button class="btn primary" onclick="giftShare()">${G.id?'Обновить и скопировать ссылку':'Создать ссылку для дарящих →'}</button>${G.id?`<a class="btn ghost" target="_blank" href="${siteUrl()}#gift=${G.id}">Посмотреть, как видят они</a>`:''}</div>
     <div class="b-priv">В карточке нет фото, анкет и почты — только размеры, цвета, желания и «не дарить».</div>
   </div></div>`; };
 window.giftShare=async()=>{ const sz=sizes(); const A=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_acc')||'{}'); }catch(e){ return {}; } })();
-  try{ const t=(JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; const r=await fetch(api('/gift/save'),{method:'POST',headers:{'Content-Type':'application/json',...(t?{'Authorization':'Bearer '+t}:{})},body:JSON.stringify({id:G.id||undefined,name:(A.name||'').split(' ')[0],sizes:sz,colors:colors(),wish:G.wish,no:G.no,shops:G.shops,note:G.note})}); const j=await r.json(); if(!r.ok) throw new Error(j.error||'ошибка');
+  try{ const t=(JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; const r=await fetch(api('/gift/save'),{method:'POST',headers:{'Content-Type':'application/json',...(t?{'Authorization':'Bearer '+t}:{})},body:JSON.stringify({id:G.id||undefined,name:(A.name||'').split(' ')[0],sizes:sz,colors:colors(),wish:G.wish,no:G.no,shops:G.shops,budget:G.budget||'',note:G.note})}); const j=await r.json(); if(!r.ok) throw new Error(j.error||'ошибка');
     G.id=j.id; HUB.save('looka_gift',G); const link=siteUrl()+'#gift='+j.id; try{ await navigator.clipboard.writeText(link); }catch(e){} myToast('Ссылка скопирована — отправьте тем, кто дарит'); renderGift(); if(window.lifeHearts) lifeHearts(document.getElementById('giftBox')); }
   catch(e){ myToast('Не получилось: '+e.message); } };
 /* публичная карточка */
@@ -18703,13 +18784,16 @@ window.giftView=async id=>{ let ov=document.getElementById('pubOv'); if(!ov){ ov
   ov.innerHTML=`<div class="au-box pub-box"><div class="au-aura"></div><div class="au-in"><div class="tip">Загружаю…</div></div></div>`; ov.classList.add('open'); document.body.style.overflow='hidden';
   try{ const r=await fetch(api('/gift/'+id)); const c=await r.json(); if(!r.ok) throw new Error(c.error||'нет карточки');
     ov.innerHTML=`<div class="au-box pub-box"><div class="au-aura"></div><button class="au-x" onclick="pubClose()">✕</button><div class="au-in">
-      <div class="au-mark">🎁</div><div class="cs-k">ПОДСКАЗКА ОТ LOOKA</div><h3>${c.name?'Что подарить — '+c.name+' подсказала':'Что подарить'} · и чего не надо</h3>
-      <div class="gift-sizes">${[['одежда',c.sizes.clothes],['обувь',c.sizes.shoes],['бра',c.sizes.bra],['рост',c.sizes.height]].filter(x=>x[1]).map(x=>`<div><small>${x[0]}</small><b>${x[1]}</b></div>`).join('')}</div>
-      ${c.colors&&c.colors.length?`<div class="cs-k" style="margin-top:12px">ЕЁ ЦВЕТА</div><div class="chips">${c.colors.map(x=>`<span class="chip on">${x}</span>`).join('')}</div>`:''}
-      ${c.wish.length?`<div class="cs-k" style="margin-top:12px">ХОЧЕТ</div><div class="chips">${c.wish.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`:''}
-      ${c.no.length?`<div class="cs-k" style="margin-top:12px;color:#FF9DB0">НЕ ДАРИТЬ</div><div class="chips">${c.no.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`:''}
-      ${c.shops.length?`<div class="cs-k" style="margin-top:12px">ГДЕ ОНА ЛЮБИТ</div><div class="tip">${c.shops.join(' · ')}</div>`:''}
-      ${c.note?`<div class="lf-say" style="margin-top:12px;font-size:15px">«${c.note}»</div>`:''}
+      <div class="au-mark">🎁</div><div class="cs-k">ПОДСКАЗКА ОТ LOOKA</div><h3>${c.name?c.name+' сама написала, что ей подарить':'Что подарить'}</h3>
+      <div class="gf-rule">Три правила: берите из зелёного списка · ничего из красного · сомневаетесь — сертификат, она выберет сама.</div>
+      ${c.budget?`<div class="gf-bud"><small>на какую сумму ориентироваться</small><b>${c.budget}</b></div>`:''}
+      ${c.wish.length?`<div class="cs-k gf-yes">БЕРИТЕ ОТСЮДА — ЭТО ОНА ХОЧЕТ</div><div class="chips">${c.wish.map(x=>`<span class="chip on">${x}</span>`).join('')}</div>`:''}
+      ${c.no.length?`<div class="cs-k gf-no">ЭТО НЕ ДАРИТЬ</div><div class="chips gf-nochips">${c.no.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`:''}
+      ${c.shops.length?`<div class="cs-k" style="margin-top:14px">ГДЕ ЭТО ИСКАТЬ</div><div class="tip">${c.shops.join(' · ')}</div>`:''}
+      ${[c.sizes.clothes,c.sizes.shoes,c.sizes.bra,c.sizes.height].some(Boolean)?`<div class="cs-k" style="margin-top:14px">ЕСЛИ ВСЁ-ТАКИ ОДЕЖДА — ЕЁ РАЗМЕРЫ</div>
+      <div class="gift-sizes">${[['одежда',c.sizes.clothes],['обувь',c.sizes.shoes],['бра',c.sizes.bra],['рост',c.sizes.height]].filter(x=>x[1]).map(x=>`<div><small>${x[0]}</small><b>${x[1]}</b></div>`).join('')}</div>`:''}
+      ${c.colors&&c.colors.length?`<div class="cs-k" style="margin-top:14px">ЕЁ ЦВЕТА</div><div class="tip" style="margin-bottom:6px">Если выбираете вещь, украшение или букет — эти оттенки ей идут. Остальные лучше не брать.</div><div class="chips">${c.colors.map(x=>`<span class="chip on">${x}</span>`).join('')}</div>`:''}
+      ${c.note?`<div class="lf-say" style="margin-top:14px;font-size:15px">«${c.note}»</div>`:''}
       <div class="to-row" style="margin-top:14px"><button class="btn primary" onclick="pubClose();openPage('giftPage')">🎁 Подарить год LOOKA</button><button class="btn ghost" onclick="pubClose()">Закрыть</button></div>
       <div class="b-priv">Сделано в LOOKA — сервисе, который знает её стиль. Хотите такую же подсказку для себя? Это бесплатно.</div>
     </div></div>`; }
