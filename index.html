@@ -10094,6 +10094,8 @@ window.openBeauty = ()=>{
   document.body.classList.remove('subpage');
   document.querySelectorAll('.pageview').forEach(p=>p.classList.remove('active-page'));
   document.body.classList.add('beauty-mode');
+  /* чтобы после обновления страницы открылся бьюти-скан, а не что попало */
+  try{ history.replaceState(Object.assign({}, history.state||{}, {looka:true, beauty:true}), '', '#beauty'); }catch(e){}
   const b = document.getElementById('beauty'); if(b) b.classList.add('in');
   window.scrollTo({top:0, behavior:'auto'});
   // плавно довозим до анкеты (или до готового результата, если он уже есть)
@@ -10103,12 +10105,12 @@ window.openBeauty = ()=>{
   }, 350);
 };
 window.closeBeauty = ()=>{
-  document.body.classList.remove('beauty-mode');
+  document.body.classList.remove('beauty-mode');  try{ if(location.hash==='#beauty') history.replaceState(null,'',location.pathname+location.search); }catch(e){}
   window.scrollTo({top:0, behavior:'smooth'});
 };
 
 window.openPage = (id, anchor)=>{
-  document.body.classList.remove('beauty-mode');
+  document.body.classList.remove('beauty-mode');  try{ if(location.hash==='#beauty') history.replaceState(null,'',location.pathname+location.search); }catch(e){}
   document.body.classList.add('subpage');
   document.querySelectorAll('.pageview').forEach(p=>p.classList.remove('active-page'));
   const el = document.getElementById(id);
@@ -10389,7 +10391,7 @@ window.goQuiz = ()=>{
 })();
 
 window.goHome = ()=>{
-  document.body.classList.remove('beauty-mode','subpage');
+  document.body.classList.remove('beauty-mode','subpage');  try{ if(location.hash==='#beauty') history.replaceState(null,'',location.pathname+location.search); }catch(e){}
   document.querySelectorAll('.pageview').forEach(p=>p.classList.remove('active-page'));
   window.scrollTo({top:0, behavior:'smooth'});
 };
@@ -22759,8 +22761,14 @@ function fromHash(){
     try{ _open.call(window, id); } finally { setTimeout(()=>{ silent = false; }, 120); }
   }
 }
-if(document.readyState !== 'loading') setTimeout(fromHash, 350);
-else document.addEventListener('DOMContentLoaded', ()=>setTimeout(fromHash, 350));
+/* #beauty — это не обычная страница, а режим: восстанавливаем его отдельно */
+function fromHashBeauty(){
+  if(location.hash.slice(1) !== 'beauty') return false;
+  if(window.openBeauty){ openBeauty(); return true; }
+  return false;
+}
+if(document.readyState !== 'loading') setTimeout(()=>{ if(!fromHashBeauty()) fromHash(); }, 350);
+else document.addEventListener('DOMContentLoaded', ()=>setTimeout(()=>{ if(!fromHashBeauty()) fromHash(); }, 350));
 })();
 </script>
 
