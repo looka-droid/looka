@@ -1099,6 +1099,20 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
 .ps-gap-b{margin-top:12px;padding:10px 16px;font-size:11px}
 @media print{.ps-card.ps-gap{display:none}}
 
+/* честная плашка, когда разбор собран не по фото */
+.rep-warn{margin-bottom:18px;padding:15px 17px;border-radius:14px;
+  border:1px solid rgba(255,184,76,.35);background:rgba(255,184,76,.1)}
+.rep-warn b{display:block;font-family:'Golos Text',sans-serif;font-weight:800;font-size:15px;color:#FFD9A6;margin-bottom:6px}
+.rep-warn p{margin:0;font-size:13.5px;line-height:1.55;color:#E8DCC8}
+.rep-warn-b{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.rep-warn-b .btn{padding:10px 15px;font-size:11.5px}
+
+/* счётчик и отмена на кнопке разбора */
+.bz-go b{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;opacity:.65;margin-left:8px}
+.bz-cancel{border:0;background:none;padding:0;margin-left:6px;cursor:pointer;color:#FFD9EC;
+  font:inherit;text-decoration:underline}
+.bz-cancel:hover{color:#fff}
+
 /* ===== «в стирке» ===== */
 .wt-wash{flex:0 0 auto;width:26px;height:26px;border-radius:9px;cursor:pointer;margin-top:1px;
   font-size:13px;line-height:1;color:#7F869C;border:1px solid rgba(255,255,255,.14);
@@ -8531,7 +8545,8 @@ setInterval(pgDraw, 4000);
       <a href="#about" onclick="openPage('aboutPage');return false">Кто делает LOOKA</a>
       <a href="#payment" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'});return false">Оплата</a>
       <a href="#reviews" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'});return false">Отзывы</a>
-      <a href="#docs" onclick="openPage('docsPage');return false">Документы</a></div>
+      <a href="#docs" onclick="openPage('docsPage');return false">Документы</a>
+      <a href="#diag" onclick="lkDiag();return false">Проверка связи</a></div>
     <div><b>Партнёрам</b>
       <a href="#blog" onclick="openPage('bloggersPage');return false">Для блогеров</a>
       <a href="#gift" onclick="openPage('giftPage');return false">Подарить LOOKA</a></div>
@@ -10023,7 +10038,7 @@ function renderBeauty(r, mode){
   const li = a=>(a||[]).map(x=>`<li>${x}</li>`).join('');
   const confN = r.conf ? ({'низкая':1,'средняя':2,'высокая':3}[r.conf.lvl]||2) : 0;
   const repHtml = r.impression ? `<div class="look badv mk-wide rep-card"><div class="look-in">
-      <div class="rep-head"><div><div class="cs-k">ОТЧЁТ LOOKA · РАЗБОР ПО ФОТО</div><h3>Ваш бьюти-профиль</h3></div><div class="rep-note">визуальные рекомендации · не оценка и не диагноз</div></div>
+      <div class="rep-head"><div><div class="cs-k">ОТЧЁТ LOOKA · ${mode==='ai' ? 'РАЗБОР ПО ФОТО' : 'РАЗБОР ПО АНКЕТЕ'}</div><h3>Ваш бьюти-профиль</h3></div><div class="rep-note">визуальные рекомендации · не оценка и не диагноз</div></div>
       <div class="rep-grid">
         <div class="rep-sec"><b>◐ Общее впечатление</b><ul class="rep-list">${li(r.impression)}</ul></div>
         <div class="rep-sec"><b>◈ Ключевые черты</b><ul class="rep-list">${li(r.features)}</ul></div>
@@ -10052,7 +10067,10 @@ function renderBeauty(r, mode){
   const wrap = document.getElementById('bres');
   const linkRow = q=>{ if(!q) return ''; return beautyButtons(q).replace('class="mp"','class="mp b-links"'); };
   const careHtml = (r.careProds||[]).map(p=>`<div class="item"><div class="nm">${p.n}</div><div class="pr">${p.p||''}</div>${beautyButtons(p.q)}</div>`).join('');
-  wrap.innerHTML = wowHtml + cards.map(c=>`<div class="look badv"><div class="look-in"><h3>${c[0]}</h3><div class="tip">${c[1]}</div>${linkRow(c[2])}</div></div>`).join('')
+  const warnHtml = (mode !== 'ai') ? `<div class="rep-warn"><b>Это разбор по вашей анкете, а не по фотографии</b>
+      <p>ИИ не ответил, поэтому LOOKA собрала разбор из того, что вы указали раньше: цвет волос, глаз и тон кожи взяты из профиля. Если там указано неточно — поправьте, и разбор изменится.</p>
+      <div class="rep-warn-b"><button class="btn ghost" onclick="genBeauty()">↻ Разобрать по фото ещё раз</button><button class="btn ghost" onclick="openProfile&&openProfile()">✎ Поправить профиль</button></div></div>` : '';
+  wrap.innerHTML = warnHtml + wowHtml + cards.map(c=>`<div class="look badv"><div class="look-in"><h3>${c[0]}</h3><div class="tip">${c[1]}</div>${linkRow(c[2])}</div></div>`).join('')
     + `<div class="look badv"><div class="look-in"><h3>Косметичка под разбор</h3>${prodHtml}<div class="total">✦ бюджет: ${B.budget} · цены ориентировочные</div></div></div>`
     + (careHtml ? `<div class="look badv"><div class="look-in"><h3>Уход: рутина под ваш тип кожи</h3>${careHtml}<div class="total">✦ ${B.skin||'универсально'} · утро и вечер</div></div></div>` : '');
   wrap.insertAdjacentHTML('beforeend', '<div class="next-row"><span>дальше →</span><button onclick="openMakeup()">✦ Схема макияжа под мои глаза</button><button onclick="openPage(\'passPage\')">✦ Стиль-паспорт с формулой макияжа</button><button onclick="openPage(\'askPage\')">✦ Спросить Консилиум</button><button onclick="closeBeauty();setTimeout(()=>document.querySelector(\'.stage\').scrollIntoView({behavior:\'smooth\'}),100)">✦ Собрать образы</button></div>');
@@ -10065,7 +10083,19 @@ window.genBeauty = genBeauty;
 async function genBeauty(){
   if(!(B.style && B.budget)) return;
   const btn = document.getElementById('bGo');
-  btn.disabled = true; btn.textContent = 'Разбираем внешность…';
+  btn.disabled = true;
+  /* видно, что процесс идёт, и можно прервать — иначе кнопка просто немеет */
+  const t0 = Date.now(); window.__bzStop = false;
+  btn.innerHTML = 'Разбираем внешность… <b id="bzSec">0 с</b>';
+  const note = document.querySelector('#beauty .bz-note');
+  if(note) note.innerHTML = 'Обычно 10–25 секунд. <button class="bz-cancel" onclick="window.__bzStop=true">Отменить</button>';
+  clearInterval(window.__bzT);
+  window.__bzT = setInterval(()=>{
+    const e = document.getElementById('bzSec'); if(!e){ clearInterval(window.__bzT); return; }
+    const sec = Math.round((Date.now()-t0)/1000);
+    e.textContent = sec + ' с';
+    if(sec === 30 && note) note.textContent = 'Дольше обычного — ещё жду ответа.';
+  }, 500);
   try{
     if(!B.selfie) throw new Error('офлайн-режим');
     const prompt = `Ты — топовый визажист, стилист и fashion-редактор уровня Vogue. По селфи и анкете дай персональный разбор.
@@ -10076,7 +10106,7 @@ ${(window.dnaBeauty&&dnaBeauty())?'ЕЁ БЬЮТИ-ДНК (обязательн�
 6-7 prods под бюджет ${B.budget}. Коротко, без текста вне JSON. ЗАПРЕЩЕНО: численные оценки и баллы внешности, сравнения с другими, критика черт — только что и как усилить.`;
     const r = await aiFetch({
       method:"POST", headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:2200,
+      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1400,
         messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:B.selfie}},{type:"text",text:prompt}]}]})
     });
     const data = await r.json();
@@ -10085,8 +10115,12 @@ ${(window.dnaBeauty&&dnaBeauty())?'ЕЁ БЬЮТИ-ДНК (обязательн�
     const j = JSON.parse(txt.slice(txt.indexOf('{'), txt.lastIndexOf('}')+1));
     renderBeauty(j, 'ai');
   }catch(e){
-    renderBeauty(beautyLocal(), 'local');
+    /* ИИ не ответил — показываем разбор по правилам, чтобы экран не остался пустым */
+    try{ renderBeauty(beautyLocal(), 'local'); }catch(e2){}
   }
+  clearInterval(window.__bzT);
+  const note2 = document.querySelector('#beauty .bz-note');
+  if(note2) note2.textContent = 'Нужны селфи, образ и бюджет. Остальное — по желанию, но с ним точнее.';
   btn.disabled = false; btn.textContent = '↻ Разобрать заново';
 }
 
