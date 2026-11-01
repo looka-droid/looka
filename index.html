@@ -20917,9 +20917,17 @@ footer .f-grid > div:first-child{padding-right:30px;border-right:1px solid rgba(
   padding-top:11px;border-top:1px solid rgba(255,255,255,.08)}
 .wt-fb b{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;
   color:#9BA2B6;font-weight:400;margin-right:2px}
-.wt-nope,.wt-why{font-family:'Golos Text',sans-serif;font-size:12px;padding:7px 13px;border-radius:99px;cursor:pointer;
-  color:#9BA2B6;border:1px solid rgba(255,255,255,.16);background:transparent;transition:all .18s}
-.wt-nope:hover{color:#FF9DB0;border-color:rgba(255,157,176,.6)}
+.wt-nope,.wt-why{font-family:'Golos Text',sans-serif;font-weight:600;font-size:12.5px;padding:9px 16px;border-radius:99px;
+  cursor:pointer;display:inline-flex;align-items:center;gap:8px;line-height:1;
+  color:#C2C7D6;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);
+  transition:color .18s,border-color .18s,background .18s,transform .18s,box-shadow .18s}
+.wt-nope i{font-style:normal;font-size:10px;width:17px;height:17px;border-radius:50%;display:grid;place-items:center;
+  color:#FF9DB0;border:1px solid rgba(255,157,176,.45);transition:all .18s}
+.wt-nope:hover{color:#fff;border-color:rgba(255,107,129,.75);background:rgba(255,107,129,.14);
+  transform:translateY(-2px);box-shadow:0 10px 22px -12px rgba(255,107,129,.9)}
+.wt-nope:hover i{color:#fff;background:#FF6B81;border-color:transparent}
+.wt-fbk{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;
+  color:#7F869C;margin-right:4px}
 .wt-why:hover{color:#fff;border-color:rgba(255,157,176,.7);background:rgba(255,157,176,.12)}
 .wt-why.x{color:#757C92;border-color:transparent}
 .wt-done{font-size:12.5px;color:#7CF0B2}
@@ -20949,6 +20957,7 @@ footer .f-grid > div:first-child{padding-right:30px;border-right:1px solid rgba(
 .wt-dir.d0{background:#C9CEDC}
 .wt-dir.d1{background:linear-gradient(135deg,#FF8AC9,#FFD28A)}
 .wt-dir.d2{background:linear-gradient(135deg,#7CF0B2,#19C6F7)}
+.wt-dir{display:inline-flex;align-items:center;gap:5px}
 /* заголовок секции вещей */
 .wt-sec{display:flex;align-items:center;gap:10px;margin:16px 0 2px}
 .wt-sec span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#7CF0B2}
@@ -22971,10 +22980,12 @@ window.wtPick = async key=>{
        'Подход: '+m[5]+'\n'+dna+colr+life+wxRule+rules+'\n'+(window.nopeRule?nopeRule():'')+
        'ВОТ ЧТО УЖЕ ЕСТЬ В ЕЁ ШКАФУ:\n'+wdList+'\n\n'+
        'Собери ТРИ образа ПРЕИМУЩЕСТВЕННО ИЗ ЭТИХ ВЕЩЕЙ. Названия вещей из шкафа переписывай ТОЧНО так, как они указаны выше.\n'+
-       'ЭТО ДОЛЖНЫ БЫТЬ ТРИ РАЗНЫХ ХАРАКТЕРА, А НЕ ТРИ ПЕРЕСТАНОВКИ ОДНОГО И ТОГО ЖЕ. Строго по одному образу каждого направления, в этом порядке:\n'+
-       '1) dir="строгий" — безошибочный, классический вариант запроса.\n'+
-       '2) dir="характерный" — с её характером: фактура, неочевидное сочетание, вещь с настроением (кожа, деним, ботинки, цветной низ). НЕ офисный по умолчанию.\n'+
-       '3) dir="неожиданный" — вещь, которую она давно не надевала или носит иначе, в новой роли.\n'+
+       'ЭТО ДОЛЖНЫ БЫТЬ ТРИ ОБРАЗА ПОД РАЗНЫЕ ЗАНЯТИЯ ДНЯ, А НЕ ТРИ ПЕРЕСТАНОВКИ ОДНОГО И ТОГО ЖЕ. '+
+       'Она ещё не решила, как пройдёт день, поэтому дай ей выбор. Строго по одному образу каждого типа, в этом порядке:\n'+
+       '1) dir="по делам" — работа, встречи, учёба, город по делам. Собранный вид.\n'+
+       '2) dir="прогулка" — кофе, подруга, магазины, кино. Удобно и красиво, без офисности.\n'+
+       '3) dir="актив" — спорт, долгая ходьба, активный день. Если спортивной одежды в шкафу нет, честно скажи об этом в why и собери самый удобный вариант из того, что есть.\n'+
+       'В поле where пиши коротко, куда именно: «встреча», «кофе с подругой», «зал», «долгая прогулка».\n'+
        'ОБУВЬ И ВЕРХНИЙ СЛОЙ В ТРЁХ ОБРАЗАХ ДОЛЖНЫ БЫТЬ РАЗНЫМИ, если в шкафу есть из чего выбрать. '+
        'В поле why объясни выбор ОДНОЙ фразой и, если уместно, скажи, чем этот вариант отличается от предыдущего. '+
        'Если для запроса в шкафу чего-то не хватает — добавь не больше одной недостающей вещи на образ и объясни, что именно она меняет. '+
@@ -23055,7 +23066,7 @@ window.wtPick = async key=>{
             ${L._openShoe?`<span>Обувь в этом образе открытая — для такой температуры замените на закрытую.</span>`:''}
           </div></div>`:''}
           ${L.why?`<div class="tip" style="margin-top:10px">${esc(L.why)}</div>`:''}
-          <div class="wt-fb" id="wtFb${i}"><button class="wt-nope" onclick="nopeOpen(${i})">✕ Не моё</button></div>
+          <div class="wt-fb" id="wtFb${i}"><span class="wt-fbk">Как вам?</span><button class="wt-nope" onclick="nopeOpen(${i})"><i>✕</i>Не моё</button></div>
         </div></div>`).join('') +
       (HEAVY.includes(key)
         ? `<div class="wt-care" id="wtCare"><b>И ещё одно.</b> Одежда не лечит настроение — она просто может перестать мешать. Если тяжело не первый день и не первую неделю, об этом стоит сказать тому, кому вы доверяете, или специалисту. Это не слабость и не повод стесняться.</div>`
