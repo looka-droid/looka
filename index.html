@@ -942,6 +942,42 @@ body.subpage #quizDone,body.subpage .stage{display:none!important}
 .my-link .btn{padding:12px 20px;font-size:12px}
 .my-link .tp-note,.my-link .b-priv{margin-top:12px;font-size:11.5px;line-height:1.5;color:#7F869C}
 
+/* раскрытый список из шапки был полупрозрачным — сквозь него просвечивала плашка */
+#topbar .nav-dd .dd,.nav-dd .dd{background:#0E1018;backdrop-filter:none}
+#topbar .nav-dd .dd{box-shadow:0 28px 70px rgba(0,0,0,.8),0 0 30px rgba(25,198,247,.14)}
+
+/* ===== свой выпадающий список вместо системного =====
+   Системный список рисует ОС: он растягивается на пол-экрана и не поддаётся оформлению. */
+.ns{position:relative;width:100%}
+.ns > select{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;padding:0;margin:0;border:0}
+.ns-btn{width:100%;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;
+  padding:13px 15px;border-radius:12px;font-family:'Golos Text',sans-serif;font-size:14.5px;
+  color:#F4F6FC;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);
+  transition:border-color .18s,box-shadow .18s}
+.ns-btn:hover{border-color:rgba(255,255,255,.34)}
+.ns.open .ns-btn{border-color:rgba(25,198,247,.65);box-shadow:0 0 0 3px rgba(25,198,247,.15)}
+.ns-btn span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ns-btn i{flex:0 0 auto;font-style:normal;font-size:10px;color:#19C6F7;transition:transform .2s}
+.ns.open .ns-btn i{transform:rotate(180deg)}
+.ns-list{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:800;display:none;
+  max-height:min(244px,38vh);overflow:auto;padding:6px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.16);background:#12141F;box-shadow:0 26px 60px rgba(0,0,0,.7);
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.22) transparent}
+.ns.open .ns-list{display:block}
+.ns.up .ns-list{top:auto;bottom:calc(100% + 6px)}
+.ns-list::-webkit-scrollbar{width:8px}
+.ns-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:99px;border:2px solid transparent;background-clip:content-box}
+.ns-op{width:100%;text-align:left;padding:10px 12px;border:0;border-radius:9px;cursor:pointer;
+  font-family:'Golos Text',sans-serif;font-size:14px;color:#D9DDEA;background:none}
+.ns-op:hover{background:rgba(25,198,247,.12);color:#fff}
+.ns-op.on{background:linear-gradient(90deg,rgba(25,198,247,.2),rgba(199,157,240,.12));color:#fff;font-weight:600}
+.ns-op.on::after{content:'✓';float:right;color:#19C6F7}
+
+/* ожидание совета по волосам: видно, сколько идёт, и можно прервать */
+.hl-top .btn b{font-family:'JetBrains Mono',monospace;font-size:10px;color:#19C6F7;margin-left:6px;font-weight:400}
+.hl-stop{margin-left:8px;padding:9px 14px;font-size:10.5px;color:#9BA2B6}
+.hl-stop:hover{color:#F4F6FC}
+
 /* незаполненный раздел паспорта — честная карточка, а не пустота под заголовком */
 .ps-card.ps-gap{border-style:dashed;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.02)}
 .ps-card.ps-gap .ps-k{color:#8B92AA}
@@ -11212,7 +11248,7 @@ function passportHTML(){
              + '<div class="ps-grid" style="--pc:'+col+'">'+body+'</div>';
       };
       const C = {
-        color: `<div class="ps-card"><div class="ps-k">ЦВЕТОТИП</div><div class="ps-prof">${S.hair} · ${S.eyes.toLowerCase()} глаза · ${S.skin.toLowerCase()} тон</div><p class="ps-note">${p.note}</p><div class="ps-k2">Акценты — у лица</div><div class="ps-sws">${p.accents.slice(0,4).map(swatch).join('')}</div><div class="ps-k2">База — низ и верхняя одежда</div><div class="ps-sws">${p.neutrals.map(swatch).join('')}</div><div class="ps-k2">Обувь и сумка — одна гамма</div><div class="ps-sws">${p.shoes.map(swatch).join('')}</div><div class="ps-k2">Металл украшений</div><div class="ps-metal ${p.metal==='серебристый'?'silver':'gold'}">${p.metal}</div></div>`,
+        color: `<div class="ps-card"><div class="ps-k">ЦВЕТОТИП${(()=>{ try{ const cs=JSON.parse(localStorage.getItem('looka_cs')||'null'); return cs&&cs.season?' · '+cs.season.toUpperCase():''; }catch(e){ return ''; } })()}</div><div class="ps-prof">${S.hair} · ${S.eyes.toLowerCase()} глаза · ${S.skin.toLowerCase()} тон</div><p class="ps-note">${p.note}</p><div class="ps-k2">Акценты — у лица</div><div class="ps-sws">${p.accents.slice(0,4).map(swatch).join('')}</div><div class="ps-k2">База — низ и верхняя одежда</div><div class="ps-sws">${p.neutrals.map(swatch).join('')}</div><div class="ps-k2">Обувь и сумка — одна гамма</div><div class="ps-sws">${p.shoes.map(swatch).join('')}</div><div class="ps-k2">Металл украшений</div><div class="ps-metal ${p.metal==='серебристый'?'silver':'gold'}">${p.metal}</div></div>`,
         figure: `<div class="ps-card"><div class="ps-k">ФИГУРА · ${S.figure.toUpperCase()}</div><ul class="tp-list">${fig.map(x=>'<li>'+x+'</li>').join('')}${focus.map(f=>'<li>'+f.tip+'</li>').join('')}<li>${FIGN[S.figure]||'силуэт по фигуре'}</li></ul></div>`,
         sizes: `<div class="ps-card"><div class="ps-k">РАЗМЕРЫ — В ЛЮБОМ МАГАЗИНЕ МИРА</div><div class="ps-sizes"><div><span>RU</span><b>${c}</b></div><div><span>INT</span><b>${INT[c]||'—'}</b></div><div><span>EU</span><b>${eu}</b></div><div><span>US</span><b>${us}</b></div><div><span>UK</span><b>${uk}</b></div></div><div class="ps-k2">Обувь</div><div class="ps-sizes"><div><span>RU</span><b>${s}</b></div><div><span>EU</span><b>${seu}</b></div><div><span>US</span><b>${sus}</b></div><div><span>UK</span><b>${suk}</b></div><div><span>СМ</span><b>${cm||'—'}</b></div></div><p class="ps-note">${REGIONS[REGION].n}: ${brandNotes().slice(0,3).join('; ')}. Обувь — по стельке в см.</p></div>`,
         makeup: bl ? `<div class="ps-card"><div class="ps-k">ФОРМУЛА МАКИЯЖА</div><ul class="tp-list"><li><b>Губы:</b> ${bl.lips}</li><li><b>Глаза:</b> ${bl.eyes}</li><li><b>Стрелки:</b> ${bl.liner}</li><li><b>Брови:</b> ${bl.brows}</li>${B.skin?'<li><b>Кожа ('+B.skin.toLowerCase()+'):</b> '+bl.care.split(' Порядок')[0]+'</li>':''}</ul></div>` : '',
@@ -11288,6 +11324,12 @@ function passportExtra(p, male){
 
 window.renderPassport = ()=>{
   const box = document.getElementById('passBox'); if(!box) return;
+  /* цветотип спрашивает ровно те же волосы/глаза/кожу — берём оттуда, если в анкете пусто */
+  try{
+    const C = JSON.parse(localStorage.getItem('looka_color')||'null');
+    if(C){ ['hair','eyes','skin'].forEach(k=>{ if(!S[k] && C[k]) S[k]=C[k]; });
+      if(window.saveLS) saveLS(); }
+  }catch(e){}
   const ok = S.gender && S.figure && S.hair && S.eyes && S.skin && S.clothSize && S.shoeSize;
   if(!ok){
     const missing = [['gender','пол'],['figure','фигура'],['hair','цвет волос'],['eyes','цвет глаз'],['skin','тон кожи'],['clothSize','размер одежды'],['shoeSize','размер обуви']].filter(f=>!S[f[0]]).map(f=>f[1]);
@@ -17132,7 +17174,11 @@ window.hlAdvice = async ()=>{
   let hh={}, mm={}; try{ hh=JSON.parse(localStorage.getItem('looka_hair')||'{}'); }catch(e){}
   try{ mm=JSON.parse(localStorage.getItem('looka_makeup')||'{}'); }catch(e){}
   const cs=(()=>{ try{ return (JSON.parse(localStorage.getItem('looka_cs')||'{}')).type||(JSON.parse(localStorage.getItem('looka_color')||'{}')).type||''; }catch(e){ return ''; } })();
-  H.busy=2; renderHairLab();
+  H.busy=2; H.abort=false; renderHairLab();
+  const t0=Date.now(); clearInterval(window.__hlT);
+  window.__hlT=setInterval(()=>{ const e=document.getElementById('hlSec');
+    if(!e){ clearInterval(window.__hlT); return; }
+    e.textContent=Math.round((Date.now()-t0)/1000)+' с'; }, 500);
   const prompt='Ты — колорист и парикмахер LOOKA. Клиентка: форма лица '+(hh.face||mm.face||'не указана')+', структура волос '+(hh.type||'не указана')+', густота '+(hh.dens||'не указана')+', длина сейчас '+(hh.len||'не указана')+', времени на укладку утром '+(hh.time||'не указано')+', цветотип '+(cs||'не определён')+', цвет глаз '+(S.eyes||mm.eyes||'не указан')+', тон кожи '+(S.skin||mm.skin||'не указан')+'.\n'
    +'Доступные цвета: '+COLORS_H.map(c=>c[0]).join(', ')+'.\nДоступные стрижки: '+CUTS_H.map(c=>c[0]).join(', ')+'.\n'
    +'Ответь ТОЛЬКО валидным JSON без markdown: {"yes_c":["3-4 названия цветов из списка, которые ей пойдут"],"no_c":["1-2 цвета из списка, которых лучше избегать"],"yes_k":["2-3 стрижки из списка"],"no_k":["1-2 стрижки из списка"],"why":"3-4 фразы: почему именно так — по цветотипу, форме лица и структуре волос","salon":"что сказать мастеру одной фразой"}\nПо-русски, без оценок внешности и без слов о весе.';
@@ -17141,8 +17187,74 @@ window.hlAdvice = async ()=>{
     const j = await r.json();
     if(j.error) throw new Error('мост ответил ошибкой');
     const t=(j.content&&j.content[0]&&j.content[0].text||'').replace(/```json|```/g,'').trim();
+    clearInterval(window.__hlT);
+    if(H.abort){ H.abort=false; H.busy=0; renderHairLab(); return; }
     H.advice = JSON.parse(t); H.busy=0; renderHairLab();
-  }catch(e){ H.busy=0; renderHairLab(); myToast('Совет не загрузился: '+e.message); }
+  }catch(e){
+    clearInterval(window.__hlT);
+    H.busy=0; renderHairLab();
+    const box=document.getElementById('hlBox');
+    const host=box&&box.querySelector('.hl-top');
+    if(host) host.insertAdjacentHTML('beforeend','<div class="wt-err" style="margin-top:12px"><b>Совет не загрузился</b><p>'+String(e.message||e)+'</p><button class="btn ghost" onclick="hlAdvice()">↻ Попробовать ещё раз</button></div>');
+    else myToast('Совет не загрузился: '+e.message);
+  }
+};
+/* ===== свои выпадающие списки: системный попап нельзя оформить и он занимает пол-экрана ===== */
+window.niceSelect = (sel)=>{
+  if(!sel || sel.dataset.nice) return;
+  if(sel.multiple || sel.size > 1) return;
+  sel.dataset.nice = '1';
+  const wrap = document.createElement('div'); wrap.className = 'ns';
+  sel.parentNode.insertBefore(wrap, sel); wrap.appendChild(sel);
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'ns-btn';
+  const list = document.createElement('div'); list.className = 'ns-list';
+  wrap.appendChild(btn); wrap.appendChild(list);
+  const paint = ()=>{
+    btn.innerHTML = '<span>' + (sel.selectedOptions[0] ? sel.selectedOptions[0].textContent : '—') + '</span><i>▾</i>';
+    list.innerHTML = [...sel.options].map((o,i)=>
+      '<button type="button" class="ns-op' + (i===sel.selectedIndex?' on':'') + '" data-i="' + i + '">' + o.textContent + '</button>').join('');
+  };
+  paint();
+  const close = ()=>{ wrap.classList.remove('open'); document.removeEventListener('click', onDoc, true); };
+  const onDoc = e=>{ if(!wrap.contains(e.target)) close(); };
+  btn.onclick = e=>{
+    e.stopPropagation();
+    if(wrap.classList.contains('open')){ close(); return; }
+    paint();
+    const r = btn.getBoundingClientRect();
+    wrap.classList.toggle('up', (window.innerHeight - r.bottom) < 270 && r.top > 280);
+    wrap.classList.add('open');
+    setTimeout(()=>document.addEventListener('click', onDoc, true), 0);
+    const on = list.querySelector('.ns-op.on'); if(on) on.scrollIntoView({block:'nearest'});
+  };
+  list.onclick = e=>{
+    const b2 = e.target.closest('.ns-op'); if(!b2) return;
+    sel.selectedIndex = +b2.dataset.i;
+    sel.dispatchEvent(new Event('change', {bubbles:true}));
+    sel.dispatchEvent(new Event('input', {bubbles:true}));
+    paint(); close();
+  };
+  sel.addEventListener('change', paint);
+  /* чужой код мог поменять value напрямую — следим за этим */
+  const mo = new MutationObserver(paint); mo.observe(sel, {childList:true, subtree:true});
+};
+window.niceSelectAll = (root)=>{
+  (root||document).querySelectorAll('select:not([data-nice])').forEach(s=>{
+    if(s.options.length >= 4) { try{ niceSelect(s); }catch(e){} }
+  });
+};
+(function(){
+  const run = ()=>{ try{ niceSelectAll(); }catch(e){} };
+  if(document.readyState!=='loading') setTimeout(run, 900); else document.addEventListener('DOMContentLoaded', ()=>setTimeout(run, 900));
+  const o = window.openPage;
+  if(typeof o === 'function') window.openPage = function(){ const r=o.apply(this,arguments); setTimeout(run, 400); return r; };
+  setInterval(run, 2500);
+})();
+
+window.hlStop = ()=>{
+  H.abort=true; clearInterval(window.__hlT); H.busy=0; renderHairLab();
+  if(window.myToast) myToast('Остановила');
 };
 window.renderHairLab = ()=>{
   const box=document.getElementById('hlBox'); if(!box) return;
@@ -17159,7 +17271,7 @@ window.renderHairLab = ()=>{
       <p class="tip">ИИ оставляет ваше лицо и свет как есть и меняет только волосы. Выберите цвет, стрижку — или и то и другое сразу — и посмотрите «до/после» на себе, а не на модели из каталога.</p>
       ${H.photo?'':`<label class="btn primary" style="cursor:pointer">📷 Загрузить фото<input type="file" id="hlInp" accept="image/*" style="display:none" onchange="hlFile(this.files[0])"></label>
       <button class="btn ghost" onclick="hlUseMine()">Взять фото из анкеты</button>`}
-      <button class="btn ghost" ${H.busy?'disabled':''} onclick="hlAdvice()">${H.busy===2?'Думаю…':'✦ Что мне вообще подойдёт?'}</button>
+      <button class="btn ghost" ${H.busy?'disabled':''} onclick="hlAdvice()">${H.busy===2?'Думаю… <b id="hlSec">0 с</b>':'✦ Что мне вообще подойдёт?'}</button>${H.busy===2?'<button class="btn ghost hl-stop" onclick="hlStop()">Отменить</button>':''}
     </div>
   </div>
   ${H.photo?'':'<input type="file" id="hlInp" accept="image/*" style="display:none" onchange="hlFile(this.files[0])">'}
@@ -19454,7 +19566,11 @@ window.PLANS = { week:{t:'неделя',p:'390 ₽',n:'LOOKA · НЕДЕЛЯ',on
 window.curPlan = (function(){ try{ return localStorage.getItem('looka_plan')||'month'; }catch(e){ return 'month'; } })();
 
 /* ================= ПЕЙВОЛ: выбор подписки перед платным разделом ================= */
-window.hasAccess = ()=>{ try{ return !!localStorage.getItem('looka_access') || (JSON.parse(localStorage.getItem('looka_session')||'{}').paid===true); }catch(e){ return false; } };
+window.hasAccess = ()=>{ try{
+  return !!localStorage.getItem('looka_owner')      /* метка владелицы — её не трогает синхронизация */
+      || !!localStorage.getItem('looka_access')
+      || (JSON.parse(localStorage.getItem('looka_session')||'{}').paid===true);
+}catch(e){ return false; } };
 /* ===== доступ владелицы на своём устройстве =====
    ВАЖНО: это метка только в браузере, в котором открыли ссылку. Она не делает аккаунт платным
    на сервере и её видно всем, кто откроет исходный код страницы. Перед продажами настоящую
@@ -19465,8 +19581,8 @@ window.OWNER_PRO_KEY = 'anna-looka-2026';
   try{ v = new URLSearchParams(location.search).get('pro'); }catch(e){}
   if(!v) return;
   try{
-    if(v === 'off'){ localStorage.removeItem('looka_access'); }
-    else if(v === window.OWNER_PRO_KEY){ localStorage.setItem('looka_access','owner'); }
+    if(v === 'off'){ localStorage.removeItem('looka_access'); localStorage.removeItem('looka_owner'); }
+    else if(v === window.OWNER_PRO_KEY){ localStorage.setItem('looka_owner','1'); localStorage.setItem('looka_access','owner'); }
     else return;
   }catch(e){ return; }
   try{ const u = new URL(location.href); u.searchParams.delete('pro'); history.replaceState(null,'',u.toString()); }catch(e){}
@@ -21249,7 +21365,8 @@ window.lkRefreshAccess = async ()=>{
     const was = !!prev.paid;
     prev.paid = paid; localStorage.setItem('looka_session', JSON.stringify(prev));
     if(paid){ if(window.unlockAccess) unlockAccess(); if(!was) toast('Оплата прошла — доступ открыт ✦'); }
-    else { try{ localStorage.removeItem('looka_access'); }catch(e){} }
+    else { try{ if(!localStorage.getItem('looka_owner')) localStorage.removeItem('looka_access'); }catch(e){} }
+    try{ if(window.pgDraw) pgDraw(); }catch(e){}
   }catch(e){}
 };
 setTimeout(lkRefreshAccess, 1500);
@@ -22480,7 +22597,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 (function(){
   if(!window.aiFetch || window.aiFetch.__tmo) return;
   const orig = window.aiFetch;
-  const LIMIT = 55000;   /* одна попытка — не дольше 55 секунд: две по 95 давали больше трёх минут тишины */
+  const LIMIT = 75000;   /* одна попытка — не дольше 75 секунд: воркер иногда отвечает на 60-й */
   const fn = function(opts){
     opts = opts || {};
     const ac = new AbortController();
@@ -22491,7 +22608,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
       .catch(e=>{
         clearTimeout(tm);
         if(e && (e.name==='AbortError' || /abort/i.test(String(e.message||''))))
-          throw new Error('сервер не ответил за 55 секунд');
+          throw new Error('сервер не ответил за 75 секунд');
         throw e;
       });
   };
@@ -22600,7 +22717,12 @@ function safeJson(raw){
   return JSON.parse(fix);
 }
 /* на странице «Хочу выглядеть…» и в гардеробе разные контейнеры под результат */
-const outEl = ()=>document.getElementById(W.outId) || outEl();
+/* было: `|| outEl()` — функция звала саму себя и подвешивала вкладку,
+   если нужного блока нет на экране. Берём запасной, иначе возвращаем null. */
+const outEl = ()=>document.getElementById(W.outId)
+  || document.getElementById('wtOut')
+  || document.getElementById('wtWdOut')
+  || null;
 
 window.wtPick = async key=>{
   const m = ALL.find(x=>x[0]===key); if(!m || W.busy) return;
@@ -22755,11 +22877,15 @@ window.wtPick = async key=>{
        'Если из её вещей этот запрос не собрать совсем — честно скажи об этом в поле note.\n'+
        'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
        '{"intro":"одна фраза о том, как этот образ работает","note":"пустая строка или честное замечание","looks":[{"t":"короткое название","dir":"строгий","where":"куда надеть","own":["точное название вещи из шкафа"],"add":{"n":"чего не хватает","q":"поисковый запрос","p":"цена ₽"},"why":"почему именно так"}]}\n'+
-       'Поле add можно опустить, если всё собралось из своих вещей. По-русски, на «вы».')
+       'Поле add можно опустить, если всё собралось из своих вещей. По-русски, на «вы».\n'+
+       'ПИШИ КОРОТКО, это важнее красоты: intro — до 90 знаков, t — до 40, where — до 30, why — до 100, note — до 90. '+
+       'Никаких вступлений, повторов и пояснений вне JSON.')
     : ('Ты — опытный стилист. '+me+'.\n'+
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
        'Подход: '+m[5]+'\n'+dna+colr+life+wxRule+rules+'\n'+(window.nopeRule?nopeRule():'')+
        'Собери ТРИ разных варианта образа под этот запрос. Вещи должны реально продаваться на маркетплейсах.\n'+
+       'ПИШИ КОРОТКО, это важнее красоты: intro — до 90 знаков, t — до 40, where — до 30, why — до 100, n — до 50. '+
+       'Никаких вступлений и пояснений вне JSON.\n'+
        'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
        '{"intro":"одна фраза о том, как этот образ работает","looks":[{"t":"короткое название образа","where":"куда это надеть","items":[{"n":"вещь с цветом и кроем","q":"поисковый запрос","p":"цена ₽"}],"why":"почему именно так — одно-два предложения"}]}\n'+
        'В каждом образе 4-5 вещей включая обувь. Цены под её бюджет. По-русски, на «вы».');
@@ -22768,7 +22894,7 @@ window.wtPick = async key=>{
   W.ac = ac;
   const bell = setTimeout(()=>{ if(ac) try{ ac.abort(); }catch(e){} }, 75000);
   try{
-    const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:2000, messages:[{role:'user', content:prompt}] }), signal: ac ? ac.signal : undefined });
+    const r = await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1100, messages:[{role:'user', content:prompt}] }), signal: ac ? ac.signal : undefined });
     let j;
     try{ j = await r.json(); }
     catch(e){ throw new Error('сервер вернул не ответ, а страницу (код '+r.status+')'); }
@@ -22797,7 +22923,7 @@ window.wtPick = async key=>{
     }
     W.busy = false; W.last = d.looks || []; renderWant();
     const sb = it => (window.shopButtons ? shopButtons({ n: it.n, q: it.q || it.n }) : '');
-    outEl().innerHTML =
+    (outEl()||{}).innerHTML =
       (d.intro?`<p class="lead" style="margin:4px 0 16px;max-width:72ch">${esc(d.intro)}</p>`:'') +
       `<div class="wt-tags">${fromWd?`<span class="wt-src">◍ из вашего гардероба · ${WD.length} ${WD.length%10===1&&WD.length%100!==11?'вещь':'вещей'}</span>`:''}${wxNow?`<span class="wt-wx">☀ по погоде · ${esc(wxNow.txt)}</span>`:''}${(W.gaps||[]).length?`<span class="wt-gap">⚠ без ${W.gaps.map(g=>g[0]).join(' и ')}</span>`:''}</div>` +
       ((W.gaps||[]).length?`<div class="wt-gapbox"><b>Подбор сделан без части ваших данных</b>
@@ -22831,7 +22957,7 @@ window.wtPick = async key=>{
         ? `<div class="wt-care" id="wtCare"><b>И ещё одно.</b> Одежда не лечит настроение — она просто может перестать мешать. Если тяжело не первый день и не первую неделю, об этом стоит сказать тому, кому вы доверяете, или специалисту. Это не слабость и не повод стесняться.</div>`
         : '');
     fill100(); clearInterval(tick); clearTimeout(bell); W.ac = null;
-    try{ outEl().scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+    try{ const _o=outEl(); if(_o) _o.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
   }catch(e){
     clearInterval(tick); clearTimeout(bell);
     W.busy = false; W.ac = null; renderWant();
@@ -22843,7 +22969,7 @@ window.wtPick = async key=>{
         <button class="btn primary" style="margin-top:12px" onclick="wtPick('${key}')">↻ Попробовать ещё раз</button></div>`;
       return;
     }
-    outEl().innerHTML =
+    (outEl()||{}).innerHTML =
       `<div class="wt-err"><b>Не получилось собрать образ</b>
         <p>${esc(e.message)}.</p>
         <p class="sm">Если написано «сервер ответил: …» — отвечает воркер, и дело в нём: чаще всего не задан или исчерпан ключ ИИ в настройках Cloudflare. Если ошибка про сеть — запрос режет провайдер или антивирус, попробуйте с мобильного интернета.</p>
