@@ -942,8 +942,45 @@ body.subpage #quizDone,body.subpage .stage{display:none!important}
 .my-link .btn{padding:12px 20px;font-size:12px}
 .my-link .tp-note,.my-link .b-priv{margin-top:12px;font-size:11.5px;line-height:1.5;color:#7F869C}
 
-/* раскрытый список из шапки был полупрозрачным — сквозь него просвечивала плашка */
-#topbar .nav-dd .dd,.nav-dd .dd{background:#0E1018;backdrop-filter:none}
+/* проверка связи */
+.dg-box{max-width:560px}
+.dg-base{font-family:'JetBrains Mono',monospace;font-size:11px;color:#8B92AA;word-break:break-all;margin:6px 0 14px}
+.dg-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:11px 13px;margin-bottom:8px;
+  border-radius:11px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
+.dg-row b{flex:1;min-width:150px;font-size:13.5px;color:#F4F6FC}
+.dg-row span{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9BA2B6}
+.dg-row span.ok{color:#7CF0B2}
+.dg-row span.slow{color:#FFB84C}
+.dg-row span.bad{color:#FF8DA1}
+
+/* ===== «Ваши результаты» — розовый блок с блёстками ===== */
+.dash-glam{position:relative;overflow:hidden;border-radius:22px;
+  background:#15101A!important;
+  border:1px solid rgba(255,138,201,.5)!important;
+  box-shadow:0 0 0 1px rgba(255,138,201,.14) inset,0 26px 74px -30px rgba(255,95,176,.9)!important}
+.dash-glam > *:not(.wt-glit){position:relative;z-index:2}
+.dash-glam .cs-k{color:#FFD9EC}
+.dash-glam .dash-head h3{font-family:'Unbounded','Golos Text',sans-serif;font-weight:700;
+  font-size:26px;line-height:1.18;letter-spacing:-.3px;color:#FFF6FB;
+  text-shadow:0 2px 16px rgba(255,95,176,.5)}
+@media(max-width:760px){.dash-glam .dash-head h3{font-size:21px}}
+/* плитки поверх розового фона: тёмная подложка, чтобы текст читался */
+.dash-glam .dash-it{background:rgba(14,11,18,.62);border-color:rgba(255,255,255,.16);
+  backdrop-filter:blur(3px)}
+.dash-glam .dash-it small{color:#F0CFE2;letter-spacing:1.5px}
+.dash-glam .dash-it b{font-family:'Golos Text',sans-serif;font-weight:800;font-size:16px;color:#FFF6FB}
+.dash-glam .dash-it span{color:#FFB7DD}
+.dash-glam .dash-it:not(.ok){background:rgba(14,11,18,.4);border-color:rgba(255,255,255,.2);border-style:dashed}
+.dash-glam .dash-it:not(.ok) b{color:#D9C3D4}
+.dash-glam .dash-it.ok{background:rgba(14,11,18,.72);border-color:rgba(255,255,255,.34)}
+.dash-glam .dash-it.ok::after{background:linear-gradient(135deg,#FFD28A,#FF6FA8);color:#2A0E1C}
+.dash-glam .dash-it.ok span{color:#FFD9EC}
+.dash-glam .dash-it:hover{border-color:#fff;box-shadow:0 16px 34px -18px rgba(255,255,255,.8)}
+
+/* раскрытый список был полупрозрачным и уходил ПОД закреплённую шапку с плашкой прогресса */
+#topbar .nav-dd .dd,.nav-dd .dd{background:#0E1018;backdrop-filter:none;z-index:900}
+header .nav-dd .dd{z-index:1000}        /* выше закреплённой панели (её слой 700) */
+header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
 #topbar .nav-dd .dd{box-shadow:0 28px 70px rgba(0,0,0,.8),0 0 30px rgba(25,198,247,.14)}
 
 /* ===== свой выпадающий список вместо системного =====
@@ -2868,7 +2905,16 @@ header .topnav > a.only-in + a:not(.only-in){border-left:0;padding-left:0}
 @media(max-width:640px){.dl-wrap{padding:18px 16px}}
 
 /* ================= ПОПАП «ОБРАЗ ДНЯ» ================= */
-.day-ov{align-items:flex-start;padding-top:min(8vh,70px);overflow:auto}
+.day-ov{align-items:flex-start;padding-top:min(5vh,40px);padding-bottom:24px;overflow:auto}
+/* попап не должен уезжать за экран: высокий экран — целиком, низкий — со своей прокруткой */
+.day-box{max-height:calc(100vh - 70px);overflow:auto;overscroll-behavior:contain;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.day-box::-webkit-scrollbar{width:8px}
+.day-box::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:99px;border:2px solid transparent;background-clip:content-box}
+/* картинка-настроение занимала треть экрана */
+.day-box .dl-sky,.day-box .day-hero,.day-box > .dl-art{max-height:min(190px,22vh)}
+@media(max-height:820px){.day-box .dl-sky,.day-box .day-hero,.day-box > .dl-art{max-height:130px}}
+@media(max-height:680px){.day-box .dl-sky,.day-box .day-hero,.day-box > .dl-art{display:none}}
 .day-box{width:min(820px,100%);max-height:none;padding:28px 26px 22px;
   background:linear-gradient(rgba(12,16,26,.98),rgba(12,16,26,.98)) padding-box,linear-gradient(120deg,#19C6F7,#37E08A 50%,#5B6CFF) border-box;
   box-shadow:0 40px 100px rgba(0,0,0,.7), 0 0 70px rgba(25,198,247,.22);
@@ -8595,8 +8641,8 @@ window.wxFetch = async (url, msDirect)=>{
   };
   let pref = null; try{ pref = localStorage.getItem(WX_ROUTE); }catch(e){}
   const tries = (pref === 'proxy' && via)
-    ? [['proxy', via, 9000], ['direct', url, msDirect||5000]]
-    : [['direct', url, msDirect||5000]].concat(via ? [['proxy', via, 9000]] : []);
+    ? [['proxy', via, 14000], ['direct', url, msDirect||6000]]
+    : [['direct', url, msDirect||6000]].concat(via ? [['proxy', via, 14000]] : []);
   let last;
   for(const [name, u, ms] of tries){
     try{ const j = await once(u, ms); try{ localStorage.setItem(WX_ROUTE, name); }catch(e){} return j; }
@@ -18572,7 +18618,9 @@ window.renderDash = ()=>{
     ['Ритуал дня', R.n ? 'серия '+R.n+' '+(R.n===1?'день':R.n<5?'дня':'дней') : null, "closePage();setTimeout(()=>{const r=document.getElementById('ritSec'); if(r&&window.glide) glide(r,110,800);},300)", 'начать серию']
   ];
   const done=cards.filter(c=>c[1]).length;
-  box.innerHTML=`<div class="dash">
+  const dspk = (()=>{ let o=''; for(let i=0;i<26;i++){ const x=(i*41%96)+2, y=(i*59%90)+3, sz=2+(i%4);
+    o += `<i style="left:${x}%;top:${y}%;width:${sz+1}px;height:${sz+1}px;--d:${(3.4+(i%5)*.6).toFixed(1)}s;--dl:${(i*.21).toFixed(2)}s"></i>`; } return o; })();
+  box.innerHTML=`<div class="dash wt-glam dash-glam"><div class="wt-glit">${dspk}</div>
     <div class="dash-head"><div><div class="cs-k">ВАШИ РЕЗУЛЬТАТЫ · ${done} ИЗ ${cards.length}</div><h3>${A.name?A.name.split(' ')[0]+', в':'В'}от что LOOKA о вас уже знает</h3></div><div class="dash-ring"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="20" cy="20" r="17" fill="none" stroke="url(#dg)" stroke-width="4" stroke-linecap="round" stroke-dasharray="${(106.8*done/cards.length).toFixed(1)} 200" transform="rotate(-90 20 20)"/><defs><linearGradient id="dg"><stop offset="0" stop-color="#19C6F7"/><stop offset="1" stop-color="#C79DF2"/></linearGradient></defs></svg><b>${Math.round(done/cards.length*100)}%</b></div></div>
     <div class="dash-grid">${cards.map((c,i)=>HUB.pop(`<button class="dash-it ${c[1]?'ok':''}" onclick="${c[2].replace(/"/g,'&quot;')}"><small>${c[0]}</small><b>${c[1]||'—'}</b><span>${c[1]?'открыть →':c[3]+' →'}</span></button>`,i)).join('')}</div>
   </div>`;
@@ -18832,6 +18880,7 @@ window.accMenu = (ev)=>{
     <button class="ap-it" onclick="closeAccPop();authSync()"><i>↻</i><span>Сохранить в облако</span><em>синхронизировать сейчас</em></button>
     <button class="ap-it" onclick="closeAccPop();dataDownload()"><i>⤓</i><span>Скачать мои данные</span><em>стиль-паспорт в PDF — всё, что LOOKA о вас знает</em></button>
     <button class="ap-it" onclick="closeAccPop();document.getElementById('pricing')&&document.getElementById('pricing').scrollIntoView({behavior:'smooth'})"><i>✦</i><span>Доступ и оплата</span><em>${(window.hasAccess&&hasAccess())?'премиум активен':'бесплатный доступ'}</em></button>
+    <button class="ap-it" onclick="closeAccPop();lkDiag()"><i>◉</i><span>Проверка связи</span><em>что отвечает, а что нет — за 10 секунд</em></button>
     <button class="ap-it" onclick="closeAccPop();openPage('contactsPage')"><i>✉</i><span>Написать в поддержку</span><em>отвечаю лично, обычно за пару часов</em></button>
     <div class="ap-grp">Опасная зона</div>
     <button class="ap-it out" onclick="closeAccPop();accWipe()"><i>⌫</i><span>Удалить данные на устройстве</span><em>профиль, гардероб, анкеты — без отмены</em></button>
@@ -18920,6 +18969,61 @@ window.doneJump = (id)=>{
 (function(){ const o=window.openPage;
   if(typeof o==='function') window.openPage=function(id){ const r=o.apply(this,arguments); setTimeout(()=>{ try{ doneBar(id); }catch(e){} }, 220); return r; };
 })();
+
+/* ===== проверка связи: показывает, какой именно запрос тормозит или падает ===== */
+window.lkDiag = async ()=>{
+  const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
+  let ov = document.getElementById('dgOv');
+  if(!ov){ ov = document.createElement('div'); ov.id='dgOv'; ov.className='au-ov';
+    ov.onclick = e=>{ if(e.target===ov) ov.classList.remove('on'); }; document.body.appendChild(ov); }
+  ov.innerHTML = `<div class="au-box dg-box"><button class="au-x" onclick="document.getElementById('dgOv').classList.remove('on')">✕</button>
+    <div class="au-in"><div class="cs-k">проверка связи</div><h3>Что отвечает, а что нет</h3>
+    <p class="dg-base">${base || 'адрес воркера не задан'}</p>
+    <div id="dgRows"></div>
+    <div class="to-row" style="margin-top:14px"><button class="btn ghost" onclick="lkDiagCopy()">⧉ Скопировать результат</button><button class="btn ghost" onclick="lkDiag()">↻ Ещё раз</button></div>
+    <div class="b-priv">Покажите этот результат разработчику: по нему видно, тормозит воркер, ключ ИИ или сеть.</div></div></div>`;
+  ov.classList.add('on');
+  const rows = document.getElementById('dgRows');
+  const tests = [
+    ['Страница → интернет', 'https://api.open-meteo.com/v1/forecast?latitude=55.75&longitude=37.62&current=temperature_2m', null],
+    ['Воркер жив', base ? base + '/wx?u=' + encodeURIComponent('https://api.open-meteo.com/v1/forecast?latitude=55.75&longitude=37.62&current=temperature_2m') : null, null],
+    ['Воркер → ИИ (короткий запрос)', base ? base + '/ai' : null,
+      { model:'claude-sonnet-4-6', max_tokens:16, messages:[{role:'user',content:'Ответь одним словом: привет'}] }]
+  ];
+  window.__dg = [];
+  rows.innerHTML = tests.map((t,i)=>`<div class="dg-row" id="dg${i}"><b>${t[0]}</b><span>проверяю…</span></div>`).join('');
+  for(let i=0;i<tests.length;i++){
+    const [name, url, body] = tests[i];
+    const el = document.getElementById('dg'+i).querySelector('span');
+    if(!url){ el.textContent = 'нечего проверять — адрес воркера пуст'; el.className='bad';
+      window.__dg.push(name+': адрес не задан'); continue; }
+    const t0 = Date.now();
+    try{
+      const ac = new AbortController(); const tm = setTimeout(()=>ac.abort(), 90000);
+      const r = await fetch(url, Object.assign({ signal: ac.signal, cache:'no-store' },
+        body ? { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) } : {}));
+      clearTimeout(tm);
+      const ms = Date.now()-t0;
+      let extra = '';
+      try{ const j = await r.json(); if(j && j.error) extra = ' · ' + (j.error.message||j.error); }catch(e){}
+      const okk = r.ok && !extra;
+      el.textContent = (okk?'ответил':'ошибка') + ' за ' + (ms/1000).toFixed(1) + ' с · HTTP ' + r.status + extra;
+      el.className = okk ? (ms>15000 ? 'slow' : 'ok') : 'bad';
+      window.__dg.push(name+': HTTP '+r.status+', '+(ms/1000).toFixed(1)+' с'+extra);
+    }catch(e){
+      const ms = Date.now()-t0;
+      el.textContent = 'не ответил за ' + (ms/1000).toFixed(1) + ' с · ' + String(e.message||e).slice(0,70);
+      el.className = 'bad';
+      window.__dg.push(name+': нет ответа за '+(ms/1000).toFixed(1)+' с — '+String(e.message||e).slice(0,70));
+    }
+  }
+};
+window.lkDiagCopy = ()=>{
+  const t = 'LOOKA · проверка связи\n' + (window.__dg||[]).join('\n');
+  if(navigator.clipboard) navigator.clipboard.writeText(t).then(()=>myToast('Скопировано — отправьте разработчику')).catch(()=>myToast(t));
+  else myToast(t);
+};
+try{ if(new URLSearchParams(location.search).get('diag')==='1') setTimeout(lkDiag, 900); }catch(e){}
 
 window.closeAccPop = ()=>{ const m = document.getElementById('accPop'); if(m) m.classList.remove('open'); };
 /* «Скачать мои данные» ведёт туда, где данные и лежат — в стиль-паспорт, прямо к кнопке PDF */
