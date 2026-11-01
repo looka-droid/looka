@@ -4754,6 +4754,41 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .dl-note{font-size:9.5px;margin-top:14px}
 @media(max-width:520px){.dl-sky{height:170px}.dl-body{padding:18px 18px 18px}}
 
+/* ---- попап образа дня: читаемая карточка погоды ---- */
+#dlWx.dl-card{display:grid;grid-template-columns:auto 1fr;gap:2px 18px;align-items:center;
+  padding:16px 18px;margin-bottom:16px;border-radius:18px;
+  border:1px solid rgba(255,255,255,.13);
+  background:linear-gradient(135deg,rgba(199,157,240,.15),rgba(25,198,247,.07) 60%,rgba(255,255,255,.03))}
+#dlWx .dl-temp{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+#dlWx .dl-temp b{font-family:'Golos Text',sans-serif;font-weight:800;font-size:44px;letter-spacing:-2px;line-height:.95;
+  background:linear-gradient(135deg,#9BEBFF,#C79DF2);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:#9BEBFF}
+#dlWx .dl-temp em{font-style:normal;font-family:'Golos Text',sans-serif;font-size:11.5px;letter-spacing:0;
+  color:#A8AEC2;margin-top:6px;white-space:nowrap}
+#dlWx .dl-meta{min-width:0}
+#dlWx .dl-meta b{display:block;font-family:'Golos Text',sans-serif;font-weight:700;font-size:18px;
+  letter-spacing:0;color:#F4F5FA;line-height:1.2}
+#dlWx .dl-meta span{display:block;font-family:'Golos Text',sans-serif;font-size:13px;letter-spacing:0;
+  color:#A8AEC2;margin-top:4px;line-height:1.4}
+#dlWx .dl-ev{grid-column:1/-1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin-top:13px;padding-top:12px;border-top:1px dashed rgba(255,255,255,.14);
+  font-family:'Golos Text',sans-serif;font-size:12.5px;letter-spacing:0;color:#A8AEC2;white-space:normal}
+#dlWx .dl-ev i{font-style:normal;color:#C79DF2;font-size:11px}
+#dlWx .dl-ev b{font-weight:700;color:#F0E4FF}
+@media(max-width:480px){#dlWx.dl-card{gap:2px 14px;padding:14px}#dlWx .dl-temp b{font-size:36px}
+  #dlWx .dl-meta b{font-size:16px}#dlWx .dl-ev{display:flex}}
+
+/* ---- «позже» и сноска: без терминального моноширинного набора ---- */
+.day-box .dl-later{font-family:'Golos Text',sans-serif;font-size:13px;font-weight:600;letter-spacing:0;
+  text-decoration:none;color:#9AA1B8;padding:9px 16px;border-radius:99px;transition:color .18s,background .18s}
+.day-box .dl-later:hover{color:#fff;background:rgba(255,255,255,.07)}
+.day-box .dl-note{font-family:'Golos Text',sans-serif;font-size:11.5px;letter-spacing:0;color:#767C92;line-height:1.5}
+.day-box .dl-note span{color:#A8AEC2;text-decoration:none;white-space:nowrap;border-bottom:1px solid rgba(168,174,194,.35)}
+.day-box .dl-note span:hover{color:#fff;border-bottom-color:#fff}
+/* чипы профиля: скруглить и дать воздуха */
+.day-box .dl-chips span{border-radius:99px;padding:6px 11px;letter-spacing:.9px}
+.day-box .dl-chips span i{color:#C79DF2}
+
 
 .ct-status{display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:8px 14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.5px;color:#C2C7D6;text-transform:uppercase}
 .ct-status i{width:8px;height:8px;border-radius:50%;background:#37E08A;box-shadow:0 0 10px #37E08A;animation:pulse 1.8s infinite}
@@ -11285,6 +11320,17 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDayLook(); }
   const complete = S.gender && S.figure && S.hair && S.eyes && S.skin && S.clothSize && S.shoeSize;
   if(!complete) return;
   const wcode = c=> c<=1?'ясно': c<=3?'облачно': c<=48?'туман': c<=57?'морось': c<=67?'дождь': c<=77?'снег': c<=82?'ливень': c<=86?'снегопад':'гроза';
+  const sgn = v => v>0 ? '+'+v : (v<0 ? '−'+Math.abs(v) : '0');
+  /* карточка погоды: крупная температура, город, условия и повод отдельной строкой */
+  const dlWxHtml = (o, cityName, evName)=>{
+    const has = o && typeof o.t === 'number';
+    const line = has ? [o.w, (typeof o.wind==='number'&&o.wind>0)?('ветер '+o.wind+' км/ч'):''].filter(Boolean).join(' · ')
+                     : 'прогноз сейчас не отвечает';
+    const feels = has && typeof o.f === 'number' && Math.abs(o.f-o.t)>=2 ? '<em>ощущается как '+sgn(o.f)+'°</em>' : '';
+    return (has ? '<div class="dl-temp"><b>'+sgn(o.t)+'°</b>'+feels+'</div>' : '')
+      + '<div class="dl-meta"><b>'+cityName+'</b><span>'+line+'</span></div>'
+      + (evName ? '<div class="dl-ev"><i>◈</i>сегодня у вас: <b>'+evName+'</b></div>' : '');
+  };
   const hi = new Date().getHours(); const greet = hi<5?'Доброй ночи': hi<12?'Доброе утро': hi<18?'Добрый день':'Добрый вечер';
   const fab = document.getElementById('dayFab');
   window.goTodayLook = ()=>{ closeDayLook(); window._autoToday = city ? {city, ev} : null; setTimeout(()=>openTool('today'), 250); };
@@ -11308,8 +11354,8 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDayLook(); }
       const f = (typeof c.apparent_temperature === 'number') ? Math.round(c.apparent_temperature) : t;
       window.WX_LAST_OBJ={t, f, wind:Math.round(c.wind_speed_10m||0), w:wcode(c.weather_code), city:city.n}; window.WX_LAST=(t>0?'+':'')+t+'° '+wcode(c.weather_code); if(window.nightDraw) setTimeout(nightDraw,50);
       document.getElementById('dlTitle').textContent = greet+'!'; document.getElementById('dlSub').textContent = 'Образ на сегодня — под погоду и ваш профиль';
-      document.getElementById('dlWx').innerHTML = '<div class="t">'+(t>0?'+':'')+t+'°</div><div class="w"><b>'+city.n+'</b>'+wcode(c.weather_code)+(Math.abs(f-t)>=2?' · ощущается как '+(f>0?'+':'')+f+'°':'')+' · ветер '+Math.round(c.wind_speed_10m)+' км/ч</div><div class="ev">'+ev+'</div>';
-      document.getElementById('dlLead').textContent = 'Образ под ваш профиль и '+(t>0?'+':'')+t+'° в городе '+city.n+' уже собран — с вещами, ссылками и советами стилиста.';
+      document.getElementById('dlWx').innerHTML = dlWxHtml({t, f, w:wcode(c.weather_code), wind:Math.round(c.wind_speed_10m||0)}, city.n, ev);
+      document.getElementById('dlLead').textContent = 'Образ под ваш профиль и '+sgn(t)+'° в городе '+city.n+' уже собран — с вещами, ссылками и советами стилиста.';
       maybeOpen();
     }).catch(async ()=>{
       /* сеть могла моргнуть: пробуем ещё раз через общий механизм и берём то, что уже знаем */
@@ -11318,11 +11364,11 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDayLook(); }
       document.getElementById('dlTitle').textContent = greet+'!';
       if(o && typeof o.t === 'number'){
         document.getElementById('dlSub').textContent = 'Образ на сегодня — под погоду и ваш профиль';
-        document.getElementById('dlWx').innerHTML = '<div class="t">'+(o.t>0?'+':'')+o.t+'°</div><div class="w"><b>'+city.n+'</b>'+(o.w||'')+'</div><div class="ev">'+ev+'</div>';
-        document.getElementById('dlLead').textContent = 'Образ под ваш профиль и '+(o.t>0?'+':'')+o.t+'° в городе '+city.n+' уже собран — с вещами, ссылками и советами стилиста.';
+        document.getElementById('dlWx').innerHTML = dlWxHtml(o, city.n, ev);
+        document.getElementById('dlLead').textContent = 'Образ под ваш профиль и '+sgn(o.t)+'° в городе '+city.n+' уже собран — с вещами, ссылками и советами стилиста.';
       } else {
         document.getElementById('dlSub').textContent = 'Образ на сегодня готов';
-        document.getElementById('dlWx').innerHTML = '<div class="w"><b>'+city.n+'</b>прогноз не отвечает</div><div class="ev">'+ev+'</div>';
+        document.getElementById('dlWx').innerHTML = dlWxHtml(null, city.n, ev);
         document.getElementById('dlLead').textContent = 'Сервис прогноза сейчас не отвечает — образ собран под ваш профиль, а погоду добавлю, как только связь вернётся.';
       }
       maybeOpen();
@@ -18838,23 +18884,33 @@ window.renderDash = ()=>{
   const cs=g('looka_cs'), D2=g('looka_dna')||{}, K2=g('looka_skin')||{}, W=(g('looka_wardrobe')||{}).items||[], R=g('looka_ritual')||{}, H=g('looka_hair')||{}, A=g('looka_acc')||{}, Q=g('looka_state')||g('looka_quiz')||{};
   const tr = window.dnaTypeResult ? dnaTypeResult() : null; const TN={rom:'Романтик',dram:'Драматик',cls:'Классик',nat:'Натурал',gam:'Гамин',boh:'Богема',spt:'Спорт-шик'};
   const arch = (window.dnaArchetype && dnaArchetype()) || '';
+  /* человеческий язык вместо сырых ответов анкет */
+  const lowFirst = x => x ? x.charAt(0).toLowerCase()+x.slice(1) : '';
+  const stylesLine = (()=>{ const a=(D2.styles||[]); if(!a.length) return null;
+    if(a.length===1) return a[0];
+    if(a.length<=3) return a.slice(0,-1).join(', ')+' и '+a[a.length-1];
+    const r=a.length-2; return a.slice(0,2).join(', ')+' и ещё '+r+' '+(r<5?'стиля':'стилей'); })();
+  const skinLine = K2.type ? (/\s/.test(K2.type) ? K2.type : K2.type+' кожа') : null;
+  const skinCap  = (K2.goals&&K2.goals.length) ? 'рутина под '+lowFirst(K2.goals[0]) : 'ваша рутина ухода';
+  const ritLine  = R.n ? (R.n+' '+(R.n===1?'день':R.n<5?'дня':'дней')+' подряд') : null;
+  const ritCap   = R.n>=3 ? 'не прерывайте серию' : 'продолжить сегодня';
   const cards=[
-    ['Цветотип', cs&&cs.season ? cs.season : null, 'openColor()', 'пройти за 60 секунд'],
-    ['Стилевой типаж', tr&&Object.keys(D2.tq||{}).length>=6 ? TN[tr.main] : null, 'openDna()', '12 вопросов'],
-    ['Архетип', arch||null, 'openDna()', 'тест характера'],
-    ['Эстетики', (D2.styles||[]).length ? D2.styles.slice(0,3).join(' · ') : null, 'openDna()', 'выбрать'],
-    ['Кожа', K2.type ? K2.type+(K2.goals&&K2.goals.length?' · '+K2.goals[0]:'') : null, 'openSkin()', 'тип и рутина'],
-    ['Форма лица', H.face||null, 'openHair()', 'стрижка и укладки'],
-    ['Гардероб', W.length ? W.length+' '+(W.length===1?'вещь':W.length<5?'вещи':'вещей') : null, 'openWardrobe()', 'добавить вещи'],
-    ['Скоро', (window.eventsSoonText&&eventsSoonText())||null, "myTab('soon')", 'добавить событие'],
-    ['Ритуал дня', R.n ? 'серия '+R.n+' '+(R.n===1?'день':R.n<5?'дня':'дней') : null, "closePage();setTimeout(()=>{const r=document.getElementById('ritSec'); if(r&&window.glide) glide(r,110,800);},300)", 'начать серию']
+    ['Цветотип', cs&&cs.season ? cs.season : null, 'openColor()', '60 секунд — и палитра ваша', 'ваши цвета и чего избегать'],
+    ['Стилевой типаж', tr&&Object.keys(D2.tq||{}).length>=6 ? TN[tr.main] : null, 'openDna()', '12 вопросов о себе', 'силуэты, которые вам к лицу'],
+    ['Характер стиля', arch||null, 'openDna()', 'короткий тест характера', 'как LOOKA с вами говорит'],
+    ['Ваш вкус', stylesLine, 'openDna()', 'выберите, что цепляет глаз', 'визуальный язык ваших образов'],
+    ['Кожа', skinLine, 'openSkin()', 'тип кожи и уход под него', skinCap],
+    ['Форма лица', H.face||null, 'openHair()', 'определим за минуту', 'стрижки и укладки, которые идут'],
+    ['Гардероб', W.length ? W.length+' '+(W.length===1?'вещь':W.length<5?'вещи':'вещей') : null, 'openWardrobe()', 'добавьте первые вещи', 'LOOKA одевает вас из них'],
+    ['Ближайшее событие', (window.eventsSoonText&&eventsSoonText())||null, "myTab('soon')", 'добавьте дату — соберём заранее', 'образ готовим заранее'],
+    ['Ритуал дня', ritLine, "closePage();setTimeout(()=>{const r=document.getElementById('ritSec'); if(r&&window.glide) glide(r,110,800);},300)", 'начните серию сегодня', ritCap]
   ];
   const done=cards.filter(c=>c[1]).length;
   const dspk = (()=>{ let o=''; for(let i=0;i<26;i++){ const x=(i*41%96)+2, y=(i*59%90)+3, sz=2+(i%4);
     o += `<i style="left:${x}%;top:${y}%;width:${sz+1}px;height:${sz+1}px;--d:${(3.4+(i%5)*.6).toFixed(1)}s;--dl:${(i*.21).toFixed(2)}s"></i>`; } return o; })();
   box.innerHTML=`<div class="dash wt-glam dash-glam"><div class="wt-glit">${dspk}</div>
     <div class="dash-head"><div><div class="cs-k">ВАШИ РЕЗУЛЬТАТЫ · ${done} ИЗ ${cards.length}</div><h3>${A.name?A.name.split(' ')[0]+', в':'В'}от что LOOKA о вас уже знает</h3></div><div class="dash-ring"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="20" cy="20" r="17" fill="none" stroke="url(#dg)" stroke-width="4" stroke-linecap="round" stroke-dasharray="${(106.8*done/cards.length).toFixed(1)} 200" transform="rotate(-90 20 20)"/><defs><linearGradient id="dg"><stop offset="0" stop-color="#19C6F7"/><stop offset="1" stop-color="#C79DF2"/></linearGradient></defs></svg><b>${Math.round(done/cards.length*100)}%</b></div></div>
-    <div class="dash-grid">${cards.map((c,i)=>HUB.pop(`<button class="dash-it ${c[1]?'ok':''}" onclick="${c[2].replace(/"/g,'&quot;')}"><small>${c[0]}</small><b>${c[1]||'—'}</b><span>${c[1]?'открыть →':c[3]+' →'}</span></button>`,i)).join('')}</div>
+    <div class="dash-grid">${cards.map((c,i)=>HUB.pop(`<button class="dash-it ${c[1]?'ok':''}" onclick="${c[2].replace(/"/g,'&quot;')}"><small>${c[0]}</small><b>${c[1]||'ещё не знаем'}</b><span>${(c[1]?(c[4]||'открыть'):c[3])} →</span></button>`,i)).join('')}</div>
   </div>`;
   if(window.sparkleReveal) sparkleReveal(box.firstElementChild);
 };
@@ -22981,8 +23037,56 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 .wt-err p{font-size:14px;line-height:1.6;color:#C9CEDC;margin:0 0 8px}
 .wt-err p.sm{font-size:13px;color:#8E95AB}
 .wt-err .btn{margin-top:8px}
+/* вывод самодиагностики под сообщением об ошибке */
+.wk-vd{margin:12px 0 4px;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.55;
+  border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#C9CEDC}
+.wk-vd b{display:block;font-family:'Golos Text',sans-serif;font-weight:700;font-size:14px;color:#F4F5FA;margin-bottom:4px}
+.wk-vd span{display:block}
+.wk-vd a{display:inline-block;margin-top:8px;color:#8FD6FF;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(143,214,255,.4)}
+.wk-vd.old{border-color:rgba(255,184,76,.45);background:rgba(255,184,76,.1)}
+.wk-vd.old b{color:#FFD49A}
+.wk-vd.warn{border-color:rgba(255,157,176,.4);background:rgba(255,157,176,.08)}
+.wk-vd.warn b{color:#FFC2CF}
+.wk-vd.ok{border-color:rgba(124,240,178,.35);background:rgba(124,240,178,.08)}
+.wk-vd.ok b{color:#9CF3C6}
+.wk-dot{display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:50%;background:#8FD6FF;
+  animation:pulse 1.4s ease-in-out infinite;vertical-align:middle}
 </style>
 <script>
+/* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
+window.WK_VERSION = 'fast-2026-11-01';   /* версия, которую должен отдавать актуальный воркер */
+window.wkCheck = async ()=>{
+  const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
+  if(!base) return { state:'none' };
+  const ac = new AbortController(); const tm = setTimeout(()=>ac.abort(), 7000);
+  try{
+    const r = await fetch(base+'/health', { signal: ac.signal }); clearTimeout(tm);
+    if(!r.ok) return { state:'bad', code:r.status };
+    let j = null; try{ j = await r.json(); }catch(e){}
+    const v = j && j.version;
+    if(!v) return { state:'old' };
+    return v === window.WK_VERSION ? { state:'fresh', version:v } : { state:'old', version:v };
+  }catch(e){ clearTimeout(tm); return { state:'dead' }; }
+};
+/* дописывает в карточку ошибки честный вывод, что именно сломано */
+window.wkVerdict = async el=>{
+  if(!el) return;
+  const box = document.createElement('div'); box.className='wk-vd';
+  box.innerHTML = '<i class="wk-dot"></i>проверяю ваш сервер…'; el.appendChild(box);
+  const c = await wkCheck();
+  const T = {
+    none : ['warn','Сервер ИИ не подключён', 'В настройках сайта не указан адрес воркера.'],
+    dead : ['warn','Воркер не отвечает совсем', 'Проверьте, что он опубликован в Cloudflare и адрес верный. Если всё на месте — запрос режет провайдер или антивирус, попробуйте с мобильного интернета.'],
+    bad  : ['warn','Воркер отвечает ошибкой ' + (c.code||''), 'Чаще всего это не задан или исчерпан ключ ИИ в настройках Cloudflare.'],
+    old  : ['old','На Cloudflare старая версия воркера', 'Именно поэтому ответ ждёт больше минуты. Загрузите в Cloudflare новый файл looka-worker.js и нажмите Deploy — ожидание станет несколько секунд.'],
+    fresh: ['ok','Воркер свежий, дело не в нём', 'Значит упирается в ключ ИИ: он не задан, исчерпан лимит или модель отвечает дольше обычного. Откройте /ai-test — там видно по каждой модели.']
+  };
+  const t = T[c.state] || T.dead;
+  box.className = 'wk-vd ' + t[0];
+  box.innerHTML = '<b>' + t[1] + '</b><span>' + t[2] + '</span>'
+    + (c.state==='fresh' || c.state==='bad' ? '<a href="' + String(typeof LOOKA_API!=='undefined'?LOOKA_API:'').replace(/\/$/,'') + '/ai-test" target="_blank" rel="noopener">Проверить модели →</a>' : '');
+};
+
 /* ===== запрос к ИИ не должен висеть вечно: ставим предел ожидания ===== */
 (function(){
   if(!window.aiFetch || window.aiFetch.__tmo) return;
@@ -23370,13 +23474,17 @@ window.wtPick = async key=>{
         <p>Так бывает, когда воркер просыпается после простоя или запрос режет сеть.</p>
         <p class="sm">Нажмите ещё раз — со второй попытки обычно собирается.</p>
         <button class="btn primary" style="margin-top:12px" onclick="wtPick('${key}')">↻ Попробовать ещё раз</button></div>`;
+      if(window.wkVerdict) wkVerdict(o1.querySelector('.wt-err'));
       return;
     }
-    (outEl()||{}).innerHTML =
+    const _o = outEl();
+    if(_o){
+      _o.innerHTML =
       `<div class="wt-err"><b>Не получилось собрать образ</b>
         <p>${esc(e.message)}.</p>
-        <p class="sm">Если написано «сервер ответил: …» — отвечает воркер, и дело в нём: чаще всего не задан или исчерпан ключ ИИ в настройках Cloudflare. Если ошибка про сеть — запрос режет провайдер или антивирус, попробуйте с мобильного интернета.</p>
         <button class="btn primary" onclick="wtPick('${esc(key)}')">↻ Попробовать ещё раз</button></div>`;
+      if(window.wkVerdict) wkVerdict(_o.querySelector('.wt-err'));
+    }
   }
 };
 window.wtReset = ()=>{
