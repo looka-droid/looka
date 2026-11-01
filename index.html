@@ -953,6 +953,83 @@ body.subpage #quizDone,body.subpage .stage{display:none!important}
 .dg-row span.slow{color:#FFB84C}
 .dg-row span.bad{color:#FF8DA1}
 
+/* ================= БЬЮТИ-СКАН: кукольный Y2K-глянец =================
+   Собственная стилистика: горячая фуксия, лак, блёстки, крупный гротеск.
+   Ничего чужого: ни логотипов, ни персонажей, ни фирменного оформления студий. */
+.bz{position:relative;overflow:hidden;border-radius:28px;padding:0 0 34px;
+  background:
+    radial-gradient(120% 90% at 10% 0%,rgba(255,61,157,.55),transparent 58%),
+    radial-gradient(100% 90% at 95% 10%,rgba(168,85,247,.5),transparent 55%),
+    radial-gradient(130% 120% at 50% 110%,rgba(255,196,214,.3),transparent 60%),
+    linear-gradient(160deg,#2A0A28 0%,#1A0820 55%,#140A1E 100%);
+  border:1px solid rgba(255,138,201,.45);
+  box-shadow:0 0 0 1px rgba(255,138,201,.12) inset,0 36px 100px -40px rgba(255,61,157,.8)}
+.bz-spark{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit;z-index:1}
+.bz-spark i{position:absolute;display:block;border-radius:50%;background:#fff;opacity:0;
+  animation:msSpark var(--d,5s) ease-in-out infinite;animation-delay:var(--dl,0s);
+  box-shadow:0 0 12px 3px rgba(255,255,255,.95),0 0 24px 7px rgba(255,120,190,.8)}
+.bz > *:not(.bz-spark){position:relative;z-index:2}
+
+/* шапка */
+.bz-hero{padding:46px 40px 34px;text-align:center}
+.bz-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3.4px;text-transform:uppercase;
+  color:#FFD9EC;margin-bottom:16px}
+.bz-title{font-family:'Unbounded','Golos Text',sans-serif;font-weight:800;font-size:clamp(30px,5vw,56px);
+  line-height:1.04;letter-spacing:-1px;margin:0 0 16px;color:#fff;
+  text-shadow:0 3px 0 rgba(255,61,157,.55),0 10px 40px rgba(255,61,157,.6)}
+.bz-title em{font-style:normal;
+  background:linear-gradient(100deg,#FFE7F3 0%,#FF8AC9 40%,#FFD28A 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 2px 10px rgba(255,138,201,.6))}
+.bz-lead{max-width:620px;margin:0 auto 20px;font-size:15.5px;line-height:1.65;color:#FBE4F1}
+.bz-tags{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+.bz-tags span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.3px;text-transform:uppercase;
+  color:#FFF2F9;padding:7px 13px;border-radius:99px;
+  border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.1);backdrop-filter:blur(3px)}
+
+/* форма */
+.bz-form{display:grid;grid-template-columns:300px 1fr;gap:26px;padding:0 40px}
+@media(max-width:900px){.bz-form{grid-template-columns:1fr;padding:0 20px}.bz-hero{padding:34px 20px 26px}}
+
+.bz-selfie{aspect-ratio:3/4;border-radius:22px;cursor:pointer;display:grid;place-items:center;text-align:center;
+  border:2px dashed rgba(255,255,255,.4);background:rgba(255,255,255,.08);backdrop-filter:blur(4px);
+  transition:border-color .2s,background .2s,transform .2s}
+.bz-selfie:hover{border-color:#fff;background:rgba(255,255,255,.16);transform:translateY(-3px)}
+.bz-selfie.has{border-style:solid;padding:0;overflow:hidden}
+.bz-selfie img{width:100%;height:100%;object-fit:cover;display:block}
+.bz-selfie-in{padding:22px}
+.bz-selfie-in i{display:block;font-style:normal;font-size:40px;margin-bottom:12px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.4))}
+.bz-selfie-in b{display:block;font-family:'Golos Text',sans-serif;font-weight:800;font-size:17px;color:#fff;margin-bottom:6px}
+.bz-selfie-in span{display:block;font-size:12.5px;line-height:1.5;color:#FFE0F0}
+.bz-priv{margin-top:10px;font-size:11.5px;line-height:1.5;color:#E8BBD8;text-align:center}
+
+.bz-q{margin-bottom:18px}
+.bz-q > label{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:9px;
+  font-family:'Golos Text',sans-serif;font-weight:700;font-size:14px;color:#fff}
+.bz-q > label em{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.2px;
+  text-transform:uppercase;color:#FFC9E4}
+.bz-chips{display:flex;gap:8px;flex-wrap:wrap}
+.bz-chip{font-family:'Golos Text',sans-serif;font-weight:600;font-size:13px;padding:10px 16px;border-radius:99px;
+  cursor:pointer;color:#FFEAF6;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.07);
+  transition:all .18s}
+.bz-chip:hover{border-color:#fff;background:rgba(255,255,255,.17);transform:translateY(-2px)}
+.bz-chip.on{color:#2A0A28;border-color:transparent;font-weight:700;
+  background:linear-gradient(135deg,#FFF0F7,#FFC2E2);box-shadow:0 8px 22px -10px rgba(255,255,255,.9)}
+
+.bz-go{width:100%;margin-top:8px;padding:17px 24px;border:0;border-radius:16px;cursor:pointer;
+  font-family:'Unbounded','Golos Text',sans-serif;font-weight:700;font-size:15px;letter-spacing:.3px;color:#2A0A28;
+  background:linear-gradient(135deg,#FFF0F7 0%,#FFC2E2 50%,#FFD9A8 100%);
+  box-shadow:0 16px 40px -18px rgba(255,255,255,.95);transition:transform .2s,box-shadow .2s,filter .2s}
+.bz-go:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 22px 50px -18px rgba(255,255,255,1)}
+.bz-go:disabled{cursor:not-allowed;filter:grayscale(.55);opacity:.5;box-shadow:none}
+.bz-note{margin-top:10px;font-size:12px;line-height:1.5;color:#E8BBD8;text-align:center}
+
+#bres{padding:0 40px}
+@media(max-width:900px){#bres{padding:0 20px}}
+#bres:empty{padding:0}
+body.beauty-mode #beauty{display:block}
+@media(prefers-reduced-motion:reduce){.bz-spark i{animation:none;opacity:.5}}
+
 /* ===== «Ваши результаты» — розовый блок с блёстками ===== */
 .dash-glam{position:relative;overflow:hidden;border-radius:22px;
   background:#15101A!important;
@@ -1021,6 +1098,24 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
 .ps-card.ps-gap .ps-note{color:#9BA2B6}
 .ps-gap-b{margin-top:12px;padding:10px 16px;font-size:11px}
 @media print{.ps-card.ps-gap{display:none}}
+
+/* ===== «в стирке» ===== */
+.wt-wash{flex:0 0 auto;width:26px;height:26px;border-radius:9px;cursor:pointer;margin-top:1px;
+  font-size:13px;line-height:1;color:#7F869C;border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.04);opacity:0;transition:all .18s}
+.wt-it:hover .wt-wash,.wt-wash:focus-visible{opacity:1}
+.wt-wash:hover{color:#8FD6FF;border-color:rgba(143,214,255,.6);background:rgba(143,214,255,.14)}
+@media(hover:none){.wt-wash{opacity:.7}}
+.wash-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0 2px;padding:10px 12px;
+  border-radius:12px;border:1px solid rgba(143,214,255,.28);background:rgba(143,214,255,.09)}
+.wash-k{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#8FD6FF}
+.wash-chip{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:99px;cursor:pointer;
+  font-family:'Golos Text',sans-serif;font-size:12px;color:#DCEEFF;
+  border:1px solid rgba(143,214,255,.4);background:rgba(10,12,18,.4);transition:all .18s}
+.wash-chip:hover{color:#fff;border-color:#8FD6FF;background:rgba(143,214,255,.2)}
+.wash-chip i{font-style:normal;font-size:13px;opacity:.7}
+.wash-all{margin-left:auto;padding:0;border:0;background:none;cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:#8FD6FF;text-decoration:underline}
 
 /* ===== макияж и укладка под образ дня ===== */
 .nt-beauty{width:100%;margin-top:9px;padding:11px 14px;border-radius:12px;cursor:pointer;
@@ -2806,7 +2901,12 @@ header::before{display:none}
 #topbar .nav-dd .dd{top:calc(100% + 12px + var(--pgh,0px));z-index:900}
 /* плашка не должна перехватывать клики по раскрытому списку из шапки:
    кликабельны только сами её кнопки */
-#pgBar{position:relative;z-index:1;pointer-events:none}
+#pgBar{position:relative;z-index:1;pointer-events:none;transition:opacity .18s}
+#pgBar .pg-d,#pgBar .pg-save,#pgBar .pg-txt b{pointer-events:auto}
+/* открыт список из шапки — плашка убирается целиком, а не торчит из-под него наполовину */
+#topbar:has(.nav-dd:hover) #pgBar,
+#topbar:has(.nav-dd.on) #pgBar,
+#topbar:has(.dd:hover) #pgBar{opacity:0;pointer-events:none}
 #pgBar .pg-d,#pgBar .pg-save,#pgBar .pg-txt b{pointer-events:auto}
 /* ================= ШАПКА: один ровный ряд, ничего не срезается =================
    При входе в меню добавляются «Мой LOOKA» и «Паспорт» — строка переставала помещаться,
@@ -6911,6 +7011,86 @@ setInterval(pgDraw, 4000);
 </div>
 
 <!-- ======== РЕЗУЛЬТАТЫ ======== -->
+<!-- ======== БЬЮТИ-СКАН ======== -->
+<section class="sec" id="beauty">
+  <div class="bz">
+    <div class="bz-spark" aria-hidden="true"><i style="left:1%;top:2%;width:3px;height:3px;--d:3.2s;--dl:0.00s"></i><i style="left:44%;top:63%;width:4px;height:4px;--d:3.9s;--dl:0.17s"></i><i style="left:87%;top:30%;width:5px;height:5px;--d:4.6s;--dl:0.34s"></i><i style="left:33%;top:91%;width:6px;height:6px;--d:5.3s;--dl:0.51s"></i><i style="left:76%;top:58%;width:3px;height:3px;--d:6.0s;--dl:0.68s"></i><i style="left:22%;top:25%;width:4px;height:4px;--d:3.2s;--dl:0.85s"></i><i style="left:65%;top:86%;width:5px;height:5px;--d:3.9s;--dl:1.02s"></i><i style="left:11%;top:53%;width:6px;height:6px;--d:4.6s;--dl:1.19s"></i><i style="left:54%;top:20%;width:3px;height:3px;--d:5.3s;--dl:1.36s"></i><i style="left:97%;top:81%;width:4px;height:4px;--d:6.0s;--dl:1.53s"></i><i style="left:43%;top:48%;width:5px;height:5px;--d:3.2s;--dl:1.70s"></i><i style="left:86%;top:15%;width:6px;height:6px;--d:3.9s;--dl:1.87s"></i><i style="left:32%;top:76%;width:3px;height:3px;--d:4.6s;--dl:2.04s"></i><i style="left:75%;top:43%;width:4px;height:4px;--d:5.3s;--dl:2.21s"></i><i style="left:21%;top:10%;width:5px;height:5px;--d:6.0s;--dl:2.38s"></i><i style="left:64%;top:71%;width:6px;height:6px;--d:3.2s;--dl:2.55s"></i><i style="left:10%;top:38%;width:3px;height:3px;--d:3.9s;--dl:2.72s"></i><i style="left:53%;top:5%;width:4px;height:4px;--d:4.6s;--dl:2.89s"></i><i style="left:96%;top:66%;width:5px;height:5px;--d:5.3s;--dl:3.06s"></i><i style="left:42%;top:33%;width:6px;height:6px;--d:6.0s;--dl:3.23s"></i><i style="left:85%;top:94%;width:3px;height:3px;--d:3.2s;--dl:3.40s"></i><i style="left:31%;top:61%;width:4px;height:4px;--d:3.9s;--dl:3.57s"></i><i style="left:74%;top:28%;width:5px;height:5px;--d:4.6s;--dl:3.74s"></i><i style="left:20%;top:89%;width:6px;height:6px;--d:5.3s;--dl:3.91s"></i><i style="left:63%;top:56%;width:3px;height:3px;--d:6.0s;--dl:4.08s"></i><i style="left:9%;top:23%;width:4px;height:4px;--d:3.2s;--dl:4.25s"></i><i style="left:52%;top:84%;width:5px;height:5px;--d:3.9s;--dl:4.42s"></i><i style="left:95%;top:51%;width:6px;height:6px;--d:4.6s;--dl:4.59s"></i><i style="left:41%;top:18%;width:3px;height:3px;--d:5.3s;--dl:4.76s"></i><i style="left:84%;top:79%;width:4px;height:4px;--d:6.0s;--dl:4.93s"></i><i style="left:30%;top:46%;width:5px;height:5px;--d:3.2s;--dl:5.10s"></i><i style="left:73%;top:13%;width:6px;height:6px;--d:3.9s;--dl:5.27s"></i><i style="left:19%;top:74%;width:3px;height:3px;--d:4.6s;--dl:5.44s"></i><i style="left:62%;top:41%;width:4px;height:4px;--d:5.3s;--dl:5.61s"></i></div>
+
+    <div class="bz-hero">
+      <div class="bz-eyebrow">бьюти-скан · по вашему селфи</div>
+      <h2 class="bz-title">Разбор внешности<br><em>как у настоящей звезды</em></h2>
+      <p class="bz-lead">Загрузите селфи — ИИ разберёт черты лица, скажет, что в вас уже работает,
+        и соберёт макияж, причёску и уход под вас. Без оценок, баллов и сравнений: только то, что вам идёт.</p>
+      <div class="bz-tags"><span>⟡ черты лица</span><span>⟡ макияж по шагам</span><span>⟡ причёска</span><span>⟡ уход</span><span>⟡ косметичка</span></div>
+    </div>
+
+    <div class="bz-form">
+      <div class="bz-sel">
+        <div class="bz-selfie" id="bSelfBtn" role="button" tabindex="0">
+          <div class="bz-selfie-in"><i>☻</i><b>Загрузить селфи</b><span>без макияжа, при дневном свете, лицо целиком</span></div>
+        </div>
+        <input type="file" id="bSelfInp" accept="image/*" style="display:none">
+        <div class="bz-priv">Фото обрабатывается и нигде не сохраняется.</div>
+      </div>
+
+      <div class="bz-qs">
+        <div class="bz-q"><label>Какой образ собираем<em>обязательно</em></label>
+          <div class="bz-chips" id="bStyle"><button class="bz-chip" onclick="bpick('S','Естественный')">Естественный</button>
+      <button class="bz-chip" onclick="bpick('S','Дерзкий')">Дерзкий</button>
+      <button class="bz-chip" onclick="bpick('S','Вечерний')">Вечерний</button></div></div>
+
+        <div class="bz-q"><label>Бюджет на косметичку<em>обязательно</em></label>
+          <div class="bz-chips" id="bBudget"><button class="bz-chip" onclick="bpick('B','до 1 500 ₽')">до 1 500 ₽</button>
+      <button class="bz-chip" onclick="bpick('B','1 500–4 000 ₽')">1 500–4 000 ₽</button>
+      <button class="bz-chip" onclick="bpick('B','4 000–10 000 ₽')">4 000–10 000 ₽</button>
+      <button class="bz-chip" onclick="bpick('B','10 000 ₽ +')">10 000 ₽ +</button></div></div>
+
+        <div class="bz-q"><label>Тип кожи</label>
+          <div class="bz-chips" id="bSkin"><button class="bz-chip" onclick="bpick('S','Сухая')">Сухая</button>
+      <button class="bz-chip" onclick="bpick('S','Нормальная')">Нормальная</button>
+      <button class="bz-chip" onclick="bpick('S','Комбинированная')">Комбинированная</button>
+      <button class="bz-chip" onclick="bpick('S','Жирная')">Жирная</button>
+      <button class="bz-chip" onclick="bpick('S','Чувствительная')">Чувствительная</button></div></div>
+
+        <div class="bz-q"><label>Что хочется решить</label>
+          <div class="bz-chips" id="bGoal"><button class="bz-chip" onclick="bpick('G','Выровнять тон')">Выровнять тон</button>
+      <button class="bz-chip" onclick="bpick('G','Убрать тёмные круги')">Убрать тёмные круги</button>
+      <button class="bz-chip" onclick="bpick('G','Подчеркнуть глаза')">Подчеркнуть глаза</button>
+      <button class="bz-chip" onclick="bpick('G','Скулы и овал')">Скулы и овал</button>
+      <button class="bz-chip" onclick="bpick('G','Губы')">Губы</button>
+      <button class="bz-chip" onclick="bpick('G','Просто научиться')">Просто научиться</button></div></div>
+
+        <div class="bz-q"><label>Насколько вы дружите с макияжем</label>
+          <div class="bz-chips" id="bLvl"><button class="bz-chip" onclick="bpick('L','Только тушь')">Только тушь</button>
+      <button class="bz-chip" onclick="bpick('L','Базовый')">Базовый</button>
+      <button class="bz-chip" onclick="bpick('L','Уверенный')">Уверенный</button>
+      <button class="bz-chip" onclick="bpick('L','Почти визажист')">Почти визажист</button></div></div>
+
+        <div class="bz-q"><label>Сколько времени на сборы</label>
+          <div class="bz-chips" id="bTime"><button class="bz-chip" onclick="bpick('T','5 минут')">5 минут</button>
+      <button class="bz-chip" onclick="bpick('T','10–15 минут')">10–15 минут</button>
+      <button class="bz-chip" onclick="bpick('T','полчаса')">полчаса</button>
+      <button class="bz-chip" onclick="bpick('T','сколько нужно')">сколько нужно</button></div></div>
+
+        <div class="bz-q"><label>Что вам в себе нравится<em>можно несколько</em></label>
+          <div class="bz-chips" id="bLike"><button class="bz-chip" onclick="blike('глаза')">глаза</button>
+      <button class="bz-chip" onclick="blike('губы')">губы</button>
+      <button class="bz-chip" onclick="blike('скулы')">скулы</button>
+      <button class="bz-chip" onclick="blike('кожа')">кожа</button>
+      <button class="bz-chip" onclick="blike('брови')">брови</button>
+      <button class="bz-chip" onclick="blike('улыбка')">улыбка</button>
+      <button class="bz-chip" onclick="blike('волосы')">волосы</button>
+      <button class="bz-chip" onclick="blike('форма лица')">форма лица</button></div></div>
+
+        <button class="bz-go" id="bGo" disabled>Разобрать мою внешность ✦</button>
+        <div class="bz-note">Нужны селфи, образ и бюджет. Остальное — по желанию, но с ним точнее.</div>
+      </div>
+    </div>
+
+    <div id="bres"></div>
+  </div>
+</section>
+
 <section class="sec reveal" id="nightSec"><div id="nightBox"></div></section>
 <section class="sec reveal" id="scanSec"><div id="scanBox"></div></section>
 
@@ -9746,13 +9926,14 @@ if(!matchMedia('(hover: hover)').matches && !matchMedia('(prefers-reduced-motion
 /* ================= БЬЮТИ-СКАН ================= */
 const B = { style:null, budget:null, selfie:null, skin:null, goal:null, lvl:null, time:null, like:[] };
 window.blike = v=>{ const i = B.like.indexOf(v); i<0 ? B.like.push(v) : B.like.splice(i,1);
-  document.querySelectorAll('#bLike .chip').forEach(c=>c.classList.toggle('on', B.like.includes(c.textContent.trim()))); };
+  document.querySelectorAll('#bLike .chip, #bLike .bz-chip').forEach(c=>c.classList.toggle('on', B.like.includes(c.textContent.trim()))); };
 window.bpick = (k,v)=>{
   B[k]=v;
   const box = document.getElementById({style:'bStyle',skin:'bSkin',goal:'bGoal',lvl:'bLvl',time:'bTime'}[k]||'bBudget');
   if(!box) return;
-  box.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on', c.textContent===v));
-  document.getElementById('bGo').disabled = !(B.style && B.budget);
+  box.querySelectorAll('.chip, .bz-chip').forEach(c=>c.classList.toggle('on', c.textContent.trim()===v));
+  const go = document.getElementById('bGo');
+  if(go) go.disabled = !(B.style && B.budget);
 };
 const _bsi=document.getElementById('bSelfInp'); if(_bsi) _bsi.onchange = e=>{
   const f = e.target.files[0]; if(!f) return;
@@ -9763,11 +9944,19 @@ const _bsi=document.getElementById('bSelfInp'); if(_bsi) _bsi.onchange = e=>{
     c.width = img.width*k; c.height = img.height*k;
     c.getContext('2d').drawImage(img,0,0,c.width,c.height);
     B.selfie = c.toDataURL('image/jpeg',.85).split(',')[1];
-    document.getElementById('bSelfBtn').textContent = '✓ Селфи загружено';
-    document.getElementById('bSelfBtn').classList.add('on');
+    const bt = document.getElementById('bSelfBtn');
+    if(bt){ bt.classList.add('on','has');
+      bt.innerHTML = '<img src="data:image/jpeg;base64,' + B.selfie + '" alt="ваше селфи">'; }
   };
   img.src = URL.createObjectURL(f);
 };
+/* клик по рамке открывает выбор файла */
+(function(){
+  const bt = document.getElementById('bSelfBtn'), inp = document.getElementById('bSelfInp');
+  if(!bt || !inp) return;
+  bt.addEventListener('click', ()=>inp.click());
+  bt.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); inp.click(); } });
+})();
 
 const BMULT = {'до 1 500 ₽':.6,'1 500–4 000 ₽':1,'4 000–10 000 ₽':1.8,'10 000 ₽ +':3.2};
 function bLinks(q){
@@ -20126,6 +20315,45 @@ window.lookBeauty = async (m)=>{
   }
 };
 
+/* ===== «в стирке»: вещь временно выпадает из подбора ===== */
+window.washList = ()=>{
+  let L=[]; try{ L = JSON.parse(localStorage.getItem('looka_wash')||'[]'); }catch(e){ L=[]; }
+  const now = Date.now();
+  const live = L.filter(x=>x && x.n && x.until > now);
+  if(live.length !== L.length){ try{ localStorage.setItem('looka_wash', JSON.stringify(live)); }catch(e){} }
+  return live;
+};
+window.washAdd = (name)=>{
+  const n = String(name||'').trim(); if(!n) return;
+  const L = washList();
+  if(!L.some(x=>x.n.toLowerCase() === n.toLowerCase()))
+    L.push({ n, until: Date.now() + 2*24*3600e3 });        /* два дня — обычный цикл стирки */
+  try{ localStorage.setItem('looka_wash', JSON.stringify(L)); }catch(e){}
+  if(window.myToast) myToast('«' + n + '» в стирке — пересобираю без неё');
+  washRebuild();
+};
+window.washDel = (name)=>{
+  const n = String(name||'').toLowerCase();
+  try{ localStorage.setItem('looka_wash', JSON.stringify(washList().filter(x=>x.n.toLowerCase() !== n))); }catch(e){}
+  if(window.myToast) myToast('Вернула в гардероб');
+  washRebuild();
+};
+window.washClear = ()=>{ try{ localStorage.removeItem('looka_wash'); }catch(e){}
+  if(window.myToast) myToast('Всё вернулось в гардероб'); washRebuild(); };
+window.washRebuild = ()=>{
+  try{ if(window.nightPlan) nightPlan(true); }catch(e){}
+  ['nightDraw','renderWardrobe','renderWantWd','washDraw'].forEach(f=>{ try{ if(typeof window[f]==='function') window[f](); }catch(e){} });
+  /* если на экране уже есть собранные образы — пересобираем их тем же запросом */
+  try{ if(window.W && W.key && window.wtFromWd) wtFromWd(W.key); }catch(e){}
+};
+window.washBar = ()=>{
+  const L = washList(); if(!L.length) return '';
+  return '<div class="wash-bar"><span class="wash-k">в стирке</span>'
+    + L.map(x=>'<button class="wash-chip" onclick="washDel(\''+x.n.replace(/'/g,'&#39;')+'\')" title="Вернуть в гардероб">'
+        + x.n + '<i>×</i></button>').join('')
+    + '<button class="wash-all" onclick="washClear()">вернуть всё</button></div>';
+};
+
 window.nightPlan = (force)=>{
   let W={items:[]}; try{ W=JSON.parse(localStorage.getItem('looka_wardrobe')||'{"items":[]}'); }catch(e){}
   if(!W.items || W.items.length<3) return null;
@@ -22884,6 +23112,9 @@ window.wtPick = async key=>{
   /* что уже висит в шкафу — образ собираем в первую очередь из этого */
   let WD = [];
   try{ WD = (JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items || []; }catch(e){}
+  /* вещи в стирке на время выпадают из подбора */
+  const washNow = (window.washList ? washList() : []).map(x=>x.n.toLowerCase());
+  if(washNow.length) WD = WD.filter(it=>!washNow.includes(String(it.name||'').toLowerCase()));
   const fromWd = WD.length >= 4;
   const wdList = WD.slice(0, 60).map(it=>'- '+[it.name, it.color, it.cat].filter(Boolean).join(', ')).join('\n');
   /* погода за окном: без неё образ может оказаться не по сезону */
@@ -23054,7 +23285,9 @@ window.wtPick = async key=>{
           <div class="wt-items">${(L.own||[]).map(n=>{
             const c = wtDot(n), q = wtSplit(n);
             return `<div class="wt-it"><i class="wt-sw" style="${c?('background:'+c):'background:linear-gradient(135deg,#3a3f4d,#6c7488)'}"></i>
-              <span class="wt-nm">${esc(q.n)}<em>${esc([q.col, q.cat].filter(Boolean).join(' · '))}</em></span><em class="wt-ok">✓</em></div>`;
+              <span class="wt-nm">${esc(q.n)}<em>${esc([q.col, q.cat].filter(Boolean).join(' · '))}</em></span>
+              <button class="wt-wash" title="В стирке — пересобрать без неё" aria-label="В стирке" onclick="washAdd('${esc(q.n).replace(/'/g,'&#39;')}')">⌁</button>
+              <em class="wt-ok">✓</em></div>`;
           }).join('')}</div>`:''}
           ${L.add&&L.add.n?`<div class="wt-miss">
               <div class="wt-miss-h"><i>+</i><div><b>${esc(wtCap(L.add.n))}</b><span>этого в шкафу нет — без него образ не собрать</span></div>${L.add.p?`<em>${esc(L.add.p)}</em>`:''}</div>
@@ -23242,6 +23475,7 @@ window.renderWantWd = ()=>{
     <div class="look badv mk-wide wt-glam"><div class="wt-glit">${spk}</div><div class="look-in">
       <div class="cs-k">ОБРАЗ ПОД НАСТРОЕНИЕ · ИЗ ВАШИХ ВЕЩЕЙ</div>
       <h3>Какой вы хотите быть сегодня?</h3>
+      ${(window.washBar?washBar():'')}
       <div class="wt-tags" style="margin:8px 0 2px">${wxl
         ? `<span class="wt-wx">☀ ${esc(wxl)} · учитываю сама</span><button class="btn ghost wt-geo" onclick="openRegion()">Сменить город</button>`
         : `<span class="wt-wx nocity">☀ город не указан — образ собирается без погоды</span><button class="btn ghost wt-geo" onclick="wdGeo()">Определить город</button>`}</div>
