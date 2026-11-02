@@ -19236,6 +19236,15 @@ window.addEventListener('beforeunload', ()=>{ if(S2.token && S2.sync) navigator.
 const st = ()=> (window.authState ? authState() : {in:false});
 const acc = ()=>{ try{ return JSON.parse(localStorage.getItem('looka_acc')||'{}'); }catch(e){ return {}; } };
 const initials = n=>String(n||'').trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
+/* в кнопке аккаунта должно быть короткое имя. Без имени берём начало почты до «@»,
+   иначе адрес целиком обрезается многоточием и выходит бессмысленное «А…» */
+const navAccName = (a, s)=>{
+  const nm = String((a&&a.name)||'').trim().split(/\s+/)[0];
+  if(nm) return nm.length > 14 ? nm.slice(0,13)+'…' : nm;
+  const mail = String((s&&s.email)||'').split('@')[0].replace(/[._\-+].*$/, '').replace(/\d+$/, '');
+  if(mail) return (mail[0].toUpperCase() + mail.slice(1)).slice(0, 14);
+  return 'Профиль';
+};
 
 window.navAccDraw = ()=>{
   const b = document.querySelectorAll('#navAcc, #topbarNav .nav-acc');
@@ -19243,7 +19252,7 @@ window.navAccDraw = ()=>{
   document.body.classList.toggle('authed', !!s.in);
   b.forEach(el=>{
     el.innerHTML = s.in
-      ? `<i class="na-ava">${a.ava?`<img src="${a.ava}">`:((window.S&&S.gender==='Мужчина')?'♂':'♀')}</i><span>${(a.name||s.email||'').split(/\s+/)[0]||'Профиль'}</span>`
+      ? `<i class="na-ava">${a.ava?`<img src="${a.ava}">`:((window.S&&S.gender==='Мужчина')?'♂':'♀')}</i><span>${navAccName(a, s)}</span>`
       : `<span>Войти</span>`;
     el.classList.toggle('in', !!s.in);
   });
@@ -22483,6 +22492,19 @@ setTimeout(wrap, 500);
 .ms-th{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .18s,border-color .18s;padding:0}
 .ms-th:hover{transform:scale(1.14)}
 .ms-th.on{border-color:#fff;box-shadow:0 0 10px rgba(255,255,255,.5)}
+/* своё фото как оформление переписки */
+.ms-wallb{overflow:hidden;display:inline-flex;align-items:center;justify-content:center;
+  border:2px dashed rgba(255,255,255,.35);background:rgba(255,255,255,.05)}
+.ms-wallb i{font-style:normal;font-size:15px;line-height:1;color:#C5CAD8}
+.ms-wallb img{width:100%;height:100%;object-fit:cover;display:block}
+.ms-wallb.on{border-style:solid}
+.ms-wallx{border:none;background:none;cursor:pointer;padding:0 4px;align-self:center;
+  font-family:'Golos Text',sans-serif;font-size:11.5px;color:#8E95AB;text-decoration:underline dotted}
+.ms-wallx:hover{color:#FF9DB0}
+.ms-pick-n{flex:1 1 100%;font-family:'Golos Text',sans-serif;font-size:11px;color:#6E7488;margin-top:2px}
+/* поверх фото пузыри должны читаться */
+.ms-bg::before{background-size:cover;background-position:center}
+.ms-main.has-wall .ms-b{backdrop-filter:blur(3px)}
 
 /* ---- КАРТОЧКА ПРОФИЛЯ ---- */
 .pf-top{display:flex;align-items:center;gap:15px;margin-bottom:16px}
@@ -22558,8 +22580,19 @@ const THEMES = {
   ice:   ['Лёд',     'radial-gradient(120% 90% at 50% 0%,rgba(25,198,247,.2),transparent 62%),linear-gradient(180deg,rgba(25,198,247,.08),rgba(10,11,16,0))',   'rgba(170,230,255,.95)', 'linear-gradient(135deg,#19C6F7,#9BE8FF)'],
   lilac: ['Сирень',  'radial-gradient(120% 90% at 50% 0%,rgba(199,157,242,.22),transparent 62%),linear-gradient(180deg,rgba(199,157,242,.09),rgba(10,11,16,0))','rgba(221,196,255,.95)', 'linear-gradient(135deg,#C79DF2,#E6D4FF)'],
   mint:  ['Мята',    'radial-gradient(120% 90% at 50% 0%,rgba(124,240,178,.18),transparent 62%),linear-gradient(180deg,rgba(124,240,178,.07),rgba(10,11,16,0))','rgba(180,250,215,.95)', 'linear-gradient(135deg,#7CF0B2,#C8FFE4)'],
-  night: ['Ночь',    'none', 'rgba(255,255,255,.7)', 'linear-gradient(135deg,#2B2F42,#555B78)']
+  night: ['Ночь',    'none', 'rgba(255,255,255,.7)', 'linear-gradient(135deg,#2B2F42,#555B78)'],
+  /* оформления в духе названных эстетик — рисунки свои, без чужих логотипов и персонажей */
+  runway:  ['Подиум',          'radial-gradient(130% 100% at 50% 0%,rgba(255,74,146,.3),transparent 60%),linear-gradient(180deg,rgba(255,158,196,.14),rgba(10,11,16,0) 70%)', 'rgba(255,214,232,.95)', 'linear-gradient(135deg,#FF4A92,#FFCBA4)'],
+  doll:    ['Кукольный Y2K',   'radial-gradient(120% 95% at 50% 0%,rgba(226,66,214,.3),transparent 58%),linear-gradient(180deg,rgba(150,80,255,.16),rgba(10,11,16,0) 72%)',  'rgba(255,196,255,.95)', 'linear-gradient(135deg,#E242D6,#8A5CFF)'],
+  fairy:   ['Фея',             'radial-gradient(130% 100% at 50% 0%,rgba(90,226,220,.26),transparent 58%),linear-gradient(200deg,rgba(176,122,255,.18),rgba(10,11,16,0) 70%)','rgba(206,255,250,.95)', 'linear-gradient(135deg,#5AE2DC,#B07AFF)'],
+  plastic: ['Розовый пластик', 'radial-gradient(120% 90% at 50% 0%,rgba(255,105,180,.34),transparent 62%),linear-gradient(180deg,rgba(255,140,200,.18),rgba(10,11,16,0) 68%)','rgba(255,220,238,.95)', 'linear-gradient(135deg,#FF69B4,#FFA7D6)'],
+  money:   ['Старые деньги',   'radial-gradient(130% 100% at 50% 0%,rgba(198,170,118,.2),transparent 60%),linear-gradient(180deg,rgba(28,42,64,.4),rgba(10,11,16,0) 74%)',   'rgba(232,214,176,.9)',  'linear-gradient(135deg,#C6AA76,#1C2A40)'],
+  chrome:  ['Хром',            'radial-gradient(120% 90% at 50% 0%,rgba(150,166,190,.24),transparent 58%),linear-gradient(180deg,rgba(255,138,46,.12),rgba(10,11,16,0) 70%)','rgba(214,228,248,.9)',  'linear-gradient(135deg,#96A6BE,#FF8A2E)'],
+  kawaii:  ['Каваи',           'radial-gradient(120% 95% at 50% 0%,rgba(255,183,206,.3),transparent 60%),linear-gradient(180deg,rgba(255,236,224,.16),rgba(10,11,16,0) 72%)','rgba(255,232,240,.95)', 'linear-gradient(135deg,#FFB7CE,#FFF0DC)'],
+  press:   ['Редакция',        'radial-gradient(130% 100% at 50% 0%,rgba(255,255,255,.12),transparent 58%),linear-gradient(180deg,rgba(214,32,52,.14),rgba(10,11,16,0) 68%)','rgba(255,255,255,.85)', 'linear-gradient(135deg,#F2F3F7 55%,#D62034 55%)']
 };
+/* у этих оформлений блёсток нет — характер держится на цвете и контрасте */
+const THEME_NOSPARK = ['night','money','chrome','press'];
 const sparkles = ()=>{
   let h = '';
   for(let i=0;i<26;i++){
@@ -22568,13 +22601,46 @@ const sparkles = ()=>{
   }
   return h;
 };
-const applyTheme = (el, key)=>{
+/* оформление и обои хранятся на каждого человека отдельно */
+const TBKEY = 'looka_msg_theme_by', WKEY = 'looka_msg_wall';
+const lsMap = k => { try{ return JSON.parse(localStorage.getItem(k)||'{}') || {}; }catch(e){ return {}; } };
+const lsMapSave = (k, v)=>{ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } };
+const themeFor = uid => (uid && lsMap(TBKEY)[uid]) || M.theme;
+const wallFor  = uid => (uid && lsMap(WKEY)[uid]) || '';
+
+const applyTheme = (el, key, uid)=>{
   const t = THEMES[key] || THEMES.glam;
-  el.style.setProperty('--msg-bg', t[1]);
+  const wall = wallFor(uid);
+  /* своё фото: поверх него затемнение, иначе текст сообщений не читается */
+  el.style.setProperty('--msg-bg', wall
+    ? 'linear-gradient(180deg,rgba(8,9,14,.62),rgba(8,9,14,.86)), url("'+wall+'")'
+    : t[1]);
   el.style.setProperty('--msg-spark', t[2]);
+  el.classList.toggle('has-wall', !!wall);
   const bg = el.querySelector('.ms-bg');
-  if(bg) bg.innerHTML = key === 'night' ? '' : sparkles();
+  if(bg) bg.innerHTML = (wall || THEME_NOSPARK.indexOf(key)>=0) ? '' : sparkles();
 };
+
+/* уменьшаем картинку перед сохранением: в браузере мало места, оригинал туда не влезет */
+function wallShrink(file, max){
+  return new Promise((res, rej)=>{
+    const fr = new FileReader();
+    fr.onerror = ()=>rej(new Error('не удалось прочитать файл'));
+    fr.onload = ()=>{
+      const im = new Image();
+      im.onerror = ()=>rej(new Error('это не похоже на картинку'));
+      im.onload = ()=>{
+        const k = Math.min(1, max / Math.max(im.width, im.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+        c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+        res(c.toDataURL('image/jpeg', 0.72));
+      };
+      im.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
 
 let M = { tab:'ok', open:null, items:[], threads:[], card:null, theme:'glam', busy:false, poll:null };
 const THKEY = 'looka_msg_theme';
@@ -22618,12 +22684,12 @@ function msgDraw(){
           </div>
         </div>`).join('')
         : `<div class="ms-empty"><div class="ic">✦</div><b>Заявок нет</b><p>Когда кто-то захочет подписаться на вас, запрос появится здесь — вы решите, принять или нет.</p></div>`)
-    : (M.threads.length ? M.threads.map(t=>`
+    : (M.threads.length ? M.threads.map(t=>{ const tc = t.card || { name: t.name || 'Собеседница' }; return `
         <button class="ms-it ${M.open===t.u?'on':''}" onclick="msgOpen('${esc(t.u)}')">
-          <div class="ms-av ${t.card.founder?'fnd':''}">${initial(t.card)}</div>
-          <div class="ms-tx"><b>${esc(t.card.name)}${t.card.founder?' · основатель':''}</b><span>${esc(t.last||'')}</span></div>
+          <div class="ms-av ${tc.founder?'fnd':''}">${initial(tc)}</div>
+          <div class="ms-tx"><b>${esc(tc.name)}${tc.founder?' · основатель':''}</b><span>${esc(t.last||'')}</span></div>
           ${t.unread?`<span class="ms-un">${t.unread}</span>`:''}
-        </button>`).join('')
+        </button>`; }).join('')
         : `<div class="ms-empty"><div class="ic">${M.tab==='req'?'✉':'◍'}</div><b>${M.tab==='req'?'Запросов нет':'Пока тихо'}</b><p>${M.tab==='req'?'Сюда попадают первые сообщения от незнакомых людей — вы сами решаете, отвечать или нет.':'Загляните в «Секретики», нажмите на имя автора совета — и напишите ей.'}</p></div>`);
 
   box.innerHTML = `
@@ -22641,7 +22707,7 @@ function msgDraw(){
         <div class="ms-empty"><div class="ic">✧</div><b>Выберите собеседницу</b><p>Слева — ваши диалоги. Диалог с Анной есть у всех: напишите, если что-то не работает или хочется что-то предложить.</p></div>
       </div>
     </div>`;
-  const main = document.getElementById('msgMain'); if(main) applyTheme(main, M.theme);
+  const main = document.getElementById('msgMain'); if(main) applyTheme(main, themeFor(M.open), M.open);
 }
 
 window.msgRespond = async (uid, act)=>{
@@ -22657,7 +22723,9 @@ window.msgOpen = async (uid)=>{
   if(main) main.innerHTML = `<div class="ms-bg"></div><div class="ms-empty"><div class="ic">◌</div><b>Открываю…</b><p></p></div>`;
   try{
     const j = await api('/soc/thread?uid=' + encodeURIComponent(uid));
-    M.items = j.items||[]; M.card = j.card||{}; M.theme = j.theme || M.theme;
+    M.items = j.items||[]; M.card = j.card||{};
+    /* тема, сохранённая на сервере, принадлежит этой переписке, а не всем сразу */
+    if(j.theme && THEMES[j.theme] && !lsMap(TBKEY)[uid]){ const t = lsMap(TBKEY); t[uid] = j.theme; lsMapSave(TBKEY, t); }
     drawThread();
     socCounts();
     clearInterval(M.poll);
@@ -22680,6 +22748,7 @@ function drawThread(keepScroll){
         <button onclick="msgInbox('hide')">Скрыть</button>
         <button class="sp" onclick="msgInbox('spam')">В спам</button>
       </div></div>` : '';
+  const curTheme = themeFor(M.open), curWall = wallFor(M.open);
   main.innerHTML = `
     <div class="ms-bg"></div>
     <div class="ms-head">
@@ -22706,8 +22775,12 @@ function drawThread(keepScroll){
       <button class="ms-go" id="msgGo" onclick="msgSend()">➤</button>
     </div>
     <div class="ms-pick"><b>оформление</b>${Object.entries(THEMES).map(([k,v])=>
-      `<button class="ms-th ${k===M.theme?'on':''}" style="background:${v[3]}" title="${v[0]}" onclick="msgTheme('${k}')"></button>`).join('')}</div>`;
-  applyTheme(main, M.theme);
+      `<button class="ms-th ${k===curTheme?'on':''}" style="background:${v[3]}" title="${v[0]}" onclick="msgTheme('${k}')"></button>`).join('')}
+      <button class="ms-th ms-wallb ${curWall?'on':''}" title="Своё фото" onclick="msgWallPick()">${curWall?`<img src="${curWall}" alt="">`:'<i>+</i>'}</button>
+      ${curWall?`<button class="ms-wallx" onclick="msgWallDel()" title="Убрать фото">убрать фото</button>`:''}
+      <input type="file" id="msgWallInp" accept="image/*" style="display:none" onchange="msgWallSet(this.files[0]);this.value=''">
+      <span class="ms-pick-n">${esc(me.name||'')} · оформление только этой переписки</span></div>`;
+  applyTheme(main, curTheme, M.open);
   const body = document.getElementById('msgBody');
   if(body) body.scrollTop = body.scrollHeight;
   const inp = document.getElementById('msgInp');
@@ -22719,10 +22792,35 @@ function drawThread(keepScroll){
 }
 window.msgBack = ()=>{ M.open = null; clearInterval(M.poll); msgDraw(); msgLoad(); };
 window.msgTheme = async k=>{
-  M.theme = k; try{ localStorage.setItem(THKEY, k); }catch(e){}
-  const main = document.getElementById('msgMain'); if(main) applyTheme(main, k);
+  if(M.open){ const m = lsMap(TBKEY); m[M.open] = k; lsMapSave(TBKEY, m); }
+  else { M.theme = k; try{ localStorage.setItem(THKEY, k); }catch(e){} }
+  const main = document.getElementById('msgMain'); if(main) applyTheme(main, k, M.open);
   document.querySelectorAll('.ms-th').forEach(b=>b.classList.toggle('on', b.title === (THEMES[k]||[])[0]));
   try{ await api('/soc/theme', { uid:M.open, theme:k }); }catch(e){}
+};
+window.msgWallPick = ()=>{ const i = document.getElementById('msgWallInp'); if(i) i.click(); };
+window.msgWallSet = async file=>{
+  if(!file || !M.open) return;
+  if(!/^image\//.test(file.type)){ toast('Нужна картинка'); return; }
+  try{
+    const data = await wallShrink(file, 900);
+    const m = lsMap(WKEY); m[M.open] = data;
+    if(!lsMapSave(WKEY, m)){
+      /* в браузере кончилось место — освобождаем самые старые обои и пробуем ещё раз */
+      const keys = Object.keys(m).filter(k=>k!==M.open);
+      while(keys.length && !lsMapSave(WKEY, m)) delete m[keys.shift()];
+      if(!lsMapSave(WKEY, m)){ toast('Не хватило места в браузере — попробуйте фото полегче'); return; }
+      toast('Старые обои пришлось убрать: в браузере кончилось место');
+    }
+    drawThread(true);
+    toast('Фото поставлено — только в этой переписке');
+  }catch(e){ toast('Не получилось: ' + (e.message||e)); }
+};
+window.msgWallDel = ()=>{
+  if(!M.open) return;
+  const m = lsMap(WKEY); delete m[M.open]; lsMapSave(WKEY, m);
+  drawThread(true);
+  toast('Фото убрано');
 };
 window.msgInbox = async act=>{
   try{ await api('/soc/inbox-act', { uid:M.open, act });
