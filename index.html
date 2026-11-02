@@ -21557,6 +21557,23 @@ footer .f-grid > div:first-child{padding-right:30px;border-right:1px solid rgba(
 @media(min-width:1280px){ .wrap{max-width:1250px} .hero-in{max-width:960px} }
 @media(min-width:1460px){ .wrap{max-width:1380px} .hero-in{max-width:1060px} }
 @media(min-width:1700px){ .wrap{max-width:1460px} .hero-in{max-width:1120px} }
+/* 2K, 4K и ультраширокие: колонка продолжает расти, иначе сайт — островок посреди экрана.
+   Шапка и полоса прогресса тоже используют .wrap, поэтому расширяются вместе с контентом. */
+@media(min-width:1900px){ .wrap{max-width:1600px} .hero-in{max-width:1180px} }
+@media(min-width:2200px){ .wrap{max-width:1720px} .hero-in{max-width:1240px} }
+@media(min-width:2560px){ .wrap{max-width:1840px} .hero-in{max-width:1300px} }
+@media(min-width:3000px){ .wrap{max-width:1960px} .hero-in{max-width:1340px} }
+/* но строка текста шире ~78 знаков не читается — длинные абзацы держим в узде.
+   Это max-width, поэтому в узких карточках ничего не меняется. */
+@media(min-width:1900px){
+  .sec > .wrap > p, .sec > .wrap > .lead,
+  .pageview > .wrap > p, .pageview > .wrap > .lead,
+  .tip, .note, .tp-d, .ps-note, .contact-band p{max-width:78ch}
+}
+/* паспорт на 2K: три колонки вместо двух — карточка со списком не должна быть в пол-экрана */
+@media(min-width:1900px){ .ps-grid{grid-template-columns:repeat(3,1fr)} }
+/* на очень широких экранах воздуха по краям должно быть больше, чем 22 пикселя */
+@media(min-width:2200px){ .wrap{padding-left:32px;padding-right:32px} }
 /* заголовок и подзаголовок героя не растягиваем на всю ширину */
 @media(min-width:1280px){
   .hero-in > p.lead,.hero-in > .lead{max-width:62ch}
