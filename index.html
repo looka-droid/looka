@@ -2938,8 +2938,10 @@ header .topnav > a.only-in:hover{color:#F4F6FC}
 header .topnav > .nav-find{flex:0 1 auto;min-width:0;margin-left:auto;margin-right:8px}
 header .topnav > .nav-msg{margin:0 8px 0 0}
 header .topnav > .nav-find span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-header .topnav > .nav-acc{flex:0 1 auto;margin-left:0;max-width:200px;min-width:0;overflow:hidden;white-space:nowrap}
-header .topnav > .nav-acc span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+/* кнопка аккаунта не сжимается: имя в ней должно читаться целиком.
+   Место уступают пункты меню — у них для этого есть свои точки скрытия. */
+header .topnav > .nav-acc{flex:0 0 auto;margin-left:0;max-width:210px;min-width:0;overflow:hidden;white-space:nowrap}
+header .topnav > .nav-acc span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:0 0 auto}
 /* значок NEW мельче и не утяжеляет строку */
 .nav-new span{font-size:7.5px;padding:2px 5px;margin-left:5px;letter-spacing:.8px;animation:none;opacity:.9}
 /* по мере сужения убираем наименее важное */
@@ -22486,6 +22488,160 @@ setTimeout(wrap, 500);
   animation:msSpark var(--d,5s) ease-in-out infinite;animation-delay:var(--dl,0s);
   box-shadow:0 0 8px 2px var(--msg-spark,rgba(255,255,255,.8))}
 @keyframes msSpark{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:.95;transform:scale(1)}}
+/* ---- ФОН ПЕРЕПИСКИ: у каждого оформления свой узор и своя повадка ---- */
+/* 1. мягкая цветовая подложка — только глубина, рисунок делает слой узора */
+.ms-ab{position:absolute;display:block;border-radius:50%;filter:blur(80px);opacity:0.95;will-change:transform}
+.ms-ab.a1{width:66%;padding-bottom:66%;left:-16%;top:-26%;background:var(--msg-a1,rgba(255,95,176,.45));animation:msDriftA 34s ease-in-out infinite}
+.ms-ab.a2{width:58%;padding-bottom:58%;right:-14%;bottom:-24%;background:var(--msg-a2,rgba(199,157,242,.35));animation:msDriftB 43s ease-in-out infinite}
+@keyframes msDriftA{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(14%,12%,0) scale(1.12)}}
+@keyframes msDriftB{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-12%,-10%,0) scale(1.14)}}
+
+/* 2. слой узора — две копии, чтобы накладывать два рисунка друг на друга */
+.ms-pat{position:absolute;inset:-25%;display:block;opacity:0;background-repeat:repeat;will-change:transform,background-position}
+.ms-gl{position:absolute;top:-60%;bottom:-60%;width:26%;left:-40%;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.34),transparent);
+  transform:skewX(-20deg);animation:msGlide 11s ease-in-out infinite}
+@keyframes msGlide{0%,70%{left:-40%}100%{left:120%}}
+
+/* 3. частицы — форма задаётся оформлением */
+.ms-mo{position:absolute;bottom:-12%;display:block;opacity:0;
+  background:radial-gradient(circle at 34% 30%,rgba(255,255,255,0.34),var(--msg-spark,rgba(255,255,255,0.34)) 46%,transparent 70%);
+  border-radius:50%;animation:msRise var(--d,16s) linear infinite;animation-delay:var(--dl,0s);will-change:transform}
+@keyframes msRise{
+  0%{opacity:0;transform:translate3d(0,0,0) rotate(var(--r,0deg)) scale(.6)}
+  10%{opacity:var(--o,.4)}
+  50%{transform:translate3d(var(--sw,20px),-55vh,0) rotate(calc(var(--r,0deg) + 180deg)) scale(1)}
+  90%{opacity:var(--o,.4)}
+  100%{opacity:0;transform:translate3d(0,-112vh,0) rotate(calc(var(--r,0deg) + 360deg)) scale(.7)}}
+
+/* ===== ПОДИУМ: шёлковые складки, вниз осыпаются пайетки ===== */
+[data-theme="runway"] .ms-pat{opacity:0.80;
+  background-image:repeating-linear-gradient(74deg,rgba(255,255,255,0.2) 0 2px,transparent 2px 26px,rgba(255,255,255,0.11) 26px 60px,transparent 60px 104px);
+  animation:msSilk 19s ease-in-out infinite}
+[data-theme="runway"] .ms-pat.p2{opacity:0.48;
+  background-image:repeating-linear-gradient(106deg,rgba(255,180,210,.1) 0 3px,transparent 3px 48px);
+  animation:msSilk 27s ease-in-out infinite reverse}
+@keyframes msSilk{0%,100%{transform:translate3d(-3%,0,0) skewY(0deg)}50%{transform:translate3d(3%,0,0) skewY(1.6deg)}}
+[data-theme="runway"] .ms-mo{border-radius:2px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+  background:linear-gradient(135deg,#fff,var(--msg-spark,#FFD6E8))}
+[data-theme="runway"] .ms-gl{opacity:1}
+
+/* ===== КУКОЛЬНЫЙ Y2K: глянцевая сетка и летящие звёзды ===== */
+[data-theme="doll"] .ms-pat{opacity:0.67;
+  background-image:linear-gradient(rgba(255,255,255,0.16) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.16) 1px,transparent 1px);
+  background-size:46px 46px;animation:msGrid 24s linear infinite}
+[data-theme="doll"] .ms-pat.p2{opacity:0.80;
+  background-image:repeating-linear-gradient(-14deg,rgba(255,255,255,0.28) 0 2px,transparent 2px 70px);
+  animation:msScan 7s linear infinite}
+@keyframes msGrid{to{background-position:46px 46px}}
+@keyframes msScan{0%{transform:translate3d(0,-18%,0)}100%{transform:translate3d(0,18%,0)}}
+[data-theme="doll"] .ms-mo{clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  background:linear-gradient(135deg,#fff,var(--msg-spark,#FFC4FF));border-radius:0}
+[data-theme="doll"] .ms-gl{opacity:1}
+
+/* ===== ФЕЯ: радужные дуги крыльев и кружащая пыльца ===== */
+[data-theme="fairy"] .ms-pat{opacity:0.80;
+  background-image:repeating-radial-gradient(circle at 18% 112%,rgba(255,255,255,0.23) 0 2px,transparent 2px 46px);
+  animation:msWing 23s ease-in-out infinite}
+[data-theme="fairy"] .ms-pat.p2{opacity:0.72;
+  background-image:repeating-radial-gradient(circle at 86% 108%,rgba(176,122,255,.16) 0 2px,transparent 2px 58px);
+  animation:msWing 31s ease-in-out infinite reverse}
+@keyframes msWing{0%,100%{transform:scale(1) rotate(0deg);filter:hue-rotate(0deg)}
+  50%{transform:scale(1.1) rotate(2deg);filter:hue-rotate(26deg)}}
+[data-theme="fairy"] .ms-mo{clip-path:ellipse(34% 50% at 50% 50%);
+  background:linear-gradient(160deg,rgba(255,255,255,0.34),var(--msg-spark,#CEFFFA));
+  animation-timing-function:ease-in-out}
+[data-theme="fairy"] .ms-gl{opacity:0.95}
+
+/* ===== РОЗОВЫЙ ПЛАСТИК: горох и крупный глянцевый блик ===== */
+[data-theme="plastic"] .ms-pat{opacity:0.80;
+  background-image:radial-gradient(circle,rgba(255,255,255,0.3) 4px,transparent 5px);
+  background-size:54px 54px;animation:msDots 20s linear infinite}
+@keyframes msDots{to{background-position:54px 0}}
+[data-theme="plastic"] .ms-pat.p2{opacity:0.95;
+  background-image:radial-gradient(130% 52% at 50% -12%,rgba(255,255,255,0.34),transparent 62%);
+  animation:msGloss 13s ease-in-out infinite}
+@keyframes msGloss{0%,100%{transform:translate3d(-8%,0,0)}50%{transform:translate3d(8%,3%,0)}}
+[data-theme="plastic"] .ms-mo{border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff,var(--msg-spark,#FFDCEE) 52%,transparent 74%)}
+[data-theme="plastic"] .ms-gl{opacity:1}
+
+/* ===== КАВАИ: клетка-виши и падающие сердечки ===== */
+[data-theme="kawaii"] .ms-pat{opacity:0.64;
+  background-image:linear-gradient(rgba(255,255,255,0.21) 10px,transparent 10px),linear-gradient(90deg,rgba(255,255,255,0.21) 10px,transparent 10px);
+  background-size:40px 40px;animation:msGingham 30s linear infinite}
+@keyframes msGingham{to{background-position:40px 40px}}
+[data-theme="kawaii"] .ms-pat.p2{opacity:0.56;
+  background-image:repeating-linear-gradient(45deg,rgba(255,240,220,.1) 0 6px,transparent 6px 22px);
+  animation:msSilk 34s ease-in-out infinite}
+[data-theme="kawaii"] .ms-mo{border-radius:0;
+  clip-path:path("M12 21s-9-5.7-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.3-9 12-9 12z");
+  background:linear-gradient(160deg,#fff,var(--msg-spark,#FFE8F0))}
+[data-theme="kawaii"] .ms-gl{opacity:0.95}
+
+/* ===== СТАРЫЕ ДЕНЬГИ: ёлочка твида, почти неподвижная, золотая пыль ===== */
+[data-theme="money"] .ms-pat{opacity:0.56;
+  background-image:repeating-linear-gradient(45deg,rgba(198,170,118,.14) 0 1px,transparent 1px 7px),
+                   repeating-linear-gradient(-45deg,rgba(198,170,118,.1) 0 1px,transparent 1px 7px);
+  background-size:14px 14px;animation:msTweed 90s linear infinite}
+@keyframes msTweed{to{background-position:14px 0,-14px 0}}
+[data-theme="money"] .ms-pat.p2{opacity:0.40;
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.11) 0 1px,transparent 1px 62px)}
+[data-theme="money"] .ms-mo{border-radius:50%;background:radial-gradient(circle,rgba(232,214,176,.9),transparent 68%);
+  animation-duration:34s}
+[data-theme="money"] .ms-gl{opacity:0.72;animation-duration:19s}
+
+/* ===== ХРОМ: шлифованный металл и резкий угловой прогон ===== */
+[data-theme="chrome"] .ms-pat{opacity:0.72;
+  background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.16) 0 1px,transparent 1px 4px);
+  animation:msBrush 16s linear infinite}
+@keyframes msBrush{to{background-position:0 40px}}
+[data-theme="chrome"] .ms-pat.p2{opacity:0.64;
+  background-image:linear-gradient(104deg,transparent 38%,rgba(255,180,110,.16) 48%,rgba(255,255,255,0.23) 52%,transparent 62%);
+  animation:msChrome 8s ease-in-out infinite}
+@keyframes msChrome{0%,100%{transform:translate3d(-16%,0,0)}50%{transform:translate3d(16%,0,0)}}
+[data-theme="chrome"] .ms-mo{border-radius:1px;clip-path:polygon(50% 0,100% 28%,82% 100%,18% 100%,0 28%);
+  background:linear-gradient(140deg,rgba(255,255,255,0.34),rgba(150,166,190,.5));animation-duration:26s}
+[data-theme="chrome"] .ms-gl{opacity:1;animation-duration:6s}
+
+/* ===== РЕДАКЦИЯ: колонки полосы и красная линейка, идущая сверху вниз ===== */
+[data-theme="press"] .ms-pat{opacity:0.64;
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.16) 0 1px,transparent 1px 148px),
+                   repeating-linear-gradient(0deg,rgba(255,255,255,0.09) 0 1px,transparent 1px 15px)}
+[data-theme="press"] .ms-pat.p2{opacity:1;inset:auto 0 auto 0;height:2px;top:0;
+  background:linear-gradient(90deg,transparent,#D62034 18%,#D62034 82%,transparent);
+  animation:msRule 13s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes msRule{0%,8%{top:-2%;opacity:0}14%{opacity:0.95}86%{opacity:0.95}100%{top:102%;opacity:0}}
+[data-theme="press"] .ms-mo{display:none}
+[data-theme="press"] .ms-gl{opacity:0.80;animation-duration:17s}
+
+/* ===== спокойные классические оформления ===== */
+[data-theme="glam"] .ms-pat,[data-theme="gold"] .ms-pat{opacity:0.64;
+  background-image:repeating-linear-gradient(70deg,rgba(255,255,255,0.16) 0 2px,transparent 2px 34px);
+  animation:msSilk 24s ease-in-out infinite}
+[data-theme="ice"] .ms-pat{opacity:0.64;
+  background-image:repeating-linear-gradient(60deg,rgba(255,255,255,0.16) 0 1px,transparent 1px 38px),
+                   repeating-linear-gradient(-60deg,rgba(255,255,255,0.11) 0 1px,transparent 1px 38px);
+  animation:msSilk 30s ease-in-out infinite}
+[data-theme="lilac"] .ms-pat,[data-theme="mint"] .ms-pat{opacity:0.56;
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.14) 0 2px,transparent 2px 56px);
+  animation:msScan 15s ease-in-out infinite alternate}
+[data-theme="night"] .ms-pat{opacity:0.80;
+  background-image:radial-gradient(circle,rgba(255,255,255,0.34) .9px,transparent 1.4px);
+  background-size:70px 70px;animation:msGrid 120s linear infinite}
+[data-theme="glam"] .ms-gl,[data-theme="gold"] .ms-gl,[data-theme="ice"] .ms-gl,
+[data-theme="lilac"] .ms-gl,[data-theme="mint"] .ms-gl{opacity:0.95}
+[data-theme="night"] .ms-mo{animation-duration:40s}
+
+/* блёстки старого образца больше не используются */
+.ms-bg i{display:none}
+/* поверх своего фото — только узор чуть заметен, картинка главнее */
+.ms-main.has-wall .ms-ab{opacity:0.40}
+.ms-main.has-wall .ms-pat{opacity:.14!important}
+.ms-main.has-wall .ms-gl{display:none}
+@media(prefers-reduced-motion:reduce){
+  .ms-ab,.ms-pat,.ms-gl,.ms-mo{animation:none!important}
+  .ms-mo{opacity:var(--o,.3)}
+}
 .ms-pick{display:flex;gap:7px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid rgba(255,255,255,.08);
   position:relative;z-index:3;background:rgba(10,11,16,.45)}
 .ms-pick b{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.4px;color:#757C92;align-self:center;margin-right:3px;text-transform:uppercase}
@@ -22574,22 +22730,23 @@ async function api(p, body){
 }
 
 /* ---- оформление переписки: блёстки ---- */
+/* [название, фон, цвет блёсток, кружок в выборе, цвет пятна 1, цвет пятна 2] */
 const THEMES = {
-  glam:  ['Гламур',  'radial-gradient(120% 90% at 50% 0%,rgba(255,95,176,.22),transparent 62%),linear-gradient(180deg,rgba(255,95,176,.1),rgba(10,11,16,0))', 'rgba(255,170,215,.95)', 'linear-gradient(135deg,#FF5FB0,#FFB6DD)'],
-  gold:  ['Золото',  'radial-gradient(120% 90% at 50% 0%,rgba(255,214,120,.2),transparent 62%),linear-gradient(180deg,rgba(255,180,80,.09),rgba(10,11,16,0))',  'rgba(255,224,150,.95)', 'linear-gradient(135deg,#FFD678,#FFA94D)'],
-  ice:   ['Лёд',     'radial-gradient(120% 90% at 50% 0%,rgba(25,198,247,.2),transparent 62%),linear-gradient(180deg,rgba(25,198,247,.08),rgba(10,11,16,0))',   'rgba(170,230,255,.95)', 'linear-gradient(135deg,#19C6F7,#9BE8FF)'],
-  lilac: ['Сирень',  'radial-gradient(120% 90% at 50% 0%,rgba(199,157,242,.22),transparent 62%),linear-gradient(180deg,rgba(199,157,242,.09),rgba(10,11,16,0))','rgba(221,196,255,.95)', 'linear-gradient(135deg,#C79DF2,#E6D4FF)'],
-  mint:  ['Мята',    'radial-gradient(120% 90% at 50% 0%,rgba(124,240,178,.18),transparent 62%),linear-gradient(180deg,rgba(124,240,178,.07),rgba(10,11,16,0))','rgba(180,250,215,.95)', 'linear-gradient(135deg,#7CF0B2,#C8FFE4)'],
-  night: ['Ночь',    'none', 'rgba(255,255,255,.7)', 'linear-gradient(135deg,#2B2F42,#555B78)'],
+  glam:  ['Гламур',  'radial-gradient(120% 90% at 50% 0%,rgba(255,95,176,.22),transparent 62%),linear-gradient(180deg,rgba(255,95,176,.1),rgba(10,11,16,0))', 'rgba(255,170,215,.95)', 'linear-gradient(135deg,#FF5FB0,#FFB6DD)', 'rgba(255,95,176,.5)','rgba(255,182,221,.4)'],
+  gold:  ['Золото',  'radial-gradient(120% 90% at 50% 0%,rgba(255,214,120,.2),transparent 62%),linear-gradient(180deg,rgba(255,180,80,.09),rgba(10,11,16,0))',  'rgba(255,224,150,.95)', 'linear-gradient(135deg,#FFD678,#FFA94D)', 'rgba(255,214,120,.42)','rgba(255,138,46,.32)'],
+  ice:   ['Лёд',     'radial-gradient(120% 90% at 50% 0%,rgba(25,198,247,.2),transparent 62%),linear-gradient(180deg,rgba(25,198,247,.08),rgba(10,11,16,0))',   'rgba(170,230,255,.95)', 'linear-gradient(135deg,#19C6F7,#9BE8FF)', 'rgba(25,198,247,.45)','rgba(155,232,255,.35)'],
+  lilac: ['Сирень',  'radial-gradient(120% 90% at 50% 0%,rgba(199,157,242,.22),transparent 62%),linear-gradient(180deg,rgba(199,157,242,.09),rgba(10,11,16,0))','rgba(221,196,255,.95)', 'linear-gradient(135deg,#C79DF2,#E6D4FF)', 'rgba(199,157,242,.45)','rgba(230,212,255,.35)'],
+  mint:  ['Мята',    'radial-gradient(120% 90% at 50% 0%,rgba(124,240,178,.18),transparent 62%),linear-gradient(180deg,rgba(124,240,178,.07),rgba(10,11,16,0))','rgba(180,250,215,.95)', 'linear-gradient(135deg,#7CF0B2,#C8FFE4)', 'rgba(124,240,178,.38)','rgba(200,255,228,.3)'],
+  night: ['Ночь',    'none', 'rgba(255,255,255,.7)', 'linear-gradient(135deg,#2B2F42,#555B78)', 'rgba(90,100,135,.42)','rgba(40,46,66,.5)'],
   /* оформления в духе названных эстетик — рисунки свои, без чужих логотипов и персонажей */
-  runway:  ['Подиум',          'radial-gradient(130% 100% at 50% 0%,rgba(255,74,146,.3),transparent 60%),linear-gradient(180deg,rgba(255,158,196,.14),rgba(10,11,16,0) 70%)', 'rgba(255,214,232,.95)', 'linear-gradient(135deg,#FF4A92,#FFCBA4)'],
-  doll:    ['Кукольный Y2K',   'radial-gradient(120% 95% at 50% 0%,rgba(226,66,214,.3),transparent 58%),linear-gradient(180deg,rgba(150,80,255,.16),rgba(10,11,16,0) 72%)',  'rgba(255,196,255,.95)', 'linear-gradient(135deg,#E242D6,#8A5CFF)'],
-  fairy:   ['Фея',             'radial-gradient(130% 100% at 50% 0%,rgba(90,226,220,.26),transparent 58%),linear-gradient(200deg,rgba(176,122,255,.18),rgba(10,11,16,0) 70%)','rgba(206,255,250,.95)', 'linear-gradient(135deg,#5AE2DC,#B07AFF)'],
-  plastic: ['Розовый пластик', 'radial-gradient(120% 90% at 50% 0%,rgba(255,105,180,.34),transparent 62%),linear-gradient(180deg,rgba(255,140,200,.18),rgba(10,11,16,0) 68%)','rgba(255,220,238,.95)', 'linear-gradient(135deg,#FF69B4,#FFA7D6)'],
-  money:   ['Старые деньги',   'radial-gradient(130% 100% at 50% 0%,rgba(198,170,118,.2),transparent 60%),linear-gradient(180deg,rgba(28,42,64,.4),rgba(10,11,16,0) 74%)',   'rgba(232,214,176,.9)',  'linear-gradient(135deg,#C6AA76,#1C2A40)'],
-  chrome:  ['Хром',            'radial-gradient(120% 90% at 50% 0%,rgba(150,166,190,.24),transparent 58%),linear-gradient(180deg,rgba(255,138,46,.12),rgba(10,11,16,0) 70%)','rgba(214,228,248,.9)',  'linear-gradient(135deg,#96A6BE,#FF8A2E)'],
-  kawaii:  ['Каваи',           'radial-gradient(120% 95% at 50% 0%,rgba(255,183,206,.3),transparent 60%),linear-gradient(180deg,rgba(255,236,224,.16),rgba(10,11,16,0) 72%)','rgba(255,232,240,.95)', 'linear-gradient(135deg,#FFB7CE,#FFF0DC)'],
-  press:   ['Редакция',        'radial-gradient(130% 100% at 50% 0%,rgba(255,255,255,.12),transparent 58%),linear-gradient(180deg,rgba(214,32,52,.14),rgba(10,11,16,0) 68%)','rgba(255,255,255,.85)', 'linear-gradient(135deg,#F2F3F7 55%,#D62034 55%)']
+  runway:  ['Подиум',          'radial-gradient(130% 100% at 50% 0%,rgba(255,74,146,.3),transparent 60%),linear-gradient(180deg,rgba(255,158,196,.14),rgba(10,11,16,0) 70%)', 'rgba(255,214,232,.95)', 'linear-gradient(135deg,#FF4A92,#FFCBA4)', 'rgba(255,74,146,.55)','rgba(255,203,164,.42)'],
+  doll:    ['Кукольный Y2K',   'radial-gradient(120% 95% at 50% 0%,rgba(226,66,214,.3),transparent 58%),linear-gradient(180deg,rgba(150,80,255,.16),rgba(10,11,16,0) 72%)',  'rgba(255,196,255,.95)', 'linear-gradient(135deg,#E242D6,#8A5CFF)', 'rgba(226,66,214,.55)','rgba(138,92,255,.45)'],
+  fairy:   ['Фея',             'radial-gradient(130% 100% at 50% 0%,rgba(90,226,220,.26),transparent 58%),linear-gradient(200deg,rgba(176,122,255,.18),rgba(10,11,16,0) 70%)','rgba(206,255,250,.95)', 'linear-gradient(135deg,#5AE2DC,#B07AFF)', 'rgba(90,226,220,.5)','rgba(176,122,255,.45)'],
+  plastic: ['Розовый пластик', 'radial-gradient(120% 90% at 50% 0%,rgba(255,105,180,.34),transparent 62%),linear-gradient(180deg,rgba(255,140,200,.18),rgba(10,11,16,0) 68%)','rgba(255,220,238,.95)', 'linear-gradient(135deg,#FF69B4,#FFA7D6)', 'rgba(255,105,180,.55)','rgba(255,167,214,.42)'],
+  money:   ['Старые деньги',   'radial-gradient(130% 100% at 50% 0%,rgba(198,170,118,.2),transparent 60%),linear-gradient(180deg,rgba(28,42,64,.4),rgba(10,11,16,0) 74%)',   'rgba(232,214,176,.9)',  'linear-gradient(135deg,#C6AA76,#1C2A40)', 'rgba(198,170,118,.35)','rgba(28,42,64,.6)'],
+  chrome:  ['Хром',            'radial-gradient(120% 90% at 50% 0%,rgba(150,166,190,.24),transparent 58%),linear-gradient(180deg,rgba(255,138,46,.12),rgba(10,11,16,0) 70%)','rgba(214,228,248,.9)',  'linear-gradient(135deg,#96A6BE,#FF8A2E)', 'rgba(150,166,190,.4)','rgba(255,138,46,.3)'],
+  kawaii:  ['Каваи',           'radial-gradient(120% 95% at 50% 0%,rgba(255,183,206,.3),transparent 60%),linear-gradient(180deg,rgba(255,236,224,.16),rgba(10,11,16,0) 72%)','rgba(255,232,240,.95)', 'linear-gradient(135deg,#FFB7CE,#FFF0DC)', 'rgba(255,183,206,.5)','rgba(255,240,220,.4)'],
+  press:   ['Редакция',        'radial-gradient(130% 100% at 50% 0%,rgba(255,255,255,.12),transparent 58%),linear-gradient(180deg,rgba(214,32,52,.14),rgba(10,11,16,0) 68%)','rgba(255,255,255,.85)', 'linear-gradient(135deg,#F2F3F7 55%,#D62034 55%)', 'rgba(214,32,52,.22)','rgba(126,146,182,.34)']
 };
 /* у этих оформлений блёсток нет — характер держится на цвете и контрасте */
 const THEME_NOSPARK = ['night','money','chrome','press'];
@@ -22598,6 +22755,20 @@ const sparkles = ()=>{
   for(let i=0;i<26;i++){
     const x = (i*37 % 97) + 1, y = (i*53 % 93) + 2, sz = 2 + (i % 4);
     h += `<i style="left:${x}%;top:${y}%;width:${sz}px;height:${sz}px;--d:${(3.4+(i%5)*.7).toFixed(1)}s;--dl:${(i*.21).toFixed(2)}s"></i>`;
+  }
+  return h;
+};
+/* крупные мягкие пятна, которые медленно плавают — именно они дают ощущение живого фона */
+const auraHtml = ()=>'<span class="ms-ab a1"></span><span class="ms-ab a2"></span>'
+  + '<span class="ms-pat"></span><span class="ms-pat p2"></span><span class="ms-gl"></span>';
+/* парящие вверх шарики-боке: заметнее блёсток и не мельтешат */
+/* частицы: форма и повадка свои у каждого оформления */
+const motes = (n)=>{
+  let h = '';
+  const cnt = n || 16;
+  for(let i=0;i<cnt;i++){
+    const x = (i*61 % 94) + 3, sz = 7 + (i % 5) * 6, rot = (i*53) % 360;
+    h += `<span class="ms-mo" style="left:${x}%;width:${sz}px;height:${sz}px;--d:${(12+(i%6)*4).toFixed(1)}s;--dl:${(i*1.1).toFixed(2)}s;--o:${(0.3+(i%4)*0.17).toFixed(2)};--r:${rot}deg;--sw:${((i%5)-2)*34}px"></span>`;
   }
   return h;
 };
@@ -22616,9 +22787,13 @@ const applyTheme = (el, key, uid)=>{
     ? 'linear-gradient(180deg,rgba(8,9,14,.62),rgba(8,9,14,.86)), url("'+wall+'")'
     : t[1]);
   el.style.setProperty('--msg-spark', t[2]);
+  el.style.setProperty('--msg-a1', t[4] || 'rgba(255,95,176,.45)');
+  el.style.setProperty('--msg-a2', t[5] || 'rgba(199,157,242,.35)');
   el.classList.toggle('has-wall', !!wall);
+  el.classList.toggle('calm', THEME_NOSPARK.indexOf(key) >= 0);
+  el.dataset.theme = key;            /* узор выбирается по этому признаку в стилях */
   const bg = el.querySelector('.ms-bg');
-  if(bg) bg.innerHTML = (wall || THEME_NOSPARK.indexOf(key)>=0) ? '' : sparkles();
+  if(bg) bg.innerHTML = auraHtml() + (wall ? '' : motes());
 };
 
 /* уменьшаем картинку перед сохранением: в браузере мало места, оригинал туда не влезет */
@@ -22660,11 +22835,23 @@ window.openMsg = (withUid)=>{
   setTimeout(()=>{ msgDraw(); msgLoad(); if(M.open) msgOpen(M.open); }, 60);
 };
 
+/* Диалог с основателем — постоянный: он не должен исчезать после обновления страницы
+   только потому, что в нём ещё нет сообщений или сервер не отдал его в списке. */
+function pinFounder(list){
+  const arr = Array.isArray(list) ? list.slice() : [];
+  const i = arr.findIndex(t => t && t.u === LOOKA_UID);
+  if(i > 0){ arr.unshift(arr.splice(i,1)[0]); return arr; }
+  if(i === 0) return arr;
+  arr.unshift({ u: LOOKA_UID, card: { uid: LOOKA_UID, name: 'Анна', handle: 'anna', founder: true },
+                last: 'Напишите мне напрямую — отвечаю лично', at: 0, unread: 0 });
+  return arr;
+}
 async function msgLoad(){
   try{
     if(M.tab === 'follow'){ const j = await api('/soc/requests'); M.threads = j.items||[]; }
-    else { const j = await api('/soc/threads?kind=' + (M.tab==='req'?'req':'ok')); M.threads = j.items||[]; }
-  }catch(e){ M.threads = []; }
+    else { const j = await api('/soc/threads?kind=' + (M.tab==='req'?'req':'ok'));
+           M.threads = (M.tab==='req') ? (j.items||[]) : pinFounder(j.items); }
+  }catch(e){ M.threads = (M.tab === 'ok') ? pinFounder([]) : []; }
   msgDraw();
 }
 window.msgTab = k => { M.tab = k; M.open = null; M.items = []; msgDraw(); msgLoad(); };
