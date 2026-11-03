@@ -22589,17 +22589,24 @@ setTimeout(wrap, 500);
 @keyframes msSpark{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:.95;transform:scale(1)}}
 /* ---- ФОН ПЕРЕПИСКИ: у каждого оформления свой узор и своя повадка ---- */
 /* 1. мягкая цветовая подложка — только глубина, рисунок делает слой узора */
-.ms-ab{position:absolute;display:block;border-radius:50%;filter:blur(80px);opacity:0.95;will-change:transform}
-.ms-ab.a1{width:66%;padding-bottom:66%;left:-16%;top:-26%;background:var(--msg-a1,rgba(255,95,176,.45));animation:msDriftA 34s ease-in-out infinite}
-.ms-ab.a2{width:58%;padding-bottom:58%;right:-14%;bottom:-24%;background:var(--msg-a2,rgba(199,157,242,.35));animation:msDriftB 43s ease-in-out infinite}
+.ms-ab{position:absolute;display:block;border-radius:50%;filter:blur(80px);opacity:0.57;will-change:transform}
+.ms-ab.a1{width:66%;padding-bottom:66%;left:-16%;top:-26%;background:var(--msg-a1,rgba(255,95,176,.45));animation:msDriftA 51.0s ease-in-out infinite}
+.ms-ab.a2{width:58%;padding-bottom:58%;right:-14%;bottom:-24%;background:var(--msg-a2,rgba(199,157,242,.35));animation:msDriftB 64.5s ease-in-out infinite}
 @keyframes msDriftA{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(14%,12%,0) scale(1.12)}}
 @keyframes msDriftB{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-12%,-10%,0) scale(1.14)}}
 
-/* 2. слой узора — две копии, чтобы накладывать два рисунка друг на друга */
-.ms-pat{position:absolute;inset:-25%;display:block;opacity:0;background-repeat:repeat;will-change:transform,background-position}
+/* 2. слой узора. Главное правило: узор живёт по краям, а в середине, где читают
+   сообщения, он растворяется — поэтому маска гасит его к центру. */
+.ms-pat{position:absolute;inset:-25%;display:block;opacity:0;background-repeat:repeat;
+  will-change:transform,background-position;
+  -webkit-mask-image:radial-gradient(135% 110% at 50% 50%, rgba(0,0,0,.42) 0 34%, rgba(0,0,0,.78) 62%, #000 88%);
+  mask-image:radial-gradient(135% 110% at 50% 50%, rgba(0,0,0,.42) 0 34%, rgba(0,0,0,.78) 62%, #000 88%)}
+/* мягкая тень под колонкой сообщений — пузыри читаются при любом оформлении */
+.ms-veil{position:absolute;inset:0;display:block;pointer-events:none;
+  background:radial-gradient(96% 78% at 50% 46%, rgba(8,9,14,.28), transparent 72%)}
 .ms-gl{position:absolute;top:-60%;bottom:-60%;width:26%;left:-40%;pointer-events:none;opacity:0;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.34),transparent);
-  transform:skewX(-20deg);animation:msGlide 11s ease-in-out infinite}
+  transform:skewX(-20deg);animation:msGlide 16.5s ease-in-out infinite}
 @keyframes msGlide{0%,70%{left:-40%}100%{left:120%}}
 
 /* 3. частицы — форма задаётся оформлением */
@@ -22614,24 +22621,24 @@ setTimeout(wrap, 500);
   100%{opacity:0;transform:translate3d(0,-112vh,0) rotate(calc(var(--r,0deg) + 360deg)) scale(.7)}}
 
 /* ===== ПОДИУМ: шёлковые складки, вниз осыпаются пайетки ===== */
-[data-theme="runway"] .ms-pat{opacity:0.80;
+[data-theme="runway"] .ms-pat{opacity:0.74;
   background-image:repeating-linear-gradient(74deg,rgba(255,255,255,0.2) 0 2px,transparent 2px 26px,rgba(255,255,255,0.11) 26px 60px,transparent 60px 104px);
-  animation:msSilk 19s ease-in-out infinite}
-[data-theme="runway"] .ms-pat.p2{opacity:0.48;
+  animation:msSilk 28.5s ease-in-out infinite}
+[data-theme="runway"] .ms-pat.p2{opacity:0.45;
   background-image:repeating-linear-gradient(106deg,rgba(255,180,210,.1) 0 3px,transparent 3px 48px);
-  animation:msSilk 27s ease-in-out infinite reverse}
+  animation:msSilk 40.5s ease-in-out infinite reverse}
 @keyframes msSilk{0%,100%{transform:translate3d(-3%,0,0) skewY(0deg)}50%{transform:translate3d(3%,0,0) skewY(1.6deg)}}
 [data-theme="runway"] .ms-mo{border-radius:2px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
   background:linear-gradient(135deg,#fff,var(--msg-spark,#FFD6E8))}
 [data-theme="runway"] .ms-gl{opacity:1}
 
 /* ===== КУКОЛЬНЫЙ Y2K: глянцевая сетка и летящие звёзды ===== */
-[data-theme="doll"] .ms-pat{opacity:0.67;
+[data-theme="doll"] .ms-pat{opacity:0.62;
   background-image:linear-gradient(rgba(255,255,255,0.16) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.16) 1px,transparent 1px);
-  background-size:46px 46px;animation:msGrid 24s linear infinite}
-[data-theme="doll"] .ms-pat.p2{opacity:0.80;
+  background-size:88px 88px;animation:msGrid 36.0s linear infinite}
+[data-theme="doll"] .ms-pat.p2{opacity:0.74;
   background-image:repeating-linear-gradient(-14deg,rgba(255,255,255,0.28) 0 2px,transparent 2px 70px);
-  animation:msScan 7s linear infinite}
+  animation:msScan 10.5s linear infinite}
 @keyframes msGrid{to{background-position:46px 46px}}
 @keyframes msScan{0%{transform:translate3d(0,-18%,0)}100%{transform:translate3d(0,18%,0)}}
 [data-theme="doll"] .ms-mo{clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
@@ -22639,102 +22646,102 @@ setTimeout(wrap, 500);
 [data-theme="doll"] .ms-gl{opacity:1}
 
 /* ===== ФЕЯ: радужные дуги крыльев и кружащая пыльца ===== */
-[data-theme="fairy"] .ms-pat{opacity:0.80;
+[data-theme="fairy"] .ms-pat{opacity:0.74;
   background-image:repeating-radial-gradient(circle at 18% 112%,rgba(255,255,255,0.23) 0 2px,transparent 2px 46px);
-  animation:msWing 23s ease-in-out infinite}
-[data-theme="fairy"] .ms-pat.p2{opacity:0.72;
+  animation:msWing 34.5s ease-in-out infinite}
+[data-theme="fairy"] .ms-pat.p2{opacity:0.67;
   background-image:repeating-radial-gradient(circle at 86% 108%,rgba(176,122,255,.16) 0 2px,transparent 2px 58px);
-  animation:msWing 31s ease-in-out infinite reverse}
+  animation:msWing 46.5s ease-in-out infinite reverse}
 @keyframes msWing{0%,100%{transform:scale(1) rotate(0deg);filter:hue-rotate(0deg)}
   50%{transform:scale(1.1) rotate(2deg);filter:hue-rotate(26deg)}}
 [data-theme="fairy"] .ms-mo{clip-path:ellipse(34% 50% at 50% 50%);
   background:linear-gradient(160deg,rgba(255,255,255,0.34),var(--msg-spark,#CEFFFA));
   animation-timing-function:ease-in-out}
-[data-theme="fairy"] .ms-gl{opacity:0.95}
+[data-theme="fairy"] .ms-gl{opacity:0.88}
 
 /* ===== РОЗОВЫЙ ПЛАСТИК: горох и крупный глянцевый блик ===== */
-[data-theme="plastic"] .ms-pat{opacity:0.80;
+[data-theme="plastic"] .ms-pat{opacity:0.74;
   background-image:radial-gradient(circle,rgba(255,255,255,0.3) 4px,transparent 5px);
-  background-size:54px 54px;animation:msDots 20s linear infinite}
+  background-size:96px 96px;animation:msDots 30.0s linear infinite}
 @keyframes msDots{to{background-position:54px 0}}
-[data-theme="plastic"] .ms-pat.p2{opacity:0.95;
+[data-theme="plastic"] .ms-pat.p2{opacity:0.88;
   background-image:radial-gradient(130% 52% at 50% -12%,rgba(255,255,255,0.34),transparent 62%);
-  animation:msGloss 13s ease-in-out infinite}
+  animation:msGloss 19.5s ease-in-out infinite}
 @keyframes msGloss{0%,100%{transform:translate3d(-8%,0,0)}50%{transform:translate3d(8%,3%,0)}}
 [data-theme="plastic"] .ms-mo{border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff,var(--msg-spark,#FFDCEE) 52%,transparent 74%)}
 [data-theme="plastic"] .ms-gl{opacity:1}
 
 /* ===== КАВАИ: клетка-виши и падающие сердечки ===== */
-[data-theme="kawaii"] .ms-pat{opacity:0.64;
+[data-theme="kawaii"] .ms-pat{opacity:0.59;
   background-image:linear-gradient(rgba(255,255,255,0.21) 10px,transparent 10px),linear-gradient(90deg,rgba(255,255,255,0.21) 10px,transparent 10px);
-  background-size:40px 40px;animation:msGingham 30s linear infinite}
+  background-size:76px 76px;animation:msGingham 45.0s linear infinite}
 @keyframes msGingham{to{background-position:40px 40px}}
-[data-theme="kawaii"] .ms-pat.p2{opacity:0.56;
+[data-theme="kawaii"] .ms-pat.p2{opacity:0.53;
   background-image:repeating-linear-gradient(45deg,rgba(255,240,220,.1) 0 6px,transparent 6px 22px);
-  animation:msSilk 34s ease-in-out infinite}
+  animation:msSilk 51.0s ease-in-out infinite}
 [data-theme="kawaii"] .ms-mo{border-radius:0;
   clip-path:path("M12 21s-9-5.7-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.3-9 12-9 12z");
   background:linear-gradient(160deg,#fff,var(--msg-spark,#FFE8F0))}
-[data-theme="kawaii"] .ms-gl{opacity:0.95}
+[data-theme="kawaii"] .ms-gl{opacity:0.88}
 
 /* ===== СТАРЫЕ ДЕНЬГИ: ёлочка твида, почти неподвижная, золотая пыль ===== */
-[data-theme="money"] .ms-pat{opacity:0.56;
+[data-theme="money"] .ms-pat{opacity:0.53;
   background-image:repeating-linear-gradient(45deg,rgba(198,170,118,.14) 0 1px,transparent 1px 7px),
                    repeating-linear-gradient(-45deg,rgba(198,170,118,.1) 0 1px,transparent 1px 7px);
-  background-size:14px 14px;animation:msTweed 90s linear infinite}
+  background-size:22px 22px;animation:msTweed 135.0s linear infinite}
 @keyframes msTweed{to{background-position:14px 0,-14px 0}}
-[data-theme="money"] .ms-pat.p2{opacity:0.40;
+[data-theme="money"] .ms-pat.p2{opacity:0.37;
   background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.11) 0 1px,transparent 1px 62px)}
 [data-theme="money"] .ms-mo{border-radius:50%;background:radial-gradient(circle,rgba(232,214,176,.9),transparent 68%);
   animation-duration:34s}
-[data-theme="money"] .ms-gl{opacity:0.72;animation-duration:19s}
+[data-theme="money"] .ms-gl{opacity:0.67;animation-duration:19s}
 
 /* ===== ХРОМ: шлифованный металл и резкий угловой прогон ===== */
-[data-theme="chrome"] .ms-pat{opacity:0.72;
+[data-theme="chrome"] .ms-pat{opacity:0.67;
   background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.16) 0 1px,transparent 1px 4px);
-  animation:msBrush 16s linear infinite}
+  animation:msBrush 24.0s linear infinite}
 @keyframes msBrush{to{background-position:0 40px}}
-[data-theme="chrome"] .ms-pat.p2{opacity:0.64;
+[data-theme="chrome"] .ms-pat.p2{opacity:0.59;
   background-image:linear-gradient(104deg,transparent 38%,rgba(255,180,110,.16) 48%,rgba(255,255,255,0.23) 52%,transparent 62%);
-  animation:msChrome 8s ease-in-out infinite}
+  animation:msChrome 12.0s ease-in-out infinite}
 @keyframes msChrome{0%,100%{transform:translate3d(-16%,0,0)}50%{transform:translate3d(16%,0,0)}}
 [data-theme="chrome"] .ms-mo{border-radius:1px;clip-path:polygon(50% 0,100% 28%,82% 100%,18% 100%,0 28%);
   background:linear-gradient(140deg,rgba(255,255,255,0.34),rgba(150,166,190,.5));animation-duration:26s}
 [data-theme="chrome"] .ms-gl{opacity:1;animation-duration:6s}
 
 /* ===== РЕДАКЦИЯ: колонки полосы и красная линейка, идущая сверху вниз ===== */
-[data-theme="press"] .ms-pat{opacity:0.64;
+[data-theme="press"] .ms-pat{opacity:0.59;
   background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.16) 0 1px,transparent 1px 148px),
                    repeating-linear-gradient(0deg,rgba(255,255,255,0.09) 0 1px,transparent 1px 15px)}
 [data-theme="press"] .ms-pat.p2{opacity:1;inset:auto 0 auto 0;height:2px;top:0;
   background:linear-gradient(90deg,transparent,#D62034 18%,#D62034 82%,transparent);
-  animation:msRule 13s cubic-bezier(.65,0,.35,1) infinite}
-@keyframes msRule{0%,8%{top:-2%;opacity:0}14%{opacity:0.95}86%{opacity:0.95}100%{top:102%;opacity:0}}
+  animation:msRule 19.5s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes msRule{0%,8%{top:-2%;opacity:0}14%{opacity:0.88}86%{opacity:0.88}100%{top:102%;opacity:0}}
 [data-theme="press"] .ms-mo{display:none}
-[data-theme="press"] .ms-gl{opacity:0.80;animation-duration:17s}
+[data-theme="press"] .ms-gl{opacity:0.74;animation-duration:17s}
 
 /* ===== спокойные классические оформления ===== */
-[data-theme="glam"] .ms-pat,[data-theme="gold"] .ms-pat{opacity:0.64;
+[data-theme="glam"] .ms-pat,[data-theme="gold"] .ms-pat{opacity:0.38;
   background-image:repeating-linear-gradient(70deg,rgba(255,255,255,0.16) 0 2px,transparent 2px 34px);
-  animation:msSilk 24s ease-in-out infinite}
-[data-theme="ice"] .ms-pat{opacity:0.64;
+  animation:msSilk 36.0s ease-in-out infinite}
+[data-theme="ice"] .ms-pat{opacity:0.38;
   background-image:repeating-linear-gradient(60deg,rgba(255,255,255,0.16) 0 1px,transparent 1px 38px),
                    repeating-linear-gradient(-60deg,rgba(255,255,255,0.11) 0 1px,transparent 1px 38px);
-  animation:msSilk 30s ease-in-out infinite}
-[data-theme="lilac"] .ms-pat,[data-theme="mint"] .ms-pat{opacity:0.56;
+  animation:msSilk 45.0s ease-in-out infinite}
+[data-theme="lilac"] .ms-pat,[data-theme="mint"] .ms-pat{opacity:0.34;
   background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.14) 0 2px,transparent 2px 56px);
-  animation:msScan 15s ease-in-out infinite alternate}
-[data-theme="night"] .ms-pat{opacity:0.80;
+  animation:msScan 22.5s ease-in-out infinite alternate}
+[data-theme="night"] .ms-pat{opacity:0.48;
   background-image:radial-gradient(circle,rgba(255,255,255,0.34) .9px,transparent 1.4px);
-  background-size:70px 70px;animation:msGrid 120s linear infinite}
+  background-size:104px 104px;animation:msGrid 180.0s linear infinite}
 [data-theme="glam"] .ms-gl,[data-theme="gold"] .ms-gl,[data-theme="ice"] .ms-gl,
-[data-theme="lilac"] .ms-gl,[data-theme="mint"] .ms-gl{opacity:0.95}
+[data-theme="lilac"] .ms-gl,[data-theme="mint"] .ms-gl{opacity:0.57}
 [data-theme="night"] .ms-mo{animation-duration:40s}
 
 /* блёстки старого образца больше не используются */
 .ms-bg i{display:none}
 /* поверх своего фото — только узор чуть заметен, картинка главнее */
-.ms-main.has-wall .ms-ab{opacity:0.40}
+.ms-main.has-wall .ms-ab{opacity:0.24}
 .ms-main.has-wall .ms-pat{opacity:.14!important}
 .ms-main.has-wall .ms-gl{display:none}
 @media(prefers-reduced-motion:reduce){
@@ -22759,7 +22766,12 @@ setTimeout(wrap, 500);
 .ms-pick-n{flex:1 1 100%;font-family:'Golos Text',sans-serif;font-size:11px;color:#6E7488;margin-top:2px}
 /* поверх фото пузыри должны читаться */
 .ms-bg::before{background-size:cover;background-position:center}
-.ms-main.has-wall .ms-b{backdrop-filter:blur(3px)}
+/* Пузыри сообщений сами обеспечивают читаемость: лёгкое размытие и плотная подложка.
+   Благодаря этому фон может быть сколь угодно выразительным — текст не страдает. */
+.ms-main .ms-b{backdrop-filter:blur(9px) saturate(1.15);-webkit-backdrop-filter:blur(9px) saturate(1.15)}
+.ms-main .ms-row:not(.me) .ms-b{background:rgba(16,18,28,.68);border:1px solid rgba(255,255,255,.1)}
+.ms-main .ms-row.me .ms-b{box-shadow:0 6px 24px -10px rgba(0,0,0,.6)}
+.ms-main.has-wall .ms-b{backdrop-filter:blur(12px) saturate(1.1);-webkit-backdrop-filter:blur(12px) saturate(1.1)}
 
 /* ---- КАРТОЧКА ПРОФИЛЯ ---- */
 .pf-top{display:flex;align-items:center;gap:15px;margin-bottom:16px}
@@ -22859,7 +22871,7 @@ const sparkles = ()=>{
 };
 /* крупные мягкие пятна, которые медленно плавают — именно они дают ощущение живого фона */
 const auraHtml = ()=>'<span class="ms-ab a1"></span><span class="ms-ab a2"></span>'
-  + '<span class="ms-pat"></span><span class="ms-pat p2"></span><span class="ms-gl"></span>';
+  + '<span class="ms-pat"></span><span class="ms-pat p2"></span><span class="ms-gl"></span><span class="ms-veil"></span>';
 /* парящие вверх шарики-боке: заметнее блёсток и не мельтешат */
 /* частицы: форма и повадка свои у каждого оформления */
 const motes = (n)=>{
@@ -23571,6 +23583,15 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 .wt-err p{font-size:14px;line-height:1.6;color:#C9CEDC;margin:0 0 8px}
 .wt-err p.sm{font-size:13px;color:#8E95AB}
 .wt-err .btn{margin-top:8px}
+/* панель возврата к уже собранным образам */
+.wt-back{display:flex;flex-wrap:wrap;align-items:center;gap:14px;justify-content:space-between;
+  margin:0 0 18px;padding:15px 18px;border-radius:16px;
+  border:1px solid rgba(124,240,178,.3);background:linear-gradient(135deg,rgba(124,240,178,.1),rgba(25,198,247,.05))}
+.wt-back-t b{display:block;font-family:'Golos Text',sans-serif;font-weight:700;font-size:15px;color:#F4F5FA}
+.wt-back-t span{display:block;font-size:12.5px;color:#9AA1B8;margin-top:3px}
+.wt-back-b{display:flex;gap:8px;flex-wrap:wrap}
+.wt-back-b .btn{padding:10px 16px;font-size:13px}
+@media(max-width:600px){.wt-back{flex-direction:column;align-items:stretch}.wt-back-b .btn{flex:1 1 auto}}
 /* вывод самодиагностики под сообщением об ошибке */
 .wk-vd{margin:12px 0 4px;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.55;
   border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#C9CEDC}
@@ -23826,6 +23847,12 @@ window.wtPick = async key=>{
   const OPEN_RE  = /босонож|сандал|шлёпан|шлепан|мюли|вьетнам|слайд/i;
   /* в шкафу «верхней одеждой» часто помечен пиджак или кардиган — на улицу в них не выходят */
   const NOT_OUTER_RE = /пиджак|жакет|блейзер|кардиган|жилет|болеро|худи|свитшот|толстовк|джемпер|свитер|пуловер|водолазк|рубашк|блуз|кофт/i;
+  /* По-настоящему тёплый верх. Косуха, джинсовка, бомбер и ветровка — это верхняя одежда,
+     но не зимняя: в минус в них мёрзнут, особенно на долгой прогулке. */
+  const WARM_RE  = /пухов|шуб|дублён|дублен|парк|аляск|пальто|полупальто|шинел|утеплённ|утеплен|стёган|стеган|зимн|термо|флис|овчин|шерстян/i;
+  const THIN_RE  = /косух|джинсовк|ветровк|бомбер|анорак|плащ|тренч|кожан/i;
+  const HAT_RE   = /шапк|берет|ушанк|капюшон|балаклав|бини|платок|шарф|снуд|перчатк|варежк|митенк/i;
+  const WARMSHOE_RE = /угг|дутик|сапог|ботин|берц|челси|тимберленд|зимн|утеплённ|утеплен|мартинс|хайкинг|треккинг/i;
   const isOuter = it => !NOT_OUTER_RE.test(String(it.name||''))
                      && (String(it.cat||'') === 'Верхняя одежда' || OUTER_RE.test(String(it.name||'')));
   const wdOuter  = WD.filter(isOuter);
@@ -23843,14 +23870,22 @@ window.wtPick = async key=>{
         : wxFeel >= 6  ? 'ПРОХЛАДНО. В КАЖДОМ образе ОБЯЗАТЕЛЬНА верхняя одежда: пальто, тренч, плащ, куртка или бомбер. '+
                           'Пиджак, жакет, кардиган и жилет верхней одеждой НЕ СЧИТАЮТСЯ — в них на улицу при такой температуре не выходят. '+
                           'Обувь закрытая: никаких босоножек, сандалий и мюлей.'
-        : wxFeel >= -5 ? 'ХОЛОДНО. В КАЖДОМ образе ОБЯЗАТЕЛЬНА тёплая верхняя одежда: пальто, утеплённая куртка или пуховик. '+
-                          'Пиджак и кардиган не считаются. Обувь закрытая и тёплая, ткани плотные.'
-        : 'МОРОЗ. Обязателен пуховик, шуба или зимнее пальто, тёплая закрытая обувь. Тонкие ткани и открытая обувь исключены.')+
+        : wxFeel >= -5 ? 'ХОЛОДНО. В КАЖДОМ образе ОБЯЗАТЕЛЬНА ТЁПЛАЯ верхняя одежда: пуховик, утеплённая куртка, зимнее или шерстяное пальто, парка. '+
+                          'НЕ СЧИТАЮТСЯ тёплыми: кожаная косуха, джинсовка, бомбер, ветровка, тонкий тренч и плащ — в них при минусе мёрзнут. '+
+                          'Пиджак и кардиган тем более. Обувь закрытая и утеплённая: ботинки, сапоги, угги. '+
+                          'Хлопковый спортивный костюм как единственный слой под курткой не греет — нужен свитер, флис или шерсть. '+
+                          'Добавь шапку и перчатки или шарф.'
+        : 'МОРОЗ. Обязателен пуховик, шуба или зимнее пальто, утеплённая зимняя обувь, шапка, перчатки и шарф. '+
+          'Косуха, джинсовка, бомбер, плащ и тренч исключены полностью. Тонкие ткани и открытая обувь тоже.')+
        (needOuter
           ? (wdOuter.length
               ? ('\nВЕРХНЯЯ ОДЕЖДА, КОТОРАЯ ЕСТЬ В ЕЁ ШКАФУ: '+wdOuter.map(x=>x.name+(x.color?', '+x.color:'')).join('; ')+
                  '. Бери верхний слой ИЗ ЭТОГО СПИСКА и ставь его первым пунктом образа.')
               : '\nВ ШКАФУ НЕТ ВЕРХНЕЙ ОДЕЖДЫ. Поставь её недостающей вещью (поле add) в КАЖДОМ образе и напиши об этом в note.')
+          : '')+
+       (wxFeel < 6
+          ? '\nПРО ЧЕСТНОСТЬ: не пиши, что образ «спасает от холода» или «согреет», если в нём нет по-настоящему тёплого слоя. '
+            + 'Лучше честно сказать, чего не хватает, чем выдать холодный образ за тёплый.'
           : '')+
        '\n')
     : (wxNow ? ('ГОРОД КЛИЕНТКИ: '+wxNow.txt+'. Учитывай типичную погоду этого места и текущий сезон.\n') : '');
@@ -23908,7 +23943,8 @@ window.wtPick = async key=>{
        'Она ещё не решила, как пройдёт день, поэтому дай ей выбор. Строго по одному образу каждого типа, в этом порядке:\n'+
        '1) dir="по делам" — работа, встречи, учёба, город по делам. Собранный вид.\n'+
        '2) dir="прогулка" — кофе, подруга, магазины, кино. Удобно и красиво, без офисности.\n'+
-       '3) dir="актив" — спорт, долгая ходьба, активный день. Если спортивной одежды в шкафу нет, честно скажи об этом в why и собери самый удобный вариант из того, что есть.\n'+
+       '3) dir="актив" — спорт, долгая ходьба, активный день. Если спортивной одежды в шкафу нет, честно скажи об этом в why и собери самый удобный вариант из того, что есть. '+
+       'ЭТО САМЫЙ ТРЕБОВАТЕЛЬНЫЙ ОБРАЗ ПО ПОГОДЕ: на улице проводят не десять минут, а час и больше, поэтому слой должен быть по-настоящему тёплым и непродуваемым, обувь — утеплённой и устойчивой, а шапка и перчатки обязательны в минус. Красота здесь уступает тому, чтобы человек не замёрз.\n'+
        'В поле where пиши коротко, куда именно: «встреча», «кофе с подругой», «зал», «долгая прогулка».\n'+
        'ОБУВЬ И ВЕРХНИЙ СЛОЙ В ТРЁХ ОБРАЗАХ ДОЛЖНЫ БЫТЬ РАЗНЫМИ, если в шкафу есть из чего выбрать. '+
        'В поле why объясни выбор ОДНОЙ фразой и, если уместно, скажи, чем этот вариант отличается от предыдущего. '+
@@ -23958,11 +23994,18 @@ window.wtPick = async key=>{
         const all = ((L.own||[]).join(' ') + ' ' + ((L.add&&L.add.n)||'') + ' ' + (L.items||[]).map(i=>i.n).join(' '));
         L._noOuter = !OUTER_RE.test(all.replace(NOT_OUTER_RE, ' '));
         L._openShoe = needClosed && OPEN_RE.test(all);
+        /* в минус мало просто «куртки»: косуха и бомбер зимой не греют */
+        if(wxFeel !== null && wxFeel < 5 && !L._noOuter){
+          L._notWarm  = !WARM_RE.test(all) && THIN_RE.test(all);
+          L._noHat    = !HAT_RE.test(all);
+          L._coldShoe = !WARMSHOE_RE.test(all);
+        }
       });
     }
     W.busy = false; W.last = d.looks || []; renderWant();
     const sb = it => (window.shopButtons ? shopButtons({ n: it.n, q: it.q || it.n }) : '');
-    (outEl()||{}).innerHTML =
+    const _wtOut = outEl() || {};
+    _wtOut.innerHTML =
       (d.intro?`<p class="lead" style="margin:4px 0 16px;max-width:72ch">${esc(d.intro)}</p>`:'') +
       `<div class="wt-tags">${fromWd?`<span class="wt-src">◍ из вашего гардероба · ${WD.length} ${WD.length%10===1&&WD.length%100!==11?'вещь':'вещей'}</span>`:''}${wxNow?`<span class="wt-wx">☀ по погоде · ${esc(wxNow.txt)}</span>`:''}${(W.gaps||[]).length?`<span class="wt-gap">⚠ без ${W.gaps.map(g=>g[0]).join(' и ')}</span>`:''}</div>` +
       ((W.gaps||[]).length?`<div class="wt-gapbox"><b>Подбор сделан без части ваших данных</b>
@@ -23986,6 +24029,11 @@ window.wtPick = async key=>{
               <div class="wt-miss-h"><i>+</i><div><b>${esc(wtCap(L.add.n))}</b><span>этого в шкафу нет — без него образ не собрать</span></div>${L.add.p?`<em>${esc(L.add.p)}</em>`:''}</div>
               ${sb(L.add)}</div>`:''}
           ${(L.items||[]).map(it=>`<div class="item"><div class="nm">${esc(it.n)}</div>${it.p?`<div class="pr">${esc(it.p)}</div>`:''}${sb(it)}</div>`).join('')}
+          ${(L._notWarm||L._noHat||L._coldShoe)?`<div class="wt-warn"><i>❄</i><div>
+            ${L._notWarm?`<b>Для ${(wxFeel>0?'+':'')+wxFeel}° этот верх холодный.</b><span>Косуха, джинсовка и бомбер — не зимняя одежда: на долгой прогулке в них замерзают. ${wdOuter.filter(x=>/пухов|пальто|парк|шуб|дублён|утеплён|стёган/i.test(x.name)).length?('Возьмите из шкафа: '+esc(wdOuter.filter(x=>/пухов|пальто|парк|шуб|дублён|утеплён|стёган/i.test(x.name)).slice(0,2).map(x=>x.name).join(' или '))+'.'):'Тёплой верхней одежды в гардеробе не нашлось — это первая покупка на сезон.'}</span>`:''}
+            ${L._coldShoe?`<span>Обувь не утеплённая — для такой погоды нужны ботинки или сапоги.</span>`:''}
+            ${L._noHat?`<span>Нет шапки и перчаток: на улице ${(wxFeel>0?'+':'')+wxFeel}°, за час прогулки это чувствуется.</span>`:''}
+          </div></div>`:''}
           ${(L._noOuter||L._openShoe)?`<div class="wt-warn"><i>!</i><div>
             ${L._noOuter?`<b>На улице ${esc(wxNow?wxNow.txt:'прохладно')}${(wxNow&&typeof wxNow.f==='number'&&typeof wxNow.t==='number'&&wxNow.f<wxNow.t-1)?' — по ощущениям это '+((wxNow.f>0?'+':'')+wxNow.f)+'°':''} — без верхней одежды не выходите.</b>
               <span>${wdOuter.length?('Накиньте сверху: '+esc(wdOuter.slice(0,3).map(x=>x.name).join(' · '))):'В гардеробе нет верхней одежды на эту погоду — её стоит добавить.'}</span>`:''}
@@ -23997,6 +24045,9 @@ window.wtPick = async key=>{
       (HEAVY.includes(key)
         ? `<div class="wt-care" id="wtCare"><b>И ещё одно.</b> Одежда не лечит настроение — она просто может перестать мешать. Если тяжело не первый день и не первую неделю, об этом стоит сказать тому, кому вы доверяете, или специалисту. Это не слабость и не повод стесняться.</div>`
         : '');
+    /* запоминаем готовый результат — вернёмся к нему кнопкой после ухода на другую страницу */
+    if(_wtOut.innerHTML) wtSave(key, _wtOut.innerHTML);
+    renderWant();
     fill100(); clearInterval(tick); clearTimeout(bell); W.ac = null;
     try{ const _o=outEl(); if(_o) _o.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
   }catch(e){
@@ -24021,10 +24072,44 @@ window.wtPick = async key=>{
     }
   }
 };
+/* Собранные образы живут только в разметке: ушла на «Гардероб» — и они пропали,
+   а подсвеченная кнопка осталась. Запоминаем результат на сутки и возвращаем по кнопке. */
+const WTK = 'looka_want_last';
+const wtSave = (key, html)=>{
+  try{
+    if(html.length > 400000) return;                /* слишком большой — не занимаем хранилище */
+    localStorage.setItem(WTK, JSON.stringify({ key, html, ts: Date.now() }));
+  }catch(e){}
+};
+window.wtCached = ()=>{
+  try{
+    const o = JSON.parse(localStorage.getItem(WTK)||'null');
+    if(!o || !o.html) return null;
+    if(Date.now() - (o.ts||0) > 86400000) return null;   /* вчерашние образы не предлагаем */
+    return o;
+  }catch(e){ return null; }
+};
+window.wtShowCached = ()=>{
+  const o = wtCached(); if(!o) return;
+  const out = outEl(); if(!out) return;
+  W.key = o.key;
+  out.innerHTML = o.html;
+  renderWant();
+  try{ out.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+};
+window.wtForget = ()=>{ try{ localStorage.removeItem(WTK); }catch(e){} W.key = null; const o = outEl(); if(o) o.innerHTML=''; renderWant(); };
+window.wtToday = ()=>{
+  const n = document.getElementById('nightSec');
+  if(!n){ if(window.myToast) myToast('Образы на сегодня появятся после анкеты'); return; }
+  if(window.closePage && document.body.classList.contains('subpage')) closePage();
+  setTimeout(()=>{ if(window.glide) glide(n, 110, 800); else n.scrollIntoView({behavior:'smooth'}); }, 320);
+};
+
 window.wtReset = ()=>{
   if(W.ac){ try{ W.ac.abort(); }catch(e){} W.ac = null; }
   clearInterval(W.tick); W.tick = null;
   W.key = null; W.busy = false;          /* без этого карточки оставались заблокированными */
+  try{ localStorage.removeItem(WTK); }catch(e){}
   renderWant();
   const o = outEl(); if(o) o.innerHTML = '';
 };
@@ -24042,9 +24127,19 @@ window.renderWant = ()=>{
   const card = m => `<button class="wt-c ${W.key===m[0]?'on':''}" style="--c:${m[4]}" ${W.busy?'disabled':''} onclick="wtPick('${m[0]}')">
       <i>${m[1]}</i><b>${esc(m[2])}</b><span>${esc(m[3])}</span></button>`;
   const picked = ALL.find(x=>x[0]===W.key);
+  /* есть ли уже собранные образы, которых сейчас не видно на экране */
+  const cached = (window.wtCached && wtCached()) || null;
+  const outNow = outEl();
+  const shown  = !!(outNow && outNow.innerHTML.trim());
+  const back   = (cached && !shown && !W.busy) ? ALL.find(x=>x[0]===cached.key) : null;
   box.innerHTML = `
-    ${picked?`<div class="wt-bar"><span class="k">собираю под запрос</span><b>${esc(picked[2])}</b>
+    ${picked && (shown || W.busy) ?`<div class="wt-bar"><span class="k">${W.busy?'собираю под запрос':'образы под запрос'}</span><b>${esc(picked[2])}</b>
       <button class="x" onclick="wtReset()">выбрать другое</button></div>`:''}
+    ${back?`<div class="wt-back"><div class="wt-back-t"><b>Образы под запрос «${esc(back[2])}» уже собраны</b>
+        <span>Вы уходили на другую страницу — результат сохранён.</span></div>
+      <div class="wt-back-b"><button class="btn primary" onclick="wtShowCached()">Показать образы</button>
+        <button class="btn ghost" onclick="wtToday()">☀ Образы на сегодня</button>
+        <button class="btn ghost" onclick="wtForget()">Собрать заново</button></div></div>`:''}
     <div class="wt-group">
       <div class="wt-ttl">Хочу, чтобы увидели</div>
       <p class="wt-note">Здесь образ работает на впечатление: цвет, силуэт и один точный акцент.</p>
