@@ -22792,6 +22792,31 @@ setTimeout(wrap, 500);
   90%{opacity:1}
   100%{opacity:0;transform:translate3d(128vw,42vh,0) rotate(16deg)}}
 
+/* ====== ОТКЛИК ФОНА НА РАЗГОВОР ======
+   Волна расходится от того края, где появился пузырь: свои сообщения справа, чужие слева. */
+.ms-wave{position:absolute;left:14%;bottom:16%;width:26px;height:26px;margin:-13px 0 0 -13px;
+  display:block;border-radius:50%;opacity:0;pointer-events:none;
+  background:radial-gradient(circle,var(--msg-spark,rgba(255,255,255,.55)) 0 38%,transparent 72%);
+  box-shadow:0 0 0 0 var(--msg-spark,rgba(255,255,255,.4))}
+.ms-wave.me{left:auto;right:14%}
+.ms-wave.go{animation:msWave 1.5s cubic-bezier(.2,.7,.3,1) 1}
+@keyframes msWave{
+  0%{opacity:.75;transform:scale(.4)}
+  70%{opacity:.16}
+  100%{opacity:0;transform:scale(26)}}
+/* на пару секунд фон оживает: частицы ярче, облака чуть ближе */
+.ms-main.lively .ms-pat.p3{animation-duration:26s;filter:brightness(1.5)}
+.ms-main.lively .ms-pat.p2{animation-duration:46s}
+.ms-main.lively .ms-ab{transform:scale(1.05)}
+.ms-main .ms-ab,.ms-main .ms-pat{transition:filter .9s ease,transform 1.4s ease}
+/* пока она печатает — мягкое свечение, фон будто слушает */
+.ms-main.typing .ms-ab{opacity:1;filter:blur(78px) brightness(1.18)}
+.ms-main.typing .ms-veil{opacity:.7}
+@media(prefers-reduced-motion:reduce){
+  .ms-wave{display:none}
+  .ms-main.lively .ms-pat.p3,.ms-main.lively .ms-pat.p2{animation:none!important}
+}
+
 /* блёстки старого образца больше не используются */
 .ms-bg i{display:none}
 /* поверх своего фото — фон приглушён, картинка главнее */
@@ -22931,10 +22956,20 @@ const sparkles = ()=>{
   return h;
 };
 /* крупные мягкие пятна, которые медленно плавают — именно они дают ощущение живого фона */
+/* Фон откликается на разговор: пришло или ушло сообщение — по нему проходит волна,
+   частицы на мгновение оживают. Это превращает фон из обоев в часть переписки. */
+window.msPulse = (mine)=>{
+  const main = document.getElementById('msgMain'); if(!main) return;
+  const w = main.querySelector('.ms-wave'); if(!w) return;
+  w.classList.toggle('me', !!mine);
+  w.classList.remove('go'); void w.offsetWidth; w.classList.add('go');
+  main.classList.remove('lively'); void main.offsetWidth; main.classList.add('lively');
+  setTimeout(()=>main.classList.remove('lively'), 2600);
+};
 const auraHtml = (space)=>'<span class="ms-ab a1"></span><span class="ms-ab a2"></span>'
   + '<span class="ms-pat"></span><span class="ms-pat p2"></span><span class="ms-pat p3"></span>'
   + (space ? '<span class="ms-shoot"></span><span class="ms-shoot s2"></span>' : '')
-  + '<span class="ms-gl"></span><span class="ms-veil"></span>';
+  + '<span class="ms-gl"></span><span class="ms-veil"></span><span class="ms-wave"></span>';
 /* парящие вверх шарики-боке: заметнее блёсток и не мельтешат */
 /* частицы: форма и повадка свои у каждого оформления */
 const motes = (n)=>{
@@ -23093,7 +23128,11 @@ window.msgOpen = async (uid)=>{
     M.poll = setInterval(async ()=>{
       if(document.hidden || !M.open) return;
       try{ const q = await api('/soc/thread?uid=' + encodeURIComponent(M.open));
-        if((q.items||[]).length !== M.items.length){ M.items = q.items||[]; drawThread(true); } }catch(e){}
+        if((q.items||[]).length !== M.items.length){
+          const grew = (q.items||[]).length > M.items.length;
+          M.items = q.items||[]; drawThread(true);
+          if(grew) msPulse(false);                 /* пришло новое — фон откликается */
+        } }catch(e){}
     }, 8000);
   }catch(e){ toast(e.message); }
 };
@@ -23146,7 +23185,13 @@ function drawThread(keepScroll){
   if(body) body.scrollTop = body.scrollHeight;
   const inp = document.getElementById('msgInp');
   if(inp){
-    inp.addEventListener('input', ()=>{ inp.style.height='auto'; inp.style.height = Math.min(130, inp.scrollHeight)+'px'; });
+    let _typeT = null;
+    inp.addEventListener('input', ()=>{
+      inp.style.height='auto'; inp.style.height = Math.min(130, inp.scrollHeight)+'px';
+      main.classList.add('typing');
+      clearTimeout(_typeT); _typeT = setTimeout(()=>main.classList.remove('typing'), 1600);
+    });
+    inp.addEventListener('blur', ()=>main.classList.remove('typing'));
     inp.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); msgSend(); } });
     if(!keepScroll) inp.focus();
   }
@@ -23198,6 +23243,7 @@ window.msgSend = async ()=>{
     const j = await api('/soc/send', { uid: M.open, text });
     M.items.push(j.item); inp.value=''; inp.style.height='auto';
     drawThread(true);
+    msPulse(true);           /* после перерисовки: иначе волну смывает новым разметкой */
   }catch(e){ toast(e.message); }
   M.busy = false; if(go) go.disabled = false;
 };
