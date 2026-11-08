@@ -23844,7 +23844,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 </style>
 <script>
 /* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
-window.WK_VERSION = 'fast-2026-11-03';   /* версия, которую должен отдавать актуальный воркер */
+window.WK_VERSION = 'fast-2026-11-08';   /* версия, которую должен отдавать актуальный воркер */
 window.wkCheck = async ()=>{
   const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
   if(!base) return { state:'none' };
@@ -23859,8 +23859,15 @@ window.wkCheck = async ()=>{
   }catch(e){ clearTimeout(tm); return { state:'dead' }; }
 };
 /* дописывает в карточку ошибки честный вывод, что именно сломано */
-window.wkVerdict = async el=>{
+window.wkVerdict = async (el, errText)=>{
   if(!el) return;
+  /* перегрузку Google видно прямо по тексту ошибки — воркер тут ни при чём */
+  if(/503|high demand|перегружен/i.test(String(errText||el.textContent||''))){
+    const box = document.createElement('div'); box.className = 'wk-vd ok';
+    box.innerHTML = '<b>Модель перегружена, и это не ваша вина</b><span>Так отвечает сам Google, когда к модели обращается слишком много людей разом. '
+      + 'Обычно проходит за пару минут — нажмите «Попробовать ещё раз».</span>';
+    el.appendChild(box); return;
+  }
   const box = document.createElement('div'); box.className='wk-vd';
   box.innerHTML = '<i class="wk-dot"></i>проверяю ваш сервер…'; el.appendChild(box);
   const c = await wkCheck();
@@ -23869,6 +23876,7 @@ window.wkVerdict = async el=>{
     dead : ['warn','Воркер не отвечает совсем', 'Проверьте, что он опубликован в Cloudflare и адрес верный. Если всё на месте — запрос режет провайдер или антивирус, попробуйте с мобильного интернета.'],
     bad  : ['warn','Воркер отвечает ошибкой ' + (c.code||''), 'Чаще всего это не задан или исчерпан ключ ИИ в настройках Cloudflare.'],
     old  : ['old','На Cloudflare старая версия воркера', 'Именно поэтому ответ ждёт больше минуты. Загрузите в Cloudflare новый файл looka-worker.js и нажмите Deploy — ожидание станет несколько секунд.'],
+    busy : ['ok','Модель перегружена, и это не ваша вина', 'Так отвечает сам Google, когда к модели обращается слишком много людей разом. Проходит само за несколько минут — просто нажмите «Попробовать ещё раз».'],
     fresh: ['ok','Воркер свежий, дело не в нём', 'Значит упирается в ключ ИИ: он не задан, исчерпан лимит или модель отвечает дольше обычного. Откройте /ai-test — там видно по каждой модели.']
   };
   const t = T[c.state] || T.dead;
