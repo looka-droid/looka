@@ -8577,7 +8577,7 @@ setInterval(pgDraw, 4000);
     <h2>Двадцать разделов бесплатно.<br>Решение — после.</h2>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
       <button class="btn primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">Начать бесплатно</button>
-      <button class="btn ghost" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Условия доступа</button>
+      <button class="btn ghost" onclick="openPay()">Условия доступа</button>
     </div>
   </div>
 </section>
@@ -8603,7 +8603,7 @@ setInterval(pgDraw, 4000);
       <a href="#how" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'});return false">Как это работает</a></div>
     <div><b>О сервисе</b>
       <a href="#about" onclick="openPage('aboutPage');return false">Кто делает LOOKA</a>
-      <a href="#payment" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'});return false">Оплата</a>
+      <a href="#payment" onclick="openPay();return false">Оплата</a>
       <a href="#reviews" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'});return false">Отзывы</a>
       <a href="#docs" onclick="openPage('docsPage');return false">Документы</a>
       <a href="#diag" onclick="lkDiag();return false">Проверка связи</a></div>
@@ -8832,7 +8832,7 @@ function showPaywall(){
   document.getElementById('looks').innerHTML = `<div class="paywall">
     <h3>Бесплатные подборы закончились</h3>
     <p>Вы использовали 5 бесплатных подборов. Понравился результат? Полный доступ открывает безлимитные подборы и пересборки — разовый платёж, без подписок.</p>
-    <button class="btn primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Условия доступа</button>
+    <button class="btn primary" onclick="openPay()">Условия доступа</button>
   </div>`;
   updFree();
   document.getElementById('results').style.display='block';
@@ -13651,6 +13651,59 @@ function gaps(){
   return { g, nowLooks, dead };
 }
 
+/* ===== «ХОЧУ НАДЕТЬ ИМЕННО ЭТО» =====
+   Клиентка отмечает вещи, вокруг которых надо собрать образ. Отметки живут до конца дня:
+   завтра настроение другое, и тянуть вчерашний выбор было бы навязчиво. */
+const PICKK = 'looka_pick';
+/* esc и hex объявлены в соседних модулях и сюда не видны — берём свои */
+const pkEsc = v => String(v==null?'':v).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pkHex = c => { try{ return (typeof hex==='function' ? hex(c) : '') || '#6c7488'; }catch(e){ return '#6c7488'; } };
+window.pickList = ()=>{
+  try{
+    const o = JSON.parse(localStorage.getItem(PICKK)||'null');
+    if(!o || o.day !== new Date().toDateString()) return [];
+    return Array.isArray(o.ids) ? o.ids : [];
+  }catch(e){ return []; }
+};
+const pickSave = ids=>{
+  try{ localStorage.setItem(PICKK, JSON.stringify({ day:new Date().toDateString(), ids })); }catch(e){}
+};
+window.pickHas = id => pickList().indexOf(id) >= 0;
+window.pickNames = ()=>{
+  const ids = pickList();
+  if(!ids.length) return [];
+  let items=[]; try{ items = (JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items||[]; }catch(e){}
+  return ids.map(id=>items.find(x=>x.id===id)).filter(Boolean);
+};
+window.pickToggle = id=>{
+  const ids = pickList(); const i = ids.indexOf(id);
+  if(i>=0) ids.splice(i,1); else { if(ids.length>=4){ if(window.toast) toast('Больше четырёх вещей — это уже готовый образ, а не пожелание'); return; } ids.push(id); }
+  pickSave(ids);
+  ['renderWardrobe','renderWantWd'].forEach(f=>{ try{ if(typeof window[f]==='function') window[f](); }catch(e){} });
+};
+window.pickClear = ()=>{ pickSave([]);
+  ['renderWardrobe','renderWantWd'].forEach(f=>{ try{ if(typeof window[f]==='function') window[f](); }catch(e){} }); };
+/* панель с выбранным: показывается и в гардеробе, и над образами */
+window.pickBar = ()=>{
+  const list = pickNames();
+  if(!list.length) return '';
+  return `<div class="pk-bar"><div class="pk-t"><b>Хочу надеть сегодня</b>
+      <span>LOOKA соберёт образы вокруг ${list.length===1?'этой вещи':'этих вещей'}, остальное подберёт по погоде.</span></div>
+    <div class="pk-items">${list.map(it=>`<span class="pk-chip"><i style="background:${pkHex(it.color)}"></i>${pkEsc(it.name||it.sub||it.cat)}
+      <button onclick="pickToggle(${it.id})" title="убрать" aria-label="убрать">✕</button></span>`).join('')}</div>
+    <div class="pk-go"><button class="btn primary" onclick="pickBuild()">✦ Собрать образ вокруг этого</button>
+      <button class="btn ghost" onclick="pickClear()">Сбросить</button></div></div>`;
+};
+window.pickBuild = ()=>{
+  if(!pickNames().length){ if(window.toast) toast('Сначала отметьте вещь в гардеробе'); return; }
+  if(document.body.classList.contains('subpage') && window.closePage) closePage();
+  setTimeout(()=>{
+    const sec = document.getElementById('wantSec') || document.getElementById('wtOut');
+    if(sec && window.glide) glide(sec, 110, 700);
+    if(window.wtPick) wtPick('day');
+  }, 360);
+};
+
 function itemCard(it, small){
   const c = hex(it.color);
   const ph = it.photo ? `<img src="${it.photo}" alt="">` : wdIcon(it);
@@ -13660,6 +13713,7 @@ function itemCard(it, small){
     <div class="wd-b"><b>${it.name||it.sub||it.cat}</b><span class="wd-m"><i style="background:${c}"></i>${meta}</span>
     ${small?'':`<div class="wd-act">
       <button class="w" onclick="wdWear(${it.id})" title="надела сегодня">✓ надела</button>
+      <button class="p${window.pickHas&&pickHas(it.id)?' on':''}" onclick="pickToggle(${it.id})" title="${window.pickHas&&pickHas(it.id)?'не надевать сегодня':'хочу надеть сегодня — соберём образ вокруг неё'}">★</button>
       <button class="${it.wash?'on':''}" onclick="wdWash(${it.id})" title="${it.wash?'вернуть из стирки':'в стирку'}"><svg class="wd-dr" viewBox="0 0 16 16"><path d="M8 1.6 C11.2 6 13.2 8.2 13.2 10.6 A5.2 5.2 0 0 1 2.8 10.6 C2.8 8.2 4.8 6 8 1.6Z"/></svg></button>
       <button onclick="wdEdit(${it.id})" title="изменить">✎</button>
       <button onclick="wdSell(${it.id})" title="продать">₽</button>
@@ -13681,6 +13735,7 @@ async function renderWardrobe(){
     <div class="look badv mk-wide"><div class="look-in">
       <div class="cp-nums"><div><b>${I.length}</b><span>вещей</span></div><div><b>${G.nowLooks}</b><span>образов из них</span></div><div><b>${cpw?cpw.toLocaleString('ru-RU')+' ₽':'—'}</b><span>цена одного выхода</span></div><div><b>${G.dead.length}</b><span>не носили 90 дней</span></div></div>
       ${I.length<6?'<div class="tip">Добавьте хотя бы 6 вещей (верх, низ, обувь) — и гардероб начнёт одевать вас по утрам.</div>':''}
+      ${window.pickBar?pickBar():''}
       ${I.length>=4?`<button class="btn ghost" style="margin-top:14px" onclick="wdWeek()">✦ Спланировать неделю без повторов</button><div id="wdWeek"></div>`:''}
     </div></div>
 
@@ -19299,7 +19354,7 @@ window.accMenu = (ev)=>{
     <div class="ap-grp">Данные и доступ</div>
     <button class="ap-it" onclick="closeAccPop();authSync()"><i>↻</i><span>Сохранить в облако</span><em>синхронизировать сейчас</em></button>
     <button class="ap-it" onclick="closeAccPop();dataDownload()"><i>⤓</i><span>Скачать мои данные</span><em>стиль-паспорт в PDF — всё, что LOOKA о вас знает</em></button>
-    <button class="ap-it" onclick="closeAccPop();document.getElementById('pricing')&&document.getElementById('pricing').scrollIntoView({behavior:'smooth'})"><i>✦</i><span>Доступ и оплата</span><em>${(window.hasAccess&&hasAccess())?'премиум активен':'бесплатный доступ'}</em></button>
+    <button class="ap-it" onclick="closeAccPop();openPay()"><i>✦</i><span>Доступ и оплата</span><em>${(window.hasAccess&&hasAccess())?'премиум активен':'бесплатный доступ'}</em></button>
     <button class="ap-it" onclick="closeAccPop();lkDiag()"><i>◉</i><span>Проверка связи</span><em>что отвечает, а что нет — за 10 секунд</em></button>
     <button class="ap-it" onclick="closeAccPop();openPage('contactsPage')"><i>✉</i><span>Написать в поддержку</span><em>отвечаю лично, обычно за пару часов</em></button>
     <div class="ap-grp">Опасная зона</div>
@@ -23692,6 +23747,44 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 .wt-err p{font-size:14px;line-height:1.6;color:#C9CEDC;margin:0 0 8px}
 .wt-err p.sm{font-size:13px;color:#8E95AB}
 .wt-err .btn{margin-top:8px}
+/* «хочу надеть именно это» */
+.wd-act .p{color:#FFD08A}
+.wd-act .p.on{background:rgba(255,208,138,.2);border-color:rgba(255,208,138,.65);color:#FFD08A}
+.pk-bar{margin:14px 0 2px;padding:14px 16px;border-radius:16px;
+  border:1px solid rgba(255,208,138,.38);background:linear-gradient(135deg,rgba(255,208,138,.12),rgba(199,157,242,.06))}
+.pk-t b{display:block;font-family:'Golos Text',sans-serif;font-weight:700;font-size:15px;color:#F4F5FA}
+.pk-t span{display:block;font-size:12.5px;color:#9AA1B8;margin-top:3px}
+.pk-items{display:flex;flex-wrap:wrap;gap:8px;margin:11px 0}
+.pk-chip{display:inline-flex;align-items:center;gap:7px;padding:6px 8px 6px 10px;border-radius:99px;
+  font-size:13px;color:#F0E4FF;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06)}
+.pk-chip i{width:11px;height:11px;border-radius:50%;flex:none}
+.pk-chip button{border:none;background:none;cursor:pointer;color:#9AA1B8;font-size:13px;padding:0 2px;line-height:1}
+.pk-chip button:hover{color:#FF9DB0}
+.pk-go{display:flex;gap:8px;flex-wrap:wrap}
+.pk-go .btn{padding:10px 16px;font-size:13px}
+/* сборы в поездку */
+.tr-grid{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:14px}
+@media(max-width:560px){.tr-grid{grid-template-columns:1fr}}
+.tr-f{display:block}
+.tr-f > span{display:block;font-family:'Golos Text',sans-serif;font-size:12.5px;font-weight:600;
+  color:#9AA1B8;margin-bottom:5px}
+.tr-go{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.tr-rules{margin-top:16px;padding:13px 15px;border-radius:14px;
+  border:1px solid rgba(143,214,255,.3);background:rgba(143,214,255,.07)}
+.tr-rules > b{display:block;font-family:'Golos Text',sans-serif;font-size:14px;color:#BFE6F5;margin-bottom:6px}
+.tr-take{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;margin-top:12px}
+.tr-tk{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:13px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);transition:opacity .2s,border-color .2s}
+.tr-tk:hover{border-color:rgba(255,255,255,.26)}
+.tr-tk input{flex:none;width:18px;height:18px;margin-top:2px;accent-color:#7CF0B2;cursor:pointer}
+.tr-tk span{flex:1;min-width:0}
+.tr-tk b{display:block;font-family:'Golos Text',sans-serif;font-weight:600;font-size:14px;color:#F4F5FA}
+.tr-tk em{display:block;font-style:normal;font-size:12px;color:#9AA1B8;margin-top:2px}
+.tr-tk.done{opacity:.5}
+.tr-tk.done b{text-decoration:line-through}
+.tr-new{flex:none;font-style:normal;font-size:10px;letter-spacing:.8px;text-transform:uppercase;
+  padding:3px 7px;border-radius:99px;background:rgba(255,208,138,.18);color:#FFD08A;align-self:center}
+.wt-why{margin:10px 0 0;font-size:13.5px;color:#A8AEC2;line-height:1.55}
 /* панель возврата к уже собранным образам */
 .wt-back{display:flex;flex-wrap:wrap;align-items:center;gap:14px;justify-content:space-between;
   margin:0 0 18px;padding:15px 18px;border-radius:16px;
@@ -23934,6 +24027,16 @@ window.wtPick = async key=>{
   if(washNow.length) WD = WD.filter(it=>!washNow.includes(String(it.name||'').toLowerCase()));
   const fromWd = WD.length >= 4;
   const wdList = WD.slice(0, 60).map(it=>'- '+[it.name, it.color, it.cat].filter(Boolean).join(', ')).join('\n');
+  /* вещи, которые клиентка хочет надеть сегодня: образ собирается вокруг них */
+  const pickItems = (window.pickNames ? pickNames() : []);
+  const pickTxt = pickItems.map(it=>[it.name, it.color, it.cat].filter(Boolean).join(', '));
+  const pickRule = pickTxt.length
+    ? ('\nКЛИЕНТКА ХОЧЕТ НАДЕТЬ СЕГОДНЯ ИМЕННО ЭТО:\n' + pickTxt.map(x=>'- '+x).join('\n') + '\n'+
+       'Это главное условие. КАЖДЫЙ из трёх образов обязан включать ' +
+       (pickTxt.length===1 ? 'эту вещь' : 'эти вещи') + ', название переписывай точно. '+
+       'Остальное подбирай вокруг — так, чтобы по погоде было можно и чтобы три образа всё равно вышли разными. '+
+       'Если с какой-то из этих вещей образ по погоде не собрать, НЕ ЗАМЕНЯЙ её молча: собери как получится и честно напиши об этом в note.\n')
+    : '';
   /* погода за окном: без неё образ может оказаться не по сезону */
   try{ if(window.wtWx) await wtWx(); }catch(e){}
   const wxNow = (()=>{
@@ -24046,7 +24149,7 @@ window.wtPick = async key=>{
     ? ('Ты — опытный стилист. '+me+'.\n'+
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
        'Подход: '+m[5]+'\n'+dna+colr+life+wxRule+rules+'\n'+(window.nopeRule?nopeRule():'')+
-       'ВОТ ЧТО УЖЕ ЕСТЬ В ЕЁ ШКАФУ:\n'+wdList+'\n\n'+
+       'ВОТ ЧТО УЖЕ ЕСТЬ В ЕЁ ШКАФУ:\n'+wdList+'\n'+pickRule+'\n'+
        'Собери ТРИ образа ПРЕИМУЩЕСТВЕННО ИЗ ЭТИХ ВЕЩЕЙ. Названия вещей из шкафа переписывай ТОЧНО так, как они указаны выше.\n'+
        'ЭТО ДОЛЖНЫ БЫТЬ ТРИ ОБРАЗА ПОД РАЗНЫЕ ЗАНЯТИЯ ДНЯ, А НЕ ТРИ ПЕРЕСТАНОВКИ ОДНОГО И ТОГО ЖЕ. '+
        'Она ещё не решила, как пройдёт день, поэтому дай ей выбор. Строго по одному образу каждого типа, в этом порядке:\n'+
@@ -24098,11 +24201,24 @@ window.wtPick = async key=>{
     if(!d.looks.length) throw new Error('ответ пришёл обрезанным — нажмите «попробовать ещё раз»');
     if(j.truncated) d.note = (d.note ? d.note + ' ' : '') + 'Показываю то, что успело прийти: ответ оказался длиннее лимита.';
     /* последняя проверка: в прохладу образ без верхней одежды — это не образ */
+    if(!needOuter && pickTxt.length){
+      d.looks.forEach(L=>{
+        const all = ((L.own||[]).join(' ') + ' ' + ((L.add&&L.add.n)||'') + ' ' + (L.items||[]).map(i=>i.n).join(' ')).toLowerCase();
+        L._missPick = pickItems.filter(it=>all.indexOf(String(it.name||'').toLowerCase()) < 0)
+                               .map(it=>it.name).filter(Boolean);
+      });
+    }
     if(needOuter){
       d.looks.forEach(L=>{
         const all = ((L.own||[]).join(' ') + ' ' + ((L.add&&L.add.n)||'') + ' ' + (L.items||[]).map(i=>i.n).join(' '));
         L._noOuter = !OUTER_RE.test(all.replace(NOT_OUTER_RE, ' '));
         L._openShoe = needClosed && OPEN_RE.test(all);
+        /* проверяем, что пожелание учли: ИИ иногда «забывает» заданную вещь */
+        if(pickTxt.length){
+          const low = all.toLowerCase();
+          L._missPick = pickItems.filter(it=>low.indexOf(String(it.name||'').toLowerCase()) < 0)
+                                 .map(it=>it.name).filter(Boolean);
+        }
         /* в минус мало просто «куртки»: косуха и бомбер зимой не греют */
         if(wxFeel !== null && wxFeel < 5 && !L._noOuter){
           L._notWarm  = !WARM_RE.test(all) && THIN_RE.test(all);
@@ -24116,6 +24232,7 @@ window.wtPick = async key=>{
     const _wtOut = outEl() || {};
     _wtOut.innerHTML =
       (d.intro?`<p class="lead" style="margin:4px 0 16px;max-width:72ch">${esc(d.intro)}</p>`:'') +
+      (window.pickBar?pickBar():'') +
       `<div class="wt-tags">${fromWd?`<span class="wt-src">◍ из вашего гардероба · ${WD.length} ${WD.length%10===1&&WD.length%100!==11?'вещь':'вещей'}</span>`:''}${wxNow?`<span class="wt-wx">☀ по погоде · ${esc(wxNow.txt)}</span>`:''}${(W.gaps||[]).length?`<span class="wt-gap">⚠ без ${W.gaps.map(g=>g[0]).join(' и ')}</span>`:''}</div>` +
       ((W.gaps||[]).length?`<div class="wt-gapbox"><b>Подбор сделан без части ваших данных</b>
         <span>Не хватает: ${W.gaps.map(g=>esc(g[0])).join(', ')}. Без них LOOKA знает ваш размер, но не знает ваш вкус и палитру — образы выходят «правильными вообще», а не вашими.</span>
@@ -24138,6 +24255,10 @@ window.wtPick = async key=>{
               <div class="wt-miss-h"><i>+</i><div><b>${esc(wtCap(L.add.n))}</b><span>этого в шкафу нет — без него образ не собрать</span></div>${L.add.p?`<em>${esc(L.add.p)}</em>`:''}</div>
               ${sb(L.add)}</div>`:''}
           ${(L.items||[]).map(it=>`<div class="item"><div class="nm">${esc(it.n)}</div>${it.p?`<div class="pr">${esc(it.p)}</div>`:''}${sb(it)}</div>`).join('')}
+          ${(L._missPick&&L._missPick.length)?`<div class="wt-warn"><i>★</i><div>
+            <b>Не получилось вписать: ${esc(L._missPick.join(', '))}.</b>
+            <span>С этой вещью образ не сложился — по погоде или по сочетанию. Остальные варианты посмотрите ниже, или снимите отметку в гардеробе.</span>
+          </div></div>`:''}
           ${(L._notWarm||L._noHat||L._coldShoe)?`<div class="wt-warn"><i>❄</i><div>
             ${L._notWarm?`<b>Для ${(wxFeel>0?'+':'')+wxFeel}° этот верх холодный.</b><span>Косуха, джинсовка и бомбер — не зимняя одежда: на долгой прогулке в них замерзают. ${wdOuter.filter(x=>/пухов|пальто|парк|шуб|дублён|утеплён|стёган/i.test(x.name)).length?('Возьмите из шкафа: '+esc(wdOuter.filter(x=>/пухов|пальто|парк|шуб|дублён|утеплён|стёган/i.test(x.name)).slice(0,2).map(x=>x.name).join(' или '))+'.'):'Тёплой верхней одежды в гардеробе не нашлось — это первая покупка на сезон.'}</span>`:''}
             ${L._coldShoe?`<span>Обувь не утеплённая — для такой погоды нужны ботинки или сапоги.</span>`:''}
@@ -24436,6 +24557,231 @@ function mount(){
 }
 if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded', mount);
 setTimeout(mount, 900);
+})();
+</script>
+
+<script>
+/* ===================== СБОРЫ В ПОЕЗДКУ =====================
+   Клиентка говорит страну, месяц и число дней — LOOKA собирает чемодан из её
+   гардероба и расписывает образы по дням. Отдельно — местные правила одежды:
+   не «менталитет» вообще, а то, что реально мешает: храмы, рестораны, пляж, погода. */
+(function(){
+  const TK = 'looka_trip';
+  const T = (()=>{ try{ return JSON.parse(localStorage.getItem(TK)||'null') || {}; }catch(e){ return {}; } })();
+  const save = ()=>{ try{ localStorage.setItem(TK, JSON.stringify(T)); }catch(e){} };
+  const esc = v => String(v==null?'':v).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const say = t => { if(window.myToast) myToast(t); };
+  /* api() объявлен внутри соседних модулей и сюда не виден — обращаемся к воркеру сами */
+  const aiCall = async body=>{
+    const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
+    if(!base) throw new Error('сервер ИИ не подключён');
+    let tok = ''; try{ tok = (JSON.parse(localStorage.getItem('looka_session')||'{}')||{}).token||''; }catch(e){}
+    const ac = new AbortController(); const tm = setTimeout(()=>ac.abort(), 75000);
+    try{
+      const r = await fetch(base+'/ai', { method:'POST', signal:ac.signal,
+        headers: Object.assign({'Content-Type':'application/json'}, tok?{Authorization:'Bearer '+tok}:{}),
+        body: JSON.stringify(body) });
+      const j = await r.json().catch(()=>({}));
+      if(!r.ok) throw new Error('сервер ответил: ' + JSON.stringify(j.error||j).slice(0,200));
+      return j;
+    }catch(e){
+      throw new Error(/abort/i.test(String(e.message||e)) ? 'сервер не ответил за 75 секунд' : (e.message||e));
+    }finally{ clearTimeout(tm); }
+  };
+
+  const MONTHS = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+  const PURPOSE = [
+    ['море','Море и пляж'], ['город','Город и музеи'], ['работа','Работа, конференция'],
+    ['горы','Горы, природа, походы'], ['событие','Свадьба или событие'], ['родные','К родным, в гости']
+  ];
+  const BAG = [['ручная','Только ручная кладь'], ['чемодан','Чемодан'], ['много','Багаж не ограничен']];
+
+  const wd = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items||[]; }catch(e){ return []; } };
+  const prof = ()=>{ try{ return JSON.parse(localStorage.getItem('looka_profile')||'{}')||{}; }catch(e){ return {}; } };
+  const season = ()=>{ try{ const c=JSON.parse(localStorage.getItem('looka_cs')||'null'); return (c&&c.season)||''; }catch(e){ return ''; } };
+
+  window.tripSet = (k,v)=>{ T[k] = (T[k]===v && k!=='days') ? '' : v; save(); drawTrip(); };
+  window.tripText = (k,v)=>{ T[k]=v; save(); };
+  window.tripDays = v=>{ T.days = Math.max(1, Math.min(30, +v||1)); save(); };
+
+  function drawTrip(){
+    const box = document.getElementById('tripBox'); if(!box) return;
+    const items = wd();
+    box.innerHTML = `
+      <div class="look badv mk-wide"><div class="look-in">
+        <span class="wd-eyebrow">чемодан · ${items.length?('из ваших '+items.length+' вещей'):'список с нуля'}</span>
+        <h3>Куда и когда</h3>
+        <div class="tr-grid">
+          <label class="tr-f"><span>Страна и город</span>
+            <input class="acc-in" id="trPlace" placeholder="например: Турция, Стамбул"
+              value="${esc(T.place||'')}" onchange="tripText('place',this.value)"></label>
+          <label class="tr-f"><span>Сколько дней</span>
+            <input class="acc-in" type="number" min="1" max="30" id="trDays"
+              value="${T.days||7}" onchange="tripDays(this.value);drawTripSoft()"></label>
+        </div>
+        <div class="grp"><label class="t">Месяц поездки</label>
+          <div class="chips">${MONTHS.map(m=>`<button class="chip ${T.month===m?'on':''}" onclick="tripSet('month','${m}')">${m}</button>`).join('')}</div></div>
+        <div class="grp"><label class="t">Зачем едете</label>
+          <div class="chips">${PURPOSE.map(x=>`<button class="chip ${T.purpose===x[0]?'on':''}" onclick="tripSet('purpose','${x[0]}')">${x[1]}</button>`).join('')}</div></div>
+        <div class="grp"><label class="t">Сколько влезает</label>
+          <div class="chips">${BAG.map(x=>`<button class="chip ${T.bag===x[0]?'on':''}" onclick="tripSet('bag','${x[0]}')">${x[1]}</button>`).join('')}</div></div>
+        <label class="tr-f"><span>Что обязательно хочу взять</span>
+          <input class="acc-in" placeholder="любимое платье, белые кроссовки — через запятую"
+            value="${esc(T.must||'')}" onchange="tripText('must',this.value)"></label>
+        <div class="tr-go">
+          <button class="btn primary" id="trGo" onclick="genTrip()">✦ Собрать чемодан</button>
+          ${T.last?`<button class="btn ghost" onclick="tripShowLast()">Показать прошлый сбор</button>`:''}
+        </div>
+        <div class="tip" style="margin-top:12px">Про погоду в месяце и местные правила одежды LOOKA знает приблизительно — перед вылетом сверьтесь с прогнозом.</div>
+      </div></div>`;
+  }
+  window.drawTripSoft = ()=>{};   /* число дней не требует перерисовки */
+
+  window.tripShowLast = ()=>{ if(T.last) renderTrip(T.last); };
+
+  window.genTrip = async ()=>{
+    const btn = document.getElementById('trGo');
+    const out = document.getElementById('trOut');
+    const place = (document.getElementById('trPlace')||{}).value || T.place || '';
+    if(!place.trim()){ say('Напишите страну и город'); return; }
+    T.place = place.trim(); T.days = +((document.getElementById('trDays')||{}).value) || T.days || 7; save();
+    if(!T.month){ say('Выберите месяц — от него зависит всё'); return; }
+
+    const items = wd();
+    const list = items.slice(0,70).map(it=>'- '+[it.name, it.color, it.cat].filter(Boolean).join(', ')).join('\n');
+    const P = prof();
+    const who = ['фигура '+(P.figure||'—'), 'рост '+(P.height||'—'), 'размер одежды '+(P.clothSize||'—'),
+                 'размер обуви '+(P.shoeSize||'—'), season()?('цветотип '+season()):''].filter(Boolean).join(', ');
+    const bagTxt = T.bag==='ручная' ? 'только ручная кладь: вещей минимум, всё должно сочетаться между собой'
+                 : T.bag==='много' ? 'багаж не ограничен, но лишнего всё равно не нужно'
+                 : 'обычный чемодан';
+    const purTxt = (PURPOSE.find(x=>x[0]===T.purpose)||['','поездка'])[1];
+
+    const prompt =
+      'Ты — стилист, который много ездит и собирает чемоданы. Собери гардероб на поездку.\n'+
+      'КУДА: '+T.place+'. КОГДА: '+T.month+'. СКОЛЬКО ДНЕЙ: '+T.days+'. ЗАЧЕМ: '+purTxt+'. БАГАЖ: '+bagTxt+'.\n'+
+      'КЛИЕНТКА: '+who+'.\n'+
+      (T.must?('ОБЯЗАТЕЛЬНО ВЗЯТЬ, она просила: '+T.must+'.\n'):'')+
+      (items.length>=4 ? ('ЕЁ ГАРДЕРОБ:\n'+list+'\nСобирай ПРЕИМУЩЕСТВЕННО из этих вещей, названия переписывай точно.\n')
+                       : 'Гардероб не заполнен — просто назови вещи, которые стоит взять или купить.\n')+
+      'ПОГОДА: исходи из типичной погоды этого места в этом месяце — дневная и ночная температура, дожди, ветер, влажность. '+
+      'Если в это время там бывает резкий перепад день-ночь или сезон дождей, скажи об этом прямо.\n'+
+      'МЕСТНЫЕ ПРАВИЛА ОДЕЖДЫ: напиши только практичное и проверяемое — где требуют закрытые плечи и колени (храмы, мечети, церкви), '+
+      'есть ли дресс-код в ресторанах, принято ли ходить в пляжной одежде по городу, насколько формально одеваются на работу. '+
+      'НЕ пиши рассуждений о характере народа и не давай оценок культуре: только то, что влияет на выбор вещей.\n'+
+      'ПРИНЦИП КАПСУЛЫ: вещи должны сочетаться между собой, чтобы из небольшого набора вышло много образов. '+
+      'Обувь — не больше трёх пар, и одна обязательно разношенная, в которой можно ходить весь день.\n'+
+      'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
+      '{"climate":"погода там в этом месяце, 1-2 фразы с цифрами",'+
+      '"rules":["правило одежды 1","правило 2","правило 3"],'+
+      '"take":[{"n":"вещь","own":true,"why":"зачем она в чемодане"}],'+
+      '"buy":[{"n":"чего не хватает","q":"поисковый запрос","p":"цена ₽","why":"зачем"}],'+
+      '"looks":[{"d":"День 1 · прилёт","t":"название образа","items":["вещь","вещь"],"why":"почему так"}],'+
+      '"avoid":["что там лучше не надевать и почему"],'+
+      '"note":"пустая строка или честное замечание"}\n'+
+      'Образов сделай '+Math.min(T.days,8)+' — по одному на день, а если дней больше восьми, покажи самые разные дни и скажи в note, что остальные собираются из тех же вещей.\n'+
+      'buy — не больше трёх вещей. take — весь чемодан, с обувью и верхней одеждой. '+
+      'ПИШИ КОРОТКО: climate до 160 знаков, каждое правило до 110, why до 90, t до 40. По-русски, на «вы». Ничего вне JSON.';
+
+    const t0 = Date.now(); let tick = null;
+    if(btn){ btn.disabled = true;
+      tick = setInterval(()=>{ btn.textContent = 'Собираю чемодан… ' + Math.round((Date.now()-t0)/1000) + ' с'; }, 500); }
+    if(out) out.innerHTML = '<div class="tip">LOOKA смотрит погоду в '+esc(T.place)+' в '+esc(T.month)+' и перебирает ваши вещи…</div>';
+    try{
+      const r = await aiCall({ max_tokens: 2200, messages:[{ role:'user', content: prompt }] });
+      const txt = (r.content||[]).map(c=>c.text||'').join('');
+      const d = JSON.parse(txt.replace(/```json|```/g,'').trim());
+      T.last = d; T.lastAt = Date.now(); save();
+      renderTrip(d);
+    }catch(e){
+      if(out) out.innerHTML = '<div class="wt-err"><b>Не получилось собрать чемодан</b><p>'+esc(e.message||e)+'.</p>'+
+        '<button class="btn primary" onclick="genTrip()">↻ Попробовать ещё раз</button></div>';
+      const err = out && out.querySelector('.wt-err');
+      if(err && window.wkVerdict) wkVerdict(err);
+    }finally{
+      clearInterval(tick);
+      if(btn){ btn.disabled = false; btn.textContent = '✦ Собрать чемодан'; }
+    }
+  };
+
+  function renderTrip(d){
+    const out = document.getElementById('trOut'); if(!out) return;
+    const sb = it => (window.shopButtons ? shopButtons({ n: it.n, q: it.q || it.n }) : '');
+    out.innerHTML = `
+      <div class="look badv mk-wide"><div class="look-in">
+        <span class="wd-eyebrow">${esc(T.place)} · ${esc(T.month)} · ${T.days} дн.</span>
+        <h3>Что там с погодой</h3>
+        <p class="lead" style="margin:4px 0 0;max-width:70ch">${esc(d.climate||'')}</p>
+        ${(d.rules||[]).length?`<div class="tr-rules"><b>Что там носят, а что нет</b>
+          <ul class="tp-list">${d.rules.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
+        ${(d.avoid||[]).length?`<div class="wt-warn" style="margin-top:12px"><i>!</i><div>
+          <b>Лучше не брать</b>${d.avoid.map(x=>`<span>${esc(x)}</span>`).join('')}</div></div>`:''}
+        ${d.note?`<div class="wt-care" style="margin-top:12px">${esc(d.note)}</div>`:''}
+      </div></div>
+
+      ${(d.take||[]).length?`<div class="look badv mk-wide"><div class="look-in">
+        <h3>Чемодан · ${d.take.length} вещ${d.take.length===1?'ь':d.take.length<5?'и':'ей'}</h3>
+        <div class="tr-take">${d.take.map((x,i)=>`<label class="tr-tk">
+          <input type="checkbox" onchange="this.closest('.tr-tk').classList.toggle('done',this.checked)">
+          <span><b>${esc(x.n)}</b>${x.why?`<em>${esc(x.why)}</em>`:''}</span>
+          ${x.own===false?'<i class="tr-new">купить</i>':''}</label>`).join('')}</div>
+      </div></div>`:''}
+
+      ${(d.buy||[]).length?`<div class="look badv mk-wide"><div class="look-in">
+        <h3>Чего не хватает</h3>
+        ${d.buy.map(x=>`<div class="wt-miss"><div class="wt-miss-h"><i>+</i><div><b>${esc(x.n)}</b>
+          <span>${esc(x.why||'')}</span></div>${x.p?`<em>${esc(x.p)}</em>`:''}</div>${sb(x)}</div>`).join('')}
+      </div></div>`:''}
+
+      ${(d.looks||[]).map(L=>`<div class="look badv mk-wide" style="margin-bottom:14px"><div class="look-in">
+        <div class="wt-head"><span class="wt-no">${esc((L.d||'').replace(/^День\s*/i,'').split('·')[0].trim()||'·')}</span><div>
+          <div class="wt-where">${esc(L.d||'')}</div><h3>${esc(L.t||'Образ')}</h3></div></div>
+        <div class="wt-items">${(L.items||[]).map(n=>`<div class="wt-it">
+          <i class="wt-sw" style="background:linear-gradient(135deg,#3a3f4d,#6c7488)"></i>
+          <span class="wt-nm">${esc(n)}</span><em class="wt-ok">✓</em></div>`).join('')}</div>
+        ${L.why?`<p class="wt-why">${esc(L.why)}</p>`:''}
+      </div></div>`).join('')}`;
+    try{ out.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+  }
+
+  window.openTrip = ()=>{ mountTrip(); if(window.openPage) openPage('tripPage'); setTimeout(drawTrip, 60); };
+
+  function mountTrip(){
+    if(document.getElementById('tripPage')) return;
+    const host = document.getElementById('wantPage') || document.getElementById('clubPage') || document.querySelector('.pageview');
+    if(!host) return;
+    const sec = document.createElement('section');
+    sec.className = 'sec pageview'; sec.id = 'tripPage';
+    sec.innerHTML = `
+      <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
+      <div class="mk-hero"><i class="pg-spark a">✦</i><i class="pg-spark b">✦</i><i class="pg-spark c">✧</i>
+        <div class="eyebrow">чемодан · погода, дни и местные правила</div>
+        <h2 class="big">Собрать чемодан <span class="holo">в другую страну</span></h2>
+        <p class="lead">Скажите страну, месяц и сколько дней — LOOKA соберёт чемодан из ваших вещей, распишет образы по дням и предупредит, что там носить не принято: закрытые плечи в храмах, дресс-код в ресторанах, пляжная одежда в городе.</p>
+      </div>
+      <div id="tripBox"></div>
+      <div id="trOut" style="margin-top:18px"></div>`;
+    host.parentNode.insertBefore(sec, host.nextSibling);
+
+    const dd = document.querySelector('header #navDDw');
+    if(dd && !dd.querySelector('[data-trip]')){
+      const b = document.createElement('button');
+      b.dataset.trip = '1';
+      b.innerHTML = '<i>✈</i>Собрать чемодан<em>поездка в другую страну</em>';
+      b.onclick = ()=>openTrip();
+      dd.insertBefore(b, dd.firstChild);
+    }
+    document.querySelectorAll('footer .f-grid > div').forEach(col=>{
+      const h = col.querySelector('b');
+      if(h && /каждый день/i.test(h.textContent) && !col.querySelector('[data-trip]')){
+        const a = document.createElement('a'); a.href='#trip'; a.dataset.trip='1'; a.textContent='Собрать чемодан';
+        a.onclick = e=>{ e.preventDefault(); openTrip(); };
+        col.appendChild(a);
+      }
+    });
+  }
+  if(document.readyState!=='loading') mountTrip(); else document.addEventListener('DOMContentLoaded', mountTrip);
+  setTimeout(mountTrip, 1000);
 })();
 </script>
 
