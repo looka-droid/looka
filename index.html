@@ -23966,14 +23966,36 @@ const wtDot = txt=>{
 };
 const wtCap = t=>{ const x = String(t||'').trim(); return x ? x[0].toUpperCase() + x.slice(1) : x; };
 /* «Пиджак, бордовый, Верхняя одежда» → имя, цвет, категория — чтобы карточка не была строкой текста */
-const WT_CATS = ['верхняя одежда','верх','низ','обувь','платья','аксессуары','сумки','украшения','бельё','белье'];
+/* и единственное, и множественное число: в гардеробе «Платье», в старых списках «платья» */
+const WT_CATS = ['верхняя одежда','верх','низ','обувь','платье','платья','аксессуар','аксессуары',
+                 'сумка','сумки','украшение','украшения','бельё','белье'];
+const wtNorm = v => String(v||'').toLowerCase().replace(/ё/g,'е').replace(/\s+/g,' ').trim();
+/* вещи гардероба — чтобы узнавать их по названию, а не гадать по запятым */
+const wtWd = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items||[]; }catch(e){ return []; } };
 const wtSplit = raw=>{
-  const parts = String(raw||'').split(',').map(x=>x.trim()).filter(Boolean);
+  const txt = String(raw||'').trim();
+  /* 1. вещь из гардероба узнаём целиком: цвет и категорию берём из её карточки, а не из строки */
+  const items = wtWd();
+  const key = wtNorm(txt);
+  let hit = items.find(it => wtNorm(it.name) === key);
+  if(!hit){
+    /* ИИ мог дописать цвет и категорию через запятую — сверяем по первой части */
+    const head = wtNorm(txt.split(',')[0]);
+    if(head.length >= 3) hit = items.find(it => wtNorm(it.name) === head);
+  }
+  if(!hit && key.length >= 4){
+    /* строка вида «Спортивный костюм из хлопка, чёрный, Платье» — ищем вещь внутри неё */
+    hit = items.find(it => { const n = wtNorm(it.name); return n.length >= 4 && key.indexOf(n) === 0; });
+  }
+  if(hit) return { n: wtCap(hit.name), col: hit.color || '', cat: hit.cat || '' };
+
+  /* 2. вещи в гардеробе нет — разбираем строку как раньше */
+  const parts = txt.split(',').map(x=>x.trim()).filter(Boolean);
   let cat = '';
-  if(parts.length > 1 && WT_CATS.indexOf(parts[parts.length-1].toLowerCase()) >= 0) cat = parts.pop();
+  while(parts.length > 1 && WT_CATS.indexOf(wtNorm(parts[parts.length-1])) >= 0) cat = parts.pop();
   let col = '';
-  if(parts.length > 1 && WT_COL[parts[parts.length-1].toLowerCase()]) col = parts.pop();
-  return { n: wtCap(parts.join(', ')) || wtCap(raw), col: col, cat: cat };
+  while(parts.length > 1 && WT_COL[wtNorm(parts[parts.length-1])]) col = parts.pop();
+  return { n: wtCap(parts.join(', ')) || wtCap(txt), col: col, cat: cat };
 };
 
 /* ответ модели иногда обрывается на середине — достаём из него всё, что успело прийти */
@@ -24067,7 +24089,13 @@ window.wtPick = async key=>{
   const washNow = (window.washList ? washList() : []).map(x=>x.n.toLowerCase());
   if(washNow.length) WD = WD.filter(it=>!washNow.includes(String(it.name||'').toLowerCase()));
   const fromWd = WD.length >= 4;
-  const wdList = WD.slice(0, 60).map(it=>'- '+[it.name, it.color, it.cat].filter(Boolean).join(', ')).join('\n');
+  /* Название, цвет и категорию разносим по полям: раньше они шли через запятую, и ИИ
+     копировал строку целиком — в образе появлялось «Костюм, чёрный, Платье». */
+  const wdList = WD.slice(0, 60).map(it=>{
+    const extra = [it.color ? ('цвет: '+it.color) : '', it.cat ? ('это '+String(it.cat).toLowerCase()) : '']
+      .filter(Boolean).join('; ');
+    return '- ' + it.name + (extra ? ('  [' + extra + ']') : '');
+  }).join('\n');
   /* вещи, которые клиентка хочет надеть сегодня: образ собирается вокруг них */
   const pickItems = (window.pickNames ? pickNames() : []);
   const pickTxt = pickItems.map(it=>[it.name, it.color, it.cat].filter(Boolean).join(', '));
@@ -24105,6 +24133,10 @@ window.wtPick = async key=>{
   const WARM_RE  = /пухов|шуб|дублён|дублен|парк|аляск|пальто|полупальто|шинел|утеплённ|утеплен|стёган|стеган|зимн|термо|флис|овчин|шерстян/i;
   const THIN_RE  = /косух|джинсовк|ветровк|бомбер|анорак|плащ|тренч|кожан/i;
   const HAT_RE   = /шапк|берет|ушанк|капюшон|балаклав|бини|платок|шарф|снуд|перчатк|варежк|митенк/i;
+  /* Платье и комбинезон закрывают и верх, и низ: второй верх рядом с ними — ошибка подбора.
+     Спортивный костюм сюда не включён: лонгслив под олимпийку — нормальный слой в холод. */
+  const ONEPIECE_RE = /платье|сарафан|комбинезон|боди(?!\s*лосьон)/i;
+  const TOPPIECE_RE = /лонгслив|футболк|свитер|джемпер|пуловер|водолазк|рубашк|блуз|топ\b|худи|свитшот|толстовк|кофт/i;
   const WARMSHOE_RE = /угг|дутик|сапог|ботин|берц|челси|тимберленд|зимн|утеплённ|утеплен|мартинс|хайкинг|треккинг/i;
   const isOuter = it => !NOT_OUTER_RE.test(String(it.name||''))
                      && (String(it.cat||'') === 'Верхняя одежда' || OUTER_RE.test(String(it.name||'')));
@@ -24191,7 +24223,12 @@ window.wtPick = async key=>{
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
        'Подход: '+m[5]+'\n'+dna+colr+life+wxRule+rules+'\n'+(window.nopeRule?nopeRule():'')+
        'ВОТ ЧТО УЖЕ ЕСТЬ В ЕЁ ШКАФУ:\n'+wdList+'\n'+pickRule+'\n'+
-       'Собери ТРИ образа ПРЕИМУЩЕСТВЕННО ИЗ ЭТИХ ВЕЩЕЙ. Названия вещей из шкафа переписывай ТОЧНО так, как они указаны выше.\n'+
+       'В списке выше название вещи стоит ПЕРЕД квадратными скобками, а в скобках — её цвет и категория. '+
+       'В поле own пиши ТОЛЬКО НАЗВАНИЕ, без цвета и без категории: «Спортивный костюм из хлопка», а не «Спортивный костюм из хлопка, чёрный, Платье».\n'+
+       'Собери ТРИ образа ПРЕИМУЩЕСТВЕННО ИЗ ЭТИХ ВЕЩЕЙ. Названия переписывай ТОЧНО так, как они указаны до скобок.\n'+
+       'КОМПЛЕКТ ЗАКРЫВАЕТ И ВЕРХ, И НИЗ. Спортивный костюм, платье, комбинезон и двойка — это уже целый образ: '+
+       'не добавляй к ним второй верх (лонгслив, свитер, рубашку) и второй низ. '+
+       'Верхняя одежда, обувь и аксессуары к комплекту добавляются, а вторая футболка под костюм — нет.\n'+
        'ЭТО ДОЛЖНЫ БЫТЬ ТРИ ОБРАЗА ПОД РАЗНЫЕ ЗАНЯТИЯ ДНЯ, А НЕ ТРИ ПЕРЕСТАНОВКИ ОДНОГО И ТОГО ЖЕ. '+
        'Она ещё не решила, как пройдёт день, поэтому дай ей выбор. Строго по одному образу каждого типа, в этом порядке:\n'+
        '1) dir="по делам" — работа, встречи, учёба, город по делам. Собранный вид.\n'+
@@ -24254,6 +24291,13 @@ window.wtPick = async key=>{
         const all = ((L.own||[]).join(' ') + ' ' + ((L.add&&L.add.n)||'') + ' ' + (L.items||[]).map(i=>i.n).join(' '));
         L._noOuter = !OUTER_RE.test(all.replace(NOT_OUTER_RE, ' '));
         L._openShoe = needClosed && OPEN_RE.test(all);
+        /* платье и комбинезон не носят поверх второго верха */
+        {
+          const names = ((L.own||[]).concat((L.items||[]).map(i=>i.n), [(L.add&&L.add.n)||''])).filter(Boolean);
+          const one = names.filter(n=>ONEPIECE_RE.test(n));
+          const top = names.filter(n=>TOPPIECE_RE.test(n) && !ONEPIECE_RE.test(n));
+          if(one.length && top.length) L._clash = [one[0], top[0]];
+        }
         /* проверяем, что пожелание учли: ИИ иногда «забывает» заданную вещь */
         if(pickTxt.length){
           const low = all.toLowerCase();
@@ -24296,6 +24340,10 @@ window.wtPick = async key=>{
               <div class="wt-miss-h"><i>+</i><div><b>${esc(wtCap(L.add.n))}</b><span>этого в шкафу нет — без него образ не собрать</span></div>${L.add.p?`<em>${esc(L.add.p)}</em>`:''}</div>
               ${sb(L.add)}</div>`:''}
           ${(L.items||[]).map(it=>`<div class="item"><div class="nm">${esc(it.n)}</div>${it.p?`<div class="pr">${esc(it.p)}</div>`:''}${sb(it)}</div>`).join('')}
+          ${L._clash?`<div class="wt-warn"><i>!</i><div>
+            <b>Похоже на ошибку подбора: ${esc(wtSplit(L._clash[0]).n)} и ${esc(wtSplit(L._clash[1]).n)} в одном образе.</b>
+            <span>Платье и комбинезон закрывают и верх, и низ — второй верх к ним не надевают. Если у вещи в гардеробе указана не та категория, поправьте её, и подбор станет точнее.</span>
+          </div></div>`:''}
           ${(L._missPick&&L._missPick.length)?`<div class="wt-warn"><i>★</i><div>
             <b>Не получилось вписать: ${esc(L._missPick.join(', '))}.</b>
             <span>С этой вещью образ не сложился — по погоде или по сочетанию. Остальные варианты посмотрите ниже, или снимите отметку в гардеробе.</span>
