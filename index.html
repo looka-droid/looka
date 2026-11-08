@@ -23977,15 +23977,22 @@ const wtSplit = raw=>{
   /* 1. вещь из гардероба узнаём целиком: цвет и категорию берём из её карточки, а не из строки */
   const items = wtWd();
   const key = wtNorm(txt);
-  let hit = items.find(it => wtNorm(it.name) === key);
+  /* Вещей с одним названием может быть несколько — белая кепка и чёрная.
+     Выбираем ту, чей цвет назван в строке; если цвет не назван, берём первую. */
+  const pickBest = list=>{
+    if(list.length <= 1) return list[0];
+    const want = list.find(it => it.color && key.indexOf(wtNorm(it.color)) >= 0);
+    return want || list[0];
+  };
+  let hit = pickBest(items.filter(it => wtNorm(it.name) === key));
   if(!hit){
     /* ИИ мог дописать цвет и категорию через запятую — сверяем по первой части */
     const head = wtNorm(txt.split(',')[0]);
-    if(head.length >= 3) hit = items.find(it => wtNorm(it.name) === head);
+    if(head.length >= 3) hit = pickBest(items.filter(it => wtNorm(it.name) === head));
   }
   if(!hit && key.length >= 4){
     /* строка вида «Спортивный костюм из хлопка, чёрный, Платье» — ищем вещь внутри неё */
-    hit = items.find(it => { const n = wtNorm(it.name); return n.length >= 4 && key.indexOf(n) === 0; });
+    hit = pickBest(items.filter(it => { const n = wtNorm(it.name); return n.length >= 4 && key.indexOf(n) === 0; }));
   }
   if(hit) return { n: wtCap(hit.name), col: hit.color || '', cat: hit.cat || '' };
 
@@ -24088,6 +24095,25 @@ window.wtPick = async key=>{
   /* вещи в стирке на время выпадают из подбора */
   const washNow = (window.washList ? washList() : []).map(x=>x.n.toLowerCase());
   if(washNow.length) WD = WD.filter(it=>!washNow.includes(String(it.name||'').toLowerCase()));
+  /* прогноз нужен прямо сейчас — иначе фильтр ниже увидит пустоту и пропустит косуху в мороз */
+  try{ if(window.wtWx) await wtWx(); }catch(e){}
+  /* По-настоящему холодная погода: тонкий верх и лёгкие брюки не должны даже попадать в подбор.
+     Фильтруем ДО отправки — иначе ИИ всё равно их возьмёт, как бы мы его ни просили. */
+  let coldOut = [];
+  {
+    const feelNow = (()=>{ const o = window.WX_LAST_OBJ;
+      if(!o || typeof o.t !== 'number') return null;
+      return (typeof o.f === 'number') ? o.f : o.t; })();
+    if(feelNow !== null && feelNow < 5){
+      const THIN = /косух|джинсовк|бомбер|ветровк|анорак|плащ|тренч(?!ков)|брюки классическ|классические брюки|льнян|\bлён\b|шифон|сетчат|прозрачн/i;
+      const keep = WD.filter(it=>!THIN.test(String(it.name||'')+' '+String(it.cat||'')));
+      /* если после отсева одеть почти не во что — оставляем всё и честно предупредим */
+      if(keep.length >= 4 && keep.length >= Math.ceil(WD.length * 0.4)){
+        coldOut = WD.filter(it=>THIN.test(String(it.name||'')+' '+String(it.cat||'')));
+        WD = keep;
+      }
+    }
+  }
   const fromWd = WD.length >= 4;
   /* Название, цвет и категорию разносим по полям: раньше они шли через запятую, и ИИ
      копировал строку целиком — в образе появлялось «Костюм, чёрный, Платье». */
@@ -24222,7 +24248,11 @@ window.wtPick = async key=>{
     ? ('Ты — опытный стилист. '+me+'.\n'+
        'Запрос клиентки: «'+m[2]+'» — '+m[3]+'.\n'+
        'Подход: '+m[5]+'\n'+dna+colr+life+wxRule+rules+'\n'+(window.nopeRule?nopeRule():'')+
-       'ВОТ ЧТО УЖЕ ЕСТЬ В ЕЁ ШКАФУ:\n'+wdList+'\n'+pickRule+'\n'+
+       'ВОТ ЧТО УЖЕ ЕСТЬ В ЕЁ ШКАФУ:\n'+wdList+'\n'+pickRule+
+       (coldOut.length
+         ? ('\nЭТИ ВЕЩИ СЕГОДНЯ НЕ ПРЕДЛАГАТЬ — для такой погоды они холодные: '+
+            coldOut.map(x=>x.name).join('; ')+'. Не называй их и не придумывай им замену того же типа.\n')
+         : '')+'\n'+
        'В списке выше название вещи стоит ПЕРЕД квадратными скобками, а в скобках — её цвет и категория. '+
        'В поле own пиши ТОЛЬКО НАЗВАНИЕ, без цвета и без категории: «Спортивный костюм из хлопка», а не «Спортивный костюм из хлопка, чёрный, Платье».\n'+
        'Собери ТРИ образа ПРЕИМУЩЕСТВЕННО ИЗ ЭТИХ ВЕЩЕЙ. Названия переписывай ТОЧНО так, как они указаны до скобок.\n'+
@@ -24349,7 +24379,15 @@ window.wtPick = async key=>{
             <span>С этой вещью образ не сложился — по погоде или по сочетанию. Остальные варианты посмотрите ниже, или снимите отметку в гардеробе.</span>
           </div></div>`:''}
           ${(L._notWarm||L._noHat||L._coldShoe)?`<div class="wt-warn"><i>❄</i><div>
-            ${L._notWarm?`<b>Для ${(wxFeel>0?'+':'')+wxFeel}° этот верх холодный.</b><span>Косуха, джинсовка и бомбер — не зимняя одежда: на долгой прогулке в них замерзают. ${wdOuter.filter(x=>/пухов|пальто|парк|шуб|дублён|утеплён|стёган/i.test(x.name)).length?('Возьмите из шкафа: '+esc(wdOuter.filter(x=>/пухов|пальто|парк|шуб|дублён|утеплён|стёган/i.test(x.name)).slice(0,2).map(x=>x.name).join(' или '))+'.'):'Тёплой верхней одежды в гардеробе не нашлось — это первая покупка на сезон.'}</span>`:''}
+            ${L._notWarm?`<b>Для ${(wxFeel>0?'+':'')+wxFeel}° этот верх холодный.</b><span>Косуха, джинсовка и бомбер — не зимняя одежда: на долгой прогулке в них замерзают. ${(()=>{
+              /* две одинаковые «Пальто» давали «пальто или пальто» — отбираем по уникальному названию */
+              const warm = wdOuter.filter(x=>/пухов|пальто|парк|шуб|дублён|утеплён|стёган|шерстян/i.test(x.name));
+              const seen = new Set(); const uniq = [];
+              warm.forEach(x=>{ const k = (String(x.name||'')+'|'+String(x.color||'')).toLowerCase().trim();
+                if(k && !seen.has(k)){ seen.add(k); uniq.push(x.color ? (x.name+', '+x.color) : x.name); } });
+              return uniq.length ? ('Возьмите из шкафа: '+esc(uniq.slice(0,2).join(' или '))+'.')
+                                 : 'Тёплой верхней одежды в гардеробе не нашлось — это первая покупка на сезон.';
+            })()}</span>`:''}
             ${L._coldShoe?`<span>Обувь не утеплённая — для такой погоды нужны ботинки или сапоги.</span>`:''}
             ${L._noHat?`<span>Нет шапки и перчаток: на улице ${(wxFeel>0?'+':'')+wxFeel}°, за час прогулки это чувствуется.</span>`:''}
           </div></div>`:''}
@@ -24752,9 +24790,12 @@ setTimeout(mount, 900);
 
   const MONTHS = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
   const PURPOSE = [
-    ['море','Море и пляж'], ['город','Город и музеи'], ['работа','Работа, конференция'],
-    ['горы','Горы, природа, походы'], ['событие','Свадьба или событие'], ['родные','К родным, в гости']
+    ['море','Море и пляж'], ['город','Город и музеи'], ['вечер','Вечерняя городская жизнь'],
+    ['работа','Работа, конференция'], ['горы','Горы, природа, походы'],
+    ['событие','Свадьба или событие'], ['родные','К родным, в гости']
   ];
+  /* целей может быть несколько: днём музеи, вечером бары — это разная одежда */
+  const purpArr = ()=> Array.isArray(T.purpose) ? T.purpose : (T.purpose ? [T.purpose] : []);
   const BAG = [['ручная','Только ручная кладь'], ['чемодан','Чемодан'], ['много','Багаж не ограничен']];
 
   const wd = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_wardrobe')||'null')||{}).items||[]; }catch(e){ return []; } };
@@ -24762,6 +24803,11 @@ setTimeout(mount, 900);
   const season = ()=>{ try{ const c=JSON.parse(localStorage.getItem('looka_cs')||'null'); return (c&&c.season)||''; }catch(e){ return ''; } };
 
   window.tripSet = (k,v)=>{ T[k] = (T[k]===v && k!=='days') ? '' : v; save(); drawTrip(); };
+  window.tripPurp = v=>{
+    const a = purpArr(); const i = a.indexOf(v);
+    if(i >= 0) a.splice(i,1); else a.push(v);
+    T.purpose = a; save(); drawTrip();
+  };
   window.tripText = (k,v)=>{ T[k]=v; save(); };
   window.tripDays = v=>{ T.days = Math.max(1, Math.min(30, +v||1)); save(); };
 
@@ -24786,7 +24832,8 @@ setTimeout(mount, 900);
         <div class="grp"><label class="t">Месяц поездки</label>
           <div class="chips">${MONTHS.map(m=>`<button class="chip ${T.month===m?'on':''}" onclick="tripSet('month','${m}')">${m}</button>`).join('')}</div></div>
         <div class="grp"><label class="t">Зачем едете</label>
-          <div class="chips">${PURPOSE.map(x=>`<button class="chip ${T.purpose===x[0]?'on':''}" onclick="tripSet('purpose','${x[0]}')">${x[1]}</button>`).join('')}</div></div>
+          <div class="chips">${PURPOSE.map(x=>`<button class="chip ${purpArr().indexOf(x[0])>=0?'on':''}" onclick="tripPurp('${x[0]}')">${x[1]}</button>`).join('')}</div>
+          <div class="tr-hint">можно выбрать несколько — чемодан соберётся сразу под все</div></div>
         <div class="grp"><label class="t">Сколько влезает</label>
           <div class="chips">${BAG.map(x=>`<button class="chip ${T.bag===x[0]?'on':''}" onclick="tripSet('bag','${x[0]}')">${x[1]}</button>`).join('')}</div></div>
         <label class="tr-f"><span>Что обязательно хочу взять</span>
@@ -24819,7 +24866,10 @@ setTimeout(mount, 900);
     const bagTxt = T.bag==='ручная' ? 'только ручная кладь: вещей минимум, всё должно сочетаться между собой'
                  : T.bag==='много' ? 'багаж не ограничен, но лишнего всё равно не нужно'
                  : 'обычный чемодан';
-    const purTxt = (PURPOSE.find(x=>x[0]===T.purpose)||['','поездка'])[1];
+    const purTxt = (()=>{
+      const names = purpArr().map(k=>(PURPOSE.find(x=>x[0]===k)||['',''])[1]).filter(Boolean);
+      return names.length ? names.join(' + ') : 'поездка';
+    })();
 
     const prompt =
       'Ты — стилист, который много ездит и собирает чемоданы. Собери гардероб на поездку.\n'+
@@ -24839,12 +24889,18 @@ setTimeout(mount, 900);
       '{"climate":"погода там в этом месяце, 1-2 фразы с цифрами",'+
       '"rules":["правило одежды 1","правило 2","правило 3"],'+
       '"take":[{"n":"вещь","own":true,"why":"зачем она в чемодане"}],'+
-      '"buy":[{"n":"чего не хватает","q":"поисковый запрос","p":"цена ₽","why":"зачем"}],'+
+      '"buy":[{"n":"вещь","q":"поисковый запрос для маркетплейса","p":"цена ₽","why":"зачем она именно там"}],'+
       '"looks":[{"d":"День 1 · прилёт","t":"название образа","items":["вещь","вещь"],"why":"почему так"}],'+
       '"avoid":["что там лучше не надевать и почему"],'+
       '"note":"пустая строка или честное замечание"}\n'+
       'Образов сделай '+Math.min(T.days,8)+' — по одному на день, а если дней больше восьми, покажи самые разные дни и скажи в note, что остальные собираются из тех же вещей.\n'+
-      'buy — не больше трёх вещей. take — весь чемодан, с обувью и верхней одеждой. '+
+      'buy — от четырёх до шести вещей, которых у неё НЕТ и которые стоит докупить именно под эту страну и эту погоду: '+
+      'то, без чего там будет неудобно (лёгкая ткань в жару и влажность, дождевик в сезон дождей, тёплый слой на перепад день-ночь, '+
+      'закрытые плечи и колени там, где этого требуют, обувь под рельеф и покрытие улиц). '+
+      'Не предлагай то, что уже есть в её гардеробе, и не предлагай абстрактное «базовую футболку» — пиши конкретную вещь с тканью или кроем. '+
+      'q — короткий поисковый запрос, как его вбивают на Wildberries или Ozon, 2-4 слова по-русски, без брендов и без слова «купить». '+
+      'p — реалистичная вилка в рублях, например «1 500–3 000 ₽». '+
+      'take — весь чемодан, с обувью и верхней одеждой. '+
       'ПИШИ КОРОТКО: climate до 160 знаков, каждое правило до 110, why до 90, t до 40. По-русски, на «вы». Ничего вне JSON.';
 
     const t0 = Date.now(); let tick = null;
@@ -24892,7 +24948,8 @@ setTimeout(mount, 900);
       </div></div>`:''}
 
       ${(d.buy||[]).length?`<div class="look badv mk-wide"><div class="look-in">
-        <h3>Чего не хватает</h3>
+        <h3>Докупить под ${esc(T.place)}</h3>
+        <p class="tr-hint" style="margin:-4px 0 12px">вещи под тамошнюю погоду и правила — ссылки ведут в поиск маркетплейсов</p>
         ${d.buy.map(x=>`<div class="wt-miss"><div class="wt-miss-h"><i>+</i><div><b>${esc(x.n)}</b>
           <span>${esc(x.why||'')}</span></div>${x.p?`<em>${esc(x.p)}</em>`:''}</div>${sb(x)}</div>`).join('')}
       </div></div>`:''}
