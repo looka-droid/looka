@@ -8713,7 +8713,20 @@ async function geminiCall(models, parts, gen){
 async function aiFetch(opts){
   opts = Object.assign({ method:'POST', headers:{'Content-Type':'application/json'} }, opts);
   const body = JSON.parse(opts.body);
-  if(LOOKA_API){ let r = await fetch(LOOKA_API.replace(/\/$/,'')+'/ai', opts); if(r.status===502||r.status===503){ await new Promise(x=>setTimeout(x,1500)); r = await fetch(LOOKA_API.replace(/\/$/,'')+'/ai', opts); } return r; }
+  if(LOOKA_API){
+    /* Перегрузка модели на стороне Google — самая частая причина «образ не собрался».
+       Она проходит за секунды, поэтому ждём и пробуем ещё дважды, а клиентке
+       показываем, что идёт повтор, а не ошибка. Одной попытки раньше не хватало. */
+    const url = LOOKA_API.replace(/\/$/,'') + '/ai';
+    const PAUSE = [0, 3500, 8000];
+    let r = null;
+    for(let i = 0; i < PAUSE.length; i++){
+      if(PAUSE[i]){ if(window.aiWaitNote) aiWaitNote(i); await new Promise(x=>setTimeout(x, PAUSE[i])); }
+      r = await fetch(url, opts);
+      if(r.status !== 502 && r.status !== 503 && r.status !== 500) return r;
+    }
+    return r;
+  }
   if(GEMINI_KEY){
     const parts = []; const c = body.messages[0].content;
     if(typeof c==='string') parts.push({text:c});
@@ -21138,6 +21151,37 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 .sf-who span{font-size:11.5px;color:#8E95AB}
 .sf-txt{font-size:14px;line-height:1.6;color:#C5CAD8;white-space:pre-wrap;word-break:break-word}
 .sf-bot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+/* ---- обсуждение под советом ---- */
+.sf-cm{margin-left:auto;display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+  background:none;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 12px;
+  font:inherit;font-size:12.5px;color:rgba(255,255,255,.62);transition:.18s}
+.sf-cm i{font-style:normal;font-size:12px;opacity:.85}
+.sf-cm:hover{color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)}
+.sf-cm.on{color:#fff;border-color:rgba(124,240,178,.45);background:rgba(124,240,178,.1)}
+.sf-cm + .sf-up{margin-left:0}
+.sf-cm-box{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.09)}
+.sf-cm-list{display:flex;flex-direction:column;gap:12px}
+.sf-cm-row{display:flex;gap:10px;align-items:flex-start}
+.sf-cm-av{flex:0 0 auto;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  font-size:12px;font-weight:700;color:#0C0E14;background:linear-gradient(135deg,#C8CEDC,#8A93A8)}
+.sf-cm-b{flex:1 1 auto;min-width:0}
+.sf-cm-h{display:flex;align-items:center;gap:8px;line-height:1.2}
+.sf-cm-h b{font-size:13px;color:#EDEFF5}
+.sf-cm-h span{font-size:11.5px;color:rgba(255,255,255,.4)}
+.sf-cm-del{margin-left:auto;background:none;border:0;cursor:pointer;padding:2px 4px;
+  color:rgba(255,255,255,.32);font-size:12px;line-height:1}
+.sf-cm-del:hover{color:#FF7A8A}
+.sf-cm-b p{margin:3px 0 0;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.78);
+  white-space:pre-wrap;overflow-wrap:anywhere}
+.sf-cm-no{font-size:13px;line-height:1.5;color:rgba(255,255,255,.42)}
+.sf-cm-new{display:flex;flex-direction:column;gap:8px;align-items:stretch;margin-top:14px}
+.sf-cm-in{flex:1 1 auto;min-width:0;resize:vertical;border-radius:12px;padding:9px 12px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);
+  color:#EDEFF5;font:inherit;font-size:13.5px;line-height:1.45}
+.sf-cm-in:focus{outline:none;border-color:rgba(124,240,178,.5);background:rgba(255,255,255,.06)}
+.sf-cm-in::placeholder{color:rgba(255,255,255,.34)}
+.sf-cm-go{align-self:flex-end;padding:9px 18px;font-size:13px}
+@media(max-width:560px){ .sf-cm-go{align-self:stretch} }
 .sf-tag{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;
   color:#19C6F7;border:1px solid rgba(25,198,247,.34);border-radius:99px;padding:3px 9px}
 .sf-tip.ed .sf-tag{color:#FFD678;border-color:rgba(255,214,120,.4)}
@@ -22339,7 +22383,7 @@ const SEED = {
   ]
 };
 
-let CL = { room:'makeup', country:'RU', items:[], loading:false, up:{} };
+let CL = { room:'makeup', country:'RU', items:[], loading:false, up:{}, cmt:{}, open:{}, draft:{}, sending:'' };
 try{ CL.up = JSON.parse(localStorage.getItem('looka_club_up')||'{}'); }catch(e){}
 try{ const c = localStorage.getItem('looka_club_c'); if(c) CL.country = c; }catch(e){}
 
@@ -22368,6 +22412,82 @@ const seedItems = ()=>{
 };
 const fmt = t => esc(t).replace(/\*\*(.+?)\*\*/g, '<b style="color:#F4F5FA">$1</b>');
 
+/* ---- обсуждения под советами ---- */
+/* свой запрос: вспомогательные post/tokenOf живут в другом модуле и сюда не видны */
+const cmtPost = async (p, body)=>{
+  const h = { 'Content-Type':'application/json' };
+  let t = ''; try{ t = (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token || ''; }catch(e){}
+  if(t) h.Authorization = 'Bearer ' + t;
+  const r = await fetch(API()+p, { method:'POST', headers:h, body: JSON.stringify(body||{}) });
+  let j = {}; try{ j = await r.json(); }catch(e){}
+  if(!r.ok) throw new Error(j.error || ('сервер ответил ' + r.status));
+  return j;
+};
+const cmtToken = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token || ''; }catch(e){ return ''; } };
+const cmtSay = m => { try{ if(window.myToast) return myToast(m); }catch(e){} try{ toast(m); }catch(e){} };
+const myUid = ()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).uid || ''; }catch(e){ return ''; } };
+const cmtWhen = t=>{
+  const d = Math.floor((Date.now() - t)/1000);
+  if(d < 90) return 'только что';
+  if(d < 3600) return Math.floor(d/60)+' мин назад';
+  if(d < 86400){ const h = Math.floor(d/3600); return h+' '+(h===1?'час':h<5?'часа':'часов')+' назад'; }
+  const n = Math.floor(d/86400);
+  return n < 7 ? (n+' '+(n===1?'день':n<5?'дня':'дней')+' назад')
+               : new Date(t).toLocaleDateString('ru-RU', { day:'numeric', month:'long' });
+};
+function clubThread(id){
+  const list = CL.cmt[id] || [];
+  const me = myUid();
+  const rows = list.length ? list.map(c=>`
+    <div class="sf-cm-row">
+      <div class="sf-cm-av">${esc((c.name||'Г')[0].toUpperCase())}</div>
+      <div class="sf-cm-b">
+        <div class="sf-cm-h"><b>${esc(c.name||'Гостья')}</b><span>${esc(cmtWhen(c.at))}</span>
+          ${me && c.uid === me ? `<button class="sf-cm-del" title="удалить" onclick="clubCmtDel('${esc(id)}','${esc(c.id)}')">✕</button>` : ''}</div>
+        <p>${esc(c.text)}</p>
+      </div>
+    </div>`).join('') : '<div class="sf-cm-no">Пока никто не написал. Будьте первой — что сработало у вас, а что нет?</div>';
+  const sending = CL.sending === id;
+  return `<div class="sf-cm-box">
+    <div class="sf-cm-list">${rows}</div>
+    <div class="sf-cm-new">
+      <textarea class="sf-cm-in" id="cmIn_${esc(id)}" rows="2" maxlength="600"
+        placeholder="Что получилось у вас?"
+        oninput="clubDraft('${esc(id)}',this.value)">${esc(CL.draft[id]||'')}</textarea>
+      <button class="btn primary sf-cm-go" ${sending?'disabled':''} onclick="clubCmtSend('${esc(id)}')">${sending?'Отправляю…':'Отправить'}</button>
+    </div>
+  </div>`;
+}
+/* разметка живёт в глобальной области, а CL — внутри модуля: пишем черновик через функцию */
+window.clubDraft = (id, v)=>{ CL.draft[id] = v; };
+window.clubCmt = id =>{
+  CL.open[id] = !CL.open[id];
+  clubDraw();
+  if(CL.open[id]) setTimeout(()=>{ const t = document.getElementById('cmIn_'+id); if(t) t.focus(); }, 60);
+};
+window.clubCmtSend = async id=>{
+  const t = document.getElementById('cmIn_'+id);
+  const text = String((t && t.value) || CL.draft[id] || '').trim();
+  if(text.length < 2){ cmtSay('Напишите пару слов'); return; }
+  if(!cmtToken()){ cmtSay('Войдите, чтобы комментировать'); if(window.lkAuth) lkAuth('reg','Войдите, чтобы написать комментарий'); return; }
+  CL.sending = id; clubDraw();
+  try{
+    const j = await cmtPost('/club/cmt', { room: CL.room, country: CL.country, id, text });
+    if(!CL.cmt[id]) CL.cmt[id] = [];
+    if(j && j.item) CL.cmt[id].push(j.item);
+    CL.draft[id] = '';
+  }catch(e){ cmtSay(e.message || 'не отправилось'); }
+  CL.sending = ''; clubDraw();
+};
+window.clubCmtDel = async (id, cid)=>{
+  if(!confirm('Удалить свой комментарий?')) return;
+  try{
+    await cmtPost('/club/cmt/del', { room: CL.room, country: CL.country, id, cid });
+    CL.cmt[id] = (CL.cmt[id]||[]).filter(x=>x.id !== cid);
+    clubDraw();
+  }catch(e){ cmtSay(e.message || 'не удалилось'); }
+};
+
 window.clubRoom = k => { CL.room = k; clubDraw(); clubLoad(); };
 window.clubCountry = k => { CL.country = k; try{ localStorage.setItem('looka_club_c', k); }catch(e){} clubDraw(); clubLoad(); };
 
@@ -22379,6 +22499,12 @@ async function clubLoad(){
     const j = await r.json();
     CL.items = (j.items||[]);
   }catch(e){ CL.items = []; }
+  /* обсуждения приходят одним запросом на всю комнату — и счётчики, и тексты */
+  try{
+    const rc = await fetch(API()+'/club/cmt?room='+CL.room+'&country='+CL.country);
+    const jc = await rc.json();
+    CL.cmt = jc.t || {};
+  }catch(e){ CL.cmt = {}; }
   CL.loading = false; clubDraw();
 }
 window.clubUp = async (id)=>{
@@ -22435,7 +22561,10 @@ function clubDraw(){
         <div><b>${esc(it.name||'Гостья')}</b><span>${it.ed?'проверено редакцией':(c[1]+' '+c[2])}</span></div></div>
       <div class="sf-txt">${fmt(it.text)}</div>
       <div class="sf-bot">${it.tag?`<span class="sf-tag">${esc(it.tag)}</span>`:''}
+        <button class="sf-cm ${CL.open[it.id]?'on':''}" onclick="clubCmt('${esc(it.id)}')">
+          <i>💬</i>${(CL.cmt[it.id]||[]).length ? 'обсуждение · '+(CL.cmt[it.id]||[]).length : 'обсудить'}</button>
         <button class="sf-up ${CL.up[it.id]?'on':''}" onclick="clubUp('${esc(it.id)}')">${CL.up[it.id]?'✓ помогло':'♡ помогло'}${it.up?' · '+it.up:''}</button></div>
+      ${CL.open[it.id] ? clubThread(it.id) : ''}
     </article>`).join('');
   const empty = (!CL.loading && !CL.items.length) ? `
     <div class="sf-empty"><div class="ic">${R[2]}</div>
@@ -22461,6 +22590,29 @@ function clubDraw(){
     </ul></div>`;
 }
 window.openClub = ()=>{ if(window.openPage) openPage('clubPage'); setTimeout(()=>{ clubDraw(); clubLoad(); }, 60); };
+/* «Секретики» тоже рисуются вручную: зайти можно из меню, из подвала и по прямому
+   адресу — без перехвата по этим путям открывается пустая страница. */
+(function hookClubPage(){
+  let drawn = false;
+  const draw = ()=>{
+    const box = document.getElementById('clubBox');
+    if(!box) return;
+    if(box.children.length && drawn) return;
+    drawn = true; clubDraw(); clubLoad();
+  };
+  const orig = window.openPage;
+  if(typeof orig === 'function'){
+    window.openPage = function(id){
+      const r = orig.apply(this, arguments);
+      if(id === 'clubPage') setTimeout(draw, 40);
+      return r;
+    };
+  }
+  const byHash = ()=>{ if(/^#clubPage/.test(location.hash||'')) setTimeout(draw, 40); };
+  window.addEventListener('hashchange', byHash); byHash();
+  setTimeout(()=>{ const pg = document.getElementById('clubPage');
+    if(pg && pg.classList.contains('active')) draw(); }, 700);
+})();
 
 /* страницу добавляем в разметку рядом с остальными */
 function mount(){
@@ -22982,13 +23134,33 @@ const toast = m => (window.myToast ? myToast(m) : 0);
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const LOOKA_UID = 'looka:anna';
 
-async function api(p, body){
+/* Перегрузка модели на стороне Google — самая частая причина «не собирается образ».
+   Это временно и почти всегда проходит за несколько секунд, поэтому не показываем
+   ошибку сразу, а молча ждём и пробуем ещё раз. */
+window.AI_BUSY_RE = /перегруж|высок(ая|ий) спрос|high demand|overload|UNAVAILABLE|503|500|502/i;
+window.aiWaitNote = n=>{
+  const t = n === 1 ? 'Модель занята — пробую ещё раз…' : 'Всё ещё занята — последняя попытка…';
+  const st = document.getElementById('wtStage'); if(st) st.textContent = t;
+  const se = document.getElementById('wtWaitS'); if(se) se.textContent = 'ждём освобождения модели';
+  const tip = document.querySelector('#trOut .tip'); if(tip) tip.textContent = t;
+  try{ if(window.myToast) myToast(t); }catch(e){}
+};
+async function api(p, body, _try){
   const t = tok(); if(!t) throw new Error('нужен вход');
   const o = { headers:{ Authorization:'Bearer '+t } };
   if(body){ o.method='POST'; o.headers['Content-Type']='application/json'; o.body=JSON.stringify(body); }
   const r = await fetch(API()+p, o);
   let j={}; try{ j = await r.json(); }catch(e){}
-  if(!r.ok) throw new Error(j.error || ('сервер ответил '+r.status));
+  if(!r.ok){
+    const msg = (j && j.error) ? (typeof j.error === 'string' ? j.error : JSON.stringify(j.error)) : ('сервер ответил '+r.status);
+    const n = (_try||0) + 1;
+    if(n <= 2 && (r.status >= 500 || window.AI_BUSY_RE.test(msg))){
+      aiWaitNote(n);
+      await new Promise(s=>setTimeout(s, n * 4000));
+      return api(p, body, n);
+    }
+    throw new Error(msg);
+  }
   return j;
 }
 
@@ -24705,7 +24877,7 @@ setTimeout(mount, 900);
   const esc = v => String(v==null?'':v).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const say = t => { if(window.myToast) myToast(t); };
   /* api() объявлен внутри соседних модулей и сюда не виден — обращаемся к воркеру сами */
-  const aiCall = async body=>{
+  const aiCall = async (body, _try)=>{
     const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
     if(!base) throw new Error('сервер ИИ не подключён');
     let tok = ''; try{ tok = (JSON.parse(localStorage.getItem('looka_session')||'{}')||{}).token||''; }catch(e){}
@@ -24715,7 +24887,18 @@ setTimeout(mount, 900);
         headers: Object.assign({'Content-Type':'application/json'}, tok?{Authorization:'Bearer '+tok}:{}),
         body: JSON.stringify(body) });
       const j = await r.json().catch(()=>({}));
-      if(!r.ok) throw new Error('сервер ответил: ' + JSON.stringify(j.error||j).slice(0,200));
+      if(!r.ok){
+        const msg = JSON.stringify(j.error||j).slice(0,200);
+        const n = (_try||0) + 1;
+        /* модель перегружена — это временно, ждём и повторяем вместо красной ошибки */
+        if(n <= 2 && (r.status >= 500 || (window.AI_BUSY_RE && window.AI_BUSY_RE.test(msg)))){
+          clearTimeout(tm);
+          if(window.aiWaitNote) aiWaitNote(n);
+          await new Promise(s=>setTimeout(s, n * 4000));
+          return aiCall(body, n);
+        }
+        throw new Error('сервер ответил: ' + msg);
+      }
       return j;
     }catch(e){
       throw new Error(/abort/i.test(String(e.message||e)) ? 'сервер не ответил за 75 секунд' : (e.message||e));
