@@ -1093,7 +1093,17 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
 .hl-stop:hover{color:#F4F6FC}
 
 /* незаполненный раздел паспорта — честная карточка, а не пустота под заголовком */
-.ps-card.ps-gap{border-style:dashed;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.02)}
+.ps-card.ps-auto{display:flex;align-items:center;gap:8px;margin:0 0 16px;padding:9px 14px;border-radius:12px;
+  font-size:13px;line-height:1.45;color:#C9F7DD;background:rgba(124,240,178,.1);
+  border:1px solid rgba(124,240,178,.28)}
+.ps-ask{border-style:dashed;border-color:rgba(91,108,255,.4);background:rgba(91,108,255,.07)}
+.ps-ask .ps-k{color:#9FA9FF}
+.ps-ask-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.ps-ask-row button{cursor:pointer;font:inherit;font-size:13px;line-height:1.4;
+  padding:7px 13px;border-radius:999px;color:#E6E9F2;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);transition:.15s}
+.ps-ask-row button:hover{background:rgba(91,108,255,.22);border-color:rgba(91,108,255,.6);color:#fff}
+.ps-gap{border-style:dashed;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.02)}
 .ps-card.ps-gap .ps-k{color:#8B92AA}
 .ps-card.ps-gap .ps-note{color:#9BA2B6}
 .ps-gap-b{margin-top:12px;padding:10px 16px;font-size:11px}
@@ -11672,18 +11682,20 @@ function passportHTML(){
              + '<div class="ps-grid" style="--pc:'+col+'">'+body+'</div>';
       };
       const C = {
-        color: `<div class="ps-card"><div class="ps-k">ЦВЕТОТИП${(()=>{ try{ const cs=JSON.parse(localStorage.getItem('looka_cs')||'null'); return cs&&cs.season?' · '+cs.season.toUpperCase():''; }catch(e){ return ''; } })()}</div><div class="ps-prof">${S.hair} · ${S.eyes.toLowerCase()} глаза · ${S.skin.toLowerCase()} тон</div><p class="ps-note">${p.note}</p><div class="ps-k2">Акценты — у лица</div><div class="ps-sws">${p.accents.slice(0,4).map(swatch).join('')}</div><div class="ps-k2">База — низ и верхняя одежда</div><div class="ps-sws">${p.neutrals.map(swatch).join('')}</div><div class="ps-k2">Обувь и сумка — одна гамма</div><div class="ps-sws">${p.shoes.map(swatch).join('')}</div><div class="ps-k2">Металл украшений</div><div class="ps-metal ${p.metal==='серебристый'?'silver':'gold'}">${p.metal}</div></div>`,
-        figure: `<div class="ps-card"><div class="ps-k">ФИГУРА · ${S.figure.toUpperCase()}</div><ul class="tp-list">${fig.map(x=>'<li>'+x+'</li>').join('')}${focus.map(f=>'<li>'+f.tip+'</li>').join('')}<li>${FIGN[S.figure]||'силуэт по фигуре'}</li></ul></div>`,
-        sizes: `<div class="ps-card"><div class="ps-k">РАЗМЕРЫ — В ЛЮБОМ МАГАЗИНЕ МИРА</div><div class="ps-sizes"><div><span>RU</span><b>${c}</b></div><div><span>INT</span><b>${INT[c]||'—'}</b></div><div><span>EU</span><b>${eu}</b></div><div><span>US</span><b>${us}</b></div><div><span>UK</span><b>${uk}</b></div></div><div class="ps-k2">Обувь</div><div class="ps-sizes"><div><span>RU</span><b>${s}</b></div><div><span>EU</span><b>${seu}</b></div><div><span>US</span><b>${sus}</b></div><div><span>UK</span><b>${suk}</b></div><div><span>СМ</span><b>${cm||'—'}</b></div></div><p class="ps-note">${REGIONS[REGION].n}: ${brandNotes().slice(0,3).join('; ')}. Обувь — по стельке в см.</p></div>`,
+        color: (S.hair && S.eyes && S.skin) ? `<div class="ps-card"><div class="ps-k">ЦВЕТОТИП${(()=>{ try{ const cs=JSON.parse(localStorage.getItem('looka_cs')||'null'); return cs&&cs.season?' · '+cs.season.toUpperCase():''; }catch(e){ return ''; } })()}</div><div class="ps-prof">${S.hair} · ${S.eyes.toLowerCase()} глаза · ${S.skin.toLowerCase()} тон</div><p class="ps-note">${p.note}</p><div class="ps-k2">Акценты — у лица</div><div class="ps-sws">${p.accents.slice(0,4).map(swatch).join('')}</div><div class="ps-k2">База — низ и верхняя одежда</div><div class="ps-sws">${p.neutrals.map(swatch).join('')}</div><div class="ps-k2">Обувь и сумка — одна гамма</div><div class="ps-sws">${p.shoes.map(swatch).join('')}</div><div class="ps-k2">Металл украшений</div><div class="ps-metal ${p.metal==='серебристый'?'silver':'gold'}">${p.metal}</div></div>` : '',
+        figure: S.figure ? `<div class="ps-card"><div class="ps-k">ФИГУРА · ${S.figure.toUpperCase()}</div><ul class="tp-list">${fig.map(x=>'<li>'+x+'</li>').join('')}${focus.map(f=>'<li>'+f.tip+'</li>').join('')}<li>${FIGN[S.figure]||'силуэт по фигуре'}</li></ul></div>` : '',
+        sizes: (S.clothSize && S.shoeSize) ? `<div class="ps-card"><div class="ps-k">РАЗМЕРЫ — В ЛЮБОМ МАГАЗИНЕ МИРА</div><div class="ps-sizes"><div><span>RU</span><b>${c}</b></div><div><span>INT</span><b>${INT[c]||'—'}</b></div><div><span>EU</span><b>${eu}</b></div><div><span>US</span><b>${us}</b></div><div><span>UK</span><b>${uk}</b></div></div><div class="ps-k2">Обувь</div><div class="ps-sizes"><div><span>RU</span><b>${s}</b></div><div><span>EU</span><b>${seu}</b></div><div><span>US</span><b>${sus}</b></div><div><span>UK</span><b>${suk}</b></div><div><span>СМ</span><b>${cm||'—'}</b></div></div><p class="ps-note">${REGIONS[REGION].n}: ${brandNotes().slice(0,3).join('; ')}. Обувь — по стельке в см.</p></div>` : '',
         makeup: bl ? `<div class="ps-card"><div class="ps-k">ФОРМУЛА МАКИЯЖА</div><ul class="tp-list"><li><b>Губы:</b> ${bl.lips}</li><li><b>Глаза:</b> ${bl.eyes}</li><li><b>Стрелки:</b> ${bl.liner}</li><li><b>Брови:</b> ${bl.brows}</li>${B.skin?'<li><b>Кожа ('+B.skin.toLowerCase()+'):</b> '+bl.care.split(' Порядок')[0]+'</li>':''}</ul></div>` : '',
         base: `<div class="ps-card"><div class="ps-k">КАПСУЛЬНАЯ БАЗА — 12 ВЕЩЕЙ, КОТОРЫЕ СОЧЕТАЮТСЯ ВСЕ СО ВСЕМИ</div><ol class="ps-ol">${base.map(x=>'<li>'+x+'</li>').join('')}</ol></div>`,
         nobuy: `<div class="ps-card ps-no"><div class="ps-k">ЧЕГО НЕ ПОКУПАТЬ</div><ul class="tp-list">${avoid.map(x=>'<li>'+x+'</li>').join('')}</ul></div>`
       };
-      return G('ЦВЕТ','◐','#19C6F7',[C.color, X.temp, X.avoid],
+      /* чего нет в анкете — спрашиваем прямо здесь, карточкой с кнопками */
+      const ask = k => S[k] ? '' : psAsk(k);
+      return G('ЦВЕТ','◐','#19C6F7',[C.color, ask('hair'), ask('eyes'), ask('skin'), X.temp, X.avoid],
                 {t:'Пройдите цветотип — и сюда встанут ваши 24 цвета, база и список «не к лицу».', b:'Пройти цветотип', go:"closePage();setTimeout(()=>openColor(),250)"})
-        + G('ФИГУРА И ФОРМЫ','◈','#FF6FBF',[C.figure, X.fab, X.prints, X.lengths],
+        + G('ФИГУРА И ФОРМЫ','◈','#FF6FBF',[C.figure, ask('figure'), X.fab, X.prints, X.lengths],
                 {t:'Укажите тип фигуры в анкете — появятся силуэты, длины и принты под вас.', b:'Заполнить анкету', go:"closePage();setTimeout(()=>goQuiz(),250)"})
-        + G('РАЗМЕРЫ','⌀','#5B6CFF',[C.sizes],
+        + G('РАЗМЕРЫ','⌀','#5B6CFF',[C.sizes, ask('clothSize'), ask('shoeSize')],
                 {t:'Добавьте размеры одежды и обуви — переведу их во все мировые сетки.', b:'Указать размеры', go:"closePage();setTimeout(()=>openProfile(),250)"})
         + G('ЛИЦО И ВОЛОСЫ','✦','#B44CFF',[C.makeup, X.hair],
                 {t:'Пройдите макияж-гид и разбор волос — здесь будет ваша формула и стрижки.', b:'Разобрать лицо и волосы', go:"closePage();setTimeout(()=>openMakeup(),250)"})
@@ -11704,6 +11716,7 @@ function passportExtra(p, male){
   const avoid = cold ? ['оранжевый','тёплый жёлтый','терракотовый','хаки'] : ['фуксия','ледяной голубой','белоснежный','холодный лиловый'];
   const avoidFix = cold ? 'вместо белоснежного — тоже подходит, ваша температура холодная' : 'вместо белоснежного — молочный или кремовый';
   const F = S.figure;
+  const FAB_ANY = ['плотный хлопок и костюмная ткань — держат форму','тонкий трикотаж — для слоёв, а не как единственный верх','матовые ткани вместо блестящих — меньше спорят с фигурой'];
   const fab = male ? ['плотный хлопок и костюмная шерсть — держат линию','тонкий мериносовый трикотаж — вместо оверсайз-худи','кожа и замша — только один элемент в образе']
     : {'Песочные часы':['трикотаж и креп — обрисовывают талию без утяжки','плотный атлас и шёлк — работают на изгибы','жёсткие плотные ткани без эластана — прячут главное'],
        'Груша':['низ — плотные ткани: костюмная, деним, плотный креп','верх — лёгкие и фактурные: шёлк, вискоза, кружево','избегайте блестящих и светлых плотных тканей на бёдрах'],
@@ -11735,7 +11748,7 @@ function passportExtra(p, male){
   return {
     temp: card('ТЕМПЕРАТУРА И КОНТРАСТ', '<div class="ps-dna"><div><span>температура</span><b>'+(cold?'холодная':'тёплая')+'</b></div><div><span>контраст</span><b>'+contrast+'</b></div><div><span>металл</span><b>'+p.metal+'</b></div></div><p class="ps-note">'+(contrast==='высокий'?'Вы выдерживаете чистые насыщенные цвета и резкие сочетания — мягкие пастели вас «стирают».':contrast==='низкий'?'Ваша сила — мягкость: приглушённые оттенки и плавные переходы; резкий контраст спорит с лицом.':'Вам подходит золотая середина: умеренная насыщенность и один чистый акцент.')+'</p>'),
     avoid: card('ИЗБЕГАТЬ У ЛИЦА', '<div class="ps-sws">'+avoid.map(c=>'<div class="ps-sw off"><i style="background:'+({'оранжевый':'#F0741E','тёплый жёлтый':'#F2C94C','терракотовый':'#C1553B','хаки':'#6B7A3A','фуксия':'#E0218A','ледяной голубой':'#BFE6F5','белоснежный':'#FFFFFF','холодный лиловый':'#9C7BD1'})[c]+'"></i><span>'+c+'</span></div>').join('')+'</div><p class="ps-note">Эти цвета можно носить — но на низе, не у лица. '+avoidFix+'.</p>'),
-    fab: card('ТКАНИ И ФАКТУРЫ · '+(male?'':F.toUpperCase()), ul(fab)),
+    fab: card('ТКАНИ И ФАКТУРЫ'+((male||!F)?'':' · '+F.toUpperCase()), ul(fab)),
     prints: card('ПРИНТЫ', ul(prints.concat([printWhere]))),
     lengths: card('ДЛИНЫ · РОСТ '+h+' СМ', ul(lengths)),
     acc: card('АКСЕССУАРЫ', ul(acc)),
@@ -11747,21 +11760,69 @@ function passportExtra(p, male){
   };
 }
 
-window.renderPassport = ()=>{
-  const box = document.getElementById('passBox'); if(!box) return;
-  /* цветотип спрашивает ровно те же волосы/глаза/кожу — берём оттуда, если в анкете пусто */
+/* Паспорт считается из анкеты, но те же данные клиентка уже оставила в других
+   разделах. Собираем их оттуда сами, чтобы не гонять её заполнять одно и то же. */
+window.passportFill = ()=>{
+  const got = [];
+  const set = (k, v, from)=>{ if(!S[k] && v){ S[k] = v; if(got.indexOf(from)<0) got.push(from); } };
+  /* цветотип спрашивает ровно те же волосы, глаза и кожу */
   try{
     const C = JSON.parse(localStorage.getItem('looka_color')||'null');
-    if(C){ ['hair','eyes','skin'].forEach(k=>{ if(!S[k] && C[k]) S[k]=C[k]; });
-      if(window.saveLS) saveLS(); }
+    if(C){ set('hair', C.hair, 'цветотип'); set('eyes', C.eyes, 'цветотип'); set('skin', C.skin, 'цветотип'); }
   }catch(e){}
-  const ok = S.gender && S.figure && S.hair && S.eyes && S.skin && S.clothSize && S.shoeSize;
-  if(!ok){
-    const missing = [['gender','пол'],['figure','фигура'],['hair','цвет волос'],['eyes','цвет глаз'],['skin','тон кожи'],['clothSize','размер одежды'],['shoeSize','размер обуви']].filter(f=>!S[f[0]]).map(f=>f[1]);
-    box.innerHTML = `<div class="td-cta2"><div class="td-cta2-ic">✦</div><div class="td-cta2-body"><div class="td-cta2-k">СТИЛЬ-ПАСПОРТ · 1 МИНУТА ДО ВЫДАЧИ</div><h3>Паспорт выдаётся по данным.</h3><p>Заполните быстрый профиль — и здесь появится ваш стиль-паспорт: палитра, фигура, размеры во всех сетках мира, формула макияжа, капсульная база и список «чего не покупать».</p>${missing.length?'<div class="td-cta2-miss">не хватает: '+missing.join(' · ')+'</div>':''}<button class="btn primary" onclick="openProfile('passRefresh')">Заполнить быстрый профиль →</button><button class="btn ghost" id="passRefresh" style="display:none" onclick="renderPassport()">обновить</button></div></div>`;
+  /* бьюти-скан по фото тоже определяет внешность */
+  try{
+    const BS = JSON.parse(localStorage.getItem('looka_beauty')||'null');
+    if(BS){ set('hair', BS.hair, 'бьюти-скан'); set('eyes', BS.eyes, 'бьюти-скан'); set('skin', BS.skin || BS.tone, 'бьюти-скан'); }
+  }catch(e){}
+  /* размер бра меряется по обхвату груди — из него выводится и размер одежды */
+  try{
+    const BR = JSON.parse(localStorage.getItem('looka_bra')||'null');
+    const bust = BR && Number(BR.bust);
+    if(!S.clothSize && bust > 70 && bust < 140){
+      /* российский размер — половина обхвата груди: 88 см → 44, 92 → 46, 96 → 48 */
+      let ru = Math.round(bust / 4) * 2;
+      const list = (S.gender === 'Мужчина' ? SIZES_M : SIZES_F).map(Number);
+      ru = Math.min(Math.max(ru, list[0]), list[list.length-1]);
+      set('clothSize', String(ru), 'мерки из раздела «Бельё»');
+    }
+  }catch(e){}
+  /* рост мог остаться в анкете события или гардероба */
+  try{
+    const EV = JSON.parse(localStorage.getItem('looka_event')||'null');
+    if(EV && EV.height && !S.height) set('height', EV.height, 'анкета события');
+  }catch(e){}
+  if(got.length && window.saveLS) saveLS();
+  return got;
+};
+/* поля, которые нельзя вывести ни из чего: спрашиваем прямо в паспорте, без ухода со страницы */
+window.psSet = (k, v)=>{ S[k] = v; if(window.saveLS) saveLS(); renderPassport();
+  try{ if(window.myToast) myToast('Записала — паспорт пересобран'); }catch(e){} };
+window.psAsk = (k)=>{
+  const A = {
+    figure: ['Тип фигуры', Object.keys(FIG_TIPS), 'От него зависят силуэты, длины и принты.'],
+    clothSize: ['Размер одежды (RU)', (S.gender==='Мужчина'?SIZES_M:SIZES_F), 'Переведу его во все мировые сетки.'],
+    shoeSize: ['Размер обуви (RU)', (S.gender==='Мужчина'?SHOES_M:SHOES_F), 'Нужен для таблицы размеров и длины стопы.'],
+    hair:  ['Цвет волос', ['Чёрный','Каштановый','Русый','Блонд','Пепельный','Рыжий'], 'Задаёт температуру палитры.'],
+    eyes:  ['Цвет глаз', ['Карие','Зелёные','Голубые','Серые','Чёрные'], 'Влияет на контраст и акценты у лица.'],
+    skin:  ['Тон кожи', ['Фарфоровая','Светлая','Средняя','Оливковая','Смуглая','Тёмная'], 'Определяет, какие цвета идут к лицу.']
+  }[k];
+  if(!A) return '';
+  return '<div class="ps-card ps-ask"><div class="ps-k">' + A[0].toUpperCase() + '</div>'
+    + '<p class="ps-note">' + A[2] + '</p><div class="ps-ask-row">'
+    + A[1].map(v=>'<button onclick="psSet(\''+k+'\',\''+String(v).replace(/'/g,"")+'\')">'+v+'</button>').join('')
+    + '</div></div>';
+};
+window.renderPassport = ()=>{
+  const box = document.getElementById('passBox'); if(!box) return;
+  const from = passportFill();
+  /* совсем пустую анкету паспортом не заменишь — но дальше хватает и части данных */
+  const known = ['figure','hair','eyes','skin','clothSize','shoeSize'].filter(k=>S[k]).length;
+  if(!known){
+    box.innerHTML = `<div class="td-cta2"><div class="td-cta2-ic">✦</div><div class="td-cta2-body"><div class="td-cta2-k">СТИЛЬ-ПАСПОРТ · 1 МИНУТА ДО ВЫДАЧИ</div><h3>Паспорт выдаётся по данным.</h3><p>Заполните быстрый профиль — и здесь появится ваш стиль-паспорт: палитра, фигура, размеры во всех сетках мира, формула макияжа, капсульная база и список «чего не покупать».</p><button class="btn primary" onclick="openProfile('passRefresh')">Заполнить быстрый профиль →</button><button class="btn ghost" id="passRefresh" style="display:none" onclick="renderPassport()">обновить</button></div></div>`;
     return;
   }
-  box.innerHTML = passportHTML();
+  box.innerHTML = (from.length ? '<div class="ps-auto">✓ Часть данных подставлена автоматически: '+from.join(', ')+'</div>' : '') + passportHTML();
   if(window.fxZone) fxZone(box); if(window.fxGlow) fxGlow(box);
 };
 window.printDocs = ()=>{ document.body.dataset.print = 'docs'; window.print(); setTimeout(()=>{ delete document.body.dataset.print; }, 500); };
@@ -19911,6 +19972,7 @@ window.aestPin = async n=>{ const url=AEST_PIN[n]; let ov=document.getElementByI
   </div></div>`; ov.classList.add('open'); document.body.style.overflow='hidden';
   if(url){ await pinLoad(); try{ if(window.PinUtils) PinUtils.build(); }catch(e){} } };
 window.pinClose=()=>{ const o=document.getElementById('pinOv'); if(o){ o.classList.remove('open'); document.body.style.overflow=''; } };
+window.dnaStyles = ()=>(D.styles||[]).slice();
 window.dnaHas = n=>D.styles.includes(n);
 
 /* ================= ПЕРЕХОД-СКАНИРОВАНИЕ ================= */
@@ -19941,7 +20003,9 @@ const AEST_PAL = {
  'Спорт-шик':['#111111','#FFFFFF','#8C8C8C'], 'Preppy':['#0F2E5C','#B3001B','#F2E6C8'], 'Романтика':['#F4D6E5','#E7C3D3','#FFFFFF'], 'Классика / офис':['#1F2A44','#FFFFFF','#B9B9B9'],
  'Артистичный':['#E63946','#457B9D','#F1FAEE'], 'Бойфренд / oversize':['#4A5A73','#DDE3EA','#2A2A2A']
 };
+window.AESTH = AESTH;   /* нужен в «Собрать чемодан» — модули не видят друг друга */
 const aestPal = n=>{ if(AEST_PAL[n]) return AEST_PAL[n]; let x=0; for(const c of n) x=(x*31+c.charCodeAt(0))>>>0; const hh=x%360; return [`hsl(${hh},60%,55%)`,`hsl(${(hh+40)%360},50%,80%)`,`hsl(${(hh+200)%360},40%,25%)`]; };
+window.aestPal = aestPal;   /* палитры эстетик нужны и в «Собрать чемодан» */
 window.AESTH=AESTH; window.aestPal=aestPal;
 const chips=(arr,on,fn,cls)=>arr.map(v=>`<button class="chip ${on.includes(v)?'on':''} ${cls||''}" onclick="${fn}">${v}</button>`).join('');
 function paint(part){
@@ -21174,6 +21238,36 @@ textarea.lk-in{resize:vertical;min-height:74px;line-height:1.5}
 .sf-cm-b p{margin:3px 0 0;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.78);
   white-space:pre-wrap;overflow-wrap:anywhere}
 .sf-cm-no{font-size:13px;line-height:1.5;color:rgba(255,255,255,.42)}
+.sf-cm-row.kid{margin-left:22px;padding-left:12px;border-left:1px solid rgba(255,255,255,.1)}
+.sf-cm-row.kid .sf-cm-av{width:22px;height:22px;font-size:10px}
+.sf-cm-to{margin-top:2px;font-size:11.5px;color:rgba(124,240,178,.75)}
+/* ---- реакции ---- */
+.sf-re-bar{position:relative;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:7px}
+.sf-re{display:inline-flex;align-items:center;gap:4px;cursor:pointer;font:inherit;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:999px;
+  padding:2px 8px;line-height:1.6;color:rgba(255,255,255,.7);transition:.15s}
+.sf-re i{font-style:normal;font-size:13px}
+.sf-re b{font-size:11.5px;font-weight:600}
+.sf-re:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22)}
+.sf-re.on{background:rgba(124,240,178,.16);border-color:rgba(124,240,178,.5);color:#C9F7DD}
+.sf-re.add{font-size:13px;color:rgba(255,255,255,.45);padding:2px 9px}
+.sf-re.txt{font-size:11.5px;letter-spacing:.02em;color:rgba(255,255,255,.45);
+  background:none;border-color:transparent;padding:2px 4px}
+.sf-re.txt:hover{color:#fff;background:none}
+.sf-re-pop{position:absolute;z-index:5;top:calc(100% + 6px);left:0;
+  display:grid;grid-template-columns:repeat(6,1fr);gap:2px;width:max-content;max-width:min(260px,88vw);
+  padding:6px;border-radius:14px;background:#171B25;border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 12px 28px rgba(0,0,0,.45)}
+.sf-re-pop button{cursor:pointer;background:none;border:0;font-size:17px;line-height:1;
+  padding:4px 5px;border-radius:8px;transition:.12s}
+.sf-re-pop button:hover{background:rgba(255,255,255,.1);transform:scale(1.15)}
+.sf-cm-rep{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.55);
+  padding:6px 10px;border-radius:10px;background:rgba(124,240,178,.08);
+  border-left:2px solid rgba(124,240,178,.5)}
+.sf-cm-rep b{color:#C9F7DD;font-weight:600}
+.sf-cm-rep button{margin-left:auto;background:none;border:0;cursor:pointer;
+  color:rgba(255,255,255,.4);font-size:12px;line-height:1;padding:2px}
+.sf-cm-rep button:hover{color:#fff}
 .sf-cm-new{display:flex;flex-direction:column;gap:8px;align-items:stretch;margin-top:14px}
 .sf-cm-in{flex:1 1 auto;min-width:0;resize:vertical;border-radius:12px;padding:9px 12px;
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);
@@ -22383,7 +22477,7 @@ const SEED = {
   ]
 };
 
-let CL = { room:'makeup', country:'RU', items:[], loading:false, up:{}, cmt:{}, open:{}, draft:{}, sending:'' };
+let CL = { room:'makeup', country:'RU', items:[], loading:false, up:{}, cmt:{}, open:{}, draft:{}, sending:'', reply:{}, pick:'' };
 try{ CL.up = JSON.parse(localStorage.getItem('looka_club_up')||'{}'); }catch(e){}
 try{ const c = localStorage.getItem('looka_club_c'); if(c) CL.country = c; }catch(e){}
 
@@ -22435,29 +22529,84 @@ const cmtWhen = t=>{
   return n < 7 ? (n+' '+(n===1?'день':n<5?'дня':'дней')+' назад')
                : new Date(t).toLocaleDateString('ru-RU', { day:'numeric', month:'long' });
 };
+/* порядок важен: первые — самые частые, они же первыми видны в выборе */
+const CMT_EMO = ['❤️','🔥','👍','👎','😍','🥰','😅','😭','🤔','😮','👏','🙏','💯','✨','💅','💄','👗','🛍️'];
+/* панель реакций: свои подсвечены, выбор открывается по «+» */
+function cmtReacts(id, c, me){
+  const r = c.r || {};
+  const used = CMT_EMO.filter(e=>(r[e]||[]).length);
+  const open = CL.pick === (id+'|'+c.id);
+  const chip = e=>{
+    const who = r[e] || [];
+    return `<button class="sf-re ${me && who.indexOf(me)>=0 ? 'on':''}"
+      onclick="clubReact('${esc(id)}','${esc(c.id)}','${e}')"><i>${e}</i>${who.length>1?('<b>'+who.length+'</b>'):''}</button>`;
+  };
+  return `<div class="sf-re-bar">
+    ${used.map(chip).join('')}
+    <button class="sf-re add ${open?'on':''}" title="поставить реакцию"
+      onclick="clubPick('${esc(id)}','${esc(c.id)}')">${open?'×':'+'}</button>
+    <button class="sf-re txt" onclick="clubReply('${esc(id)}','${esc(c.id)}')">ответить</button>
+    ${open ? `<div class="sf-re-pop">${CMT_EMO.map(e=>`<button onclick="clubReact('${esc(id)}','${esc(c.id)}','${e}')">${e}</button>`).join('')}</div>` : ''}
+  </div>`;
+}
 function clubThread(id){
   const list = CL.cmt[id] || [];
   const me = myUid();
-  const rows = list.length ? list.map(c=>`
-    <div class="sf-cm-row">
+  /* ветка хранится плоско: ответы собираем под их родителя, на один уровень */
+  const kids = {};
+  list.forEach(c=>{ if(c.to){ (kids[c.to] = kids[c.to] || []).push(c); } });
+  const top = list.filter(c=>!c.to || !list.some(x=>x.id === c.to));
+  const one = (c, nested)=>`
+    <div class="sf-cm-row${nested?' kid':''}">
       <div class="sf-cm-av">${esc((c.name||'Г')[0].toUpperCase())}</div>
       <div class="sf-cm-b">
         <div class="sf-cm-h"><b>${esc(c.name||'Гостья')}</b><span>${esc(cmtWhen(c.at))}</span>
           ${me && c.uid === me ? `<button class="sf-cm-del" title="удалить" onclick="clubCmtDel('${esc(id)}','${esc(c.id)}')">✕</button>` : ''}</div>
+        ${c.toName ? `<div class="sf-cm-to">↪ ${esc(c.toName)}</div>` : ''}
         <p>${esc(c.text)}</p>
+        ${cmtReacts(id, c, me)}
       </div>
-    </div>`).join('') : '<div class="sf-cm-no">Пока никто не написал. Будьте первой — что сработало у вас, а что нет?</div>';
+    </div>` + (kids[c.id]||[]).map(k=>one(k, true)).join('');
+  const rows = list.length ? top.map(c=>one(c, false)).join('')
+    : '<div class="sf-cm-no">Пока никто не написал. Будьте первой — что сработало у вас, а что нет?</div>';
   const sending = CL.sending === id;
+  const rep = CL.reply[id];
+  const repTo = rep ? (list.find(x=>x.id === rep) || null) : null;
   return `<div class="sf-cm-box">
     <div class="sf-cm-list">${rows}</div>
     <div class="sf-cm-new">
+      ${repTo ? `<div class="sf-cm-rep">Отвечаете: <b>${esc(repTo.name||'Гостья')}</b>
+        <button onclick="clubReplyOff('${esc(id)}')" title="отменить">✕</button></div>` : ''}
       <textarea class="sf-cm-in" id="cmIn_${esc(id)}" rows="2" maxlength="600"
-        placeholder="Что получилось у вас?"
+        placeholder="${repTo ? 'Ваш ответ…' : 'Что получилось у вас?'}"
         oninput="clubDraft('${esc(id)}',this.value)">${esc(CL.draft[id]||'')}</textarea>
       <button class="btn primary sf-cm-go" ${sending?'disabled':''} onclick="clubCmtSend('${esc(id)}')">${sending?'Отправляю…':'Отправить'}</button>
     </div>
   </div>`;
 }
+window.clubPick = (id, cid)=>{ const k = id+'|'+cid; CL.pick = (CL.pick === k) ? '' : k; clubDraw(); };
+window.clubReply = (id, cid)=>{
+  CL.reply[id] = cid; CL.pick = ''; CL.open[id] = true; clubDraw();
+  setTimeout(()=>{ const t = document.getElementById('cmIn_'+id); if(t){ t.focus(); t.scrollIntoView({block:'center'}); } }, 60);
+};
+window.clubReplyOff = id =>{ delete CL.reply[id]; clubDraw(); };
+window.clubReact = async (id, cid, emo)=>{
+  if(!cmtToken()){ cmtSay('Войдите, чтобы ставить реакции'); return; }
+  const list = CL.cmt[id] || [];
+  const c = list.find(x=>x.id === cid); if(!c) return;
+  const me = myUid();
+  /* ставим сразу, не дожидаясь сервера: иначе кнопка ощущается мёртвой */
+  if(!c.r) c.r = {};
+  const who = c.r[emo] || (c.r[emo] = []);
+  const i = who.indexOf(me);
+  if(i >= 0) who.splice(i, 1); else who.push(me);
+  if(!who.length) delete c.r[emo];
+  CL.pick = ''; clubDraw();
+  try{
+    const j = await cmtPost('/club/cmt/react', { room: CL.room, country: CL.country, id, cid, emo });
+    if(j && j.r){ c.r = j.r; clubDraw(); }
+  }catch(e){ cmtSay(e.message || 'реакция не прошла'); }
+};
 /* разметка живёт в глобальной области, а CL — внутри модуля: пишем черновик через функцию */
 window.clubDraft = (id, v)=>{ CL.draft[id] = v; };
 window.clubCmt = id =>{
@@ -22472,10 +22621,10 @@ window.clubCmtSend = async id=>{
   if(!cmtToken()){ cmtSay('Войдите, чтобы комментировать'); if(window.lkAuth) lkAuth('reg','Войдите, чтобы написать комментарий'); return; }
   CL.sending = id; clubDraw();
   try{
-    const j = await cmtPost('/club/cmt', { room: CL.room, country: CL.country, id, text });
+    const j = await cmtPost('/club/cmt', { room: CL.room, country: CL.country, id, text, to: CL.reply[id] || '' });
     if(!CL.cmt[id]) CL.cmt[id] = [];
     if(j && j.item) CL.cmt[id].push(j.item);
-    CL.draft[id] = '';
+    CL.draft[id] = ''; delete CL.reply[id];
   }catch(e){ cmtSay(e.message || 'не отправилось'); }
   CL.sending = ''; clubDraw();
 };
@@ -23963,6 +24112,31 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 #trSug{border-radius:12px;overflow:hidden}
 #trSug button{padding:11px 14px}
 .tr-go{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.tr-st{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:4px}
+.tr-st-b{position:relative;cursor:pointer;font:inherit;text-align:left;overflow:hidden;
+  padding:11px 12px 10px;border-radius:14px;color:#E6E9F2;
+  background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.12);transition:.18s}
+.tr-st-b::after{content:'';position:absolute;inset:0;opacity:.14;pointer-events:none;
+  background:linear-gradient(135deg,var(--p1),var(--p2) 55%,var(--p3))}
+.tr-st-b i{position:relative;z-index:1;display:flex;gap:3px;margin-bottom:7px}
+.tr-st-b i s{width:16px;height:16px;border-radius:50%;text-decoration:none;
+  box-shadow:0 0 0 1px rgba(0,0,0,.35) inset}
+.tr-st-b b{position:relative;z-index:1;display:block;font-size:13.5px;line-height:1.25}
+.tr-st-b span{position:relative;z-index:1;display:block;margin-top:3px;font-size:11.5px;line-height:1.35;
+  color:rgba(255,255,255,.55)}
+.tr-st-b u{position:absolute;z-index:2;top:9px;right:10px;opacity:0;text-decoration:none;
+  font-size:12px;color:#0C0E14;background:#7CF0B2;border-radius:50%;width:18px;height:18px;
+  display:grid;place-items:center;transition:.18s}
+.tr-st-b:hover{border-color:rgba(255,255,255,.3);transform:translateY(-1px)}
+.tr-st-b.on{border-color:rgba(124,240,178,.6);background:rgba(124,240,178,.08)}
+.tr-st-b.on::after{opacity:.3}
+.tr-st-b.on u{opacity:1}
+.tr-st-more{margin-top:8px;cursor:pointer;font:inherit;font-size:12.5px;padding:6px 14px;
+  border-radius:999px;color:rgba(255,255,255,.62);background:none;
+  border:1px solid rgba(255,255,255,.14);transition:.16s}
+.tr-st-more:hover{color:#fff;border-color:rgba(255,255,255,.32);background:rgba(255,255,255,.05)}
+.tr-hint a{color:#9FD9FF;text-decoration:underline;text-underline-offset:2px}
 .tr-hint{display:flex;align-items:center;gap:7px;margin:10px 0 0;
   font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.52);letter-spacing:.01em}
 .tr-hint::before{content:'';flex:0 0 auto;width:14px;height:14px;border-radius:50%;
@@ -25011,6 +25185,29 @@ setTimeout(mount, 900);
   const season = ()=>{ try{ const c=JSON.parse(localStorage.getItem('looka_cs')||'null'); return (c&&c.season)||''; }catch(e){ return ''; } };
 
   window.tripSet = (k,v)=>{ T[k] = (T[k]===v && k!=='days') ? '' : v; save(); drawTrip(); };
+  /* стиль берём из Стиль-ДНК, но даём переопределить: в отпуске одеваются иначе, чем дома */
+  const stArr = ()=>{
+    if(Array.isArray(T.styles) && T.styles.length) return T.styles;
+    try{ return (window.dnaStyles ? dnaStyles() : []).slice(0,3); }catch(e){ return []; }
+  };
+  const stFromDna = ()=> !(Array.isArray(T.styles) && T.styles.length);
+  window.tripStyle = v=>{
+    const a = stArr().slice(); const i = a.indexOf(v);
+    if(i >= 0) a.splice(i,1); else { if(a.length >= 3) a.shift(); a.push(v); }
+    T.styles = a; save(); drawTrip();
+  };
+  window.tripStyleReset = ()=>{ T.styles = []; save(); drawTrip(); };
+  /* эстетик почти четыре десятка — в анкете это стена; показываем выбранные и немного рядом */
+  let stAll = false;
+  window.tripStyleAll = ()=>{ stAll = !stAll; drawTrip(); };
+  const stShown = ()=>{
+    const all = (window.AESTH||[]);
+    if(stAll) return all;
+    const on = stArr();
+    const head = all.filter(a=>on.indexOf(a[0]) >= 0);
+    const rest = all.filter(a=>on.indexOf(a[0]) < 0).slice(0, Math.max(0, 8 - head.length));
+    return head.concat(rest);
+  };
   window.tripPurp = v=>{
     const a = purpArr(); const i = a.indexOf(v);
     if(i >= 0) a.splice(i,1); else a.push(v);
@@ -25042,6 +25239,20 @@ setTimeout(mount, 900);
         <div class="grp"><label class="t">Зачем едете</label>
           <div class="chips">${PURPOSE.map(x=>`<button class="chip ${purpArr().indexOf(x[0])>=0?'on':''}" onclick="tripPurp('${x[0]}')">${x[1]}</button>`).join('')}</div>
           <div class="tr-hint">можно отметить несколько — чемодан соберётся сразу под все цели</div></div>
+        <div class="grp"><label class="t">В каком стиле собирать</label>
+          <div class="tr-st">${stShown().map(a=>{
+            const p = (window.aestPal ? aestPal(a[0]) : ['#888','#aaa','#444']);
+            const on = stArr().indexOf(a[0]) >= 0;
+            return `<button class="tr-st-b ${on?'on':''}" onclick="tripStyle('${a[0].replace(/'/g,'’')}')"
+              style="--p1:${p[0]};--p2:${p[1]};--p3:${p[2]}">
+              <i><s style="background:${p[0]}"></s><s style="background:${p[1]}"></s><s style="background:${p[2]}"></s></i>
+              <b>${esc(a[0])}</b><span>${esc((a[1]||'').split(':').slice(-1)[0].trim())}</span><u>✓</u></button>`;
+          }).join('')}</div>
+          <button class="tr-st-more" onclick="tripStyleAll()">${stAll ? 'свернуть' : 'показать все '+(window.AESTH||[]).length+' стилей'}</button>
+          <div class="tr-hint">${stArr().length
+            ? (stFromDna() ? 'взято из вашего Стиль-ДНК — можно поменять на время поездки'
+                           : 'выбрано для этой поездки · <a href="#" onclick="tripStyleReset();return false">вернуть из Стиль-ДНК</a>')
+            : 'пройдите Стиль-ДНК или выберите здесь — до трёх'}</div></div>
         <div class="grp"><label class="t">Сколько влезает</label>
           <div class="chips">${BAG.map(x=>`<button class="chip ${T.bag===x[0]?'on':''}" onclick="tripSet('bag','${x[0]}')">${x[1]}</button>`).join('')}</div></div>
         <label class="tr-f"><span>Что обязательно хочу взять</span>
@@ -25089,6 +25300,15 @@ setTimeout(mount, 900);
       'Ты — стилист, который много ездит и собирает чемоданы. Собери гардероб на поездку.\n'+
       'КУДА: '+T.place+'. КОГДА: '+T.month+'. СКОЛЬКО ДНЕЙ: '+T.days+'. ЗАЧЕМ: '+purTxt+'. БАГАЖ: '+bagTxt+'.\n'+
       purHint+
+      (()=>{
+        const st = stArr();
+        if(!st.length) return '';
+        const full = st.map(n=>{ const a=(window.AESTH||[]).find(x=>x[0]===n); return a ? (a[0]+' ('+a[1]+')') : n; });
+        return 'ЕЁ СТИЛЬ: '+full.join('; ')+'.\n'+
+          'Собирай чемодан в этом стиле: силуэты, ткани и палитра должны читаться как он, '+
+          'а не как универсальный набор туриста. Если местные правила противоречат стилю, '+
+          'оставь стиль, но адаптируй — например, тот же силуэт, но с закрытыми плечами.\n';
+      })()+
       'КЛИЕНТКА: '+who+'.\n'+
       (T.must?('ОБЯЗАТЕЛЬНО ВЗЯТЬ, она просила: '+T.must+'.\n'):'')+
       (items.length>=4 ? ('ЕЁ ГАРДЕРОБ:\n'+list+'\nСобирай ПРЕИМУЩЕСТВЕННО из этих вещей, названия переписывай точно.\n')
@@ -25108,8 +25328,10 @@ setTimeout(mount, 900);
       '"looks":[{"d":"День 1 · прилёт","t":"название образа","items":["вещь","вещь"],"why":"почему так"}],'+
       '"avoid":["что там лучше не надевать и почему"],'+
       '"note":"пустая строка или честное замечание"}\n'+
-      'Образов сделай '+Math.min(T.days,8)+' — по одному на день, а если дней больше восьми, покажи самые разные дни и скажи в note, что остальные собираются из тех же вещей.\n'+
-      'buy — от четырёх до шести вещей, которых у неё НЕТ и которые стоит докупить именно под эту страну и эту погоду: '+
+      'Образов сделай '+Math.max(4, Math.min(T.days + 2, 12))+'. '+
+      'Если образов больше, чем дней, дай на некоторые дни по два варианта — в поле d пиши «День 2 · вариант 1» и «День 2 · вариант 2», '+
+      'чтобы было из чего выбрать по настроению и погоде. Если дней больше двенадцати, покажи самые разные дни и скажи в note, что остальные собираются из тех же вещей.\n'+
+      'buy — '+(T.days <= 4 ? 'от четырёх до шести' : T.days <= 9 ? 'от шести до восьми' : 'от восьми до десяти')+' вещей, которых у неё НЕТ и которые стоит докупить именно под эту страну и эту погоду: '+
       'то, без чего там будет неудобно (лёгкая ткань в жару и влажность, дождевик в сезон дождей, тёплый слой на перепад день-ночь, '+
       'закрытые плечи и колени там, где этого требуют, обувь под рельеф и покрытие улиц). '+
       'Не предлагай то, что уже есть в её гардеробе, и не предлагай абстрактное «базовую футболку» — пиши конкретную вещь с тканью или кроем. '+
