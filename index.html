@@ -24151,6 +24151,8 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
   border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);transition:opacity .2s,border-color .2s}
 .tr-tk:hover{border-color:rgba(255,255,255,.26)}
 .tr-tk input{flex:none;width:18px;height:18px;margin-top:2px;accent-color:#7CF0B2;cursor:pointer}
+.tr-dot{flex:none;width:15px;height:15px;margin-top:3px;border-radius:50%;
+  box-shadow:0 0 0 1px rgba(255,255,255,.22) inset, 0 0 0 1px rgba(0,0,0,.3)}
 .tr-tk span{flex:1;min-width:0}
 .tr-tk b{display:block;font-family:'Golos Text',sans-serif;font-weight:600;font-size:14px;color:#F4F5FA}
 .tr-tk em{display:block;font-style:normal;font-size:12px;color:#9AA1B8;margin-top:2px}
@@ -24316,6 +24318,7 @@ const wtDot = txt=>{
   Object.keys(WT_COL).forEach(k=>{ if(t.indexOf(k) >= 0 && (!hit || k.length > hit.length)) hit = k; });
   return hit ? WT_COL[hit] : null;
 };
+window.wtDot = wtDot;   /* цвет по названию нужен и в «Собрать чемодан» — модули разные */
 const wtCap = t=>{ const x = String(t||'').trim(); return x ? x[0].toUpperCase() + x.slice(1) : x; };
 /* «Пиджак, бордовый, Верхняя одежда» → имя, цвет, категория — чтобы карточка не была строкой текста */
 /* и единственное, и множественное число: в гардеробе «Платье», в старых списках «платья» */
@@ -25188,13 +25191,21 @@ setTimeout(mount, 900);
   /* стиль берём из Стиль-ДНК, но даём переопределить: в отпуске одеваются иначе, чем дома */
   const stArr = ()=>{
     if(Array.isArray(T.styles) && T.styles.length) return T.styles;
-    try{ return (window.dnaStyles ? dnaStyles() : []).slice(0,3); }catch(e){ return []; }
+    try{ return (window.dnaStyles ? dnaStyles() : []).slice(0,6); }catch(e){ return []; }
   };
   const stFromDna = ()=> !(Array.isArray(T.styles) && T.styles.length);
   window.tripStyle = v=>{
     const a = stArr().slice(); const i = a.indexOf(v);
-    if(i >= 0) a.splice(i,1); else { if(a.length >= 3) a.shift(); a.push(v); }
+    if(i >= 0) a.splice(i,1); else { if(a.length >= 6) a.shift(); a.push(v); }
     T.styles = a; save(); drawTrip();
+  };
+  /* «юбка миди, красный» → заливка кружка. Серый остаётся, только если цвет не назван. */
+  const trSw = txt=>{
+    let c = null;
+    try{ c = window.wtDot ? wtDot(txt) : null; }catch(e){}
+    if(!c) return 'linear-gradient(135deg,#3a3f4d,#6c7488)';
+    /* белое и молочное на тёмном фоне теряется — добавляем обводку через внутреннюю тень */
+    return c;
   };
   window.tripStyleReset = ()=>{ T.styles = []; save(); drawTrip(); };
   /* эстетик почти четыре десятка — в анкете это стена; показываем выбранные и немного рядом */
@@ -25252,7 +25263,7 @@ setTimeout(mount, 900);
           <div class="tr-hint">${stArr().length
             ? (stFromDna() ? 'взято из вашего Стиль-ДНК — можно поменять на время поездки'
                            : 'выбрано для этой поездки · <a href="#" onclick="tripStyleReset();return false">вернуть из Стиль-ДНК</a>')
-            : 'пройдите Стиль-ДНК или выберите здесь — до трёх'}</div></div>
+            : 'пройдите Стиль-ДНК или выберите здесь — до шести'}</div></div>
         <div class="grp"><label class="t">Сколько влезает</label>
           <div class="chips">${BAG.map(x=>`<button class="chip ${T.bag===x[0]?'on':''}" onclick="tripSet('bag','${x[0]}')">${x[1]}</button>`).join('')}</div></div>
         <label class="tr-f"><span>Что обязательно хочу взять</span>
@@ -25318,6 +25329,11 @@ setTimeout(mount, 900);
       'МЕСТНЫЕ ПРАВИЛА ОДЕЖДЫ: напиши только практичное и проверяемое — где требуют закрытые плечи и колени (храмы, мечети, церкви), '+
       'есть ли дресс-код в ресторанах, принято ли ходить в пляжной одежде по городу, насколько формально одеваются на работу. '+
       'НЕ пиши рассуждений о характере народа и не давай оценок культуре: только то, что влияет на выбор вещей.\n'+
+      'ГЛАВНОЕ ПРО ПОГОДУ: сначала определи дневную температуру, и каждая вещь в чемодане обязана ей подходить. '+
+      'Если днём теплее +22, НЕ клади тренч, пальто, плащ, косуху, экокожу, плотный трикотаж, сапоги и ботинки — '+
+      'в них там невозможно ходить. На прохладный вечер хватит одного лёгкого слоя: рубашка, кардиган или джинсовка. '+
+      'Если днём холоднее +10, наоборот — не предлагай лён, шифон, сандалии и открытые платья. '+
+      'В поле why у каждой вещи должно быть видно, что она подходит именно этой температуре.\n'+
       'ПРИНЦИП КАПСУЛЫ: вещи должны сочетаться между собой, чтобы из небольшого набора вышло много образов. '+
       'Обувь — не больше трёх пар, и одна обязательно разношенная, в которой можно ходить весь день.\n'+
       'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
@@ -25335,6 +25351,10 @@ setTimeout(mount, 900);
       'то, без чего там будет неудобно (лёгкая ткань в жару и влажность, дождевик в сезон дождей, тёплый слой на перепад день-ночь, '+
       'закрытые плечи и колени там, где этого требуют, обувь под рельеф и покрытие улиц). '+
       'Не предлагай то, что уже есть в её гардеробе, и не предлагай абстрактное «базовую футболку» — пиши конкретную вещь с тканью или кроем. '+
+      'ОБЯЗАТЕЛЬНО: минимум половина списка — красивая одежда, а не снаряжение. '+
+      'Платья, юбки, нарядные верха, лёгкие костюмы — то, в чём идут на ужин, гуляют по городу и фотографируются. '+
+      'Опиши ткань, крой и длину так, чтобы вещь было видно: «шёлковое платье-комбинация миди», а не «платье». '+
+      'Дождевики, термобельё и прочее практичное — не больше половины и только если погода и программа их правда требуют. '+
       'q — короткий поисковый запрос, как его вбивают на Wildberries или Ozon, 2-4 слова по-русски, без брендов и без слова «купить». '+
       'p — реалистичная вилка в рублях, например «1 500–3 000 ₽». '+
       'take — весь чемодан, с обувью и верхней одеждой. '+
@@ -25380,6 +25400,7 @@ setTimeout(mount, 900);
         <h3>Чемодан · ${d.take.length} вещ${d.take.length===1?'ь':d.take.length<5?'и':'ей'}</h3>
         <div class="tr-take">${d.take.map((x,i)=>`<label class="tr-tk">
           <input type="checkbox" onchange="this.closest('.tr-tk').classList.toggle('done',this.checked)">
+          <i class="tr-dot" style="background:${trSw(x.n)}"></i>
           <span><b>${esc(x.n)}</b>${x.why?`<em>${esc(x.why)}</em>`:''}</span>
           ${x.own===false?'<i class="tr-new">купить</i>':''}</label>`).join('')}</div>
       </div></div>`:''}
@@ -25395,7 +25416,7 @@ setTimeout(mount, 900);
         <div class="wt-head"><span class="wt-no">${esc((L.d||'').replace(/^День\s*/i,'').split('·')[0].trim()||'·')}</span><div>
           <div class="wt-where">${esc(L.d||'')}</div><h3>${esc(L.t||'Образ')}</h3></div></div>
         <div class="wt-items">${(L.items||[]).map(n=>`<div class="wt-it">
-          <i class="wt-sw" style="background:linear-gradient(135deg,#3a3f4d,#6c7488)"></i>
+          <i class="wt-sw" style="background:${trSw(n)}"></i>
           <span class="wt-nm">${esc(n)}</span><em class="wt-ok">✓</em></div>`).join('')}</div>
         ${L.why?`<p class="wt-why">${esc(L.why)}</p>`:''}
       </div></div>`).join('')}`;
