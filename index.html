@@ -24151,6 +24151,9 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
   border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);transition:opacity .2s,border-color .2s}
 .tr-tk:hover{border-color:rgba(255,255,255,.26)}
 .tr-tk input{flex:none;width:18px;height:18px;margin-top:2px;accent-color:#7CF0B2;cursor:pointer}
+.tr-cut{margin:12px 0 0;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;
+  color:#FFD9A8;background:rgba(255,170,80,.1);border:1px solid rgba(255,170,80,.3)}
+.tr-cut b{color:#FFC46B}
 .tr-dot{flex:none;width:15px;height:15px;margin-top:3px;border-radius:50%;
   box-shadow:0 0 0 1px rgba(255,255,255,.22) inset, 0 0 0 1px rgba(0,0,0,.3)}
 .tr-tk span{flex:1;min-width:0}
@@ -25207,6 +25210,28 @@ setTimeout(mount, 900);
     /* белое и молочное на тёмном фоне теряется — добавляем обводку через внутреннюю тень */
     return c;
   };
+  /* Просить ИИ «не клади косуху в жару» бесполезно: он всё равно кладёт и оправдывает
+     «прохладными вечерами». Поэтому проверяем сами — по числу градусов, которое он же и назвал. */
+  const HOT_NO  = /тренч|пальто|плащ|пухов|шуб|парк|косух|экокож|кожан(?!ые сандал)|дублён|дублен|свитер|джемпер|водолазк|сапог|ботин|угг|шерстян|кашемир|термо|флис/i;
+  const COLD_NO = /\bлён\b|льнян|шифон|сандал|вьетнамк|шлёпанц|шлепанц|купальник|парео|майк|шорт|сарафан|босоножк/i;
+  window.tripWeatherFix = d=>{
+    const td = Number(d && d.tday);
+    if(!isFinite(td)) return d;
+    const bad = td >= 22 ? HOT_NO : (td <= 9 ? COLD_NO : null);
+    if(!bad) return d;
+    const hit = n => bad.test(String(n||''));
+    const cut = (d.take||[]).filter(x=>hit(x.n)).map(x=>x.n);
+    if(!cut.length) return d;
+    /* если вырезать пришлось почти всё, значит ошиблись мы, а не ИИ — ничего не трогаем */
+    if(cut.length > Math.max(2, Math.floor((d.take||[]).length * 0.4))) return d;
+    d.take = (d.take||[]).filter(x=>!hit(x.n));
+    (d.looks||[]).forEach(L=>{ L.items = (L.items||[]).filter(n=>!hit(n)); });
+    d.looks = (d.looks||[]).filter(L=>(L.items||[]).length >= 2);
+    d._cut = cut;
+    d._cutWhy = td >= 22 ? ('днём +' + td + ' — в этом там не походишь')
+                         : ('днём ' + (td > 0 ? '+' : '') + td + ' — это слишком легко');
+    return d;
+  };
   window.tripStyleReset = ()=>{ T.styles = []; save(); drawTrip(); };
   /* эстетик почти четыре десятка — в анкете это стена; показываем выбранные и немного рядом */
   let stAll = false;
@@ -25266,6 +25291,10 @@ setTimeout(mount, 900);
             : 'пройдите Стиль-ДНК или выберите здесь — до шести'}</div></div>
         <div class="grp"><label class="t">Сколько влезает</label>
           <div class="chips">${BAG.map(x=>`<button class="chip ${T.bag===x[0]?'on':''}" onclick="tripSet('bag','${x[0]}')">${x[1]}</button>`).join('')}</div></div>
+        <label class="tr-f"><span>Что планируете делать</span>
+          <input class="acc-in" placeholder="прыжок с парашютом, зиплайн, аттракционы, ужин в ресторане"
+            value="${esc(T.plan||'')}" onchange="tripText('plan',this.value)"></label>
+        <div class="tr-hint">на каждое занятие соберу отдельный образ — иначе ехать не в чем</div>
         <label class="tr-f"><span>Что обязательно хочу взять</span>
           <input class="acc-in" placeholder="любимое платье, белые кроссовки — через запятую"
             value="${esc(T.must||'')}" onchange="tripText('must',this.value)"></label>
@@ -25321,6 +25350,12 @@ setTimeout(mount, 900);
           'оставь стиль, но адаптируй — например, тот же силуэт, но с закрытыми плечами.\n';
       })()+
       'КЛИЕНТКА: '+who+'.\n'+
+      (T.plan?('ЧТО ОНА ТАМ БУДЕТ ДЕЛАТЬ: '+T.plan+'.\n'+
+        'На КАЖДОЕ из этих занятий обязан быть свой образ в looks и нужные вещи в take. '+
+        'Активности вроде парашюта, зиплайна, квадроциклов и аттракционов требуют своего: '+
+        'закрытая обувь со шнуровкой, плотные брюки или леггинсы, верх без свисающих деталей, '+
+        'волосы под резинку или кепку, никаких юбок, платьев, каблуков и длинных шарфов. '+
+        'Если такого образа нет — чемодан собран зря.\n'):'')+
       (T.must?('ОБЯЗАТЕЛЬНО ВЗЯТЬ, она просила: '+T.must+'.\n'):'')+
       (items.length>=4 ? ('ЕЁ ГАРДЕРОБ:\n'+list+'\nСобирай ПРЕИМУЩЕСТВЕННО из этих вещей, названия переписывай точно.\n')
                        : 'Гардероб не заполнен — просто назови вещи, которые стоит взять или купить.\n')+
@@ -25338,6 +25373,7 @@ setTimeout(mount, 900);
       'Обувь — не больше трёх пар, и одна обязательно разношенная, в которой можно ходить весь день.\n'+
       'Ответь ТОЛЬКО валидным JSON без markdown:\n'+
       '{"climate":"погода там в этом месяце, 1-2 фразы с цифрами",'+
+      '"tday":число_градусов_днём,"tnight":число_градусов_ночью,'+
       '"rules":["правило одежды 1","правило 2","правило 3"],'+
       '"take":[{"n":"вещь","own":true,"why":"зачем она в чемодане"}],'+
       '"buy":[{"n":"вещь","q":"поисковый запрос для маркетплейса","p":"цена ₽","why":"зачем она именно там"}],'+
@@ -25358,6 +25394,7 @@ setTimeout(mount, 900);
       'q — короткий поисковый запрос, как его вбивают на Wildberries или Ozon, 2-4 слова по-русски, без брендов и без слова «купить». '+
       'p — реалистичная вилка в рублях, например «1 500–3 000 ₽». '+
       'take — весь чемодан, с обувью и верхней одеждой. '+
+      'tday и tnight — обычные целые числа без значка градуса, по ним я проверю каждую вещь.\n'+
       'ПИШИ КОРОТКО: climate до 160 знаков, каждое правило до 110, why до 90, t до 40. По-русски, на «вы». Ничего вне JSON.';
 
     const t0 = Date.now(); let tick = null;
@@ -25368,6 +25405,7 @@ setTimeout(mount, 900);
       const r = await aiCall({ max_tokens: 2200, messages:[{ role:'user', content: prompt }] });
       const txt = (r.content||[]).map(c=>c.text||'').join('');
       const d = JSON.parse(txt.replace(/```json|```/g,'').trim());
+      tripWeatherFix(d);
       T.last = d; T.lastAt = Date.now(); save();
       renderTrip(d);
     }catch(e){
@@ -25398,6 +25436,7 @@ setTimeout(mount, 900);
 
       ${(d.take||[]).length?`<div class="look badv mk-wide"><div class="look-in">
         <h3>Чемодан · ${d.take.length} вещ${d.take.length===1?'ь':d.take.length<5?'и':'ей'}</h3>
+        ${(d._cut&&d._cut.length)?`<div class="tr-cut"><b>Убрала из чемодана:</b> ${esc(d._cut.join(', '))} — ${esc(d._cutWhy||'')}.</div>`:''}
         <div class="tr-take">${d.take.map((x,i)=>`<label class="tr-tk">
           <input type="checkbox" onchange="this.closest('.tr-tk').classList.toggle('done',this.checked)">
           <i class="tr-dot" style="background:${trSw(x.n)}"></i>
