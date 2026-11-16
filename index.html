@@ -1097,28 +1097,44 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
 .hl-stop:hover{color:#F4F6FC}
 
 /* незаполненный раздел паспорта — честная карточка, а не пустота под заголовком */
-.ps-card/* ================= СТИЛЬ-ПАСПОРТ: обложка и сворачиваемые разделы ================= */
+/* ================= СТИЛЬ-ПАСПОРТ: обложка и сворачиваемые разделы ================= */
 /* ---- пошаговые анкеты ---- */
-.stp-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 22px;padding-bottom:16px;
-  border-bottom:1px solid rgba(255,255,255,.08)}
-.stp-dots{display:flex;gap:6px;order:2;flex-wrap:wrap}
-.stp-dots i{width:26px;height:4px;border-radius:999px;cursor:pointer;
-  background:rgba(255,255,255,.14);transition:.2s}
-.stp-dots i:hover{background:rgba(255,255,255,.3)}
-.stp-dots i.ok{background:rgba(124,240,178,.55)}
-.stp-dots i.now{background:#7CF0B2;box-shadow:0 0 10px rgba(124,240,178,.5)}
-.stp-n{order:1;font:600 11.5px/1 'JetBrains Mono',monospace;letter-spacing:.1em;
-  color:rgba(255,255,255,.5);white-space:nowrap}
-.stp-tr{order:3;flex:1 1 120px;min-width:90px;height:3px;border-radius:999px;
-  background:rgba(255,255,255,.08);overflow:hidden}
+/* Анкета в пошаговом режиме сужается: один вопрос на весь экран шириной
+   1900px выглядел потерянным, а глазу всё равно комфортнее узкая колонка. */
+[data-stp]{max-width:760px;margin-left:auto;margin-right:auto}
+.stp-bar{margin:0 0 26px}
+.stp-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:9px}
+.stp-n{font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:.12em;color:#EDEFF5}
+.stp-left{font-size:11.5px;letter-spacing:.03em;color:rgba(255,255,255,.42)}
+.stp-tr{height:4px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
 .stp-tr b{display:block;height:100%;border-radius:999px;
-  background:linear-gradient(90deg,#19C6F7,#7CF0B2);transition:width .32s cubic-bezier(.3,.9,.3,1)}
-.stp-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:22px}
-.stp-nav .btn{padding:10px 20px;font-size:13.5px}
+  background:linear-gradient(90deg,#19C6F7,#7CF0B2);
+  box-shadow:0 0 12px rgba(124,240,178,.35);
+  transition:width .38s cubic-bezier(.3,.9,.3,1)}
+.stp-dots{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.stp-dots i{width:22px;height:3px;border-radius:999px;cursor:pointer;
+  background:rgba(255,255,255,.13);transition:.2s}
+.stp-dots i:hover{background:rgba(255,255,255,.34)}
+.stp-dots i.ok{background:rgba(124,240,178,.5)}
+.stp-dots i.now{background:#7CF0B2;height:4px;margin-top:-.5px}
+/* сам вопрос получает воздух и размер — он здесь единственный */
+[data-stp] > .grp{margin:0;padding:26px 0 4px}
+[data-stp] > .grp > .t{display:block;margin-bottom:16px;font-size:21px;line-height:1.25;
+  letter-spacing:-.01em;color:#F3F5FA}
+[data-stp] > .grp .chips{gap:9px}
+[data-stp] > .grp .chip{padding:11px 19px;font-size:14.5px}
+.stp-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08)}
+.stp-nav .btn{padding:11px 24px;font-size:14px}
 .stp-fin{font-size:12.5px;letter-spacing:.04em;color:rgba(124,240,178,.75)}
-.grp{animation:stpIn .3s cubic-bezier(.2,.8,.2,1) backwards}
-@keyframes stpIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.grp{animation:stpIn .32s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes stpIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.grp{animation:none}}
+@media(max-width:640px){
+  [data-stp] > .grp > .t{font-size:18px}
+  .stp-nav{flex-direction:column-reverse;align-items:stretch}
+  .stp-nav .btn{width:100%}
+}
 .ps-cover{position:relative;overflow:hidden;margin-bottom:18px;padding:26px 28px 24px;border-radius:22px;
   background:linear-gradient(150deg,rgba(91,108,255,.17),rgba(25,198,247,.07) 45%,rgba(199,157,240,.14));
   border:1px solid rgba(255,255,255,.14)}
@@ -1177,7 +1193,7 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
   padding:7px 13px;border-radius:999px;color:#E6E9F2;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);transition:.15s}
 .ps-ask-row button:hover{background:rgba(91,108,255,.22);border-color:rgba(91,108,255,.6);color:#fff}
-.ps-gap{border-style:dashed;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.02)}
+.ps-card.ps-gap{border-style:dashed;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.02)}
 .ps-card.ps-gap .ps-k{color:#8B92AA}
 .ps-card.ps-gap .ps-note{color:#9BA2B6}
 .ps-gap-b{margin-top:12px;padding:10px 16px;font-size:11px}
@@ -12727,12 +12743,20 @@ HUB.chips = (st, key, arr, opt={})=>{
     if(sub) sub.style.display = (i===last) ? '' : 'none';
 
     const pct = Math.round((i+1)/grps.length*100);
+    const leftN = grps.length - i - 1;
+    const wordLeft = n => n%10===1 && n%100!==11 ? 'вопрос'
+                        : (n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 'вопроса' : 'вопросов';
     const bar = document.createElement('div');
     bar.className = 'stp-bar';
-    bar.innerHTML = '<div class="stp-dots">' + grps.map((g,n)=>
-        '<i class="'+(n===i?'now':(done(g)?'ok':''))+'" data-n="'+n+'"></i>').join('') + '</div>'
-      + '<span class="stp-n">Шаг ' + (i+1) + ' из ' + grps.length + '</span>'
-      + '<div class="stp-tr"><b style="width:' + pct + '%"></b></div>';
+    /* точками отмечаем шаги, только пока их немного: на четырнадцати они
+       превращались в кашу и налезали на подпись */
+    const dots = grps.length <= 10
+      ? '<div class="stp-dots">' + grps.map((g,n)=>
+          '<i class="'+(n===i?'now':(done(g)?'ok':''))+'" data-n="'+n+'" title="шаг '+(n+1)+'"></i>').join('') + '</div>'
+      : '';
+    bar.innerHTML = '<div class="stp-top"><span class="stp-n">Шаг ' + (i+1) + ' из ' + grps.length + '</span>'
+      + '<span class="stp-left">' + (leftN ? 'осталось ' + leftN + ' ' + wordLeft(leftN) : 'последний') + '</span></div>'
+      + '<div class="stp-tr"><b style="width:' + pct + '%"></b></div>' + dots;
     f.insertBefore(bar, f.firstChild);
 
     const nav = document.createElement('div');
