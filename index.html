@@ -4071,8 +4071,25 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .pop{animation:popIn .55s cubic-bezier(.2,.7,.2,1) both}
 @keyframes fan{from{opacity:0;transform:rotate(-14deg) scale(.6)}to{opacity:1;transform:none}}
 .cs-drapes{width:100%;max-width:440px;display:block;margin:14px auto 8px}
-.cs-drapes .drape{transform-origin:200px 190px;animation:fan .8s cubic-bezier(.2,.8,.2,1) both;transition:transform .25s}
-.cs-drapes .drape:hover{transform:scale(1.06)}
+/* fill-mode было both — анимация держала transform после себя и съедала наведение.
+   backwards отпускает его, поэтому пластина снова слушается курсор. */
+.cs-drapes .drape{transform-origin:200px 190px;transition:transform .25s;
+  animation:fan .8s cubic-bezier(.2,.8,.2,1) backwards, blade 5.5s ease-in-out infinite;
+  animation-delay:var(--d,0s), var(--ph,0s)}
+.cs-drapes .drape:hover{transform:scale(1.07)}
+/* волна идёт по вееру: у каждой пластины своя фаза через --ph */
+@keyframes blade{0%,100%{filter:none}50%{filter:brightness(1.17) saturate(1.1)}}
+.cs-sweep{transform-origin:200px 190px;pointer-events:none;mix-blend-mode:screen;
+  animation:csSweepGo 7s ease-in-out infinite alternate}
+@keyframes csSweepGo{from{transform:rotate(-78deg)}to{transform:rotate(78deg)}}
+.cs-ring{transform-origin:200px 190px;animation:csRing 3.4s ease-out infinite}
+@keyframes csRing{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(1.5);opacity:0}}
+.cs-star{transform-origin:200px 168px;animation:csStar 3.4s ease-in-out infinite}
+@keyframes csStar{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.18)}}
+@media(prefers-reduced-motion:reduce){
+  .cs-drapes .drape{animation:fan .01s backwards}
+  .cs-sweep,.cs-ring,.cs-star{animation:none}
+}
 .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:22px}
 .hub-card{position:relative;text-align:left;padding:18px 16px 16px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);color:#ECEDF2;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-height:150px;transition:transform .25s,border-color .25s,background .25s;overflow:hidden}
 .hub-card::after{content:'';position:absolute;inset:0;background:radial-gradient(400px 120px at var(--mx,50%) 0%,rgba(25,198,247,.16),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
@@ -4115,6 +4132,10 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .rt p{margin-top:4px;font-size:13px;line-height:1.55;color:#D2D6E4}
 .sk-rules{display:grid;gap:6px;margin-top:12px;font-size:13px;color:#D2D6E4;line-height:1.5}
 .sk-week li b{color:#ECEDF2}
+.sk-wk{min-width:0;line-height:1.55}
+.sk-wk b{margin-right:4px}
+/* страховка на будущее: сколько бы кусков ни положили в пункт, они остаются в своей колонке */
+.mk-mist li > *:not(:first-child){min-width:0}
 /* волосы */
 .hr-face .hr-hair{animation:popIn .8s both}
 /* событие */
@@ -4730,7 +4751,7 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 @media(max-width:640px){.pro-card{grid-template-columns:1fr}}
 .pro-card b{font-size:18px;display:block;margin-bottom:6px}
 .pro-card p{font-size:13.5px;line-height:1.55;color:#D2D6E4}
-@media print{ .cs-drapes .drape{animation:none} }
+@media print{ .cs-drapes .drape,.cs-sweep,.cs-ring,.cs-star{animation:none} }
 
 
 /* ================= ПОПАП «ОБРАЗ ДНЯ» v3: небо по времени суток ================= */
@@ -12644,21 +12665,28 @@ function drapeSVG(pal, no){
     const a0 = Math.PI + (Math.PI*i/total), a1 = Math.PI + (Math.PI*(i+1)/total);
     const p = (a, r)=>[cx+r*Math.cos(a), cy+r*Math.sin(a)];
     const [x0,y0]=p(a0,r1),[x1,y1]=p(a1,r1),[x2,y2]=p(a1,r0),[x3,y3]=p(a0,r0);
-    return `<path class="drape" style="animation-delay:${(i*0.05).toFixed(2)}s" d="M${x0.toFixed(1)},${y0.toFixed(1)} A${r1},${r1} 0 0 1 ${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)} A${r0},${r0} 0 0 0 ${x3.toFixed(1)},${y3.toFixed(1)}Z" fill="${col}" fill-opacity="${op}"><title>${''}</title></path>`;
+    return `<path class="drape" style="--d:${(i*0.05).toFixed(2)}s;--ph:${(-i*0.16).toFixed(2)}s" d="M${x0.toFixed(1)},${y0.toFixed(1)} A${r1},${r1} 0 0 1 ${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)} A${r0},${r0} 0 0 0 ${x3.toFixed(1)},${y3.toFixed(1)}Z" fill="${col}" fill-opacity="${op}"><title>${''}</title></path>`;
   };
   return `<svg viewBox="0 0 400 200" class="cs-drapes" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <radialGradient id="csGlow" cx="50%" cy="95%" r="75%">
         <stop offset="0%" stop-color="rgba(199,157,240,.28)"/><stop offset="55%" stop-color="rgba(25,198,247,.10)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/>
       </radialGradient>
+      <linearGradient id="csSweep" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+        <stop offset="60%" stop-color="rgba(255,255,255,.16)"/>
+        <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      </linearGradient>
     </defs>
     <ellipse cx="${cx}" cy="${cy}" rx="196" ry="186" fill="url(#csGlow)"/>
     ${no.map((c,i)=>arc(i, no.length, c[0], R+14, R+30, .1)).join('')}
     ${pal.map((c,i)=>arc(i, n, c[0], 60, R, .96)).join('')}
     ${pal.map((c,i)=>arc(i, n, '#0E101A', 59, 61, .9)).join('')}
+    <g class="cs-sweep"><path d="M${cx},${cy} L${cx-26},${cy-R} A${R},${R} 0 0 1 ${cx+26},${cy-R} Z" fill="url(#csSweep)"/></g>
+    <circle class="cs-ring" cx="${cx}" cy="${cy}" r="53" fill="none" stroke="rgba(199,157,240,.5)" stroke-width="1.5"/>
     <circle cx="${cx}" cy="${cy}" r="53" fill="#0E101A" stroke="rgba(199,157,240,.35)" stroke-width="1.5"/>
     <circle cx="${cx}" cy="${cy}" r="47" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
-    <text x="${cx}" y="${cy-22}" text-anchor="middle" font-size="15" fill="#C7A6F0">✦</text>
+    <text class="cs-star" x="${cx}" y="${cy-22}" text-anchor="middle" font-size="15" fill="#C7A6F0">✦</text>
     <text x="${cx}" y="${cy-6}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#B7BCCC" letter-spacing="2.5">МОИ ЦВЕТА</text>
   </svg>`;
 }
@@ -12872,7 +12900,7 @@ function renderSkin(){
     </div></div>
     <div class="look badv"><div class="look-in"><h3>☀ Утро</h3>${routine(R.am,'am')}</div></div>
     <div class="look badv"><div class="look-in"><h3>☾ Вечер</h3>${routine(R.pm,'pm')}</div></div>
-    <div class="look badv"><div class="look-in"><h3>Раз в неделю</h3><ul class="mk-mist sk-week">${R.week.map(w=>'<li><b>'+w[0]+'.</b> '+w[1]+'</li>').join('')}</ul></div></div>
+    <div class="look badv"><div class="look-in"><h3>Раз в неделю</h3><ul class="mk-mist sk-week">${R.week.map(w=>'<li><div class="sk-wk"><b>'+w[0]+'.</b> '+w[1]+'</div></li>').join('')}</ul></div></div>
     <div class="look badv"><div class="look-in warn-box"><h3>Не покупайте</h3><ul class="mk-mist">${R.no.map(n=>'<li>'+n+'</li>').join('')}</ul></div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Когда это уже к врачу</h3><div class="tip">${R.doc.join('<br><br>')}</div></div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Косметичка ухода</h3>
