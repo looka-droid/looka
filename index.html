@@ -4747,6 +4747,21 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .wd-gap .item .mp{margin-top:4px}
 .wd-gap .item .mp+*{margin-top:12px}
 /* pro */
+/* ---- предложение под готовым образом ---- */
+.offer-look .look-in{background:linear-gradient(140deg,rgba(91,108,255,.16),rgba(25,198,247,.07) 60%,rgba(199,157,240,.12));
+  border:1px solid rgba(124,240,178,.3)}
+.ofr-k{font:600 11px/1 'JetBrains Mono',monospace;letter-spacing:.14em;color:#7CF0B2;margin-bottom:10px}
+.offer-look h3{margin:0 0 8px;font-size:22px;line-height:1.2}
+.ofr-have{margin:0 0 16px;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.72)}
+.ofr-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-bottom:18px}
+.ofr-price{display:flex;align-items:baseline;gap:7px;padding:8px 16px;border-radius:14px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.ofr-price b{font-size:26px;line-height:1;letter-spacing:-.01em}
+.ofr-price span{font-size:12.5px;color:rgba(255,255,255,.6)}
+.ofr-why{display:flex;align-items:center;gap:7px;font-size:12.5px;line-height:1.4;color:rgba(255,255,255,.7)}
+.ofr-why i{font-style:normal;color:#7CF0B2;font-size:12px}
+.offer-look .btn{margin-right:8px}
+@media(max-width:620px){ .ofr-row{flex-direction:column;align-items:flex-start} .offer-look .btn{width:100%;margin:0 0 8px} }
 .pro-card{margin-top:26px;border:1px solid rgba(255,255,255,.12);padding:22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;background:linear-gradient(135deg,rgba(91,108,255,.12),rgba(25,198,247,.06))}
 @media(max-width:640px){.pro-card{grid-template-columns:1fr}}
 .pro-card b{font-size:18px;display:block;margin-bottom:6px}
@@ -7591,19 +7606,20 @@ setInterval(pgDraw, 4000);
   <h2 class="big">Честные условия — <span class="holo">без звёздочек</span></h2>
   <p class="lead">Всё важное — на одной странице, простым языком. Никакого мелкого шрифта, скрытых подписок и «акция действует до полуночи». Мы зарабатываем на хорошем сервисе, а не на невнимательности.</p>
   <div class="plans" id="plans">
-    <button class="plan" data-plan="week" onclick="pickPlan('week')"><small>Неделя</small><b>390 ₽</b><span>попробовать всё · 7 дней</span><em>без автопродления</em></button>
-    <button class="plan on" data-plan="month" onclick="pickPlan('month')"><i class="plan-tag">популярный</i><small>Месяц</small><b>990 ₽</b><span>≈ 33 ₽ в день · все разделы и генерации</span><em>отменяется в один тап</em></button>
-    <button class="plan" data-plan="year" onclick="pickPlan('year')"><i class="plan-tag gold">−58 %</i><small>Год</small><b>4 990 ₽</b><span>≈ 416 ₽ в месяц · 5 месяцев в подарок</span><em>лучшая цена</em></button>
+    <button class="plan" data-plan="mini" onclick="pickPlan('mini')"><small>5 подборов</small><b>149 ₽</b><span>попробовать · 30 ₽ за подбор</span><em>навсегда ваши</em></button>
+    <button class="plan" data-plan="start" onclick="pickPlan('start')"><small>10 подборов</small><b>290 ₽</b><span>29 ₽ за подбор</span><em>навсегда ваши</em></button>
+    <button class="plan on" data-plan="big" onclick="pickPlan('big')"><i class="plan-tag">выбирают чаще</i><small>30 подборов</small><b>690 ₽</b><span>23 ₽ за подбор · берут чаще всего</span><em>навсегда ваши</em></button>
+    <button class="plan" data-plan="max" onclick="pickPlan('max')"><i class="plan-tag gold">−38 %</i><small>100 подборов</small><b>1 790 ₽</b><span>18 ₽ за подбор · лучшая цена</span><em>навсегда ваши</em></button>
   </div>
   <div class="price-card" style="margin-top:14px">
-    <div class="p-name" id="pName">LOOKA · МЕСЯЦ</div>
-    <div class="p-price" id="pPrice">990 ₽</div>
-    <div class="p-once" id="pOnce">30 подборов · не сгорают · без автопродления</div>
+    <div class="p-name" id="pName">LOOKA · 30 ПОДБОРОВ</div>
+    <div class="p-price" id="pPrice">690 ₽</div>
+    <div class="p-once" id="pOnce">30 подборов · остаются у вас навсегда · карта не сохраняется</div>
     <div class="p-refund">✓ 14 дней на возврат первой оплаты: передумали — вернём одним письмом, без выяснения причин</div>
     <div class="p-ref" id="pRef"></div>
-    <div class="p-gift">🎁 Можно <b style="cursor:pointer;border-bottom:1px dotted" onclick="openPage('giftPage')">подарить</b> год LOOKA — именная карточка с кодом для подруги или мамы</div>
+    <div class="p-gift">🎁 Можно <b style="cursor:pointer;border-bottom:1px dotted" onclick="openPage('giftPage')">подарить</b> пакет LOOKA — именная карточка с кодом для подруги или мамы</div>
     <ul class="p-list">
-      <li>Безлимитные подборы образов и пересборки — 8 поводов, включая свадьбу</li>
+      <li>Подборы образов и пересборки — 8 поводов, включая свадьбу</li>
       <li>Бьюти-скан: причёска, стрелки, помада, уход по типу кожи — с косметичкой</li>
       <li>Консилиум: ответы на вопросы о коже, волосах и макияже по правилам профессионалов</li>
       <li>Стиль-паспорт: палитра, размеры во всех сетках мира, формула макияжа — в PDF</li>
@@ -7614,7 +7630,7 @@ setInterval(pgDraw, 4000);
       <li>Капсула сезона и «Событие под ключ»: свадьба, собеседование, свидание — план по дням</li>
       <li>Подбор с учётом вашего фото · все будущие обновления — без доплат</li>
     </ul>
-    <a class="btn primary" href="#" onclick="openPay();return false;">Оформить доступ</a>
+    <a class="btn primary" href="#" onclick="openPay();return false;">Взять пакет подборов</a>
     <div class="p-sub">5 подборов — бесплатно, решение о покупке — после</div>
   </div>
   <div class="pro-card"><div><b>LOOKA Pro — для стилистов и блогеров</b><p>Вести клиенток в одном месте: их анкеты, палитры, гардеробы и капсулы, ваш логотип на паспорте и карточках. Открываем по списку ожидания.</p></div><a class="btn ghost" href="mailto:hello@looka.ru?subject=LOOKA%20Pro%20—%20список%20ожидания">Встать в список →</a></div>
@@ -8869,14 +8885,51 @@ function stopLoader(){
   if(steps) [...steps.children].forEach(li=>li.className='done');
 }
 function updFree(){ const el = document.getElementById('freeCnt'); if(!el) return; if(freeLeft>100){ el.innerHTML = 'ДОСТУП: БЕЗЛИМИТ ✓'; return; } el.innerHTML = (freeLeft>0 ? 'БЕСПЛАТНЫХ ПОДБОРОВ ОСТАЛОСЬ: '+freeLeft+' ИЗ 5' : 'БЕСПЛАТНЫЙ ЛИМИТ ИСЧЕРПАН') + '<span class="has-code" onclick="openPay();payTab(1)">есть код?</span>'; }
+/* Предложение показывается там, где человек только что увидел результат и доволен им,
+   а не стеной на входе. Он платит за то, что уже видел, — это и есть вся «хитрость». */
+function offerAfterLook(){
+  /* esc живёт в другом модуле и сюда не виден — обходимся своей */
+  const e = v => String(v==null?'':v).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  if(freeLeft > 100) return '';            /* уже оплачено */
+  if(freeLeft > 2) return '';              /* рано: пусть спокойно пробует */
+  const mine = (()=>{
+    const have = [];
+    try{ const w = JSON.parse(localStorage.getItem('looka_wardrobe')||'null');
+      if(w && (w.items||[]).length){ const k = w.items.length, k10 = k%10, k100 = k%100;
+        const word = (k10===1 && k100!==11) ? 'вещь'
+                   : (k10>=2 && k10<=4 && (k100<10 || k100>=20)) ? 'вещи' : 'вещей';
+        have.push('ваши ' + k + ' ' + word); } }catch(e){}
+    try{ if(JSON.parse(localStorage.getItem('looka_cs')||'null')) have.push('ваш цветотип'); }catch(e){}
+    try{ const d = JSON.parse(localStorage.getItem('looka_dna')||'null');
+      if(d && (d.styles||[]).length) have.push('Стиль-ДНК'); }catch(e){}
+    return have;
+  })();
+  const P = (window.PLANS && PLANS.mini) || { t:'5 подборов', p:'149 ₽' };
+  return `<div class="look offer-look"><div class="look-in">
+    <div class="ofr-k">${freeLeft > 0 ? 'ОСТАЛОСЬ БЕСПЛАТНЫХ: ' + freeLeft : 'БЕСПЛАТНЫЕ ЗАКОНЧИЛИСЬ'}</div>
+    <h3>Понравился образ? Соберу ещё.</h3>
+    ${mine.length ? `<p class="ofr-have">У меня уже сохранены ${e(mine.join(', '))} — следующие подборы собираются из этого, заново ничего заполнять не нужно.</p>` : ''}
+    <div class="ofr-row">
+      <div class="ofr-price"><b>${P.p}</b><span>${P.t}</span></div>
+      <div class="ofr-why"><i>✓</i>остаются у вас навсегда — не сгорают и не продлеваются</div>
+      <div class="ofr-why"><i>✓</i>карта не сохраняется, само ничего не спишется</div>
+      <div class="ofr-why"><i>✓</i>передумали — вернём за 14 дней одним письмом</div>
+    </div>
+    <button class="btn primary" onclick="pickPlan('mini');openPay()">Взять ${P.t} за ${P.p}</button>
+    <button class="btn ghost" onclick="openPay()">Другие пакеты</button>
+  </div></div>`;
+}
+/* чтобы посмотреть предложение, не расходуя подборы: в консоли setFree(1) */
+window.offerAfterLook = offerAfterLook;
+window.setFree = n=>{ freeLeft = n; updFree(); };
 function showPaywall(){
   stopLoader();
   document.getElementById('loading').style.display='none';
   document.querySelector('.stage').style.display='none';
   document.getElementById('modeTag').textContent='лимит';
   document.getElementById('looks').innerHTML = `<div class="paywall">
-    <h3>Бесплатные подборы закончились</h3>
-    <p>Вы использовали 5 бесплатных подборов. Понравился результат? Полный доступ открывает безлимитные подборы и пересборки — разовый платёж, без подписок.</p>
+    <h3>Пять бесплатных — позади</h3>
+    <p>Дальше подборы идут из пакета: он покупается один раз и остаётся у вас навсегда. Подписки нет, карта не сохраняется и пересборки — разовый платёж, без подписок.</p>
     <button class="btn primary" onclick="openPay()">Условия доступа</button>
   </div>`;
   updFree();
@@ -9856,6 +9909,7 @@ function renderLooks(looks){
   if(S.event==='Свадьба' || S.event==='Торжество') wrap.insertAdjacentHTML('afterbegin', '<div class="look wed-note"><div class="look-in"><h3>Свадебные и вечерние платья — не с маркетплейсов</h3><div class="vibe">Платья и смокинги такого уровня редко бывают на массовых площадках. Поэтому у главных вещей — ссылки на специализированные салоны с онлайн-каталогами и примеркой. Обувь и аксессуары можно брать и на площадках.</div></div></div>');
   stopLoader();
   freeLeft--; updFree();
+  wrap.insertAdjacentHTML('beforeend', offerAfterLook());
   if(window.fxTilt) fxTilt(wrap);
   if(window.fxGlow) fxGlow(wrap);
   if(window.fxZone) fxZone(wrap);
@@ -11282,7 +11336,7 @@ window.sendPay = (how, btn)=>{
   if(btn){ btn.parentElement.querySelectorAll('.btn').forEach(b=>{ b.classList.remove('primary'); b.classList.add('ghost'); }); btn.classList.add('primary'); btn.classList.remove('ghost'); }
   const n = document.getElementById('payName').value.trim(), c = document.getElementById('payPhone').value.trim();
   if(!n || !c){ alert('Заполните имя и способ связи'); return; }
-  const PL = window.PLANS ? PLANS[window.curPlan||'month'] : {t:'месяц',p:'990 ₽'};
+  const PL = (window.PLANS && PLANS[window.curPlan||'big']) || {t:'30 подборов',p:'690 ₽'};
   const txt = 'Хочу оформить LOOKA · '+PL.t+' ('+PL.p+').\nИмя: '+n+'\nСвязь: '+c+'\nСтрана: '+(window.payGeoKey||'ru')+'\n'+((window.payGeoKey||'ru')==='ru'||window.payGeoKey==='by'?'Перевёл(а) на карту, жду код.':'Жду способ оплаты.');
   if(how==='tg') window.open('https://t.me/'+PAY_TG+'?text='+encodeURIComponent(txt), '_blank');
   else location.href = 'mailto:'+PAY_MAIL+'?subject='+encodeURIComponent('Заявка на доступ LOOKA — '+n)+'&body='+encodeURIComponent(txt);
@@ -20252,11 +20306,12 @@ window.dnaBeauty = ()=>{ const parts=[];
 /* Пакеты вместо подписки: ничего не продлевается само, списаний без ведома клиентки нет.
    Пакет не сгорает — тратится по мере подборов. */
 window.PLANS = {
-  start: { t:'10 подборов',  p:'290 ₽',   n:'LOOKA · 10 ПОДБОРОВ',  once:'10 подборов · не сгорают · без автопродления' },
-  big:   { t:'30 подборов',  p:'690 ₽',   n:'LOOKA · 30 ПОДБОРОВ',  once:'30 подборов · не сгорают · без автопродления' },
-  max:   { t:'100 подборов', p:'1 790 ₽', n:'LOOKA · 100 ПОДБОРОВ', once:'100 подборов · не сгорают · без автопродления' }
+  mini:  { t:'5 подборов',   p:'149 ₽',   n:'LOOKA · 5 ПОДБОРОВ',   once:'5 подборов · остаются у вас навсегда · карта не сохраняется' },
+  start: { t:'10 подборов',  p:'290 ₽',   n:'LOOKA · 10 ПОДБОРОВ',  once:'10 подборов · остаются у вас навсегда · карта не сохраняется' },
+  big:   { t:'30 подборов',  p:'690 ₽',   n:'LOOKA · 30 ПОДБОРОВ',  once:'30 подборов · остаются у вас навсегда · карта не сохраняется' },
+  max:   { t:'100 подборов', p:'1 790 ₽', n:'LOOKA · 100 ПОДБОРОВ', once:'100 подборов · остаются у вас навсегда · карта не сохраняется' }
 };
-window.PLAN_HINT = { start:'попробовать', big:'выгоднее на треть', max:'18 ₽ за подбор' };
+window.PLAN_HINT = { mini:'30 ₽ за подбор', start:'29 ₽ за подбор', big:'23 ₽ за подбор · берут чаще всего', max:'18 ₽ за подбор · лучшая цена' };
 /* разовые разборы: покупаются отдельно, подборы на них не тратятся */
 window.ONEOFF = [
   ['Стиль-паспорт в PDF',        '490 ₽',  'ваши цвета, размеры и силуэты одним файлом'],
@@ -20373,7 +20428,7 @@ window.dnaPhotos = async ()=>{
     s.innerHTML=`<div class="sub-col free"><div class="sub-h"><b>Бесплатно и без лимитов</b><span>${free.length} разделов: всё, что можно рассказать о вас словами и схемами — без входа, без карты, сколько угодно раз</span></div><ul>${free.map(it=>li(it,false)).join('')}</ul></div>
       <div class="sub-col paid"><div class="sub-h"><b>PRO · где ИИ работает с вашим фото</b><span>${paid.length} раздела, в которых вы видите себя: другой цвет волос, другой образ, личные доски разбора. Первая примерка — бесплатно</span></div><ul>${paid.map(it=>li(it,!(window.hasAccess&&hasAccess()))).join('')}<li onclick="openPage('myPage')"><i>✈</i><div><b>Находки под ваш стиль</b><span>новые магазины и средства — в Telegram</span></div><em class="${(window.hasAccess&&hasAccess())?'':'pro'}">${(window.hasAccess&&hasAccess())?'✓':'PRO'}</em></li></ul></div>`; }
   const pl=document.getElementById('subPlans');
-  if(pl && window.PLANS){ pl.innerHTML=`<div class="plans">${Object.entries(PLANS).map(([k,v])=>`<button class="plan ${k==='month'?'on':''}" onclick="pickPlan('${k}');openPay()"><small>${v.t}</small><b>${v.p}</b><span>${k==='week'?'попробовать всё · без автопродления':k==='month'?'≈ 33 ₽ в день · все разделы и генерации':'≈ 416 ₽ в месяц · 5 месяцев в подарок'}</span><em>${k==='year'?'лучшая цена':'отменяется в один тап'}</em></button>`).join('')}</div><div class="tip" style="text-align:center;margin-top:10px">Возврат первой оплаты 14 дней одним письмом. Продление — только с вашим подтверждением.</div>`; }
+  if(pl && window.PLANS){ pl.innerHTML=`<div class="plans">${Object.entries(PLANS).map(([k,v])=>`<button class="plan ${k===(window.curPlan||'big')?'on':''}" data-plan="${k}" onclick="pickPlan('${k}');openPay()"><small>${v.t}</small><b>${v.p}</b><span>${(window.PLAN_HINT&&PLAN_HINT[k])||''}</span><em>навсегда ваши</em></button>`).join('')}</div><div class="tip" style="text-align:center;margin-top:10px">Подписки нет: подборы покупаются пакетом и не сгорают. Ничего не списывается само. Возврат первой оплаты — 14 дней одним письмом.</div>`; }
 })();
 
 /* ================= НАСТРОЕНИЕ СЕГОДНЯ ================= */
