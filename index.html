@@ -95,6 +95,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
 .res-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:26px}
 .res-head h2{font-family:'Unbounded';font-weight:800;font-size:clamp(24px,4vw,40px)}
 .looks{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+/* Разборы — это сплошной текст: в колонке 300px строка выходит по 38 знаков,
+   читать неудобно. Даём им две широкие колонки вместо четырёх узких. */
+#hrOut,#skOut,#brOut,#mkOut{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+@media(min-width:1400px){ #hrOut,#skOut,#brOut,#mkOut{grid-template-columns:repeat(2,1fr)} }
 .look{background:var(--card);border-radius:var(--r);border:2px solid var(--ink);overflow:hidden;position:relative;transition:transform .2s}
 .look:hover{transform:translateY(-5px)}
 .look::before{content:'';display:block;height:10px;background:var(--holo);background-size:300% 100%;animation:holoShift 5s linear infinite}
@@ -1093,7 +1097,77 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
 .hl-stop:hover{color:#F4F6FC}
 
 /* незаполненный раздел паспорта — честная карточка, а не пустота под заголовком */
-.ps-card.ps-auto{display:flex;align-items:center;gap:8px;margin:0 0 16px;padding:9px 14px;border-radius:12px;
+.ps-card/* ================= СТИЛЬ-ПАСПОРТ: обложка и сворачиваемые разделы ================= */
+/* ---- пошаговые анкеты ---- */
+.stp-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 22px;padding-bottom:16px;
+  border-bottom:1px solid rgba(255,255,255,.08)}
+.stp-dots{display:flex;gap:6px;order:2;flex-wrap:wrap}
+.stp-dots i{width:26px;height:4px;border-radius:999px;cursor:pointer;
+  background:rgba(255,255,255,.14);transition:.2s}
+.stp-dots i:hover{background:rgba(255,255,255,.3)}
+.stp-dots i.ok{background:rgba(124,240,178,.55)}
+.stp-dots i.now{background:#7CF0B2;box-shadow:0 0 10px rgba(124,240,178,.5)}
+.stp-n{order:1;font:600 11.5px/1 'JetBrains Mono',monospace;letter-spacing:.1em;
+  color:rgba(255,255,255,.5);white-space:nowrap}
+.stp-tr{order:3;flex:1 1 120px;min-width:90px;height:3px;border-radius:999px;
+  background:rgba(255,255,255,.08);overflow:hidden}
+.stp-tr b{display:block;height:100%;border-radius:999px;
+  background:linear-gradient(90deg,#19C6F7,#7CF0B2);transition:width .32s cubic-bezier(.3,.9,.3,1)}
+.stp-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:22px}
+.stp-nav .btn{padding:10px 20px;font-size:13.5px}
+.stp-fin{font-size:12.5px;letter-spacing:.04em;color:rgba(124,240,178,.75)}
+.grp{animation:stpIn .3s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes stpIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.grp{animation:none}}
+.ps-cover{position:relative;overflow:hidden;margin-bottom:18px;padding:26px 28px 24px;border-radius:22px;
+  background:linear-gradient(150deg,rgba(91,108,255,.17),rgba(25,198,247,.07) 45%,rgba(199,157,240,.14));
+  border:1px solid rgba(255,255,255,.14)}
+.ps-cover::after{content:'';position:absolute;inset:-40% -10% auto auto;width:460px;height:460px;
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(199,157,240,.16),transparent 62%)}
+.ps-cv-k{position:relative;z-index:1;font:600 10.5px/1 'JetBrains Mono',monospace;letter-spacing:.16em;color:#7CF0B2}
+.ps-cv-name{position:relative;z-index:1;margin:10px 0 0;font-size:30px;line-height:1.1;letter-spacing:-.02em}
+.ps-cv-facts{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.ps-cv-facts div{display:flex;align-items:baseline;gap:7px;padding:7px 13px;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.ps-cv-facts span{font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.5)}
+.ps-cv-facts b{font-size:13.5px;color:#EDEFF5}
+.ps-cv-split{position:relative;z-index:1;display:grid;grid-template-columns:1.35fr 1fr;gap:26px;margin-top:22px}
+@media(max-width:860px){.ps-cv-split{grid-template-columns:1fr;gap:18px}}
+.ps-cv-col .ps-k2{margin-top:16px}
+.ps-cv-col > .ps-k2:first-child{margin-top:0}
+.ps-cv-sz{display:flex;flex-wrap:wrap;gap:7px}
+.ps-cv-sz div{display:flex;align-items:baseline;gap:5px;padding:5px 11px;border-radius:10px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.ps-cv-sz span{font-size:10.5px;letter-spacing:.06em;color:rgba(255,255,255,.45)}
+.ps-cv-sz b{font-size:14px}
+.ps-cv-fit{position:relative;z-index:1;margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)}
+.ps-cv-fit > b{display:block;margin-bottom:9px;font-size:13px;letter-spacing:.05em;
+  text-transform:uppercase;color:#C9F7DD}
+.ps-bar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.ps-bar .btn{padding:8px 16px;font-size:13px}
+/* раздел-гармошка */
+.ps-acc{margin-bottom:10px;border-radius:18px;overflow:hidden;
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.1)}
+.ps-acc .ps-sec{display:flex;align-items:center;gap:12px;width:100%;cursor:pointer;
+  margin:0;padding:15px 20px;border:0;background:none;font:inherit;text-align:left;
+  color:#EDEFF5;transition:background .16s}
+.ps-acc .ps-sec:hover{background:rgba(255,255,255,.04)}
+.ps-acc .ps-sec > i{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:10px;
+  font-style:normal;font-size:14px;color:var(--pc,#19C6F7);
+  background:color-mix(in srgb, var(--pc,#19C6F7) 16%, transparent);
+  border:1px solid color-mix(in srgb, var(--pc,#19C6F7) 38%, transparent)}
+.ps-sec-n{flex:1 1 auto;font-size:14.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.ps-sec-c{flex:none;min-width:22px;height:22px;display:grid;place-items:center;padding:0 7px;
+  border-radius:999px;font-style:normal;font-size:11.5px;font-weight:600;
+  color:rgba(255,255,255,.62);background:rgba(255,255,255,.07)}
+.ps-sec-ch{flex:none;text-decoration:none;font-size:13px;color:rgba(255,255,255,.45);
+  transition:transform .22s}
+.ps-acc.open .ps-sec-ch{transform:rotate(180deg)}
+.ps-acc > .ps-grid{display:none;padding:0 20px 18px}
+.ps-acc.open > .ps-grid{display:grid}
+@media print{ .ps-acc > .ps-grid{display:grid!important} .ps-bar,.ps-sec-ch{display:none} }
+.ps-auto{display:flex;align-items:center;gap:8px;margin:0 0 16px;padding:9px 14px;border-radius:12px;
   font-size:13px;line-height:1.45;color:#C9F7DD;background:rgba(124,240,178,.1);
   border:1px solid rgba(124,240,178,.28)}
 .ps-ask{border-style:dashed;border-color:rgba(91,108,255,.4);background:rgba(91,108,255,.07)}
@@ -4762,6 +4836,10 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .ofr-why i{font-style:normal;color:#7CF0B2;font-size:12px}
 .offer-look .btn{margin-right:8px}
 @media(max-width:620px){ .ofr-row{flex-direction:column;align-items:flex-start} .offer-look .btn{width:100%;margin:0 0 8px} }
+.p-for{margin-top:12px;padding:12px 16px;border-radius:14px;font-size:13.5px;line-height:1.55;text-align:left;
+  color:rgba(255,255,255,.74);background:rgba(124,240,178,.08);border:1px solid rgba(124,240,178,.24)}
+.p-for b{color:#C9F7DD}
+.p-same{margin-top:18px;font-size:12.5px;letter-spacing:.02em;color:rgba(255,255,255,.52)}
 .pro-card{margin-top:26px;border:1px solid rgba(255,255,255,.12);padding:22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;background:linear-gradient(135deg,rgba(91,108,255,.12),rgba(25,198,247,.06))}
 @media(max-width:640px){.pro-card{grid-template-columns:1fr}}
 .pro-card b{font-size:18px;display:block;margin-bottom:6px}
@@ -6045,7 +6123,8 @@ header nav.topnav{gap:4px;align-items:center}
 .dna-cta .btn{align-self:flex-start;margin-top:6px}
 
 /* ================= ТАРИФЫ ================= */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+@media(max-width:1100px){.plans{grid-template-columns:repeat(2,1fr)}}
 .plan{position:relative;text-align:left;padding:18px 18px 16px;border-radius:18px;cursor:pointer;color:#ECEDF2;
   border:1.5px solid rgba(255,255,255,.14);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));transition:transform .2s,border-color .2s,box-shadow .2s}
 .plan:hover{transform:translateY(-3px);border-color:rgba(199,157,240,.5)}
@@ -7615,9 +7694,11 @@ setInterval(pgDraw, 4000);
     <div class="p-name" id="pName">LOOKA · 30 ПОДБОРОВ</div>
     <div class="p-price" id="pPrice">690 ₽</div>
     <div class="p-once" id="pOnce">30 подборов · остаются у вас навсегда · карта не сохраняется</div>
+    <div class="p-for" id="pFor"><b>Хватит на сезон целиком.</b> <span>Осень или зима от начала до конца: будни, выходы, поездка, разбор гардероба и пересборки. Отсюда и берут чаще всего.</span></div>
     <div class="p-refund">✓ 14 дней на возврат первой оплаты: передумали — вернём одним письмом, без выяснения причин</div>
     <div class="p-ref" id="pRef"></div>
     <div class="p-gift">🎁 Можно <b style="cursor:pointer;border-bottom:1px dotted" onclick="openPage('giftPage')">подарить</b> пакет LOOKA — именная карточка с кодом для подруги или мамы</div>
+    <div class="p-same">В любом пакете открыто всё — пакеты отличаются только числом подборов:</div>
     <ul class="p-list">
       <li>Подборы образов и пересборки — 8 поводов, включая свадьбу</li>
       <li>Бьюти-скан: причёска, стрелки, помада, уход по типу кожи — с косметичкой</li>
@@ -11680,7 +11761,7 @@ function passportCover(p, male, X, sizes){
     + fact('рост', S.height ? S.height+' см' : '')
     + fact('контраст', M.contrast)
     + fact('температура', M.cold ? 'холодная' : 'тёплая')
-    + fact('металл', p.metal);
+    + fact('металл', M.cold ? 'серебристый' : 'золотистый');
   const hexOf = c => (typeof COLOR_HEX!=='undefined' && COLOR_HEX[c]) || ({'оранжевый':'#F0741E','тёплый жёлтый':'#F2C94C','терракотовый':'#C1553B','хаки':'#6B7A3A','фуксия':'#E0218A','ледяной голубой':'#BFE6F5','белоснежный':'#FFFFFF','холодный лиловый':'#9C7BD1'})[c] || '#777';
   const sw  = c => '<div class="ps-sw"><i style="background:'+hexOf(c)+'"></i><span>'+c+'</span></div>';
   const swX = c => '<div class="ps-sw off"><i style="background:'+hexOf(c)+'"></i><span>'+c+'</span></div>';
@@ -11703,7 +11784,7 @@ function passportCover(p, male, X, sizes){
       + '<div class="ps-cv-col">'
         + '<div class="ps-k2">Одежда</div><div class="ps-sizes ps-cv-sz">'+sizes.cloth+'</div>'
         + '<div class="ps-k2">Обувь</div><div class="ps-sizes ps-cv-sz">'+sizes.shoe+'</div>'
-        + '<div class="ps-k2">Металл украшений</div><div class="ps-metal '+(p.metal==='серебристый'?'silver':'gold')+'">'+p.metal+'</div>'
+        + '<div class="ps-k2">Металл украшений</div><div class="ps-metal '+(M.cold?'silver':'gold')+'">'+(M.cold?'серебристый':'золотистый')+'</div>'
       + '</div>'
     + '</div>'
     + '<div class="ps-cv-fit"><b>В примерочной</b><ul class="tp-list">'+fitting.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'
@@ -11753,9 +11834,17 @@ function passportHTML(){
                    + '<button class="btn ghost ps-gap-b" onclick="'+gap.go+'">'+gap.b+'</button></div>'
                  : '');
         if(!body) return '';
-        return '<div class="ps-sec" style="--pc:'+col+'"><i>'+ic+'</i>'+name+'</div>'
-             + '<div class="ps-grid" style="--pc:'+col+'">'+body+'</div>';
+        /* Раздел сворачивается: раньше паспорт был сплошной стеной на несколько тысяч
+           пикселей, и в магазине пролистать его до нужного места было невозможно. */
+        const id = 'psS' + (++psN);
+        const cnt = real.length ? (' · ' + real.length) : '';
+        return '<div class="ps-acc'+(psN<=2?' open':'')+'" id="'+id+'" style="--pc:'+col+'">'
+             + '<button class="ps-sec" type="button" aria-expanded="'+(psN<=2?'true':'false')+'" onclick="psToggle(\''+id+'\')">'
+               + '<i>'+ic+'</i><span class="ps-sec-n">'+name+'</span>'
+               + '<em class="ps-sec-c">'+cnt.replace(' · ','')+'</em><s class="ps-sec-ch">▾</s></button>'
+             + '<div class="ps-grid">'+body+'</div></div>';
       };
+      let psN = 0;
       const C = {
         color: (S.hair && S.eyes && S.skin) ? `<div class="ps-card"><div class="ps-k">ЦВЕТОТИП${(()=>{ try{ const cs=JSON.parse(localStorage.getItem('looka_cs')||'null'); return cs&&cs.season?' · '+cs.season.toUpperCase():''; }catch(e){ return ''; } })()}</div><div class="ps-prof">${S.hair} · ${S.eyes.toLowerCase()} глаза · ${S.skin.toLowerCase()} тон</div><p class="ps-note">${p.note}</p><div class="ps-k2">Акценты — у лица</div><div class="ps-sws">${p.accents.slice(0,4).map(swatch).join('')}</div><div class="ps-k2">База — низ и верхняя одежда</div><div class="ps-sws">${p.neutrals.map(swatch).join('')}</div><div class="ps-k2">Обувь и сумка — одна гамма</div><div class="ps-sws">${p.shoes.map(swatch).join('')}</div><div class="ps-k2">Металл украшений</div><div class="ps-metal ${p.metal==='серебристый'?'silver':'gold'}">${p.metal}</div></div>` : '',
         figure: S.figure ? `<div class="ps-card"><div class="ps-k">ФИГУРА · ${S.figure.toUpperCase()}</div><ul class="tp-list">${fig.map(x=>'<li>'+x+'</li>').join('')}${focus.map(f=>'<li>'+f.tip+'</li>').join('')}<li>${FIGN[S.figure]||'силуэт по фигуре'}</li></ul></div>` : '',
@@ -11766,7 +11855,18 @@ function passportHTML(){
       };
       /* чего нет в анкете — спрашиваем прямо здесь, карточкой с кнопками */
       const ask = k => S[k] ? '' : psAsk(k);
-      return G('ЦВЕТ','◐','#19C6F7',[C.color, ask('hair'), ask('eyes'), ask('skin'), X.temp, X.avoid],
+      /* те же сетки, что в разделе «Размеры», но компактно — чтобы в примерочной
+         не листать до конца документа */
+      const szCloth = S.clothSize
+        ? `<div><span>RU</span><b>${c}</b></div><div><span>EU</span><b>${eu}</b></div><div><span>US</span><b>${us}</b></div><div><span>UK</span><b>${uk}</b></div>`
+        : '<div><span>RU</span><b>—</b></div>';
+      const szShoe = S.shoeSize
+        ? `<div><span>RU</span><b>${s}</b></div><div><span>EU</span><b>${seu}</b></div><div><span>US</span><b>${sus}</b></div><div><span>UK</span><b>${suk}</b></div>`
+        : '<div><span>RU</span><b>—</b></div>';
+      return passportCover(p, male, X, { cloth: szCloth, shoe: szShoe })
+        + '<div class="ps-bar"><button class="btn ghost" id="psAllBtn" type="button" onclick="psAll(!this.dataset.open)">▾ Развернуть все разделы</button>'
+          + '<button class="btn ghost" type="button" onclick="window.print()">Распечатать</button></div>'
+        + G('ЦВЕТ','◐','#19C6F7',[C.color, ask('hair'), ask('eyes'), ask('skin'), X.temp, X.avoid],
                 {t:'Пройдите цветотип — и сюда встанут ваши 24 цвета, база и список «не к лицу».', b:'Пройти цветотип', go:"closePage();setTimeout(()=>openColor(),250)"})
         + G('ФИГУРА И ФОРМЫ','◈','#FF6FBF',[C.figure, ask('figure'), X.fab, X.prints, X.lengths],
                 {t:'Укажите тип фигуры в анкете — появятся силуэты, длины и принты под вас.', b:'Заполнить анкету', go:"closePage();setTimeout(()=>goQuiz(),250)"})
@@ -11784,8 +11884,19 @@ function passportHTML(){
   </div>`;
 }
 /* ===== стиль-паспорт: расширенные карточки ===== */
+/* Сезон из раздела «Цветотип» считается по 7 ответам, а паспорт прикидывает
+   температуру по волосам и коже. Где есть сезон — верим ему, иначе обложка
+   утверждала «Тёмная зима» и «температура тёплая» одновременно. */
+function seasonCold(){
+  let n = ''; try{ n = ((JSON.parse(localStorage.getItem('looka_cs')||'null')||{}).season)||''; }catch(e){}
+  if(!n) return null;
+  if(/зим|лет/i.test(n)) return true;
+  if(/весн|осен/i.test(n)) return false;
+  return null;
+}
 function passportExtra(p, male){
-  const cold = p.metal==='серебристый';
+  const sc = seasonCold();
+  const cold = (sc === null) ? (p.metal==='серебристый') : sc;
   const hairDark = ['Чёрный','Каштановый'].includes(S.hair), hairLight = ['Блонд','Пепельный'].includes(S.hair), skinLight = ['Фарфоровый','Светлый'].includes(S.skin), skinDark = ['Смуглый','Тёмный'].includes(S.skin);
   const contrast = (hairDark && skinLight) || (hairLight && skinDark) || S.eyes==='Чёрные' && skinLight ? 'высокий' : (hairLight && skinLight) || (hairDark && skinDark) ? 'низкий' : 'средний';
   const avoid = cold ? ['оранжевый','тёплый жёлтый','терракотовый','хаки'] : ['фуксия','ледяной голубой','белоснежный','холодный лиловый'];
@@ -12396,7 +12507,7 @@ window.PICTO = (()=>{
 window.PICTO = PICTO;
 function mkChips(key, arr, colored){
   const ic = PICTO[key];
-  return '<div class="chips'+(ic?' pict':'')+'">' + arr.map(v=>{
+  return '<div class="chips'+(ic?' pict':'')+'"'+(multi?' data-multi="1"':'')+'>' + arr.map(v=>{
     const col = colored ? (colored.find(c=>c[0]===v)||[])[1] : null;
     return `<button class="chip ${M[key]===v?'on':''}" data-k="${key}" data-v="${v.replace(/"/g,'&quot;')}" ${ic&&ic[v]?`data-hint="${key}:${v.replace(/"/g,'&quot;')}"`:''} onclick="mkPick('${key}','${v.replace(/'/g,"\\'")}')">${ic&&ic[v]?ic[v]:''}${col?`<i class="sw" style="background:${col}"></i>`:''}${v}${ic&&ic[v]&&window.hintBtn?hintBtn(key,v):''}</button>`;
   }).join('') + '</div>';
@@ -12581,12 +12692,80 @@ HUB.grp = (t, inner)=>`<div class="grp"><label class="t">${t}</label>${inner}</d
 HUB.chips = (st, key, arr, opt={})=>{
   const {colored, multi, pick, icons} = opt;
   const ic = icons || (window.PICTO && PICTO[key]);
-  return '<div class="chips'+(ic?' pict':'')+'">' + arr.map(v=>{
+  return '<div class="chips'+(ic?' pict':'')+'"'+(multi?' data-multi="1"':'')+'>' + arr.map(v=>{
     const col = colored ? (colored.find(c=>c[0]===v)||[])[1] : null;
     const on = multi ? (st[key]||[]).includes(v) : st[key]===v;
     return `<button class="chip ${on?'on':''}" data-k="${key}" data-v="${String(v).replace(/"/g,'&quot;')}" onclick="${pick}('${key}','${String(v).replace(/'/g,"\\'")}')">${ic&&ic[v]?ic[v]:''}${col?`<i class="sw" style="background:${col}"></i>`:''}${v}</button>`;
   }).join('') + '</div>';
 };
+/* ===== Пошаговый режим анкет =====
+   Длинная анкета в один экран пугает: видно шесть блоков сразу и кажется, что
+   это надолго. Показываем по одному вопросу. Работает поверх любой анкеты,
+   собранной через HUB.grp, — переписывать сами анкеты не нужно. */
+(function(){
+  const POS = {};        /* на каком шаге каждая анкета */
+  const BUSY = {};       /* чтобы наблюдатель не зациклился на своих же правках */
+
+  const apply = id=>{
+    const f = document.getElementById(id); if(!f) return;
+    const grps = [...f.children].filter(el=>el.classList && el.classList.contains('grp'));
+    if(grps.length < 3) return;            /* короткие анкеты дробить незачем */
+    BUSY[id] = true;
+    f.querySelectorAll('.stp-bar,.stp-nav').forEach(el=>el.remove());
+
+    const done = g => {
+      const c = g.querySelector('.chips');
+      if(!c) return !!g.querySelector('input,select,textarea');
+      return !!c.querySelector('.chip.on');
+    };
+    const last = grps.length - 1;
+    let i = Math.min(Math.max(POS[id]|0, 0), last);
+    POS[id] = i;
+
+    grps.forEach((g,n)=>{ g.style.display = (n===i) ? '' : 'none'; });
+    const sub = [...f.children].find(el=>el.tagName==='BUTTON');
+    if(sub) sub.style.display = (i===last) ? '' : 'none';
+
+    const pct = Math.round((i+1)/grps.length*100);
+    const bar = document.createElement('div');
+    bar.className = 'stp-bar';
+    bar.innerHTML = '<div class="stp-dots">' + grps.map((g,n)=>
+        '<i class="'+(n===i?'now':(done(g)?'ok':''))+'" data-n="'+n+'"></i>').join('') + '</div>'
+      + '<span class="stp-n">Шаг ' + (i+1) + ' из ' + grps.length + '</span>'
+      + '<div class="stp-tr"><b style="width:' + pct + '%"></b></div>';
+    f.insertBefore(bar, f.firstChild);
+
+    const nav = document.createElement('div');
+    nav.className = 'stp-nav';
+    nav.innerHTML = (i>0 ? '<button class="btn ghost" data-go="-1">← Назад</button>' : '<span></span>')
+      + (i<last ? '<button class="btn primary" data-go="1">Далее →</button>'
+                : '<span class="stp-fin">последний шаг</span>');
+    if(sub && i===last) f.insertBefore(nav, sub); else f.appendChild(nav);
+
+    const go = d => { POS[id] = Math.min(Math.max(i+d, 0), last); apply(id); };
+    nav.querySelectorAll('[data-go]').forEach(b=>b.onclick = ()=>go(+b.dataset.go));
+    bar.querySelectorAll('.stp-dots i').forEach(d=>{
+      d.onclick = ()=>{ POS[id] = +d.dataset.n; apply(id); };
+    });
+    BUSY[id] = false;
+  };
+
+  /* анкета перерисовывается целиком при каждом ответе — ловим это и возвращаем шаги */
+  window.stepForm = id=>{
+    const f = document.getElementById(id); if(!f) return;
+    if(f.dataset.stp){ apply(id); return; }
+    f.dataset.stp = '1';
+    new MutationObserver(()=>{ if(!BUSY[id]) setTimeout(()=>apply(id), 0); })
+      .observe(f, { childList:true });
+    apply(id);
+  };
+    window.STEP_POS = POS;
+  /* включаем на всех анкетах разом: какая откроется — та и будет пошаговой */
+  const FORMS = ['mkForm','ctForm','skForm','hrForm','evForm','cpForm','brForm','glForm'];
+  const arm = ()=>FORMS.forEach(id=>{ if(document.getElementById(id)) stepForm(id); });
+  if(document.readyState!=='loading') setTimeout(arm, 600);
+  else document.addEventListener('DOMContentLoaded', ()=>setTimeout(arm, 600));
+})();
 HUB.pop = (html, i)=>`<div class="pop" style="animation-delay:${(i*0.06).toFixed(2)}s">${html}</div>`;
 HUB.pick = (st, key, v, multi)=>{ if(multi){ const a = st[key]||[]; const i = a.indexOf(v); i<0 ? a.push(v) : a.splice(i,1); st[key]=a; } else st[key]=v; };
 HUB.done = (out)=>{ if(window.fxTilt) fxTilt(out); if(window.fxGlow) fxGlow(out); if(window.fxZone) fxZone(out); glide(out, 110, 950); };
@@ -14615,8 +14794,29 @@ const ARTS = [
   ] }
 ];
 
-window.artOpen = k=>{ A.open=k; A.read[k]=true; saveA(); renderArts(); window.scrollTo({top:0,behavior:'smooth'}); };
-window.artBack = ()=>{ A.open=null; saveA(); renderArts(); };
+/* Статья и список статей — одна и та же страница, разным было только A.open.
+   Поэтому браузерная «назад» уносила со страницы целиком вместо возврата
+   к списку. Теперь у каждой статьи своя запись в истории. */
+window.artOpen = k=>{
+  A.open=k; A.read[k]=true; saveA(); renderArts();
+  try{ history.pushState({ looka:1, page:'artPage', art:k }, '', '#articles/'+k); }catch(e){}
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+window.artBack = (fromHistory)=>{
+  A.open=null; saveA(); renderArts();
+  if(!fromHistory){ try{ history.pushState({ looka:1, page:'artPage', art:'' }, '', '#articles'); }catch(e){} }
+};
+/* возврат и переход вперёд по истории внутри раздела статей */
+const artActive = ()=>{ const el = document.getElementById('artPage');
+  return !!el && (el.classList.contains('active') || getComputedStyle(el).display !== 'none'); };
+addEventListener('popstate', ()=>{
+  if(!artActive()) return;
+  const m = /^#articles\/([a-z0-9_-]+)/i.exec(location.hash||'');
+  const want = m ? m[1] : null;
+  if(want === A.open) return;
+  if(want && ARTS.some(x=>x.k===want)){ A.open = want; saveA(); renderArts(); }
+  else if(A.open){ artBack(true); }
+});
 
 const block = (x,C)=>{
   if(x.b==='p') return `<p>${x.t}</p>`;
@@ -14650,6 +14850,23 @@ window.renderArts = ()=>{
   if(window.fxZone) fxZone(box);
 };
 window.openArts = (k)=>{ if(k!==undefined) A.open=k; openPage('artPage'); setTimeout(renderArts,60); };
+/* вход сразу на статью по прямой ссылке #articles/<ключ> */
+(function(){
+  const bySlug = ()=>{
+    if(!/^#articles/.test(location.hash||'')) return;
+    const m = /^#articles\/([a-z0-9_-]+)/i.exec(location.hash||'');
+    const key = (m && ARTS.some(x=>x.k===m[1])) ? m[1] : null;
+    A.open = key; saveA();
+    /* по ссылке #articles/<ключ> страница должна открыться сама, а не только перерисоваться */
+    const el = document.getElementById('artPage');
+    const shown = el && (el.classList.contains('active') || getComputedStyle(el).display !== 'none');
+    if(!shown && window.openPage) openPage('artPage');
+    setTimeout(renderArts, 40);
+  };
+  addEventListener('hashchange', bySlug);
+  if(document.readyState!=='loading') setTimeout(bySlug, 420);
+  else document.addEventListener('DOMContentLoaded', ()=>setTimeout(bySlug, 420));
+})();
 })();
 
 /* ================= ДОКУМЕНТЫ: каждый подпункт с новой строки ================= */
@@ -20311,6 +20528,14 @@ window.PLANS = {
   big:   { t:'30 подборов',  p:'690 ₽',   n:'LOOKA · 30 ПОДБОРОВ',  once:'30 подборов · остаются у вас навсегда · карта не сохраняется' },
   max:   { t:'100 подборов', p:'1 790 ₽', n:'LOOKA · 100 ПОДБОРОВ', once:'100 подборов · остаются у вас навсегда · карта не сохраняется' }
 };
+/* Пакеты отличаются ТОЛЬКО числом подборов — возможности у всех одинаковые.
+   Поэтому вместо выдуманных «уровней доступа» показываем, на что хватит по времени. */
+window.PLAN_FOR = {
+  mini:  ['одно событие или одну неделю', 'Свидание, собеседование, поездка на выходные — собрать пару образов и посмотреть, как это работает.'],
+  start: ['месяц обычной жизни', 'Образ на каждое утро пару раз в неделю плюс пара выходов. Хватает, чтобы привыкнуть одеваться быстро.'],
+  big:   ['сезон целиком', 'Осень или зима от начала до конца: будни, выходы, поездка, разбор гардероба и пересборки. Отсюда и берут чаще всего.'],
+  max:   ['год с запасом', 'Все четыре сезона, отпуска, события и сколько угодно пересборок. Дешевле всего за подбор и дальше можно не думать о счёте.']
+};
 window.PLAN_HINT = { mini:'30 ₽ за подбор', start:'29 ₽ за подбор', big:'23 ₽ за подбор · берут чаще всего', max:'18 ₽ за подбор · лучшая цена' };
 /* разовые разборы: покупаются отдельно, подборы на них не тратятся */
 window.ONEOFF = [
@@ -20385,6 +20610,8 @@ window.pickPlan = k=>{ if(!PLANS[k]) return; window.curPlan=k; try{ localStorage
   document.querySelectorAll('.plan').forEach(b=>b.classList.toggle('on', b.dataset.plan===k));
   const P=PLANS[k]; const s=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
   s('pName',P.n); s('pPrice',P.p); s('pOnce',P.once); s('payPlanName',P.n+' · '+P.p);
+  const f = (window.PLAN_FOR||{})[k], fe = document.getElementById('pFor');
+  if(fe && f) fe.innerHTML = '<b>Хватит на ' + f[0] + '.</b> <span>' + f[1] + '</span>';
   const el=document.getElementById('pRef'); if(el && el.innerHTML){ el.innerHTML = el.innerHTML.replace(/на (неделю|месяц|год)/,'на '+(k==='week'?'неделю':k==='month'?'месяц':'год')); }
 };
 document.addEventListener('DOMContentLoaded', ()=>pickPlan(window.curPlan));
