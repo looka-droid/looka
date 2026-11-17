@@ -1123,6 +1123,16 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
   letter-spacing:-.01em;color:#F3F5FA}
 [data-stp] > .grp .chips{gap:9px}
 [data-stp] > .grp .chip{padding:11px 19px;font-size:14.5px}
+.stp-bad > .t{color:#FFB4BE}
+.stp-bad .chips .chip{border-color:rgba(255,106,124,.45)}
+.stp-bad{animation:stpShake .4s cubic-bezier(.36,.07,.19,.97)}
+@keyframes stpShake{10%,90%{transform:translateX(-2px)}30%,70%{transform:translateX(4px)}50%{transform:translateX(-4px)}}
+.stp-err{display:flex;align-items:center;gap:8px;margin-top:14px;padding:10px 14px;border-radius:12px;
+  font-size:13px;line-height:1.45;color:#FFC9D0;
+  background:rgba(255,106,124,.1);border:1px solid rgba(255,106,124,.38)}
+.stp-err::before{content:'!';flex:none;display:grid;place-items:center;width:18px;height:18px;
+  border-radius:50%;font:700 11px/1 system-ui;color:#1A0E12;background:#FF8A98}
+@media(prefers-reduced-motion:reduce){.stp-bad{animation:none}}
 .stp-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
   margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08)}
 .stp-nav .btn{padding:11px 24px;font-size:14px}
@@ -12772,13 +12782,35 @@ HUB.chips = (st, key, arr, opt={})=>{
                 : '<span class="stp-fin">последний шаг</span>');
     if(sub && i===last) f.insertBefore(nav, sub); else f.appendChild(nav);
 
-    const go = d => { POS[id] = Math.min(Math.max(POS[id] + d, 0), last); apply(id); };
+    /* Вперёд — только с ответом. Молча не пускать нельзя: человек решит, что
+       кнопка сломана, как и случилось бы раньше. Поэтому говорим, чего ждём. */
+    const warn = ()=>{
+      const g = grps[POS[id]]; if(!g) return;
+      g.classList.remove('stp-bad'); void g.offsetWidth; g.classList.add('stp-bad');
+      if(!g.querySelector('.stp-err')){
+        const e = document.createElement('div');
+        e.className = 'stp-err';
+        e.textContent = single(g) ? 'Выберите один вариант, чтобы идти дальше'
+                                  : 'Отметьте хотя бы один вариант — есть «Ничего не беспокоит»';
+        const c = g.querySelector('.chips'); (c ? c.parentNode : g).appendChild(e);
+      }
+      g.scrollIntoView({ block:'nearest', behavior:'smooth' });
+    };
+    const go = d => {
+      if(d > 0 && grps[POS[id]] && grps[POS[id]].querySelector('.chips') && !answered(grps[POS[id]])){ warn(); return; }
+      POS[id] = Math.min(Math.max(POS[id] + d, 0), last); apply(id);
+    };
     nav.querySelectorAll('[data-go]').forEach(b=>{
       b.addEventListener('click', ev=>{ ev.preventDefault(); ev.stopPropagation(); go(+b.dataset.go); });
     });
     bar.querySelectorAll('.stp-dots i').forEach(d=>{
       d.addEventListener('click', ()=>{ POS[id] = +d.dataset.n; apply(id); });
     });
+    /* как только ответ появился — предупреждение больше не нужно */
+    if(external && answered(grps[i])){
+      grps[i].classList.remove('stp-bad');
+      const e = grps[i].querySelector('.stp-err'); if(e) e.remove();
+    }
 
     /* Ответ на вопрос с одним выбором сам листает дальше — лишний клик по «Далее»
        на четырнадцати шагах утомляет. Где можно выбрать несколько, ждём кнопку. */
@@ -18707,7 +18739,7 @@ document.addEventListener('keydown', e=>{
 (function(){
 const G = HUB.ls('looka_glow', { age:null, focus:[], sun:null, sleep:null, hab:[], lvl:null, budget:null, skin:null, climate:null, preg:null, sens:[], health:[], act:null, time:null, plan:null });
 const AGE = ['18–24','25–34','35–44','45–54','55+'];
-const FOCUS = ['Сухость и стянутость','Тусклость, нет сияния','Пигментные пятна','Упругость овала','Морщинки у глаз','Расширенные поры','Краснота и сосуды','Высыпания'];
+const FOCUS = ['Сухость и стянутость','Тусклость, нет сияния','Пигментные пятна','Упругость овала','Морщинки у глаз','Расширенные поры','Краснота и сосуды','Высыпания','Ничего не беспокоит'];
 const SUN = ['Почти не бываю на солнце','Умеренно — город, прогулки','Много: юг, спорт на улице'];
 const SLEEP = ['Меньше 6 часов','6–7 часов','7–9 часов'];
 const HAB = ['Курю','Часто алкоголь','Много сахара','Мало воды','Высокий стресс','Сплю на животе/боку лицом в подушку','Спорт 2+ раза в неделю','Ничего из этого'];
@@ -18723,8 +18755,10 @@ const GTIME = ['5 минут','10–15 минут','Готова на полно
 
 window.glPick = (k,v)=>{
   if(k==='focus'||k==='hab'||k==='sens'||k==='health'){
-    if(v==='Ничего из этого'){ G[k] = ['Ничего из этого']; }
-    else { const a = (G[k]||[]).filter(x=>x!=='Ничего из этого'); const i = a.indexOf(v); i<0 ? a.push(v) : a.splice(i,1); G[k] = a; }
+    /* «ничего…» — вариант-одиночка: снимает остальные и снимается сам при любом другом выборе */
+    const none = x => /^Ничего/i.test(String(x||''));
+    if(none(v)){ G[k] = (G[k]||[]).includes(v) ? [] : [v]; }
+    else { const a = (G[k]||[]).filter(x=>!none(x)); const i = a.indexOf(v); i<0 ? a.push(v) : a.splice(i,1); G[k] = a; }
   } else G[k] = v;
   HUB.save('looka_glow', G);
   const box = document.getElementById('glForm'); if(box) renderGlowForm();
