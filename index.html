@@ -1123,6 +1123,45 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
   letter-spacing:-.01em;color:#F3F5FA}
 [data-stp] > .grp .chips{gap:9px}
 [data-stp] > .grp .chip{padding:11px 19px;font-size:14.5px}
+/* ---- «Что работает»: каждому принципу свой цвет ---- */
+.gl-p{--g1:#19C6F7;--g2:#5B6CFF}
+.gl-c0{--g1:#FFC46B;--g2:#FF7A5C}
+.gl-c1{--g1:#9B8CFF;--g2:#5B6CFF}
+.gl-c2{--g1:#4FE3C1;--g2:#19A5C7}
+.gl-c3{--g1:#FF9ECF;--g2:#C77DFF}
+.gl-c4{--g1:#7CF0B2;--g2:#19C6F7}
+.gl-c5{--g1:#FFD98A;--g2:#FF9ECF}
+.gl-pill .gl-p{position:relative;overflow:hidden;padding:20px;border-radius:18px;
+  background:linear-gradient(168deg,
+    color-mix(in srgb, var(--g1) 12%, transparent),
+    color-mix(in srgb, var(--g2) 8%, transparent) 58%, rgba(255,255,255,.012));
+  border:1px solid color-mix(in srgb, var(--g1) 24%, rgba(255,255,255,.09));
+  transition:border-color .2s, transform .2s}
+.gl-pill .gl-p::before{content:'';position:absolute;inset:0 0 auto 0;height:2px;
+  background:linear-gradient(90deg,var(--g1),var(--g2))}
+.gl-pill .gl-p::after{content:'';position:absolute;top:-55px;right:-55px;width:170px;height:170px;
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle, color-mix(in srgb, var(--g1) 16%, transparent), transparent 66%)}
+.gl-pill .gl-p:hover{transform:translateY(-2px);
+  border-color:color-mix(in srgb, var(--g1) 46%, transparent)}
+.gl-p-h{position:relative;z-index:1;display:flex;align-items:center;gap:12px;margin-bottom:11px}
+.gl-pill .gl-p i{flex:none;display:grid;place-items:center;width:38px;height:38px;margin:0;
+  border-radius:12px;font-size:17px;color:#0C0E14;
+  background:linear-gradient(140deg,var(--g1),var(--g2));
+  box-shadow:0 6px 18px color-mix(in srgb, var(--g1) 26%, transparent)}
+.gl-pill .gl-p b{margin:0;font-size:16.5px;line-height:1.2;letter-spacing:-.01em}
+.gl-pill .gl-p span{position:relative;z-index:1;font-size:13.5px;line-height:1.6;color:#C3C8D8}
+/* ---- строка магазинов: была стеной разноцветных кнопок под каждой карточкой ---- */
+.gl-p .mp, .gl-it .mp{position:relative;z-index:1;gap:5px;margin-top:12px}
+.gl-p .mp a, .gl-it .mp a{font-size:10px;padding:4px 9px;border-width:1px;
+  border-color:rgba(255,255,255,.16);color:rgba(255,255,255,.62);
+  background:rgba(255,255,255,.03);letter-spacing:.04em;transition:.16s}
+.gl-p .mp a:hover, .gl-it .mp a:hover{border-color:var(--ink);color:var(--ink);
+  background:color-mix(in srgb, var(--ink) 12%, transparent)}
+.gl-p .mp.social, .gl-it .mp.social{margin-top:9px;padding-top:9px;align-items:center;
+  border-top:1px solid rgba(255,255,255,.07)}
+.gl-p .mp.social span, .gl-it .mp.social span{font-size:9.5px;letter-spacing:.08em;
+  color:rgba(255,255,255,.34)}
 /* ---- план долгой красоты: цвет по времени суток ---- */
 .gl-sec{--g1:#19C6F7;--g2:#5B6CFF}
 .gl-am{--g1:#FFC46B;--g2:#FF8A5C}
@@ -19078,7 +19117,7 @@ window.renderGlow = ()=>{
       <div class="tip" style="margin-top:10px">Бюджет ${G.budget}: берите по одному средству за раз и вводите с интервалом в две недели — так понятно, что именно сработало.</div>
     </div></div>` +
     `<div class="look badv mk-wide"><div class="look-in"><h3>Что работает — и что нет</h3>
-      <div class="gl-pill">${PILLARS.map((p,i)=>HUB.pop(`<div class="gl-p"><i>${p[0]}</i><b>${p[1]}</b><span>${p[2]}</span>${p[3]?beautyButtons(p[3]):''}</div>`,i)).join('')}</div>
+      <div class="gl-pill">${PILLARS.map((p,i)=>HUB.pop(`<div class="gl-p gl-c${i%6}"><div class="gl-p-h"><i>${p[0]}</i><b>${p[1]}</b></div><span>${p[2]}</span>${p[3]?beautyButtons(p[3]):''}</div>`,i)).join('')}</div>
       <div class="hp-sub" style="margin-top:18px">МИФЫ, НА КОТОРЫЕ УХОДЯТ ДЕНЬГИ</div>
       ${MYTH.map((m,i)=>HUB.pop(`<div class="gl-myth"><b>✕ ${m[0]}</b><span>${m[1]}</span></div>`,i)).join('')}
     </div></div>` +
