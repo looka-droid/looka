@@ -1135,8 +1135,17 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
 @media(prefers-reduced-motion:reduce){.stp-bad{animation:none}}
 .stp-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
   margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08)}
-.stp-nav .btn{padding:11px 24px;font-size:14px}
-.stp-fin{font-size:12.5px;letter-spacing:.04em;color:rgba(124,240,178,.75)}
+.stp-nav .btn{padding:11px 24px;font-size:14px;margin:0}
+/* последний шаг: кнопка сбора — главное на экране, ей вес и свечение */
+.stp-nav.fin > button:not([data-go]){margin:0;padding:14px 30px;font-size:15px;
+  box-shadow:0 10px 30px rgba(124,240,178,.22)}
+.stp-nav.fin > button:not([data-go]):hover{box-shadow:0 12px 36px rgba(124,240,178,.34)}
+.stp-miss{margin-left:auto;margin-right:12px;cursor:pointer;font:inherit;font-size:12.5px;
+  line-height:1.4;text-align:right;padding:8px 14px;border-radius:12px;color:#FFD9A8;
+  background:rgba(255,170,80,.1);border:1px solid rgba(255,170,80,.32);transition:.16s}
+.stp-miss b{color:#FFC46B;font-weight:600}
+.stp-miss:hover{background:rgba(255,170,80,.18);border-color:rgba(255,170,80,.55)}
+@media(max-width:640px){ .stp-nav.fin{flex-wrap:wrap} .stp-miss{margin:0 0 10px;order:-1;width:100%;text-align:left} }
 .grp{animation:stpIn .32s cubic-bezier(.2,.8,.2,1) backwards}
 @keyframes stpIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.grp{animation:none}}
@@ -12757,7 +12766,8 @@ HUB.chips = (st, key, arr, opt={})=>{
     POS[id] = i;
 
     grps.forEach((g,n)=>{ g.style.display = (n===i) ? '' : 'none'; });
-    const sub = [...f.children].find(el=>el.tagName==='BUTTON');
+    const sub = f.querySelector(':scope > button')
+             || f.querySelector(':scope > .stp-nav > button:not([data-go])');
     if(sub) sub.style.display = (i===last) ? '' : 'none';
 
     const leftN = last - i;
@@ -12776,11 +12786,31 @@ HUB.chips = (st, key, arr, opt={})=>{
     f.insertBefore(bar, f.firstChild);
 
     const nav = document.createElement('div');
-    nav.className = 'stp-nav';
+    nav.className = 'stp-nav' + (i===last ? ' fin' : '');
     nav.innerHTML = (i>0 ? '<button type="button" class="btn ghost" data-go="-1">← Назад</button>' : '<span></span>')
-      + (i<last ? '<button type="button" class="btn primary" data-go="1">Далее →</button>'
-                : '<span class="stp-fin">последний шаг</span>');
-    if(sub && i===last) f.insertBefore(nav, sub); else f.appendChild(nav);
+      + (i<last ? '<button type="button" class="btn primary" data-go="1">Далее →</button>' : '');
+    f.appendChild(nav);
+    /* На последнем шаге «Назад», подпись и кнопка сбора стояли тремя отдельными
+       строками. Переносим кнопку анкеты в ту же строку — она главная здесь. */
+    if(sub && i===last){
+      nav.appendChild(sub);
+      /* Кнопка гаснет, пока анкета не заполнена, но человеку не видно почему —
+         он упирается в серый прямоугольник. Показываем, куда вернуться. */
+      if(sub.disabled){
+        /* если незаполнен текущий шаг — человек и так на нём, подсказка лишняя */
+        const miss = grps.findIndex((g,n)=>n !== i && g.querySelector('.chips') && !answered(g));
+        if(miss >= 0){
+          const t = grps[miss].querySelector('.t');
+          const hint = document.createElement('button');
+          hint.type = 'button';
+          hint.className = 'stp-miss';
+          hint.innerHTML = 'Остался вопрос: <b>' +
+            (t ? t.textContent.replace(/можно несколько/i,'').trim() : 'шаг ' + (miss+1)) + '</b> →';
+          hint.addEventListener('click', ()=>{ POS[id] = miss; apply(id); });
+          nav.insertBefore(hint, sub);
+        }
+      }
+    }
 
     /* Вперёд — только с ответом. Молча не пускать нельзя: человек решит, что
        кнопка сломана, как и случилось бы раньше. Поэтому говорим, чего ждём. */
