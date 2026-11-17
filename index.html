@@ -1123,6 +1123,43 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
   letter-spacing:-.01em;color:#F3F5FA}
 [data-stp] > .grp .chips{gap:9px}
 [data-stp] > .grp .chip{padding:11px 19px;font-size:14.5px}
+/* ---- план долгой красоты: цвет по времени суток ---- */
+.gl-sec{--g1:#19C6F7;--g2:#5B6CFF}
+.gl-am{--g1:#FFC46B;--g2:#FF8A5C}
+.gl-pm{--g1:#9B8CFF;--g2:#5B6CFF}
+.gl-wk{--g1:#4FE3C1;--g2:#19A5C7}
+.gl-mo{--g1:#FF9ECF;--g2:#C77DFF}
+.gl-lf{--g1:#7CF0B2;--g2:#19C6F7}
+.gl-sec > .look-in{position:relative;overflow:hidden;
+  background:linear-gradient(165deg,
+    color-mix(in srgb, var(--g1) 13%, transparent),
+    color-mix(in srgb, var(--g2) 9%, transparent) 60%, transparent);
+  border:1px solid color-mix(in srgb, var(--g1) 26%, rgba(255,255,255,.1))}
+.gl-sec > .look-in::before{content:'';position:absolute;inset:0 0 auto 0;height:2px;
+  background:linear-gradient(90deg,var(--g1),var(--g2))}
+.gl-head{display:flex;align-items:center;gap:13px;margin-bottom:18px}
+.gl-ic{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:13px;
+  font-style:normal;font-size:18px;color:#0C0E14;
+  background:linear-gradient(140deg,var(--g1),var(--g2));
+  box-shadow:0 6px 18px color-mix(in srgb, var(--g1) 28%, transparent)}
+.gl-head h3{margin:0;font-size:19px;line-height:1.15;letter-spacing:-.01em}
+.gl-when{display:block;margin-top:3px;font:500 11px/1.3 'JetBrains Mono',monospace;
+  letter-spacing:.07em;color:color-mix(in srgb, var(--g1) 72%, #fff)}
+.gl-sec .look-in .gl-it{display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border-radius:14px;
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);
+  transition:background .18s, border-color .18s, transform .18s}
+.gl-sec .look-in .gl-it + .gl-it{margin-top:9px;margin-bottom:0}
+.gl-sec .look-in .gl-it{margin-bottom:0}
+.gl-it:hover{background:rgba(255,255,255,.06);transform:translateX(3px);
+  border-color:color-mix(in srgb, var(--g1) 34%, transparent)}
+.gl-n{flex:none;display:grid;place-items:center;width:21px;height:21px;margin-top:1px;
+  border-radius:7px;font:700 11px/1 system-ui;color:#0C0E14;
+  background:linear-gradient(140deg,var(--g1),var(--g2))}
+.gl-b{min-width:0;flex:1 1 auto}
+.gl-b .nm{font-size:14.5px;line-height:1.3}
+/* столбцы разной длины не должны растягиваться до самого высокого */
+#glOut{align-items:start}
+@media print{ .gl-it:hover{transform:none} }
 .stp-bad > .t{color:#FFB4BE}
 .stp-bad .chips .chip{border-color:rgba(255,106,124,.45)}
 .stp-bad{animation:stpShake .4s cubic-bezier(.36,.07,.19,.97)}
@@ -19011,7 +19048,24 @@ window.renderGlowForm = ()=>{
 window.renderGlow = ()=>{
   const out = document.getElementById('glOut'); if(!out) return;
   const P = build();
-  const sec = (t, arr, k)=>`<div class="look badv"><div class="look-in"><h3>${t}</h3>${arr.map((s,i)=>HUB.pop(`<div class="item"><div class="nm">${s[0]}</div><div class="tip" style="margin:3px 0 0">${s[1]}</div></div>`,i)).join('')}</div></div>`;
+  /* Четыре одинаково синих столбца не давали понять, что есть что. Даём каждому
+     времени суток свой цвет и значок — взгляд находит нужный блок мгновенно. */
+  const SEC = {
+    'Утро':                      ['gl-am',   '☀', 'каждое утро'],
+    'Вечер':                     ['gl-pm',   '☾', 'каждый вечер'],
+    'Раз в неделю':              ['gl-wk',   '◴', 'по выходным'],
+    'Раз в месяц и в год':       ['gl-mo',   '◆', 'напоминание'],
+    'Привычки — ваш личный список': ['gl-lf','✦', 'каждый день']
+  };
+  const sec = (t, arr, k)=>{
+    if(!arr || !arr.length) return '';
+    const m = SEC[t] || ['gl-am','✦',''];
+    return `<div class="look badv gl-sec ${m[0]}"><div class="look-in">
+      <div class="gl-head"><i class="gl-ic">${m[1]}</i>
+        <div><h3>${t}</h3>${m[2]?`<span class="gl-when">${m[2]} · ${arr.length} ${arr.length===1?'пункт':arr.length<5?'пункта':'пунктов'}</span>`:''}</div></div>
+      ${arr.map((s,i)=>HUB.pop(`<div class="item gl-it"><b class="gl-n">${i+1}</b><div class="gl-b"><div class="nm">${s[0]}</div><div class="tip" style="margin:3px 0 0">${s[1]}</div></div></div>`,i)).join('')}
+    </div></div>`;
+  };
   out.innerHTML =
     `<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">ВАШ ПЛАН ДОЛГОЙ КРАСОТЫ</div>
       <h3>${G.age} · ${(G.focus||[]).slice(0,2).join(', ').toLowerCase()||'профилактика'}</h3>
