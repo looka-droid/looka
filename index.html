@@ -12719,21 +12719,29 @@ HUB.chips = (st, key, arr, opt={})=>{
    это надолго. Показываем по одному вопросу. Работает поверх любой анкеты,
    собранной через HUB.grp, — переписывать сами анкеты не нужно. */
 (function(){
-  const POS = {};        /* на каком шаге каждая анкета */
-  const BUSY = {};       /* чтобы наблюдатель не зациклился на своих же правках */
+  const POS = {};   /* на каком шаге каждая анкета */
+  const OBS = {};   /* наблюдатель за перерисовкой каждой анкеты */
 
-  const apply = id=>{
+  const groups = f => [...f.children].filter(el=>el.classList && el.classList.contains('grp'));
+  const answered = g => {
+    const c = g.querySelector('.chips');
+    if(!c) return !!g.querySelector('input,select,textarea');
+    return !!c.querySelector('.chip.on');
+  };
+  const single = g => { const c = g.querySelector('.chips'); return c && !c.dataset.multi; };
+
+  const apply = (id, external)=>{
     const f = document.getElementById(id); if(!f) return;
-    const grps = [...f.children].filter(el=>el.classList && el.classList.contains('grp'));
+    const grps = groups(f);
     if(grps.length < 3) return;            /* короткие анкеты дробить незачем */
-    BUSY[id] = true;
+
+    /* Наблюдатель слушает те же изменения, которые мы сейчас внесём. Если его не
+       отключить, он вызовет нас снова — и так без конца: кнопка «Далее» будет
+       пересоздаваться по десять раз в секунду, и клик попадёт в уже удалённый узел. */
+    const obs = OBS[id]; if(obs) obs.disconnect();
+
     f.querySelectorAll('.stp-bar,.stp-nav').forEach(el=>el.remove());
 
-    const done = g => {
-      const c = g.querySelector('.chips');
-      if(!c) return !!g.querySelector('input,select,textarea');
-      return !!c.querySelector('.chip.on');
-    };
     const last = grps.length - 1;
     let i = Math.min(Math.max(POS[id]|0, 0), last);
     POS[id] = i;
@@ -12742,36 +12750,46 @@ HUB.chips = (st, key, arr, opt={})=>{
     const sub = [...f.children].find(el=>el.tagName==='BUTTON');
     if(sub) sub.style.display = (i===last) ? '' : 'none';
 
-    const pct = Math.round((i+1)/grps.length*100);
-    const leftN = grps.length - i - 1;
+    const leftN = last - i;
     const wordLeft = n => n%10===1 && n%100!==11 ? 'вопрос'
                         : (n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 'вопроса' : 'вопросов';
     const bar = document.createElement('div');
     bar.className = 'stp-bar';
-    /* точками отмечаем шаги, только пока их немного: на четырнадцати они
-       превращались в кашу и налезали на подпись */
+    /* точки только пока шагов немного: на четырнадцати они превращались в кашу */
     const dots = grps.length <= 10
       ? '<div class="stp-dots">' + grps.map((g,n)=>
-          '<i class="'+(n===i?'now':(done(g)?'ok':''))+'" data-n="'+n+'" title="шаг '+(n+1)+'"></i>').join('') + '</div>'
+          '<i class="'+(n===i?'now':(answered(g)?'ok':''))+'" data-n="'+n+'" title="шаг '+(n+1)+'"></i>').join('') + '</div>'
       : '';
     bar.innerHTML = '<div class="stp-top"><span class="stp-n">Шаг ' + (i+1) + ' из ' + grps.length + '</span>'
       + '<span class="stp-left">' + (leftN ? 'осталось ' + leftN + ' ' + wordLeft(leftN) : 'последний') + '</span></div>'
-      + '<div class="stp-tr"><b style="width:' + pct + '%"></b></div>' + dots;
+      + '<div class="stp-tr"><b style="width:' + Math.round((i+1)/grps.length*100) + '%"></b></div>' + dots;
     f.insertBefore(bar, f.firstChild);
 
     const nav = document.createElement('div');
     nav.className = 'stp-nav';
-    nav.innerHTML = (i>0 ? '<button class="btn ghost" data-go="-1">← Назад</button>' : '<span></span>')
-      + (i<last ? '<button class="btn primary" data-go="1">Далее →</button>'
+    nav.innerHTML = (i>0 ? '<button type="button" class="btn ghost" data-go="-1">← Назад</button>' : '<span></span>')
+      + (i<last ? '<button type="button" class="btn primary" data-go="1">Далее →</button>'
                 : '<span class="stp-fin">последний шаг</span>');
     if(sub && i===last) f.insertBefore(nav, sub); else f.appendChild(nav);
 
-    const go = d => { POS[id] = Math.min(Math.max(i+d, 0), last); apply(id); };
-    nav.querySelectorAll('[data-go]').forEach(b=>b.onclick = ()=>go(+b.dataset.go));
-    bar.querySelectorAll('.stp-dots i').forEach(d=>{
-      d.onclick = ()=>{ POS[id] = +d.dataset.n; apply(id); };
+    const go = d => { POS[id] = Math.min(Math.max(POS[id] + d, 0), last); apply(id); };
+    nav.querySelectorAll('[data-go]').forEach(b=>{
+      b.addEventListener('click', ev=>{ ev.preventDefault(); ev.stopPropagation(); go(+b.dataset.go); });
     });
-    BUSY[id] = false;
+    bar.querySelectorAll('.stp-dots i').forEach(d=>{
+      d.addEventListener('click', ()=>{ POS[id] = +d.dataset.n; apply(id); });
+    });
+
+    /* Ответ на вопрос с одним выбором сам листает дальше — лишний клик по «Далее»
+       на четырнадцати шагах утомляет. Где можно выбрать несколько, ждём кнопку. */
+    let hop = false;
+    if(external && i < last && single(grps[i]) && answered(grps[i])){
+      hop = true;
+      setTimeout(()=>{ if(POS[id] === i){ POS[id] = i + 1; apply(id); } }, 240);
+    }
+
+    if(obs && !hop){ obs.takeRecords(); obs.observe(f, { childList:true }); }
+    else if(obs && hop){ setTimeout(()=>{ obs.takeRecords(); obs.observe(f, { childList:true }); }, 320); }
   };
 
   /* анкета перерисовывается целиком при каждом ответе — ловим это и возвращаем шаги */
@@ -12779,11 +12797,11 @@ HUB.chips = (st, key, arr, opt={})=>{
     const f = document.getElementById(id); if(!f) return;
     if(f.dataset.stp){ apply(id); return; }
     f.dataset.stp = '1';
-    new MutationObserver(()=>{ if(!BUSY[id]) setTimeout(()=>apply(id), 0); })
-      .observe(f, { childList:true });
+    OBS[id] = new MutationObserver(()=>apply(id, true));
     apply(id);
+    OBS[id].observe(f, { childList:true });
   };
-    window.STEP_POS = POS;
+  window.STEP_POS = POS;
   /* включаем на всех анкетах разом: какая откроется — та и будет пошаговой */
   const FORMS = ['mkForm','ctForm','skForm','hrForm','evForm','cpForm','brForm','glForm'];
   const arm = ()=>FORMS.forEach(id=>{ if(document.getElementById(id)) stepForm(id); });
