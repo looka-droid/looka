@@ -8592,7 +8592,7 @@ setInterval(pgDraw, 4000);
     <h2 class="big">Магазины, которые <span class="holo">не найдёт поисковик</span></h2>
     <p class="lead">Маленькие бренды живут в Instagram и Telegram: их не индексирует Google и не знает ни один чат. Здесь они собраны и отсортированы — по нику, категории, сегменту и городу. Кураторские отмечены галочкой, свои находки сохраняйте себе: они будут подставляться под вашими образами.</p>
   </div>
-  <div id="shBox"></div>
+  <div id="shopsBox"></div>
 </section>
 
 <section class="sec pageview" id="glowPage">
@@ -10502,7 +10502,15 @@ window.openPage = (id, anchor)=>{
   document.body.classList.remove('beauty-mode');  try{ if(location.hash==='#beauty') history.replaceState(null,'',location.pathname+location.search); }catch(e){}
   document.body.classList.add('subpage');
   document.querySelectorAll('.pageview').forEach(p=>p.classList.remove('active-page'));
-  const el = document.getElementById(id);
+  /* Раньше любой неизвестный раздел ронял всю страницу: el оказывался null и
+     обработка обрывалась на первой же строке. Теперь понимаем короткие имена
+     («my» вместо «myPage») и просто выходим, если такого раздела нет. */
+  let el = document.getElementById(id);
+  if(!el){
+    const alias = (window.PAGE_ALIAS || {})[id];
+    if(alias){ id = alias; el = document.getElementById(alias); }
+  }
+  if(!el) return;
   el.classList.add('active-page','in');
   el.querySelectorAll('.reveal').forEach(r=>r.classList.add('in'));
   if(window.__vizBind){ setTimeout(window.__vizBind, 40); setTimeout(()=>window.__vizShow(el), 1600); }
@@ -10529,10 +10537,29 @@ window.openPage = (id, anchor)=>{
   if(id==='lookrefPage' && window.renderLookRef) renderLookRef();
   if(id==='framesPage' && window.renderFrames) renderFrames();
   if(id==='shopsPage' && window.renderShops) renderShops();
+  /* страница обуви рисовалась только своей кнопкой — по ссылке открывалась пустой */
+  if(id==='shoesPage' && window.renderShoesForm) renderShoesForm();
   if(id==='glowPage' && window.renderGlowForm) renderGlowForm();
   if(id==='dnaPage' && window.renderDna) renderDna();
   if(id==='myPage'){ if(window.renderDash) renderDash(); if(window.renderAcc) renderAcc(); if(window.renderMyLooks) renderMyLooks(); if(window.renderNet) renderNet(); if(window.renderCart) renderCart(); if(window.renderBuy) renderBuy(); if(window.renderEvents) renderEvents(); if(window.renderGift) renderGift(); if(window.renderVotes) renderVotes(); if(window.renderFavShops) renderFavShops(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); myTab(window.myTabWanted ? myTabWanted() : 'results'); }
   if(id==='carePage' && window.renderCare) renderCare();
+  /* Страница блогера открывается по ссылке с кодом. Без кода она оставалась
+     пустой — человек видел только кнопку «на главную» и больше ничего. */
+  if(id==='bPage'){
+    const bb = document.getElementById('bBox');
+    if(bb && !bb.innerHTML.trim()){
+      const code = window.refCode ? refCode() : '';
+      if(code && window.openBlogger) try{ openBlogger(code); }catch(e){}
+      else bb.innerHTML = '<div class="look badv mk-wide"><div class="look-in">'
+        + '<div class="cs-k">СТРАНИЦА ПО ПРИГЛАШЕНИЮ</div>'
+        + '<h3>Здесь открывается подборка от блогера</h3>'
+        + '<p class="tip">Эта страница собирается по личной ссылке: блогер делится ею, а вы попадаете сразу на его подборку и бонус. '
+        + 'Прямой ссылки у вас нет — поэтому тут пусто.</p>'
+        + '<div class="tr-go"><button class="btn primary" onclick="openPage(\'hubPage\')">Перейти к разборам</button>'
+        + '<button class="btn ghost" onclick="openPage(\'bloggersPage\')">Я блогер — хочу такую ссылку</button></div>'
+        + '</div></div>';
+    }
+  }
   if(anchor){
     setTimeout(()=>{
       const a = document.getElementById(anchor);
@@ -12618,7 +12645,8 @@ window.PICTO = (()=>{
 window.PICTO = PICTO;
 function mkChips(key, arr, colored){
   const ic = PICTO[key];
-  return '<div class="chips'+(ic?' pict':'')+'"'+(multi?' data-multi="1"':'')+'>' + arr.map(v=>{
+  /* здесь выбор всегда одиночный — пометки «можно несколько» быть не должно */
+  return '<div class="chips'+(ic?' pict':'')+'">' + arr.map(v=>{
     const col = colored ? (colored.find(c=>c[0]===v)||[])[1] : null;
     return `<button class="chip ${M[key]===v?'on':''}" data-k="${key}" data-v="${v.replace(/"/g,'&quot;')}" ${ic&&ic[v]?`data-hint="${key}:${v.replace(/"/g,'&quot;')}"`:''} onclick="mkPick('${key}','${v.replace(/'/g,"\\'")}')">${ic&&ic[v]?ic[v]:''}${col?`<i class="sw" style="background:${col}"></i>`:''}${v}${ic&&ic[v]&&window.hintBtn?hintBtn(key,v):''}</button>`;
   }).join('') + '</div>';
@@ -18718,7 +18746,9 @@ function paint(){
   const cnt = document.getElementById('shCnt'); if(cnt) cnt.textContent = a.length ? ('найдено: '+a.length) : '';
 }
 window.renderShops = ()=>{
-  const box = document.getElementById('shBox'); if(!box) return;
+  /* Раньше здесь был тот же id, что у страницы обуви: getElementById находил
+     чужой бокс, и раздел «Магазины» открывался пустым. */
+  const box = document.getElementById('shopsBox'); if(!box) return;
   const f = (k,arr,lab)=>`<div class="sh-frow"><span>${lab}</span>${arr.map(v=>`<button class="chip ${SH[k]===v?'on':''}" onclick="shFilter('${k}','${v}')">${k==='plat'?PLAT[v][0]:v}</button>`).join('')}</div>`;
   box.innerHTML = `
     <div class="bt-form look mk-form">
@@ -24304,7 +24334,28 @@ document.addEventListener('click', e=>{
 'use strict';
 if(window.__histOn) return; window.__histOn = true;
 
-const isPage = id => { const e = id && document.getElementById(id); return !!(e && e.classList.contains('pageview')); };
+/* В меню и подвале ссылки короткие: #my, #pass, #gift. Кликом они работали через
+   onclick, но по самому адресу не открывали ничего — присланная подруге ссылка
+   или обновление страницы возвращали на главную. Сопоставляем их с разделами. */
+const PAGE_ALIAS = window.PAGE_ALIAS = {
+  my:'myPage', pass:'passPage', wardrobe:'wardrobePage', about:'aboutPage',
+  articles:'artPage', club:'clubPage', gift:'giftPage', payment:'aboutPage',
+  pro:'proPage', how:'howPage', ask:'askPage', morning:'morningPage',
+  courses:'coursePage', lazy:'lazyPage', diag:'lookCheckPage', blog:'bloggersPage',
+  learn:'hubPage', reviews:'askPage', beauty:'hubPage', trip:'tripPage',
+  check:'lookCheckPage', tools:'toolsPage', terms:'termsPage', docs:'docsPage',
+  contacts:'contactsPage', method:'methodPage', care:'carePage', studio:'studioPage',
+  shops:'shopsPage', shoes:'shoesPage', glow:'glowPage', skin:'skinPage',
+  hair:'hairPage', makeup:'makeupPage', color:'colorPage', dna:'dnaPage'
+};
+const pageOf = id => {
+  if(!id) return '';
+  if(isPageRaw(id)) return id;
+  const a = PAGE_ALIAS[id];
+  return (a && isPageRaw(a)) ? a : '';
+};
+const isPageRaw = id => { const e = id && document.getElementById(id); return !!(e && e.classList.contains('pageview')); };
+const isPage = id => !!pageOf(id);
 const curPage = ()=>{ const a = document.querySelector('.pageview.active-page'); return a ? a.id : ''; };
 
 const _open  = window.openPage;
@@ -24386,7 +24437,7 @@ if(typeof _home === 'function'){
 window.addEventListener('popstate', function(e){
   const st = e.state || {};
   const hashId = (location.hash.slice(1).split('/')[0] || '');
-  const want = st.looka ? (st.page || '') : (isPage(hashId) ? hashId : '');
+  const want = st.looka ? (st.page || '') : pageOf(hashId);
   if(stack.length > 1) stack.pop();
   savePos();
   silent = true;
@@ -26034,6 +26085,67 @@ setTimeout(mount, 900);
       if(pg && pg.classList.contains('active')) draw(); }, 700);
   })();
   setTimeout(mountTrip, 1000);
+})();
+
+/* ===== Возврат на страницу: ответы и результат не должны пропадать =====
+   Разделы рисуются только своей кнопкой. Если открыть ссылку вида #glowPage
+   или просто обновить страницу, раздел открывался пустым, хотя все ответы
+   лежат в памяти браузера. Прогоняем ту же отрисовку, что делает кнопка. */
+(function(){
+  /* [анкета, результат, узел результата] — зовём отрисовку напрямую, а не кнопку:
+     кнопка заодно переоткрывает страницу и стирает уже нарисованное. */
+  const MAP = {
+    glowPage:   ['renderGlowForm',   'renderGlow',    'glOut'],
+    skinPage:   ['renderSkinForm',   'renderSkin',    'skOut'],
+    hairPage:   ['renderHairForm',   'renderHair',    'hrOut'],
+    makeupPage: ['renderMakeupForm', 'renderMakeup',  'mkOut'],
+    colorPage:  ['renderColorForm',  'renderColor',   'csOut'],
+    eventPage:  ['renderEventForm',  'renderEvent',   'evOut'],
+    capsulePage:['renderCapsuleForm','renderCapsule', 'cpOut'],
+    braPage:    ['renderBra',         null,           'brOut']
+  };
+  const busy = {};
+  const call = n => { const f = n && window[n]; if(typeof f === 'function'){ try{ f(); }catch(e){} } };
+  const restore = id=>{
+    const m = MAP[id]; if(!m || busy[id]) return;
+    busy[id] = true;
+    call(m[0]);
+    /* результат пересобираем только если на анкету вообще отвечали —
+       иначе новому человеку показался бы разбор из пустоты */
+    setTimeout(()=>{
+      const page = document.getElementById(id);
+      const answered = page && page.querySelector('.chip.on, .dna-st.on, .cs-opt.on');
+      const out = m[2] && document.getElementById(m[2]);
+      if(answered && (!out || out.innerHTML.length < 200)) call(m[1]);
+      busy[id] = false;
+    }, 90);
+  };
+
+  const hook = ()=>{
+    const real = window.openPage;
+    if(typeof real === 'function'){
+      window.openPage = function(id){
+        const r = real.apply(this, arguments);
+        if(MAP[id]) setTimeout(()=>restore(id), 60);
+        return r;
+      };
+    }
+    const byHash = ()=>{
+      const id = (location.hash||'').replace(/^#/, '').split('/')[0];
+      if(MAP[id]) setTimeout(()=>restore(id), 60);
+    };
+    addEventListener('hashchange', byHash);
+    byHash();
+    /* страница могла стать активной мимо обоих путей */
+    setTimeout(()=>{
+      Object.keys(MAP).forEach(id=>{
+        const el = document.getElementById(id);
+        if(el && (el.classList.contains('active') || getComputedStyle(el).display !== 'none')) restore(id);
+      });
+    }, 900);
+  };
+  if(document.readyState !== 'loading') setTimeout(hook, 500);
+  else document.addEventListener('DOMContentLoaded', ()=>setTimeout(hook, 500));
 })();
 </script>
 
