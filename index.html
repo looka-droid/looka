@@ -10509,6 +10509,14 @@ window.closeBeauty = ()=>{
   window.scrollTo({top:0, behavior:'smooth'});
 };
 
+const PAGE_RENDER = {
+  bodyShiftPage:['renderBodyShift'], braPage:['renderBra'], capsulePage:['renderCapsuleForm'],
+  carePage:['renderCare'], eventPage:['renderEventForm'], framesPage:['renderFrames'],
+  glowPage:['renderGlowForm'], hairPage:['renderHairForm','renderHairFit','renderHairLab'],
+  lookCheckPage:['renderLookCheck'], lookrefPage:['renderLookRef'], makeupPage:['renderMakeupForm'],
+  richPage:['renderRich'], shoesPage:['renderShoesForm'], shopsPage:['renderShops'],
+  skinPage:['renderSkinForm'], studioPage:['renderStudio'], wardrobePage:['renderAdd','renderWardrobe']
+};
 window.openPage = (id, anchor)=>{
   document.body.classList.remove('beauty-mode');  try{ if(location.hash==='#beauty') history.replaceState(null,'',location.pathname+location.search); }catch(e){}
   document.body.classList.add('subpage');
@@ -10554,6 +10562,13 @@ window.openPage = (id, anchor)=>{
   if(id==='dnaPage' && window.renderDna) renderDna();
   if(id==='myPage'){ if(window.renderDash) renderDash(); if(window.renderAcc) renderAcc(); if(window.renderMyLooks) renderMyLooks(); if(window.renderNet) renderNet(); if(window.renderCart) renderCart(); if(window.renderBuy) renderBuy(); if(window.renderEvents) renderEvents(); if(window.renderGift) renderGift(); if(window.renderVotes) renderVotes(); if(window.renderFavShops) renderFavShops(); if(window.renderChk) renderChk(); if(window.renderFinds) renderFinds(); if(window.accGreet) accGreet(); myTab(window.myTabWanted ? myTabWanted() : 'results'); }
   if(id==='carePage' && window.renderCare) renderCare();
+  /* Раньше каждый раздел дописывался сюда вручную, и про новые забывали:
+     по ссылке или после обновления страницы открывалась одна шапка.
+     Таблица собрана из того, что делают сами кнопки разделов. */
+  (PAGE_RENDER[id] || []).forEach(fn=>{
+    const f = window[fn];
+    if(typeof f === 'function'){ try{ f(); }catch(e){} }
+  });
   /* Страница блогера открывается по ссылке с кодом. Без кода она оставалась
      пустой — человек видел только кнопку «на главную» и больше ничего. */
   if(id==='bPage'){
