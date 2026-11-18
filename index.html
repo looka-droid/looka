@@ -6038,6 +6038,33 @@ header .topnav > a.nav-tools:hover,
 @media(max-width:760px){
   header .topnav > a.nav-tools,.topnav > a.nav-tools{height:34px;padding:0 12px 0 11px;font-size:12.5px;gap:6px}
 }
+/* на ноутбучных ширинах шапка не должна наезжать на логотип */
+@media(min-width:861px) and (max-width:1740px){
+  header .topnav{padding-left:24px}
+  header .topnav > .nav-dd,
+  header .topnav > a,
+  header .topnav > a.only-in{margin-right:15px}
+  header .topnav > .nav-find{min-width:140px;margin-left:auto}
+  #topbar .topnav{gap:10px}
+}
+@media(min-width:861px) and (max-width:1460px){
+  #topbar .topnav{gap:6px}
+  #topbar .topnav .nav-dd > a{padding:0 9px}
+}
+@media(min-width:861px) and (max-width:1560px){
+  header .topnav{padding-left:18px}
+  header .topnav > .nav-dd,
+  header .topnav > a,
+  header .topnav > a.only-in{margin-right:11px}
+  header .topnav > .nav-find{min-width:118px;margin-left:auto}
+  header .topnav > a.nav-tools,.topnav > a.nav-tools{padding:0 12px 0 11px;gap:6px}
+}
+@media(min-width:861px) and (max-width:1330px){
+  header .topnav > .nav-dd,
+  header .topnav > a{margin-right:7px}
+  header .topnav .nav-dd > a{padding:0 9px;font-size:12.5px}
+  header .topnav > .nav-find{min-width:96px}
+}
 .topnav a,.topnav .nav-dd > a{border-bottom-width:1px}
 
 /* ================= СЕТКА РАЗДЕЛОВ: вкладки вместо длинной простыни ================= */
