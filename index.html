@@ -56,6 +56,13 @@ header{display:flex;justify-content:space-between;align-items:center;padding:26p
 
 /* подиум-прогресс */
 .runway{display:flex;gap:8px;margin-bottom:26px}
+.qz-from{margin:0 0 14px}
+.qz-from-btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.2px;color:#19C6F7;
+  padding:9px 15px;border-radius:99px;
+  border:1px solid rgba(25,198,247,.45);background:rgba(25,198,247,.1);
+  transition:background .18s,border-color .18s,transform .18s}
+.qz-from-btn:hover{background:rgba(25,198,247,.2);border-color:rgba(25,198,247,.75);transform:translateY(-1px)}
 .rw{flex:1;height:8px;border-radius:99px;background:#EDE4F7;position:relative;overflow:hidden}
 .rw.on::after{content:'';position:absolute;inset:0;background:var(--holo);background-size:300% 100%;animation:holoShift 4s linear infinite}
 .step-label{font-family:'JetBrains Mono';font-size:12px;color:var(--vio);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
@@ -7363,8 +7370,8 @@ header .topnav > .nav-find,#topbar .topnav > .nav-find{margin-left:auto}
   <h2 class="big">Мы не магазин — <span class="holo">мы навигатор</span></h2>
   <p class="lead">LOOKA ничего не продаёт и не влияет на цены — ведёт к вещам в магазины <b id="mpReg">вашего региона</b>. Регион меняете в один тап.</p>
   <div class="trust-strip">
-    <div class="ts"><b>390 ₽</b><span>неделя · отмена в один тап</span></div>
-    <div class="ts"><b>14 дней</b><span>на возврат первой оплаты</span></div>
+    <div class="ts"><b>от 149 ₽</b><span>пакет подборов · остаётся у вас навсегда</span></div>
+    <div class="ts"><b>0 подписок</b><span>ничего не продлевается само</span></div>
     <div class="ts"><b>0 продаж</b><span>ваших данных — никому и никогда</span></div>
     <div class="ts"><b>~2 часа</b><span>ответ от автора лично</span></div>
   </div>
@@ -7375,6 +7382,7 @@ header .topnav > .nav-find,#topbar .topnav > .nav-find{margin-left:auto}
 <div class="stage">
   <!-- ======== АНКЕТА ======== -->
   <div class="quiz">
+    <div class="qz-from" id="qzFrom"></div>
     <div class="runway" id="runway"></div>
     <div id="steps"></div>
     <div class="err" id="err"></div>
@@ -7799,7 +7807,7 @@ setInterval(pgDraw, 4000);
       <div class="vs-row"><span class="v">✓</span>Ваш гардероб запоминается: образ из своих вещей, план недели, «дыры» и честная цена выхода</div>
       <div class="vs-row"><span class="v">✓</span><span class="reg-shops-vs">WB · Ozon · Lamoda — весь выбор страны</span> + свадебные салоны и Telegram-магазины</div>
       <div class="vs-row"><span class="v">✓</span>15 помощников: образ дня по погоде, чемодан, размеры в любой стране, SOS-пятно, ревизия гардероба, «Не переплати»</div>
-      <div class="vs-row"><span class="v">✓</span>От 390 ₽ в неделю, 5 подборов бесплатно, все обновления и возврат 14 дней</div>
+      <div class="vs-row"><span class="v">✓</span>Пакеты от 149 ₽ — подборы остаются у вас навсегда, 5 подборов бесплатно, без подписки</div>
     </div>
   </div>
   <p class="hp-line">Большинство женщин одеваются сами — и это нормально. Ненормально то, что приходится делать это вслепую: без правил, без палитры, без памяти о прошлых покупках. LOOKA не заменяет вас — она даёт вам то, чем пользуются стилисты: систему. Те же профессиональные правила, тот же результат — за две минуты, без лимитов и без переплат.</p>
@@ -8721,10 +8729,10 @@ setInterval(pgDraw, 4000);
   <button class="btn ghost pg-back" onclick="closePage()">← Вернуться на главную</button>
   <div class="eyebrow">подарочный сертификат</div>
   <h2 class="big">Подарить LOOKA — <span class="holo">подарить «мне идёт»</span></h2>
-  <p class="lead">Год LOOKA в подарок подруге, сестре, маме: красивая именная карточка с кодом — в течение часа после оплаты.</p>
+  <p class="lead">LOOKA в подарок подруге, сестре, маме: красивая именная карточка с кодом — в течение часа после оплаты.</p>
   <div class="moat-grid">
     <div class="moat-item"><b>1 · Напишите нам</b><p>«Хочу подарить» в Telegram или на почту: имя получательницы и дату, к которой нужен сертификат.</p></div>
-    <div class="moat-item"><b>2 · Оплатите как обычно</b><p>Год LOOKA — 4 990 ₽, реквизиты в «Условиях». Действуют и коды блогеров.</p></div>
+    <div class="moat-item"><b>2 · Оплатите как обычно</b><p>Любой пакет подборов — от 149 ₽ до 1 790 ₽ за 100 подборов, реквизиты в «Условиях». Действуют и коды блогеров.</p></div>
     <div class="moat-item"><b>3 · Получите карточку</b><p>Пришлём именную карточку-сертификат с кодом — отправьте её или распечатайте. Активация — в одно письмо, срок не горит.</p></div>
   </div>
   <div class="to-row" style="margin-top:22px"><a class="btn primary" href="https://t.me/looka_support?text=Хочу подарить доступ LOOKA" target="_blank" rel="noopener">✈ Хочу подарить</a><button class="btn ghost" onclick="openPage('termsPage')">Условия и возврат</button></div>
@@ -8780,7 +8788,7 @@ setInterval(pgDraw, 4000);
     <div class="docs-body" id="docsBody">
       <article class="doc on" id="doc-offer">
         <div class="doc-head"><h3>Публичная оферта</h3><span>редакция от 31 августа 2026 · вступает в силу с момента публикации</span></div>
-        <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>Вы выбираете срок — неделя, месяц или год — и получаете полный доступ к LOOKA на этот срок. Продление только по вашему подтверждению, отмена в один тап.</li><li>Оплата = согласие с этими условиями (это и называется акцепт оферты).</li><li>Вернуть деньги можно в течение 14 дней без объяснения причин.</li><li>LOOKA даёт рекомендации; покупаете вещи вы сами у маркетплейсов — с ними у вас отдельные отношения.</li></ul></div>
+        <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>Вы выбираете пакет — 5, 10, 30 или 100 подборов — и платите один раз. Подборы остаются у вас навсегда и не сгорают; ничего не продлевается само, карта не сохраняется.</li><li>Оплата = согласие с этими условиями (это и называется акцепт оферты).</li><li>Вернуть деньги можно в течение 14 дней без объяснения причин.</li><li>LOOKA даёт рекомендации; покупаете вещи вы сами у маркетплейсов — с ними у вас отдельные отношения.</li></ul></div>
         <h4>1. Термины</h4>
         <p><b>Исполнитель</b> — Бредихина Анна Викторовна, плательщик налога на профессиональный доход (самозанятый), ИНН 773178276864. <b>Сервис</b> — сайт LOOKA и его функции: подбор образов, Бьюти-скан, Помощники, Консилиум. <b>Пользователь</b> — дееспособное физическое лицо, принявшее условия оферты. <b>Доступ</b> — право использовать все функции Сервиса без ограничения количества подборов.</p>
         <h4>2. Предмет</h4>
@@ -8790,7 +8798,7 @@ setInterval(pgDraw, 4000);
         <p>3.1. Договор считается заключённым с момента оплаты Доступа (п. 3 ст. 438 ГК РФ). Оплачивая, Пользователь подтверждает, что ознакомлен с офертой, Политикой конфиденциальности и Условиями возврата и принимает их полностью.</p>
         <p>3.2. До оплаты Пользователю доступны 5 (пять) бесплатных подборов — для оценки Сервиса.</p>
         <h4>4. Стоимость и оплата</h4>
-        <p>4.1. Стоимость Доступа: 390 рублей за 7 дней, 990 рублей за 30 дней, 4 990 рублей за 365 дней. НДС не облагается (Исполнитель применяет специальный налоговый режим «Налог на профессиональный доход»).</p>
+        <p>4.1. Доступ приобретается разовыми пакетами подборов: 149 рублей за 5 подборов, 290 рублей за 10 подборов, 690 рублей за 30 подборов, 1 790 рублей за 100 подборов. Подписка и автоматическое продление не применяются; данные банковской карты не сохраняются. Оплаченные подборы сроком не ограничены. НДС не облагается (Исполнитель применяет специальный налоговый режим «Налог на профессиональный доход»).</p>
         <p>4.2. Оплата производится по ссылке, направленной Исполнителем по заявке Пользователя, через платёжный сервис. Исполнитель не получает данных банковской карты Пользователя.</p>
         <p>4.3. После оплаты Пользователь получает чек в электронном виде и код активации Доступа. Доступ действует бессрочно.</p>
         <h4>5. Права и обязанности</h4>
@@ -8936,7 +8944,7 @@ setInterval(pgDraw, 4000);
 <section class="sec reveal" id="docs">
   <div class="eyebrow">прозрачность</div>
   <h2 class="big">Документы <span class="holo">и гарантии</span></h2>
-  <details class="faq q"><summary><span class="q-n">01</span><span class="q-t">Публичная оферта</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Полный текст оферты публикуется здесь до старта продаж. Ключевые условия уже зафиксированы: тарифы: неделя 390 ₽, месяц 990 ₽, год 4 990 ₽; продление только с подтверждением, отмена в один тап; возврат средств в течение 14 дней без объяснения причин; доступ открывается сразу после оплаты.</div></details>
+  <details class="faq q"><summary><span class="q-n">01</span><span class="q-t">Публичная оферта</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Полный текст оферты публикуется здесь до старта продаж. Ключевые условия уже зафиксированы: оплата разовая, пакетами подборов — 5 подборов 149 ₽, 10 подборов 290 ₽, 30 подборов 690 ₽, 100 подборов 1 790 ₽; подписки нет, автопродления нет, карта не сохраняется; купленные подборы не сгорают; доступ открывается сразу после оплаты.</div></details>
   <details class="faq q"><summary><span class="q-n">02</span><span class="q-t">Политика конфиденциальности</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Данные анкеты используются только для подбора и не передаются третьим лицам. Загруженное фото не сохраняется на серверах — оно участвует только в момент подбора. Мы не запрашиваем данные карт: оплату обрабатывает защищённый платёжный сервис.</div></details>
   <details class="faq q"><summary><span class="q-n">03</span><span class="q-t">Реквизиты продавца</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Наименование, ИНН и контактные данные продавца публикуются в этом разделе до старта продаж — как того требует закон о защите прав потребителей.</div></details>
   <div class="contact-band" id="contacts">
@@ -8949,7 +8957,7 @@ setInterval(pgDraw, 4000);
 
 <section class="sec reveal">
   <h2 class="big">ЧАСТЫЕ <span class="holo">ВОПРОСЫ</span></h2>
-  <details class="faq q"><summary><span class="q-n">01</span><span class="q-t">Сколько стоит доступ?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Двадцать разделов бесплатны всегда и без лимитов — всё, что LOOKA может рассказать о вас словами и схемами. Платная часть — шесть разделов, где нейросеть работает с вашим фото: примерочная волос, доски разбора, образ на вашей фигуре, стиль-паспорт. Первая такая примерка тоже бесплатная. Тарифы: неделя 390 ₽, месяц 990 ₽, год 4 990 ₽. Автопродления нет — списаний без вашего участия не будет.</div></details>
+  <details class="faq q"><summary><span class="q-n">01</span><span class="q-t">Сколько стоит доступ?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Двадцать разделов бесплатны всегда и без лимитов — всё, что LOOKA может рассказать о вас словами и схемами. Платная часть — шесть разделов, где нейросеть работает с вашим фото: примерочная волос, доски разбора, образ на вашей фигуре, стиль-паспорт. Первая такая примерка тоже бесплатная. Дальше — пакеты подборов: 5 за 149 ₽, 10 за 290 ₽, 30 за 690 ₽, 100 за 1 790 ₽. Это разовая покупка: подписки нет, автопродления нет, карта не сохраняется, а купленные подборы не сгорают.</div></details>
   <details class="faq q"><summary><span class="q-n">02</span><span class="q-t">Как проходит оплата?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Через защищённый платёжный сервис. Данные карты видит только платёжная система — сервис к ним доступа не имеет. Доступ открывается сразу после оплаты.</div></details>
   <details class="faq q"><summary><span class="q-n">03</span><span class="q-t">Можно ли вернуть деньги?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Да. Если сервис не подошёл — возврат в течение 14 дней с момента оплаты, без объяснения причин.</div></details>
   <details class="faq q"><summary><span class="q-n">04</span><span class="q-t">Обязательно ли загружать фото?</span><span class="q-x"><svg viewBox="0 0 14 14"><path d="M2 5l5 5 5-5"/></svg></span></summary><div>Нет. Анкеты достаточно. Фото — по желанию: с ним подбор точнее попадает в цветотип и пропорции. Фото не сохраняется и используется только в момент подбора.</div></details>
@@ -9008,7 +9016,7 @@ setInterval(pgDraw, 4000);
   <div class="pay-box pay-wiz">
     <button class="pay-x" onclick="closePay()">✕</button>
     <div class="pw-top">
-      <div class="pw-plan" id="payPlanName">LOOKA · МЕСЯЦ · 990 ₽</div>
+      <div class="pw-plan" id="payPlanName">LOOKA · 30 ПОДБОРОВ · 690 ₽</div>
       <div class="pw-track"><i id="pwBar"></i></div>
     </div>
     <div class="pw-body" id="pwBody"></div>
@@ -9362,7 +9370,15 @@ window.wxGet = async (url)=>{
 window.saveLS =window.saveLS = ()=>{ try{ const o = Object.assign({}, S); delete o.photo; localStorage.setItem('looka_profile', JSON.stringify(o)); }catch(e){} };
 window.loadLS = ()=>{ try{ const o = JSON.parse(localStorage.getItem('looka_profile')||'null'); if(o && typeof o==='object'){ delete o.gender; Object.keys(o).forEach(k=>{ if(k in S && k!=='photo') S[k]=o[k]; }); return true; } }catch(e){} return false; };
 
-window.pick = (k,v)=>{ S[k]=v; if(k==='gender'){S.figure=null;S.clothSize=null;S.shoeSize=null; if(window.updateModelPhoto) updateModelPhoto();} renderStep(); drawAvatar(); saveLS(); };
+window.pick = (k,v)=>{ S[k]=v; if(k==='gender'){S.figure=null;S.clothSize=null;S.shoeSize=null; if(window.updateModelPhoto) updateModelPhoto();} renderStep(); drawAvatar(); saveLS(); qzHop(); };
+/* ответили на единственный вопрос шага — переходим дальше сами */
+function qzHop(){
+  if(step >= STEPS.length-1) return;
+  if(!stepsEl || stepsEl.querySelectorAll('.grp').length !== 1) return;
+  if(!stepValid()) return;
+  const at = step;
+  setTimeout(()=>{ if(step === at && stepValid()){ step++; renderStep(); if(window.quizTop) quizTop(); } }, 280);
+}
 window.bump = (k,d)=>{ const lim = k==='height'?[145,205]:[40,140];
   S[k] = Math.min(lim[1], Math.max(lim[0], S[k]+d));
   const r = document.getElementById('r-'+k); if(r) r.value = S[k];
@@ -9370,9 +9386,53 @@ window.bump = (k,d)=>{ const lim = k==='height'?[145,205]:[40,140];
   drawAvatar(); };
 window.setVal = (k,v)=>{ S[k]=+v; document.getElementById('v-'+k).textContent = v + (k==='height'?' см':' кг'); drawAvatar(); saveLS(); };
 
+function fixNums(){
+  const nn = (v,d,lo,hi)=>{ if(v===null || v===undefined || v==='' || v===false) return d;
+    v = Math.round(Number(v)); return (isFinite(v) && v > 0) ? Math.min(hi, Math.max(lo, v)) : d; };
+  S.height = nn(S.height, 167, 145, 205);
+  S.weight = nn(S.weight, 60, 40, 140);
+}
+let _qsplit = false;
+function splitSteps(){
+  const outS = [];
+  STEPS.forEach(st=>{
+    let probe;
+    try{ probe = document.createElement('div'); probe.innerHTML = st.render(); }catch(e){ outS.push(st); return; }
+    const parts = Array.prototype.slice.call(probe.children);
+    if(parts.length < 2){ outS.push(st); return; }
+    const chunks = [];
+    parts.forEach((el,i)=>{
+      const own = el.classList && el.classList.contains('grp');
+      const slider = !!(el.querySelector && el.querySelector('input[type=range]'));
+      const prev = chunks.length ? chunks[chunks.length-1] : null;
+      if(own && slider && prev && prev.slider){ prev.push(i); }
+      else if(own || !chunks.length){ const c=[i]; c.slider = slider; chunks.push(c); }
+      else prev.push(i);
+    });
+    if(chunks.length < 2){ outS.push(st); return; }
+    chunks.forEach(idxs=>{
+      const head = parts[idxs[0]];
+      const lab = head.querySelector ? head.querySelector('label.t') : null;
+      const names = idxs.map(i=>{ const g = parts[i]; const l = g.querySelector ? g.querySelector('label.t') : null;
+        return l ? l.textContent.replace(/\s*—.*$/,'').replace(/\s*\(.*$/,'').trim() : ''; }).filter(Boolean);
+      const tag = names.length ? names.slice(0,2).join(' и ').toLowerCase().replace(/^./,c=>c.toUpperCase()) : st.title;
+      outS.push({ tag: tag, title: names.length > 1 ? tag : (lab ? lab.textContent.trim() : st.title),
+        render(){ const d = document.createElement('div'); d.innerHTML = st.render();
+          const kids = Array.prototype.slice.call(d.children);
+          return idxs.map(i=>kids[i] ? kids[i].outerHTML : '').join(''); } });
+    });
+  });
+  if(outS.length > STEPS.length) STEPS.splice(0, STEPS.length, ...outS);
+}
 function renderStep(){
+  fixNums();
+  if(!_qsplit){ _qsplit = true; try{ splitSteps(); }catch(e){} }
+  if(step > STEPS.length-1) step = STEPS.length-1;
   const st = STEPS[step];
-  stepsEl.innerHTML = `<div class="step-label">${st.label}</div><h2>${st.title}</h2>` + st.render();
+  const lab = st.tag ? ('Шаг ' + (step+1) + ' из ' + STEPS.length + ' / ' + st.tag)
+            : String(st.label||'').replace(/Шаг\s*\d+\s*из\s*\d+/, 'Шаг ' + (step+1) + ' из ' + STEPS.length);
+  stepsEl.innerHTML = `<div class="step-label">${lab}</div><h2>${st.title}</h2>` + st.render();
+  if(window.drawQuizFrom) drawQuizFrom();
   runway.innerHTML = STEPS.map((_,i)=>`<div class="rw ${i<=step?'on':''}"></div>`).join('');
   document.getElementById('back').style.visibility = step===0?'hidden':'visible';
   const next = document.getElementById('next');
@@ -9380,13 +9440,14 @@ function renderStep(){
   next.disabled = !stepValid();
   next.classList.toggle('pulse', stepValid());
 }
+const QZ_OPT = {style:1, season:1, gender:1};
 function stepValid(){
-  if(step===0) return S.gender && S.age;
-  if(step===1) return !!S.figure;
-  if(step===2) return S.clothSize && S.shoeSize;
-  if(step===3) return S.hair && S.eyes && S.skin;
-  if(step===4) return S.event && S.budget;
-  return true;
+  const html = stepsEl ? stepsEl.innerHTML : '';
+  const keys = [];
+  let m, re = /pick\('(\w+)'/g;
+  while((m = re.exec(html))) if(keys.indexOf(m[1]) < 0) keys.push(m[1]);
+  if(!keys.length) return true;
+  return keys.every(k=> QZ_OPT[k] || (S[k] !== null && S[k] !== undefined && S[k] !== ''));
 }
 const quizTop = ()=>document.querySelector('.quiz').scrollIntoView({behavior:'smooth', block:'nearest'});
 document.getElementById('back').onclick = ()=>{ if(step>0){step--; renderStep(); quizTop();} };
@@ -10739,7 +10800,30 @@ window.closePage = (noScroll)=>{
   if(!noScroll) window.scrollTo({top:0, behavior:'smooth'});
 };
 /* закрыть страницу и сразу оказаться на анкете — без ожидания */
+window.quizFrom = ()=>{ try{ return JSON.parse(sessionStorage.getItem('looka_quiz_from')||'null'); }catch(e){ return null; } };
+window.setQuizFrom = v=>{ try{ v ? sessionStorage.setItem('looka_quiz_from', JSON.stringify(v)) : sessionStorage.removeItem('looka_quiz_from'); }catch(e){} };
+window.drawQuizFrom = ()=>{ const el = document.getElementById('qzFrom'); if(!el) return;
+  const f = window.quizFrom && quizFrom();
+  el.innerHTML = f ? '<button class="qz-from-btn" onclick="backFromQuiz()">← Вернуться: '+f.label+'</button>' : ''; };
+window.backFromQuiz = ()=>{ const f = window.quizFrom && quizFrom(); setQuizFrom(null); drawQuizFrom();
+  document.querySelectorAll('.qz-back-row').forEach(el=>el.remove());
+  if(!f) return;
+  if(f.tool && window.openTool) openTool(f.tool);
+  else if(f.page && window.openPage) openPage(f.page); };
 window.goQuiz = ()=>{
+  try{
+    const pv = document.querySelector('.pageview.active-page');
+    if(pv){
+      if(pv.id === 'toolPage' && window.CUR_TOOL){
+        const h = document.querySelector('#tlHero h2');
+        setQuizFrom({ tool: window.CUR_TOOL, label: 'помощник «' + ((h && h.textContent.trim()) || 'помощник') + '»' });
+      } else {
+        const t = pv.querySelector('h1,h2');
+        setQuizFrom({ page: pv.id, label: ((t && t.textContent.trim().slice(0,38)) || 'предыдущий раздел') });
+      }
+    } else setQuizFrom(null);
+  }catch(e){}
+  setTimeout(()=>{ if(window.drawQuizFrom) drawQuizFrom(); }, 0);
   closePage(true);
   const st = document.querySelector('.stage'); if(!st) return;
   // на время прыжка отключаем плавность страницы — иначе браузер начнёт долгую анимацию
@@ -11604,6 +11688,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
 
 /* ---- баннер помощников: карусель ---- */
 window.openTool = key=>{
+  window.CUR_TOOL = key;
   document.querySelectorAll('.dd.open').forEach(x=>x.classList.remove('open'));
   if(key==='passport'){ openPage('passPage'); return; }
   openPage('toolPage');
@@ -14181,7 +14266,7 @@ function renderCapsule(){
         ['Быстро', 'белая рубашка + '+R.I.find(i=>i.cat==='bottom').n+' + '+R.I.find(i=>i.cat==='acc').n.split(' + ')[0]]
       ].map((c,i)=>HUB.pop(`<div class="cp-combo"><span>${c[0]}</span><b>${c[1]}</b></div>`,i)).join('')}</div>
     </div></div>`;
-  out.insertAdjacentHTML('beforeend', '<div class="next-row"><span>дальше →</span><button onclick="openWardrobe()">✦ Мой гардероб</button><button onclick="openColor()">✦ Цветотип</button><button onclick="openTool(\'trip\')">✦ Чемодан в поездку</button></div>');
+  out.insertAdjacentHTML('beforeend', ((window.quizFrom && quizFrom()) ? '<div class="next-row qz-back-row"><span>вернуться →</span><button onclick="backFromQuiz()">'+quizFrom().label+'</button></div>' : '')+'<div class="next-row"><span>дальше →</span><button onclick="openWardrobe()">✦ Мой гардероб</button><button onclick="openColor()">✦ Цветотип</button><button onclick="openTool(\'trip\')">✦ Чемодан в поездку</button></div>');
   HUB.done(out);
   out.querySelectorAll('.count').forEach(el=>{ const n=+el.dataset.n; let t0=null; const step=ts=>{ if(!t0) t0=ts; const k=Math.min(1,(ts-t0)/900); el.textContent=Math.round(n*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(step); }; requestAnimationFrame(step); });
 }
@@ -17143,8 +17228,8 @@ if(document.readyState!=='loading') setTimeout(prDraw,200); else document.addEve
 
 /* ================= КАЛЬКУЛЯТОР ДЛЯ БЛОГЕРОВ ================= */
 (function(){
-const PL = [['неделя',390,4.3,'390 ₽'],['месяц',990,1,'990 ₽'],['год',4990,1,'4 990 ₽']];
-const KEEP = [26, 6, 1];
+const PL = [['5 подборов',149,0.5,'149 ₽'],['30 подборов',690,1/6,'690 ₽'],['100 подборов',1790,1/12,'1 790 ₽']];
+const KEEP = [6, 2, 1];
 const fmt = n=>Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ');
 function plural(n,a,b,c){ const m=n%100; if(m>=11&&m<=14) return c; const k=n%10; return k===1?a:(k>=2&&k<=4?b:c); }
 /* плавный счётчик, чтобы цифра не прыгала */
@@ -17178,7 +17263,7 @@ window.bgCalc = ()=>{
   set('bgCrV', String(pct.toFixed(1)).replace('.0','').replace('.',',')+' %');
   num('bgOut1', month, ' ₽'); num('bgOut12', year, ' ₽'); num('bgSave', save, ' ₽');
   set('bgOutN', fmt(buyers)+' '+plural(Math.round(buyers),'покупательница','покупательницы','покупательниц')
-    +' × '+fmt(perPay)+' ₽ со скидкой × 20 %'+(P[2]>1?' × 4 недели в месяце':''));
+    +' × '+fmt(perPay)+' ₽ со скидкой × 20 % · в среднем '+KEEP[pi]+' '+plural(KEEP[pi],'покупка','покупки','покупок')+' в год');
   const bar=g('bgBar');
   if(bar) bar.style.width=Math.max(6,Math.min(100, Math.log10(Math.max(month,1))/Math.log10(400000)*100))+'%';
 };
@@ -19648,7 +19733,7 @@ window.giftView=async id=>{ let ov=document.getElementById('pubOv'); if(!ov){ ov
       <div class="gift-sizes">${[['одежда',c.sizes.clothes],['обувь',c.sizes.shoes],['бра',c.sizes.bra],['рост',c.sizes.height]].filter(x=>x[1]).map(x=>`<div><small>${x[0]}</small><b>${x[1]}</b></div>`).join('')}</div>`:''}
       ${c.colors&&c.colors.length?`<div class="cs-k" style="margin-top:14px">ЕЁ ЦВЕТА</div><div class="tip" style="margin-bottom:6px">Если выбираете вещь, украшение или букет — эти оттенки ей идут. Остальные лучше не брать.</div><div class="chips">${c.colors.map(x=>`<span class="chip on">${x}</span>`).join('')}</div>`:''}
       ${c.note?`<div class="lf-say" style="margin-top:14px;font-size:15px">«${c.note}»</div>`:''}
-      <div class="to-row" style="margin-top:14px"><button class="btn primary" onclick="pubClose();openPage('giftPage')">🎁 Подарить год LOOKA</button><button class="btn ghost" onclick="pubClose()">Закрыть</button></div>
+      <div class="to-row" style="margin-top:14px"><button class="btn primary" onclick="pubClose();openPage('giftPage')">🎁 Подарить LOOKA</button><button class="btn ghost" onclick="pubClose()">Закрыть</button></div>
       <div class="b-priv">Сделано в LOOKA — сервисе, который знает её стиль. Хотите такую же подсказку для себя? Это бесплатно.</div>
     </div></div>`; }
   catch(e){ ov.querySelector('.au-in').innerHTML='<div class="tip">'+e.message+'</div><button class="btn ghost" onclick="pubClose()">Закрыть</button>'; } };
