@@ -6006,6 +6006,38 @@ header nav.topnav{gap:4px;align-items:center}
   font-family:'Manrope';font-size:13.5px;font-weight:600;letter-spacing:.1px;text-transform:none;color:#A7AEC2}
 .topnav .nav-dd > a:hover{color:#ECEDF2;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}
 .topnav .nav-new span{background:linear-gradient(120deg,#19C6F7,#C79DF2);color:#0B0C12;font-weight:700}
+
+/* ===== яркий раздел «Помощники» в хэдере ===== */
+header .topnav > a.nav-tools,
+.topnav > a.nav-tools{position:relative;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 15px 0 13px;
+  border:0;border-radius:99px;overflow:hidden;text-transform:none;letter-spacing:.1px;
+  font-family:'Manrope';font-size:13.5px;font-weight:700;color:#0B0C12;
+  background:linear-gradient(118deg,#19C6F7 0%,#7FD8F6 38%,#C79DF2 100%);
+  box-shadow:0 2px 14px rgba(25,198,247,.38),0 0 0 1px rgba(255,255,255,.22) inset;
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+header .topnav > a.nav-tools::after,
+.topnav > a.nav-tools::after{content:'';position:absolute;top:0;bottom:0;width:38%;left:-50%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.62),transparent);
+  animation:navToolsSheen 4.6s ease-in-out infinite}
+@keyframes navToolsSheen{0%{left:-50%}42%{left:120%}100%{left:120%}}
+header .topnav > a.nav-tools > i,
+.topnav > a.nav-tools > i{font-style:normal;font-size:14px;line-height:1;display:inline-block;animation:navToolsSpin 9s linear infinite}
+@keyframes navToolsSpin{to{transform:rotate(360deg)}}
+header .topnav > a.nav-tools > b,
+.topnav > a.nav-tools > b{font-weight:700;position:relative;z-index:1}
+header .topnav > a.nav-tools > span,
+.topnav > a.nav-tools > span{position:relative;z-index:1;font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;letter-spacing:.4px;
+  padding:2px 6px;border-radius:99px;background:rgba(11,12,18,.78);color:#EAF7FF}
+header .topnav > a.nav-tools:hover,
+.topnav > a.nav-tools:hover{color:#0B0C12;transform:translateY(-1px);filter:saturate(1.12);
+  box-shadow:0 5px 22px rgba(25,198,247,.5),0 0 0 1px rgba(255,255,255,.3) inset;border-bottom-color:transparent}
+@media (prefers-reduced-motion:reduce){
+  header .topnav > a.nav-tools::after,.topnav > a.nav-tools::after{animation:none;display:none}
+  header .topnav > a.nav-tools > i,.topnav > a.nav-tools > i{animation:none}
+}
+@media(max-width:760px){
+  header .topnav > a.nav-tools,.topnav > a.nav-tools{height:34px;padding:0 12px 0 11px;font-size:12.5px;gap:6px}
+}
 .topnav a,.topnav .nav-dd > a{border-bottom-width:1px}
 
 /* ================= СЕТКА РАЗДЕЛОВ: вкладки вместо длинной простыни ================= */
@@ -7167,13 +7199,13 @@ header nav.topnav{gap:4px;align-items:center}
 <header>
   <div class="logo" onclick="goHome()" role="button" title="На главную">LOO<em>KA</em></div>
   <nav class="topnav">
-    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openDna()"><i>⌘</i>Стиль-ДНК<em>ваш вкус: эстетики, посадки, характер</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button><button onclick="openPage('toolsPage')"><i>⚙</i>Помощники<em>погода, чемодан, размеры…</em></button></div></span><span class="nav-dd"><a href="#ask" onclick="return navDD2(this,'askPage')">Спросить<i class="dd-arr">▾</i></a><div class="dd" id="navDDa"><button onclick="openPage('askPage')"><i>◉</i>Консилиум<em>дерматолог, визажист, стилист</em></button><button onclick="openClub()"><i>✦</i>Секретики<em>советы девушек вашей страны</em></button></div></span><span class="nav-dd"><a href="#learn" onclick="return navDD2(this,'coursePage')">Академия<i class="dd-arr">▾</i></a><div class="dd" id="navDDl"><button onclick="openCourses()"><i>▤</i>Курсы<em>бровист, визажист, колорист</em></button><button onclick="openPro()"><i>✎</i>Лайфхаки от профессионалов<em><b class="pro-n">118</b> штук, включая голливудские</em></button><button onclick="openArts()"><i>❏</i>Статьи-разборы<em>длинные тексты без воды</em></button></div></span><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="7.8" cy="7.8" r="5.4"/><path d="M11.9 11.9 16 16"/></svg></i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu(event)"><span>Войти</span></button>
+    <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openDna()"><i>⌘</i>Стиль-ДНК<em>ваш вкус: эстетики, посадки, характер</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button></div></span><a href="#tools" class="nav-tools" onclick="openPage('toolsPage');return false"><i>⚙</i><b>Помощники</b><span>15</span></a><span class="nav-dd"><a href="#ask" onclick="return navDD2(this,'askPage')">Спросить<i class="dd-arr">▾</i></a><div class="dd" id="navDDa"><button onclick="openPage('askPage')"><i>◉</i>Консилиум<em>дерматолог, визажист, стилист</em></button><button onclick="openClub()"><i>✦</i>Секретики<em>советы девушек вашей страны</em></button></div></span><span class="nav-dd"><a href="#learn" onclick="return navDD2(this,'coursePage')">Академия<i class="dd-arr">▾</i></a><div class="dd" id="navDDl"><button onclick="openCourses()"><i>▤</i>Курсы<em>бровист, визажист, колорист</em></button><button onclick="openPro()"><i>✎</i>Лайфхаки от профессионалов<em><b class="pro-n">118</b> штук, включая голливудские</em></button><button onclick="openArts()"><i>❏</i>Статьи-разборы<em>длинные тексты без воды</em></button></div></span><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="7.8" cy="7.8" r="5.4"/><path d="M11.9 11.9 16 16"/></svg></i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu(event)"><span>Войти</span></button>
   </nav>
 </header>
 <div class="sysbar sb2">
   <span class="sb-on"><i></i>SYSTEM ONLINE</span>
   <span class="sb-clock" id="sbClock">МСК --:--:--</span>
-  <span class="sb-rot"><b id="sbRot">РАЗДЕЛОВ: 25 · БЕСПЛАТНЫХ: 20 · ПОМОЩНИКОВ: 8</b></span>
+  <span class="sb-rot"><b id="sbRot">РАЗДЕЛОВ: 25 · БЕСПЛАТНЫХ: 20 · ПОМОЩНИКОВ: 15</b></span>
   <button class="reg-btn" onclick="openRegion()">🇷🇺 Россия и СНГ <i>▾</i></button>
   <span class="sb-scan"></span>
 </div>
@@ -11461,9 +11493,10 @@ window.cityAC = (inp, sug, onPick, filter)=>{
       return '<button onclick="openTool(\''+k+'\')"><i>'+ic+'</i>'+TOOLS[k].h.toUpperCase()+'</button>';
     }).join('');
   };
-  document.querySelectorAll('#toolGrid .tool').forEach(btn=>{
-    if(btn.dataset.t==='passport'){ btn.style.setProperty('--tc','#19C6F7'); btn.insertAdjacentHTML('afterbegin','<span class="num">15</span>'); btn.insertAdjacentHTML('beforeend','<span class="go">ОТКРЫТЬ →</span>'); btn.addEventListener('click', ()=>openPage('passPage')); return; }
-    const t = TOOLS[btn.dataset.t]; if(t){ btn.style.setProperty('--tc', t.c); btn.insertAdjacentHTML('afterbegin','<span class="num">'+t.n+'</span>'); btn.insertAdjacentHTML('beforeend','<span class="go">ОТКРЫТЬ →</span>'); }
+  document.querySelectorAll('#toolGrid .tool').forEach((btn,ti)=>{
+    const tnum = String(ti+1).padStart(2,'0');
+    if(btn.dataset.t==='passport'){ btn.style.setProperty('--tc','#19C6F7'); btn.insertAdjacentHTML('afterbegin','<span class="num">'+tnum+'</span>'); btn.insertAdjacentHTML('beforeend','<span class="go">ОТКРЫТЬ →</span>'); btn.addEventListener('click', ()=>openPage('passPage')); return; }
+    const t = TOOLS[btn.dataset.t]; if(t){ btn.style.setProperty('--tc', t.c); btn.insertAdjacentHTML('afterbegin','<span class="num">'+tnum+'</span>'); btn.insertAdjacentHTML('beforeend','<span class="go">ОТКРЫТЬ →</span>'); }
     btn.addEventListener('click', ()=>openTool(btn.dataset.t));
   });
 })();
@@ -16202,7 +16235,7 @@ const GROUPS = [
   { t:'Чтобы всё сидело', d:'размеры, посадка и вещи, которые живут годами', items:[
     ['◠','Ваш настоящий размер бра','две мерки — и точный размер в RU, EU и US', 'openBra()', 'бесплатно'],
     ['❊','Спасти любимую вещь','значки на ярлыке, ткани и SOS по пятнам за 10 минут', 'openCare()', 'бесплатно'],
-    ['⚙','Восемь помощников','погода, чемодан, размеры, дресс-код, SOS и ещё', "openPage('toolsPage')", 'бесплатно'],
+    ['⚙','Пятнадцать помощников','погода, чемодан, размеры, дресс-код, SOS и ещё', "openPage('toolsPage')", 'бесплатно'],
     ['✎','Лайфхаки от профессионалов','<b class="pro-n">118</b> приёмов визажистов, колористов и стилистов — включая раздел «Красная дорожка», с мини-схемой у каждого', 'openPro()', 'бесплатно'],
     ['▦','Курсы: бровист, визажист, стилист по волосам','36 уроков со схемами — базовые модули открыты всем, профессиональные в пакете', 'openCourses()', 'частично бесплатно']
   ]},
