@@ -6038,6 +6038,9 @@ header .topnav > a.nav-tools:hover,
 @media(max-width:760px){
   header .topnav > a.nav-tools,.topnav > a.nav-tools{height:34px;padding:0 12px 0 11px;font-size:12.5px;gap:6px}
 }
+/* меню никогда не должно переполняться влево, на логотип */
+header .topnav,#topbar .topnav{justify-content:flex-start;min-width:0}
+header .topnav > .nav-find,#topbar .topnav > .nav-find{margin-left:auto}
 /* на ноутбучных ширинах шапка не должна наезжать на логотип */
 @media(min-width:861px) and (max-width:1740px){
   header .topnav{padding-left:24px}
@@ -8926,7 +8929,7 @@ setInterval(pgDraw, 4000);
       <a href="https://market.yandex.ru" target="_blank" rel="noopener">Яндекс Маркет&nbsp;↗</a>
       <a href="https://aliexpress.ru" target="_blank" rel="noopener">AliExpress&nbsp;↗</a></div>
   </div>
-  <div class="f-bottom">LOOKA · 2026 · подбор носит рекомендательный характер · цены и наличие — на маркетплейсах<span class="f-ver" title="какая версия сайта сейчас открыта — если число старое, обновите страницу через Ctrl+Shift+R">версия от 15.10.2026</span></div>
+  <div class="f-bottom">LOOKA · 2026 · подбор носит рекомендательный характер · цены и наличие — на маркетплейсах<span class="f-ver" title="какая версия сайта сейчас открыта — если число старое, обновите страницу через Ctrl+Shift+R">версия от 18.11.2026</span></div>
 </footer>
 
 <div class="pay-ov" id="payOv" onclick="if(event.target===this) closePay()">
