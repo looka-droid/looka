@@ -6687,6 +6687,15 @@ header .topnav > .nav-find,#topbar .topnav > .nav-find{margin-left:auto}
 .look-ph .look-svg{width:96px;height:160px}
 .hint-pin{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;color:#C7A6F0;text-decoration:none}
 .dna-st .st-ph{position:absolute;right:0;top:0;bottom:0;width:38%;opacity:.55;mask-image:linear-gradient(90deg,transparent,#000 40%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%);pointer-events:none}
+/* пока фото не пришло — мягкая заливка палитрой, чтобы карточка не выглядела «недогруженной» */
+.dna-st::after{content:'';position:absolute;right:0;top:0;bottom:0;width:38%;pointer-events:none;z-index:0;
+  background:linear-gradient(145deg,var(--p1,#C79DF2),var(--p2,#19C6F7) 55%,var(--p3,#F2A6C6));
+  opacity:.17;mask-image:linear-gradient(90deg,transparent,#000 55%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 55%);
+  transition:opacity .3s}
+.dna-st:has(.st-ph)::after{opacity:0}
+.dna-st.on::after{opacity:.26}
+.dna-st.on:has(.st-ph)::after{opacity:0}
+.dna-st .st-pal,.dna-st b,.dna-st span,.dna-st em,.dna-st u{position:relative;z-index:1}
 .dna-st .st-ph img{width:100%;height:100%;object-fit:cover}
 .dna-st.on .st-ph{opacity:.85}
 
@@ -21143,8 +21152,23 @@ window.dnaPhotos = async ()=>{
     for(const e of ['jpg','JPG','jpeg','JPEG','png','PNG','webp']){ const u='img/aest/'+s+'.'+e;
       const ok=await new Promise(r=>{ const i=new Image(); i.onload=()=>r(true); i.onerror=()=>r(false); i.src=u; });
       if(ok){ PH[n]={url:u,by:''}; put(el,u); return; } } }));
-  /* 2) остальным — сток или генерация, по очереди и не торопясь */
-  for(const el of els){ if(el.querySelector('.st-ph')) continue; const n=el.dataset.hint.slice(5); const p=await aestPhoto(n); if(p) put(el,p.url); } };
+  /* 2) остальным — сток или генерация: по 4 параллельно, чтобы одна зависшая не держала всю очередь */
+  const rest = els.filter(el=>!el.querySelector('.st-ph'));
+  const queue = rest.slice();
+  const worker = async ()=>{ while(queue.length){ const el = queue.shift(); if(!el || el.querySelector('.st-ph')) continue;
+    const n = el.dataset.hint.slice(5);
+    try{ const p = await aestPhoto(n); if(p && p.url) put(el, p.url); }catch(e){} } };
+  await Promise.all([worker(), worker(), worker(), worker()]);
+  /* 3) кто не успел — ещё одна попытка через паузу */
+  const left = rest.filter(el=>!el.querySelector('.st-ph'));
+  if(left.length) setTimeout(async ()=>{
+    const q2 = left.slice();
+    const w2 = async ()=>{ while(q2.length){ const el=q2.shift(); if(!el || el.querySelector('.st-ph')) continue;
+      const n=el.dataset.hint.slice(5);
+      try{ const p=await aestPhoto(n); if(p && p.url) put(el,p.url); }catch(e){} } };
+    await Promise.all([w2(), w2()]);
+  }, 2500);
+};
 (function(){ const o=window.openPage; window.openPage=function(id){ o.apply(null,arguments); if(id==='dnaPage'){ setTimeout(()=>{ if(window.dnaPhotos) dnaPhotos(); },300); setTimeout(()=>{ if(window.dnaPhotos) dnaPhotos(); },1800); setTimeout(()=>{ const t=document.querySelector('#dnaPage .por-card')||document.querySelector('#dnaPage .mk-hero'); sparkleReveal(t); },120); } }; })();
 
 /* главная: витрина ДНК и таблица «бесплатно / за подборы» */
@@ -21227,19 +21251,40 @@ window.aestPinsExport = ()=>{ const s='window.AEST_PIN = '+JSON.stringify(AEST_P
 window.AEST_IMG = {  /* сюда можно вписать свои ссылки на картинки: 'Y2K':'https://…jpg' */ };
 window.AEST_Q = { 'Y2K':'y2k outfit fashion','Old money':'old money aesthetic outfit','Quiet luxury':'quiet luxury outfit','Clean girl':'clean girl aesthetic outfit','Coquette':'coquette aesthetic outfit','Balletcore':'balletcore outfit','Dark academia':'dark academia outfit','Light academia':'light academia outfit','Cottagecore':'cottagecore dress','Coastal':'coastal linen outfit','Gorpcore':'gorpcore outfit','Streetwear':'streetwear outfit woman','Скандинавский минимализм':'scandinavian minimalist outfit','Парижский шик':'parisian chic outfit','Гранж':'grunge outfit woman','Панк / рок':'punk rock outfit woman','Готика':'gothic fashion woman','E-girl / альт':'egirl alt fashion','Soft girl':'soft girl aesthetic outfit','Mob wife':'mob wife aesthetic fur','Бохо':'boho outfit woman','Ретро 70-х':'70s retro outfit','80-е':'80s fashion outfit','90-е':'90s fashion outfit','Спорт-шик':'athleisure chic outfit','Preppy':'preppy outfit woman','Романтика':'romantic feminine outfit','Классика / офис':'classic office outfit woman','Артистичный':'artsy eclectic outfit','Бойфренд / oversize':'oversized boyfriend outfit','Mermaidcore':'mermaidcore sequin outfit','Тотал-блэк':'all black minimal outfit woman','Office siren':'office siren outfit','Розовый глэм':'hot pink suit outfit woman' };
 const PH = {};
+const PH_LS = 'looka_aest_ph';
+try{ const sv = JSON.parse(localStorage.getItem(PH_LS)||'{}');
+  Object.keys(sv).forEach(k=>{ if(sv[k] && sv[k].url) PH[k] = sv[k]; }); }catch(e){}
+window.phSave = ()=>{ try{ const out={}; Object.keys(PH).forEach(k=>{ if(PH[k] && PH[k].url) out[k]=PH[k]; });
+  localStorage.setItem(PH_LS, JSON.stringify(out)); }catch(e){} };
+const PH_BUSY = {};
 window.aestSlug = n=>({'Y2K':'y2k','Old money':'old-money','Quiet luxury':'quiet-luxury','Clean girl':'clean-girl','Coquette':'coquette','Balletcore':'balletcore','Dark academia':'dark-academia','Light academia':'light-academia','Cottagecore':'cottagecore','Coastal':'coastal','Gorpcore':'gorpcore','Streetwear':'streetwear','Скандинавский минимализм':'scandi','Парижский шик':'parisian','Гранж':'grunge','Панк / рок':'punk','Готика':'gothic','E-girl / альт':'egirl','Soft girl':'soft-girl','Mob wife':'mob-wife','Бохо':'boho','Ретро 70-х':'retro-70s','80-е':'80s','90-е':'90s','Спорт-шик':'sport-chic','Preppy':'preppy','Романтика':'romantic','Классика / офис':'classic-office','Артистичный':'artsy','Бойфренд / oversize':'boyfriend','Бойфренд / андрогинный':'boyfriend','Glam / вечерний':'glam','K-fashion':'k-fashion','Techwear / кибер':'techwear','Western':'western','Casual базовый':'casual','Mermaidcore':'mermaidcore','Тотал-блэк':'minimal-black','Office siren':'office-siren','Розовый глэм':'pink-glam'}[n]||n.toLowerCase().replace(/[^a-zа-я0-9]+/gi,'-'));
 const probe = src=>new Promise(res=>{ const i=new Image(); i.onload=()=>res(true); i.onerror=()=>res(false); i.src=src; });
 window.aestPhoto = async n=>{
   if(AEST_IMG[n]) return { url:AEST_IMG[n] };
-  if(PH[n]===undefined){ const s=aestSlug(n); const names=[s, s.replace(/-/g,'_'), s.replace(/-/g,' '), encodeURIComponent(n)];
+  if(PH[n] && PH[n].url) return PH[n];
+  if(PH_BUSY[n]) return PH_BUSY[n];
+  PH_BUSY[n] = (async()=>{
+    const sl=aestSlug(n); const names=[sl, sl.replace(/-/g,'_'), sl.replace(/-/g,' '), encodeURIComponent(n)];
     const exts=['jpg','JPG','jpeg','JPEG','png','PNG','webp','WEBP'];
-    for(const nm of names){ for(const e of exts){ const local='img/aest/'+nm+'.'+e; if(await probe(local)){ PH[n]={ url:local, by:'' }; return PH[n]; } } } }
-  if(PH[n]!==undefined) return PH[n];
-  PH[n]=null;
-  const api=String(typeof LOOKA_API!=='undefined'?LOOKA_API:'').replace(/\/$/,'');
-  try{ const r=await fetch(api+'/photo?q='+encodeURIComponent(AEST_Q[n]||(n+' outfit'))); const j=await r.json(); PH[n]=(j.photos&&j.photos[0])||null; }catch(e){ PH[n]=null; }
-  if(!PH[n]){ try{ const A=(window.AESTH||[]).find(x=>x[0]===n)||[]; const r=await fetch(api+'/aest-img?name='+encodeURIComponent(n)+'&desc='+encodeURIComponent((A[1]||'')+'; '+(A[2]||''))); const j=await r.json(); if(j.img) PH[n]={ url:j.img, by:'' }; }catch(e){} }
-  return PH[n];
+    for(const nm of names){ for(const e of exts){ const local='img/aest/'+nm+'.'+e;
+      if(await probe(local)){ PH[n]={ url:local, by:'' }; phSave(); return PH[n]; } } }
+    const api=String(typeof LOOKA_API!=='undefined'?LOOKA_API:'').replace(/\/$/,'');
+    /* запрос не должен висеть вечно — иначе очередь встаёт и остальные карточки остаются пустыми */
+    const grab = async (url, ms)=>{ const c = (typeof AbortController!=='undefined') ? new AbortController() : null;
+      const t = setTimeout(()=>{ try{ c && c.abort(); }catch(e){} }, ms);
+      try{ const r = await fetch(url, c?{signal:c.signal}:undefined); return await r.json(); }
+      catch(e){ return null; } finally{ clearTimeout(t); } };
+    let got = null;
+    const j = await grab(api+'/photo?q='+encodeURIComponent(AEST_Q[n]||(n+' outfit')), 9000);
+    if(j && j.photos && j.photos[0]) got = j.photos[0];
+    if(!got){ const A=(window.AESTH||[]).find(x=>x[0]===n)||[];
+      const g = await grab(api+'/aest-img?name='+encodeURIComponent(n)+'&desc='+encodeURIComponent((A[1]||'')+'; '+(A[2]||'')), 25000);
+      if(g && g.img) got = { url:g.img, by:'' }; }
+    /* неудачу НЕ запоминаем: при следующем заходе попробуем снова */
+    if(got){ PH[n]=got; phSave(); } else delete PH[n];
+    return got;
+  })();
+  try{ return await PH_BUSY[n]; } finally{ delete PH_BUSY[n]; }
 };
 window.aestPinterest = n=>'https://www.pinterest.com/search/pins/?q='+encodeURIComponent((AEST_Q[n]||n)+' aesthetic');
 
