@@ -4007,76 +4007,145 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .sm-table small{font-family:'JetBrains Mono';font-size:9.5px;color:#A8AEC2}
 
 /* ===== яркие блоки во всех помощниках ===== */
-#toolPanel .tp-tabs{gap:9px;margin:0 0 20px}
-#toolPanel .tp-tabs button{font-size:11px;letter-spacing:.8px;padding:10px 17px;
+#toolPage .tp-tabs{gap:9px;margin:0 0 20px}
+#toolPage .tp-tabs button{font-size:11px;letter-spacing:.8px;padding:10px 17px;
   color:#C2C7D6;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);
   transition:color .18s,border-color .18s,background .18s,transform .18s,box-shadow .18s}
-#toolPanel .tp-tabs button:hover{color:#fff;border-color:rgba(25,198,247,.55);background:rgba(25,198,247,.1);transform:translateY(-1px)}
-#toolPanel .tp-tabs button.on{color:#0B0C12;font-weight:700;border-color:transparent;
+#toolPage .tp-tabs button:hover{color:#fff;border-color:rgba(25,198,247,.55);background:rgba(25,198,247,.1);transform:translateY(-1px)}
+#toolPage .tp-tabs button.on{color:#0B0C12;font-weight:700;border-color:transparent;
   background:linear-gradient(118deg,#19C6F7,#8FD9F7 45%,#C79DF2);
   box-shadow:0 4px 18px rgba(25,198,247,.4);transform:none}
 
-#toolPanel .tp-card{--smc:#19C6F7;position:relative;overflow:hidden;border-radius:20px;padding:19px 22px 17px;margin-bottom:16px;
+#toolPage .tp-card{--smc:var(--t1,#19C6F7);position:relative;overflow:hidden;border-radius:20px;padding:19px 22px 17px;margin-bottom:16px;
   border:1px solid rgba(255,255,255,.11);
   background:linear-gradient(158deg,rgba(255,255,255,.06),rgba(255,255,255,.018));
   box-shadow:0 12px 34px rgba(0,0,0,.3)}
-#toolPanel .tp-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px;
+#toolPage .tp-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px;
   background:var(--smc);box-shadow:0 0 16px var(--smc)}
-#toolPanel .tp-card::after{content:'';position:absolute;left:-60px;top:-90px;width:260px;height:200px;pointer-events:none;
+#toolPage .tp-card::after{content:'';position:absolute;left:-60px;top:-90px;width:260px;height:200px;pointer-events:none;
   background:radial-gradient(circle,var(--smc),transparent 68%);opacity:.14}
-#toolPanel .sm-need{--smc:#37E08A;border-color:rgba(55,224,138,.34)}
-#toolPanel .sm-can,#toolPanel .sos-fav{--smc:#FFC46B;border-color:rgba(255,196,107,.34)}
-#toolPanel .sm-no,#toolPanel .sos-no{--smc:#FF5C8A;border-color:rgba(255,92,138,.34)}
-#toolPanel .sos-face{--smc:#FF6FBF;border-color:rgba(255,111,191,.34)}
-#toolPanel .sos-hair{--smc:#B44CFF;border-color:rgba(180,76,255,.34)}
-#toolPanel .sos-look{--smc:#19C6F7;border-color:rgba(25,198,247,.34)}
+#toolPage .sm-need{--smc:#37E08A;border-color:rgba(55,224,138,.34)}
+#toolPage .sm-can,#toolPage .sos-fav{--smc:#FFC46B;border-color:rgba(255,196,107,.34)}
+#toolPage .sm-no,#toolPage .sos-no{--smc:#FF5C8A;border-color:rgba(255,92,138,.34)}
+#toolPage .sos-face{--smc:#FF6FBF;border-color:rgba(255,111,191,.34)}
+#toolPage .sos-hair{--smc:#B44CFF;border-color:rgba(180,76,255,.34)}
+#toolPage .sos-look{--smc:#19C6F7;border-color:rgba(25,198,247,.34)}
 
-#toolPanel .tp-card > .k{position:relative;z-index:1;display:flex;width:fit-content;max-width:100%;align-items:center;gap:9px;
+#toolPage .tp-card > .k{position:relative;z-index:1;display:flex;width:fit-content;max-width:100%;align-items:center;gap:9px;
   font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:1.9px;color:var(--smc);
   padding:6px 13px;border-radius:99px;margin-bottom:14px;
   border:1px solid color-mix(in srgb,var(--smc) 38%,transparent);
   background:color-mix(in srgb,var(--smc) 13%,transparent)}
-#toolPanel .tp-card > .k em{font-style:normal;font-weight:700;font-size:10px;letter-spacing:.5px;
+#toolPage .tp-card > .k em{font-style:normal;font-weight:700;font-size:10px;letter-spacing:.5px;
   min-width:18px;text-align:center;padding:1px 5px;border-radius:99px;color:#0B0C12;background:var(--smc)}
-#toolPanel .tp-card .tp-d{position:relative;z-index:1;font-size:14.5px;line-height:1.62;color:#C7CCDC;margin:0}
+#toolPage .tp-card .tp-d{position:relative;z-index:1;font-size:14.5px;line-height:1.62;color:#C7CCDC;margin:0}
 
-#toolPanel .tp-card .item{position:relative;z-index:1;padding:15px 17px 13px;margin:0 0 11px;border-radius:16px;
+#toolPage .tp-card .item{position:relative;z-index:1;padding:15px 17px 13px;margin:0 0 11px;border-radius:16px;
   border:1px solid rgba(255,255,255,.09);
   background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
   transition:border-color .2s,transform .2s,box-shadow .2s}
-#toolPanel .tp-card .item:last-child{margin-bottom:0}
-#toolPanel .tp-card .item:hover{transform:translateY(-2px);
+#toolPage .tp-card .item:last-child{margin-bottom:0}
+#toolPage .tp-card .item:hover{transform:translateY(-2px);
   border-color:color-mix(in srgb,var(--smc) 50%,transparent);box-shadow:0 8px 24px rgba(0,0,0,.3)}
-#toolPanel .tp-card .item .nm{font-size:15.5px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:7px}
-#toolPanel .tp-card .item .pr{display:inline-block;font-family:'JetBrains Mono';font-size:11.5px;font-weight:700;color:var(--smc);
+#toolPage .tp-card .item .nm{font-size:15.5px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:7px}
+#toolPage .tp-card .item .pr{display:inline-block;font-family:'JetBrains Mono';font-size:11.5px;font-weight:700;color:var(--smc);
   padding:3px 10px;border-radius:99px;margin-bottom:11px;
   border:1px solid color-mix(in srgb,var(--smc) 34%,transparent);
   background:color-mix(in srgb,var(--smc) 11%,transparent)}
 
-#toolPanel .tp-card .tp-list li{position:relative;z-index:1;padding:11px 0 11px 30px;font-size:14.5px;line-height:1.58;color:#D4D9E6;
+#toolPage .tp-card .tp-list li{position:relative;z-index:1;padding:11px 0 11px 30px;font-size:14.5px;line-height:1.58;color:#D4D9E6;
   border-bottom:1px dashed rgba(255,255,255,.09)}
-#toolPanel .tp-card .tp-list li:last-child{border-bottom:none;padding-bottom:2px}
-#toolPanel .tp-card .tp-list li::before{left:0;top:11px;width:19px;height:19px;line-height:19px;text-align:center;
-  font-size:10px;border-radius:50%;color:#37E08A;background:rgba(55,224,138,.16);border:1px solid rgba(55,224,138,.4)}
-#toolPanel .sm-no .tp-list li::before,#toolPanel .sos-no .tp-list li::before{color:#FF5C8A;background:rgba(255,92,138,.16);border-color:rgba(255,92,138,.4)}
+#toolPage .tp-card .tp-list li:last-child{border-bottom:none;padding-bottom:2px}
+#toolPage .tp-card .tp-list li::before{left:0;top:11px;width:19px;height:19px;line-height:19px;text-align:center;
+  font-size:10px;border-radius:50%;color:var(--smc);
+  background:color-mix(in srgb,var(--smc) 16%,transparent);
+  border:1px solid color-mix(in srgb,var(--smc) 42%,transparent)}
+#toolPage .sm-no .tp-list li::before,#toolPage .sos-no .tp-list li::before{color:#FF5C8A;background:rgba(255,92,138,.16);border-color:rgba(255,92,138,.4)}
 
-#toolPanel .sm-table{gap:10px}
-#toolPanel .sm-table div{border-radius:14px;padding:13px 10px;border:1px solid rgba(25,198,247,.32);
+#toolPage .sm-table{gap:10px}
+#toolPage .sm-table div{border-radius:14px;padding:13px 10px;border:1px solid rgba(25,198,247,.32);
   background:linear-gradient(160deg,rgba(25,198,247,.12),rgba(25,198,247,.04))}
-#toolPanel .sm-table b{font-size:20px}
-#toolPanel .tp-note{position:relative;z-index:1;margin-top:14px;padding:12px 15px;border-radius:14px;
+#toolPage .sm-table b{font-size:20px}
+#toolPage .tp-note{position:relative;z-index:1;margin-top:14px;padding:12px 15px;border-radius:14px;
   border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#9BA2B8;font-size:11px}
 
 @media(max-width:620px){
-  #toolPanel .tp-card{padding:16px 16px 14px;border-radius:17px}
-  #toolPanel .tp-card .item{padding:13px 14px 11px}
-  #toolPanel .tp-card .item .nm{font-size:14.5px}
-  #toolPanel .tp-tabs button{padding:9px 14px;font-size:10.5px}
+  #toolPage .tp-card{padding:16px 16px 14px;border-radius:17px}
+  #toolPage .tp-card .item{padding:13px 14px 11px}
+  #toolPage .tp-card .item .nm{font-size:14.5px}
+  #toolPage .tp-tabs button{padding:9px 14px;font-size:10.5px}
 }
 @media (prefers-reduced-motion:reduce){
-  #toolPanel .tp-card .item:hover{transform:none}
-  #toolPanel .tp-tabs button:hover{transform:none}
+  #toolPage .tp-card .item:hover{transform:none}
+  #toolPage .tp-tabs button:hover{transform:none}
 }
+
+/* ===== у каждого помощника свой цвет и свой характер ===== */
+#toolPage[data-tool="today"]   {--t1:#FFB45C;--t2:#19C6F7}
+#toolPage[data-tool="trip"]    {--t1:#2ED9C3;--t2:#F3D9A4}
+#toolPage[data-tool="size"]    {--t1:#6FA8FF;--t2:#C9D8F0}
+#toolPage[data-tool="dress"]   {--t1:#C79DF2;--t2:#F5D06B}
+#toolPage[data-tool="sos"]     {--t1:#FF5C5C;--t2:#FFA14A}
+#toolPage[data-tool="life"]    {--t1:#FF8FC4;--t2:#C79DF2}
+#toolPage[data-tool="return"]  {--t1:#37E08A;--t2:#9FE8C8}
+#toolPage[data-tool="pair"]    {--t1:#FF9A8B;--t2:#6FD4FF}
+#toolPage[data-tool="revision"]{--t1:#8E9BFF;--t2:#D6DCF2}
+#toolPage[data-tool="calendar"]{--t1:#B6A6FF;--t2:#8FE8D2}
+#toolPage[data-tool="smart"]   {--t1:#19C6F7;--t2:#C79DF2}
+#toolPage[data-tool="passport"]{--t1:#4F8BFF;--t2:#F5D06B}
+#toolPage[data-tool="check"]   {--t1:#B6E34B;--t2:#8FA0B5}
+#toolPage[data-tool="gift"]    {--t1:#FFC247;--t2:#FF5C9E}
+#toolPage[data-tool="budget"]  {--t1:#1FB97A;--t2:#CFE8A8}
+
+/* вкладки и мелкие акценты берут цвет помощника */
+#toolPage .tp-tabs button:hover{color:#fff;border-color:color-mix(in srgb,var(--t1,#19C6F7) 55%,transparent);
+  background:color-mix(in srgb,var(--t1,#19C6F7) 12%,transparent)}
+#toolPage .tp-tabs button.on{background:linear-gradient(118deg,var(--t1,#19C6F7),var(--t2,#C79DF2));
+  box-shadow:0 4px 18px color-mix(in srgb,var(--t1,#19C6F7) 42%,transparent)}
+
+/* ---- характер «band»: цветная шапка сверху, заголовок-ярлык ---- */
+#toolPage[data-char="band"] .tp-card::before{left:0;right:0;top:0;bottom:auto;width:auto;height:5px;
+  border-radius:0;background:linear-gradient(90deg,var(--smc),var(--t2,var(--smc)));box-shadow:none}
+#toolPage[data-char="band"] .tp-card::after{left:auto;right:-70px;top:-70px;opacity:.1}
+#toolPage[data-char="band"] .tp-card{border-radius:14px}
+#toolPage[data-char="band"] .tp-card > .k{border-radius:0;border:0;border-left:3px solid var(--smc);
+  background:transparent;padding:2px 0 2px 11px;letter-spacing:2.4px}
+#toolPage[data-char="band"] .tp-card .item{border-radius:11px}
+#toolPage[data-char="band"] .tp-card .item .pr{border-radius:6px}
+
+/* ---- характер «wedge»: косой угол, заголовок с подчёркиванием ---- */
+#toolPage[data-char="wedge"] .tp-card::before{left:auto;right:0;top:0;bottom:auto;width:112px;height:112px;border-radius:0;
+  background:linear-gradient(225deg,var(--smc),transparent 62%);opacity:.3;box-shadow:none}
+#toolPage[data-char="wedge"] .tp-card::after{display:none}
+#toolPage[data-char="wedge"] .tp-card{border-radius:24px}
+#toolPage[data-char="wedge"] .tp-card > .k{border:0;background:transparent;padding:0 0 9px;border-radius:0;
+  border-bottom:2px solid color-mix(in srgb,var(--smc) 55%,transparent)}
+#toolPage[data-char="wedge"] .tp-card .item{border-radius:18px;
+  border-left:2px solid color-mix(in srgb,var(--smc) 34%,transparent)}
+
+/* ---- характер «dash»: пунктирная рамка, мягкая заливка ---- */
+#toolPage[data-char="dash"] .tp-card{border:1.5px dashed color-mix(in srgb,var(--smc) 46%,transparent);
+  border-radius:22px;background:linear-gradient(158deg,color-mix(in srgb,var(--smc) 9%,transparent),rgba(255,255,255,.015))}
+#toolPage[data-char="dash"] .tp-card::before{display:none}
+#toolPage[data-char="dash"] .tp-card::after{left:50%;transform:translateX(-50%);top:-120px;width:340px;opacity:.11}
+#toolPage[data-char="dash"] .tp-card > .k{border-style:dashed;letter-spacing:2.2px}
+#toolPage[data-char="dash"] .tp-card .item{border-radius:14px;border-style:dashed;
+  border-color:color-mix(in srgb,var(--smc) 24%,transparent)}
+#toolPage[data-char="dash"] .tp-card .item:hover{border-style:solid}
+
+/* ---- характер «glow»: много свечения, заголовок градиентом ---- */
+#toolPage[data-char="glow"] .tp-card{border-radius:26px;
+  border:1px solid color-mix(in srgb,var(--smc) 30%,transparent);
+  background:linear-gradient(152deg,color-mix(in srgb,var(--smc) 13%,transparent),rgba(255,255,255,.02) 58%);
+  box-shadow:0 16px 44px rgba(0,0,0,.34),0 0 0 1px rgba(255,255,255,.05) inset}
+#toolPage[data-char="glow"] .tp-card::before{left:0;top:0;bottom:auto;width:132px;height:5px;border-radius:0 0 99px 0;
+  background:linear-gradient(90deg,var(--smc),transparent);box-shadow:0 0 26px var(--smc)}
+#toolPage[data-char="glow"] .tp-card::after{left:-80px;top:-120px;width:330px;height:260px;opacity:.2}
+#toolPage[data-char="glow"] .tp-card > .k{border:0;color:#0B0C12;
+  background:linear-gradient(118deg,var(--smc),var(--t2,var(--smc)));
+  box-shadow:0 3px 16px color-mix(in srgb,var(--smc) 45%,transparent)}
+#toolPage[data-char="glow"] .tp-card > .k em{background:rgba(11,12,18,.78);color:#EAF7FF}
+#toolPage[data-char="glow"] .tp-card .item{border-radius:19px}
 @media(max-width:760px){.cal-grid{grid-template-columns:repeat(4,1fr)}.cal-daily .cal-rt{grid-template-columns:1fr}.cal-d{min-height:64px}}
 
 /* ================= ПАСПОРТ v3: анимации и новые карточки ================= */
@@ -11713,8 +11782,11 @@ window.cityAC = (inp, sug, onPick, filter)=>{
 })();
 
 /* ---- баннер помощников: карусель ---- */
+window.TOOL_CHAR = {"today": "glow", "trip": "wedge", "size": "band", "dress": "dash", "sos": "glow", "life": "band", "return": "wedge", "pair": "dash", "revision": "band", "calendar": "wedge", "smart": "bar", "passport": "glow", "check": "dash", "gift": "wedge", "budget": "band"};
 window.openTool = key=>{
   window.CUR_TOOL = key;
+  try{ const tp = document.getElementById('toolPage');
+    if(tp){ tp.dataset.tool = key; tp.dataset.char = (window.TOOL_CHAR[key] || 'bar'); } }catch(e){}
   document.querySelectorAll('.dd.open').forEach(x=>x.classList.remove('open'));
   if(key==='passport'){ openPage('passPage'); return; }
   openPage('toolPage');
