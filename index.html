@@ -4005,6 +4005,17 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .sm-table span{display:block;font-family:'JetBrains Mono';font-size:9.5px;color:#8B92AA;margin-bottom:4px}
 .sm-table b{display:block;font-family:'Golos Text';font-weight:800;font-size:18px;color:#19C6F7}
 .sm-table small{font-family:'JetBrains Mono';font-size:9.5px;color:#A8AEC2}
+/* SOS: погода и отметки «есть / нет в гардеробе» */
+.sos-wx{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;
+  font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.1px;color:#9FE4FF;
+  padding:6px 12px;border-radius:99px;border:1px solid rgba(25,198,247,.34);background:rgba(25,198,247,.1)}
+.sos-var b i{font-style:normal;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.6px;
+  margin-left:8px;padding:2px 8px;border-radius:99px;color:#0B0C12;background:#37E08A;vertical-align:middle}
+.sos-var .tp-list li.sos-nohave{opacity:.48}
+.sos-var .tp-list li.sos-nohave::before{color:#8A90A4;background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18)}
+.sos-var .tp-list li.sos-nohave em{display:inline-block;font-style:normal;margin-left:8px;
+  font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:.7px;color:#B9BECF;
+  padding:1px 7px;border-radius:99px;border:1px dashed rgba(255,255,255,.26)}
 
 /* ===== яркие блоки во всех помощниках ===== */
 #toolPage .tp-tabs{gap:9px;margin:0 0 20px}
@@ -11573,8 +11584,30 @@ window.cityAC = (inp, sug, onPick, filter)=>{
           const looks = hasProf ? (()=>{ const pe=S.event; S.event=ev; let l=[]; try{ l=localGen(); }catch(e){} S.event=pe; return l; })() : [];
           let fav = null; try{ fav = JSON.parse(localStorage.getItem('looka_sos_fav')||'null'); }catch(e){}
           const bl = hasProf ? (()=>{ const ps=B.style; if(!B.style) B.style='Естественный'; let r=null; try{ r=beautyLocal(); }catch(e){} B.style=ps; return r; })() : null;
-          window.sosFav = i=>{ const l = looks[i]; if(!l) return; try{ localStorage.setItem('looka_sos_fav', JSON.stringify({ev, t:l.t, items:l.items.map(x=>x.n)})); }catch(e){} fav = {ev, t:l.t, items:l.items.map(x=>x.n)}; render(); };
+          window.sosFav = i=>{ const l = prep()[i]; if(!l) return; try{ localStorage.setItem('looka_sos_fav', JSON.stringify({ev, t:l.t, items:l.items.map(x=>x.n)})); }catch(e){} fav = {ev, t:l.t, items:l.items.map(x=>x.n)}; render(); };
+          let sosT = null, sosWxAsked = false;
+          /* три варианта считаем заново при каждой отрисовке: погода может приехать позже */
+          const prep = ()=>{
+            const t = sosT;
+            return looks.map(l=>{
+              const items = (l.items||[]).filter(it=>!(window.wearBad && wearBad(it.n, t)));
+              const cut = (l.items||[]).length - items.length;
+              const marked = items.map(it=>({ n:it.n, have: window.haveIt ? haveIt(it.n) : null }));
+              const known = marked.filter(m=>m.have !== null);
+              return { t:l.t, v:l.v, items:marked, cut,
+                       have: known.filter(m=>m.have).length, known: known.length };
+            }).filter(l=>l.items.length >= 2)
+              .sort((a,b)=>(b.known?b.have/b.known:0) - (a.known?a.have/a.known:0));
+          };
           const render = ()=>{
+            if(!sosWxAsked){ sosWxAsked = true;
+              const o = window.WX_LAST_OBJ;
+              if(o && typeof o.f === 'number'){ sosT = o.f; }
+              else if(window.wtWx){ wtWx().then(w=>{ if(w && typeof w.f === 'number'){ sosT = w.f; render(); } }).catch(()=>{}); }
+            }
+            const vars = prep();
+            const anyCut = vars.some(v=>v.cut > 0);
+            const anyKnown = vars.some(v=>v.known > 0);
             let acc = 0, curIdx = -1; const doneT = [...done].reduce((a,i)=>a+plan[i][1]*60,0);
             const passed = total - left;
             for(let i=0;i<plan.length;i++){ if(done.has(i)) continue; if(curIdx<0){ curIdx = i; } }
@@ -11582,7 +11615,10 @@ window.cityAC = (inp, sug, onPick, filter)=>{
             out.innerHTML = '<div class="sos-timer'+(left<=60?' red':'')+'"><div class="sos-time">'+String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0')+'</div><div class="sos-bar"><i style="width:'+Math.round(passed/total*100)+'%"></i></div><div class="sos-sub">'+(done.size>=plan.length?'✓ Готово. Вы прекрасны — идите.':'шаг '+(curIdx+1)+' из '+plan.length+' · '+ev.toLowerCase())+'</div></div>'
               + '<div class="sos-steps">'+plan.map((p,i)=>'<button class="sos-step'+(done.has(i)?' done':'')+(i===curIdx?' cur':'')+'" data-i="'+i+'"><span class="sos-n">'+(done.has(i)?'✓':i+1)+'</span><span class="sos-body"><b>'+p[0]+' <em>'+p[1]+' мин</em></b><small>'+p[2]+'</small></span></button>').join('')+'</div>'
               + (fav ? '<div class="tp-card sos-fav"><span class="k">★ ВАШ ПРОВЕРЕННЫЙ КОМПЛЕКТ · '+fav.ev.toUpperCase()+'</span><b>'+fav.t+'</b><ul class="tp-list">'+fav.items.map(x=>'<li>'+x+'</li>').join('')+'</ul><div class="tp-note">вы сохранили его в прошлый раз — надевайте и не думайте</div></div>' : '')
-              + (looks.length ? '<div class="tp-card sos-look"><span class="k">ТРИ ВАРИАНТА ИЗ ТОГО, ЧТО ЕСТЬ · '+ev.toUpperCase()+'</span><div class="sos-rule"><i>✦</i><div>'+looks[0].v+'</div></div><div class="sos-vars">'+looks.map((l,i)=>'<div class="sos-var"><b>'+(i+1)+' · '+l.t+'</b><ul class="tp-list">'+l.items.map(it=>'<li>'+it.n+'</li>').join('')+'</ul><button class="sos-star" onclick="sosFav('+i+')">★ это мой верный комплект</button></div>').join('')+'</div><div class="tp-note">выбирайте вариант, вещи которого есть дома; нет точно таких — берите ближайшие по цвету и фасону, правило важнее конкретики</div></div>' : '<div class="tp-card"><span class="k">ВЕРНЫЙ КОМПЛЕКТ</span>Заполните быстрый профиль — SOS покажет три формулы комплекта под вашу фигуру и цветотип из того, что обычно есть дома.<div class="tp-row" style="margin-top:10px"><button class="btn ghost" onclick="openProfile(\'sosGo\')">Быстрый профиль →</button></div></div>')
+              + (vars.length ? '<div class="tp-card sos-look"><span class="k">ТРИ ВАРИАНТА ИЗ ТОГО, ЧТО ЕСТЬ · '+ev.toUpperCase()+'</span><div class="sos-rule"><i>✦</i><div>'+vars[0].v+'</div></div>'
+                + (sosT !== null ? '<div class="sos-wx">за окном ощущается как '+(sosT>0?'+':'')+sosT+'°'+(anyCut ? ' — не по погоде убрала' : '')+'</div>' : '')
+                + '<div class="sos-vars">'+vars.map((l,i)=>'<div class="sos-var"><b>'+(i+1)+' · '+l.t+(l.known ? ' <i>'+l.have+' из '+l.known+' есть у вас</i>' : '')+'</b><ul class="tp-list">'+l.items.map(it=>'<li'+(it.have === false ? ' class="sos-nohave"' : '')+'>'+it.n+(it.have === false ? '<em>нет в гардеробе</em>' : '')+'</li>').join('')+'</ul><button class="sos-star" onclick="sosFav('+i+')">★ это мой верный комплект</button></div>').join('')+'</div>'
+                + '<div class="tp-note">'+(anyKnown ? 'варианты отсортированы: сверху тот, что собирается из ваших вещей. Чего нет — помечено; берите ближайшее по цвету и фасону, правило важнее конкретики' : 'добавьте вещи в «Мой гардероб» — и SOS будет собирать комплекты только из того, что у вас есть')+'</div></div>' : '<div class="tp-card"><span class="k">ВЕРНЫЙ КОМПЛЕКТ</span>Заполните быстрый профиль — SOS покажет три формулы комплекта под вашу фигуру и цветотип из того, что обычно есть дома.<div class="tp-row" style="margin-top:10px"><button class="btn ghost" onclick="openProfile(\'sosGo\')">Быстрый профиль →</button></div></div>')
               + (bl ? '<div class="tp-card sos-face"><span class="k">ЭКСПРЕСС-ЛИЦО · 3 МИНУТЫ · ПОД ВАШ ЦВЕТОТИП</span><ul class="tp-list"><li><b>Тон</b> — только точечно: под глаза и на покраснения, не всё лицо</li><li><b>Брови</b> — расчесать вверх гелем или прозрачной тушью</li><li><b>Тушь</b> — один слой, верхние ресницы</li><li><b>Губы</b> — '+bl.lips+'; это ваш главный акцент</li><li><b>Если есть минута</b> — '+bl.liner+'</li></ul></div>' : '')
               + '<div class="tp-card sos-hair"><span class="k">ВОЛОСЫ · 2 МИНУТЫ</span><ul class="tp-list"><li><b>Низкий пучок</b> с гелем или воском у корней — выглядит намеренно, держится весь день</li><li><b>Зачёс назад</b> — сухой шампунь на корни, расчёска, капля масла на концы</li><li><b>Короткие</b> — солевой спрей, смять ладонями, готово</li><li><b>Чёлка и пряди у лица</b> — 30 секунд утюжком, остальное собрать</li></ul></div>'
               + '<div class="tp-card sos-no"><span class="k">ЧЕГО НЕ ДЕЛАТЬ В СПЕШКЕ</span><ul class="tp-list"><li>Не пробовать новую вещь и новый макияж — только проверенное</li><li>Не надевать три акцента: один, и хватит</li><li>Не мыть голову, если некогда сушить — пучок лучше мокрых волос</li><li>Не забыть 30 секунд у зеркала в полный рост — спасает от вывернутого воротника</li></ul></div>';
@@ -26209,7 +26245,28 @@ setTimeout(mount, 900);
   /* Просить ИИ «не клади косуху в жару» бесполезно: он всё равно кладёт и оправдывает
      «прохладными вечерами». Поэтому проверяем сами — по числу градусов, которое он же и назвал. */
   const HOT_NO  = /тренч|пальто|плащ|пухов|шуб|парк|косух|экокож|кожан(?!ые сандал)|дублён|дублен|свитер|джемпер|водолазк|сапог|ботин|угг|шерстян|кашемир|термо|флис/i;
-  const COLD_NO = /\bлён\b|льнян|шифон|сандал|вьетнамк|шлёпанц|шлепанц|купальник|парео|майк|шорт|сарафан|босоножк/i;
+  const COLD_NO = /\bлён\b|льнян|шифон|сандал|вьетнамк|шлёпанц|шлепанц|купальник|парео|майк|шорт|сарафан|босоножк|балетк|лодочк|\bмюл|слипон|панам|соломен|сетчат|ажурн/i;
+  /* те же правила, но доступные всему сайту — ими пользуется и SOS */
+  window.WEAR_HOT  = HOT_NO;
+  window.WEAR_COLD = COLD_NO;
+  window.wearBad = (name, t)=>{ if(!isFinite(Number(t))) return false;
+    const n = String(name||''); const td = Number(t);
+    if(td >= 22) return HOT_NO.test(n);
+    if(td <= 9)  return COLD_NO.test(n);
+    return false; };
+  /* вещи из гардероба: отдаём нормализованные названия */
+  window.myWardrobe = ()=>{ try{ const w = JSON.parse(localStorage.getItem('looka_wardrobe')||'null');
+    return (w && w.items ? w.items : []).map(i=>({ n:String(i.name||''), c:String(i.color||'') })); }catch(e){ return []; } };
+  const wNorm = v => String(v||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+  /* «алое платье-футляр» засчитываем за «платье-футляр»: сравниваем по значимым словам */
+  window.haveIt = name=>{
+    const mine = window.myWardrobe(); if(!mine.length) return null;   /* гардероба нет — не отмечаем вовсе */
+    const want = wNorm(name).split(' ').filter(w=>w.length>3);
+    if(!want.length) return false;
+    return mine.some(it=>{ const h = wNorm(it.n) + ' ' + wNorm(it.c);
+      const hit = want.filter(w=>h.indexOf(w) >= 0).length;
+      return hit >= Math.max(1, Math.ceil(want.length * 0.5)); });
+  };
   window.tripWeatherFix = d=>{
     const td = Number(d && d.tday);
     if(!isFinite(td)) return d;
