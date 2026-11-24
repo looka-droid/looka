@@ -4997,6 +4997,9 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
   border-color:rgba(255,215,130,.34)}
 .cr-cert.ready .cr-cert-k{color:#FFD782}
 .cr-cert.ready .btn{margin-top:12px}
+.ai-down .look-in{border-color:rgba(255,184,76,.3)}
+.ai-down h3{color:#FFB84C}
+.ai-down p{font-size:13.5px;line-height:1.6;color:#D2D6E4;margin:8px 0 12px}
 
 .qz-card{max-width:620px}
 .qz-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 4px}
@@ -9355,6 +9358,12 @@ async function geminiCall(models, parts, gen){
   }
   return last;
 }
+function aiErrText(code){
+  if(code === 429) return 'сервис перегружен или на сегодня исчерпан лимит запросов — попробуйте позже';
+  if(code === 401 || code === 403) return 'мост не принял запрос — проверьте настройки доступа';
+  if(code >= 500) return 'сервис ИИ сейчас недоступен — попробуйте через пару минут';
+  return 'сервис ответил ошибкой ' + code;
+}
 async function aiFetch(opts){
   opts = Object.assign({ method:'POST', headers:{'Content-Type':'application/json'} }, opts);
   const body = JSON.parse(opts.body);
@@ -9363,13 +9372,21 @@ async function aiFetch(opts){
        Она проходит за секунды, поэтому ждём и пробуем ещё дважды, а клиентке
        показываем, что идёт повтор, а не ошибка. Одной попытки раньше не хватало. */
     const url = LOOKA_API.replace(/\/$/,'') + '/ai';
-    const PAUSE = [0, 3500, 8000];
+    /* Повтор помогает только при перегрузке на стороне Google (502/503) — она проходит
+       за секунды. Ошибка 500 или 429 (кончился лимит) повтором не лечится, и ждать
+       смысла нет: раньше вложенные повторы складывались в 24 секунды крутилки,
+       после которых человек всё равно видел запасной подбор. */
+    const PAUSE = [0, 2500];   /* одна повторная попытка: больше человек не ждёт */
     let r = null;
     for(let i = 0; i < PAUSE.length; i++){
       if(PAUSE[i]){ if(window.aiWaitNote) aiWaitNote(i); await new Promise(x=>setTimeout(x, PAUSE[i])); }
       r = await fetch(url, opts);
-      if(r.status !== 502 && r.status !== 503 && r.status !== 500) return r;
+      if(r.status !== 502 && r.status !== 503) break;
     }
+    /* ВАЖНО: раньше неудачный ответ возвращался как есть. Обрыв связи вызывающий код
+       ловил и показывал запасной вариант, а ответ с ошибкой — нет: человек видел
+       пустоту. Теперь любая неудача — исключение, и везде срабатывает запасной путь. */
+    if(r && !r.ok) throw new Error(aiErrText(r.status));
     return r;
   }
   if(GEMINI_KEY){
@@ -10303,11 +10320,21 @@ ${regen && lastTitles.length ? 'Пользователю НЕ понравили
     renderLooks(looks);
   }catch(e){
     console.error(e);
-    /* ИИ недоступен — работает встроенный стилист */
+    /* ИИ недоступен — работает встроенный стилист.
+       Бесплатный подбор за это не списываем: человек получил запасной вариант,
+       а не то, за что пришёл. Платить за чужой сбой он не должен. */
+    const keepFree = freeLeft;
     const looks = localGen();
     lastTitles = looks.map(l=>l.t);
     document.getElementById('modeTag').textContent = '⚡ экспресс-подбор';
     renderLooks(looks);
+    freeLeft = keepFree; updFree();
+    const wrap = document.getElementById('looks');
+    if(wrap) wrap.insertAdjacentHTML('afterbegin',
+      '<div class="look calm ai-down"><div class="look-in"><h3>Нейросеть сейчас не отвечает</h3>' +
+      '<p>Это собрал встроенный стилист — по вашей фигуре, цветотипу и бюджету, но без разбора нейросетью. ' +
+      'Бесплатный подбор за это не списан. Попробуйте пересобрать через пару минут.</p>' +
+      '<button class="btn primary" onclick="goQuiz()">Пересобрать</button></div></div>');
     return;
   }
 }
