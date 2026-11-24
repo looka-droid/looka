@@ -4006,6 +4006,20 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .sm-table b{display:block;font-family:'Golos Text';font-weight:800;font-size:18px;color:#19C6F7}
 .sm-table small{font-family:'JetBrains Mono';font-size:9.5px;color:#A8AEC2}
 /* SOS: погода и отметки «есть / нет в гардеробе» */
+.rv-auto{margin:0 0 12px;padding:9px 13px;border-radius:12px;font-size:12.5px;line-height:1.5;color:#9BF0C4;
+  border:1px solid rgba(55,224,138,.3);background:rgba(55,224,138,.09)}
+.sz-warn{border-color:rgba(255,196,107,.4)!important}
+.sz-warn .tp-list li::before{color:#FFC46B!important;background:rgba(255,196,107,.16)!important;border-color:rgba(255,196,107,.42)!important}
+.lf-mine .tp-list li b{color:#fff}
+.lf-cta{list-style:none}
+.td-own{display:inline-flex;align-items:center;gap:7px;margin:2px 0 12px;
+  font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.1px;color:#9BF0C4;
+  padding:6px 12px;border-radius:99px;border:1px solid rgba(55,224,138,.34);background:rgba(55,224,138,.1)}
+.look .item .nm em.it-have,.look .item .nm em.it-buy{display:inline-block;font-style:normal;margin-left:9px;vertical-align:middle;
+  font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:.7px;padding:2px 8px;border-radius:99px}
+.look .item .nm em.it-have{color:#0B0C12;background:#37E08A}
+.look .item .nm em.it-buy{color:#C9CEDE;border:1px dashed rgba(255,255,255,.28)}
+.look .item.it-own{border-color:rgba(55,224,138,.34);background:linear-gradient(160deg,rgba(55,224,138,.09),rgba(255,255,255,.015))}
 .sos-wx{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;
   font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.1px;color:#9FE4FF;
   padding:6px 12px;border-radius:99px;border:1px solid rgba(25,198,247,.34);background:rgba(25,198,247,.1)}
@@ -10313,16 +10327,22 @@ function todayLookHTML(band, wet, ev){
   }
   if(band==='hot') look.items = look.items.filter(i=>i.cat!=='outer');
   if(wet) look.v += '; осадки — обувь без замши, верх с водоотталкиванием';
+  let own = 0, known = 0;
   const items = look.items.map(it=>{
-    return `<div class="item"><div class="nm">${it.n}</div><div class="pr">${it.p||''}</div>
-      ${shopButtons(it)}${reactRow(it)}</div>`;
+    const mine = window.haveIt ? haveIt(it.n) : null;      /* null — гардероб пуст, не отмечаем */
+    if(mine !== null){ known++; if(mine) own++; }
+    const tag = mine === true  ? '<em class="it-have">есть у вас</em>'
+              : mine === false ? '<em class="it-buy">надо купить</em>' : '';
+    return `<div class="item${mine===true?' it-own':''}"><div class="nm">${it.n}${tag}</div><div class="pr">${it.p||''}</div>
+      ${mine === true ? '' : shopButtons(it)}${reactRow(it)}</div>`;
   }).join('');
+  const ownLine = known ? `<div class="td-own">${own} из ${known} вещей уже есть у вас${own===known?' — ничего докупать не надо' : ''}</div>` : '';
   const tips = stylistTips(look);
   const prof = [S.figure, S.hair.toLowerCase()+' · '+S.eyes.toLowerCase()+' · '+S.skin.toLowerCase(), 'одежда '+S.clothSize+' · обувь '+S.shoeSize].concat((S.focus||[]).map(f=>'учесть: '+f.toLowerCase()));
   S.event = prevEv; S.budget = prevB;
   return `<div class="look td-look"><div class="look-in"><h3>Образ на сегодня · ${look.t}</h3>
     <div class="td-prof">${prof.map(p=>'<span>'+p+'</span>').join('')}</div>
-    <div class="vibe">${look.v}</div>${items}
+    <div class="vibe">${look.v}</div>${ownLine}${items}
     <div class="tips"><div class="tips-h">✦ СОВЕТЫ СТИЛИСТА</div><ul>${tips.map(x=>'<li>'+x+'</li>').join('')}</ul></div>
     <div class="total">✦ под погоду и ваш профиль · ${ev.toLowerCase()}</div></div></div>`;
 }
@@ -11441,8 +11461,11 @@ window.cityAC = (inp, sug, onPick, filter)=>{
           try{
             const g = await place(document.getElementById('tdCity')); if(!g) throw 0;
             try{ localStorage.setItem('looka_city', JSON.stringify({n:g.display_name.split(',')[0], lat:g.lat, lon:g.lon})); }catch(e){}
-            const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${g.lat}&longitude=${g.lon}&current=temperature_2m,precipitation,wind_speed_10m,weather_code&timezone=auto`)).json();
-            const c = w.current, t = Math.round(c.temperature_2m), b = band(t), wet = c.precipitation>0 || c.weather_code>=51, windy = c.wind_speed_10m>25;
+            const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${g.lat}&longitude=${g.lon}&current=temperature_2m,apparent_temperature,precipitation,wind_speed_10m,weather_code&timezone=auto`)).json();
+            const c = w.current, t = Math.round(c.temperature_2m);
+            /* одеваются по ощущаемой: +11 при ветре ощущается как +4, и в тренче холодно */
+            const fl = (typeof c.apparent_temperature === 'number') ? Math.round(c.apparent_temperature) : t;
+            const b = band(fl), wet = c.precipitation>0 || c.weather_code>=51, windy = c.wind_speed_10m>25;
             const ev = document.getElementById('tdEv').value;
             try{ localStorage.setItem('looka_event_td', ev); }catch(e){}
             const tips = BAND_TXT[b].slice();
@@ -11463,7 +11486,7 @@ window.cityAC = (inp, sug, onPick, filter)=>{
                 <button class="btn ghost" style="margin-left:8px" onclick="S.event='${ev}';goQuiz()">Большая анкета</button>
               </div>
             </div>`;
-            out.innerHTML = `<div class="tp-weather"><div class="t">${t>0?'+':''}${t}°</div><div class="w"><b>${esc(g.display_name.split(',')[0])}</b> · ${wcode(c.weather_code)} · ветер ${Math.round(c.wind_speed_10m)} км/ч</div></div>
+            out.innerHTML = `<div class="tp-weather"><div class="t">${t>0?'+':''}${t}°</div><div class="w"><b>${esc(g.display_name.split(',')[0])}</b> · ${wcode(c.weather_code)} · ветер ${Math.round(c.wind_speed_10m)} км/ч${fl!==t?` · <u>ощущается как ${fl>0?'+':''}${fl}°</u> — одеваю по нему`:''}</div></div>
               ${lookHtml||''}${profileCta}
               <div class="tp-card"><span class="k">ФОРМУЛА ДНЯ ПО ПОГОДЕ</span><ul class="tp-list">${tips.map(x=>'<li>'+x+'</li>').join('')}<li>${evTip}</li></ul></div>
               ${lookHtml ? `<div class="tp-row"><button class="btn ghost" onclick="document.getElementById('tdGo').click()">↻ Пересобрать образ</button><button class="btn ghost" onclick="S.event='${ev}';goQuiz()">Три варианта в анкете →</button></div>` : ''}
@@ -11488,7 +11511,10 @@ window.cityAC = (inp, sug, onPick, filter)=>{
             const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${g.lat}&longitude=${g.lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=${days}&timezone=auto`)).json();
             const mx = Math.round(Math.max(...w.daily.temperature_2m_max)), mn = Math.round(Math.min(...w.daily.temperature_2m_min));
             const rain = Math.max(...w.daily.precipitation_probability_max);
-            const b = band((mx+mn)/2);
+            /* среднее между днём и ночью врёт: +28 днём и +9 вечером дают «мягко» —
+               ни сандалий, ни тёплого слоя. Считаем день и вечер по отдельности. */
+            const bDay = band(mx), bEve = band(mn), b = bDay;
+            const spread = mx - mn;
             const m = male();
             const base = {
               frost:[m?'пуховик':'пуховик или тёплое пальто','2 свитера','термобельё','тёплые ботинки','шапка, шарф, перчатки'],
@@ -11498,14 +11524,21 @@ window.cityAC = (inp, sug, onPick, filter)=>{
               hot:['лён и хлопок: ×3 верха','шорты или лёгкие брюки ×2',m?'—':'2 платья','сандалии + кеды','шляпа, очки, SPF']
             }[b].filter(x=>x!=='—');
             const add = {'Пляж':['купальник ×2','парео или рубашка-накидка','шлёпанцы','сумка-пляжная'],'Деловая':[m?'костюм':'костюм или жакет + брюки','рубашки ×'+Math.min(days,4),'закрытая обувь','минимум украшений'],'Город и прогулки':['удобная обувь на весь день','рюкзак или кросс-боди','1 нарядная вещь для вечера']}[fmt];
+            /* вечерний слой — отдельной строкой, если ночью заметно холоднее */
+            const EVE = { frost:'пуховик и шапка', cold:'тёплое пальто и шарф', cool:'тренч или плотный жакет',
+                          mild:'лёгкий жакет или кардиган', hot:'рубашка-накидка на плечи' };
+            const eveTip = (spread >= 8 || bEve !== bDay)
+              ? ['вечером до '+mn+'° — возьмите слой: '+EVE[bEve]] : [];
             const check = ['зарядка и переходник','документы + копии в телефон','аптечка','мини-косметичка: SPF, увлажнение','зонт-складник'+(rain>50?' — точно!':'')];
+            if(rain > 50) check.unshift('непромокаемая обувь — дождь вероятен в '+rain+'% дней');
             const budget = document.getElementById('trBud').value;
             const capHtml = tripCapsuleHTML(b, rain>50, fmt, days, budget);
             const missing = [['gender','пол'],['figure','фигура'],['hair','цвет волос'],['eyes','цвет глаз'],['skin','тон кожи'],['clothSize','размер одежды'],['shoeSize','размер обуви']].filter(f=>!S[f[0]]).map(f=>f[1]);
             const cta = capHtml ? '' : `<div class="td-cta2"><div class="td-cta2-ic">✈</div><div class="td-cta2-body"><div class="td-cta2-k">КАПСУЛА ПОД ВАШУ ВНЕШНОСТЬ · 1 МИНУТА</div><h3>Чемодан, где всё идёт вам.</h3><p>Заполните быстрый профиль — и капсула соберётся из <b>конкретных вещей</b> под вашу фигуру, цветотип и размеры, в вашем бюджете, с кнопками магазинов у каждой.</p>${missing.length?'<div class="td-cta2-miss">не хватает: '+missing.join(' · ')+'</div>':''}<button class="btn primary" onclick="openProfile('trGo')">Заполнить быстрый профиль →</button></div></div>`;
             out.innerHTML = `<div class="tp-weather"><div class="t">${mn}…${mx}°</div><div class="w"><b>${esc(g.display_name.split(',')[0])}</b> · ${days} дн. · вероятность дождя до ${rain}%</div></div>
               ${capHtml||''}${cta}
-              ${capHtml ? '' : `<div class="tp-card"><span class="k">КАПСУЛА ПОД КЛИМАТ</span><ul class="tp-list">${base.map(x=>'<li>'+x+'</li>').join('')}</ul></div><div class="tp-card"><span class="k">ПОД ФОРМАТ: ${fmt.toUpperCase()}</span><ul class="tp-list">${add.map(x=>'<li>'+x+'</li>').join('')}</ul></div>`}
+              ${(spread >= 8 || bEve !== bDay) ? `<div class="tp-card"><span class="k">ДЕНЬ И ВЕЧЕР — РАЗНАЯ ПОГОДА</span><ul class="tp-list"><li>днём до <b>${mx}°</b> — собираю капсулу под это</li><li>вечером до <b>${mn}°</b> — ${EVE[bEve]}: без этого слоя замёрзнете после заката</li><li>перепад ${spread}° за сутки — одевайтесь слоями, которые снимаются</li></ul></div>` : ''}
+              ${capHtml ? '' : `<div class="tp-card"><span class="k">КАПСУЛА ПОД КЛИМАТ · ДНЁМ ДО ${mx}°</span><ul class="tp-list">${base.concat(eveTip).map(x=>'<li>'+x+'</li>').join('')}</ul></div><div class="tp-card"><span class="k">ПОД ФОРМАТ: ${fmt.toUpperCase()}</span><ul class="tp-list">${add.map(x=>'<li>'+x+'</li>').join('')}</ul></div>`}
               <div class="tp-card"><span class="k">НЕ ЗАБЫТЬ</span><ul class="tp-list">${check.map(x=>'<li>'+x+'</li>').join('')}</ul></div>
               ${capHtml ? `<div class="tp-row"><button class="btn ghost" onclick="document.getElementById('trGo').click()">↻ Пересобрать капсулу</button></div>` : ''}
               <div class="tp-note">прогноз: open-meteo.com · до 16 дней</div>`;
@@ -11518,18 +11551,27 @@ window.cityAC = (inp, sug, onPick, filter)=>{
       <div class="tp-out" id="szOut"></div>`, init(){
         if(S.clothSize) document.getElementById('szC').value = S.clothSize; if(S.shoeSize) document.getElementById('szS').value = S.shoeSize;
         document.getElementById('szGo').onclick = ()=>{
-          const m = false, c = +document.getElementById('szC').value, s = +document.getElementById('szS').value, out = document.getElementById('szOut');
-          let h = '';
+          const m = false, cRaw = +document.getElementById('szC').value, s = +document.getElementById('szS').value, out = document.getElementById('szOut');
+          let h = '', warn = [];
+          /* женские сетки идут через два: 42, 44, 46… 37-го размера одежды не бывает */
+          let c = cRaw;
+          if(cRaw){
+            if(cRaw < 38 || cRaw > 60){ warn.push('Размер одежды '+cRaw+' — вне российской сетки (38–60). Проверьте цифру на бирке.'); c = 0; }
+            else if(cRaw % 2){ c = cRaw + 1; warn.push('Российские размеры женской одежды чётные: округлила '+cRaw+' до '+c+'.'); }
+          }
+          if(s && (s < 34 || s > 43)) warn.push('Размер обуви '+s+' — вне женской сетки (34–43). Для мужской обуви сетка другая.');
           if(c){
             const INT = m? {44:'XS',46:'S',48:'M',50:'L',52:'XL',54:'XXL',56:'3XL',58:'4XL',60:'5XL'} : {40:'XS',42:'S',44:'M',46:'L',48:'XL',50:'XXL',52:'3XL',54:'4XL',56:'5XL',58:'6XL'};
             const eu = m? c : c-6, us = m? c-10 : c-36, uk = m? c-10 : c-32;
             h += `<div class="tp-card"><span class="k">ОДЕЖДА · RU ${c}</span><div class="tp-grid"><div class="tp-cell"><span>INT</span><b>${INT[c]||'—'}</b></div><div class="tp-cell"><span>EU</span><b>${eu}</b></div><div class="tp-cell"><span>US</span><b>${us}</b></div><div class="tp-cell"><span>UK</span><b>${uk}</b></div></div></div>`;
           }
-          if(s){
+          if(s && s >= 34 && s <= 43){
             const eu = s+1, us = m? s-32 : s-30, uk = m? s-33 : s-32;
-            const cm = m? {39:25,40:25.5,41:26,42:27,43:27.5,44:28,45:29,46:29.5,47:30,48:31}[s] : {35:22.5,36:23,37:23.5,38:24.5,39:25,40:25.5,41:26,42:26.5}[s];
+            const cm = m? {39:25,40:25.5,41:26,42:27,43:27.5,44:28,45:29,46:29.5,47:30,48:31}[s]
+                        : {34:22,35:22.5,36:23,37:23.5,38:24.5,39:25,40:25.5,41:26,42:26.5,43:27.5}[s];
             h += `<div class="tp-card"><span class="k">ОБУВЬ · RU ${s}</span><div class="tp-grid"><div class="tp-cell"><span>EU</span><b>${eu}</b></div><div class="tp-cell"><span>US</span><b>${us}</b></div><div class="tp-cell"><span>UK</span><b>${uk}</b></div><div class="tp-cell"><span>СТЕЛЬКА</span><b>${cm||'—'}<small style="font-size:11px"> см</small></b></div></div></div>`;
           }
+          if(warn.length) h = '<div class="tp-card sz-warn"><span class="k">ПРОВЕРЬТЕ ВВОД</span><ul class="tp-list">'+warn.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>' + h;
           if(!h) h = '<div class="tp-note">Введите хотя бы один размер</div>';
           h += `<div class="tp-card"><span class="k">ПОПРАВКИ НА БРЕНД · ${REGIONS[REGION].n.toUpperCase()} (по опыту покупательниц)</span><ul class="tp-list">${brandNotes().map(x=>'<li>'+x+'</li>').join('')}</ul></div><div class="tp-note">таблицы ориентировочные — у конкретного бренда всегда проверяйте его размерную сетку и замеры; регион можно сменить кнопкой в статус-баре</div>`;
           out.innerHTML = h + '<div id="fitBox"></div>';
@@ -11634,11 +11676,41 @@ window.cityAC = (inp, sug, onPick, filter)=>{
         const L = {
           'Беременность':['Размер живёт своей жизнью — покупайте по замерам, а не по цифре','Трикотаж с эластаном, платья-футляр из тянущихся тканей, юбки на мягкой резинке','Обувь на устойчивой подошве, каблук до 4 см','Акцент у лица: серьги, цвет, вырез — взгляд идёт вверх','Пальто-кокон и кардиган оверсайз закрывают весь срок'],
           'После родов':['Первые месяцы — комфорт важнее всего: мягкие ткани, доступ для кормления (запах, пуговицы)','Тёмный низ + светлый верх: визуально собирает силуэт','Кроссовки красивые — это норма, а не капитуляция','Один аксессуар, который вы любите, — возвращает ощущение себя','Не покупайте «на потом» — одевайте себя сегодняшнюю'],
-          '40+':['Качество ткани важнее количества вещей — оно читается','Цвет у лица: тёплая кожа теряет контраст — освежайте оттенками из вашей палитры','Крой: чёткие плечи жакета, длина миди, прямые брюки','Украшения крупнее и проще: одно, но заметное','Обувь: элегантный низкий каблук или лоферы — походка уверенная'],
+          '40+':['Качество ткани важнее количества вещей — оно читается','Цвет у лица: с возрастом контраст падает — освежайте оттенками из вашей палитры','Крой: чёткие плечи жакета, длина миди, прямые брюки','Украшения крупнее и проще: одно, но заметное','Обувь: элегантный низкий каблук или лоферы — походка уверенная'],
           'Тело меняется':['Стиль не ждёт «идеального веса» — он для тела сегодня','Ткани, которые не подчёркивают лишнее и не висят: плотный трикотаж, костюмная ткань','Вертикали: удлинённые жакеты, V-вырез, брюки в пол','Пояс на самом узком месте — это ваша талия сегодня, и она есть','Один яркий акцент — уверенность, которую видно']
         };
         const tabs = document.getElementById('lfTabs'), out = document.getElementById('lfOut');
-        const show = k=>{ tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.textContent===k)); out.innerHTML = `<div class="tp-card"><span class="k">${k.toUpperCase()}</span><ul class="tp-list">${L[k].map(x=>'<li>'+x+'</li>').join('')}</ul></div>`; };
+        /* советы «оттенками из вашей палитры» бессмысленны, если не назвать оттенки */
+        const mine = (()=>{
+          try{
+            if(!(S.hair && S.eyes && S.skin)) return null;
+            const p = PAL();
+            return { neu:(p.neutrals||[]).slice(0,3), acc:(p.accents||[]).slice(0,3),
+                     metal:p.metal||'', fig:S.figure||'' };
+          }catch(e){ return null; }
+        })();
+        const FIG = {
+          'Песочные часы':'подчёркивайте талию поясом и приталенным кроем — это ваша сильная линия',
+          'Груша':'объём и свет наверх: светлый верх, тёмный низ, акцент у плеч',
+          'Яблоко':'вертикали и V-вырез, удлинённый жакет нараспашку, акцент на ногах',
+          'Прямоугольник':'создавайте талию: пояс, запáх, многослойность',
+          'Перевёрнутый треугольник':'объём вниз: юбка-солнце, широкие брюки, верх без деталей на плечах'
+        };
+        const extra = k=>{
+          if(!mine) return ['<li class="lf-cta">Заполните анкету — и советы станут про ваши цвета и вашу фигуру, а не общие <button class="btn ghost" style="margin-left:8px" onclick="goQuiz()">Заполнить →</button></li>'];
+          const r = [];
+          if(mine.acc.length) r.push('<li><b>Ваши цвета у лица:</b> '+mine.acc.join(', ')+' — именно они освежают, остальное приглушает</li>');
+          if(mine.neu.length) r.push('<li><b>Ваша база:</b> '+mine.neu.join(', ')+' — низ, верхняя одежда, обувь</li>');
+          if(mine.metal) r.push('<li><b>Металл украшений:</b> '+mine.metal+'</li>');
+          if(mine.fig && FIG[mine.fig]) r.push('<li><b>Ваша фигура — '+mine.fig.toLowerCase()+':</b> '+FIG[mine.fig]+'</li>');
+          if(k==='Беременность') r.push('<li>Живот растёт, а плечи и цветотип — нет: вещи у лица из вашей палитры работают весь срок</li>');
+          if(k==='После родов') r.push('<li>Берите вещи на размер свободнее в талии, но в ваших цветах — выглядит как выбор, а не как компромисс</li>');
+          return r;
+        };
+        const show = k=>{ tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.textContent===k));
+          const ex = extra(k);
+          out.innerHTML = `<div class="tp-card"><span class="k">${k.toUpperCase()}</span><ul class="tp-list">${L[k].map(x=>'<li>'+x+'</li>').join('')}</ul></div>`
+            + `<div class="tp-card lf-mine"><span class="k">${mine ? 'ПЕРСОНАЛЬНО ДЛЯ ВАС' : 'ЧТОБЫ СТАЛО ПЕРСОНАЛЬНО'}</span><ul class="tp-list">${ex.join('')}</ul></div>`; };
         tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>show(b.textContent)); show('Беременность');
       }},
     return:{cases:['Не подошёл размер','Пришёл брак или не то','Продавец отказывает в возврате','Хочется вернуть без причины'], check:['Сроки: 7 дней по закону / больше у площадки','Ярлыки и упаковка целы','Фото брака сделаны сразу при получении','Заявка через приложение, скрин сохранён','Отказ — претензия письменно со ссылкой на статью'], c:'#37E08A', n:'07', tag:'Что говорит закон, как оформить на площадке и какие фразы срабатывают. Спокойно, по шагам.', why:['Закон о защите прав потребителей — статьи и сроки, на которые можно ссылаться','Шаги для Wildberries, Ozon и Lamoda — где нажать и что сохранить','Готовые фразы: спокойный тон + ссылка на статью = 90% успеха'], h:'Возврат без нервов', d:'Что говорит закон и что делать на площадке. Спокойно, по шагам.', ui:`<div class="tp-tabs" id="rtTabs"><button>Закон</button><button>Wildberries</button><button>Ozon</button><button>Lamoda</button><button>Фразы</button></div><div class="tp-out" id="rtOut"></div>`, init(){
@@ -11697,6 +11769,17 @@ window.cityAC = (inp, sug, onPick, filter)=>{
           ['acc',F(p.shoes[0],'сумка'),'сумка женская',5000,3],['acc',p.metal.replace('ый','ые')+' серьги','серьги '+p.metal.replace('ый','ые'),1500,2],['acc','ремень в тон обуви','ремень женский',1800,1],['acc','платок','платок шёлковый',1200,1]
         ];
         let have = new Set(); try{ have = new Set(JSON.parse(localStorage.getItem('looka_rev_'+(male?'m':'f'))||'[]')); }catch(e){}
+        /* вещи уже перечислены в «Моём гардеробе» — глупо просить отметить их второй раз */
+        let auto = 0;
+        try{
+          const seen = JSON.parse(localStorage.getItem('looka_rev_auto_'+(male?'m':'f'))||'[]');
+          const skip = new Set(seen);                       /* что пользователь снял вручную — не возвращаем */
+          BASE.forEach(bb=>{ const id = bb[1];
+            if(have.has(id) || skip.has(id)) return;
+            if(window.haveIt && haveIt(id) === true){ have.add(id); auto++; }
+          });
+          if(auto) localStorage.setItem('looka_rev_'+(male?'m':'f'), JSON.stringify([...have]));
+        }catch(e){}
         const CAT = {top:'ВЕРХ',bottom:'НИЗ',dress:'ПЛАТЬЯ',outer:'ВЕРХНЯЯ ОДЕЖДА',shoes:'ОБУВЬ',acc:'АКСЕССУАРЫ'};
         const render = ()=>{
           const cats = ['top','bottom','dress','outer','shoes','acc'].filter(c=>BASE.some(b=>b[0]===c));
@@ -11706,11 +11789,20 @@ window.cityAC = (inp, sug, onPick, filter)=>{
           const looks = Math.max(0, (h('top')*h('bottom') + h('dress')) * Math.max(1,h('shoes')));
           const total = miss.reduce((a,b)=>a+b[3],0);
           const shop = miss.slice(0,8).map(b=>'<div class="item"><div class="nm">'+(b[4]===3?'<em class="rv-pri">база</em>':'')+b[1]+'</div><div class="pr">~'+b[3].toLocaleString('ru-RU')+' ₽</div>'+shopButtons({n:b[1], q:b[2]})+'</div>').join('');
-          wrap.innerHTML = '<div class="rv-stats"><div><b>'+have.size+'/'+BASE.length+'</b><span>вещей базы есть</span></div><div><b>'+looks+'</b><span>образов уже можно собрать</span></div><div><b>'+miss.length+'</b><span>не хватает</span></div><div><b>~'+total.toLocaleString('ru-RU')+' ₽</b><span>докупить всё</span></div></div>'
-            + '<div class="tp-card"><span class="k">ОТМЕТЬТЕ, ЧТО ЕСТЬ · ПОД ВАШ ЦВЕТОТИП И ФИГУРУ</span>'+list+'</div>'
+          wrap.innerHTML = '<div class="rv-stats"><div><b>'+have.size+'/'+BASE.length+'</b><span>вещей базы есть</span></div><div><b>'+looks+'</b><span>'+((l=>{const a=l%10,b=l%100;return (a===1&&b!==11)?'образ уже можно собрать':(a>=2&&a<=4&&(b<10||b>=20))?'образа уже можно собрать':'образов уже можно собрать';})(looks))+'</span></div><div><b>'+miss.length+'</b><span>не хватает</span></div><div><b>~'+total.toLocaleString('ru-RU')+' ₽</b><span>докупить всё</span></div></div>'
+            + '<div class="tp-card"><span class="k">ОТМЕТЬТЕ, ЧТО ЕСТЬ · ПОД ВАШ ЦВЕТОТИП И ФИГУРУ</span>'
+              + (auto ? '<div class="rv-auto">✓ '+auto+' '+(auto%10===1&&auto%100!==11?'вещь отмечена':(auto%10>=2&&auto%10<=4&&(auto%100<10||auto%100>=20)?'вещи отмечены':'вещей отмечено'))+' по вашему «Моему гардеробу» — снимите галочку, если я ошиблась</div>' : '')
+              + list+'</div>'
             + (miss.length ? '<div class="tp-card"><span class="k">СПИСОК ПОКУПОК ПО ПРИОРИТЕТУ · СНАЧАЛА БАЗА</span>'+shop+(miss.length>8?'<div class="tp-note">показаны 8 самых важных из '+miss.length+'</div>':'')+'</div>' : '<div class="tp-card"><span class="k">ВСЁ ЕСТЬ</span>База собрана полностью — покупайте только по любви, а не по необходимости.</div>')
             + '<div class="tp-note">правило: каждая новая вещь должна сочетаться минимум с тремя, которые уже есть</div>';
-          wrap.querySelectorAll('.rv-item').forEach(b=>b.onclick = ()=>{ const id = b.dataset.id; have.has(id)?have.delete(id):have.add(id); try{ localStorage.setItem('looka_rev_'+(male?'m':'f'), JSON.stringify([...have])); }catch(e){} render(); });
+          wrap.querySelectorAll('.rv-item').forEach(b=>b.onclick = ()=>{ const id = b.dataset.id;
+            const off = have.has(id);
+            off ? have.delete(id) : have.add(id);
+            try{ localStorage.setItem('looka_rev_'+(male?'m':'f'), JSON.stringify([...have]));
+              if(off){ const k='looka_rev_auto_'+(male?'m':'f');
+                const seen = new Set(JSON.parse(localStorage.getItem(k)||'[]')); seen.add(id);
+                localStorage.setItem(k, JSON.stringify([...seen])); } }catch(e){}
+            render(); });
           if(window.fxZone) fxZone(wrap);
         };
         render();
