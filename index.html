@@ -2954,7 +2954,7 @@ details.faq.q p b{color:#fff;font-weight:700}
 .gt-or{text-align:center;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#6E7489;margin:14px 0 10px}
 .gt-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
 .gpl{position:relative;padding:12px 6px 11px;border-radius:13px;border:1.3px solid rgba(255,255,255,.12);background:rgba(255,255,255,.025);cursor:pointer;font-family:'Manrope';transition:all .22s}
-.gpl small{display:block;font-size:11px;color:#8B92AA;text-transform:capitalize}
+.gpl small{display:block;font-size:11px;color:#8B92AA}
 .gpl b{display:block;font-size:15px;font-weight:800;color:#fff;margin-top:3px}
 .gpl em{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-style:normal;font-family:'JetBrains Mono';font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:99px;background:#19C6F7;color:#06131A;white-space:nowrap}
 .gpl em.g{background:linear-gradient(100deg,#FFD9A8,#FFB84C);color:#2A1A05}
@@ -4008,6 +4008,17 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 /* SOS: погода и отметки «есть / нет в гардеробе» */
 .sh-auto{margin:12px 0 0;padding:9px 13px;border-radius:12px;font-size:12.5px;line-height:1.5;color:#9BF0C4;
   border:1px solid rgba(55,224,138,.3);background:rgba(55,224,138,.09)}
+.cs-wear{display:grid;gap:12px;margin-top:16px}
+.cs-w{display:flex;gap:14px;padding:16px 18px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.1);background:linear-gradient(158deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  animation:popIn .5s both}
+.cs-w > i{flex:none;font-style:normal;font-family:'JetBrains Mono';font-size:12px;font-weight:700;color:#0B0C12;
+  width:30px;height:30px;line-height:30px;text-align:center;border-radius:9px;
+  background:linear-gradient(130deg,#19C6F7,#C79DF2)}
+.cs-w b{display:block;font-size:14.5px;color:#fff;margin-bottom:5px}
+.cs-w p{margin:0;font-size:14px;line-height:1.6;color:#C7CCDC}
+.cs-w em{display:block;margin-top:7px;font-style:normal;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.7px;color:#8E96AC}
+@media(max-width:620px){.cs-w{padding:14px;gap:11px}.cs-w p{font-size:13.5px}}
 .rv-auto{margin:0 0 12px;padding:9px 13px;border-radius:12px;font-size:12.5px;line-height:1.5;color:#9BF0C4;
   border:1px solid rgba(55,224,138,.3);background:rgba(55,224,138,.09)}
 .sz-warn{border-color:rgba(255,196,107,.4)!important}
@@ -10187,7 +10198,7 @@ window.mpBandDraw = ()=>{
   const R = REGIONS[REGION] || REGIONS.cis;
   const NOTE = {
     'WB':'самый большой выбор и быстрые пункты выдачи','OZON':'частые скидки и рассрочка без переплат',
-    'LAMODA':'бренды, примерка при курьере и лёгкий возврат','МАРКЕТ':'сравнение цен и быстрая доставка',
+    'LAMODA':'бренды, примерка при курьере и лёгкий возврат','МАРКЕТ':'сравнение цен и быстрая доставка','ALI':'низкие цены и мелочи, которых нет на других площадках',
     'KASPI':'рассрочка и доставка по всему Казахстану','ZALANDO':'европейские бренды и бесплатный возврат',
     'ASOS':'молодые бренды и широкая размерная сетка','AMAZON':'всё в одном месте и быстрая доставка',
     'ABOUT YOU':'много брендов и удобные фильтры по фигуре','TRENDYOL':'доступные цены и большой выбор',
@@ -10202,7 +10213,7 @@ window.mpBandDraw = ()=>{
     'MERCADO LIBRE':'крупнейшая площадка региона','DAFITI':'мода и обувь с быстрой доставкой',
     'FARFETCH':'премиум и дизайнерские марки','MERCADO':'крупнейшая площадка региона'
   };
-  const shops = (R.shops||[]).slice(0,4);
+  const shops = (R.shops||[]);   /* показываем все: счётчик снизу обещает столько же */
   band.innerHTML = shops.map((s,i)=>`<div class="mp-card pop" style="animation-delay:${(i*0.06).toFixed(2)}s"><b>${s[0]}</b><span>${NOTE[s[0]]||'площадка вашего региона — условия и наличие проверяйте на месте'}</span></div>`).join('');
   const r1 = document.getElementById('mpReg'); if(r1) r1.textContent = (R.f? R.f+' ':'') + R.n;
   const r2 = document.getElementById('mpCnt'); if(r2) r2.textContent = (R.shops||[]).length;
@@ -10590,6 +10601,39 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
     pWrap.appendChild(d);
   }
 }
+
+/* ---- цифры в полосе фактов берём из данных, а не из головы ----
+   было: 35 эстетик при 39, 8 помощников при 15, и «19 разделов» на одной странице
+   против «20» на другой. Теперь считается само и больше не разъедется. */
+window.statFacts = ()=>{
+  const set = (kind, val)=>{
+    if(!isFinite(val) || val <= 0) return;
+    document.querySelectorAll('.sb, .ab-num > div').forEach(box=>{
+      const sp = box.querySelector('span'), b = box.querySelector('b');
+      if(!sp || !b) return;
+      const t = sp.textContent.toLowerCase();
+      const hit = kind === 'aest' ? t.indexOf('эстетик') >= 0
+                : kind === 'tool' ? t.indexOf('помощник') >= 0
+                : kind === 'sect' ? t.indexOf('раздел') >= 0 : false;
+      if(!hit) return;
+      const node = [...b.childNodes].find(n=>n.nodeType===3 && /\d/.test(n.textContent));
+      if(node) node.textContent = node.textContent.replace(/\d+/, val);
+    });
+  };
+  try{ set('aest', (window.AESTH||[]).length); }catch(e){}
+  try{ set('tool', document.querySelectorAll('#toolGrid .tool').length); }catch(e){}
+  try{
+    const t = new Set();
+    document.querySelectorAll('header .topnav .dd button, header .topnav .dd a').forEach(e=>{
+      const oc = (e.getAttribute('onclick') || e.getAttribute('href') || '').trim(); if(oc) t.add(oc); });
+    document.querySelectorAll('header .topnav > a').forEach(e=>{
+      const oc = (e.getAttribute('onclick') || e.getAttribute('href') || '').trim(); if(oc) t.add(oc); });
+    if(t.size > 4) set('sect', t.size);
+  }catch(e){}
+};
+if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ()=>statFacts());
+else statFacts();
+setTimeout(()=>statFacts(), 1200);
 
 /* ---- счётчики в полосе фактов ---- */
 const cntIO = new IntersectionObserver(es=>es.forEach(x=>{
@@ -13676,6 +13720,46 @@ function renderColor(){
       <div class="cs-row"><b>Белый</b><span>${Z.t.includes('тёпл')?'кремовый и слоновая кость вместо белоснежного':'чистый белый — ваш, кремовый желтит'}</span></div>
       <div class="cs-row"><b>Чёрный</b><span>${Z.d==='тёмный'?'ваш без оговорок':'только не у лица: замените на '+Z.neutrals[Z.neutrals.length-1]}</span></div>
     </div></div>
+    ${(()=>{
+      /* то, что следует из колориметрии для одежды, а не только для цвета:
+         контраст, масштаб принта, фактура, слой у лица, свои нейтральные, фурнитура */
+      const hi = C.contrast === 'Высокий: волосы и кожа сильно отличаются';
+      const lo = C.contrast === 'Мягкий, всё близко по тону';
+      const warm = Z.t.includes('тёпл');
+      const soft = Z.c !== 'яркий';
+      const base = Z.neutrals[0], base2 = Z.neutrals[Z.neutrals.length-1];
+      const R = [
+        ['Контраст комплекта',
+         hi ? 'Высокий контраст внешности держит и чёрное с белым, и цветной верх с тёмным низом. Комплект «всё в один тон» вас гасит — добавьте тёмное к светлому.'
+            : lo ? 'Мягкая внешность: резкий контраст перетягивает внимание на одежду, а лицо уходит в тень. Ваше — близкие оттенки одного тона, например ' + base + ' и ' + base2 + '; светлое со светлым.'
+                 : 'Средний контраст: берите заметную, но не резкую разницу — тёмный низ со средним верхом. Сочетание «чёрное с белым» работает, если белое не у самого лица.',
+         hi ? 'чёрный жакет + белая рубашка' : lo ? 'два близких бежевых слоя' : 'графит + серо-голубой'],
+        ['Принт',
+         hi ? 'Выдержите крупный рисунок и графику: клетку, полоску в контраст, крупный цветок.'
+            : lo ? 'Крупная графика вас перебьёт. Мелкий и размытый рисунок, тон в тон — ваш: полоска в полтона, акварельный цветок.'
+                 : 'Средний масштаб рисунка: полоска средней ширины, некрупная клетка.',
+         'масштаб принта идёт за контрастом лица, а не за ростом'],
+        ['Фактура ткани',
+         soft ? 'Приглушённой внешности идут матовые и мягкие поверхности: шерсть, замша, плотный трикотаж, матовый шёлк. Лак и глянец спорят с лицом.'
+              : 'Яркой и чистой внешности идут гладкие поверхности и блеск: сатин, кожа, шёлк с отливом, плотный хлопок.',
+         'правило работает только для вещей у лица'],
+        ['У лица и ниже пояса',
+         'У лица важен только верхний слой. Любимая вещь «не вашего» цвета остаётся в гардеробе: наденьте под неё топ или шарф из палитры. В брюках, юбке, обуви и сумке цвет свободен полностью.',
+         'это правило возвращает в носку половину «запрещённого»'],
+        ['Ваш чёрный',
+         Z.d === 'тёмный' ? 'Чёрный у лица — ваш без оговорок, им можно строить весь гардероб.'
+                          : 'Вместо чёрного у лица — ' + base2 + ' или ' + base + ': тот же эффект «собранности», но кожа не серая. Чёрный оставьте для низа и обуви.',
+         'самая частая ошибка — базовый чёрный у лица «потому что универсально»'],
+        ['Фурнитура и металл',
+         'Ваш металл — ' + Z.metal + '. Он работает не только в серьгах: пряжки ремня и сумки, молнии, пуговицы, оправа очков и часы. Разнобой металлов в одном образе читается как случайность.',
+         'проверьте пряжку ремня и фурнитуру сумки — чаще всего спорят именно они']
+      ];
+      return `<div class="look badv mk-wide"><div class="look-in"><h3>Что это значит для одежды</h3>
+        <div class="tip">Палитра говорит, какие цвета носить. Эти шесть правил выводятся из тех же ответов и говорят, <b>как</b> их носить: какой контраст держит ваше лицо, какой масштаб рисунка и какая фактура. Ничего заполнять заново не нужно.</div>
+        <div class="cs-wear">${R.map((r,i)=>`<div class="cs-w" style="animation-delay:${(i*0.06).toFixed(2)}s"><i>${String(i+1).padStart(2,'0')}</i><div><b>${r[0]}</b><p>${r[1]}</p><em>${r[2]}</em></div></div>`).join('')}</div>
+        <div class="cs-fix">Это продолжение колориметрии, а не система «типажей»: здесь нет деления людей на драматиков и романтиков — только то, что следует из вашего контраста, температуры и чистоты.</div>
+      </div></div>`;
+    })()}
     <div class="look badv mk-wide"><div class="look-in"><h3>Что с этим делать дальше</h3>
       <div class="cs-next">
         <button onclick="openMakeup()"><b>Макияж-гид</b><span>оттенки теней уже согласованы с палитрой</span></button>
@@ -19358,22 +19442,22 @@ window.openShops = ()=>{ openPage('shopsPage'); renderShops(); };
 /* ================= ПОИСК ПО САЙТУ ================= */
 (function(){
 const IDX = [
- ['Подбор образов','анкета образы подбор одежда лук комплект','glide(".stage")','раздел'],
- ['Цветотип','цвет цветотип палитра сезон 12 сезонов какие цвета мне идут веер','openColor()','раздел'],
+ ['Подбор образов','анкета образы подбор одежда лук комплект что надеть тренч пальто плащ куртка пуховик жакет пиджак блуза рубашка свитер джемпер водолазка футболка платье юбка брюки джинсы шорты сарафан комбинезон кардиган жилет','glide(".stage")','раздел'],
+ ['Цветотип','цвет цветотип палитра сезон 12 сезонов какие цвета мне идут веер чёрный белый бежевый красный синий зелёный какой цвет мне идёт','openColor()','раздел'],
  ['Бьюти-скан','селфи разбор внешности архетип вау-фактор отчёт','openBeauty()','раздел'],
  ['Макияж-гид','макияж схема глаза стрелки тени кисти форма глаз посадка','openMakeup()','раздел'],
  ['Повторить макияж с фото','референс пинтерест макияж повторить косметичка','openMakeup()','внутри макияжа'],
  ['Уход за кожей','кожа уход крем спф сыворотка k-beauty корейский уход акне','openSkin()','раздел'],
  ['Волосы','стрижка причёска окрашивание форма лица каре чёлка','openHair()','раздел'],
  ['Укладки','укладка волны пучок хвост объём голливудская волна утюжок','openHair()','внутри волос'],
- ['Мой гардероб','гардероб вещи шкаф образ дня продать авито капсула недели','openWardrobe()','раздел'],
+ ['Мой гардероб','гардероб вещи шкаф образ дня продать авито капсула недели что у меня есть добавить вещь разобрать шкаф','openWardrobe()','раздел'],
  ['Капсула сезона','капсула базовый гардероб 14 вещей','openCapsule()','раздел'],
  ['Событие под ключ','свадьба собеседование свидание выпускной план','openEvent()','раздел'],
  ['Студия','манекен ракурсы 360 раскладка обложка примерка генерация','openStudio()','раздел'],
  ['Повторить образ','пинтерест фото образа собрать такой же','openLookRef()','раздел'],
  ['Очки и серьги','оправа очки серьги форма лица аксессуары','openFrames()','раздел'],
  ['Бельё','бра бюстгальтер размер чашка мерки','openBra()','раздел'],
- ['Уход за вещами','стирка ярлык значки пятно вино жир кашемир шёлк пуховик','openCare()','раздел'],
+ ['Уход за вещами','стирка ярлык значки пятно вино жир кашемир шёлк пуховик сумка кожа замша мех погладить утюг катышки','openCare()','раздел'],
  ['Бутики','инстаграм телеграм магазины бутики ник каталог','openShops()','раздел'],
  ['Консилиум','вопрос эксперт дерматолог трихолог визажист спросить','openPage(\'askPage\')','раздел'],
  ['Стиль-паспорт','паспорт итог карточка сторис pdf всё обо мне','openPage(\'passPage\')','раздел'],
@@ -19381,7 +19465,7 @@ const IDX = [
  ['Мой LOOKA','избранное покупки история сохранённое','openPage(\'myPage\')','раздел'],
  ['Что надеть сегодня','погода сегодня градусы город','openTool(\'today\')','помощник'],
  ['Чемодан в поездку','поездка чемодан отпуск сборы багаж','openTool(\'trip\')','помощник'],
- ['Мой размер в любом магазине','размер таблица посадка бренд маломерит','openTool(\'size\')','помощник'],
+ ['Мой размер в любом магазине','размер таблица посадка бренд маломерит обувь кроссовки ботинки сапоги лоферы балетки туфли стелька см eu us uk','openTool(\'size\')','помощник'],
  ['Дресс-код переводчик','дресскод блэк тай смарт кэжуал офис','openTool(\'dress\')','помощник'],
  ['SOS-образ','срочно быстро нечего надеть','openTool(\'sos\')','помощник'],
  ['Стиль на этапах жизни','беременность декрет возраст перемены','openTool(\'life\')','помощник'],
@@ -21404,8 +21488,8 @@ window.gate = (action, title, kind)=>{
       <h3>${W?W[0]:(title||'Этот раздел')}</h3>
       <p>${W?W[1]:'Здесь нейросеть работает с вашим фото — это и есть платная часть LOOKA.'}</p>
       ${free?`<button class="gt-try" onclick="closeGate();useTry();try{${action.replace(/"/g,'&quot;')}}catch(e){}"><b>Попробовать бесплатно</b><span>один раз — без карты и регистрации</span><i>→</i></button>
-      <div class="gt-or">а дальше — без ограничений</div>`:''}
-      <div class="gt-plans">${Object.entries(PLANS).map(([k,v])=>`<button class="gpl ${k==='month'?'on':''}" onclick="gatePick('${k}')"><small>${v.t}</small><b>${v.p}</b>${k==='month'?'<em>популярный</em>':k==='year'?'<em class="g">−58 %</em>':''}</button>`).join('')}</div>
+      <div class="gt-or">а дальше — пакет подборов, без подписки</div>`:''}
+      <div class="gt-plans">${Object.entries(PLANS).map(([k,v])=>`<button class="gpl ${k==='big'?'on':''}" onclick="gatePick('${k}')"><small>${v.t}</small><b>${v.p}</b>${k==='big'?'<em>берут чаще всего</em>':k==='max'?'<em class="g">18 ₽ за подбор</em>':''}</button>`).join('')}</div>
       <div class="gt-free"><b>Бесплатно и без лимитов остаётся всё остальное:</b> цветотип и палитра, стиль-ДНК, макияж по вашей схеме, стрижка под форму лица, кожа, размер бра, гардероб, капсула, обувь, оправы, уход за вещами, настроение дня и вопросы стилисту.</div>
     </div></div>`;
   ov.classList.add('open'); document.body.style.overflow='hidden';
