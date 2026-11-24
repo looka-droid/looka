@@ -10790,7 +10790,7 @@ function renderLooks(looks){
     return `<div class="look"><div class="look-in">
       <h3>${l.t}</h3><div class="vibe">${l.v}</div>${items}
       <div class="tips"><div class="tips-h">✦ СОВЕТЫ СТИЛИСТА</div><ul>${tips.map(x=>'<li>'+x+'</li>').join('')}</ul></div>
-      <div class="total">✦ бюджет: ${S.budget} · ${S.event.toLowerCase()}</div>
+      <div class="total">✦ ${[S.budget?'бюджет: '+S.budget:'', S.event?String(S.event).toLowerCase():''].filter(Boolean).join(' · ')||'цены ориентировочные'}</div>
       <button class="btn ghost to-btn" onclick="openTryOn(${li})">✦ Примерить на себе</button>
     </div></div>`;
   }).join('');
@@ -11158,7 +11158,7 @@ function renderBeauty(r, mode){
       <p>ИИ не ответил, поэтому LOOKA собрала разбор из того, что вы указали раньше: цвет волос, глаз и тон кожи взяты из профиля. Если там указано неточно — поправьте, и разбор изменится.</p>
       <div class="rep-warn-b"><button class="btn ghost" onclick="genBeauty()">↻ Разобрать по фото ещё раз</button><button class="btn ghost" onclick="openProfile&&openProfile()">✎ Поправить профиль</button></div></div>` : '';
   wrap.innerHTML = warnHtml + wowHtml + cards.map(c=>`<div class="look badv"><div class="look-in"><h3>${c[0]}</h3><div class="tip">${c[1]}</div>${linkRow(c[2])}</div></div>`).join('')
-    + `<div class="look badv"><div class="look-in"><h3>Косметичка под разбор</h3>${prodHtml}<div class="total">✦ бюджет: ${B.budget} · цены ориентировочные</div></div></div>`
+    + `<div class="look badv"><div class="look-in"><h3>Косметичка под разбор</h3>${prodHtml}<div class="total">✦ ${[B.budget?'бюджет: '+B.budget:'', 'цены ориентировочные'].filter(Boolean).join(' · ')}</div></div></div>`
     + (careHtml ? `<div class="look badv"><div class="look-in"><h3>Уход: рутина под ваш тип кожи</h3>${careHtml}<div class="total">✦ ${B.skin||'универсально'} · утро и вечер</div></div></div>` : '');
   wrap.insertAdjacentHTML('beforeend', '<div class="next-row"><span>дальше →</span><button onclick="openMakeup()">✦ Схема макияжа под мои глаза</button><button onclick="openPage(\'passPage\')">✦ Стиль-паспорт с формулой макияжа</button><button onclick="openPage(\'askPage\')">✦ Спросить Консилиум</button><button onclick="closeBeauty();setTimeout(()=>document.querySelector(\'.stage\').scrollIntoView({behavior:\'smooth\'}),100)">✦ Собрать образы</button></div>');
   if(window.fxTilt) fxTilt(wrap);
@@ -11190,7 +11190,7 @@ async function genBeauty(){
 ${(window.dnaBeauty&&dnaBeauty())?'ЕЁ БЬЮТИ-ДНК (обязательно учитывай привычки и запреты, не предлагай то, чего она не переносит): '+dnaBeauty()+'.':''}
 Тон: тёплый, конкретный, без лести и критики. Сложность приёмов — под её уровень и время на сборы. Ответь ТОЛЬКО JSON:
 {"impression":["3-4 коротких пункта — общее впечатление от внешности, тепло и точно"],"features":["4-6 ключевых черт лица, по 2-4 слова"],"strengths":["3-4 сильные стороны — что фотогенично и держит лицо"],"improve":["2-3 деликатных пункта: что выиграет от ухода или приёма — про действия, не про недостатки"],"arch":{"mix":"визуальный архетип — смесь 2-3 направлений (soft power, modern muse, quiet luxury, romantic drama, editorial minimalism...)","keep":"что во внешности поддерживает архетип","break":"что ломает образ — 1 фраза"},"risk":"главный визуальный риск одной фразой (что может упростить или удешевить образ)","quick":["5 быстрых апгрейдов: волосы; кожа или макияж; одна вещь; цвет у лица; аксессуар"],"conf":{"lvl":"низкая|средняя|высокая","why":"что ограничивает точность: свет, ракурс, качество фото — 1 фраза"},"wow":"её самая выигрышная черта одной фразой (глаза/губы/скулы/брови/волосы/овал) — что делает внешность запоминающейся","wowDay":"как подчеркнуть эту черту днём: 1-2 приёма макияжа","wowEve":"как усилить вечером","wowAcc":"аксессуары под эту черту: форма серёг и вырезы, конкретно","cut":"стрижка/укладка под форму лица, 1-2 фразы","brows":"брови","eyes":"палитра теней","liner":"какие стрелки","lips":"цвет помады","care":"уход по типу кожи ${B.skin||'не указан'} в 2 фразах","style":"формула стиля одной фразой","prods":[{"n":"продукт с оттенком","q":"поисковый запрос","p":"~900 ₽"}]}
-6-7 prods под бюджет ${B.budget}. Коротко, без текста вне JSON. ЗАПРЕЩЕНО: численные оценки и баллы внешности, сравнения с другими, критика черт — только что и как усилить.`;
+6-7 prods${B.budget?" под бюджет "+B.budget:""}. Коротко, без текста вне JSON. ЗАПРЕЩЕНО: численные оценки и баллы внешности, сравнения с другими, критика черт — только что и как усилить.`;
     const r = await aiFetch({
       method:"POST", headers:{"Content-Type":"application/json"},
       body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1400,
@@ -13487,7 +13487,7 @@ function renderMakeup(){
     </div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Косметичка под схему</h3>
       ${R.kit.map(k=>`<div class="item"><div class="nm">${k[0]}</div><div class="pr">${R.P(k[2])}</div>${beautyButtons(k[1])}</div>`).join('')}
-      <div class="total">✦ бюджет: ${M.budget} · цены ориентировочные</div>
+      <div class="total">✦ ${[M.budget?'бюджет: '+M.budget:'', 'цены ориентировочные'].filter(Boolean).join(' · ')}</div>
     </div></div>`;
   out.insertAdjacentHTML('beforeend', '<div class="next-row"><span>дальше →</span><button onclick="openBeauty()">✦ Бьюти-скан по селфи</button><button onclick="openPage(\'askPage\')">✦ Спросить визажиста в Консилиуме</button><button class="btn primary" onclick="passShare()">✦ Карточка-паспорт 9:16 — в сторис</button><button onclick="window.print()">⎙ Распечатать схему</button></div>');
   if(window.fxTilt) fxTilt(out); if(window.fxGlow) fxGlow(out); if(window.fxZone) fxZone(out);
@@ -14278,7 +14278,7 @@ function renderSkin(){
     <div class="look badv mk-wide"><div class="look-in"><h3>Когда это уже к врачу</h3><div class="tip">${R.doc.join('<br><br>')}</div></div></div>
     <div class="look badv mk-wide"><div class="look-in"><h3>Косметичка ухода</h3>
       <div class="sk-kit">${R.kit.map(k=>`<div class="item"><div class="nm">${k[0]}</div><div class="pr">${R.P(k[2])}</div>${beautyButtons(k[1])}</div>`).join('')}</div>
-      <div class="total">✦ бюджет: ${K.budget} · хватает на 2–3 месяца · цены ориентировочные</div></div></div>`;
+      <div class="total">✦ ${[K.budget?'бюджет: '+K.budget:'', 'хватает на 2–3 месяца', 'цены ориентировочные'].filter(Boolean).join(' · ')}</div></div></div>`;
   out.insertAdjacentHTML('beforeend', (K.goals||[]).concat(['SPF']).map(g=>brandCards(g)).join(''));
   out.insertAdjacentHTML('beforeend', `<div class="look badv mk-wide"><div class="look-in"><div class="cs-k">ПРОВЕРИТЬ СРЕДСТВО</div><h3>Подойдёт ли мне это?</h3>
     <div class="tip">Увидели крем, сыворотку или тон в магазине или у блогера — напишите название. LOOKA сверит состав с вашим типом кожи, задачами и бюджетом, скажет, какого результата ждать, и предложит, что подойдёт лучше или дешевле — российское и иностранное.</div>
@@ -26166,6 +26166,25 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 .wk-vd.ok b{color:#9CF3C6}
 .wk-dot{display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:50%;background:#8FD6FF;
   animation:pulse 1.4s ease-in-out infinite;vertical-align:middle}
+
+/* ===== ПАЛЬЦЕВЫЕ ЦЕЛИ =====
+   Только для сенсорных экранов (hover:none): на мышке всё остаётся как было,
+   поэтому вид на компьютере не меняется ни на пиксель. */
+@media(hover:none){
+  /* ссылки на магазины: перебиваем все частные правила, иначе остаются 26px */
+  .mp a,.item .mp a,.gl-p .mp a,.gl-it .mp a,.wt-miss .mp a,
+  .subpage .mp a,.pageview .mp a{padding:9px 13px;min-height:36px;box-sizing:border-box}
+  .sf-cm,.sf-up{min-height:36px}
+  .sf-cm,.sf-up,.tr-st-more,.tut-cta{padding-top:9px;padding-bottom:9px}
+  .mk-howb,.fig-howb{padding:10px 12px;min-height:36px;box-sizing:border-box}
+  .tr-st-more{min-height:36px}
+  .wt-geo{padding:10px 16px!important;min-height:36px!important}
+  .chip{min-height:36px;display:inline-flex;align-items:center;justify-content:center}
+  .st-act{min-height:38px}
+  .ab-tab,.my-tab{min-height:38px}
+  .wm-regs button,.ct-topics button{min-height:36px;padding-top:9px;padding-bottom:9px}
+}
+
 </style>
 <script>
 /* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
