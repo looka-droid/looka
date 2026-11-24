@@ -6835,6 +6835,8 @@ header .topnav > .nav-find,#topbar .topnav > .nav-find{margin-left:auto}
 
 /* новые платные разделы */
 .lc-prev{max-width:220px;border-radius:14px;margin-top:12px;border:1px solid rgba(255,255,255,.12)}
+/* пока фото не загружено, src пустой — браузер рисует значок битой картинки */
+.lc-prev:not([src]),.lc-prev[src=""]{display:none}
 .lc-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
 @media(max-width:700px){.lc-cols{grid-template-columns:1fr}}
 .lc-col{padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
@@ -9344,7 +9346,14 @@ const BUDGETS = ['до 3 000 ₽','3–7 тыс ₽','7–15 тыс ₽','15–3
 const AGES = ['18–24','25–34','35–44','45–54','55+'];
 
 let step = 0; let lastTitles = [];
-let freeLeft = 5;
+/* ВАЖНО: счётчик обязан переживать перезагрузку, иначе F5 обнуляет лимит
+   и бесплатных подборов становится бесконечно много. */
+let freeLeft = (function(){ try{
+  if(localStorage.getItem('looka_owner') || localStorage.getItem('looka_access')) return 9999;
+  const v = parseInt(localStorage.getItem('looka_free'), 10);
+  return (isFinite(v) && v >= 0 && v <= 5) ? v : 5;
+}catch(e){ return 5; } })();
+function saveFree(){ try{ if(freeLeft <= 100) localStorage.setItem('looka_free', String(Math.max(0, freeLeft))); }catch(e){} }
 let loadTimer = null;
 const LOAD_STEPS = ['анализируем фигуру и цветотип…','подбираем палитру под внешность…','листаем Wildberries, Ozon и Lamoda…','сверяем фасоны с типом фигуры…','складываем законченные образы…','проверяем сочетания и бюджет…'];
 let loadTick = null;
@@ -9396,7 +9405,7 @@ function stopLoader(){
   const steps = document.getElementById('ldSteps');
   if(steps) [...steps.children].forEach(li=>li.className='done');
 }
-function updFree(){ const el = document.getElementById('freeCnt'); if(!el) return; if(freeLeft>100){ el.innerHTML = 'ДОСТУП: БЕЗЛИМИТ ✓'; return; } el.innerHTML = (freeLeft>0 ? 'БЕСПЛАТНЫХ ПОДБОРОВ ОСТАЛОСЬ: '+freeLeft+' ИЗ 5' : 'БЕСПЛАТНЫЙ ЛИМИТ ИСЧЕРПАН') + '<span class="has-code" onclick="openPay();payTab(1)">есть код?</span>'; }
+function updFree(){ saveFree(); const el = document.getElementById('freeCnt'); if(!el) return; if(freeLeft>100){ el.innerHTML = 'ДОСТУП: БЕЗЛИМИТ ✓'; return; } el.innerHTML = (freeLeft>0 ? 'БЕСПЛАТНЫХ ПОДБОРОВ ОСТАЛОСЬ: '+freeLeft+' ИЗ 5' : 'БЕСПЛАТНЫЙ ЛИМИТ ИСЧЕРПАН') + '<span class="has-code" onclick="openPay();payTab(1)">есть код?</span>'; }
 /* Предложение показывается там, где человек только что увидел результат и доволен им,
    а не стеной на входе. Он платит за то, что уже видел, — это и есть вся «хитрость». */
 function offerAfterLook(){
@@ -9434,6 +9443,12 @@ function offerAfterLook(){
 /* чтобы посмотреть предложение, не расходуя подборы: в консоли setFree(1) */
 window.offerAfterLook = offerAfterLook;
 window.setFree = n=>{ freeLeft = n; updFree(); };
+/* updFree вызывали как window.updFree в других модулях — но наружу он не был выставлен,
+   поэтому счётчик молча не обновлялся. И при загрузке его никто не рисовал. */
+window.updFree = updFree;
+(function(){ const draw = ()=>{ let n = 0;
+    const t = setInterval(()=>{ updFree(); if(++n > 12 || document.getElementById('freeCnt')) clearInterval(t); }, 250); };
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', draw); else draw(); })();
 function showPaywall(){
   stopLoader();
   document.getElementById('loading').style.display='none';
@@ -12132,7 +12147,9 @@ window.sendPay = (how, btn)=>{
   else location.href = 'mailto:'+PAY_MAIL+'?subject='+encodeURIComponent('Заявка на доступ LOOKA — '+n)+'&body='+encodeURIComponent(txt);
 };
 async function sha256(s){ const b = new TextEncoder().encode(s); const h = await crypto.subtle.digest('SHA-256', b); return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
-function unlockAccess(){ freeLeft = 9999; try{ localStorage.setItem('looka_access','1'); }catch(e){} updFree(); }
+function unlockAccess(){ freeLeft = 9999;
+  try{ localStorage.setItem('looka_access','1'); localStorage.removeItem('looka_free'); }catch(e){}
+  updFree(); }
 window.checkCode = async ()=>{
   const inp = document.getElementById('payCode'), msg = document.getElementById('payMsg');
   const code = inp.value.trim().toUpperCase().replace(/\s/g,'');
@@ -16508,9 +16525,12 @@ window.progReset = k=>{ if(!confirm('Начать программу занов�
 window.progDay = (ck,i)=>{
   const C = C_(ck); const d = progDays(C)[i]; if(!d) return;
   if(d.k==='les') return crLessonGate(ck, d.mi, d.li);
-  if(C.lvl==='pro' && window.gate && !window.hasAccessSafe) { /* платный курс — ворота на любой день */ }
+  /* платный курс: ворота на любой день программы, не только на урок */
+  if(C.lvl==='pro' && window.gate && window.hasAccess && !hasAccess())
+    return gate(`crDayOpen('${ck}',${i})`, 'Профессиональная программа', 'course');
   dayOpen(ck,i,d);
 };
+window.crDayOpen = (ck,i)=>{ const C = C_(ck); const d = progDays(C)[i]; if(d) dayOpen(ck,i,d); };
 function dayOpen(ck,i,d){
   const C = C_(ck); const done = !!P.done[dayKey(ck,i)];
   let ov = document.getElementById('crOv');
@@ -20470,15 +20490,35 @@ if(document.readyState !== 'loading' && window.accGreet) accGreet();
 /* ================= ВХОД ЧЕРЕЗ GOOGLE + ОБЛАЧНЫЙ ПРОФИЛЬ ================= */
 (function(){
 const CLIENT_ID = '485514192792-hbbgde4cen2mp816hvm82tjarm129i47.apps.googleusercontent.com';
-const SYNC_KEYS = ['looka_favshops','looka_night','looka_mood','looka_life','looka_events','looka_gift','looka_votes','looka_net','looka_finds','looka_dna','looka_acc','looka_dna','looka_makeup','looka_color','looka_skin','looka_hair','looka_event','looka_capsule','looka_wardrobe','looka_my','looka_bra','looka_glow','looka_ritual','looka_region','looka_shops','looka_igshops','looka_city'];
+/* Синхронизация с аккаунтом.
+   Раньше здесь был список из 27 ключей — и в него не попали ни профиль (looka_profile),
+   ни прогресс курсов (looka_course), ни сохранённые образы. Человек платил, заходил
+   с телефона — и всё пустое. Теперь наоборот: синхронизируется всё looka_*, кроме
+   явно устройского (сессия, кэши, позиция скролла) и кроме слишком тяжёлых значений. */
+const SYNC_SKIP = new Set(['looka_session','looka_owner','looka_access','looka_admin_mode',
+  'looka_scrollpos','looka_state','looka_geo','looka_wx','looka_wx_route','looka_aest_ph',
+  'looka_intro','looka_intro_ask','looka_day_seen','looka_day_shown','looka_ava_path',
+  'looka_hgrid','looka_mytab','looka_quiz_from']);
+const SYNC_ONE_MAX = 120*1024;      /* одно значение: не тащим фото в облако */
+const SYNC_ALL_MAX = 900*1024;      /* весь снимок */
+const syncable = k => !!k && k.indexOf('looka_')===0 && !SYNC_SKIP.has(k);
+function snapshot(){ const d={}; let total=0;
+  try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i);
+    if(!syncable(k)) continue;
+    const v=localStorage.getItem(k);
+    if(!v || v.length>SYNC_ONE_MAX || total+v.length>SYNC_ALL_MAX) continue;
+    total+=v.length; d[k]=v; } }catch(e){}
+  return d; }
+function apply(data){ if(!data) return 0; let n=0;
+  Object.entries(data).forEach(([k,v])=>{ if(syncable(k) && typeof v==='string'){
+    try{ localStorage.setItem(k,v); n++; }catch(e){} } });
+  return n; }
 const S2 = { token:null, email:'', busy:false, sync:false };
 try{ const s = JSON.parse(localStorage.getItem('looka_session')||'null'); if(s){ S2.token=s.token; S2.email=s.email||''; S2.sync=!!s.sync; } }catch(e){}
 const api = p => String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'') + p;
 const keep = ()=>localStorage.setItem('looka_session', JSON.stringify({token:S2.token, email:S2.email, sync:S2.sync}));
 window.authState = ()=>({ in:!!S2.token, email:S2.email, sync:S2.sync });
 
-function snapshot(){ const d={}; SYNC_KEYS.forEach(k=>{ const v=localStorage.getItem(k); if(v) d[k]=v; }); return d; }
-function apply(data){ if(!data) return 0; let n=0; Object.entries(data).forEach(([k,v])=>{ if(SYNC_KEYS.includes(k) && typeof v==='string'){ localStorage.setItem(k,v); n++; } }); return n; }
 
 window.authSync = async (silent)=>{
   if(!S2.token || !S2.sync) return;
@@ -20582,6 +20622,14 @@ window.authGoogleTry = ()=>{ try{ if(window.google && google.accounts){ google.a
   myToast('Google недоступен в вашей сети — войдите через Telegram'); };
 /* автосинхронизация раз в минуту, если включена */
 setInterval(()=>{ if(S2.token && S2.sync) authSync(true); }, 60000);
+/* если вкладку закрыли раньше, чем сработал минутный таймер — дожать на выходе */
+document.addEventListener('visibilitychange', ()=>{
+  if(document.visibilityState !== 'hidden' || !S2.token || !S2.sync) return;
+  try{ const acc = JSON.parse(localStorage.getItem('looka_acc')||'{}');
+    fetch(api('/sync'), {method:'POST', keepalive:true,
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+S2.token},
+      body: JSON.stringify({ profile:{name:acc.name||'', dob:acc.dob||'', city:acc.city||''}, data: snapshot() })}); }catch(e){}
+});
 window.addEventListener('beforeunload', ()=>{ if(S2.token && S2.sync) navigator.sendBeacon && navigator.sendBeacon(api('/sync')); });
 })();
 
@@ -21542,11 +21590,18 @@ window.sparkleReveal = (el)=>{
 window.dnaPhotos = async ()=>{
   const els=[...document.querySelectorAll('.dna-st[data-hint^="aest:"]')].filter(el=>!el.querySelector('.st-ph'));
   const put=(el,url)=>{ if(el.querySelector('.st-ph')) return; const d=document.createElement('div'); d.className='st-ph'; d.innerHTML=`<img src="${url}" alt="" loading="lazy">`; el.appendChild(d); };
-  /* 1) свои файлы — все сразу, параллельно */
-  await Promise.all(els.map(async el=>{ const n=el.dataset.hint.slice(5); const s=aestSlug(n);
-    for(const e of ['jpg','JPG','jpeg','JPEG','png','PNG','webp']){ const u='img/aest/'+s+'.'+e;
-      const ok=await new Promise(r=>{ const i=new Image(); i.onload=()=>r(true); i.onerror=()=>r(false); i.src=u; });
-      if(ok){ PH[n]={url:u,by:''}; put(el,u); return; } } }));
+  /* 1) свои файлы — все сразу, параллельно.
+     Если папки img/aest нет, это 7 запросов × 40 эстетик = под 300 промахов на каждой загрузке:
+     страница тормозит, консоль в ошибках. Поэтому пустую папку запоминаем на неделю. */
+  const dirHas = window.aestDirHas ? window.aestDirHas() : null;
+  if(dirHas !== false){
+    let found = 0;
+    await Promise.all(els.map(async el=>{ const n=el.dataset.hint.slice(5); const s=aestSlug(n);
+      for(const e of ['jpg','JPG','jpeg','png','webp']){ const u='img/aest/'+s+'.'+e;
+        const ok=await new Promise(r=>{ const i=new Image(); i.onload=()=>r(true); i.onerror=()=>r(false); i.src=u; });
+        if(ok){ found++; PH[n]={url:u,by:''}; put(el,u); return; } } }));
+    if(window.aestDirSet) window.aestDirSet(found > 0);
+  }
   /* 2) остальным — сток или генерация: по 4 параллельно, чтобы одна зависшая не держала всю очередь */
   const rest = els.filter(el=>!el.querySelector('.st-ph'));
   const queue = rest.slice();
@@ -21654,15 +21709,22 @@ window.phSave = ()=>{ try{ const out={}; Object.keys(PH).forEach(k=>{ if(PH[k] &
 const PH_BUSY = {};
 window.aestSlug = n=>({'Y2K':'y2k','Old money':'old-money','Quiet luxury':'quiet-luxury','Clean girl':'clean-girl','Coquette':'coquette','Balletcore':'balletcore','Dark academia':'dark-academia','Light academia':'light-academia','Cottagecore':'cottagecore','Coastal':'coastal','Gorpcore':'gorpcore','Streetwear':'streetwear','Скандинавский минимализм':'scandi','Парижский шик':'parisian','Гранж':'grunge','Панк / рок':'punk','Готика':'gothic','E-girl / альт':'egirl','Soft girl':'soft-girl','Mob wife':'mob-wife','Бохо':'boho','Ретро 70-х':'retro-70s','80-е':'80s','90-е':'90s','Спорт-шик':'sport-chic','Preppy':'preppy','Романтика':'romantic','Классика / офис':'classic-office','Артистичный':'artsy','Бойфренд / oversize':'boyfriend','Бойфренд / андрогинный':'boyfriend','Glam / вечерний':'glam','K-fashion':'k-fashion','Techwear / кибер':'techwear','Western':'western','Casual базовый':'casual','Mermaidcore':'mermaidcore','Тотал-блэк':'minimal-black','Office siren':'office-siren','Розовый глэм':'pink-glam'}[n]||n.toLowerCase().replace(/[^a-zа-я0-9]+/gi,'-'));
 const probe = src=>new Promise(res=>{ const i=new Image(); i.onload=()=>res(true); i.onerror=()=>res(false); i.src=src; });
+/* Папка img/aest либо есть, либо её нет. Проверять это по 32 раза на каждую эстетику
+   при каждой загрузке — значит класть страницу. Запоминаем ответ на неделю. */
+window.aestDirHas = ()=>{ try{ const o = JSON.parse(localStorage.getItem('looka_aestdir')||'null');
+  if(o && Date.now() - o.t < 7*864e5) return o.has; }catch(e){} return null; };
+window.aestDirSet = has=>{ try{ localStorage.setItem('looka_aestdir', JSON.stringify({has:!!has, t:Date.now()})); }catch(e){} };
 window.aestPhoto = async n=>{
   if(AEST_IMG[n]) return { url:AEST_IMG[n] };
   if(PH[n] && PH[n].url) return PH[n];
   if(PH_BUSY[n]) return PH_BUSY[n];
   PH_BUSY[n] = (async()=>{
-    const sl=aestSlug(n); const names=[sl, sl.replace(/-/g,'_'), sl.replace(/-/g,' '), encodeURIComponent(n)];
-    const exts=['jpg','JPG','jpeg','JPEG','png','PNG','webp','WEBP'];
-    for(const nm of names){ for(const e of exts){ const local='img/aest/'+nm+'.'+e;
-      if(await probe(local)){ PH[n]={ url:local, by:'' }; phSave(); return PH[n]; } } }
+    if(window.aestDirHas() !== false){
+      const sl=aestSlug(n); const names=[sl, sl.replace(/-/g,'_')];
+      const exts=['jpg','JPG','jpeg','png','webp'];
+      for(const nm of names){ for(const e of exts){ const local='img/aest/'+nm+'.'+e;
+        if(await probe(local)){ window.aestDirSet(true); PH[n]={ url:local, by:'' }; phSave(); return PH[n]; } } }
+    }
     const api=String(typeof LOOKA_API!=='undefined'?LOOKA_API:'').replace(/\/$/,'');
     /* запрос не должен висеть вечно — иначе очередь встаёт и остальные карточки остаются пустыми */
     const grab = async (url, ms)=>{ const c = (typeof AbortController!=='undefined') ? new AbortController() : null;
