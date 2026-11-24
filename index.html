@@ -4006,6 +4006,8 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
 .sm-table b{display:block;font-family:'Golos Text';font-weight:800;font-size:18px;color:#19C6F7}
 .sm-table small{font-family:'JetBrains Mono';font-size:9.5px;color:#A8AEC2}
 /* SOS: погода и отметки «есть / нет в гардеробе» */
+.sh-auto{margin:12px 0 0;padding:9px 13px;border-radius:12px;font-size:12.5px;line-height:1.5;color:#9BF0C4;
+  border:1px solid rgba(55,224,138,.3);background:rgba(55,224,138,.09)}
 .rv-auto{margin:0 0 12px;padding:9px 13px;border-radius:12px;font-size:12.5px;line-height:1.5;color:#9BF0C4;
   border:1px solid rgba(55,224,138,.3);background:rgba(55,224,138,.09)}
 .sz-warn{border-color:rgba(255,196,107,.4)!important}
@@ -9112,7 +9114,7 @@ setInterval(pgDraw, 4000);
       <a href="https://market.yandex.ru" target="_blank" rel="noopener">Яндекс Маркет&nbsp;↗</a>
       <a href="https://aliexpress.ru" target="_blank" rel="noopener">AliExpress&nbsp;↗</a></div>
   </div>
-  <div class="f-bottom">LOOKA · 2026 · подбор носит рекомендательный характер · цены и наличие — на маркетплейсах<span class="f-ver" title="какая версия сайта сейчас открыта — если число старое, обновите страницу через Ctrl+Shift+R">версия от 18.11.2026</span></div>
+  <div class="f-bottom">LOOKA · 2026 · подбор носит рекомендательный характер · цены и наличие — на маркетплейсах<span class="f-ver" title="какая версия сайта сейчас открыта — если число старое, обновите страницу через Ctrl+Shift+R">версия от 24.11.2026</span></div>
 </footer>
 
 <div class="pay-ov" id="payOv" onclick="if(event.target===this) closePay()">
@@ -9239,6 +9241,41 @@ const S = {
   figure:null, hair:null, eyes:null, event:null, budget:null,
   clothSize:null, shoeSize:null, skin:null, focus:[], style:null
 };
+window.S = S;   /* профиль нужен бьюти-разборам: они читают window.S */
+/* Куда реально уходят клиентки: считаем магазин и раздел, без имени вещи и без пользователя.
+   Нужно, чтобы решать про бренды и площадки по поведению, а не по комментариям под видео. */
+(function(){
+  const NAME = { wb:'WB', oz:'OZON', lm:'LAMODA', ym:'МАРКЕТ', ali:'ALI', kaspi:'KASPI',
+                 zal:'ZALANDO', asos:'ASOS', amz:'AMAZON', ay:'ABOUTYOU', trendyol:'TRENDYOL', noon:'NOON',
+                 tg:'TELEGRAM', ig:'INSTAGRAM' };
+  const zoneNow = ()=>{
+    try{
+      const tp = document.getElementById('toolPage');
+      if(tp && tp.classList.contains('active-page') && tp.dataset.tool) return 'помощник-' + tp.dataset.tool;
+      const pv = document.querySelector('.pageview.active-page');
+      if(pv && pv.id) return pv.id.replace(/Page$/,'');
+      return 'главная';
+    }catch(e){ return 'другое'; }
+  };
+  const shopOf = a=>{
+    for(const c of a.classList){ if(NAME[c]) return NAME[c]; }
+    const t = (a.textContent||'').replace(/[^A-Za-zА-Яа-яЁё]/g,'').toUpperCase().slice(0,12);
+    return t || '';
+  };
+  document.addEventListener('click', e=>{
+    const a = e.target && e.target.closest ? e.target.closest('.mp a, .sos-soc a, .soc a') : null;
+    if(!a || !a.href) return;
+    const shop = shopOf(a); if(!shop) return;
+    try{
+      const base = String(typeof LOOKA_API !== 'undefined' ? LOOKA_API : '').replace(/\/$/,'');
+      if(!base) return;
+      const body = JSON.stringify({ s: shop, z: zoneNow() });
+      /* sendBeacon не задерживает переход в магазин */
+      if(navigator.sendBeacon) navigator.sendBeacon(base + '/tap', new Blob([body], {type:'text/plain'}));
+      else fetch(base + '/tap', { method:'POST', body, keepalive:true });
+    }catch(err){}
+  }, true);
+})();
 const SIZES_F=['40','42','44','46','48','50','52','54','56','58'];
 const SIZES_M=['44','46','48','50','52','54','56','58','60'];
 const SHOES_F=['35','36','37','38','39','40','41'];
@@ -9553,6 +9590,7 @@ function stepValid(){
   return keys.every(k=> QZ_OPT[k] || (S[k] !== null && S[k] !== undefined && S[k] !== ''));
 }
 const quizTop = ()=>document.querySelector('.quiz').scrollIntoView({behavior:'smooth', block:'nearest'});
+  window.quizTop = quizTop;
 document.getElementById('back').onclick = ()=>{ if(step>0){step--; renderStep(); quizTop();} };
 document.getElementById('next').onclick = ()=>{
   if(!stepValid()) return;
@@ -9760,6 +9798,7 @@ const PAL = ()=>{
   const cold = (h==='Блонд'||h==='Пепельный'||e==='Голубые'||e==='Серые'||s==='Фарфоровый');
   return {note, accents, neutrals, shoes, metal: cold?'серебристый':'золотистый'};
 };
+window.PAL = PAL;   /* палитра нужна бьюти-разборам */
 /* Цвет сравнивается по СЕМЕЙСТВУ, а не по названию: «алый», «бордовый» и «вишнёвый» — один и тот же
    красный, просто разной глубины. Раньше сравнение шло по строке, и гардероб получал вердикт
    «бордовый вам не идёт» при том, что алый стоял в рекомендованных акцентах. */
@@ -13296,6 +13335,7 @@ window.runTryOn = async ()=>{
 
 /* ================= ЭКОСИСТЕМА LOOKA v2: общие помощники ================= */
 const HUB = {};
+window.HUB = HUB;   /* общие помощники нужны другим модулям */
 HUB.ls = (k, def)=>{ try{ return Object.assign(def, JSON.parse(localStorage.getItem(k)||'{}')); }catch(e){ return def; } };
 HUB.save = (k, o)=>{ try{ localStorage.setItem(k, JSON.stringify(o)); }catch(e){} };
 HUB.grp = (t, inner)=>`<div class="grp"><label class="t">${t}</label>${inner}</div>`;
@@ -13862,6 +13902,22 @@ window.brandCards = (task, isMakeup)=>{
 /* ================= ОБУВЬ: подбор с картинками ================= */
 (function(){
 const SHQ = HUB.ls('looka_shoes', { h:'', leg:'', ankle:'', size:'', heel:'', life:[], done:false });
+/* рост и размер обуви уже есть в анкете — спрашивать их заново незачем */
+let shAuto = [];
+(function(){
+  try{
+    const P = window.S || {};
+    if(!SHQ.h && P.height){ const ht = Number(P.height);
+      if(isFinite(ht) && ht > 100){
+        SHQ.h = ht < 160 ? 'до 160' : ht <= 170 ? '160–170' : ht <= 178 ? '170–178' : 'выше 178';
+        shAuto.push('рост ' + ht + ' см'); } }
+    if(!SHQ.size && P.shoeSize){ const sz = Number(P.shoeSize);
+      if(isFinite(sz) && sz > 20){
+        SHQ.size = sz <= 36 ? 'до 36' : sz <= 38 ? '37–38' : sz <= 40 ? '39–40' : '41 и больше';
+        shAuto.push('размер ' + sz); } }
+    if(shAuto.length) HUB.save('looka_shoes', SHQ);
+  }catch(e){}
+})();
 const Q=[
  ['h','Ваш рост',['до 160','160–170','170–178','выше 178']],
  ['leg','Ноги',['стройные','полные в икрах','полные в бёдрах','длинные тонкие','короткие относительно тела']],
@@ -13932,6 +13988,7 @@ window.renderShoesForm=()=>{
   const ready=SHQ.h&&SHQ.leg&&SHQ.ankle&&SHQ.size&&SHQ.heel;
   box.innerHTML=`<div class="look badv mk-wide bt-form"><div class="look-in">
     ${Q.map(q=>`<div class="grp"><label class="t">${q[1]}${q[0]==='life'?' <span class="to-opt">несколько</span>':''}</label><div class="chips">${q[2].map(v=>`<button class="chip ${(q[0]==='life'?SHQ.life.includes(v):SHQ[q[0]]===v)?'on':''}" onclick="shPick('${q[0]}','${v}')">${v}</button>`).join('')}</div></div>`).join('')}
+    ${shAuto.length?`<div class="sh-auto">✓ Взяла из вашей анкеты: ${shAuto.join(' · ')} — поправьте, если не так</div>`:''}
     <div class="cs-k" style="margin-top:14px">ЧТО ЭТО ВООБЩЕ ТАКОЕ · СЛОВАРЬ С КАРТИНКАМИ</div>
     <div class="sh-gloss">${CAT.map(c=>`<div class="sh-g">${shoeIcon(c[0],'#8B92AA')}<b>${c[1]}</b><span>${c[2]}</span></div>`).join('')}</div>
     <div class="to-row"><button class="btn primary" ${ready?'':'disabled'} onclick="renderShoes()">Собрать обувную капсулу →</button></div>
@@ -13955,7 +14012,44 @@ window.openShoes=()=>{ openPage('shoesPage'); renderShoesForm(); };
 
 /* ================= ТРИ ПЛАТНЫХ РАЗДЕЛА: РАЗБОР ОБРАЗА · ДОРОГО ЗА КОПЕЙКИ · ТЕЛО ИЗМЕНИЛОСЬ ================= */
 (function(){
-const ctx = ()=>{ const S3=window.S||{}; return `Клиентка: пол ${S3.gender||'женщина'}, фигура ${S3.body||'-'}, рост ${S3.height||'-'}, цветотип ${(JSON.parse(localStorage.getItem('looka_cs')||'{}').season)||'-'}, регион ${(typeof REGION!=='undefined'?REGION:'cis')}. ${(window.dnaSummary&&dnaSummary())?'СТИЛЬ-ДНК: '+dnaSummary():''}`; };
+/* один контекст на все ИИ-разборы: раньше сюда не попадали ни размеры, ни палитра,
+   ни погода, ни гардероб — и стилист советовал вслепую */
+window.lkCtx = ()=>{
+  const S3 = window.S || {};
+  const P = [];
+  const fig = S3.figure || S3.body;
+  P.push('пол ' + (S3.gender || 'женщина'));
+  if(fig) P.push('фигура ' + fig);
+  if(S3.height) P.push('рост ' + S3.height + ' см');
+  if(S3.weight) P.push('вес ' + S3.weight + ' кг');
+  if(S3.clothSize) P.push('размер одежды ' + S3.clothSize);
+  if(S3.shoeSize) P.push('размер обуви ' + S3.shoeSize);
+  if(S3.hair || S3.eyes || S3.skin)
+    P.push('внешность: волосы ' + (S3.hair||'-').toLowerCase() + ', глаза ' + (S3.eyes||'-').toLowerCase() + ', кожа ' + (S3.skin||'-').toLowerCase());
+  let season = '';
+  try{ season = (JSON.parse(localStorage.getItem('looka_cs')||'{}').season) || ''; }catch(e){}
+  if(season) P.push('цветотип ' + season);
+  try{ if(window.PAL && S3.hair && S3.eyes && S3.skin){ const pl = PAL();
+    if(pl.accents && pl.accents.length) P.push('её цвета у лица: ' + pl.accents.slice(0,4).join(', '));
+    if(pl.neutrals && pl.neutrals.length) P.push('база: ' + pl.neutrals.slice(0,3).join(', '));
+    if(pl.metal) P.push('металл украшений: ' + pl.metal);
+  } }catch(e){}
+  if(Array.isArray(S3.focus) && S3.focus.length) P.push('просила учесть: ' + S3.focus.join(', ').toLowerCase());
+  if(S3.budget) P.push('бюджет ' + S3.budget);
+  try{ const w = window.WX_LAST_OBJ;
+    if(w && typeof w.f === 'number') P.push('за окном ' + (w.city?w.city+', ':'') + 'ощущается как ' + (w.f>0?'+':'') + w.f + '°, ' + (w.w||''));
+  }catch(e){}
+  let ward = '';
+  try{ const mine = window.myWardrobe ? myWardrobe() : [];
+    if(mine.length){ const k = mine.length, k10 = k%10, k100 = k%100;
+      const word = (k10===1 && k100!==11) ? 'вещь' : (k10>=2 && k10<=4 && (k100<10 || k100>=20)) ? 'вещи' : 'вещей';
+      ward = 'В гардеробе уже есть (' + k + ' ' + word + ', не предлагай покупать то, что в списке): '
+      + mine.slice(0,22).map(i=>(i.c?i.c+' ':'')+i.n).join('; ') + '. '; }
+  }catch(e){}
+  const dna = (window.dnaSummary && dnaSummary()) ? 'СТИЛЬ-ДНК: ' + dnaSummary() + ' ' : '';
+  return 'Клиентка: ' + P.join(', ') + ', регион ' + (typeof REGION !== 'undefined' ? REGION : 'cis') + '. ' + ward + dna;
+};
+const ctx = ()=> window.lkCtx();
 const parseJ = txt=>{ const m=txt.match(/\{[\s\S]*\}/); return JSON.parse(m?m[0]:txt); };
 const item = (it,i)=>HUB.pop(`<div class="item"><div class="nm">${it.n}</div><div class="tip">${it.why||''}${it.price?' · '+it.price:''}</div>${shopButtons({n:it.n,q:it.q||it.n})}</div>`,i);
 const readFile = f=>new Promise(res=>{ const r=new FileReader(); r.onload=()=>res({data:String(r.result).split(',')[1],type:f.type||'image/jpeg'}); r.readAsDataURL(f); });
@@ -14399,7 +14493,7 @@ window.renderEventForm = ()=>{
 window.evCity = v=>{ E.city=v; HUB.save('looka_event',E); };
 window.evAiPlan = async ()=>{ const box=document.getElementById('evAi'); if(!box) return; box.innerHTML='<div class="tip">Думаю про место, время и погоду…</div>';
   const S3=window.S||{}; const cs=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_cs')||'{}').season||'-'; }catch(e){ return '-'; } })();
-  const prompt=`Ты — стилист-подруга. Событие: ${E.kind}. Где: ${E.where||'-'}. Когда: ${E.when||'-'}. С кем: ${E.who||'-'}. Город: ${E.city||'-'}${E.date?', дата '+E.date:''}. Бюджет: ${E.budget||'-'}. Она: фигура ${S3.body||'-'}, рост ${S3.height||'-'}, цветотип ${cs}. ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} ${(window.lifeText&&lifeText())?lifeText()+'.':''} Учитывай МЕСТО буквально: в ресторане — каблук и удобно сидеть, в парке — обувь для ходьбы и слои, в кино — темно и прохладно, каток — тепло и подвижно, бар — вечерний свет, у него дома — уютно, но собранно, за границей у моря — климат и погода в этом городе в эту дату. Ответь ТОЛЬКО JSON: {"look":{"title":"название образа","items":[{"n":"вещь 2-4 слова","q":"поисковый запрос","why":"почему именно сюда"}],"why":"2 предложения, почему это работает именно в этом месте и в это время"},"beauty":{"mk":"макияж под свет и время","hair":"волосы","scent":"аромат"},"practical":["3-4 практичных совета под место: обувь, температура, сумка, что взять"],"dont":["2-3 вещи, которые не надо надевать именно сюда"],"line":"фраза как от подруги перед выходом"} Вещей в образе — 5.`;
+  const prompt=`Ты — стилист-подруга. Событие: ${E.kind}. Где: ${E.where||'-'}. Когда: ${E.when||'-'}. С кем: ${E.who||'-'}. Город: ${E.city||'-'}${E.date?', дата '+E.date:''}. Бюджет: ${E.budget||'-'}. ${window.lkCtx?lkCtx():('Она: фигура '+((S3.figure||S3.body)||'-')+', цветотип '+cs+'.')} ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} ${(window.lifeText&&lifeText())?lifeText()+'.':''} Учитывай МЕСТО буквально: в ресторане — каблук и удобно сидеть, в парке — обувь для ходьбы и слои, в кино — темно и прохладно, каток — тепло и подвижно, бар — вечерний свет, у него дома — уютно, но собранно, за границей у моря — климат и погода в этом городе в эту дату. Ответь ТОЛЬКО JSON: {"look":{"title":"название образа","items":[{"n":"вещь 2-4 слова","q":"поисковый запрос","why":"почему именно сюда"}],"why":"2 предложения, почему это работает именно в этом месте и в это время"},"beauty":{"mk":"макияж под свет и время","hair":"волосы","scent":"аромат"},"practical":["3-4 практичных совета под место: обувь, температура, сумка, что взять"],"dont":["2-3 вещи, которые не надо надевать именно сюда"],"line":"фраза как от подруги перед выходом"} Вещей в образе — 5.`;
   try{ const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1500, messages:[{role:'user',content:prompt}] }) }); const j=await r.json(); const txt=(j.content||[]).map(c=>c.text||'').join(''); const m=txt.match(/\{[\s\S]*\}/); const R=JSON.parse(m?m[0]:txt);
     box.innerHTML=`<div class="lc-one"><div class="cs-k">ОБРАЗ ПОД ${(E.where||'МЕСТО').toUpperCase()}${E.when?' · '+E.when.toUpperCase():''}</div><b>${R.look.title}</b><span>${R.look.why}</span>
       ${(R.look.items||[]).map((it,i)=>HUB.pop(`<div class="item"><div class="nm">${it.n}</div><div class="tip">${it.why||''}</div>${shopButtons({n:it.n,q:it.q||it.n})}</div>`,i)).join('')}
@@ -14696,7 +14790,7 @@ window.pickNames = ()=>{
 };
 window.pickToggle = id=>{
   const ids = pickList(); const i = ids.indexOf(id);
-  if(i>=0) ids.splice(i,1); else { if(ids.length>=4){ if(window.toast) toast('Больше четырёх вещей — это уже готовый образ, а не пожелание'); return; } ids.push(id); }
+  if(i>=0) ids.splice(i,1); else { if(ids.length>=4){ if(window.myToast) myToast('Больше четырёх вещей — это уже готовый образ, а не пожелание'); return; } ids.push(id); }
   pickSave(ids);
   ['renderWardrobe','renderWantWd'].forEach(f=>{ try{ if(typeof window[f]==='function') window[f](); }catch(e){} });
 };
@@ -14714,7 +14808,7 @@ window.pickBar = ()=>{
       <button class="btn ghost" onclick="pickClear()">Сбросить</button></div></div>`;
 };
 window.pickBuild = ()=>{
-  if(!pickNames().length){ if(window.toast) toast('Сначала отметьте вещь в гардеробе'); return; }
+  if(!pickNames().length){ if(window.myToast) myToast('Сначала отметьте вещь в гардеробе'); return; }
   if(document.body.classList.contains('subpage') && window.closePage) closePage();
   setTimeout(()=>{
     const sec = document.getElementById('wantSec') || document.getElementById('wtOut');
@@ -20028,7 +20122,7 @@ window.myLooksBuild = async ()=>{
   window.__mlT=setInterval(()=>{ const e=document.getElementById('mlSec'); if(!e){ clearInterval(window.__mlT); return; }
     e.textContent=Math.round((Date.now()-t0)/1000)+' с'; }, 500);
   const S3=window.S||{}; const cs=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_cs')||'{}').season||'-'; }catch(e){ return '-'; } })();
-  const prompt=`Ты — стилист. Вещи, которые у клиентки уже есть (покупки и гардероб): ${have.join('; ')}. Она: фигура ${S3.body||'-'}, рост ${S3.height||'-'}, цветотип ${cs}. ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} Собери 4 готовых образа ТОЛЬКО из этих вещей (можно повторять вещи в разных образах). К каждому — максимум одна вещь, которой не хватает. Ответь ТОЛЬКО JSON: {"looks":[{"t":"название образа 2-4 слова","where":"куда в нём идти","have":["вещи клиентки, 3-5 штук"],"add":{"n":"чего не хватает 2-4 слова","q":"поисковый запрос","why":"зачем"},"why":"почему это работает на ней"}]}`;
+  const prompt=`Ты — стилист. Вещи, которые у клиентки уже есть (покупки и гардероб): ${have.join('; ')}. ${window.lkCtx?lkCtx():('Она: фигура '+((S3.figure||S3.body)||'-')+', цветотип '+cs+'.')} ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} Собери 4 готовых образа ТОЛЬКО из этих вещей (можно повторять вещи в разных образах). К каждому — максимум одна вещь, которой не хватает. Ответь ТОЛЬКО JSON: {"looks":[{"t":"название образа 2-4 слова","where":"куда в нём идти","have":["вещи клиентки, 3-5 штук"],"add":{"n":"чего не хватает 2-4 слова","q":"поисковый запрос","why":"зачем"},"why":"почему это работает на ней"}]}`;
   try{ const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1500, messages:[{role:'user',content:prompt}] }) }); const R=await aiJSON(r);
     clearInterval(window.__mlT);
     ML.looks=R.looks||[]; ML.ts=Date.now(); HUB.save('looka_mylooks',ML);
@@ -20071,7 +20165,7 @@ window.tryFile = async (f,i)=>{
   const st=['Нахожу силуэт…','Снимаю пропорции…','Примеряю образ…','Проверяю длины и посадку…','Готовлю результат…']; let si=0;
   const t=setInterval(()=>{ si=(si+1)%st.length; const e=document.getElementById('tryStat'); if(e) e.textContent=st[si]; },1300);
   const S3=window.S||{}; const cs=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_cs')||'{}').season||'-'; }catch(e){ return '-'; } })();
-  const prompt=`Ты — стилист. На фото клиентка в полный рост. Образ, который она хочет примерить: ${(L.have||[]).join(', ')}${L.add&&L.add.n?' + '+L.add.n:''}. Её данные: фигура ${S3.body||'-'}, рост ${S3.height||'-'}, цветотип ${cs}. ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} Оцени, как этот образ сядет именно на неё по фото. Ответь ТОЛЬКО JSON: {"verdict":"сядет|сядет с правками|не её","score":"1-10 числом","read":"что видно по фигуре и пропорциям — бережно, без оценок тела","works":["2-3 вещи образа, которые на ней сработают, и почему"],"fix":[{"what":"что поменять в образе","why":"почему","n":"чем заменить 2-4 слова","q":"поисковый запрос"}],"keep":["что из её вещей точно оставить"],"line":"фраза как от подруги"}`;
+  const prompt=`Ты — стилист. На фото клиентка в полный рост. Образ, который она хочет примерить: ${(L.have||[]).join(', ')}${L.add&&L.add.n?' + '+L.add.n:''}. ${window.lkCtx?lkCtx():('Её данные: фигура '+((S3.figure||S3.body)||'-')+', цветотип '+cs+'.')} ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} Оцени, как этот образ сядет именно на неё по фото. Ответь ТОЛЬКО JSON: {"verdict":"сядет|сядет с правками|не её","score":"1-10 числом","read":"что видно по фигуре и пропорциям — бережно, без оценок тела","works":["2-3 вещи образа, которые на ней сработают, и почему"],"fix":[{"what":"что поменять в образе","why":"почему","n":"чем заменить 2-4 слова","q":"поисковый запрос"}],"keep":["что из её вещей точно оставить"],"line":"фраза как от подруги"}`;
   try{ const r=await aiFetch({ body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1500, messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:bodyImg.type,data:bodyImg.data}},{type:'text',text:prompt}]}] }) });
     const R=await aiJSON(r); clearInterval(t);
     const col=/^сядет$/i.test(R.verdict)?'#37E08A':/правк/i.test(R.verdict)?'#FFB84C':'#FF9DB0';
@@ -21828,7 +21922,7 @@ window.nightDraw = ()=>{
   if(!N){ box.innerHTML=`<div class="night"><div class="nt-h"><div class="cs-k">УТРОМ НЕ ДУМАТЬ, ЧТО НАДЕТЬ</div><h3>Ночью LOOKA соберёт образы из ваших вещей</h3><p>Добавьте хотя бы 5 вещей в гардероб (можно скриншотом заказов) — и каждое утро вас будут ждать три готовых образа под настроение и погоду.</p><div class="to-row"><button class="btn primary" onclick="openWardrobe()">▣ Добавить вещи</button><button class="btn ghost" onclick="openPage('myPage');setTimeout(()=>myTab('shops'),350)">⤒ Скриншот заказов</button></div></div></div>`; return; }
   const order = mood && N.looks[mood] ? [mood].concat(Object.keys(N.looks).filter(k=>k!==mood)) : Object.keys(N.looks);
   box.innerHTML=`<div class="night"><div class="nt-h"><div class="cs-k">СОБРАНО НОЧЬЮ · ИЗ ВАШЕГО ГАРДЕРОБА${N.wx&&N.wx.t!=null?' · '+(N.wx.t>0?'+':'')+N.wx.t+'°'+(typeof N.wx.f==='number'&&N.wx.f!==N.wx.t?', ОЩУЩАЕТСЯ КАК '+(N.wx.f>0?'+':'')+N.wx.f+'°':'')+' '+(N.wx.w||''):''}</div><h3>${mood?'Вы сегодня — '+mood.toLowerCase()+'. Вот ваш образ':'Три образа на сегодня — выберите настроение'}</h3></div>
-    <div class="nt-grid">${order.map((m,i)=>{ const L=N.looks[m]; const M=(window.MOODS||[]).find(x=>x[1]===m)||['✦']; return HUB.pop(`<div class="nt-look ${m===mood?'on':''}"><div class="nt-m"><i>${M[0]}</i><b>${m}</b>${m===mood?'<em>ваше сегодня</em>':''}</div><ul>${L.items.map(it=>`<li><span class="sw" style="background:${(window.WD_COLORS&&WD_COLORS[it.color])||'#8B92AA'}"></span>${it.name}<em>${it.cat}</em></li>`).join('')}</ul>${L.noOuter?`<div class="nt-warn">В гардеробе нет верхней одежды на такую погоду — образ без неё будет холодным. <button class="lnk" onclick="openWardrobe()">Добавить</button></div>`:''}<div class="nt-tip">${L.tip}</div><div class="nt-act"><button class="nt-go" onclick="nightWear('${m}')">Надену это</button><button class="nt-ask" onclick="voteNight('${m}')"><i>♥</i>Оценит подруга</button><button class="nt-re" onclick="nightPlan(true);nightDraw()" title="Собрать другой вариант" aria-label="Собрать другой вариант">↻</button></div>
+    <div class="nt-grid">${order.map((m,i)=>{ const L=N.looks[m]; const M=(window.MOODS||[]).find(x=>x[1]===m)||['✦']; return HUB.pop(`<div class="nt-look ${m===mood?'on':''}"><div class="nt-m"><i>${M[0]}</i><b>${m}</b>${m===mood?'<em>ваше сегодня</em>':''}</div><ul>${L.items.map(it=>`<li><span class="sw" style="background:${(window.wtDot&&wtDot(it.color))||'#8B92AA'}"></span>${it.name}<em>${it.cat}</em></li>`).join('')}</ul>${L.noOuter?`<div class="nt-warn">В гардеробе нет верхней одежды на такую погоду — образ без неё будет холодным. <button class="lnk" onclick="openWardrobe()">Добавить</button></div>`:''}<div class="nt-tip">${L.tip}</div><div class="nt-act"><button class="nt-go" onclick="nightWear('${m}')">Надену это</button><button class="nt-ask" onclick="voteNight('${m}')"><i>♥</i>Оценит подруга</button><button class="nt-re" onclick="nightPlan(true);nightDraw()" title="Собрать другой вариант" aria-label="Собрать другой вариант">↻</button></div>
           <button class="nt-beauty" onclick="lookBeauty('${m}')">✦ Макияж и укладка под этот образ</button>
           <div class="nt-bo" id="ntB-${esc0(m)}">${beautyCache(m)}</div></div>`,i); }).join('')}</div>
     <div class="tip" style="margin-top:12px">Образы обновляются каждую ночь и приходят утром в Telegram, если он подключён. Чем больше вещей в гардеробе и полнее Стиль-ДНК — тем точнее.</div></div>`;
@@ -22081,7 +22175,7 @@ window.scanGo = async ()=>{
   let si=0; const t=setInterval(()=>{ si=(si+1)%stages.length; const s=document.getElementById('scStat'); if(s) s.textContent=stages[si]; }, 1400);
   const S3=window.S||{}; const cs=(()=>{ try{ return JSON.parse(localStorage.getItem('looka_cs')||'{}').season||'-'; }catch(e){ return '-'; } })();
   const hint = kind==='face'?'На фото — лицо клиентки (селфи).':kind==='full'?'На фото — клиентка в полный рост, в собранном образе.':kind==='item'?'На фото — вещь или образ одежды.':'Определи сама: селфи, человек в полный рост или отдельная вещь.';
-  const prompt=`Ты — стилист и визажист LOOKA. ${hint} Клиентка: цветотип ${cs}, фигура ${S3.body||'-'}, рост ${S3.height||'-'}, бюджет ${S3.budget||'-'}, регион ${(typeof REGION!=='undefined'?REGION:'cis')}. ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} ${(window.moodToday&&moodToday())?'Настроение: '+moodToday().m+'.':''}
+  const prompt=`Ты — стилист и визажист LOOKA. ${hint} ${window.lkCtx?lkCtx():''}. ${(window.dnaSummary&&dnaSummary())?'Стиль-ДНК: '+dnaSummary()+'.':''} ${(window.moodToday&&moodToday())?'Настроение: '+moodToday().m+'.':''}
 Ответь ТОЛЬКО JSON.
 Если на фото ЛИЦО: {"type":"face","read":"что видно: форма лица, глаза, губы, подтон — 2 предложения","wow":"её главная черта, которую стоит подчеркнуть","makeup":[{"step":"шаг 2-4 слова","how":"как делать именно ей","n":"средство 2-4 слова","q":"поисковый запрос"}],"avoid":["2-3 приёма, которые ей не идут"],"hair":"какая стрижка или укладка подчеркнёт","line":"фраза как от подруги"}
 Если на фото ЧЕЛОВЕК В ПОЛНЫЙ РОСТ: {"type":"full","read":"что надето и как сидит — 2 предложения","score":"оценка 1-10 числом","works":["2-3 вещи, которые работают, и почему"],"kills":["1-2 вещи, которые портят — про вещь, не про тело"],"one":{"what":"одна замена, которая меняет всё","why":"почему","n":"что купить 2-4 слова","q":"поисковый запрос"},"fix_now":["3 приёма без покупок"],"line":"фраза как от подруги"}
@@ -25288,7 +25382,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 </style>
 <script>
 /* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
-window.WK_VERSION = 'fast-2026-11-08';   /* версия, которую должен отдавать актуальный воркер */
+window.WK_VERSION = 'fast-2026-11-24';   /* версия, которую должен отдавать актуальный воркер */
 window.wkCheck = async ()=>{
   const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
   if(!base) return { state:'none' };
