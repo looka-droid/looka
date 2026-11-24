@@ -4958,6 +4958,27 @@ body .pageview .road.seen .road-item:nth-child(4){animation-delay:.36s}
   border-color:rgba(143,227,82,.3)}
 .cr-qz.pass i{background:rgba(143,227,82,.18);border-color:rgba(143,227,82,.4);color:#8FE352}
 .cr-qz.pass span{color:#8FE352}
+.gr-opt{margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.1px;
+  text-transform:uppercase;color:#FF9DD2;font-weight:400}
+.chip.nv.on{background:rgba(255,123,123,.16);border-color:rgba(255,123,123,.5);color:#FFD2D2}
+.chip.nv.on::before{content:'✕ ';opacity:.8}
+.fig-howb{margin-left:9px;padding:3px 9px;border-radius:99px;font-size:10.5px;cursor:pointer;
+  color:#19C6F7;background:rgba(25,198,247,.1);border:1px solid rgba(25,198,247,.3)}
+.fig-howb:hover{background:rgba(25,198,247,.18)}
+.fig-how{margin-top:11px;padding:15px 16px;border-radius:13px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12)}
+.fig-how p{margin:0 0 12px;font-size:13px;line-height:1.6;color:#AEB4C8}
+.fig-in{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.fig-in label{display:block;font-size:11px;color:#8E96AC}
+.fig-in input{width:100%;margin-top:5px;padding:9px 11px;border-radius:10px;font-size:14px;color:#fff;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14)}
+.fig-res{margin-top:13px;padding:14px 15px;border-radius:12px;
+  background:rgba(25,198,247,.08);border:1px solid rgba(25,198,247,.26)}
+.fig-res b{display:block;font-size:19px;margin-bottom:4px}
+.fig-res span{display:block;font-size:13px;color:#AEB4C8;margin-bottom:11px}
+.fig-res em{display:block;margin-top:10px;font-style:normal;font-size:11.5px;line-height:1.55;color:#8E96AC}
+.fig-no{margin-top:12px;font-size:13px;color:#FFB84C}
+@media(max-width:520px){ .fig-in{grid-template-columns:1fr} }
 .cr-cert{margin-top:16px;padding:18px 20px;border-radius:15px;
   background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.18)}
 .cr-cert-k{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.6px;
@@ -9357,7 +9378,8 @@ async function aiFetch(opts){
 const S = {
   gender:'Женщина', age:null, height:167, weight:60,   /* сервис женский — пол не спрашиваем */
   figure:null, hair:null, eyes:null, event:null, budget:null,
-  clothSize:null, shoeSize:null, skin:null, focus:[], style:null
+  clothSize:null, shoeSize:null, skin:null, focus:[], style:null,
+  never:[]   /* стоп-лист: что человек не носит ни при каких условиях */
 };
 window.S = S;   /* профиль нужен бьюти-разборам: они читают window.S */
 /* Куда реально уходят клиентки: считаем магазин и раздел, без имени вещи и без пользователя.
@@ -9394,9 +9416,9 @@ window.S = S;   /* профиль нужен бьюти-разборам: они
     }catch(err){}
   }, true);
 })();
-const SIZES_F=['40','42','44','46','48','50','52','54','56','58'];
+const SIZES_F=['38','40','42','44','46','48','50','52','54','56','58','60','62'];
 const SIZES_M=['44','46','48','50','52','54','56','58','60'];
-const SHOES_F=['35','36','37','38','39','40','41'];
+const SHOES_F=['34','35','36','37','38','39','40','41','42','43'];
 const SHOES_M=['39','40','41','42','43','44','45','46','47','48'];
 
 const FOCUS_F = ['Животик','Полные руки','Широкие бёдра','Узкие плечи','Большая грудь','Короткая шея','Короткие ноги','Полные икры'];
@@ -9404,6 +9426,32 @@ const FOCUS_M = ['Животик','Узкие плечи','Короткие но
 const STYLES = ['Классика','Минимализм','Романтика','Спорт','Дерзкий'];
 window.toggleFocus = f=>{ const i = S.focus.indexOf(f); if(i<0) S.focus.push(f); else S.focus.splice(i,1); renderStep(); saveLS(); };
 /* особенности: что исключить, что добавить в запрос, что посоветовать */
+/* Стоп-лист. Это не «что мне не очень», а «не предлагать никогда»:
+   такие вещи выбрасываются из подбора жёстко, а не понижаются в приоритете. */
+const NEVER = {
+ 'Каблук':            /каблук|шпильк|лодочк|босонож[ки]*\s*на|туфли/i,
+ 'Юбки':              /юбка|юбк/i,
+ 'Платья':            /платье|плать|сарафан/i,
+ 'Шорты':             /шорт/i,
+ 'Мини':              /мини|укороченн[аяые]*\s*юбк/i,
+ 'Облегающее':        /облегающ|боди|леггинс|в обтяжку|латекс/i,
+ 'Кроп-топы':         /кроп|топ-бра|укороченн[ыа][йя]\s*топ/i,
+ 'Глубокое декольте': /декольте|с вырезом|бельев/i,
+ 'Прозрачное':        /прозрачн|сетк|органз|шифон полупрозрач/i,
+ 'Высокий ворот':     /водолазк|высокий ворот|стойк|гольф/i,
+ 'Яркие цвета':       /неон|ярк|фукси|кислотн/i,
+ 'Принты':            /принт|леопард|цветочн|полоск|клетк|анималист/i,
+ 'Кожа и эко-кожа':   /кожан|эко-кожа|экокожа|кожа\b/i,
+ 'Мех и эко-мех':     /мех|шуба|дублёнк|искусственн[ыо][йм]\s*мех/i,
+ 'Оверсайз':          /оверсайз|объёмн|свободн[ыа][йя]\s*крой/i
+};
+window.NEVER_LIST = Object.keys(NEVER);
+window.neverRe = ()=>{ const on = (window.S && S.never) || [];
+  const rs = on.map(k=>NEVER[k]).filter(Boolean);
+  return rs.length ? new RegExp(rs.map(r=>r.source).join('|'), 'i') : null; };
+window.toggleNever = v=>{ S.never = S.never || [];
+  const i = S.never.indexOf(v); i<0 ? S.never.push(v) : S.never.splice(i,1);
+  if(window.saveLS) saveLS(); if(window.drawSteps) drawSteps(); else if(window.renderStep) renderStep(); };
 const FOCUS_RULES = {
   'Животик':{ex:/кроп|топ-бра|облегающ|боди/i, add:{top:'свободный крой', dress:'А-силуэт'}, tip:'Животик: свободный верх с напуском, платья А-силуэта и завышенная талия — акцент уходит вверх и вниз, а не на середину'},
   'Полные руки':{ex:/топ-бра|майк|без рукав|бра/i, add:{top:'с рукавом'}, tip:'Полные руки: рукав ¾ или свободный длинный, никаких обтягивающих; V-вырез отвлекает внимание'},
@@ -9530,6 +9578,39 @@ function offerAfterLook(){
 }
 /* чтобы посмотреть предложение, не расходуя подборы: в консоли setFree(1) */
 window.offerAfterLook = offerAfterLook;
+/* Тип фигуры — поле, в котором ошибается большинство: его называют на глаз.
+   Три мерки дают ответ точнее, чем «мне кажется, я груша». */
+window.figHow = ()=>{
+  const box = document.getElementById('figHow'); if(!box) return;
+  if(box.innerHTML){ box.innerHTML=''; return; }
+  box.innerHTML = `<div class="fig-how">
+    <p>Снимите три мерки сантиметром, по самым широким местам, не втягивая живот. Бёдра — по выступающим точкам, а не по косточкам таза.</p>
+    <div class="fig-in">
+      <label>Плечи / грудь<input id="figSh" type="number" inputmode="numeric" min="60" max="160" placeholder="см"></label>
+      <label>Талия<input id="figWa" type="number" inputmode="numeric" min="45" max="160" placeholder="см"></label>
+      <label>Бёдра<input id="figHi" type="number" inputmode="numeric" min="60" max="180" placeholder="см"></label>
+    </div>
+    <button class="btn primary" onclick="figCalc()">Определить</button>
+    <div id="figOut"></div>
+  </div>`;
+};
+window.figCalc = ()=>{
+  const n = id=>{ const v = Number((document.getElementById(id)||{}).value); return (isFinite(v) && v>40 && v<200) ? v : null; };
+  const sh = n('figSh'), wa = n('figWa'), hi = n('figHi');
+  const out = document.getElementById('figOut'); if(!out) return;
+  if(!sh || !wa || !hi){ out.innerHTML = '<div class="fig-no">Заполните все три мерки в сантиметрах.</div>'; return; }
+  const narrow = Math.min(sh, hi), waistDiff = narrow - wa;
+  let f, why;
+  if(hi - sh >= 5){ f='Груша'; why='бёдра шире плеч на '+(hi-sh)+' см'; }
+  else if(sh - hi >= 5){ f='Перевёрнутый треугольник'; why='плечи шире бёдер на '+(sh-hi)+' см'; }
+  else if(waistDiff >= 23){ f='Песочные часы'; why='талия уже плеч и бёдер на '+waistDiff+' см при близкой ширине верха и низа'; }
+  else if(waistDiff <= 12){ f='Яблоко'; why='талия почти не выражена: разница всего '+Math.max(0,waistDiff)+' см'; }
+  else { f='Прямоугольник'; why='верх и низ одной ширины, талия выражена умеренно ('+waistDiff+' см)'; }
+  out.innerHTML = `<div class="fig-res"><b>${f}</b><span>${why}</span>
+    <button class="btn primary" onclick="figSet('${f}')">Поставить в анкету</button>
+    <em>Это ориентир по меркам. Если по зеркалу вам ближе другой тип — выбирайте его, мерки не спорят с глазами.</em></div>`;
+};
+window.figSet = f=>{ if(window.pick) pick('figure', f); if(window.myToast) myToast('Тип фигуры: '+f); };
 window.setFree = n=>{ freeLeft = n; updFree(); };
 /* updFree вызывали как window.updFree в других модулях — но наружу он не был выставлен,
    поэтому счётчик молча не обновлялся. И при загрузке его никто не рисовал. */
@@ -9560,8 +9641,10 @@ const STEPS = [
   {label:'Шаг 2 из 5 / Параметры', title:'Ваши параметры', render(){return `
     ${grp('Рост', `<div class="slider-row"><button class="mini" onclick="bump('height',-1)">−</button><input id="r-height" type="range" min="145" max="205" value="${S.height}" oninput="setVal('height',this.value)"><button class="mini" onclick="bump('height',1)">+</button><span class="val" id="v-height">${S.height} см</span></div>`)}
     ${grp('Вес', `<div class="slider-row"><button class="mini" onclick="bump('weight',-1)">−</button><input id="r-weight" type="range" min="40" max="140" value="${S.weight}" oninput="setVal('weight',this.value)"><button class="mini" onclick="bump('weight',1)">+</button><span class="val" id="v-weight">${S.weight} кг</span></div>`)}
-    ${grp('Тип фигуры', chips('figure', S.gender==='Мужчина'?FIG_M:FIG_F))}
+    ${grp('Тип фигуры <button class="fig-howb" onclick="figHow()">не знаю — определить по меркам</button>',
+      chips('figure', S.gender==='Мужчина'?FIG_M:FIG_F) + '<div id="figHow"></div>')}
     ${grp('Что учесть — можно несколько (необязательно)', '<div class="chips">'+(S.gender==='Мужчина'?FOCUS_M:FOCUS_F).map(f=>'<button class="chip '+(S.focus.includes(f)?'on':'')+'" onclick="toggleFocus(\''+f+'\')">'+f+'</button>').join('')+'</div>')}
+    ${grp('Что не носите никогда <span class="gr-opt">не предложу ни разу</span>', '<div class="chips">'+window.NEVER_LIST.map(f=>'<button class="chip nv '+((S.never||[]).includes(f)?'on':'')+'" onclick="toggleNever(\''+f+'\')">'+f+'</button>').join('')+'</div>')}
     ${grp('Стиль, к которому тянет', chips('style', STYLES))}
     <div class="dna-cta ${(window.dnaFilled&&dnaFilled())?'ok':''}"><b>${(window.dnaFilled&&dnaFilled())?'✓ Стиль-ДНК пройден — подбор учитывает ваш вкус':'ИИ не угадает ваш вкус по одному слову'}</b><span>${(window.dnaFilled&&dnaFilled())?'Вкус меняется — можно дополнить или пройти заново в любой момент.':'Y2K или old money, оверсайз или по фигуре, что никогда не наденете — расскажите один раз.'}</span>${(window.dnaFilled&&dnaFilled())?'<div class="dna-row"><button class="btn ghost" type="button" onclick="openDna()">✎ Посмотреть и дополнить</button><button class="btn ghost" type="button" onclick="dnaRetake()">↻ Пройти заново</button></div>':'<button class="btn ghost" type="button" onclick="openDna()">Заполнить стиль-ДНК · 5 минут →</button>'}</div>`}},
   {label:'Шаг 3 из 5 / Размеры', title:'Ваши размеры', render(){return `
@@ -9984,8 +10067,11 @@ function localGen(){
   const rand = a=>a[Math.floor(Math.random()*a.length)];
   const rules = (S.focus||[]).map(f=>FOCUS_RULES[f]).filter(Boolean);
   const styleRe = STYLE_KW[S.style];
+  const nvRe = window.neverRe ? neverRe() : null;
   const pick = (cat, used)=>{
     let pool = db.filter(it=>it[3]===cat && !used.has(it[0]));
+    /* стоп-лист — жёстко: лучше не предложить вещь, чем предложить запрещённую */
+    if(nvRe) pool = pool.filter(it=>!nvRe.test(it[0]+' '+it[1]));
     const safe = pool.filter(it=>!rules.some(r=>r.ex && r.ex.test(it[0]+' '+it[1])));
     if(safe.length) pool = safe;
     if(!pool.length) return null;
@@ -10001,7 +10087,12 @@ function localGen(){
   for(let i=0;i<3;i++){
     const used = new Set(); const items=[];
     const ac = rand(pal.accents), nu = rand(pal.neutrals), sh = rand(pal.shoes);
-    const useDress = !male && Math.random()<.45 && db.some(it=>it[3]==='dress');
+    /* решение «платье или верх+низ» принимаем ПОСЛЕ стоп-листа: иначе, если платья
+       запрещены, образ остаётся без главной вещи — только обувь и сумка */
+    const okIt  = it => !nvRe || !nvRe.test(it[0]+' '+it[1]);
+    const hasCat = c => db.some(it=>it[3]===c && okIt(it));
+    let useDress = !male && Math.random()<.45 && hasCat('dress');
+    if(!useDress && !(hasCat('top') && hasCat('bottom')) && hasCat('dress')) useDress = true;
     const cats = useDress ? ['dress','shoes','acc'] : ['top','bottom','shoes','acc'];
     if(SR.outer>=1 || (SR.outer>0 && (['Торжество','Деловая встреча','Офис / работа'].includes(S.event) || Math.random()<SR.outer))) cats.push('outer');
     if(EYE_OK && Math.random()<.6) cats.push('eye');
@@ -14226,6 +14317,7 @@ window.lkCtx = ()=>{
   const fig = S3.figure || S3.body;
   P.push('пол ' + (S3.gender || 'женщина'));
   if(fig) P.push('фигура ' + fig);
+  if((S3.never||[]).length) P.push('НИКОГДА не предлагай: ' + S3.never.join(', ') + ' — это стоп-лист, нарушать нельзя');
   if(S3.height) P.push('рост ' + S3.height + ' см');
   if(S3.weight) P.push('вес ' + S3.weight + ' кг');
   if(S3.clothSize) P.push('размер одежды ' + S3.clothSize);
