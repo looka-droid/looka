@@ -1344,27 +1344,44 @@ header .nav-dd.on,header .nav-dd:hover{position:relative;z-index:1000}
 .bt-wait{margin-top:10px;padding:11px 13px;border-radius:12px;font-size:12.5px;color:#C2C7D6;
   border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
 .bt-wait b{font-family:'JetBrains Mono',monospace;font-size:11px;color:#19C6F7}
-.bt-box{margin-top:12px;padding:14px 15px;border-radius:14px;
+.bt-box{margin-top:12px;padding:18px 20px;border-radius:16px;
   border:1px solid rgba(255,138,201,.26);
   background:linear-gradient(160deg,rgba(255,138,201,.1),rgba(199,157,240,.05))}
 .bt-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
 .bt-h b{font-family:'Golos Text',sans-serif;font-weight:800;font-size:14px;color:#F4F6FC}
 .bt-h em{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;
   color:#0B0D12;background:linear-gradient(135deg,#FFD28A,#FF8AC9);padding:3px 9px;border-radius:99px}
-.bt-sec{margin-top:10px}
-.bt-k{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.6px;
-  text-transform:uppercase;color:#FF9DD2;margin-bottom:6px}
-.bt-sec ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
-.bt-sec li{font-size:13px;line-height:1.5;color:#E3E6F0}
-.bt-sec li b{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.2px;
-  text-transform:uppercase;color:#9BA2B6;margin-bottom:2px;font-weight:400}
-.bt-sec li.bt-n{padding:8px 10px;border-radius:9px;background:rgba(255,184,76,.1);
-  border:1px solid rgba(255,184,76,.26);color:#FFE2B8}
-.bt-sec li.bt-n b{color:#FFB84C}
+.bt-sec{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.09)}
+.bt-sec:first-of-type{margin-top:12px;padding-top:0;border-top:0}
+.bt-k{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.6px;
+  text-transform:uppercase;color:#FF9DD2;margin-bottom:9px;
+  padding:4px 11px;border-radius:99px;
+  border:1px solid rgba(255,157,210,.3);background:rgba(255,157,210,.1)}
+.bt-sec ul{list-style:none;margin:0;padding:0;display:grid;gap:0}
+/* ровная сетка: подпись в своей колонке, текст всегда начинается с одной линии */
+.bt-sec li{display:grid;grid-template-columns:92px 1fr;align-items:baseline;column-gap:14px;
+  font-size:13.5px;line-height:1.58;color:#E3E6F0;
+  padding:11px 0;border-top:1px solid rgba(255,255,255,.07)}
+.bt-sec li:first-child{border-top:0;padding-top:4px}
+.bt-sec li b{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.1px;
+  text-transform:uppercase;color:#8E96AC;font-weight:400;text-align:right;
+  padding-top:3px;line-height:1.5;overflow-wrap:anywhere}
+/* «важно» — сноска во всю ширину, а не ещё одна строка таблицы */
+.bt-sec li.bt-n{display:flex;align-items:flex-start;gap:10px;margin-top:10px;
+  padding:11px 13px;border-radius:11px;background:rgba(255,184,76,.1);
+  border:1px solid rgba(255,184,76,.26);color:#FFE2B8;font-size:13px;line-height:1.55;border-top:1px solid rgba(255,184,76,.26)}
+.bt-sec li.bt-n b{flex:none;color:#FFB84C;text-align:left;padding-top:2px}
 .bt-why{margin-top:11px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1);
   font-size:12.5px;line-height:1.5;color:#C7A6F0}
 .bt-more{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
 .bt-more .btn{padding:8px 13px;font-size:10px}
+@media(max-width:520px){
+  .bt-box{padding:15px 14px}
+  .bt-sec li{grid-template-columns:1fr;row-gap:3px;padding:10px 0}
+  .bt-sec li b{text-align:left;padding-top:0}
+  .bt-sec li.bt-n{display:block}
+  .bt-sec li.bt-n b{margin-bottom:4px}
+}
 
 /* короткая подсветка того, к чему подвели */
 .res-flash{animation:resFlash 1.6s ease-out 1}
