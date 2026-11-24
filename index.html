@@ -21190,11 +21190,37 @@ window.authSyncToggle = async ()=>{
   if(window.renderAcc) renderAcc();
 };
 window.authDelete = async ()=>{
-  if(!confirm('Убрать копию профиля из облака и отключить синхронизацию?\n\nДанные в этом браузере останутся нетронутыми. Войти снова можно будет в любой момент.')) return;
-  try{ const r = await fetch(api('/account/delete'), {method:'POST', headers:{'Authorization':'Bearer '+S2.token}});
-    if(!r.ok) throw new Error((await r.json()).error||'ошибка'); }catch(e){ myToast('Не получилось: '+e.message); return; }
-  S2.token=null; S2.sync=false; localStorage.removeItem('looka_session');
-  if(window.renderAcc) renderAcc(); myToast('Копия в облаке удалена, синхронизация выключена');
+  /* 152-ФЗ: человек вправе потребовать удаления своих персональных данных.
+     Удаляем всё и сразу, и честно говорим, что именно исчезнет. */
+  const ok = prompt(
+    'Удалить аккаунт и все данные?\n\n' +
+    'С сервера будут удалены безвозвратно:\n' +
+    '· аккаунт и адрес почты\n' +
+    '· анкета, цветотип, гардероб, образы и прогресс курсов\n' +
+    '· переписка и подписки\n' +
+    '· вход на всех устройствах\n' +
+    'Ваши советы в клубе останутся, но станут безымянными.\n\n' +
+    'Если доступ был оплачен — он сгорит, и восстановить его будет нельзя.\n\n' +
+    'Чтобы подтвердить, напишите слово: УДАЛИТЬ');
+  if(String(ok||'').trim().toUpperCase() !== 'УДАЛИТЬ'){ myToast('Удаление отменено'); return; }
+  let rep = null;
+  try{
+    const r = await fetch(api('/account/delete'), {method:'POST', headers:{'Authorization':'Bearer '+S2.token}});
+    const j2 = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j2.error||'ошибка');
+    rep = j2['отчёт'] || null;
+  }catch(e){ myToast('Не получилось удалить: '+e.message); return; }
+  S2.token=null; S2.sync=false;
+  try{ localStorage.removeItem('looka_session'); }catch(e){}
+  if(window.renderAcc) renderAcc();
+  myToast('Аккаунт удалён' + (rep ? ' · записей: '+rep['записей'] : ''));
+  /* второй шаг: данные в этом браузере человек может стереть отдельно */
+  setTimeout(()=>{
+    if(confirm('Данные на этом устройстве пока остались в памяти браузера.\n\nСтереть их тоже?')){
+      try{ Object.keys(localStorage).filter(k=>k.indexOf('looka_')===0).forEach(k=>localStorage.removeItem(k)); }catch(e){}
+      location.reload();
+    }
+  }, 900);
 };
 
 window.authApply = async (j, via)=>{
@@ -24143,6 +24169,7 @@ window.lkDoReg = async ()=>{
   try{
     const j = await post('/auth/register', {name, email, pw});
     saveSession(j);
+    if(window.authApply) await authApply(j, 'reg');
     const tgBtn = `<button class="btn primary" style="margin-top:16px" onclick="lkBindTg()">✈ Привязать Telegram — чтобы вернуть пароль</button>`;
     okScreen('Аккаунт создан', j.mail
       ? 'Доступ уже открыт. На почту ушло письмо с кодом подтверждения — он понадобится, если забудете пароль.'
@@ -24155,7 +24182,12 @@ window.lkDoIn = async ()=>{
   if(!email || !pw) return errBox('Заполните почту и пароль');
   busy(true,'Проверяю…');
   try{ const j = await post('/auth/login', {email, pw}); saveSession(j);
-    toast('С возвращением!'); lkClose(); setTimeout(()=>location.reload(), 500);
+    toast('С возвращением!');
+    /* ВАЖНО: токен сохранён, но данные аккаунта так и лежали бы в облаке —
+       старый модуль синхронизации об этом входе не знает. authApply поднимает
+       его состояние и забирает профиль, курсы и образы. */
+    if(window.authApply){ await authApply(j, 'mail'); lkClose(); }
+    else { lkClose(); setTimeout(()=>location.reload(), 500); }
   }catch(e){ busy(false); errBox(e.message); }
 };
 window.lkDoForgot = async ()=>{
@@ -24175,6 +24207,7 @@ window.lkDoReset = async ()=>{
   if(pw.length<6) return errBox('Пароль — минимум 6 символов');
   busy(true,'Меняю пароль…');
   try{ const j = await post('/auth/reset', {email, code, pw}); saveSession(j);
+    if(window.authApply) await authApply(j, 'reset');
     okScreen('Пароль обновлён', 'Вы вошли под новым паролем. Старый больше не действует.');
   }catch(e){ busy(false); errBox(e.message); }
 };
@@ -26215,7 +26248,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 </style>
 <script>
 /* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
-window.WK_VERSION = 'fast-2026-11-24';   /* версия, которую должен отдавать актуальный воркер */
+window.WK_VERSION = 'fast-2026-11-24b';   /* версия, которую должен отдавать актуальный воркер */
 window.wkCheck = async ()=>{
   const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
   if(!base) return { state:'none' };
