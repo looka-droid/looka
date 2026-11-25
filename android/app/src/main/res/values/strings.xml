@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LOOKA</string>
+    <string name="offline_text">Нет связи с интернетом.\nLOOKA подбирает образы онлайн — включите сеть и попробуйте снова.</string>
+    <string name="retry">Попробовать снова</string>
+</resources>
