@@ -7581,6 +7581,7 @@ header .topnav > .nav-find,#topbar .topnav > .nav-find{margin-left:auto}
 <div class="wrap">
 <header>
   <div class="logo" onclick="goHome()" role="button" title="На главную">LOO<em>KA</em></div>
+  <button class="nav-burger" onclick="navSheet()" aria-label="Все разделы"><i></i><i></i><i></i></button>
   <nav class="topnav">
     <span class="nav-dd"><a href="#beauty" class="nav-new" onclick="return navDD2(this,'hubPage')">Бьюти<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDb"><button onclick="openColor()"><i>◐</i>Цветотип<em>12 сезонов · палитра</em></button><button onclick="openBeauty()"><i>✧</i>Бьюти-скан<em>разбор по селфи</em></button><button onclick="openMakeup()"><i>◉</i>Макияж-гид<em>схема под форму глаз</em></button><button onclick="openFrames()"><i>◫</i>Очки и серьги<em>по форме лица</em></button><button onclick="openGlow()"><i>❍</i>Долгая красота<em>план на годы: что работает</em></button><button onclick="openSkin()"><i>❍</i>Уход за кожей<em>рутина под тип</em></button><button onclick="openHair()"><i>✂</i>Волосы<em>стрижка и цвет</em></button></div></span><span class="nav-dd"><a href="#wardrobe" class="nav-new" onclick="return navDD2(this,'hubPage')">Гардероб<i class="dd-arr">▾</i><span>NEW</span></a><div class="dd" id="navDDw"><button onclick="openWardrobe()"><i>▣</i>Мой гардероб<em>одевает по утрам</em></button><button onclick="openCapsule()"><i>▦</i>Капсула сезона<em>14 вещей → 30 образов</em></button><button onclick="openEvent()"><i>◈</i>Событие под ключ<em>план по дням</em></button><button onclick="openStudio()"><i>✦</i>Студия<em>манекен, ракурсы, обложка</em></button><button onclick="openDna()"><i>⌘</i>Стиль-ДНК<em>ваш вкус: эстетики, посадки, характер</em></button><button onclick="openLookRef()"><i>◈</i>Повторить образ<em>с фото — под вашу фигуру</em></button><button onclick="openShops()"><i>⌗</i>Бутики<em>магазины из Instagram и Telegram</em></button><button onclick="openBra()"><i>◠</i>Бельё<em>размер бра по двум меркам</em></button><button onclick="openCare()"><i>❊</i>Уход за вещами<em>ярлык, ткани, SOS-пятно</em></button></div></span><a href="#tools" class="nav-tools" onclick="openPage('toolsPage');return false"><i>⚙</i><b>Помощники</b><span>15</span></a><span class="nav-dd"><a href="#ask" onclick="return navDD2(this,'askPage')">Спросить<i class="dd-arr">▾</i></a><div class="dd" id="navDDa"><button onclick="openPage('askPage')"><i>◉</i>Консилиум<em>дерматолог, визажист, стилист</em></button><button onclick="openClub()"><i>✦</i>Секретики<em>советы девушек вашей страны</em></button></div></span><span class="nav-dd"><a href="#learn" onclick="return navDD2(this,'coursePage')">Академия<i class="dd-arr">▾</i></a><div class="dd" id="navDDl"><button onclick="openCourses()"><i>▤</i>Курсы<em>бровист, визажист, колорист</em></button><button onclick="openPro()"><i>✎</i>Лайфхаки от профессионалов<em><b class="pro-n">118</b> штук, включая голливудские</em></button><button onclick="openArts()"><i>❏</i>Статьи-разборы<em>длинные тексты без воды</em></button></div></span><a href="#my" class="only-in" onclick="openPage('myPage');return false">Мой LOOKA</a><a href="#pass" class="only-in" onclick="openPage('passPage');return false">Паспорт</a><a href="#about" onclick="openPage('aboutPage');return false">О LOOKA</a><a href="#contacts" onclick="openPage('contactsPage');return false">Контакты</a><button class="nav-find" onclick="openFind()" title="Поиск по сайту"><i><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="7.8" cy="7.8" r="5.4"/><path d="M11.9 11.9 16 16"/></svg></i><span>Найти раздел или ответ…</span><em>Ctrl K</em></button><button class="nav-acc" id="navAcc" onclick="accMenu(event)"><span>Войти</span></button>
   </nav>
@@ -26401,6 +26402,48 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 
 
 
+
+/* ===== ТЕЛЕФОН: ВСЕ РАЗДЕЛЫ В ОДНОЙ КНОПКЕ =====
+   Ряд разделов в шапке занимал полэкрана и всё равно не помещался.
+   Вместо него одна кнопка, по нажатию — список целиком. */
+.nav-burger{display:none}
+@media(max-width:620px){
+  /* !important — чтобы перебить мобильный режим шапки, который сам ставит display:flex!important */
+  header .topnav,body.hdr-m .topnav{display:none!important}
+  .nav-burger{display:flex;flex-direction:column;justify-content:center;gap:4px;
+    width:44px;height:44px;order:3;flex:0 0 auto;margin:0;padding:0 12px;border-radius:50%;cursor:pointer;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14)}
+  .nav-burger i{display:block;height:2px;border-radius:2px;background:#F4F5FA;transition:.2s}
+  .nav-burger:active i{background:#19C6F7}
+}
+.nv-ov{position:fixed;inset:0;z-index:1400;display:none;
+  background:rgba(5,6,11,.72);backdrop-filter:blur(8px)}
+.nv-ov.on{display:block;animation:nvFade .18s ease}
+@keyframes nvFade{from{opacity:0}to{opacity:1}}
+.nv-sheet{position:absolute;left:0;right:0;bottom:0;max-height:88dvh;overflow:auto;
+  border-radius:24px 24px 0 0;background:#0E1018;border-top:1px solid rgba(255,255,255,.16);
+  padding:10px 0 calc(16px + var(--sab));animation:nvUp .26s cubic-bezier(.2,.8,.2,1)}
+@keyframes nvUp{from{transform:translateY(24px)}to{transform:none}}
+.nv-grab{width:42px;height:4px;border-radius:99px;margin:4px auto 10px;background:rgba(255,255,255,.22)}
+.nv-head{display:flex;align-items:center;justify-content:space-between;padding:4px 20px 12px;
+  border-bottom:1px solid rgba(255,255,255,.08)}
+.nv-head b{font-size:17px}
+.nv-head button{width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:15px;color:#AEB4C8;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13)}
+.nv-g{padding:14px 20px 4px}
+.nv-g > b{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.8px;
+  text-transform:uppercase;color:#19C6F7;margin-bottom:8px}
+.nv-sheet .nv-item{display:flex;align-items:center;gap:12px;width:100%;min-height:46px;
+  padding:7px 20px 9px;cursor:pointer;text-align:left;font-family:'Manrope',sans-serif;font-size:15px;
+  color:#F4F5FA;background:none;border:none;border-radius:0;letter-spacing:0;text-transform:none}
+.nv-sheet .nv-item:active{background:rgba(255,255,255,.07)}
+.nv-sheet .nv-item i{flex:none;width:24px;font-style:normal;font-size:16px;color:#19C6F7;text-align:center}
+/* описание — отдельной строкой под названием, с отступом под иконку */
+.nv-sheet .nv-item{flex-wrap:wrap}
+.nv-sheet .nv-item > em,.nv-sheet .nv-item > small{flex:0 0 100%;margin:2px 0 0 36px;
+  font-style:normal;font-size:12.5px;line-height:1.4;color:#8E96AC}
+.nv-sheet .nv-item span.nv-tx{flex:1;min-width:0}
+
 /* ===== ТЕЛЕФОН: РОВНЫЕ БЛОКИ =====
    Собрано по снимкам реального экрана 360 px. Каждое правило — под конкретную
    поломку, а не «на всякий случай». */
@@ -28181,6 +28224,51 @@ setTimeout(mount, 900);
 <script>
 /* Затемнение у края прокручиваемых вкладок: убираем, когда долистали до конца,
    иначе последняя вкладка остаётся приглушённой и выглядит неактивной. */
+/* ===== СПИСОК РАЗДЕЛОВ НА ТЕЛЕФОНЕ =====
+   Список не дублируем: собираем его из той же навигации, что и на компьютере.
+   Значит, добавите раздел в шапку — он сам появится и здесь. */
+window.navSheet = ()=>{
+  let ov = document.getElementById('nvOv');
+  if(!ov){ ov = document.createElement('div'); ov.id='nvOv'; ov.className='nv-ov';
+    ov.addEventListener('click', e=>{ if(e.target===ov) navSheetClose(); });
+    document.body.appendChild(ov); }
+  const nav = document.querySelector('header .topnav');
+  let html = '<div class="nv-sheet"><div class="nv-grab"></div>' +
+    '<div class="nv-head"><b>Разделы</b><button onclick="navSheetClose()" aria-label="Закрыть">✕</button></div>';
+  if(nav){
+    [...nav.children].forEach(node=>{
+      const dd = node.querySelector && node.querySelector('.dd');
+      const head = node.querySelector && node.querySelector('a,button');
+      const title = ((head && head.textContent) || node.textContent || '').replace(/[▾]/g,'').trim();
+      if(dd){
+        html += '<div class="nv-g"><b>' + title.replace(/NEW$/,'').trim() + '</b></div>';
+        [...dd.querySelectorAll('a,button')].forEach(it=>{
+          const c = it.cloneNode(true);
+          c.className = 'nv-item';
+          c.setAttribute('data-nv','1');
+          html += '<div class="nv-wrap">' + c.outerHTML + '</div>';
+        });
+      } else if(head || node.tagName === 'A') {
+        const src = head || node;
+        const c = src.cloneNode(true);
+        c.className = 'nv-item';
+        c.setAttribute('data-nv','1');
+        html += '<div class="nv-g" style="padding-top:8px"></div>' + c.outerHTML;
+      }
+    });
+  }
+  html += '</div>';
+  ov.innerHTML = html;
+  /* любой выбор закрывает список — иначе он остаётся поверх открытой страницы */
+  ov.querySelectorAll('[data-nv]').forEach(el=>el.addEventListener('click', ()=>setTimeout(navSheetClose, 60)));
+  ov.classList.add('on');
+  document.body.style.overflow = 'hidden';
+};
+window.navSheetClose = ()=>{
+  const o = document.getElementById('nvOv');
+  if(o) o.classList.remove('on');
+  document.body.style.overflow = '';
+};
 (function(){
   /* пока идёт прокрутка — убираем плавающую кнопку с глаз */
   let st = null;
