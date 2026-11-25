@@ -25605,12 +25605,16 @@ function drawThread(keepScroll){
             ${m.r ? `<div class="ms-q" onclick="event.stopPropagation();msgGoTo('${esc(m.r.id)}')">
                 <b>${m.r.f===M.open ? esc((M.card||{}).name||'Собеседница') : 'Вы'}</b>
                 <span>${esc(m.r.t)}</span></div>` : ''}
+            ${m.p ? `<img class="ms-img" data-p="${esc(m.p)}" alt="Фото"
+                onclick="event.stopPropagation();msgImgBig('${esc(m.p)}')">` : ''}
             ${esc(m.t).replace(/\n/g,'<br>')}<span class="ms-t">${m.e?'изменено · ':''}${timeOf(m.at)}</span></div>
         </div>`).join('')
       : `<div class="ms-empty"><div class="ic">✦</div><b>${me.founder?'Напишите мне напрямую':'Начните разговор'}</b><p>${me.founder?'Это прямой диалог со мной. Что-то не работает, не пришёл доступ, есть идея — пишите сюда, я отвечаю лично.':'Первое сообщение попадёт к ней в «Запросы» — так устроено у всех, чтобы никто не получал спам.'}</p></div>`
     }</div>
     <div class="ms-pre" id="msgPre" style="display:none"></div>
     <div class="ms-foot">
+      <button class="ms-clip" id="msgClip" onclick="msgImgPick()" aria-label="Прикрепить фото" title="Прикрепить фото">📎</button>
+      <input type="file" id="msgImgInp" accept="image/*" style="display:none" onchange="msgImgSet(this.files[0]);this.value=''">
       <textarea class="ms-inp" id="msgInp" rows="1" placeholder="Написать сообщение…"></textarea>
       <button class="ms-go" id="msgGo" onclick="msgSend()">➤</button>
     </div>
@@ -25624,6 +25628,7 @@ function drawThread(keepScroll){
   if(window.msgPre) msgPre();
   const body = document.getElementById('msgBody');
   if(body) body.scrollTop = body.scrollHeight;
+  if(window.msgImgFill) msgImgFill();
   const inp = document.getElementById('msgInp');
   if(inp){
     let _typeT = null;
@@ -25708,7 +25713,7 @@ window.msgMenu = id=>{
     <div class="ms-act-q">${esc(String(m.t||'').slice(0,120))}</div>
     <button onclick="msgReply('${esc(id)}')"><i>↩</i>Ответить</button>
     <button onclick="msgCopy('${esc(id)}')"><i>⧉</i>Копировать текст</button>
-    ${mine && fresh ? `<button onclick="msgEdit('${esc(id)}')"><i>✎</i>Изменить</button>` : ''}
+    ${mine && fresh && m.t ? `<button onclick="msgEdit('${esc(id)}')"><i>✎</i>Изменить</button>` : ''}
     <button class="dang" onclick="msgDel('${esc(id)}','me')"><i>✕</i>Удалить у себя</button>
     ${mine && fresh ? `<button class="dang" onclick="msgDel('${esc(id)}','all')"><i>⌫</i>Удалить у всех</button>` : ''}
     <button class="ms-act-x" onclick="msgActClose()">Отмена</button>
@@ -25741,6 +25746,13 @@ window.msgPreX = ()=>{
 };
 function msgPre(){
   const box = document.getElementById('msgPre'); if(!box) return;
+  if(MPIC && !MEDIT){
+    box.style.display='flex';
+    box.innerHTML = `<img class="ms-pre-pic" src="${MPIC}" alt="">`
+      + `<div><b>Фото прикреплено</b><span>Можно добавить подпись и отправить</span></div>`
+      + `<button onclick="msgPicX()" aria-label="Убрать фото">✕</button>`;
+    return;
+  }
   const m = MEDIT || MREPLY;
   if(!m){ box.style.display='none'; box.innerHTML=''; return; }
   const who = MEDIT ? 'Изменение сообщения' : (m.f===M.open ? esc((M.card||{}).name||'Ответ') : 'Ответ себе');
@@ -25779,9 +25791,100 @@ window.msgDel = async (id, mode)=>{
   });
 })();
 
+
+/* ===== ФОТО В СООБЩЕНИЯХ =====
+   Телефонный снимок весит 3–6 МБ — столько слать нельзя и не нужно.
+   Перед отправкой уменьшаем до 1280 точек по длинной стороне и ужимаем,
+   пока не влезет в лимит. На экране разница не видна, а уходит ~100 КБ. */
+const MIMG = new Map();        /* номер картинки -> уже загруженная картинка */
+let MPIC = null;               /* что прикреплено к следующему сообщению */
+
+window.msgImgPick = ()=>{ const i = document.getElementById('msgImgInp'); if(i) i.click(); };
+
+function msgShrink(file){
+  return new Promise((ok, no)=>{
+    if(!file || !/^image\//.test(file.type||'')) return no(new Error('Это не картинка'));
+    if(file.size > 25*1024*1024) return no(new Error('Файл слишком большой'));
+    const fr = new FileReader();
+    fr.onerror = ()=>no(new Error('Не получилось прочитать файл'));
+    fr.onload = ()=>{
+      const im = new Image();
+      im.onerror = ()=>no(new Error('Не получилось открыть картинку'));
+      im.onload = ()=>{
+        const M = 1280, sc = Math.min(1, M / Math.max(im.width, im.height));
+        const w = Math.max(1, Math.round(im.width * sc)), h = Math.max(1, Math.round(im.height * sc));
+        const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+        const x = cv.getContext('2d');
+        x.fillStyle = '#0B0D14'; x.fillRect(0, 0, w, h);   /* под прозрачные png */
+        x.drawImage(im, 0, 0, w, h);
+        let q = 0.78, d = '';
+        for(let i = 0; i < 6; i++){
+          d = cv.toDataURL('image/jpeg', q);
+          if(d.length <= 190000) break;
+          q -= 0.11;
+        }
+        if(d.length > 190000) return no(new Error('Картинка слишком тяжёлая — попробуйте другую'));
+        ok(d);
+      };
+      im.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
+window.msgImgSet = async file=>{
+  try{
+    toast('Готовлю фото…');
+    const d = await msgShrink(file);
+    MPIC = d; MEDIT = null;      /* с фото правка не смешивается */
+    msgPre();
+  }catch(e){ toast(e.message || 'Не получилось'); }
+};
+window.msgPicX = ()=>{ MPIC = null; msgPre(); };
+
+/* картинка на весь экран по нажатию */
+window.msgImgBig = async pid=>{
+  let ov = document.getElementById('msImgOv');
+  if(!ov){ ov = document.createElement('div'); ov.id = 'msImgOv'; ov.className = 'ms-img-ov';
+    ov.addEventListener('click', ()=>{ ov.classList.remove('on'); document.body.style.overflow=''; });
+    document.body.appendChild(ov); }
+  ov.innerHTML = '<button class="ms-img-x" aria-label="Закрыть">✕</button><div class="ms-img-wait">Открываю…</div>';
+  ov.classList.add('on'); document.body.style.overflow = 'hidden';
+  try{
+    const d = await msgImgGet(pid);
+    ov.innerHTML = '<button class="ms-img-x" aria-label="Закрыть">✕</button>';
+    const im = document.createElement('img'); im.src = d; im.alt = 'Фото';
+    ov.appendChild(im);
+  }catch(e){
+    ov.innerHTML = '<button class="ms-img-x" aria-label="Закрыть">✕</button><div class="ms-img-wait">'
+      + esc(e.message || 'Картинка недоступна') + '</div>';
+  }
+};
+
+async function msgImgGet(pid){
+  if(MIMG.has(pid)) return MIMG.get(pid);
+  const t = tok(); if(!t) throw new Error('нужен вход');
+  const r = await fetch(API() + '/soc/img?id=' + encodeURIComponent(pid), { headers:{ Authorization:'Bearer ' + t } });
+  let j = {}; try{ j = await r.json(); }catch(e){}
+  if(!r.ok || !j.d) throw new Error((j && j.error) || 'картинка недоступна');
+  MIMG.set(pid, j.d);
+  return j.d;
+}
+
+/* подставляем картинки после отрисовки переписки — по одной, чтобы не грузить всё разом */
+window.msgImgFill = ()=>{
+  document.querySelectorAll('#msgBody .ms-img[data-p]').forEach(async el=>{
+    if(el.dataset.on) return;
+    el.dataset.on = '1';
+    try{ el.src = await msgImgGet(el.getAttribute('data-p')); }
+    catch(e){ el.replaceWith(Object.assign(document.createElement('div'),
+      { className:'ms-img-no', textContent:'Фото недоступно' })); }
+  });
+};
+
 window.msgSend = async ()=>{
   const inp = document.getElementById('msgInp'); if(!inp || M.busy) return;
-  const text = inp.value.trim(); if(!text) return;
+  const text = inp.value.trim(); if(!text && !MPIC) return;
   M.busy = true; const go = document.getElementById('msgGo'); if(go) go.disabled = true;
   try{
     if(MEDIT){
@@ -25793,9 +25896,12 @@ window.msgSend = async ()=>{
       drawThread(true);
       toast('Изменено');
     } else {
-      const j = await api('/soc/send', { uid: M.open, text, rid: MREPLY ? MREPLY.id : '' });
+      let pid = '';
+      if(MPIC){ const u = await api('/soc/img', { d: MPIC }); pid = u.id; }
+      const j = await api('/soc/send', { uid: M.open, text, pid, rid: MREPLY ? MREPLY.id : '' });
+      if(pid && MPIC) MIMG.set(pid, MPIC);   /* своё фото уже у нас — второй раз не качаем */
       M.items.push(j.item); inp.value=''; inp.style.height='auto';
-      MREPLY = null; msgPre();
+      MREPLY = null; MPIC = null; msgPre();
       drawThread(true);
       msPulse(true);           /* после перерисовки: иначе волну смывает новым разметкой */
     }
@@ -26745,10 +26851,145 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
   body[data-print=docs] .doc-head span,
   body[data-print=pass] .ps-card .ps-k{font-size:11px}
 }
+
+/* ===== ФОТО В СООБЩЕНИЯХ ===== */
+.ms-clip{width:42px;height:42px;flex:none;border-radius:50%;cursor:pointer;font-size:17px;line-height:1;
+  color:#C9CEDC;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+  display:grid;place-items:center;transition:.18s}
+.ms-clip:hover{background:rgba(255,255,255,.12);color:#fff}
+.ms-clip:disabled{opacity:.4;cursor:default}
+
+.ms-img{display:block;width:100%;max-width:260px;max-height:320px;object-fit:cover;
+  margin:0 0 8px;border-radius:14px;cursor:zoom-in;background:rgba(255,255,255,.05);
+  min-height:120px;border:1px solid rgba(255,255,255,.1)}
+.ms-img:not([src]){background:
+  linear-gradient(100deg,rgba(255,255,255,.04),rgba(255,255,255,.1),rgba(255,255,255,.04));
+  background-size:220% 100%;animation:msImgWait 1.3s linear infinite}
+@keyframes msImgWait{from{background-position:120% 0}to{background-position:-120% 0}}
+.ms-img-no{margin:0 0 8px;padding:14px;border-radius:14px;font-size:12.5px;color:#8E96AC;
+  background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.14)}
+
+/* превью прикреплённого фото над строкой ввода */
+.ms-pre-pic{flex:none;width:44px;height:44px;border-radius:10px;object-fit:cover;
+  border:1px solid rgba(255,255,255,.18)}
+
+/* фото на весь экран */
+.ms-img-ov{position:fixed;inset:0;z-index:9999;display:none;place-items:center;padding:20px;
+  background:rgba(4,5,10,.93);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:zoom-out}
+.ms-img-ov.on{display:grid}
+.ms-img-ov img{max-width:100%;max-height:92vh;border-radius:16px;
+  box-shadow:0 30px 80px -30px #000}
+.ms-img-x{position:absolute;top:calc(14px + var(--sat));right:16px;width:44px;height:44px;border-radius:50%;
+  cursor:pointer;font-size:17px;color:#fff;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2)}
+.ms-img-wait{font-size:13.5px;color:#AEB4C8}
+
+@media(max-width:620px){
+  .ms-img{max-width:100%;max-height:300px}
+  .ms-clip{width:44px;height:44px}
+}
+
+/* ===================================================================
+   СТАТЬИ И КУРСЫ: цветные обложки карточек
+   Раньше обе страницы были одинаковыми тёмными прямоугольниками: цвет
+   темы жил только в тонкой рамке, а иконка была серой. Теперь у каждой
+   карточки своя цветная шапка с крупной иконкой — список читается
+   глазами, а не вычитывается.
+   =================================================================== */
+.ar-c,.cr-c{padding-top:0}
+
+.ar-c-top,.cr-c-top{
+  position:relative;overflow:hidden;align-items:flex-end;min-height:98px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  background:
+    radial-gradient(150% 130% at 10% 8%,color-mix(in srgb,var(--a) 46%,transparent),transparent 64%),
+    radial-gradient(130% 140% at 94% 112%,color-mix(in srgb,var(--b) 38%,transparent),transparent 62%),
+    rgba(255,255,255,.022);
+}
+.ar-c-top{margin:0 -28px 17px;padding:20px 28px 17px}
+.cr-c-top{margin:0 -26px 16px;padding:18px 26px 16px}
+/* декоративные кольца — лёгкая фактура, чтобы шапка не была плоской заливкой */
+.ar-c-top::after,.cr-c-top::after{
+  content:'';position:absolute;right:-34px;top:-44px;width:132px;height:132px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.085);
+  box-shadow:0 0 0 24px rgba(255,255,255,.035);pointer-events:none}
+
+/* иконка: была серым квадратом, стала цветной плашкой темы */
+.ar-ic,.cr-ic{
+  color:#0C0E16;border-color:rgba(255,255,255,.34);
+  background:linear-gradient(140deg,var(--a),var(--b));
+  box-shadow:0 14px 28px -14px var(--a),inset 0 1px 0 rgba(255,255,255,.45);
+  position:relative;z-index:1;transition:transform .25s}
+.ar-c:hover .ar-ic,.cr-c:hover .cr-ic{transform:rotate(-5deg) scale(1.06)}
+.ar-ic svg,.cr-ic svg{filter:drop-shadow(0 1px 0 rgba(255,255,255,.3))}
+
+/* время чтения и ярлык — стеклянные пилюли поверх обложки */
+.ar-c-top .ar-min{
+  position:relative;z-index:1;padding:6px 11px;border-radius:99px;color:#F2F4FA;
+  background:rgba(8,10,18,.44);border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.cr-c-top .cr-tag{position:relative;z-index:1}
+.cr-c-top .cr-tag.free{background:rgba(8,10,18,.44);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+
+/* описание в списке — ровно три строки, чтобы карточки не разъезжались */
+.ar-c > p,.cr-c > p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* «читать разбор» — кнопка-пилюля вместо строчки мелким шрифтом */
+.ar-go{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+  padding:10px 16px;border-radius:99px;color:#FFFFFF;
+  background:color-mix(in srgb,var(--a) 15%,transparent);
+  border:1px solid color-mix(in srgb,var(--a) 40%,transparent);transition:.2s}
+.ar-c:hover .ar-go{background:color-mix(in srgb,var(--a) 28%,transparent);
+  border-color:color-mix(in srgb,var(--a) 62%,transparent)}
+
+/* подписи прогресса курса */
+.cr-meta span{background:rgba(255,255,255,.035)}
+.cr-bar{background:rgba(255,255,255,.07)}
+.cr-c .cr-prog{color:#8E96AC}
+
+/* заголовок раздела курсов — цветная полоска слева вместо ровного текста */
+.cr-sec-h{position:relative;padding-left:16px}
+.cr-sec-h::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;border-radius:99px;
+  background:linear-gradient(180deg,#7CF0B2,rgba(124,240,178,0))}
+.cr-sec-h.pro::before{background:linear-gradient(180deg,#FFD28A,rgba(255,111,168,.1))}
+
+/* шапка открытой статьи и курса — тот же цвет, что у карточки */
+.ar-head,.cr-head{position:relative;overflow:hidden}
+.ar-head::before,.cr-head::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(90% 130% at 0% 0%,color-mix(in srgb,var(--a) 20%,transparent),transparent 60%),
+    radial-gradient(80% 120% at 100% 100%,color-mix(in srgb,var(--b) 16%,transparent),transparent 58%)}
+.ar-head > *,.cr-head > *{position:relative;z-index:1}
+
+/* надпись над заголовком страницы переносилась на три строки и наезжала на черту */
+.mk-hero .eyebrow{align-items:flex-start;flex-wrap:nowrap}
+.mk-hero .eyebrow::before{flex:0 0 auto;margin-top:.62em}
+
+/* длинное вступление на телефоне: пять строк и «читать дальше» */
+.lead-more{display:none}
+@media(max-width:620px){
+  .mk-hero .lead{font-size:14.2px;line-height:1.62}
+  .mk-hero .lead.lead-cut{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+  .lead-more{display:inline-flex;align-items:center;gap:6px;margin-top:9px;padding:8px 14px;
+    border-radius:99px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.2px;
+    text-transform:uppercase;color:#C7A6F0;cursor:pointer;
+    background:rgba(199,166,240,.1);border:1px solid rgba(199,166,240,.3)}
+
+  .ar-c{padding:0 22px 22px}
+  .ar-c-top{margin:0 -22px 15px;padding:17px 22px 15px;min-height:88px}
+  .ar-c h3{font-size:18.5px;min-height:0}
+  .cr-c{padding:0 20px 20px}
+  .cr-c-top{margin:0 -20px 14px;padding:16px 20px 14px;min-height:86px}
+  .cr-c h3{font-size:18.5px}
+  .cr-sec-h{padding-left:13px}
+  /* в одну колонку карточки больше не тянутся до высоты самой высокой */
+  .ar-grid{grid-auto-rows:auto}
+  .ar-grid .ar-c,.ar-grid > *{height:auto}
+}
 </style>
 <script>
 /* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
-window.WK_VERSION = 'fast-2026-11-24b';   /* версия, которую должен отдавать актуальный воркер */
+window.WK_VERSION = 'fast-2026-11-25a';   /* версия, которую должен отдавать актуальный воркер */
 window.wkCheck = async ()=>{
   const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
   if(!base) return { state:'none' };
@@ -28227,6 +28468,29 @@ setTimeout(mount, 900);
 /* ===== СПИСОК РАЗДЕЛОВ НА ТЕЛЕФОНЕ =====
    Список не дублируем: собираем его из той же навигации, что и на компьютере.
    Значит, добавите раздел в шапку — он сам появится и здесь. */
+
+/* длинное вступление страницы на телефоне: сворачиваем до пяти строк */
+(function(){
+  function cut(){
+    document.querySelectorAll('.mk-hero .lead').forEach(function(el){
+      if(el.dataset.cut) return;
+      el.dataset.cut = '1';
+      el.classList.add('lead-cut');
+      var b = document.createElement('button');
+      b.className = 'lead-more';
+      b.type = 'button';
+      b.textContent = 'Читать дальше ↓';
+      b.addEventListener('click', function(){
+        var open = el.classList.toggle('lead-cut');
+        b.textContent = open ? 'Читать дальше ↓' : 'Свернуть ↑';
+      });
+      el.parentNode.insertBefore(b, el.nextSibling);
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', cut);
+  else cut();
+})();
+
 window.navSheet = ()=>{
   let ov = document.getElementById('nvOv');
   if(!ov){ ov = document.createElement('div'); ov.id='nvOv'; ov.className='nv-ov';
