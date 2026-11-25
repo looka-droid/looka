@@ -12492,7 +12492,14 @@ window.payDraw = ()=>{
       <div class="pw-geo">${PAY_GEO.map(g=>`<button class="pw-g ${k===g[0]?'on':''}" onclick="payGeoSet('${g[0]}')">${g[1]}</button>`).join('')}</div>`;
   }
   if(st==='pay'){
-    b.innerHTML=`${back('geo')}<div class="pw-h"><b>Перевод ${P.p}</b><span>${G[2]}</span></div>
+    /* Онлайн-оплата картой идёт первой, перевод остаётся запасным путём.
+       Если приём оплаты в воркере ещё не настроен, кнопка сама спрячется
+       после первого нажатия и человек уйдёт по старому пути. */
+    const online = (k==='ru') ? `<button class="btn primary pw-next" id="payOnlineBtn" style="margin:0 0 12px"
+        onclick="payOnline()">Оплатить картой · ${P.p}</button>
+      <div class="pay-msg" id="payOnMsg"></div>
+      <div class="pw-tip" style="margin-bottom:12px">Или переводом вручную:</div>` : '';
+    b.innerHTML=`${back('geo')}<div class="pw-h"><b>Перевод ${P.p}</b><span>${G[2]}</span></div>${online}
       ${PAY_CARDS.map(c=>`<button class="pw-card" onclick="copyTxt('${c[1]}');this.classList.add('copied');this.querySelector('em').textContent='скопировано ✓'"><span>${c[0]}</span><b>${c[1]}</b><em>копировать</em></button>`).join('')}
       <div class="pw-tip">В комментарии — ваша почта или @телеграм, чтобы мы нашли платёж.</div>
       <button class="btn primary pw-next" onclick="payStep('req')">Перевела — дальше →</button>`;
@@ -12512,6 +12519,74 @@ window.payDraw = ()=>{
       <div class="pay-msg" id="payMsg"></div>`;
   }
 };
+
+/* ===================================================================
+   ОНЛАЙН-ОПЛАТА
+   Просим воркер создать платёж и уходим на страницу оплаты.
+   Номер платежа запоминаем: когда человек вернётся, спросим у сервера,
+   дошли ли деньги, — вебхук мог ещё не долететь.
+   =================================================================== */
+/* свой адрес моста: const API() объявлен в других блоках и сюда не виден */
+const PAY_API = ()=>String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
+window.payOnline = async ()=>{
+  const btn = document.getElementById('payOnlineBtn');
+  const msg = document.getElementById('payOnMsg');
+  const say = t => { if(msg) msg.textContent = t; };
+  const plan = window.curPlan || 'big';
+  if(btn){ btn.disabled = true; btn.textContent = 'Готовлю оплату…'; }
+  try{
+    const tok = (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token;
+    if(!tok){ say('Сначала войдите в аккаунт — подборы зачисляются на него.');
+      if(btn){ btn.disabled=false; btn.textContent='Оплатить картой'; }
+      if(window.openAuth) setTimeout(openAuth, 600); return; }
+    const r = await fetch(PAY_API()+'/pay/create', { method:'POST',
+      headers:{ 'Content-Type':'application/json', Authorization:'Bearer '+tok },
+      body: JSON.stringify({ plan }) });
+    const j = await r.json().catch(()=>({}));
+    if(r.status === 503){
+      /* оплата ещё не подключена — не морочим голову, оставляем перевод */
+      if(btn) btn.style.display='none';
+      say('Онлайн-оплата пока недоступна — переведите по реквизитам ниже.');
+      return;
+    }
+    if(!r.ok || !j.url){ say(j.error || 'Не получилось создать платёж — попробуйте перевод ниже.');
+      if(btn){ btn.disabled=false; btn.textContent='Оплатить картой'; } return; }
+    try{ localStorage.setItem('looka_ykid', j.id); }catch(e){}
+    location.href = j.url;
+  }catch(e){
+    say('Нет связи с сервером — попробуйте перевод ниже.');
+    if(btn){ btn.disabled=false; btn.textContent='Оплатить картой'; }
+  }
+};
+
+/* вернулись с оплаты — проверяем, дошли ли деньги */
+(function(){
+  const run = async ()=>{
+    let id=''; try{ id = localStorage.getItem('looka_ykid')||''; }catch(e){}
+    if(!id || location.search.indexOf('paid=1') < 0) return;
+    const tok = (()=>{ try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token; }catch(e){ return ''; } })();
+    if(!tok) return;
+    for(let i=0;i<4;i++){                       /* вебхук может чуть опоздать */
+      try{
+        const r = await fetch(PAY_API()+'/pay/check', { method:'POST',
+          headers:{ 'Content-Type':'application/json', Authorization:'Bearer '+tok },
+          body: JSON.stringify({ id }) });
+        const j = await r.json().catch(()=>({}));
+        if(j && j.paid){
+          try{ localStorage.removeItem('looka_ykid'); }catch(e){}
+          if(window.toast) toast('Оплата прошла · подборов на счету: ' + (j.bal!=null?j.bal:'—'));
+          if(window.authState) try{ authState(); }catch(e){}
+          history.replaceState(null,'',location.pathname);
+          return;
+        }
+      }catch(e){}
+      await new Promise(r=>setTimeout(r, 2500));
+    }
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', ()=>setTimeout(run,1200));
+  else setTimeout(run,1200);
+})();
+
 window.openPay = ()=>{ const o=document.getElementById('payOv'); if(!o) return; o.classList.add('on'); window.PW='plan'; payDraw(); };
 window.closePay = ()=>{ const o=document.getElementById('payOv'); if(o) o.classList.remove('on'); };
 window.payTab = i=>payStep(i?'code':'plan');
@@ -27295,7 +27370,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 </style>
 <script>
 /* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
-window.WK_VERSION = 'fast-2026-11-25d';   /* версия, которую должен отдавать актуальный воркер */
+window.WK_VERSION = 'fast-2026-11-25g';   /* версия, которую должен отдавать актуальный воркер */
 window.wkCheck = async ()=>{
   const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
   if(!base) return { state:'none' };
