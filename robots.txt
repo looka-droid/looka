@@ -1,0 +1,5 @@
+# Поисковикам можно всё — сайт публичный и ему нужны посетители
+User-agent: *
+Allow: /
+
+Sitemap: https://looka-droid.github.io/looka/sitemap.xml
