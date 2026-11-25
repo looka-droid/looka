@@ -4,6 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>LOOKA — твой ИИ-стилист</title>
+<!-- ===================================================================
+     КАК САЙТ ВЫГЛЯДИТ В ПОИСКЕ И ПРИ ОТПРАВКЕ ССЫЛКИ
+     Раньше не было ни описания, ни картинки: когда ссылку кидали в
+     Телеграм, ВК или WhatsApp, подруге прилетала голая строка адреса.
+     Для сервиса, который расходится из рук в руки, это дороже любой
+     рекламы — поэтому здесь описание и картинка предпросмотра.
+     =================================================================== -->
+<meta name="description" content="LOOKA — ИИ-стилист: подбирает образы под вашу фигуру, цветотип и бюджет. Определит цветотип за 60 секунд, соберёт капсулу из того, что уже есть в шкафу, подскажет, что докупить. Первые подборы бесплатно, без регистрации.">
+<link rel="canonical" href="https://looka-droid.github.io/looka/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LOOKA">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://looka-droid.github.io/looka/">
+<meta property="og:title" content="LOOKA — твой ИИ-стилист">
+<meta property="og:description" content="Образы под вашу фигуру, цветотип и бюджет. Цветотип за 60 секунд, капсула из своего шкафа, разбор покупок. Первые подборы бесплатно.">
+<meta property="og:image" content="https://looka-droid.github.io/looka/og-looka.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LOOKA — твой ИИ-стилист">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LOOKA — твой ИИ-стилист">
+<meta name="twitter:description" content="Образы под вашу фигуру, цветотип и бюджет. Первые подборы бесплатно.">
+<meta name="twitter:image" content="https://looka-droid.github.io/looka/og-looka.jpg">
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0A0B10">
@@ -27370,7 +27393,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 </style>
 <script>
 /* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
-window.WK_VERSION = 'fast-2026-11-25g';   /* версия, которую должен отдавать актуальный воркер */
+window.WK_VERSION = 'fast-2026-11-25i';   /* версия, которую должен отдавать актуальный воркер */
 window.wkCheck = async ()=>{
   const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
   if(!base) return { state:'none' };
