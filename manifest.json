@@ -1,0 +1,19 @@
+{
+  "name": "LOOKA — ваш личный стилист",
+  "short_name": "LOOKA",
+  "description": "Стиль, красота и уход, подобранные под вас: образы под фигуру и цветотип, бьюти-разборы и курсы.",
+  "lang": "ru",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A0B10",
+  "theme_color": "#0A0B10",
+  "categories": ["lifestyle", "shopping", "education"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
