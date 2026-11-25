@@ -26400,6 +26400,41 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 
 
 
+
+/* ===== ТЕЛЕФОН: РОВНЫЕ БЛОКИ =====
+   Собрано по снимкам реального экрана 360 px. Каждое правило — под конкретную
+   поломку, а не «на всякий случай». */
+@media(max-width:620px){
+
+  /* 1. Карточка «Анкета пройдена»: три кнопки делили ширину поровну,
+        и «Подобрать образы» не помещалось — текст рвался и обрезался. */
+  .qd-b{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%}
+  .qd-b .btn{flex:none;min-height:46px;padding:11px 10px;font-size:11px;line-height:1.25;
+    white-space:normal;word-break:normal;overflow-wrap:break-word;hyphens:none}
+  .qd-b .btn:first-child{grid-column:1 / -1}   /* главное действие — во всю ширину */
+
+  /* 2. Бегущие строки обрезались ровно по краю и читались как поломка.
+        Растворяем концы — видно, что это движение, а не обрыв. */
+  .ticker,.sb-rot{
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 26px,#000 calc(100% - 26px),transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 26px,#000 calc(100% - 26px),transparent 100%)}
+
+  /* 3. Ряд разделов в шапке уезжал за край без всякого признака прокрутки. */
+  header .topnav{overflow-x:auto;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 30px),transparent 100%);
+    mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 30px),transparent 100%)}
+  header .topnav::-webkit-scrollbar{display:none}
+  header .topnav.at-end{-webkit-mask-image:none;mask-image:none}
+
+  /* 4. Плитки преимуществ: в две колонки текст ломался посреди слова. */
+  .featstrip{display:grid;grid-template-columns:1fr;gap:8px}
+  .featstrip span{white-space:normal;text-align:left}
+
+  /* 5. Кнопка «Образ дня» висела поверх текста. Прячем её, пока человек листает,
+        и возвращаем, когда остановился — содержимое важнее кнопки. */
+  .day-fab{transition:transform .25s ease, opacity .25s ease}
+  body.scrolling .day-fab{transform:translateY(130%);opacity:0;pointer-events:none}
+}
 /* ===== ДЕЙСТВИЯ НАД СООБЩЕНИЕМ ===== */
 .ms-row{position:relative}
 .ms-b{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
@@ -28147,8 +28182,16 @@ setTimeout(mount, 900);
 /* Затемнение у края прокручиваемых вкладок: убираем, когда долистали до конца,
    иначе последняя вкладка остаётся приглушённой и выглядит неактивной. */
 (function(){
+  /* пока идёт прокрутка — убираем плавающую кнопку с глаз */
+  let st = null;
+  window.addEventListener('scroll', ()=>{
+    document.body.classList.add('scrolling');
+    clearTimeout(st); st = setTimeout(()=>document.body.classList.remove('scrolling'), 520);
+  }, {passive:true});
+})();
+(function(){
   const upd = el => { try{ el.classList.toggle('at-end', el.scrollLeft + el.clientWidth >= el.scrollWidth - 2); }catch(e){} };
-  const bind = () => document.querySelectorAll('.ab-tabs, .my-tabs').forEach(el=>{
+  const bind = () => document.querySelectorAll('.ab-tabs, .my-tabs, header .topnav').forEach(el=>{
     if(el.dataset.fade) return; el.dataset.fade='1';
     upd(el); el.addEventListener('scroll', ()=>upd(el), {passive:true});
   });
