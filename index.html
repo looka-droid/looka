@@ -9365,6 +9365,31 @@ const GEMINI_IMAGE = ['gemini-3.1-flash-image','gemini-nano-banana-2.1','gemini-
    Сюда — адрес моста вида https://looka-api.ИМЯ.workers.dev . Если он задан, GEMINI_KEY выше не нужен. */
 const LOOKA_API = 'https://looka-api.annabredihina25.workers.dev';
 
+/* ===================================================================
+   ПОДПИСЫВАЕМ ЗАПРОСЫ К ИИ
+   Теперь сервер сам решает, кому отвечать, и для этого ему нужно
+   знать, кто спрашивает. Обращений к /ai и /tryon по сайту много,
+   поэтому заголовок добавляем в одном месте — всем сразу.
+   Трогаем только эти два адреса своего моста; на остальные запросы
+   это никак не влияет.
+   =================================================================== */
+(function(){
+  const base = String((typeof LOOKA_API !== 'undefined' && LOOKA_API) || window.LOOKA_API || '').replace(/\/$/, '');
+  if(!base) return;
+  const mine = u => { try{ const x = String(u && u.url ? u.url : u);
+    return x.indexOf(base) === 0 && /\/(ai|tryon)(\?|$)/.test(x.slice(base.length)); }catch(e){ return false; } };
+  const token = () => { try{ return (JSON.parse(localStorage.getItem('looka_session')||'null')||{}).token || ''; }catch(e){ return ''; } };
+  const orig = window.fetch.bind(window);
+  window.fetch = function(u, o){
+    if(mine(u)){
+      const t = token();
+      if(t){ o = Object.assign({}, o||{});
+        o.headers = Object.assign({}, o.headers||{}, { Authorization: 'Bearer ' + t }); }
+    }
+    return orig(u, o);
+  };
+})();
+
 /* единая точка вызова ИИ: сервер → Gemini напрямую → Anthropic (только внутри Claude) */
 async function geminiCall(models, parts, gen){
   let last = null;
@@ -9380,8 +9405,12 @@ async function geminiCall(models, parts, gen){
   return last;
 }
 function aiErrText(code){
+  /* 401 и 402 теперь приходят от наших собственных ворот перед ИИ, а не от Google:
+     это не поломка, а «нужен вход» и «кончились бесплатные» — так и пишем. */
+  if(code === 401) return 'войдите в аккаунт, чтобы продолжить';
+  if(code === 402) return 'бесплатные ответы закончились — заведите аккаунт или возьмите пакет';
   if(code === 429) return 'сервис перегружен или на сегодня исчерпан лимит запросов — попробуйте позже';
-  if(code === 401 || code === 403) return 'мост не принял запрос — проверьте настройки доступа';
+  if(code === 403) return 'доступ к сервису для этого аккаунта закрыт';
   if(code >= 500) return 'сервис ИИ сейчас недоступен — попробуйте через пару минут';
   return 'сервис ответил ошибкой ' + code;
 }
@@ -27232,7 +27261,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 </style>
 <script>
 /* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
-window.WK_VERSION = 'fast-2026-11-25a';   /* версия, которую должен отдавать актуальный воркер */
+window.WK_VERSION = 'fast-2026-11-25c';   /* версия, которую должен отдавать актуальный воркер */
 window.wkCheck = async ()=>{
   const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
   if(!base) return { state:'none' };
