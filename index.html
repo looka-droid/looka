@@ -9436,7 +9436,7 @@ async function aiFetch(opts){
     /* ВАЖНО: раньше неудачный ответ возвращался как есть. Обрыв связи вызывающий код
        ловил и показывал запасной вариант, а ответ с ошибкой — нет: человек видел
        пустоту. Теперь любая неудача — исключение, и везде срабатывает запасной путь. */
-    if(r && !r.ok) throw new Error(aiErrText(r.status));
+    if(r && !r.ok){ const e = new Error(aiErrText(r.status)); e.code = r.status; throw e; }
     return r;
   }
   if(GEMINI_KEY){
@@ -12811,13 +12811,27 @@ async function askGo(text){
     const prompt = 'Ты — консилиум экспертов: дерматолог-косметолог, трихолог, визажист и стилист.'
       + (lead ? ' По этому вопросу ведёт ' + lead + ' — остальные молчат, если им нечего добавить по существу.' : '')
       + ' Отвечай по актуальным профессиональным правилам, честно, без маркетинга, по-русски, на «вы». Профиль: '+prof+'. Вопрос: «'+q+'». Ответь ТОЛЬКО JSON: {"t":"заголовок темы","a":"суть ответа 2-4 предложения","s":["шаг 1","шаг 2","шаг 3"],"pro":"одно правило профессионалов","p":[{"n":"продукт или вещь","q":"поисковый запрос"}],"med":"когда нужно к врачу, или пустая строка","shop":false}. shop=true если речь об одежде. Без текста вне JSON.';
-    const r = await aiFetch({method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:900,messages:[{role:"user",content:prompt}]})});
+    const r = await aiFetch({method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({kind:"ask",model:"claude-sonnet-4-6",max_tokens:900,messages:[{role:"user",content:prompt}]})});
     const data = await r.json(); if(data.error) throw new Error('api');
     let txt = (data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').replace(/```json|```/g,'').trim();
     const j = JSON.parse(txt.slice(txt.indexOf('{'), txt.lastIndexOf('}')+1));
     j.p = (j.p||[]).map(x=>[x.n, x.q]);
     renderAsk(j, q, 'ai');
   }catch(e){
+    /* Раньше ЛЮБАЯ неудача показывала «нужно чуть больше деталей» — и человек
+       с совершенно внятным вопросом видел упрёк вместо настоящей причины.
+       Отказ наших же ворот (нужен вход, кончился дневной счёт, блокировка)
+       показываем как есть, а запасной разбор оставляем для настоящих сбоев. */
+    if(e && (e.code === 401 || e.code === 402 || e.code === 403 || e.code === 429)){
+      renderAsk({ t: e.code === 401 ? 'Нужен вход' : 'Консилиум сегодня отдыхает',
+        a: e.message,
+        s: e.code === 401 ? ['Войдите в аккаунт — это бесплатно','Прогресс и ответы останутся при вас']
+                          : ['Попробуйте ещё раз завтра','Или заведите аккаунт — там счёт больше'],
+        pro:'', p:[] }, q, 'local');
+      const btn = document.getElementById('askBtn');
+      if(btn){ btn.disabled = false; btn.textContent = '✦ Спросить консилиум'; }
+      return;
+    }
     const loc = askLocal(q);
     if(loc) renderAsk(loc, q, 'local');
     else renderAsk({t:'Нужно чуть больше деталей', a:'Опишите проблему конкретнее: что именно беспокоит, как давно, какой у вас тип кожи или волос, что уже пробовали. Чем точнее вопрос — тем точнее ответ консилиума.', s:['Например: «жирный блеск к обеду и чёрные точки на носу»','Или: «какая помада под холодную кожу и голубые глаза»','Или: «джинсы под фигуру груша»'], pro:'', p:[]}, q, 'local');
@@ -27037,46 +27051,61 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 }
 
 /* ===================================================================
-   2. МАГАЗИНЫ — В ИХ СОБСТВЕННЫХ ЦВЕТАХ
-   Кнопка ведёт в этот магазин, поэтому и красится его цветами.
-   Цвета WB и Ozon взяты по их зарегистрированным знакам (фуксия →
-   фиолетовый у WB, синий → розовый у Ozon), остальные — близкое
-   приближение. Это именно цвета, без логотипов и шрифтов магазинов.
+   2. МАГАЗИНЫ — ЦВЕТ БРЕНДА, НО ШЁПОТОМ
+   Первая попытка залила каждую кнопку градиентом во всю силу: шесть
+   одинаково громких леденцов в ряд, глазу не за что зацепиться и
+   видно только пестроту. Правильнее наоборот — тёмное стекло, цвет
+   бренда в точке, в тексте и в тонкой рамке. Узнаётся мгновенно,
+   а строка остаётся спокойной. Цвет во всю силу приберегли для
+   касания: нажала — кнопка налилась своим цветом.
+   Цвета WB и Ozon — по их зарегистрированным знакам, остальные
+   близкое приближение. Это только цвета, без логотипов и шрифтов.
    =================================================================== */
-.mp a[class]{position:relative;overflow:hidden;border-width:1px;transition:.2s}
-.mp a.shopc{color:#FFFFFF;border-color:transparent;
-  box-shadow:0 6px 18px -8px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.22)}
-.mp a.shopc:hover{filter:brightness(1.14);transform:translateY(-1px)}
-.mp a.shopc.dark{color:#15110A}
+.mp a[class]{--sc:#9AA0B4;position:relative;transition:.18s;
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.045);
+  border:1px solid color-mix(in srgb,var(--sc) 34%,transparent);
+  color:color-mix(in srgb,var(--sc) 72%,#FFFFFF)}
+/* точка цвета магазина вместо заливки всей кнопки */
+.mp a[class]::before{content:'';flex:none;width:7px;height:7px;border-radius:50%;
+  background:var(--sc);box-shadow:0 0 9px color-mix(in srgb,var(--sc) 70%,transparent)}
+.mp a[class]:hover,.mp a[class].hsim{
+  background:color-mix(in srgb,var(--sc) 17%,rgba(255,255,255,.04));
+  border-color:color-mix(in srgb,var(--sc) 62%,transparent);
+  color:#FFFFFF;transform:translateY(-1px)}
+.mp a[class]:active{background:color-mix(in srgb,var(--sc) 30%,rgba(255,255,255,.04))}
 
-.mp a.wb,.mp a.wb:hover,.mp a.wb.hsim{background:linear-gradient(118deg,#E10098,#8C4799 52%,#4E008E);
-  color:#fff;border-color:transparent}
-.mp a.oz,.mp a.oz:hover,.mp a.oz.hsim{background:linear-gradient(118deg,#005BFF,#F1117E);
-  color:#fff;border-color:transparent}
-.mp a.lm,.mp a.lm:not(.alt):hover{background:linear-gradient(118deg,#F2F2F2,#B9B9C2);
-  color:#15161C;border-color:transparent}
-.mp a.ym,.mp a.ym:hover,.mp a.ym.hsim{background:linear-gradient(118deg,#FFD633,#FF9E00);
-  color:#211A05;border-color:transparent}
-.mp a.ali,.mp a.ali:hover,.mp a.ali.hsim{background:linear-gradient(118deg,#FF6A3D,#E62E04);
-  color:#fff;border-color:transparent}
-.mp a.le,.mp a.le:hover,.mp a.le.hsim{background:linear-gradient(118deg,#C06BFF,#7A1FD1);
-  color:#fff;border-color:transparent}
-.mp a.gy,.mp a.gy:hover,.mp a.gy.hsim{background:linear-gradient(118deg,#A8F06A,#4FB820);
-  color:#10200A;border-color:transparent}
-.mp a.rg,.mp a.rg:hover,.mp a.rg.hsim{background:linear-gradient(118deg,#FF8FB4,#E0356F);
-  color:#fff;border-color:transparent}
-.mp a.tg,.mp a.tg:hover{background:linear-gradient(118deg,#37BBF2,#1C92CE);
-  color:#fff;border-color:transparent}
-.mp a.ig,.mp a.ig:hover{background:linear-gradient(118deg,#FCB045,#FD1D1D 48%,#833AB4);
-  color:#fff;border-color:transparent}
+.mp a.wb{--sc:#CB11AB}
+.mp a.oz{--sc:#2E7BFF}
+.mp a.lm{--sc:#C9CCD6}
+.mp a.ym{--sc:#FFC024}
+.mp a.ali{--sc:#FF5A2D}
+.mp a.le{--sc:#B44CFF}
+.mp a.gy{--sc:#8FE352}
+.mp a.rg{--sc:#F26E9A}
+.mp a.tg{--sc:#37BBF2}
+.mp a.ig{--sc:#FD5B8E}
 
-/* «похожие» остаётся нарочито блёклой: это запасной вариант, а не магазин */
-.mp a.alt,.mp a.lm.alt{background:transparent;border:1px dashed rgba(255,255,255,.28);color:#9AA0B4}
-.mp a.alt:hover,.mp a.lm.alt:hover{background:rgba(255,255,255,.07);color:#E6E8F0;border-color:rgba(255,255,255,.45)}
+/* «похожие» — запасной вариант, а не магазин: без точки и пунктиром */
+.mp a.alt,.mp a.lm.alt{background:transparent;border:1px dashed rgba(255,255,255,.26);color:#9AA0B4}
+.mp a.alt::before,.mp a.lm.alt::before{display:none}
+.mp a.alt:hover,.mp a.lm.alt:hover{background:rgba(255,255,255,.07);color:#E6E8F0;
+  border-color:rgba(255,255,255,.45);transform:none}
 
-/* цветные кнопки: палец попадает, но строка не разъезжается */
+/* строка магазинов в соцсетях — подпись, а не второй ряд кнопок */
+.mp.social{opacity:.86}
+.mp.social:hover{opacity:1}
+
+/* палец попадает, но строка не разъезжается */
 .item .mp a,.mp a{padding:8px 13px;border-radius:99px}
-@media(hover:none){ .item .mp a,.mp a{min-height:38px;display:inline-flex;align-items:center} }
+.mp{gap:8px}
+@media(hover:none){ .item .mp a,.mp a{min-height:38px} }
+@media(max-width:620px){
+  /* на телефоне ужимаем, чтобы в ряд влезало две кнопки, а не одна */
+  .item .mp a,.mp a{padding:8px 11px;gap:6px;letter-spacing:.6px}
+  .mp a[class]::before{width:6px;height:6px}
+  .mp{gap:7px}
+}
 
 /* ===== ФОТО В СООБЩЕНИЯХ ===== */
 .ms-clip{width:42px;height:42px;flex:none;border-radius:50%;cursor:pointer;font-size:17px;line-height:1;
@@ -27231,7 +27260,11 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
   .pageview .mk-hero .eyebrow,.bz-eyebrow{font-size:11px}
   .pageview .hp-sub,.hp-sub{font-size:11px;letter-spacing:1.8px}
   .tool .num{font-size:11px}
-  .item .mp a,.gl-p .mp a,.gl-it .mp a{font-size:11px;letter-spacing:1px;padding:8px 12px}
+  .item .mp a,.gl-p .mp a,.gl-it .mp a,.mp a{font-size:11px;letter-spacing:.4px;padding:8px 10px}
+  /* разрядка на телефоне съедала полстроки: без неё в ряд встают две кнопки вместо одной */
+  .mp{gap:7px}
+  .mp a[class]{gap:6px}
+  .mp a[class]::before{width:6px;height:6px}
 }
 @media(max-width:380px){
   .mt-lv,.mt-lv.lv1,.mt-lv.lv2,.mt-lv.lv3{font-size:9.5px;padding:4px 7px}
@@ -27261,7 +27294,7 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 </style>
 <script>
 /* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
-window.WK_VERSION = 'fast-2026-11-25c';   /* версия, которую должен отдавать актуальный воркер */
+window.WK_VERSION = 'fast-2026-11-25d';   /* версия, которую должен отдавать актуальный воркер */
 window.wkCheck = async ()=>{
   const base = String(typeof LOOKA_API!=='undefined' ? LOOKA_API : (window.LOOKA_API||'')).replace(/\/$/,'');
   if(!base) return { state:'none' };
