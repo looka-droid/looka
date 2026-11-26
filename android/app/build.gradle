@@ -6,10 +6,19 @@ plugins {
    Если его нет (например, вы собираете у себя для пробы), сборка не падает —
    просто получится неподписанный APK, который годится для проверки на телефоне,
    но не годится для RuStore. */
-def ksFile = file("keystore.jks")
-def hasKs = ksFile.exists() &&
-        System.getenv("KEYSTORE_PASSWORD") != null &&
-        System.getenv("KEY_ALIAS") != null
+/* Номер и название сборки считаем заранее, отдельными переменными.
+   Раньше тут стояло versionCode (System.getenv(...) ?: "1").toInteger() —
+   и Groovy из-за пробела перед скобкой понял это как «вызови versionCode
+   с этой строкой, а потом у результата возьми toInteger()». Результата
+   нет, отсюда и «Value is null». */
+def vCode = (System.getenv("VERSION_CODE") ?: "1").toInteger()
+def vName = System.getenv("VERSION_NAME") ?: "1.0"
+
+def ksFile    = file("keystore.jks")
+def ksPass    = System.getenv("KEYSTORE_PASSWORD")
+def ksAlias   = System.getenv("KEY_ALIAS")
+def keyPass   = System.getenv("KEY_PASSWORD") ?: ksPass
+def hasKs     = ksFile.exists() && ksPass != null && ksAlias != null
 
 android {
     namespace 'ru.looka.app'
@@ -21,17 +30,17 @@ android {
         targetSdk 34
         /* versionCode увеличивается при каждой сборке на GitHub автоматически.
            RuStore не примет обновление с тем же номером. */
-        versionCode (System.getenv("VERSION_CODE") ?: "1").toInteger()
-        versionName System.getenv("VERSION_NAME") ?: "1.0"
+        versionCode vCode
+        versionName vName
     }
 
     if (hasKs) {
         signingConfigs {
             release {
                 storeFile ksFile
-                storePassword System.getenv("KEYSTORE_PASSWORD")
-                keyAlias System.getenv("KEY_ALIAS")
-                keyPassword System.getenv("KEY_PASSWORD") ?: System.getenv("KEYSTORE_PASSWORD")
+                storePassword ksPass
+                keyAlias ksAlias
+                keyPassword keyPass
             }
         }
     }
@@ -39,7 +48,9 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            if (hasKs) signingConfig signingConfigs.release
+            if (hasKs) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 
