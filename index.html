@@ -8092,23 +8092,23 @@ setInterval(pgDraw, 4000);
   <div class="vs">
     <div class="vs-card vs-left">
       <div class="vs-name">Как это обычно происходит</div>
-      <div class="vs-row"><span class="x">✕</span>час в ленте — и всё равно нечего надеть</div>
-      <div class="vs-row"><span class="x">✕</span>берёте то, что красиво сидит на модели, а не на вас</div>
-      <div class="vs-row"><span class="x">✕</span>половина уезжает обратно: не села, не тот оттенок</div>
-      <div class="vs-row"><span class="x">✕</span>шкаф полный, а носите пять вещей по кругу</div>
-      <div class="vs-row"><span class="x">✕</span>советы из роликов противоречат друг другу — и ни один не про вашу фигуру</div>
-      <div class="vs-row"><span class="x">✕</span>каждый раз с нуля: ничего не записано, ничего не накапливается</div>
+      <div class="vs-row"><span class="x">✕</span><span class="vs-t">час в ленте — и всё равно нечего надеть</span></div>
+      <div class="vs-row"><span class="x">✕</span><span class="vs-t">берёте то, что красиво сидит на модели, а не на вас</span></div>
+      <div class="vs-row"><span class="x">✕</span><span class="vs-t">половина уезжает обратно: не села, не тот оттенок</span></div>
+      <div class="vs-row"><span class="x">✕</span><span class="vs-t">шкаф полный, а носите пять вещей по кругу</span></div>
+      <div class="vs-row"><span class="x">✕</span><span class="vs-t">советы из роликов противоречат друг другу — и ни один не про вашу фигуру</span></div>
+      <div class="vs-row"><span class="x">✕</span><span class="vs-t">каждый раз с нуля: ничего не записано, ничего не накапливается</span></div>
     </div>
     <div class="vs-mid">VS</div>
     <div class="vs-card vs-right">
       <div class="vs-name">LOOKA</div>
-      <div class="vs-row"><span class="v">✓</span><b>Безлимит.</b> Пересобирайте образ хоть сто раз — счётчика нет, доплат нет</div>
-      <div class="vs-row"><span class="v">✓</span>Законченный образ за 2 минуты, в любое время — под вашу фигуру, цветотип и бюджет</div>
-      <div class="vs-row"><span class="v">✓</span>25 разделов: цветотип, Бьюти-скан, Консилиум, макияж-гид, уход, волосы, капсула, событие под ключ, Стиль-паспорт в PDF</div>
-      <div class="vs-row"><span class="v">✓</span>Ваш гардероб запоминается: образ из своих вещей, план недели, «дыры» и честная цена выхода</div>
-      <div class="vs-row"><span class="v">✓</span><span class="reg-shops-vs">WB · Ozon · Lamoda — весь выбор страны</span> + свадебные салоны и Telegram-магазины</div>
-      <div class="vs-row"><span class="v">✓</span>15 помощников: образ дня по погоде, чемодан, размеры в любой стране, SOS-пятно, ревизия гардероба, «Не переплати»</div>
-      <div class="vs-row"><span class="v">✓</span>Пакеты от 149 ₽ — подборы остаются у вас навсегда, 5 подборов бесплатно, без подписки</div>
+      <div class="vs-row"><span class="v">✓</span><span class="vs-t"><b>Безлимит.</b> Пересобирайте образ хоть сто раз — счётчика нет, доплат нет</span></div>
+      <div class="vs-row"><span class="v">✓</span><span class="vs-t">Законченный образ за 2 минуты, в любое время — под вашу фигуру, цветотип и бюджет</span></div>
+      <div class="vs-row"><span class="v">✓</span><span class="vs-t">25 разделов: цветотип, Бьюти-скан, Консилиум, макияж-гид, уход, волосы, капсула, событие под ключ, Стиль-паспорт в PDF</span></div>
+      <div class="vs-row"><span class="v">✓</span><span class="vs-t">Ваш гардероб запоминается: образ из своих вещей, план недели, «дыры» и честная цена выхода</span></div>
+      <div class="vs-row"><span class="v">✓</span><span class="vs-t"><span class="reg-shops-vs">WB · Ozon · Lamoda — весь выбор страны</span> + свадебные салоны и Telegram-магазины</span></div>
+      <div class="vs-row"><span class="v">✓</span><span class="vs-t">15 помощников: образ дня по погоде, чемодан, размеры в любой стране, SOS-пятно, ревизия гардероба, «Не переплати»</span></div>
+      <div class="vs-row"><span class="v">✓</span><span class="vs-t">Пакеты от 149 ₽ — подборы остаются у вас навсегда, 5 подборов бесплатно, без подписки</span></div>
     </div>
   </div>
   <p class="hp-line">Большинство женщин одеваются сами — и это нормально. Ненормально то, что приходится делать это вслепую: без правил, без палитры, без памяти о прошлых покупках. LOOKA не заменяет вас — она даёт вам то, чем пользуются стилисты: систему. Те же профессиональные правила, тот же результат — за две минуты, без лимитов и без переплат.</p>
@@ -24113,19 +24113,37 @@ const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'
   const hdr = document.querySelector('header'); if(!hdr) return;
   const nav = hdr.querySelector('.topnav'); if(!nav) return;
   let box = null;
+  /* Когда страницу прокручивают, большая шапка уезжает вверх, а сверху
+     появляется узкая полоска #topbar. В ней был только логотип: бургер и
+     значки оставались в уехавшей шапке, и человек терял и меню, и поиск,
+     и вход. Поэтому переносим их туда, где они сейчас видны, — в полоску
+     при прокрутке и обратно в шапку, когда вернулись наверх. */
+  const burger = hdr.querySelector('.nav-burger');
+  const place = ()=>{
+    if(window.innerWidth > 760) return;
+    const tb = document.getElementById('topbar');
+    const inn = tb && tb.querySelector('.tb-in');
+    const scrolled = !!(tb && tb.classList.contains('on') && inn);
+    const host = scrolled ? inn : hdr;
+    if(burger && burger.parentElement !== host) host.appendChild(burger);
+    if(box && box.parentElement !== host) host.appendChild(box);
+  };
+
   const fit = ()=>{
     const small = window.innerWidth <= 760;
     document.body.classList.toggle('hdr-m', small);
     if(small){
       if(!box){ box = document.createElement('div'); box.id = 'hdrRight'; }
-      if(box.parentElement !== hdr) hdr.appendChild(box);
+      if(!box.parentElement) hdr.appendChild(box);
       const f = nav.querySelector('.nav-find') || box.querySelector('.nav-find');
       const m = nav.querySelector('.nav-msg')  || box.querySelector('.nav-msg');
       const a = nav.querySelector('.nav-acc')  || box.querySelector('.nav-acc');
       if(f && f.parentElement !== box) box.appendChild(f);
       if(m && m.parentElement !== box) box.appendChild(m);
       if(a && a.parentElement !== box) box.appendChild(a);
+      place();
     } else if(box && box.parentElement){
+      if(burger && burger.parentElement !== hdr) hdr.insertBefore(burger, nav);
       const f = box.querySelector('.nav-find'), a = box.querySelector('.nav-acc');
       if(f) nav.appendChild(f); if(a) nav.appendChild(a);
       box.remove();
@@ -24134,6 +24152,12 @@ const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'
   fit();
   window.addEventListener('resize', fit);
   window.addEventListener('orientationchange', ()=>setTimeout(fit, 150));
+  /* полоска появляется и исчезает при прокрутке — следим за этим */
+  try{
+    const tb = document.getElementById('topbar');
+    if(tb) new MutationObserver(place).observe(tb, { attributes:true, attributeFilter:['class'] });
+  }catch(e){}
+  window.addEventListener('scroll', ()=>{ if(window.innerWidth<=760) place(); }, {passive:true});
   /* если меню перерисовали — вернуть кнопки на место */
   try{ new MutationObserver(()=>{ if(window.innerWidth<=760) fit(); }).observe(nav, {childList:true}); }catch(e){}
   setInterval(()=>{ if(window.innerWidth<=760) fit(); }, 2000);
@@ -26715,19 +26739,39 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 .nv-head b{font-size:17px}
 .nv-head button{width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:15px;color:#AEB4C8;
   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13)}
-.nv-g{padding:14px 20px 4px}
-.nv-g > b{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.8px;
-  text-transform:uppercase;color:#19C6F7;margin-bottom:8px}
-.nv-sheet .nv-item{display:flex;align-items:center;gap:12px;width:100%;min-height:46px;
-  padding:7px 20px 9px;cursor:pointer;text-align:left;font-family:'Manrope',sans-serif;font-size:15px;
+/* ===== Список разделов: группы с собственным цветом =====
+   Было: один сплошной столбец бледно-голубых строк, значки болтались между
+   строчками, пояснение уезжало вправо отдельной лесенкой. Стало: группа —
+   это карточка со своим цветом, строка — значок в кружке, название и
+   пояснение рядом, стрелка справа. Глаз цепляется за границы групп. */
+.nv-sec{margin:14px 14px 0}
+.nv-sec .nv-g{display:flex;align-items:center;gap:8px;padding:0 8px 8px}
+.nv-sec .nv-dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--nvc);
+  box-shadow:0 0 10px color-mix(in srgb,var(--nvc) 75%,transparent)}
+.nv-sec .nv-g > b{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.8px;
+  text-transform:uppercase;color:color-mix(in srgb,var(--nvc) 80%,#FFFFFF);margin:0}
+.nv-list{border-radius:16px;overflow:hidden;
+  border:1px solid color-mix(in srgb,var(--nvc) 22%,transparent);
+  background:linear-gradient(180deg,
+    color-mix(in srgb,var(--nvc) 7%,transparent),rgba(255,255,255,.018))}
+
+.nv-sheet .nv-item{display:grid;grid-template-columns:34px minmax(0,1fr) auto;
+  align-items:center;column-gap:12px;width:100%;min-height:52px;
+  padding:9px 13px;cursor:pointer;text-align:left;font-family:'Manrope',sans-serif;
   color:#F4F5FA;background:none;border:none;border-radius:0;letter-spacing:0;text-transform:none}
-.nv-sheet .nv-item:active{background:rgba(255,255,255,.07)}
-.nv-sheet .nv-item i{flex:none;width:24px;font-style:normal;font-size:16px;color:#19C6F7;text-align:center}
-/* описание — отдельной строкой под названием, с отступом под иконку */
-.nv-sheet .nv-item{flex-wrap:wrap}
-.nv-sheet .nv-item > em,.nv-sheet .nv-item > small{flex:0 0 100%;margin:2px 0 0 36px;
-  font-style:normal;font-size:12.5px;line-height:1.4;color:#8E96AC}
-.nv-sheet .nv-item span.nv-tx{flex:1;min-width:0}
+.nv-sheet .nv-item,.nv-sheet .nv-item b,.nv-sheet .nv-item em{text-decoration:none!important}
+.nv-sheet .nv-item + .nv-item{border-top:1px solid rgba(255,255,255,.055)}
+.nv-sheet .nv-item:active{background:color-mix(in srgb,var(--nvc) 14%,transparent)}
+.nv-sheet .nv-ic{grid-column:1;display:grid;place-items:center;width:34px;height:34px;
+  border-radius:11px;font-style:normal;font-size:15px;line-height:1;
+  color:var(--nvc);background:color-mix(in srgb,var(--nvc) 14%,transparent);
+  border:1px solid color-mix(in srgb,var(--nvc) 26%,transparent)}
+.nv-sheet .nv-tx{grid-column:2;min-width:0;display:block}
+.nv-sheet .nv-tx b{display:block;font-size:14.5px;font-weight:700;line-height:1.25;color:#F4F5FA}
+.nv-sheet .nv-tx em{display:block;margin-top:2px;font-style:normal;font-size:12px;
+  line-height:1.35;color:#8E96AC}
+.nv-sheet .nv-ar{grid-column:3;font-size:13px;color:color-mix(in srgb,var(--nvc) 55%,transparent)}
+.nv-more .nv-item .nv-tx em{display:none}
 
 /* ===== ТЕЛЕФОН: РОВНЫЕ БЛОКИ =====
    Собрано по снимкам реального экрана 360 px. Каждое правило — под конкретную
@@ -27075,8 +27119,24 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 /* карточки-цифры: скругление как у всего остального */
 .sb{border-radius:16px}
 
-/* плитки на главной: четвёртая оставалась одна в ряду и ряд выглядел обрубленным */
-@media(max-width:900px){ .hero-tiles .ht:last-child{grid-column:1/-1} }
+/* ===================================================================
+   ПЛИТКА НА ВСЮ ШИРИНУ С ПУСТЫМ ПРАВЫМ КРАЕМ
+   Четвёртая плитка оставалась одна в ряду, и ряд выглядел обрубленным.
+   Я растянул её на всю ширину — стало хуже: содержимое осталось в левом
+   углу, а справа образовалась пустота. Правильно не растягивать коробку,
+   а разложить её содержимое в строку: значок слева, название и подпись
+   рядом. Тогда плитка заполнена, а не растянута.
+   =================================================================== */
+@media(max-width:900px){
+  .hero-tiles .ht:last-child{grid-column:1/-1;
+    display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
+    column-gap:14px;row-gap:2px;align-items:center;justify-items:start;
+    text-align:left;padding:15px 16px}
+  .hero-tiles .ht:last-child i{grid-row:1 / span 2;align-self:center;width:40px;height:40px;font-size:18px}
+  .hero-tiles .ht:last-child b{grid-column:2;align-self:end}
+  .hero-tiles .ht:last-child span{grid-column:2;align-self:start;margin-top:0}
+  .hero-tiles .ht:last-child em{grid-column:2;margin-top:4px;padding-top:0}
+}
 
 /* «Читать дальше» — кнопка была ниже 34 точек, палец промахивался */
 .lead-more{min-height:38px;padding:10px 16px}
@@ -27390,6 +27450,133 @@ if(typeof _op==='function') window.openPage = function(){ _op.apply(this, argume
 .ticker:not(.ticker-ask){opacity:.62}
 .ticker:not(.ticker-ask) .ticker-in{animation-duration:64s}
 .ticker:not(.ticker-ask):hover{opacity:1}
+
+/* ===================================================================
+   УЗКАЯ ШАПКА ПРИ ПРОКРУТКЕ
+   В неё теперь переезжают бургер и значки. Кнопки чуть меньше, чтобы
+   влезли в 43 точки высоты, но палец всё равно попадает.
+   =================================================================== */
+@media(max-width:760px){
+  #topbar .tb-in{display:flex;align-items:center;gap:8px}
+  #topbar .tb-in .logo{flex:0 0 auto;margin-right:auto}
+  #topbar .tb-in .nav-burger{display:flex;order:3;width:38px;height:38px;margin:0;padding:0}
+  #topbar .tb-in #hdrRight{order:2;display:flex;align-items:center;gap:7px;margin-left:0}
+  #topbar .tb-in #hdrRight .nav-find,
+  #topbar .tb-in #hdrRight .nav-msg{width:38px;height:38px;min-height:0;padding:0;border-radius:50%}
+  #topbar .tb-in #hdrRight .nav-acc{min-height:38px;height:38px;padding:0 14px;font-size:11.5px}
+}
+
+/* ===================================================================
+   «Растянутая плитка»: значок сверху, заголовок и подпись под ним,
+   а справа — пустота в половину карточки.
+   Так получается само собой: сетки на сайте сделаны из колонок по
+   200-280 точек, на телефоне колонка остаётся одна, и карточка,
+   нарисованная под узкую колонку, растягивается во всю ширину.
+   Содержимое при этом остаётся в левом верхнем углу.
+   Лечим не растягиванием текста, а раскладкой: значок уходит влево,
+   название и подпись встают рядом с ним. Класс row-fit вешает
+   скрипт ниже — только тем карточкам, которые действительно пустуют.
+   =================================================================== */
+.row-fit{display:grid!important;grid-template-columns:auto 1fr;
+  column-gap:13px;row-gap:2px;align-items:center;justify-items:start;
+  text-align:left!important}
+.row-fit > i,.row-fit > em:first-child{grid-row:1 / span 2;grid-column:1;
+  align-self:center;margin:0!important;flex:none}
+.row-fit > b,.row-fit > strong{grid-column:2;align-self:end;margin-bottom:0!important}
+.row-fit > span,.row-fit > p,.row-fit > em:not(:first-child){grid-column:2;
+  align-self:start;margin-top:0!important}
+/* если детей трое — подпись уходит третьей строкой, но всё так же справа от значка */
+.row-fit:has(> :nth-child(4)){grid-template-rows:auto auto auto}
+.row-fit:has(> :nth-child(4)) > i{grid-row:1 / span 3}
+
+/* Тарифы на телефоне: карточка во всю ширину, а всё содержимое стояло
+   столбиком слева — справа пустовала половина. Разворачиваем в строку:
+   слева название пакета и подписи, справа крупная цена. */
+@media(max-width:640px){
+  .plans .plan{display:grid;grid-template-columns:1fr auto;
+    column-gap:14px;align-items:center;padding:16px 18px}
+  .plans .plan small{grid-column:1;grid-row:1}
+  .plans .plan span{grid-column:1;grid-row:2;margin-top:3px}
+  .plans .plan em{grid-column:1;grid-row:3;margin-top:5px}
+  .plans .plan b{grid-column:2;grid-row:1 / span 3;align-self:center;
+    margin:0;font-size:28px;text-align:right;white-space:nowrap}
+}
+
+/* Таблица «обычно / LOOKA»: строка была flex-контейнером, и каждый кусок
+   содержимого — <b>, <span>, голый текст — становился отдельной колонкой.
+   На компьютере это было незаметно, на телефоне строки наезжали друг на
+   друга и разваливались на две колонки. Теперь весь текст строки лежит
+   в одном span и течёт как обычный абзац. */
+.vs-row .vs-t{flex:1 1 auto;min-width:0;display:block;text-align:left}
+.vs-row .vs-t b{font-weight:700;color:#F4F6FC}
+.vs-row .vs-t .reg-shops-vs{display:inline}
+
+/* зелёная карточка «LOOKA» подсвечивает собой первую строку абзаца под ней */
+@media(max-width:700px){ .vs{margin-bottom:22px} .vs + .hp-line{padding-top:2px} }
+
+/* ===================================================================
+   ЦВЕТ В БЛОКАХ.
+   Раньше почти все карточки были одинаковые: тёмный прямоугольник с
+   серой рамкой. Глазу не за что зацепиться, и длинная страница
+   читается как сплошная стена.
+   Здесь каждая карточка в ряду получает свой цвет из палитры сайта —
+   он красит рамку, значок и номер, а у простых карточек ещё и даёт
+   мягкое свечение из левого верхнего угла. Цвет идёт по кругу, так
+   что соседние карточки всегда разные.
+   Трогаем только цвет: ни размеры, ни отступы, ни раскладка не
+   меняются, поэтому сломать вёрстку этот блок не может.
+   =================================================================== */
+@supports (color: color-mix(in srgb, red, blue)){
+  .how .how-card, .hub-card, .about-vals > div, .ab-why .ab-w,
+  .quick-grid > *, .tp-card, .rt li, .moat-grid .moat-item{
+    --ca:#19C6F7}
+  .how .how-card:nth-child(5n+2), .hub-card:nth-child(5n+2),
+  .about-vals > div:nth-child(5n+2), .ab-why .ab-w:nth-child(5n+2),
+  .quick-grid > *:nth-child(5n+2), .tp-card:nth-child(5n+2),
+  .rt li:nth-child(5n+2), .moat-grid .moat-item:nth-child(5n+2){--ca:#C79DF2}
+  .how .how-card:nth-child(5n+3), .hub-card:nth-child(5n+3),
+  .about-vals > div:nth-child(5n+3), .ab-why .ab-w:nth-child(5n+3),
+  .quick-grid > *:nth-child(5n+3), .tp-card:nth-child(5n+3),
+  .rt li:nth-child(5n+3), .moat-grid .moat-item:nth-child(5n+3){--ca:#F2A6C6}
+  .how .how-card:nth-child(5n+4), .hub-card:nth-child(5n+4),
+  .about-vals > div:nth-child(5n+4), .ab-why .ab-w:nth-child(5n+4),
+  .quick-grid > *:nth-child(5n+4), .tp-card:nth-child(5n+4),
+  .rt li:nth-child(5n+4), .moat-grid .moat-item:nth-child(5n+4){--ca:#7CF0B2}
+  .how .how-card:nth-child(5n+5), .hub-card:nth-child(5n+5),
+  .about-vals > div:nth-child(5n+5), .ab-why .ab-w:nth-child(5n+5),
+  .quick-grid > *:nth-child(5n+5), .tp-card:nth-child(5n+5),
+  .rt li:nth-child(5n+5), .moat-grid .moat-item:nth-child(5n+5){--ca:#FFC46B}
+
+  /* рамка */
+  .how .how-card, .hub-card, .about-vals > div, .ab-why .ab-w,
+  .quick-grid > *, .tp-card, .rt li{
+    border-color:color-mix(in srgb, var(--ca) 42%, transparent)}
+  .how .how-card:hover, .hub-card:hover, .about-vals > div:hover,
+  .ab-why .ab-w:hover, .quick-grid > *:hover, .tp-card:hover, .rt li:hover{
+    border-color:color-mix(in srgb, var(--ca) 58%, transparent)}
+
+  /* свечение из угла — только там, где у карточки нет своей заливки-картинки */
+  .how .how-card, .hub-card, .about-vals > div{
+    background-image:radial-gradient(130% 110% at 0% 0%,
+      color-mix(in srgb, var(--ca) 15%, transparent), transparent 64%)}
+
+  /* бегущая светлая черта по верху карточки раньше всегда была голубой,
+     даже когда сама карточка зелёная или песочная — приводим к её цвету */
+  .how .how-card{--brand:var(--ca)}
+
+  /* значки, номера и подчёркивания берут тот же цвет */
+  .how .how-card .num{color:var(--ca);transform:none;
+    border-color:color-mix(in srgb, var(--ca) 45%, transparent);
+    background:color-mix(in srgb, var(--ca) 13%, transparent)}
+  .about-vals > div > i, .ab-why .ab-w > i, .hub-card i, .quick-grid > * i,
+  .rt li .rt-n{color:var(--ca)}
+  .about-vals > div > i{background:color-mix(in srgb, var(--ca) 14%, transparent);
+    border:1px solid color-mix(in srgb, var(--ca) 26%, transparent);
+    width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-size:15px}
+  .ab-why .ab-w > i{background:color-mix(in srgb, var(--ca) 14%, transparent)}
+  .rt li .rt-n{background:color-mix(in srgb, var(--ca) 14%, transparent);
+    border:1px solid color-mix(in srgb, var(--ca) 30%, transparent)}
+}
 </style>
 <script>
 /* ===== самодиагностика воркера: почему именно не ответил ИИ ===== */
@@ -28901,29 +29088,71 @@ window.navSheet = ()=>{
     ov.addEventListener('click', e=>{ if(e.target===ov) navSheetClose(); });
     document.body.appendChild(ov); }
   const nav = document.querySelector('header .topnav');
+  /* У каждой группы свой цвет: по длинному одноцветному списку глаз скользит
+     и не цепляется, а цвет сразу показывает, где кончился один раздел
+     и начался другой. */
+  const NVC = ['#19C6F7','#C79DF2','#F2A6C6','#7CF0B2','#FFC46B','#8FB4FF','#FF9DB0'];
+
+  /* Ссылка из шапки устроена так: значок, затем текст названия, затем
+     иногда пояснение. Текст лежит голым — заворачиваем его в свой span,
+     иначе название и пояснение невозможно разложить по строкам ровно. */
+  const item = (src, c)=>{
+    const el = src.cloneNode(true);
+    el.className = 'nv-item';
+    el.setAttribute('data-nv','1');
+    const ic = el.querySelector('i');
+    let txt = '';
+    [...el.childNodes].forEach(n=>{
+      if(n.nodeType === 3){ txt += n.nodeValue; n.remove(); }
+    });
+    txt = txt.replace(/[▾]/g,'').trim();
+    /* у кнопок шапки подпись живёт в aria-label, а не в тексте: без этого
+       строка в списке получалась пустой — один значок и стрелка */
+    if(!txt) txt = (src.getAttribute('aria-label') || src.getAttribute('title') || '').trim();
+    if(!txt) return '';
+    const sub = el.querySelector('em,small');
+    if(sub) sub.remove();
+    /* у одиночных ссылок шапки значка нет — подбираем по смыслу названия,
+       иначе внизу списка выстраивается столбик одинаковых ромбиков */
+    const GL = [[/мой|кабинет|профил/i,'◉'],[/паспорт/i,'▤'],[/о looka|о нас|о сервис/i,'✦'],
+                [/контакт|связ|написать/i,'✉'],[/цен|тариф|оплат|подпис/i,'₽'],
+                [/курс|академ|учеб/i,'▤'],[/стат|журнал|блог/i,'❑'],[/поиск|найти/i,'⌕'],
+                [/сообщен|чат/i,'✉'],[/клуб|сообщест/i,'❈'],[/помощ|как работ|метод/i,'◈']];
+    let glyph = ic && ic.textContent.trim() ? ic.textContent : '';
+    if(!glyph){ for(let g = 0; g < GL.length; g++){ if(GL[g][0].test(txt)){ glyph = GL[g][1]; break; } } }
+    el.innerHTML = '<i class="nv-ic">' + (glyph || '◆') + '</i>' +
+      '<span class="nv-tx"><b>' + txt + '</b>' +
+      (sub ? '<em>' + sub.textContent.trim() + '</em>' : '') + '</span>' +
+      '<span class="nv-ar">→</span>';
+    return el.outerHTML;
+  };
+
   let html = '<div class="nv-sheet"><div class="nv-grab"></div>' +
     '<div class="nv-head"><b>Разделы</b><button onclick="navSheetClose()" aria-label="Закрыть">✕</button></div>';
+  let loose = '', gi = 0;
   if(nav){
     [...nav.children].forEach(node=>{
       const dd = node.querySelector && node.querySelector('.dd');
       const head = node.querySelector && node.querySelector('a,button');
       const title = ((head && head.textContent) || node.textContent || '').replace(/[▾]/g,'').trim();
       if(dd){
-        html += '<div class="nv-g"><b>' + title.replace(/NEW$/,'').trim() + '</b></div>';
-        [...dd.querySelectorAll('a,button')].forEach(it=>{
-          const c = it.cloneNode(true);
-          c.className = 'nv-item';
-          c.setAttribute('data-nv','1');
-          html += '<div class="nv-wrap">' + c.outerHTML + '</div>';
-        });
+        const col = NVC[gi++ % NVC.length];
+        html += '<section class="nv-sec" style="--nvc:' + col + '">' +
+          '<div class="nv-g"><span class="nv-dot"></span><b>' +
+          title.replace(/NEW$/,'').trim() + '</b></div><div class="nv-list">';
+        [...dd.querySelectorAll('a,button')].forEach(it=>{ html += item(it, col); });
+        html += '</div></section>';
       } else if(head || node.tagName === 'A') {
-        const src = head || node;
-        const c = src.cloneNode(true);
-        c.className = 'nv-item';
-        c.setAttribute('data-nv','1');
-        html += '<div class="nv-g" style="padding-top:8px"></div>' + c.outerHTML;
+        loose += item(head || node);
       }
     });
+  }
+  /* одиночные ссылки шапки собираем в одну группу в конце, а не рассыпаем
+     по списку безымянными строчками */
+  if(loose){
+    html += '<section class="nv-sec nv-more" style="--nvc:#9AA3BC">' +
+      '<div class="nv-g"><span class="nv-dot"></span><b>Ещё</b></div>' +
+      '<div class="nv-list">' + loose + '</div></section>';
   }
   html += '</div>';
   ov.innerHTML = html;
@@ -28964,6 +29193,123 @@ if ('serviceWorker' in navigator && swOk) {
     navigator.serviceWorker.register('sw.js').catch(e => console.warn('sw не зарегистрирован:', e));
   });
 }
+</script>
+<script>
+/* =====================================================================
+   Карточки, которые на телефоне растянулись и пустуют справа.
+
+   Почему это делается скриптом, а не правилом в стилях: таких сеток на
+   сайте шестьдесят, часть страниц рисуется на ходу (помощники, статьи,
+   курсы, гардероб), и заранее перечислить все карточки невозможно.
+   Скрипт смотрит на то, что реально получилось на экране: если карточка
+   шире 300 точек, внутри у неё значок + заголовок + подпись, ни одна
+   строка не переносится и самая длинная занимает меньше двух третей
+   ширины — значит, половина карточки пустует. Тогда ей вешается класс
+   row-fit, и содержимое раскладывается в строку.
+
+   Ничего не трогаем на широких экранах и ничего не ломаем, если
+   проверка не прошла: карточка просто остаётся как была.
+   ===================================================================== */
+(function(){
+  var FIT = 'row-fit', MAXW = 820, rng = null;
+
+  function shaped(el){
+    var k = el.children;
+    if(k.length < 2 || k.length > 4) return false;
+    var ic = k[0];
+    if(ic.tagName !== 'I' && ic.tagName !== 'EM') return false;
+    if(ic.children.length) return false;
+    if((ic.textContent || '').trim().length > 3) return false;
+    for(var n = 1; n < k.length; n++){
+      var t = k[n].tagName;
+      if(t !== 'B' && t !== 'STRONG' && t !== 'SPAN' && t !== 'EM' && t !== 'P') return false;
+      if(k[n].children.length) return false;
+    }
+    return true;
+  }
+
+  /* самая длинная строка текста внутри карточки; -1 если текст переносится */
+  function textWidth(el){
+    if(!rng) rng = document.createRange();
+    var max = 0;
+    for(var n = 1; n < el.children.length; n++){
+      var c = el.children[n];
+      if(!(c.textContent || '').trim()) continue;
+      rng.selectNodeContents(c);
+      var rs = rng.getClientRects();
+      if(rs.length > 1) return -1;          /* уже переносится — место занято */
+      if(rs.length) max = Math.max(max, rs[0].width);
+    }
+    return max;
+  }
+
+  function pass(){
+    var had = document.querySelectorAll('.' + FIT), n;
+    for(n = 0; n < had.length; n++) had[n].classList.remove(FIT);
+    if(window.innerWidth > MAXW) return;
+
+    var all = document.querySelectorAll('div,button,a,li,figure'), i, el, r, cs, inner, w;
+    for(i = 0; i < all.length; i++){
+      el = all[i];
+      if(!shaped(el)) continue;
+      r = el.getBoundingClientRect();
+      if(r.width < 300 || r.height < 44) continue;
+      cs = getComputedStyle(el);
+      if(cs.display === 'none' || cs.visibility === 'hidden') continue;
+      inner = r.width - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+      if(inner < 220) continue;
+      w = textWidth(el);
+      if(w < 0 || w > inner * 0.66) continue;
+      el.classList.add(FIT);
+    }
+
+    /* Внутри одной группы карточки должны выглядеть одинаково. Если хотя бы
+       одна развернулась в строку, а соседка осталась столбиком — получается
+       разнобой, который хуже исходной пустоты. Поэтому доводим группу
+       до конца: соседей той же формы раскладываем так же. */
+    var done = document.querySelectorAll('.' + FIT), seen = [], g, par, kids, m, c, rc;
+    for(g = 0; g < done.length; g++){
+      par = done[g].parentElement;
+      if(!par || seen.indexOf(par) >= 0) continue;
+      seen.push(par);
+      kids = par.children;
+      for(m = 0; m < kids.length; m++){
+        c = kids[m];
+        if(c.classList.contains(FIT) || !shaped(c)) continue;
+        rc = c.getBoundingClientRect();
+        if(rc.width < 300 || rc.height < 44) continue;
+        c.classList.add(FIT);
+      }
+    }
+  }
+
+  var t = null;
+  function later(){ clearTimeout(t); t = setTimeout(pass, 180); }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', later);
+  else later();
+  window.addEventListener('load', later);
+  window.addEventListener('resize', later);
+  window.addEventListener('orientationchange', later);
+  try{
+    new MutationObserver(function(ms){
+      for(var i = 0; i < ms.length; i++){
+        if(ms[i].addedNodes && ms[i].addedNodes.length){ later(); return; }
+      }
+    }).observe(document.body, {childList:true, subtree:true});
+  }catch(e){}
+  /* Переход на внутреннюю страницу — это не добавление узлов, а смена класса:
+     раздел всё время лежит в разметке и просто показывается. Пока он скрыт,
+     ширина у карточек нулевая и проверить их нельзя, поэтому пересматриваем
+     заново каждый раз, когда страница становится видимой. */
+  try{
+    var cw = new MutationObserver(later);
+    cw.observe(document.body, {attributes:true, attributeFilter:['class']});
+    var pv = document.querySelectorAll('.pageview,.my-pane,.tp-card,#toolPanel');
+    for(var j = 0; j < pv.length; j++) cw.observe(pv[j], {attributes:true, attributeFilter:['class','style']});
+  }catch(e){}
+  document.addEventListener('click', later, true);
+})();
 </script>
 </body>
 </html>
