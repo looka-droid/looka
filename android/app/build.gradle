@@ -61,6 +61,17 @@ android {
 }
 
 dependencies {
+    /* Библиотеки Android тянут за собой служебную библиотеку Kotlin, причём
+       разные — разных версий. Старая была когда-то разбита на три части
+       (stdlib, stdlib-jdk7, stdlib-jdk8), а в новой их слили в одну. Когда
+       в сборку попадают обе, одни и те же классы оказываются дважды, и
+       Android отказывается складывать APK — это и есть «Duplicate class».
+
+       Строка ниже — общий список версий Kotlin: она приводит все части
+       к одной версии, и двойники исчезают. Своего кода на Kotlin у нас нет,
+       эта библиотека нужна только самим библиотекам Android. */
+    implementation platform('org.jetbrains.kotlin:kotlin-bom:1.9.24')
+
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.activity:activity:1.9.2'
 }
