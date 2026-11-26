@@ -46,16 +46,34 @@ jobs:
 
       # Ключ подписи лежит в секретах репозитория одной строкой.
       # Здесь он превращается обратно в файл рядом со сборкой.
+      #
+      # Раньше при отсутствии ключа сборка молча продолжалась и выдавала
+      # файл с хвостом -unsigned. Такой APK не ставится на телефон вообще,
+      # и человек узнаёт об этом, только когда скачает его и попробует.
+      # Поэтому теперь останавливаемся сразу и говорим, чего не хватает.
       - name: Достать ключ подписи
         env:
-          KS: ${{ secrets.KEYSTORE_BASE64 }}
+          KS:    ${{ secrets.KEYSTORE_BASE64 }}
+          KSPW:  ${{ secrets.KEYSTORE_PASSWORD }}
+          KSAL:  ${{ secrets.KEY_ALIAS }}
         run: |
-          if [ -n "$KS" ]; then
-            echo "$KS" | base64 -d > android/app/keystore.jks
-            echo "ключ подписи на месте"
-          else
-            echo "ключа нет — соберу неподписанный APK (для RuStore он не подойдёт)"
+          MISS=""
+          [ -z "$KS"   ] && MISS="$MISS KEYSTORE_BASE64"
+          [ -z "$KSPW" ] && MISS="$MISS KEYSTORE_PASSWORD"
+          [ -z "$KSAL" ] && MISS="$MISS KEY_ALIAS"
+          if [ -n "$MISS" ]; then
+            echo "::error::Нет секретов:$MISS — без них APK будет неподписанным и не установится."
+            echo ""
+            echo "Settings → Secrets and variables → Actions → New repository secret."
+            echo "Нужны четыре: KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD."
+            exit 1
           fi
+          echo "$KS" | base64 -d > android/app/keystore.jks
+          if [ ! -s android/app/keystore.jks ]; then
+            echo "::error::KEYSTORE_BASE64 не разобрался в файл — скопировалась не вся строка?"
+            exit 1
+          fi
+          echo "ключ подписи на месте, размер $(stat -c%s android/app/keystore.jks) байт"
 
       - name: Собрать
         working-directory: android
@@ -74,7 +92,13 @@ jobs:
 
       - name: Показать, что получилось
         working-directory: android
-        run: find app/build/outputs -name '*.apk' -exec ls -lh {} \;
+        run: |
+          find app/build/outputs -name '*.apk' -exec ls -lh {} \;
+          # подстраховка: если вдруг всё же собралось без подписи — не отдаём
+          if find app/build/outputs -name '*-unsigned.apk' | grep -q .; then
+            echo "::error::APK получился неподписанным — на телефон он не встанет."
+            exit 1
+          fi
 
       - name: Положить APK в результаты сборки
         uses: actions/upload-artifact@v4
