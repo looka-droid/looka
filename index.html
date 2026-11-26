@@ -9179,7 +9179,7 @@ setInterval(pgDraw, 4000);
       </article>
 
       <article class="doc" id="doc-req">
-        <div class="doc-head"><h3>Реквизиты и статус</h3><span>публикуются до начала продаж</span></div>
+        <div class="doc-head"><h3>Реквизиты и статус</h3><span>актуальны на сегодня</span></div>
         <div class="doc-tl"><b>Главное за 30 секунд</b><ul><li>Исполнитель — самозанятый: официальный статус, электронные чеки через приложение «Мой налог» на каждую оплату.</li><li>Все реквизиты открыты, никаких «оплатите на карту знакомого».</li></ul></div>
         <div class="req-grid">
           <div class="req"><span>Исполнитель</span><b>Бредихина Анна Викторовна</b></div>
@@ -26392,9 +26392,14 @@ function fromHash(){
   let id = location.hash.slice(1);
   const slash = id.indexOf('/');
   if(slash > 0) id = id.slice(0, slash);   /* #myPage/share — вкладку восстановит сама страница */
-  if(isPage(id) && curPage() !== id){
+  /* Короткое имя из адреса нужно сперва превратить в настоящий номер раздела.
+     Раньше сюда уходило само имя: по ссылке #docs браузер находил в разметке
+     якорь с таким же id внутри другой страницы — и не открывалось ничего,
+     человек попадал на главную. */
+  const real = pageOf(id);
+  if(real && curPage() !== real){
     silent = true;
-    try{ _open.call(window, id); } finally { setTimeout(()=>{ silent = false; }, 120); }
+    try{ _open.call(window, real); } finally { setTimeout(()=>{ silent = false; }, 120); }
   }
 }
 /* #beauty — это не обычная страница, а режим: восстанавливаем его отдельно */
