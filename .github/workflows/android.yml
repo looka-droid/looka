@@ -24,8 +24,25 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Подготовить Android SDK
-        uses: android-actions/setup-android@v3
+      # Раньше здесь стоял готовый шаг android-actions/setup-android.
+      # Он падал: просил пакет 'tools', которого в свежих версиях SDK
+      # больше нет. Доустанавливать ничего и не надо — на машинах GitHub
+      # Android SDK уже стоит. Просто проверяем, что он на месте, и
+      # принимаем лицензии, без которых сборка откажется работать.
+      - name: Проверить Android SDK
+        run: |
+          echo "ANDROID_HOME = $ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT = $ANDROID_SDK_ROOT"
+          SDK="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          if [ -z "$SDK" ] || [ ! -d "$SDK" ]; then
+            echo "::error::Android SDK на машине не найден"; exit 1
+          fi
+          echo "--- установленные версии Android ---"
+          ls "$SDK/platforms" 2>/dev/null || echo "(папки platforms нет)"
+          echo "--- установленные build-tools ---"
+          ls "$SDK/build-tools" 2>/dev/null || echo "(папки build-tools нет)"
+          yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true
+          echo "лицензии приняты"
 
       # Ключ подписи лежит в секретах репозитория одной строкой.
       # Здесь он превращается обратно в файл рядом со сборкой.
