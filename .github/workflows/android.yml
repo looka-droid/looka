@@ -51,8 +51,7 @@ jobs:
           VERSION_CODE: ${{ github.run_number }}
           VERSION_NAME: 1.0.${{ github.run_number }}
         run: |
-          # в репозитории нет gradlew (это бинарный файл) — создаём его на месте
-          if [ ! -f ./gradlew ]; then gradle wrapper --gradle-version 8.7; fi
+          # gradlew теперь лежит в репозитории, ставить Gradle на машину не нужно
           chmod +x ./gradlew
           ./gradlew assembleRelease --no-daemon --stacktrace
 
